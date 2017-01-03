@@ -4,20 +4,9 @@
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html>
-	<head>
-		<meta name="viewport"
-		content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-		 <meta name="format-detection" content="telephone=no">
-		 <meta http-equiv="Pragma" content="no-cache">   
-		 <meta http-equiv="Cache-Control" content="no-store">
-		 <meta http-equiv="Expires" content="0">
-		<link rel="stylesheet" href="/css/style.css"/>
-		<link rel="stylesheet" href="/css/core.css"/>
-		<link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css"/>
-	</head>
-<body>
-    <div class="container">
+<tiles:insertDefinition name="frameLayout">
+<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
+<tiles:putAttribute name="body">
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">问答红包</div>
@@ -99,6 +88,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</body>
-</html>
+			
+			
+</tiles:putAttribute>
+</tiles:insertDefinition>
