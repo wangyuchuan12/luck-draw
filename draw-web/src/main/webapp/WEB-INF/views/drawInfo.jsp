@@ -19,14 +19,7 @@
 			</div>
 			
 			<div class="luck_info_qusition">
-				<div class="luck_info_qusition_title">耶稣的出生年日</div>
-				<div>
-					<div class="luck_info_qusition_img">
-						<img src="http://pic.qiantucdn.com/58pic/12/05/65/66658PICFmX.jpg"></img>
-					</div>
-					
-					<div class="luck_info_qusition_content">耶稣是哪一年出生的？,？</div>
-				</div>
+				<div class="luck_info_qusition_title">耶稣的出生年日?耶稣的出生年日?耶稣的出生年日<span>4个字</span></div>
 				
 				
 			</div>
@@ -34,7 +27,6 @@
 			<div class="luck_info_answer">
 				<input />
 				<div class="luck_info_answer_button">提交答案</div>
-				<div class="luck_info_answer_num">4个字</div>
 			</div>
 			
 			<div class="luck_info_alert">已经到时间了</div>

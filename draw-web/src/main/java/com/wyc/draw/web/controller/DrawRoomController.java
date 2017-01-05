@@ -16,4 +16,9 @@ public class DrawRoomController {
 	public String drawRoomInfo(HttpServletRequest httpServletRequest){
 		return "drawRoomInfo";
 	}
+	
+	@RequestMapping(value="/view/add_draw_room")
+	public String addDrawRoom(HttpServletRequest httpServletRequest){
+		return "addDrawRoom";
+	}
 }

@@ -19,5 +19,15 @@
         <put-attribute name="header" value="/WEB-INF/views/column/header.jsp" />
         <put-attribute name="resource" value="/WEB-INF/views/column/resource.jsp"></put-attribute>
     </definition>
+    
+    
+    <definition name="baseLayout" template="/WEB-INF/views/column/baseLayout.jsp">
+        <put-attribute name="resource" value="/WEB-INF/views/column/resource.jsp"></put-attribute>
+    </definition>
+    
+    <definition name="formLayout" template="/WEB-INF/views/column/formLayout.jsp">
+        <put-attribute name="resource" value="/WEB-INF/views/column/resource.jsp"></put-attribute>
+        <put-attribute name="formResource" value="/WEB-INF/views/column/formResource.jsp"></put-attribute>
+    </definition>
  
 </tiles-definitions>

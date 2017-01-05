@@ -276,6 +276,8 @@ dependencies{
 	
 	compile project(':draw-service');
 	
+	compile project(':draw-filter');
+	
 	
 	
 	
