@@ -46,6 +46,7 @@ public class DrawRoomMember {
 	
 	//参加时间
 	@Column(name="takepart_time")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime takepartTime;
 	
 	//发红包个数
@@ -78,22 +79,13 @@ public class DrawRoomMember {
 	
 	//退出方式
 	@Column
-	private int outType;
+	private Integer outType;
 	
 	@Column(name="out_time")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime outTime;
 	
 	
-	
-	
-	public DateTime getOutTime() {
-		return outTime;
-	}
-
-	public void setOutTime(DateTime outTime) {
-		this.outTime = outTime;
-	}
-
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -104,30 +96,7 @@ public class DrawRoomMember {
     private DateTime updateAt;
     
     
-
-	public int getIsCreater() {
-		return isCreater;
-	}
-
-	public void setIsCreater(int isCreater) {
-		this.isCreater = isCreater;
-	}
-
-	public int getIsOut() {
-		return isOut;
-	}
-
-	public void setIsOut(int isOut) {
-		this.isOut = isOut;
-	}
-
-	public int getOutType() {
-		return outType;
-	}
-
-	public void setOutType(int outType) {
-		this.outType = outType;
-	}
+    
 
 	public DateTime getCreateAt() {
 		return createAt;
@@ -145,28 +114,12 @@ public class DrawRoomMember {
 		this.updateAt = updateAt;
 	}
 
-	public int isCreater() {
-		return isCreater;
-	}
-
-	public void setCreater(int isCreater) {
-		this.isCreater = isCreater;
-	}
-
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
-	}
-	
-	public String getDrawRoomId() {
-		return drawRoomId;
-	}
-
-	public void setDrawRoomId(String drawRoomId) {
-		this.drawRoomId = drawRoomId;
 	}
 
 	public String getAdminId() {
@@ -193,12 +146,28 @@ public class DrawRoomMember {
 		this.userId = userId;
 	}
 
+	public int getIsCreater() {
+		return isCreater;
+	}
+
+	public void setIsCreater(int isCreater) {
+		this.isCreater = isCreater;
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDrawRoomId() {
+		return drawRoomId;
+	}
+
+	public void setDrawRoomId(String drawRoomId) {
+		this.drawRoomId = drawRoomId;
 	}
 
 	public DateTime getTakepartTime() {
@@ -256,4 +225,31 @@ public class DrawRoomMember {
 	public void setWrongAnswerNum(Integer wrongAnswerNum) {
 		this.wrongAnswerNum = wrongAnswerNum;
 	}
+
+	public int getIsOut() {
+		return isOut;
+	}
+
+	public void setIsOut(int isOut) {
+		this.isOut = isOut;
+	}
+
+	public Integer getOutType() {
+		return outType;
+	}
+
+	public void setOutType(Integer outType) {
+		this.outType = outType;
+	}
+
+	public DateTime getOutTime() {
+		return outTime;
+	}
+
+	public void setOutTime(DateTime outTime) {
+		this.outTime = outTime;
+	}
+	
+	
+	
 }

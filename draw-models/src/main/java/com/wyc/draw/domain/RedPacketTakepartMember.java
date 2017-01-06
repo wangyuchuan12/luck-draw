@@ -37,6 +37,7 @@ public class RedPacketTakepartMember {
 	
 	//参加时间
 	@Column(name="takepart_datetime")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime takepartDateTime;
 	
 	//是否领取成功

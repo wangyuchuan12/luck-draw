@@ -1,13 +1,25 @@
 package com.wyc.common.domain.vo;
 
+import com.wyc.annotation.IdAnnotation;
+import com.wyc.annotation.ParamAnnotation;
+import com.wyc.annotation.ParamEntityAnnotation;
+
+@ParamEntityAnnotation(type=ParamEntityAnnotation.REQUEST_TYPE)
 public class ResultVo {
+	
+	@IdAnnotation
+	private String id;
+	
+	@ParamAnnotation
 	private boolean success;
 	
+	@ParamAnnotation
 	private String errorMsg;
 	
+	@ParamAnnotation
 	private String msg;
 	
-	
+	@ParamAnnotation
 	private Object data;
 
 

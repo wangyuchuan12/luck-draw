@@ -38,6 +38,7 @@ public class DrawRoom {
 	private String createrOpenid;
 	
 	//房间创建时间
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	@Column(name="create_datetime")
 	private DateTime createDateTime;
 	

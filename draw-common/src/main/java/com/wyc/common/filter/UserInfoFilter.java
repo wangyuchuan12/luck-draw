@@ -75,6 +75,8 @@ public class UserInfoFilter extends Filter{
 	                
 	            }  
 	            logger.debug("after userInfo:"+userInfo);
+	            
+	            httpServletRequest.setAttribute("token", token);
 	            return userInfo;
 			}catch(Exception e){
 				e.printStackTrace();

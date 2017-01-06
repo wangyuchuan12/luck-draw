@@ -1,4 +1,6 @@
-include ':draw-web'
+include ':draw-action'
+include ':draw-api'
+include ':draw-webmain'
 include ':draw-models'
 include ':draw-dao'
 include ':draw-common'

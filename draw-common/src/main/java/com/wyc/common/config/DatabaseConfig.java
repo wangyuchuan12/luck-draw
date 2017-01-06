@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.alibaba.druid.pool.DruidDataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.wyc.common.repositories")
+@EnableJpaRepositories(basePackages = {"com.wyc.common.repositories","com.wyc.draw.repositories"})
 @EnableTransactionManagement
 public class DatabaseConfig {
 
@@ -76,7 +76,7 @@ public class DatabaseConfig {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.wyc.common.domain","com.wyc.common.wx.domain");
+        factory.setPackagesToScan("com.wyc.common.domain","com.wyc.common.wx.domain","com.wyc.draw.domain");
         factory.setDataSource(dataSource);
 
         Properties properties = new Properties();
