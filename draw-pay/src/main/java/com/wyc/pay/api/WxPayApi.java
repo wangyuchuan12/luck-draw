@@ -2,13 +2,19 @@ package com.wyc.pay.api;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.jdom.Document;
+import org.jdom.input.SAXBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wyc.annotation.HandlerAnnotation;
+import com.wyc.common.domain.PaySuccess;
+import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.domain.vo.WxChooseWxPayBean;
+import com.wyc.common.filter.UserInfoFilter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.XmlUtil;
 import com.wyc.pay.filter.ChooseWxPayFilter;
 
 @Controller
@@ -21,6 +27,20 @@ public class WxPayApi {
 	public Object chooseWxPayConfig(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		WxChooseWxPayBean chooseWxPayBean = (WxChooseWxPayBean)sessionManager.getObject(WxChooseWxPayBean.class);
-		return chooseWxPayBean;
+		ResultVo resultVo = new ResultVo();
+		resultVo.setSuccess(true);
+		resultVo.setMsg("数据返回成功");
+		resultVo.setData(chooseWxPayBean);
+		return resultVo;
+	}
+	
+	@HandlerAnnotation(hanlerFilter=UserInfoFilter.class)
+	@RequestMapping(value="pay_success")
+	public Object paySuccess(HttpServletRequest httpServletRequest)throws Exception{
+		SAXBuilder saxBuilder = new SAXBuilder();
+		Document document = saxBuilder.build(httpServletRequest.getInputStream());
+		PaySuccess paySuccess = XmlUtil.xmlToObject(document,PaySuccess.class);
+		System.out.println("paySuccess:"+paySuccess);
+		return paySuccess;
 	}
 }

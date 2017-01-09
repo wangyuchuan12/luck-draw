@@ -58,10 +58,10 @@
             <fieldset data-role="controlgroup">
 			  <legend>支付:</legend>
 			  <input type="radio" name="radio-choice2" id="radio-choice-3" value="0" checked="checked" />
-			  <label for="radio-choice-3">余额 <font color="red" style="font-size: 10px;">剩余50元</font></label>
+			  <label for="radio-choice-3"><em class="fa fa-address-card" style="color: RGBA(29,159,117,1);"></em> 账户余额 <font color="red" style="font-size: 10px;">剩余50元</font></label>
 			 
 			  <input type="radio" name="radio-choice2" id="radio-choice-4" value="1" />
-			  <label for="radio-choice-4">账户</label>
+			  <label for="radio-choice-4"><em class="fa fa-weixin" style="color: green;"></em> 微信</label>
 			</fieldset>
         </div>
   
@@ -73,7 +73,31 @@
   
     </div>  
   
-</div>  
+</div> 
+
+<script>
+	$("input[name='submit']").click(function(){
+		var url = "/api/pay/wx/choose_wx_pay_config";
+		var callback = new Object();
+		callback.success = function(obj){
+			var payCallback = new Object();
+			payCallback.success = function(){
+				alert("支付成功");
+			}
+			wxPay(obj.data.timestamp,obj.data.nonceStr,obj.data.pack,obj.data.signType,obj.data.paySign,payCallback)
+		}
+		
+		callback.failure = function(obj){
+			alert(obj);
+		}
+		var params = new Object();
+		params.cost=100;
+		params.body="123";
+		params.detail = "321";
+		request(url,callback,params);
+	});
+
+</script>
 			
 			
 </tiles:putAttribute>

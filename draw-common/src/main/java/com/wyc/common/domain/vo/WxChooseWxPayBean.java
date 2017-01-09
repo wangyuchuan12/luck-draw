@@ -1,4 +1,6 @@
 package com.wyc.common.domain.vo;
+import java.math.BigDecimal;
+
 import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
@@ -37,6 +39,9 @@ public class WxChooseWxPayBean {
 
 	@ParamAnnotation
 	private String prepayId;
+	
+	@ParamAnnotation
+	private BigDecimal cost;
 	public String getId() {
 		return id;
 	}
@@ -48,6 +53,14 @@ public class WxChooseWxPayBean {
 	
 	
 	
+	public BigDecimal getCost() {
+		return cost;
+	}
+
+	public void setCost(BigDecimal cost) {
+		this.cost = cost;
+	}
+
 	public String getPrepayId() {
 		return prepayId;
 	}

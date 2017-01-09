@@ -6,6 +6,15 @@
 		<img src="/imgs/loading.gif">
 </div>
 
+<input name="signature" value="${signature}" type="hidden"/>
+<input name="noncestr" value="${noncestr}" type="hidden"/>
+<input name="appId" value="${appId}" type="hidden"/>
+<input name="datetime" value="${datetime}" type="hidden"/>
+
+
+    	
+
+
 <style type="text/css">
 	.loading{
 		position: fixed;
@@ -26,6 +35,24 @@
 </style>
 
 <script type="text/javascript">
+	
+	function getSignature(){
+		return $("input[name=signature]").val();
+	}
+	
+	function getNoncestr(){
+		return $("input[name=noncestr]").val();
+	}
+	
+	function getAppId(){
+		return $("input[name=appId]").val();
+	}
+	
+	function getDatetime(){
+		return $("input[name=datetime]").val();
+	}
+
+
 	function showLoading(flag){
 		$(".loading").css("display","block");
 		
@@ -44,6 +71,13 @@
 	
 	$(document).ready(function(){
 		hideLoading();
+		$(".pay_check_detail").animate({
+			bottom:0
+		},300);
+	});
+	
+	$(document).ready(function(){
+		wxConfig(getAppId(),getSignature(),getNoncestr(),getDatetime());
 	});
 	
 	

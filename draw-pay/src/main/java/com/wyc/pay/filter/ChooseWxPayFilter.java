@@ -21,7 +21,6 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.domain.vo.WxChooseWxPayBean;
 import com.wyc.common.filter.BaseActionFilter;
 import com.wyc.common.filter.Filter;
-import com.wyc.common.filter.UserInfoFilter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.MD5Util;
@@ -56,6 +55,28 @@ public class ChooseWxPayFilter extends Filter{
 			filterManager.setReturnValue(resultVo);
 			return null;
 		}
+		
+		Integer costInt = 0;
+		try{
+			 costInt = Integer.parseInt(cost);
+		}catch(Exception e){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("输入的参数cost不是数字类型");
+			filterManager.setEnd(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		if(costInt==0){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("输入的参数cost数值不能为0");
+			filterManager.setEnd(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
 		
 		String body = httpServletRequest.getParameter("body");
 		
@@ -98,7 +119,7 @@ public class ChooseWxPayFilter extends Filter{
         String attach = "paytest";
         String mchId = wxContext.getMchId();
         String nonceStr = "1add1a30ac87aa2db72f57a2375d8f22";
-        String notifyUrl = "http://"+wxContext.getDomainName()+"/api/wx/pay_success";
+        String notifyUrl = "http://"+wxContext.getDomainName()+"/api/pay/wx/pay_success";
         String spbillCreateIp = httpServletRequest.getRemoteAddr();
         String datetime = String.valueOf(System.currentTimeMillis() / 1000);
         BigDecimal totalFee = costBigDecimail.multiply(new BigDecimal(100));
@@ -164,7 +185,7 @@ public class ChooseWxPayFilter extends Filter{
 	        wxChooseWxPayBean.setAppId(wxContext.getAppid());
 	        
 	        wxChooseWxPayBean.setOutTradeNo(outTradeNo);
-	        
+	        wxChooseWxPayBean.setCost(costBigDecimail);
 	       
 			return wxChooseWxPayBean;
         }else{

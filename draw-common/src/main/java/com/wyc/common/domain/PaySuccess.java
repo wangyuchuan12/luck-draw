@@ -8,42 +8,64 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wyc.annotation.IdAnnotation;
+import com.wyc.annotation.ParamAnnotation;
+import com.wyc.annotation.ParamEntityAnnotation;
 @Entity(name="pay_success")
+@ParamEntityAnnotation
 public class PaySuccess {
     @Id
+    @IdAnnotation
     private String id;
+    @ParamAnnotation
     @Column(name="order_id")
     private String orderId;
+    @ParamAnnotation
     @Column
     private String appid;
+    @ParamAnnotation
     @Column
     private String attach;
+    @ParamAnnotation
     @Column(name="bank_type")
     private String bankType;
+    @ParamAnnotation
     @Column(name="cash_fee")
     private String cashFee;
+    @ParamAnnotation
     @Column(name="is_subscribe")
     private String isSubscribe;
+    @ParamAnnotation
     @Column(name="mch_id")
     private String mchId;
+    @ParamAnnotation
     @Column(name="nonce_str")
     private String nonceStr;
+    @ParamAnnotation
     @Column
     private String openid;
+    @ParamAnnotation
     @Column(name="out_trade_no")
     private String outTradeNo;
+    @ParamAnnotation
     @Column(name="result_code")
     private String resultCode;
+    @ParamAnnotation
     @Column(name="return_code")
     private String returnCode;
+    @ParamAnnotation
     @Column
     private String sign;
+    @ParamAnnotation
     @Column(name="time_end")
     private String timeEnd;
+    @ParamAnnotation
     @Column(name="total_fee")
     private String totalFee;
+    @ParamAnnotation
     @Column(name="trade_type")
     private String tradeType;
+    @ParamAnnotation
     @Column(name="transaction_id")
     private String transactionId;
     
