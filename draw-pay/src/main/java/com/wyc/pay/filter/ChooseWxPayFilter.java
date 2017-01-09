@@ -141,7 +141,7 @@ public class ChooseWxPayFilter extends Filter{
         
         String returnCode = rootElement.getChildText("return_code");
         
-        if(returnCode.equals("OK")){
+        if(returnCode.equals("SUCCESS")){
 	        String prepayId = rootElement.getChildText("prepay_id");
 	        datetime = String.valueOf(System.currentTimeMillis() / 1000);
 	        SortedMap<String, String> map2  = new TreeMap<String, String>();
