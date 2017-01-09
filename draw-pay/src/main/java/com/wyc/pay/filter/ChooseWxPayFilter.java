@@ -17,10 +17,13 @@ import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.domain.vo.WxChooseWxPayBean;
+import com.wyc.common.filter.BaseActionFilter;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.filter.UserInfoFilter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.MD5Util;
 import com.wyc.common.util.Request;
 import com.wyc.common.util.RequestFactory;
@@ -45,6 +48,37 @@ public class ChooseWxPayFilter extends Filter{
 		String openid = userInfo.getOpenid();
 		String cost = httpServletRequest.getParameter("cost");
 		
+		if(CommonUtil.isEmpty(cost)){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("输入的金额不能为空");
+			filterManager.setEnd(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		String body = httpServletRequest.getParameter("body");
+		
+		if(CommonUtil.isEmpty(body)){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("支付body不能为空");
+			filterManager.setEnd(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		String detail = httpServletRequest.getParameter("detail");
+		
+		if(CommonUtil.isEmpty(detail)){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("支付detail不能为空");
+			filterManager.setEnd(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
 		BigDecimal costBigDecimail = new BigDecimal(cost);
 		
 		Calendar now = Calendar.getInstance();
@@ -62,17 +96,13 @@ public class ChooseWxPayFilter extends Filter{
         Request request = requestFactory.payUnifiedorder();
         String appid = wxContext.getAppid();
         String attach = "paytest";
-        String body = "1";
         String mchId = wxContext.getMchId();
         String nonceStr = "1add1a30ac87aa2db72f57a2375d8f22";
         String notifyUrl = "http://"+wxContext.getDomainName()+"/api/wx/pay_success";
-        String detail = "detail";
         String spbillCreateIp = httpServletRequest.getRemoteAddr();
         String datetime = String.valueOf(System.currentTimeMillis() / 1000);
         BigDecimal totalFee = costBigDecimail.multiply(new BigDecimal(100));
         Long totalFeeLong = totalFee.setScale(0, BigDecimal.ROUND_HALF_UP).longValue();
-        
-        System.out.println("totalFeeStr...........:"+totalFeeLong);
         String tradeType = "JSAPI";
         TreeMap<String, String> map = new TreeMap<String, String>();
         map.put("openid", openid);
@@ -109,32 +139,42 @@ public class ChooseWxPayFilter extends Filter{
         Document document = saxBuilder.build(new StringReader(response.read()));
         Element rootElement = document.getRootElement();
         
-        System.out.println(rootElement.getValue());
-        String prepayId = rootElement.getChildText("prepay_id");
-        datetime = String.valueOf(System.currentTimeMillis() / 1000);
-        SortedMap<String, String> map2  = new TreeMap<String, String>();
-        map2.put("appId", wxContext.getAppid());
-        map2.put("nonceStr", nonceStr);
-        map2.put("package", "prepay_id="+prepayId);
-        map2.put("signType", "MD5");
-        map2.put("timeStamp", datetime);
-        String paySign = MD5Util.createMd5Sign(map2,wxContext.getKey()).toUpperCase();
+        String returnCode = rootElement.getChildText("return_code");
         
-        WxChooseWxPayBean wxChooseWxPayBean = new WxChooseWxPayBean();
-        
-        
-        wxChooseWxPayBean.setPrepayId(prepayId);
-        wxChooseWxPayBean.setPack("prepay_id="+prepayId);
-        wxChooseWxPayBean.setNonceStr(nonceStr);
-        wxChooseWxPayBean.setPaySign(paySign);
-        wxChooseWxPayBean.setSignType("MD5");
-        wxChooseWxPayBean.setTimestamp(datetime);
-        wxChooseWxPayBean.setAppId(wxContext.getAppid());
-        
-        wxChooseWxPayBean.setOutTradeNo(outTradeNo);
-        
-       
-		return wxChooseWxPayBean;
+        if(returnCode.equals("OK")){
+	        String prepayId = rootElement.getChildText("prepay_id");
+	        datetime = String.valueOf(System.currentTimeMillis() / 1000);
+	        SortedMap<String, String> map2  = new TreeMap<String, String>();
+	        map2.put("appId", wxContext.getAppid());
+	        map2.put("nonceStr", nonceStr);
+	        map2.put("package", "prepay_id="+prepayId);
+	        map2.put("signType", "MD5");
+	        map2.put("timeStamp", datetime);
+	        String paySign = MD5Util.createMd5Sign(map2,wxContext.getKey()).toUpperCase();
+	        
+	        WxChooseWxPayBean wxChooseWxPayBean = new WxChooseWxPayBean();
+	        
+	        
+	        wxChooseWxPayBean.setPrepayId(prepayId);
+	        wxChooseWxPayBean.setPack("prepay_id="+prepayId);
+	        wxChooseWxPayBean.setNonceStr(nonceStr);
+	        wxChooseWxPayBean.setPaySign(paySign);
+	        wxChooseWxPayBean.setSignType("MD5");
+	        wxChooseWxPayBean.setTimestamp(datetime);
+	        wxChooseWxPayBean.setAppId(wxContext.getAppid());
+	        
+	        wxChooseWxPayBean.setOutTradeNo(outTradeNo);
+	        
+	       
+			return wxChooseWxPayBean;
+        }else{
+        	ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("支付失败了");
+			filterManager.setEnd(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+        }
 	}
 
 	@Override
@@ -158,7 +198,7 @@ public class ChooseWxPayFilter extends Filter{
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filtes = new ArrayList<>();
-		filtes.add(UserInfoFilter.class);
+		filtes.add(BaseActionFilter.class);
 		return filtes;
 	}
 
