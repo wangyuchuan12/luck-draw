@@ -1,0 +1,87 @@
+package com.wyc.draw.web.api;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.wyc.annotation.HandlerAnnotation;
+import com.wyc.common.domain.vo.ResultVo;
+import com.wyc.common.session.SessionManager;
+import com.wyc.draw.filter.AddDrawRoomFilter;
+import com.wyc.draw.filter.DrawRoomViewFilter;
+import com.wyc.draw.filter.GetDrawRoomInfoFilter;
+import com.wyc.draw.filter.GetDrawRoomMembersByRoomIdFilter;
+import com.wyc.draw.vo.DrawRoomInfoVo;
+import com.wyc.draw.vo.DrawRoomMemberListVo;
+
+@Controller
+@RequestMapping(value="/api/draw/draw_room/")
+public class DrawRoomApi {
+	
+	//新建房间api
+	@HandlerAnnotation(hanlerFilter=AddDrawRoomFilter.class)
+	@ResponseBody
+	@RequestMapping(value="add")
+	public Object doAddDrawRoom(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		if(sessionManager.getObject(ResultVo.class)!=null){
+			return sessionManager.getObject(ResultVo.class);
+		}else{
+			return sessionManager.getReturnValue();
+		}
+	}
+	
+	//进入房间获取房间所有信息
+	@HandlerAnnotation(hanlerFilter=DrawRoomViewFilter.class)
+	@ResponseBody
+	@RequestMapping(value="detail_info")
+	public Object getDrawRoomDetailInfo(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		DrawRoomInfoVo drawRoomInfoVo = (DrawRoomInfoVo)sessionManager.getObject(DrawRoomInfoVo.class);
+		
+		ResultVo resultVo = new ResultVo();
+		resultVo.setData(drawRoomInfoVo);
+		resultVo.setSuccess(true);
+		resultVo.setMsg("获取数据成功");
+		return resultVo;
+	}
+	
+	
+	
+	//获取房间基本信息api
+	@HandlerAnnotation(hanlerFilter=GetDrawRoomInfoFilter.class)
+	@ResponseBody
+	@RequestMapping(value="info")
+	public Object getDrawRoomInfo(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		DrawRoomInfoVo drawRoomInfoVo = (DrawRoomInfoVo)sessionManager.getObject(DrawRoomInfoVo.class);
+		
+		ResultVo resultVo = new ResultVo();
+		resultVo.setData(drawRoomInfoVo);
+		resultVo.setSuccess(true);
+		resultVo.setMsg("获取数据成功");
+		return resultVo;
+	}
+	
+	
+	//获取房间用户
+	@HandlerAnnotation(hanlerFilter=GetDrawRoomMembersByRoomIdFilter.class)
+	@ResponseBody
+	@RequestMapping(value="members")
+	public Object getDrawRoomMembers(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		DrawRoomMemberListVo drawRoomMemberListVo = (DrawRoomMemberListVo)sessionManager.getObject(DrawRoomMemberListVo.class);
+		
+		ResultVo resultVo = new ResultVo();
+		resultVo.setData(drawRoomMemberListVo);
+		resultVo.setSuccess(true);
+		resultVo.setMsg("获取数据成功");
+		return resultVo;
+	}
+}

@@ -16,4 +16,21 @@ public class Constant {
 	
 	//问题验证
 	public static final int QUESTION_VERIFY_TYPE = 1;
+	
+	
+	
+	//申请中
+	public static final int AUDIT_DRAW_ROOM_MEMEBER_STATUS = 0;
+	
+	//申请通过
+	public static final int PASSED_DRAW_ROOM_MEMEBER_STATUS = 1;
+	
+	//已退出
+	public static final int OUT_DRAW_ROOM_MEMEBER_STATUS = 1;
+	
+	
+	//房间问答红包
+	public static final int ROOM_QUESTION_TYPE = 0;
+	//个人问答红包
+	public static final int PERSONAL_QUESTION_TYPE=1;
 }

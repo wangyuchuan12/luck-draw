@@ -53,10 +53,26 @@ public class ManagerInterceptConfig {
 		}
 	}
 	
-	public static void main(String[]args)throws Exception{
-		
+	@Around(value="execution (* com.wyc.pay.api.*.*(..))")
+	public Object payApi(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
+		return aroundAction(proceedingJoinPoint);
 	}
-	 @Around(value="execution (* com.wyc.draw.web.controller.*.*(..))")
+	
+	@Around(value="execution (* com.wyc.common.api.*.*(..))")
+	public Object commonApi(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
+		return aroundAction(proceedingJoinPoint);
+	}
+	
+	@Around(value="execution (* com.wyc.draw.web.controller.*.*(..))")
+	public Object aroundController(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
+		return aroundAction(proceedingJoinPoint);
+	}
+	@Around(value="execution (* com.wyc.draw.web.api.*.*(..))")
+	public Object aroundApi(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
+		return aroundAction(proceedingJoinPoint);
+	}
+	
+	 
 	 public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
 		 Method method = getControllerMethod(proceedingJoinPoint);
 		 Object returnValue = null;

@@ -24,22 +24,22 @@ public class UserInfo {
     @Column(unique=true,updatable=false)
     private String openid;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String nickname;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String sex;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String province;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String city;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String country;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String headimgurl;
     @Column
     @ParamAnnotation

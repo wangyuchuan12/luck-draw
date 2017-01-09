@@ -21,4 +21,8 @@ public class DrawRoomService {
 		
 		return drawRoomRepository.save(drawRoom);
 	}
+
+	public DrawRoom findOne(String id) {
+		return drawRoomRepository.findOne(id);
+	}
 }

@@ -13,6 +13,8 @@
 
 <script src="/fakeLoader/js/fakeLoader.min.js"></script>
 
+<script src="/js/myscript.js"></script>
+
 
 
 

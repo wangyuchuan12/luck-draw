@@ -30,7 +30,7 @@ public class DatabaseConfig {
     @Bean
     public DataSource dataSource() throws IOException {
         Properties properties = new Properties();
-        File databaseConfigFile = new File("/etc/onlineRetailers/database.properties");
+        File databaseConfigFile = new File("/etc/luckDraw/database.properties");
         InputStream defaultConfig = this.getClass().getResourceAsStream("/database.properties");
 
         if (databaseConfigFile.exists()) {

@@ -106,7 +106,7 @@ public class AppConfig {
 	        
 	        ApplicationProperties properties = new ApplicationProperties();
 	        File databaseConfigFile = new File(
-	                "/etc/onlineRetailers/application.properties");
+	                "/etc/luckDraw/application.properties");
 	        
 	        
 	        try {

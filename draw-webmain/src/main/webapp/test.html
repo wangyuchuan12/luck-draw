@@ -1,0 +1,102 @@
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8">
+<title>jQuery File Upload Demo</title>
+
+<script src="http://btc.phpno.com/js/jquery/1.9.1.min.js?=1.03"></script>
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="/js/jquery.ui.widget.js"></script>
+
+<script src="/js/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="/js/jquery.fileupload.js"></script>
+
+</head>
+<body>
+
+<form action="b.php" method="post">
+
+<input id="fileupload" type="file" name="file" data-url="http://192.168.1.101/api/common/resource/upload" multiple>
+
+
+
+<div class="files">	
+</div>
+
+<div style="clear:both;"></div>
+<div class="up_progress">
+    <div class="progress-bar"></div>
+</div>
+
+<div style="clear:both;"></div><br/>
+<button type="submit">Submit</button>
+</form>
+
+
+
+<script type="text/javascript">
+	//ͼƬ�ϴ�
+	$("#fileupload").fileupload({
+		dataType: 'json',
+        add: function (e, data) {
+        	alert("add:"+data);
+        	var numItems = $('.files .images_zone').length;
+        	if(numItems>=10){
+        		alert('�ύ��Ƭ���ܳ���3��');
+        		return false;
+        	}
+        	$('.up_progress .progress-bar').css('width','0px');
+        	$('.up_progress').show();
+        	$('.up_progress .progress-bar').html('Uploading...');
+	        data.submit();
+	    },
+        done: function (e, data) {
+        	alert("donw:"+data);
+        	$('.up_progress').hide();
+        	$('.upl').remove();
+            var d = data.result;
+            if(d.status==0){
+                alert("�ϴ�ʧ��");
+            }else{
+            	var imgshow = '<div class="images_zone"><input type="hidden" name="imgs[]" value="'+d.msg+'" /><span><img src="'+d.msg+'"  /></span><a href="javascript:;">ɾ��</a></div>';
+            	jQuery('.files').append(imgshow);
+            }
+        },
+        progressall: function (e, data) {
+        	alert(data);
+        	console.log(data);
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('.up_progress .progress-bar').css('width',progress + '%');
+        }
+    });
+	
+	//ͼƬɾ��
+	$('.files').on({
+		mouseenter:function(){
+			$(this).find('a').show();
+		},
+		mouseleave:function(){
+			$(this).find('a').hide();
+		},
+	},'.images_zone');
+	$('.files').on('click','.images_zone a',function(){
+		$(this).parent().remove();
+	});
+</script>
+<style type="text/css">
+/* ͼƬչʾ��ʽ */
+.images_zone{position:relative; width:120px;height:120px; overflow:hidden; float:left; margin:3px 5px 3px 0; background:#f0f0f0;border:5px solid #f0f0f0; }
+.images_zone span{display:table-cell;text-align: center;vertical-align: middle;overflow: hidden;width: 120px;height: 120px;}
+.images_zone span img{width:120px; vertical-align: middle;}
+.images_zone a{text-align:center; position:absolute;bottom:0px;left:0px;background:rgba(255,255,255,0.5); display:block;width:100%; height:20px;line-height:20px; display:none; font-size:12px;}
+/* �������ʽ */
+.up_progress{width: 300px;height: 13px;font-size: 10px;line-height: 14px;overflow: hidden;background: #e6e6e6;margin: 5px 0;display:none;}
+.up_progress .progress-bar{height: 13px;background: #11ae6f;float: left;color: #fff;text-align: center;width:0%;}
+</style>
+
+
+</body> 
+</html>

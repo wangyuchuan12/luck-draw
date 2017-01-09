@@ -23,17 +23,12 @@ public class DrawRoomMember {
 	@Id
     private String id;
 	
-	@Column(name="admin_id")
-	private String adminId;
-	
-	@Column
-	private String openid;
-	
-	@Column(name="user_id")
-	private String userId;
+	//红包用户
+	@Column(name="draw_user_id")
+	private String drawUserId;
 	
 	//是否是创建者
-	@Column
+	@Column(name="is_creater")
 	private int isCreater;
 	
 	//房间中的名称
@@ -73,18 +68,22 @@ public class DrawRoomMember {
 	@Column(name="wrong_answer_num")
 	private Integer wrongAnswerNum;
 
-	//是否退出
-	@Column
-	private int isOut;
 	
 	//退出方式
-	@Column
+	@Column(name="out_type")
 	private Integer outType;
 	
 	@Column(name="out_time")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime outTime;
 	
+	
+	//该用户在房间目前状态 0审核中 1已审核
+	@Column
+	private Integer status;
+	
+	@Column(name="img_url")
+	private String imgUrl;
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -97,6 +96,24 @@ public class DrawRoomMember {
     
     
     
+    
+    
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 	public DateTime getCreateAt() {
 		return createAt;
@@ -122,28 +139,15 @@ public class DrawRoomMember {
 		this.id = id;
 	}
 
-	public String getAdminId() {
-		return adminId;
+	
+
+
+	public String getDrawUserId() {
+		return drawUserId;
 	}
 
-	public void setAdminId(String adminId) {
-		this.adminId = adminId;
-	}
-
-	public String getOpenid() {
-		return openid;
-	}
-
-	public void setOpenid(String openid) {
-		this.openid = openid;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setDrawUserId(String drawUserId) {
+		this.drawUserId = drawUserId;
 	}
 
 	public int getIsCreater() {
@@ -224,14 +228,6 @@ public class DrawRoomMember {
 
 	public void setWrongAnswerNum(Integer wrongAnswerNum) {
 		this.wrongAnswerNum = wrongAnswerNum;
-	}
-
-	public int getIsOut() {
-		return isOut;
-	}
-
-	public void setIsOut(int isOut) {
-		this.isOut = isOut;
 	}
 
 	public Integer getOutType() {

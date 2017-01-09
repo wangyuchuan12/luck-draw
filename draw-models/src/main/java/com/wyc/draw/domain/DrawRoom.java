@@ -25,17 +25,8 @@ public class DrawRoom {
 	@Column(name="max_num")
 	private Integer maxNum;
 	
-	//创建者adminid
-	@Column(name="creater_admin_id")
-	private String createrAdminId;
-	
-	//创建者userid
-	@Column(name="creater_user_id")
-	private String createrUserId;
-	
-	//创建者openid
-	@Column(name="creater_openid")
-	private String createrOpenid;
+	@Column(name="create_draw_user_id")
+	private String createDrawUserId;
 	
 	//房间创建时间
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -82,6 +73,14 @@ public class DrawRoom {
     
     
     
+    
+    
+	public String getCreateDrawUserId() {
+		return createDrawUserId;
+	}
+	public void setCreateDrawUserId(String createDrawUserId) {
+		this.createDrawUserId = createDrawUserId;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -142,24 +141,7 @@ public class DrawRoom {
 	public void setMaxNum(Integer maxNum) {
 		this.maxNum = maxNum;
 	}
-	public String getCreaterAdminId() {
-		return createrAdminId;
-	}
-	public void setCreaterAdminId(String createrAdminId) {
-		this.createrAdminId = createrAdminId;
-	}
-	public String getCreaterUserId() {
-		return createrUserId;
-	}
-	public void setCreaterUserId(String createrUserId) {
-		this.createrUserId = createrUserId;
-	}
-	public String getCreaterOpenid() {
-		return createrOpenid;
-	}
-	public void setCreaterOpenid(String createrOpenid) {
-		this.createrOpenid = createrOpenid;
-	}
+	
 	public DateTime getCreateDateTime() {
 		return createDateTime;
 	}

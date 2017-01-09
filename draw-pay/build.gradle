@@ -1,0 +1,28 @@
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'war'
+
+
+compileJava.options.encoding = 'UTF-8'
+
+configurations {
+    compile.exclude module: "commons-logging"
+    providedRuntime
+    providedCompile
+}
+
+
+dependencies{
+	compile project(':draw-common');
+	compile project(':draw-models');
+	compile project(':draw-dao');
+	
+	compile project(':draw-service');
+	
+	compile project(':draw-models');
+}

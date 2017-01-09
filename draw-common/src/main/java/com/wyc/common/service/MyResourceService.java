@@ -22,7 +22,7 @@ public class MyResourceService {
     private ApplicationProperties properties;
     private Logger logger = LoggerFactory.getLogger(MyResourceService.class);
     public void add(MyResource myResource){
-        myResource.setCreateAt(new DateTime());  
+        myResource.setCreateAt(new DateTime());
         resourceRepository.save(myResource);
     }
     

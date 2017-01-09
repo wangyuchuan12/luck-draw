@@ -18,6 +18,7 @@ import com.wyc.common.util.Constant;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawRoomMember;
+import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawRoomService;
 
@@ -31,6 +32,7 @@ public class AddDrawRoomFilter extends Filter{
 
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
+		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		UserInfo userInfo = (UserInfo)filterManager.getObject(UserInfo.class);
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		String name = httpServletRequest.getParameter("name");
@@ -50,6 +52,16 @@ public class AddDrawRoomFilter extends Filter{
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("输入参数name不能为空");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		
+		if(CommonUtil.isEmpty(imgUrl)){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("输入图片地址不能为空");
 			filterManager.setReturn(true);
 			filterManager.setReturnValue(resultVo);
 			return null;
@@ -159,31 +171,32 @@ public class AddDrawRoomFilter extends Filter{
 		
 		DrawRoom drawRoom = new DrawRoom();
 		drawRoom.setMaxNum(maxNumInt);
-		drawRoom.setCreaterUserId(userInfo.getId());
-		drawRoom.setCreaterOpenid(userInfo.getOpenid());
+		drawRoom.setCreateDrawUserId(drawUser.getId());
 		drawRoom.setMemberCount(1);
 		drawRoom.setName(name);
 		drawRoom.setPassword(password);
 		drawRoom.setVerifyAnswer(verifyAnswer);
 		drawRoom.setVerifyQuestion(verifyQuestion);
+		drawRoom.setImgUrl(imgUrl);
 		drawRoom.setVerifyType(verifyTypeInt);
+		drawRoom.setCreateDateTime(new DateTime());
 		drawRoom = drawRoomService.add(drawRoom);
 		
 		
 		DrawRoomMember drawRoomMember = new DrawRoomMember();
 		drawRoomMember.setAnswerNum(0);
+		drawRoomMember.setDrawUserId(drawUser.getId());
 		drawRoomMember.setDrawRoomId(drawRoom.getId());
 		drawRoomMember.setGetRedPacketAmount(new BigDecimal("0"));
 		drawRoomMember.setGetRedPacketNum(0);
 		drawRoomMember.setHandRedPacketAmount(new BigDecimal("0"));
 		drawRoomMember.setHandRedPacketNum(0);
 		drawRoomMember.setIsCreater(1);
-		drawRoomMember.setIsOut(0);
-		drawRoomMember.setName(name);
-		drawRoomMember.setOpenid(userInfo.getOpenid());
+		drawRoomMember.setStatus(Constant.PASSED_DRAW_ROOM_MEMEBER_STATUS);
+		drawRoomMember.setName(userInfo.getNickname());
 		drawRoomMember.setTakepartTime(new DateTime());
-		drawRoomMember.setUserId(userInfo.getId());
 		drawRoomMember.setWrongAnswerNum(0);
+		drawRoomMember.setImgUrl(userInfo.getHeadimgurl());
 		drawRoomMemberService.add(drawRoomMember);
 		
 		ResultVo resultVo = new ResultVo();
@@ -214,7 +227,7 @@ public class AddDrawRoomFilter extends Filter{
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filters = new ArrayList<>();
-		filters.add(BaseActionFilter.class);
+		filters.add(BaseDrawActionFilter.class);
 		return filters;
 	}
 

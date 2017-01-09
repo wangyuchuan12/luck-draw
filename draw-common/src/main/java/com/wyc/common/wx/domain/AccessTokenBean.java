@@ -8,7 +8,6 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 @Entity(name = "access_token_bean")
 public class AccessTokenBean {
     @Id

@@ -1,5 +1,7 @@
 package com.wyc.draw.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,10 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity(name="d_red_packet")
 public class RedPacket {
 	
-	//房间问答红包
-	public static final int ROOM_QUESTION_TYPE = 0;
-	//个人问答红包
-	public static final int PERSONAL_QUESTION_TYPE=1;
+	
 	@Id
     private String id;
 	
@@ -34,18 +33,49 @@ public class RedPacket {
 	@Column
 	private Integer type;
 	
+	//红包用户id
+	@Column(name="hand_draw_user_id")
+	private String handDrawUserId;
 	
-	//创建者adminid
-	@Column(name="hand_admin_id")
-	private String handAdminId;
-		
-	//创建者userid
-	@Column(name="hand_user_id")
-	private String handUserId;
-		
-	//创建者openid
-	@Column(name="hand_openid")
-	private String createrOpenid;
+	
+	//红包接收人
+	@Column(name="receive_draw_user_id")
+	private String receiveDrawUserId;
+	
+	//发送时间
+	@Column(name="hand_time")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime handTime;
+	
+	//红包截止时长
+	@Column(name="time_long")
+	private int timeLong;
+	
+	//红包金额
+	@Column
+	private BigDecimal amount;
+	
+	//问题
+	@Column
+	private String question;
+	
+	//答案
+	@Column
+	private String answer;
+	
+
+	//是否可领取
+	@Column(name="is_receive_able")
+	private Integer isReceiveAble;
+	
+	//红包是否已接受
+	@Column(name="is_receive")
+	private Integer isReceive;
+	
+	//是否已付款
+	@Column(name="is_pay")
+	private Integer isPay;
+	
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -55,12 +85,62 @@ public class RedPacket {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime updateAt;
+    
+    
+    
+    
+	public Integer isReceive() {
+		return isReceive;
+	}
+	public void setReceive(Integer isReceive) {
+		this.isReceive = isReceive;
+	}
+	public String getReceiveDrawUserId() {
+		return receiveDrawUserId;
+	}
+	public void setReceiveDrawUserId(String receiveDrawUserId) {
+		this.receiveDrawUserId = receiveDrawUserId;
+	}
+	public String getQuestion() {
+		return question;
+	}
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+	public BigDecimal getAmount() {
+		return amount;
+	}
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+	public String getHandDrawUserId() {
+		return handDrawUserId;
+	}
+	public void setHandDrawUserId(String handDrawUserId) {
+		this.handDrawUserId = handDrawUserId;
+	}
+	public int getTimeLong() {
+		return timeLong;
+	}
+	public void setTimeLong(int timeLong) {
+		this.timeLong = timeLong;
+	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	
+	
+	
 	public String getHandRoomMemberId() {
 		return handRoomMemberId;
 	}
@@ -79,23 +159,12 @@ public class RedPacket {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	public String getHandAdminId() {
-		return handAdminId;
+	
+	public DateTime getHandTime() {
+		return handTime;
 	}
-	public void setHandAdminId(String handAdminId) {
-		this.handAdminId = handAdminId;
-	}
-	public String getHandUserId() {
-		return handUserId;
-	}
-	public void setHandUserId(String handUserId) {
-		this.handUserId = handUserId;
-	}
-	public String getCreaterOpenid() {
-		return createrOpenid;
-	}
-	public void setCreaterOpenid(String createrOpenid) {
-		this.createrOpenid = createrOpenid;
+	public void setHandTime(DateTime handTime) {
+		this.handTime = handTime;
 	}
 	public DateTime getCreateAt() {
 		return createAt;
