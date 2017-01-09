@@ -1,9 +1,9 @@
-var webPath = "http://192.168.1.101";
+
 var token = "aeff346a-e9fe-4729-b59b-9b87141cb80e";
 function skipToUrl(url,params,flag){
 	var temp = document.createElement("form");
 	if(!flag){
-		temp.action = webPath+url;
+		temp.action = getWebpath()+url;
 	}else{
 		temp.action = url;
 	}
@@ -31,6 +31,7 @@ function skipToUrl(url,params,flag){
 
 function fileRequest(url,callback,elementId){
 
+	url = getWebpath()+url;
 	var formData = new FormData();
 
 	var name = $("#"+elementId).attr("name");
@@ -73,7 +74,7 @@ function fileRequest(url,callback,elementId){
 
 
 function request(url,callback,params){
-	
+	url = getWebpath()+url;
 	params.token = token;
 	$.ajax({
 		url:url,
@@ -198,7 +199,7 @@ function wxPay(timestamp,nonceStr,pack,signType,paySign,callback){
 
 function toImg(url,element,name,callback){
 
-	url = webPath+url;
+	url = getWebpath()+url;
 	$(element).append("<div class='fileImg'>"+
 						"<input readonly='readonly' id='var_"+name+"' type='text' name='var_"+name+"'/>"+
 						"<img src='/imgs/photo_icon.png'"+

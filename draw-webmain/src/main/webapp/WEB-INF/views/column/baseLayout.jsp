@@ -9,9 +9,9 @@
 <input name="signature" value="${signature}" type="hidden"/>
 <input name="noncestr" value="${noncestr}" type="hidden"/>
 <input name="appId" value="${appId}" type="hidden"/>
-<input name="datetime" value="${datetime}" type="hidden"/>
+<input name="datetime" value="${datetime}" type="text"/>
 
-
+<input name="webPath" value="${contextPath}"/>
     	
 
 
@@ -63,6 +63,11 @@
 				});
 			});
 		}
+	}
+	
+	function getWebpath(){
+		var webPath = $("input[name='webPath']").val();
+		return webPath;
 	}
 	
 	function hideLoading(){
