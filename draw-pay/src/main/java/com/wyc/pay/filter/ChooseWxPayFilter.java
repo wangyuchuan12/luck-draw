@@ -62,7 +62,7 @@ public class ChooseWxPayFilter extends Filter{
         Request request = requestFactory.payUnifiedorder();
         String appid = wxContext.getAppid();
         String attach = "paytest";
-        String body = "晨曦商城";
+        String body = "1";
         String mchId = wxContext.getMchId();
         String nonceStr = "1add1a30ac87aa2db72f57a2375d8f22";
         String notifyUrl = "http://"+wxContext.getDomainName()+"/api/wx/pay_success";
