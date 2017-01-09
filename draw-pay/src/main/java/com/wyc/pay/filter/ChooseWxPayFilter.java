@@ -109,7 +109,7 @@ public class ChooseWxPayFilter extends Filter{
         Document document = saxBuilder.build(new StringReader(response.read()));
         Element rootElement = document.getRootElement();
         
-        System.out.println(rootElement.toString());
+        System.out.println(rootElement.getValue());
         String prepayId = rootElement.getChildText("prepay_id");
         datetime = String.valueOf(System.currentTimeMillis() / 1000);
         SortedMap<String, String> map2  = new TreeMap<String, String>();
