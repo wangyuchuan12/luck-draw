@@ -16,9 +16,6 @@ public class WxChooseWxPayBean {
 	@ParamAnnotation
     private String appId;
 	
-	@ParamAnnotation
-    private String datetime;
-	
 
 	@ParamAnnotation
 	private String pack;
@@ -34,12 +31,12 @@ public class WxChooseWxPayBean {
 	@ParamAnnotation
 	private String outTradeNo;
 	
-	@ParamAnnotation
-	private String prepayId;
 	
 	@ParamAnnotation
 	private String paySign;
 
+	@ParamAnnotation
+	private String prepayId;
 	public String getId() {
 		return id;
 	}
@@ -51,6 +48,14 @@ public class WxChooseWxPayBean {
 	
 	
 	
+	public String getPrepayId() {
+		return prepayId;
+	}
+
+	public void setPrepayId(String prepayId) {
+		this.prepayId = prepayId;
+	}
+
 	public String getPaySign() {
 		return paySign;
 	}
@@ -59,13 +64,7 @@ public class WxChooseWxPayBean {
 		this.paySign = paySign;
 	}
 
-	public String getPrepayId() {
-		return prepayId;
-	}
-
-	public void setPrepayId(String prepayId) {
-		this.prepayId = prepayId;
-	}
+	
 
 	public String getOutTradeNo() {
 		return outTradeNo;
@@ -109,13 +108,7 @@ public class WxChooseWxPayBean {
 		this.appId = appId;
 	}
 
-	public String getDatetime() {
-		return datetime;
-	}
-
-	public void setDatetime(String datetime) {
-		this.datetime = datetime;
-	}
+	
 
 	
 
