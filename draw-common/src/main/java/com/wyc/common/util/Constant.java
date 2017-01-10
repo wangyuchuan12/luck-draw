@@ -26,11 +26,17 @@ public class Constant {
 	public static final int PASSED_DRAW_ROOM_MEMEBER_STATUS = 1;
 	
 	//已退出
-	public static final int OUT_DRAW_ROOM_MEMEBER_STATUS = 1;
+	public static final int OUT_DRAW_ROOM_MEMEBER_STATUS = 2;
 	
 	
 	//房间问答红包
 	public static final int ROOM_QUESTION_TYPE = 0;
 	//个人问答红包
 	public static final int PERSONAL_QUESTION_TYPE=1;
+	
+	//余额支付
+	public static final int ACCOUNT_PAY_TYPE=0;
+	
+	//微信支付
+	public static final int WX_PAY_TYPE=1;
 }

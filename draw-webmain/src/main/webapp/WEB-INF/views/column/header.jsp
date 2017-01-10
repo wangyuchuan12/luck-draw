@@ -4,51 +4,51 @@
 <div class="luck_toole_header">
 		<ul>
 			<li>
-				<em class="fa fa-life-ring"></em>
+				<em class="fa fa-life-ring" style="color:RGBA(0,128,220,1);"></em>
 				<span>踢人</span>
 			</li>
 		
 			<li>
-				<em class="fa fa-pencil-square-o"></em>
+				<em class="fa fa-pencil-square-o" style="color: RGBA(19,162,133,1);"></em>
 				<span>更改口令</span>
 			</li>
 			
 			<li>
-				<em class="fa fa-paper-plane"></em>
+				<em class="fa fa-paper-plane" style="color: RGBA(243,151,37,1);"></em>
 				<span>发红包</span>
 			</li>
 		
 			<li>
-				<em class="fa fa-sign-in"></em>
+				<em class="fa fa-sign-in" style="color: RGBA(126,213,61,1);"></em>
 				<span>加入房间</span>
 			</li>
 			
 			<li>
-				<em class="fa fa-sign-out"></em>
+				<em class="fa fa-sign-out" style="color: RGBA(251,222,2,1);"></em>
 				<span>退出房间</span>
 			</li>
 			<li>
-				<em class="fa fa-plus"></em>
+				<em class="fa fa-plus" ></em>
 				<span>创建房间</span>
 			</li>
 			
 			<li>
-				<em class="fa fa-bullhorn"></em>
+				<em class="fa fa-bullhorn" style="color:green;"></em>
 				<span>消息</span>
 			</li>
 			
 			<li>
-				<em class="fa fa-comment"></em>
+				<em class="fa fa-comment" style="color:RGBA(46,185,0,1);"></em>
 				<span>聊天</span>
 			</li>
 			
 			<li>
-				<em class="fa fa-home"></em>
+				<em class="fa fa-home" style="color:RGBA(126,213,61,1);"></em>
 				<span>返回主页</span>
 			</li>
 			
 			<li>
-				<em class="fa fa-qq"></em>
+				<em class="fa fa-qq" style="color:RGBA(0,128,220,1);"></em>
 				<span>我的好友</span>
 			</li>
 			

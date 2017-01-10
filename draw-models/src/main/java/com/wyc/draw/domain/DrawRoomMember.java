@@ -78,7 +78,7 @@ public class DrawRoomMember {
 	private DateTime outTime;
 	
 	
-	//该用户在房间目前状态 0审核中 1已审核
+	//该用户在房间目前状态 0审核中 1已审核 2已退出
 	@Column
 	private Integer status;
 	

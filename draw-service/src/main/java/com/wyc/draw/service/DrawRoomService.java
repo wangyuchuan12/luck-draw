@@ -1,5 +1,6 @@
 package com.wyc.draw.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -24,5 +25,9 @@ public class DrawRoomService {
 
 	public DrawRoom findOne(String id) {
 		return drawRoomRepository.findOne(id);
+	}
+
+	public List<DrawRoom> findAllByDrawUserId(String drawUserId) {
+		return drawRoomRepository.findAllByDrawUserId(drawUserId);
 	}
 }

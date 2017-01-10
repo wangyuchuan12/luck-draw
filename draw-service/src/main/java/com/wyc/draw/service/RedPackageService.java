@@ -21,4 +21,15 @@ public class RedPackageService {
 		redPacket.setUpdateAt(new DateTime());
 		return redPackageRepository.save(redPacket);
 	}
+
+	public RedPacket findOne(String id) {
+		return redPackageRepository.findOne(id);
+	}
+
+	public RedPacket update(RedPacket redPacket) {
+		redPacket.setUpdateAt(new DateTime());
+		redPackageRepository.save(redPacket);
+		return redPacket;
+		
+	}
 }

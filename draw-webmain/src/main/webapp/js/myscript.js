@@ -170,7 +170,6 @@ function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl){
 
 function wxPay(timestamp,nonceStr,pack,signType,paySign,callback){
 	wx.ready(function(){
-		alert();
 		wx.chooseWXPay({
 			timestamp:timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
 		    nonceStr: nonceStr, // 支付签名随机串，不长于 32 位
@@ -257,4 +256,63 @@ function toImg(url,element,name,callback){
 			}
 		});
 	});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function initGroupInvalidDate(startTime,timeLong,el,callback){
+	var hourEl = $(el).children("b").eq(0);
+	var minuteEl = $(el).children("b").eq(1);
+	var secondEl = $(el).children("b").eq(2);
+	var interval = window.setInterval(function(){
+		var timestamp = startTime.valueOf()+parseFloat(timeLong)*3600000;
+		var now = new Date();
+		var nowTimestamp = now.valueOf();
+		if(timestamp>nowTimestamp){
+			var second = new Date(timestamp-nowTimestamp).getSeconds();
+			var min = new Date(timestamp-nowTimestamp).getMinutes();
+			
+			var date = new Date(timestamp-nowTimestamp).getDate()-1;
+			var hour = new Date(timestamp-nowTimestamp).getHours()-8+date*24;
+			if(hour>=10){
+				hourEl.html(hour+"");
+			}else{
+				hourEl.html("0"+hour+"");
+			}
+			
+			if(min>=10){
+				minuteEl.html(min+"");
+			}else{
+				minuteEl.html("0"+min+"");
+			}
+			
+			if(second>=10){
+				secondEl.html(second+"");
+			}else{
+				secondEl.html("0"+second+"");
+			}
+		}else{
+			
+			hourEl.html("00");
+			minuteEl.html("00");
+			secondEl.html("00");
+			window.clearInterval(interval);
+			callback.end();
+		}
+		
+	}, 1000); 
 }

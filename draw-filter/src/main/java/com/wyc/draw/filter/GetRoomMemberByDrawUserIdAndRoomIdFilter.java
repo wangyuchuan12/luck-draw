@@ -4,17 +4,21 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.CommonUtil;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.vo.DrawRoomMemberVo;
 
 //获取RoomMember详情
-public class GetRoomMemberByDrawUserIdFilter extends Filter{
+public class GetRoomMemberByDrawUserIdAndRoomIdFilter extends Filter{
 
 	@Autowired
 	private DrawRoomMemberService drawRoomMemberService;
@@ -22,7 +26,19 @@ public class GetRoomMemberByDrawUserIdFilter extends Filter{
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
-		DrawRoomMember drawRoomMember = (DrawRoomMember)drawRoomMemberService.findByDrawUserId(drawUser.getId());
+		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
+		
+		String roomId = httpServletRequest.getParameter("room_id");
+		
+		if(CommonUtil.isEmpty(roomId)){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("请输入room_id参数");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		DrawRoomMember drawRoomMember = (DrawRoomMember)drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),roomId);
 		
 		DrawRoomMemberVo drawRoomMemberVo = new DrawRoomMemberVo();
 		drawRoomMemberVo.setAnswerNum(drawRoomMember.getAnswerNum());

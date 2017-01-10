@@ -25,8 +25,8 @@ public class DrawRoomMemberService {
 		List<DrawRoomMember> drawRoomMembers = drawRoomMemberRepository.findAllByDrawRoomIdAndStatusOrderByTakepartTimeAsc(roomId,status);
 		return drawRoomMembers;
 	}
-	public DrawRoomMember findByDrawUserId(String drawUserId) {
-		return drawRoomMemberRepository.findOne(drawUserId);
+	public DrawRoomMember findByDrawUserIdAndDrawRoomId(String drawUserId,String drawRoomId) {
+		return drawRoomMemberRepository.findByDrawUserIdAndDrawRoomId(drawUserId,drawRoomId);
 	}
 
 }

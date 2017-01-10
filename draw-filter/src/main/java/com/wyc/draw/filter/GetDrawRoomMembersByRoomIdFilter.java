@@ -45,6 +45,10 @@ public class GetDrawRoomMembersByRoomIdFilter extends Filter{
 				drawRoomMemberVo.setStatus(drawRoomMember.getStatus());
 				drawRoomMemberVo.setTakepartTime(drawRoomMember.getTakepartTime());
 				drawRoomMemberVo.setWrongAnswerNum(drawRoomMember.getWrongAnswerNum());
+				
+				drawRoomMemberVo.setImgUrl(drawRoomMember.getImgUrl());
+				
+				
 				drawRoomMemberVos.add(drawRoomMemberVo);
 			}
 		}

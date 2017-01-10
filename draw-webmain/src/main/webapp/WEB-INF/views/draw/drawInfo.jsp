@@ -7,19 +7,22 @@
 <tiles:insertDefinition name="infoLayout">
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
+
+			<input name="handTime" value="${result.data.handTime}" type="hidden"/>
+			<input name="timeLong" value="${result.data.timeLong}" type="hidden"/>
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">问答红包</div>
 				<div class="luck_info_head_img">
-					<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0"></img>
+					<img src="${result.data.userImgUrl}"></img>
 				</div>
-				<div class="luck_info_head_name">大王的红包</div>
+				<div class="luck_info_head_name">${result.data.nickname}的红包</div>
 
-				<div class="luck_info_head_money"><span>1.51</span>元</div>
+				<div class="luck_info_head_money"><span>${result.data.amount}</span>元</div>
 			</div>
 			
 			<div class="luck_info_qusition">
-				<div class="luck_info_qusition_title">耶稣的出生年日?耶稣的出生年日?耶稣的出生年日<span>4个字</span></div>
+				<div class="luck_info_qusition_title">${result.data.question}<span> ${fn:length(result.data.answer)}个字</span></div>
 				
 				
 			</div>
@@ -29,10 +32,10 @@
 				<div class="luck_info_answer_button">提交答案</div>
 			</div>
 			
-			<div class="luck_info_alert">已经到时间了</div>
+			<div class="luck_info_alert" style="display:none">已经到时间了</div>
 			
 			<div class="luck_info_situation">
-					<div class="luck_info_situation_time">剩余<b id="luck_info_hour">00</b><b id="luck_info_min">00</b><b id="luck_info_second">00</b>结束</div>
+					<div class="luck_info_situation_time">剩余<b id="luck_info_hour">00</b><b id="luck_info_min">00</b><b id="luck_info_second">00</b> 结束</div>
 			</div>
 			
 			<div class="luck_info_question_prompt">
@@ -81,6 +84,18 @@
 				</div>
 			</div>
 			
+			<script type="text/javascript">
+				$(document).ready(function(){
+					var callback = new Object();
+					callback.end = function(){
+						$(".luck_info_alert").css("display","block");
+					}
+					var handTime = $("input[name=handTime]").val();
+					
+					var timeLong = $("input[name=timeLong]").val();
+					initGroupInvalidDate(new Date(handTime),timeLong,".luck_info_situation_time",callback);
+				});
+			</script>
 			
 </tiles:putAttribute>
 </tiles:insertDefinition>

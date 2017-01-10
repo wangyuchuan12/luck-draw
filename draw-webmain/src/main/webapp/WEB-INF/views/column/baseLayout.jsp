@@ -9,9 +9,9 @@
 <input name="signature" value="${signature}" type="hidden"/>
 <input name="noncestr" value="${noncestr}" type="hidden"/>
 <input name="appId" value="${appId}" type="hidden"/>
-<input name="datetime" value="${datetime}" type="text"/>
+<input name="datetime" value="${datetime}" type="hidden"/>
 
-<input name="webPath" value="${contextPath}"/>
+<input name="webPath" value="${contextPath}" type="hidden"/>
     	
 
 

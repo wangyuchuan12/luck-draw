@@ -105,19 +105,14 @@
 
 <script type="text/javascript">
 
-var callback = new Object();
-callback.success = function(){
-}
-
-toImg("/api/common/resource/upload","#addCommodityIndex","file",callback)
-
-
-
-
-
-
 	$(document).ready(function(){
 		hideLoading();
+		
+		var callback = new Object();
+		callback.success = function(){
+		}
+
+		toImg("/api/common/resource/upload","#addCommodityIndex","file",callback)
 	});
 	
 	function submit(){

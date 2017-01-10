@@ -97,7 +97,6 @@
 .luck_info_question_prompt{
 	position: relative;
 	background-color: white;
-	margin-top:10px;
 	display: block;
 	top:10px;
 	width:100%;
@@ -131,13 +130,11 @@
 
 .luck_info_situation{
 	text-align: center;
-	padding-top: 10px;
 	background-color: white;
 	padding-bottom: 5px;
 	border-top:1px solid RGB(241,241,242);
 	position: relative;
 	display: block;
-	top:15px;
 }
 .luck_info_situation_time{
 	margin-top: 10px;
@@ -195,9 +192,7 @@
 
 }
 
-.luck_info_answer_num{
-	padding-top:20px;
-	
+.luck_info_answer_num{	
 	font-size: 15px;
 	font-weight: bold;
 }
@@ -206,6 +201,7 @@
 	font-size: 20px;
 	font-weight: bold;
 	color:red;
+	padding-bottom:10px;
 	text-align: center;
 }
 
@@ -334,19 +330,22 @@
 .luck_toole_header{
 	background: RGBA(216,78,67,.9);
 	color:white;
-	text-align: right;
 	min-height: 50px;
 	padding-top: 5px;
 	overflow-x: auto;
 	word-wrap:break-word;
 	max-height:400px;
 	padding-bottom: 10px;
+	text-align: center;
+	margin: 0 auto;
 	
 	
 }
 
 .luck_toole_header>ul{
 	overflow-x: auto;
+	text-align: center;
+	margin: 0 auto;
 	
 	
 }
@@ -354,22 +353,21 @@
 .luck_toole_header>ul>li{
 	width:75px;
 	
-	height:50px;
+	height:55px;
 
 	text-align: center;
-	float: right;
+
 
 	
-	border:1px none white;
+	display:inline-block;
 	
-	margin: 5px;
+	margin: 3px;
 	
-	background: RGBA(216,78,67,0.92);
-	
-	border:1px solid RGBA(216,78,67,0.92);
+
 	padding-top: 5px;
 	
 	border-radius:10px;
+	
 }
 
 .luck_toole_header>ul>li:ACTIVE{
@@ -380,8 +378,7 @@
 	text-align: center;
 	float: right;
 
-	
-	border:1px none white;
+
 	
 	margin: 5px;
 	
@@ -394,10 +391,13 @@
 .luck_toole_header>ul>li>em{
 	display: block;
 	position: relative;
-	font-size: 20px;
+	font-size: 30px;
+	
 }
 .luck_toole_header>ul>li>span{
 	position: relative;
+	color: black;
+	font-size: 15px;
 }
 
 
@@ -507,7 +507,6 @@ li::before{
 
 .luck_room_member_list>ul>li{
 	width:16.5%;
-	height:77px;
 	border: 5px solid white;
 	text-align: center;
 	float: left;
@@ -524,7 +523,7 @@ li::before{
 
 .luck_room_member_list>ul>li>span{
 	display: block;
-	background-color:RGBA(241,241,242,1);
+
 	position: relative;
 	text-align:center;
 	color:black;
@@ -544,7 +543,7 @@ li::before{
 	width:100%;
 	height: 100px;
 	
-	border-bottom: 10px solid RGBA(241,241,242,1);
+	border-bottom: 2px solid RGBA(241,241,242,1);
 	padding-top: 10px;
 }
 

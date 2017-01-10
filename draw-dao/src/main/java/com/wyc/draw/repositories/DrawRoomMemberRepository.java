@@ -12,4 +12,6 @@ public interface DrawRoomMemberRepository extends CrudRepository<DrawRoomMember,
 
 	List<DrawRoomMember> findAllByDrawRoomIdAndStatusOrderByTakepartTimeAsc(String roomId, int status);
 
+	DrawRoomMember findByDrawUserIdAndDrawRoomId(String drawUserId, String drawRoomId);
+
 }

@@ -14,8 +14,8 @@
 			<ul>
 				<c:forEach items="${drawRoomInfo.drawRoomMembers}" var="member">
 					<li>
-						<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0"/>
-						<span>${member.imgUrl}</span>
+						<img src="${member.imgUrl}"/>
+						<span>${member.name}</span>
 					</li>
 				</c:forEach>
 

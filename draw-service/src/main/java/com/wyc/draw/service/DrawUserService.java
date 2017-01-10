@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.wyc.draw.domain.DrawUser;
@@ -26,5 +27,15 @@ public class DrawUserService {
 		
 		return drawUserRepository.save(drawUser);
 		
+	}
+
+	public DrawUser update(DrawUser drawUser) {
+		drawUser.setUpdateAt(new DateTime());
+		return drawUserRepository.save(drawUser);
+		
+	}
+	
+	public DrawUser findByUserIdWithLuck(String userId){
+		return drawUserRepository.findByUserIdWithLock(userId);
 	}
 }

@@ -72,10 +72,26 @@ public class RedPacket {
 	@Column(name="is_receive")
 	private Integer isReceive;
 	
+	//红包是否已到时间
+	@Column(name="is_timeout")
+	private Integer isTimeout;
+	
+	public Integer getIsTimeout() {
+		return isTimeout;
+	}
+	public void setIsTimeout(Integer isTimeout) {
+		this.isTimeout = isTimeout;
+	}
 	//是否已付款
 	@Column(name="is_pay")
 	private Integer isPay;
 	
+	@Column(name="pay_type")
+	private Integer payType;
+	
+	//提示信息
+	@Column
+	private String prompt;
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -89,6 +105,37 @@ public class RedPacket {
     
     
     
+    
+	public String getPrompt() {
+		return prompt;
+	}
+	public void setPrompt(String prompt) {
+		this.prompt = prompt;
+	}
+	public Integer getIsReceiveAble() {
+		return isReceiveAble;
+	}
+	public void setIsReceiveAble(Integer isReceiveAble) {
+		this.isReceiveAble = isReceiveAble;
+	}
+	public Integer getIsReceive() {
+		return isReceive;
+	}
+	public void setIsReceive(Integer isReceive) {
+		this.isReceive = isReceive;
+	}
+	public Integer getIsPay() {
+		return isPay;
+	}
+	public void setIsPay(Integer isPay) {
+		this.isPay = isPay;
+	}
+	public Integer getPayType() {
+		return payType;
+	}
+	public void setPayType(Integer payType) {
+		this.payType = payType;
+	}
 	public Integer isReceive() {
 		return isReceive;
 	}

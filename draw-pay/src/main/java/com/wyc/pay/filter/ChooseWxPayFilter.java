@@ -56,9 +56,9 @@ public class ChooseWxPayFilter extends Filter{
 			return null;
 		}
 		
-		Integer costInt = 0;
+		BigDecimal costBigDecimail = null;
 		try{
-			 costInt = Integer.parseInt(cost);
+			costBigDecimail = new BigDecimal(cost);
 		}catch(Exception e){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
@@ -68,7 +68,8 @@ public class ChooseWxPayFilter extends Filter{
 			return null;
 		}
 		
-		if(costInt==0){
+		
+		if(costBigDecimail.floatValue()==0){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("输入的参数cost数值不能为0");
@@ -100,7 +101,7 @@ public class ChooseWxPayFilter extends Filter{
 			return null;
 		}
 		
-		BigDecimal costBigDecimail = new BigDecimal(cost);
+		
 		
 		Calendar now = Calendar.getInstance();
         String outTradeNo = now.get(Calendar.YEAR)

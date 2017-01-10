@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -12,9 +13,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.annotation.ParamClassAnnotation;
+import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 
@@ -73,6 +76,7 @@ public class ManagerInterceptConfig {
 	}
 	
 	 
+	
 	 public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
 		 Method method = getControllerMethod(proceedingJoinPoint);
 		 Object returnValue = null;
@@ -111,15 +115,33 @@ public class ManagerInterceptConfig {
 				 
 				 returnValue = proceedingJoinPoint.proceed();
 				 handleAfterFilter(filter,filterManager);
-				 
+				 ResultVo resultVo = (ResultVo)filterManager.getObject(ResultVo.class);
+				 if(resultVo!=null&&resultVo.isSuccess()==false){
+					 Transactional transactional = method.getAnnotation(Transactional.class);
+					 if(transactional!=null){
+						 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+					 }
+					 
+				 }
 				 return returnValue;
 			 }catch(Exception e){
+				 Transactional transactional = method.getAnnotation(Transactional.class);
+				 if(transactional!=null){
+					 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+				 }
 				 e.printStackTrace();
+				 
 			 }
 		 }else{
 			 HttpServletRequest httpServletRequest = (HttpServletRequest)proceedingJoinPoint.getArgs()[0];
 			 SessionManager filterManager = SessionManager.getFilterManager(httpServletRequest, Map.class);
-			 returnValue = proceedingJoinPoint.proceed();
+			 try{
+				 returnValue = proceedingJoinPoint.proceed();
+			 }catch(Exception e){
+				 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+				 e.printStackTrace();
+			 }
+			 
 		 }
 		 
 		 return returnValue;
