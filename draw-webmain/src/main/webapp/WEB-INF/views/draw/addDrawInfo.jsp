@@ -47,7 +47,7 @@
        <div data-role="fieldcontain"
 	       	<c:if test="${isDisplayType!=1}">
 	         	style="display:none"
-	        </c:if>>  
+	        </c:if>>
             <fieldset data-role="controlgroup">
 			  <legend>红包类型:</legend>
 			  <input type="radio" name="type" id="radio-choice-1" value="1"
@@ -64,7 +64,9 @@
 			</fieldset>
         </div>
         
-         <div id="roomDiv" data-role="fieldcontain" <c:if test="${isDisplayRoom!=1}">style="display:none"</c:if>>
+         <div id="roomDiv" data-role="fieldcontain" <c:if test="${isDisplayRoom!=1}">
+	         	style="display:none"
+	        </c:if>>
         	<fieldset data-role="fieldcontain">
 			    <label for="day">选择房间</label>
 			    
@@ -119,12 +121,18 @@
 	
 	
 	function initRoomDisplay(){
-		var checked = $("input[name=type]:checked").val();
-		if(checked==1){
+		var isDisplayRoom = $("input[name=isDisplayRoom]").val();
+		if(isDisplayRoom==1){
+			var checked = $("input[name=type]:checked").val();
+			if(checked==1){
+				$("#roomDiv").css("display","none");
+			}else if(checked==0){
+				$("#roomDiv").css("display","block");
+			}
+		}else{
 			$("#roomDiv").css("display","none");
-		}else if(checked==0){
-			$("#roomDiv").css("display","block");
 		}
+		
 	}
 	
 	function submit(){
@@ -159,10 +167,12 @@
 		
 		var callback = new Object();
 		callback.success = function(obj){
+			var outObject = obj;
 			if(obj.success){
 				
 				if(obj.data.payType==0){
 					var params = new Object();
+					params.id = obj.data.id;
 					skipToUrl("/view/draw/luck_draw/info",params);
 				}else if(obj.data.payType==1){
 					var id = obj.data.id;
@@ -174,7 +184,8 @@
 						var payCallback = new Object();
 						payCallback.success = function(){
 							var params = new Object();
-							skipToUrl("/view/draw/luck_draw/info",null,false);
+							params.id = outObject.data.id;
+							skipToUrl("/view/draw/luck_draw/info",params);
 						}
 						
 						payCallback.failure = function(){

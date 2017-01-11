@@ -112,7 +112,6 @@
 }
 
 .luck_info_question_prompt_item{
-	text-align: left;
 	display: inline-block;
 	text-align:center;
 	max-width:150px;
@@ -121,6 +120,47 @@
 	padding-top: 5px;
 	padding-bottom: 5px;
 	margin:4px;
+	
+
+}
+
+.luck_info_question_prompt_item em{
+	position: relative;
+	left:10px;
+	top:-8px;
+}
+
+.luck_info_question_prompt_add{
+	display: inline-block;
+	text-align:center;
+	max-width:150px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin:4px;
+	
+	border: 1px dashed green;
+	color: black;
+	
+	font-weight: bold;
+}
+
+
+.luck_info_question_prompt_del{
+	display: inline-block;
+	text-align:center;
+	max-width:150px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin:4px;
+	
+	border: 1px dashed red;
+	color: black;
+	
+	font-weight: bold;
 }
 
 .luck_info_question_prompt_name{
@@ -376,7 +416,6 @@
 	height:50px;
 
 	text-align: center;
-	float: right;
 
 
 	
@@ -528,6 +567,7 @@ li::before{
 	text-align:center;
 	color:black;
 	top:-2px;
+	overflow:hidden;text-overflow:ellipsis; -o-text-overflow:ellipsis;white-space:nowrap;
 }
 
 .luck_room_packages{
@@ -576,8 +616,9 @@ li::before{
 }
 .luck_room_package_item_info2_title{
 	display: block;
-	width:70%;
+	width:200px;
 	position: relative;
+	 overflow:hidden;text-overflow:ellipsis; -o-text-overflow:ellipsis;white-space:nowrap;
 	
 }
 

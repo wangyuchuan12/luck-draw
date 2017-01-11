@@ -323,4 +323,10 @@ public class RequestFactory {
 	    URL url = new URL("https://api.mch.weixin.qq.com/pay/unifiedorder");
 	    return getRequestByConnection(url);
 	}
+	
+	//获取统一支付接口
+	public Request transfers()throws Exception{
+	    URL url = new URL("https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers");
+	    return getRequestByConnection(url);
+	}
 }

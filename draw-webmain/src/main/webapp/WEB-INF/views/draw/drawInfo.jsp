@@ -10,6 +10,7 @@
 
 			<input name="handTime" value="${result.data.handTime}" type="hidden"/>
 			<input name="timeLong" value="${result.data.timeLong}" type="hidden"/>
+			<input name="redPacketId" value="${result.data.id}" type="hidden"/>
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">问答红包</div>
@@ -22,7 +23,7 @@
 			</div>
 			
 			<div class="luck_info_qusition">
-				<div class="luck_info_qusition_title">${result.data.question}<span> ${fn:length(result.data.answer)}个字</span></div>
+				<div class="luck_info_qusition_title">问：${result.data.question}实施大法师打发第三方水电费水电费是水电费所属胜多负少发送到<span> ${fn:length(result.data.answer)}个字</span></div>
 				
 				
 			</div>
@@ -40,8 +41,8 @@
 			
 			<div class="luck_info_question_prompt">
 				<div class="luck_info_question_prompt_name">提示：</div>
-				<div >
-						<div class="luck_info_question_prompt_item">耶路撒冷</div>
+				<div class="luck_info_question_prompt_items">
+						<!--  <div class="luck_info_question_prompt_item">耶路撒冷</div>
 						<div class="luck_info_question_prompt_item">犹太全地</div>
 						<div class="luck_info_question_prompt_item">大卫城</div>
 						<div class="luck_info_question_prompt_item">耶路撒冷</div>
@@ -50,6 +51,7 @@
 						<div class="luck_info_question_prompt_item">耶路撒冷</div>
 						<div class="luck_info_question_prompt_item">犹太全地</div>
 						<div class="luck_info_question_prompt_item">大卫城</div>
+						<div class="luck_info_question_prompt_add">新增提示</div>-->
 				</div>
 			</div>
 			
@@ -85,7 +87,100 @@
 			</div>
 			
 			<script type="text/javascript">
+			
+			
+				function appendPrompt(id,prompt){
+					$(".luck_info_question_prompt_items").append("<div id='"+id+"' class='luck_info_question_prompt_item'>"+prompt+" <em class='fa fa-close'></em></div>");
+				}
+				
+				function initAddPrompts(){
+					$(".luck_info_question_prompt_items").append("<div class='luck_info_question_prompt_add'>新增提示</div>");
+					
+					
+					$(".luck_info_question_prompt_add").click(function(){
+						
+						layer.prompt({
+							title:"请输入提示"
+						},function(value){
+							layer.closeAll();
+							var callback = new Object();
+							callback.success = function(){
+								initPrompts();
+							}
+							var url = "/api/draw/red_pack/add_prompt";
+							var params = new Object();
+							params.red_packet_id = $("input[name=redPacketId]").val();
+							params.prompt = value;
+							request(url,callback,params);
+							
+						});
+					});
+				}
+				
+				
+				
+				function initDelPrompts(){
+					$(".luck_info_question_prompt_items").append("<div class='luck_info_question_prompt_del'>删除提示</div>");
+					
+					
+					$(".luck_info_question_prompt_del em").click(function(){
+						alert();
+					});
+				}
+				
+				function initPrompts(){
+					var callback = new Object();
+					callback.success = function(obj){
+						var promptArray = obj.data.redPacketPrompts;
+						if(promptArray){
+							$(".luck_info_question_prompt_items").empty();
+							
+							for(var i=0;i<promptArray.length;i++){
+								appendPrompt(promptArray[i].id,promptArray[i].prompt);
+							}
+						}
+						initAddPrompts();
+					//	initDelPrompts();
+						
+						$(".luck_info_question_prompt_item em").click(function(){
+							
+							var thisPrompt = $(this).parent();
+							layer.confirm("是否确定删除提示",function(){
+								var id  = thisPrompt.attr("id");
+								
+								var url = "/api/draw/red_pack/del_prompt";
+								
+								var params = new Object();
+								params.id = id;
+								
+								var callback = new Object();
+								
+								callback.success = function(obj){
+									layer.closeAll();
+									if(obj.success){
+										thisPrompt.remove();
+									}
+								}
+								
+								callback.failure = function(obj){
+									layer.closeAll();
+								}
+								request(url,callback,params);
+							});
+						});
+					}
+					
+					var url = "/api/draw/red_pack/prompts";
+					var params = new Object();
+					params.red_packet_id = $("input[name=redPacketId]").val();
+					request(url,callback,params);
+				}
+				
 				$(document).ready(function(){
+					
+					initPrompts();
+					setIsDisplayType(1);
+					setIsDisplayRoom(1);
 					var callback = new Object();
 					callback.end = function(){
 						$(".luck_info_alert").css("display","block");
@@ -94,6 +189,7 @@
 					
 					var timeLong = $("input[name=timeLong]").val();
 					initGroupInvalidDate(new Date(handTime),timeLong,".luck_info_situation_time",callback);
+					
 				});
 			</script>
 			

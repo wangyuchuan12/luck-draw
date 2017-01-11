@@ -36,6 +36,9 @@
 
 <script type="text/javascript">
 	
+	
+	
+	
 	function getSignature(){
 		return $("input[name=signature]").val();
 	}

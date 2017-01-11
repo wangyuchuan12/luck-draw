@@ -31,6 +31,8 @@ public class GetRedPackFilter extends Filter{
 		String id = httpServletRequest.getParameter("id");
 		RedPacket redPacket  = redPackageService.findOne(id);
 		
+		
+		System.out.println("id:"+id);
 		if(redPacket.getIsTimeout()==0){
 			
 			Calendar calendar = Calendar.getInstance();

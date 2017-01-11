@@ -1,5 +1,4 @@
 
-var token = "aeff346a-e9fe-4729-b59b-9b87141cb80e";
 function skipToUrl(url,params,flag){
 	var temp = document.createElement("form");
 	if(!flag){
@@ -9,9 +8,7 @@ function skipToUrl(url,params,flag){
 	}
     temp.method = "post";        
     temp.style.display = "none";        
-    var opt = document.createElement("textarea");        
-    opt.name = "token";
-	opt.value = token;
+    var opt = document.createElement("textarea");
     temp.appendChild(opt);              
     
     if(params){
@@ -75,7 +72,6 @@ function fileRequest(url,callback,elementId){
 
 function request(url,callback,params){
 	url = getWebpath()+url;
-	params.token = token;
 	$.ajax({
 		url:url,
 		method:"POST",

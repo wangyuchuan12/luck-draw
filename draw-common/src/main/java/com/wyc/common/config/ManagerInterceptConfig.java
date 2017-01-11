@@ -138,8 +138,12 @@ public class ManagerInterceptConfig {
 			 try{
 				 returnValue = proceedingJoinPoint.proceed();
 			 }catch(Exception e){
-				 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				 e.printStackTrace();
+				 Transactional transactional = method.getAnnotation(Transactional.class);
+				 if(transactional!=null){
+					 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+				 }
+				 
 			 }
 			 
 		 }

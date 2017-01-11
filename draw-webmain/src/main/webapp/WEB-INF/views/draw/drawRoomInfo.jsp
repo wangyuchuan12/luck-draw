@@ -18,7 +18,6 @@
 						<span>${member.name}</span>
 					</li>
 				</c:forEach>
-
 			</ul>
 		</div>
 	</div>
@@ -36,7 +35,7 @@
 							
 							<div class="luck_room_package_item_info2">
 								<div class="luck_room_package_item_info2_name"><b>川川发起</b><span>2014-12-13 07:23:22</span></div>
-								<div class="luck_room_package_item_info2_title">耶稣诞生的年日</div>
+								<div class="luck_room_package_item_info2_title">耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日</div>
 								
 								<div class="luck_room_package_item_info2_money">金额：200元</div>
 							</div>
@@ -68,6 +67,15 @@
 			</ul>
 		</div>
 	</div>
+	
+	<input name="bakRoomId" value="${drawRoomInfo.id}"/>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			setRoomId($("input[name=bakRoomId]").val());
+		}
+	
+	</script>
 			
 </tiles:putAttribute>
 </tiles:insertDefinition>
