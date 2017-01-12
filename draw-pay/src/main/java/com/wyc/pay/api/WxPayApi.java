@@ -50,7 +50,10 @@ public class WxPayApi {
 		PaySuccess paySuccess = XmlUtil.xmlToObject(document,PaySuccess.class);
 		PaySuccess paySuccess2 = paySuccessService.findOneByOutTradeNo(paySuccess.getOutTradeNo());
 		if(paySuccess2==null){
-			paySuccessService.add(paySuccess);
+			if(paySuccess.getNonceStr().equals("1add1a30ac87aa2db72f57a2375d8f22")&&paySuccess.getResultCode().equals("SUCCESS")){
+			
+				paySuccessService.add(paySuccess);
+			}
 		}
 		return paySuccess;
 	}
