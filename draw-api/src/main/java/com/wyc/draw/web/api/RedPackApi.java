@@ -1,7 +1,5 @@
 package com.wyc.draw.web.api;
 
-import java.math.BigDecimal;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -28,20 +26,6 @@ public class RedPackApi {
 	
 	@Autowired
 	private PayService payService;
-	
-	
-	@RequestMapping(value="test")
-	@ResponseBody
-	public String test(HttpServletRequest httpServletRequest)throws Exception{
-		
-		String openid = httpServletRequest.getParameter("openid");
-		String amount = httpServletRequest.getParameter("amount");
-		String remoteAddress = httpServletRequest.getRemoteAddr();
-		
-		BigDecimal bigDecimal = new BigDecimal(amount);
-		return payService.transfers(openid, bigDecimal, remoteAddress);
-	}
-	
 	
 	@Transactional
 	@RequestMapping(value="add")

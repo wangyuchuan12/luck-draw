@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,6 +14,7 @@ import com.wyc.common.domain.PaySuccess;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.domain.vo.WxChooseWxPayBean;
 import com.wyc.common.filter.UserInfoFilter;
+import com.wyc.common.service.PaySuccessService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.XmlUtil;
 import com.wyc.pay.filter.ChooseWxPayFilter;
@@ -20,6 +22,10 @@ import com.wyc.pay.filter.ChooseWxPayFilter;
 @Controller
 @RequestMapping(value="/api/pay/wx/")
 public class WxPayApi {
+	
+	@Autowired
+	private PaySuccessService paySuccessService;
+	
 	
 	@HandlerAnnotation(hanlerFilter=ChooseWxPayFilter.class)
 	@RequestMapping(value="choose_wx_pay_config")
@@ -40,7 +46,7 @@ public class WxPayApi {
 		SAXBuilder saxBuilder = new SAXBuilder();
 		Document document = saxBuilder.build(httpServletRequest.getInputStream());
 		PaySuccess paySuccess = XmlUtil.xmlToObject(document,PaySuccess.class);
-		System.out.println("paySuccess:"+paySuccess);
+		paySuccessService.add(paySuccess);
 		return paySuccess;
 	}
 }

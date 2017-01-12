@@ -22,7 +22,8 @@
 	position: relative;
 	text-align: center;
 	display:block;
-	top:-120px;
+	top:-110px;
+	
 
 	
 }
@@ -633,3 +634,157 @@ li::before{
 }
 
 
+.personal_center_header{
+	background-color:RGBA(245,85,85,1);
+	color:white;
+	text-align: center;
+	
+	padding-bottom: 20px;
+}
+
+.personal_center_header_title{
+	padding-top: 10px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.personal_center_header_img{
+	padding-top: 30px;
+}
+
+.personal_center_header_img img{
+	width:80px;
+	height:80px;
+	border-radius:70px;
+}
+
+.personal_center_header_name{
+	padding-top:5px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.personal_center_header_money{
+	padding-top: 10px;
+}
+
+.personal_center_header_money_type{
+	font-weight:normal;
+}
+
+.personal_center_header_money_number{
+	font-weight: bolder;
+	font-size: 20px;
+}
+
+
+.personal_center_content{
+	background-color: white;
+
+	
+}
+.personal_center_content_item{
+	background-color: white;
+	
+	width:90%;
+	
+	margin: 0 auto;
+	
+	padding-top: 10px;
+	padding-bottom: 20px;
+	
+	border-bottom: 1px solid RGBA(239,239,244,1);
+	
+	height: 50px;
+
+	
+}
+
+.personal_center_content_item .i{
+	color: white;
+	
+	display: inline-block;
+	
+	width: 17px;
+	
+	height: 17px;
+	
+	text-align: center;
+	
+	padding-top: 3px;
+	
+	
+}
+
+.personal_center_content_item .span{
+	color: black;
+	font-size: 17px;
+	
+	padding-left: 15px;
+}
+
+.personal_center_content_item .span2{
+	display: inline-block;
+	margin-right:10px;
+	padding-top:7px;
+	right:50px;
+	position: absolute;
+}
+
+.personal_center_content_item .span_gt{
+	right:5px;
+	margin-right: 20px;
+	
+	position: absolute;
+	padding-bottom:10px;
+	
+	font-size: 20px;
+}
+
+
+.take_out_list{
+	text-align: center;
+	width: 95%;
+	margin: 0 auto;
+	
+	top:-30px;
+	position: relative;
+}
+
+.take_out_item{
+	width: 25%;
+	height:50px;
+	border:2px solid RGBA(216,78,67,0.9);;
+	
+	border-radius:5px;
+	color: RGBA(216,78,67,0.9);
+	
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 5px;
+	
+	margin-top: 20px;
+}
+
+.take_out_item_money{
+	padding-top: 7px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.take_out_item_money span{
+	font-size: 15px;
+	font-weight: normal;
+}
+
+
+.take_out_balance{
+	text-align: center;
+	color: black;
+	top:-50px;
+	
+	position: relative;
+	font-size: 20px;
+	
+	font-weight: bold;
+}

@@ -71,6 +71,8 @@ public class AppConfig {
 	    
 	    @Bean
 	    public HttpClient httpGet(ApplicationProperties applicationProperties,WxContext wxc){
+	    	
+
 	        FileInputStream instream = null;
 	        try {
 	            KeyStore keyStore = KeyStore.getInstance("PKCS12");

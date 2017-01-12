@@ -6,6 +6,8 @@
 		<img src="/imgs/loading.gif">
 </div>
 
+<div class="center"><div class="toast" style="display: none;">余额不足，请稍后再试</div></div>
+
 <input name="signature" value="${signature}" type="hidden"/>
 <input name="noncestr" value="${noncestr}" type="hidden"/>
 <input name="appId" value="${appId}" type="hidden"/>
@@ -16,6 +18,35 @@
 
 
 <style type="text/css">
+
+	.center{
+		position: fixed;
+	    left: 50%;
+	    top: 50%;
+	    -webkit-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
+	    z-index: 1000000;
+		
+	}
+	.toast{
+		background-color: black;
+		color: white;
+		
+		text-align: center;
+		
+		
+		padding-left:15px;
+		padding-right:15px;
+		
+		padding-top:5px;
+		padding-bottom:5px;
+		
+		border-radius:5px;
+		
+		display: block;
+		
+	}
+
 	.loading{
 		position: fixed;
 		z-index: 11111;
@@ -35,8 +66,17 @@
 </style>
 
 <script type="text/javascript">
-	
-	
+	function showToast(msg,timeLong){
+		if(!timeLong){
+			timeLong = 1500;
+		}
+		$(".toast").text(msg);
+		$(".toast").css("display","block");
+		var interval = window.setInterval(function(){
+			$(".toast").css("display","none");
+			window.clearInterval(interval);
+		},timeLong);
+	}
 	
 	
 	function getSignature(){

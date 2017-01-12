@@ -189,7 +189,7 @@
 						}
 						
 						payCallback.failure = function(){
-							layer.alert("现在网络繁忙，请稍后再试");
+							showToast("现在网络繁忙，请稍后再试");
 						}
 						
 						payCallback.cancel = function(){
@@ -203,7 +203,7 @@
 					}
 					
 					callback.failure = function(obj){
-						layer.alert("现在网络繁忙，请稍后再试");
+						showToast("现在网络繁忙，请稍后再试");
 						hideLoading();
 					}
 					var params = new Object();
@@ -218,7 +218,7 @@
 		}
 		
 		callback.failure = function(){
-			layer.alert("现在网络繁忙，请稍后再试");
+			showToast("现在网络繁忙，请稍后再试");
 			hideLoading();
 		}
 		

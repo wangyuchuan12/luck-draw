@@ -22,7 +22,7 @@ public class PayService {
 	
 	@Autowired
 	private WxContext wxContext;
-	public String transfers(String openid,BigDecimal amount,String remoteAddress)throws Exception{
+	public String transfers(String openid,BigDecimal amount,String remoteAddress,String desc)throws Exception{
 		String appid = wxContext.getAppid();
 		String mchid = wxContext.getMchId();
 		String deviceInfo = "wyc";
@@ -37,7 +37,6 @@ public class PayService {
                 +"-"+now.get(Calendar.MILLISECOND)
                 +"-"+new Random().nextInt(1000)+"";
         String checkName = "NO_CHECK";
-        String desc = "转账";
         String spbillCreateIp = remoteAddress;
         
         BigDecimal totalFree = amount.multiply(new BigDecimal(100));
@@ -62,12 +61,13 @@ public class PayService {
         sb2.append("<xml>");
         sb2.append("<mch_appid>"+appid+"</mch_appid>");
         sb2.append("<mchid>"+mchid+"</mchid>");
+        sb2.append("<device_info>"+deviceInfo+"</device_info>");
         sb2.append("<nonce_str>"+nonceStr+"</nonce_str>");
         sb2.append("<partner_trade_no>"+outTradeNo+"</partner_trade_no>");
         sb2.append("<openid>"+openid+"</openid>");
         sb2.append("<check_name>"+checkName+"</check_name>");
         sb2.append("<amount>"+totalFeeLong+"</amount>");
-        sb2.append("<desc>"+outTradeNo+"</desc>");
+        sb2.append("<desc>"+desc+"</desc>");
         sb2.append("<spbill_create_ip>"+spbillCreateIp+"</spbill_create_ip>");
         sb2.append("<sign>"+sign+"</sign>");
         sb2.append("</xml>");
