@@ -6,4 +6,6 @@ import com.wyc.common.domain.PaySuccess;
 
 public interface PaySuccessRepository extends CrudRepository<PaySuccess, String>{
 
+	PaySuccess findOneByOutTradeNo(String outTradeNo);
+
 }

@@ -24,4 +24,8 @@ public class PaySuccessService {
 		return paySuccessRepository.save(paySuccess);
 		
 	}
+
+	public PaySuccess findOneByOutTradeNo(String outTradeNo) {
+		return paySuccessRepository.findOneByOutTradeNo(outTradeNo);
+	}
 }

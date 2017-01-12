@@ -17,7 +17,7 @@ public class PaySuccess {
     @Id
     @IdAnnotation
     private String id;
-    @ParamAnnotation
+    @ParamAnnotation(name="order_id")
     @Column(name="order_id")
     private String orderId;
     @ParamAnnotation
@@ -26,46 +26,46 @@ public class PaySuccess {
     @ParamAnnotation
     @Column
     private String attach;
-    @ParamAnnotation
+    @ParamAnnotation(name="bank_type")
     @Column(name="bank_type")
     private String bankType;
-    @ParamAnnotation
+    @ParamAnnotation(name="cash_fee")
     @Column(name="cash_fee")
     private String cashFee;
-    @ParamAnnotation
+    @ParamAnnotation(name="is_subscribe")
     @Column(name="is_subscribe")
     private String isSubscribe;
-    @ParamAnnotation
+    @ParamAnnotation(name="mch_id")
     @Column(name="mch_id")
     private String mchId;
-    @ParamAnnotation
+    @ParamAnnotation(name="nonce_str")
     @Column(name="nonce_str")
     private String nonceStr;
     @ParamAnnotation
     @Column
     private String openid;
-    @ParamAnnotation
+    @ParamAnnotation(name="out_trade_no")
     @Column(name="out_trade_no")
     private String outTradeNo;
-    @ParamAnnotation
+    @ParamAnnotation(name="result_code")
     @Column(name="result_code")
     private String resultCode;
-    @ParamAnnotation
+    @ParamAnnotation(name="return_code")
     @Column(name="return_code")
     private String returnCode;
     @ParamAnnotation
     @Column
     private String sign;
-    @ParamAnnotation
+    @ParamAnnotation(name="time_end")
     @Column(name="time_end")
     private String timeEnd;
-    @ParamAnnotation
+    @ParamAnnotation(name="total_fee")
     @Column(name="total_fee")
     private String totalFee;
-    @ParamAnnotation
+    @ParamAnnotation(name="trade_type")
     @Column(name="trade_type")
     private String tradeType;
-    @ParamAnnotation
+    @ParamAnnotation(name="transaction_id")
     @Column(name="transaction_id")
     private String transactionId;
     
@@ -200,6 +200,10 @@ public class PaySuccess {
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
+	public PaySuccess findOneByOutTradeNo(String outTradeNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     
 }

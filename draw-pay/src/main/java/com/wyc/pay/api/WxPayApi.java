@@ -6,6 +6,7 @@ import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -40,13 +41,17 @@ public class WxPayApi {
 		return resultVo;
 	}
 	
+	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=UserInfoFilter.class)
 	@RequestMapping(value="pay_success")
 	public Object paySuccess(HttpServletRequest httpServletRequest)throws Exception{
 		SAXBuilder saxBuilder = new SAXBuilder();
 		Document document = saxBuilder.build(httpServletRequest.getInputStream());
 		PaySuccess paySuccess = XmlUtil.xmlToObject(document,PaySuccess.class);
-		paySuccessService.add(paySuccess);
+		PaySuccess paySuccess2 = paySuccessService.findOneByOutTradeNo(paySuccess.getOutTradeNo());
+		if(paySuccess2==null){
+			paySuccessService.add(paySuccess);
+		}
 		return paySuccess;
 	}
 }
