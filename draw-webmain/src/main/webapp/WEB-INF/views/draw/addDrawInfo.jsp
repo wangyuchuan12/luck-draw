@@ -210,6 +210,9 @@
 					params.cost=amount;
 					params.body="发布问答红包";
 					params.detail = "问答红包";
+					
+					
+					params.outTradeNo  = obj.data.outTradeNo;
 					request(url,callback,params);
 				}
 				

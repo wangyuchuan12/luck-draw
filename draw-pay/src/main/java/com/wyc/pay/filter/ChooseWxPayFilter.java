@@ -103,15 +103,27 @@ public class ChooseWxPayFilter extends Filter{
 		
 		
 		
-		Calendar now = Calendar.getInstance();
-        String outTradeNo = now.get(Calendar.YEAR)
+		
+        /*Calendar now = Calendar.getInstance();
+         * String outTradeNo = now.get(Calendar.YEAR)
                 +"-"+(now.get(Calendar.MONTH) + 1)
                 +"-"+now.get(Calendar.DAY_OF_MONTH)
                 +"-"+now.get(Calendar.HOUR_OF_DAY)
                 +"-"+now.get(Calendar.MINUTE)
                 +"-"+now.get(Calendar.SECOND)
                 +"-"+now.get(Calendar.MILLISECOND)
-                +"-"+new Random().nextInt(1000)+"";
+                +"-"+new Random().nextInt(1000)+"";*/
+		
+		String outTradeNo = httpServletRequest.getParameter("outTradeNo");
+		
+		if(CommonUtil.isEmpty(outTradeNo)){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("商品订单号不能为空");
+			filterManager.setEnd(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
         
         
         

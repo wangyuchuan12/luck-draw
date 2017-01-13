@@ -69,6 +69,9 @@ public class PaySuccess {
     @Column(name="transaction_id")
     private String transactionId;
     
+    @Column(name="is_refund")
+    private Integer isRefund;
+    
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -80,7 +83,13 @@ public class PaySuccess {
     
     
     
-    public DateTime getCreateAt() {
+    public Integer getIsRefund() {
+		return isRefund;
+	}
+	public void setIsRefund(Integer isRefund) {
+		this.isRefund = isRefund;
+	}
+	public DateTime getCreateAt() {
         return createAt;
     }
     public void setCreateAt(DateTime createAt) {

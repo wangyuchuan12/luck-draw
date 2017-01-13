@@ -3,7 +3,10 @@ package com.wyc.draw.filter;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -66,11 +69,22 @@ public class TakeOutApplyFilter extends Filter{
 			filterManager.setReturnValue(resultVo);
 			return null;
 		}
+		Calendar now = Calendar.getInstance();
+		now.setTime(new Date());
+		String outTradeNo = now.get(Calendar.YEAR)
+                +"-"+(now.get(Calendar.MONTH) + 1)
+                +"-"+now.get(Calendar.DAY_OF_MONTH)
+                +"-"+now.get(Calendar.HOUR_OF_DAY)
+                +"-"+now.get(Calendar.MINUTE)
+                +"-"+now.get(Calendar.SECOND)
+                +"-"+now.get(Calendar.MILLISECOND)
+                +"-"+new Random().nextInt(1000)+"";
+		
 		
 		ApplyForm applyForm = new ApplyForm();
 		applyForm.setAmount(amountBigDecimal);
 		applyForm.setApplyTime(new DateTime());
-		
+		applyForm.setTradeOutNo(outTradeNo);
 		applyForm.setMsg(userInfo.getNickname()+"申请提现"+amount+"元");
 		applyForm.setOpenid(userInfo.getOpenid());
 		applyForm.setStatus(Constant.APPLY_FORM_STATUS_IN);

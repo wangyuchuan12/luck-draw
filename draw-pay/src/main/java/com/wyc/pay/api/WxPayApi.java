@@ -1,8 +1,14 @@
 package com.wyc.pay.api;
 
+import java.io.StringReader;
+import java.util.Calendar;
+import java.util.Random;
+import java.util.TreeMap;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.jdom.Document;
+import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +23,11 @@ import com.wyc.common.domain.vo.WxChooseWxPayBean;
 import com.wyc.common.filter.UserInfoFilter;
 import com.wyc.common.service.PaySuccessService;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.MD5Util;
+import com.wyc.common.util.Request;
+import com.wyc.common.util.RequestFactory;
 import com.wyc.common.util.XmlUtil;
+import com.wyc.common.wx.domain.WxContext;
 import com.wyc.pay.filter.ChooseWxPayFilter;
 
 @Controller
@@ -57,4 +67,7 @@ public class WxPayApi {
 		}
 		return paySuccess;
 	}
+	
+	
+	 
 }

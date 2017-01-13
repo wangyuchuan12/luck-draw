@@ -78,10 +78,31 @@ public class RedPacketVo {
 	private int timeLong;
 	
 	
+	@ParamAnnotation
+	private String outTradeNo;
+	
+	
 	
 	public int getTimeLong() {
 		return timeLong;
 	}
+	
+	
+	
+
+	public String getOutTradeNo() {
+		return outTradeNo;
+	}
+
+
+
+
+	public void setOutTradeNo(String outTradeNo) {
+		this.outTradeNo = outTradeNo;
+	}
+
+
+
 
 	public void setTimeLong(int timeLong) {
 		this.timeLong = timeLong;

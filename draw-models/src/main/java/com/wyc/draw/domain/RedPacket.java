@@ -63,6 +63,10 @@ public class RedPacket {
 	@Column
 	private String answer;
 	
+	
+	//红包付款订单号
+	@Column(name="out_trade_no")
+	private String outTradeNo;
 
 	//是否可领取
 	@Column(name="is_receive_able")
@@ -106,6 +110,12 @@ public class RedPacket {
     
     
     
+	public String getOutTradeNo() {
+		return outTradeNo;
+	}
+	public void setOutTradeNo(String outTradeNo) {
+		this.outTradeNo = outTradeNo;
+	}
 	public String getPrompt() {
 		return prompt;
 	}

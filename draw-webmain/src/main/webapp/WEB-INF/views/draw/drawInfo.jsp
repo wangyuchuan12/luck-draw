@@ -23,7 +23,7 @@
 			</div>
 			
 			<div class="luck_info_qusition">
-				<div class="luck_info_qusition_title">问：${result.data.question}实施大法师打发第三方水电费水电费是水电费所属胜多负少发送到<span> ${fn:length(result.data.answer)}个字</span></div>
+				<div class="luck_info_qusition_title">问：${result.data.question}<span> ${fn:length(result.data.answer)}个字</span></div>
 				
 				
 			</div>

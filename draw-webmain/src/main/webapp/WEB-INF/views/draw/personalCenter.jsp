@@ -50,7 +50,7 @@
 			
 	<script type="text/javascript">
 		$("#takeOut").click(function(){
-			showToast("提现");
+			skipToUrl("/view/draw/personal_center/takeOut");
 		});
 	
 	</script>

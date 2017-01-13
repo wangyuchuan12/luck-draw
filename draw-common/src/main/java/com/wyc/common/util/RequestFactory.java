@@ -1,7 +1,6 @@
 package com.wyc.common.util;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -328,5 +327,11 @@ public class RequestFactory {
 	public Request transfers()throws Exception{
 	    URL url = new URL("https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers");
 	    return getRequestByConnection(url);
+	}
+	
+	//获取退款接口
+	public Request getRefundRequest()throws Exception{
+	    URL url = new URL("https://api.mch.weixin.qq.com/secapi/pay/refund");
+            return getRequestByConnection(url);
 	}
 }

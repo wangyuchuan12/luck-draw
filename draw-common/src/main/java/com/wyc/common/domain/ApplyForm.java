@@ -61,6 +61,9 @@ public class ApplyForm {
 	@Column(nullable=true)
 	private String openid;
 	
+	@ParamAnnotation
+	@Column(name="trade_out_no")
+	private String tradeOutNo;
 	
 	
 	@Column(name = "create_at")
@@ -86,6 +89,14 @@ public class ApplyForm {
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+	
+	public String getTradeOutNo() {
+		return tradeOutNo;
+	}
+
+	public void setTradeOutNo(String tradeOutNo) {
+		this.tradeOutNo = tradeOutNo;
 	}
 
 	public String getMsg() {

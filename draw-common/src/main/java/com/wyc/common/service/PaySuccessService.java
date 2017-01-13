@@ -28,4 +28,10 @@ public class PaySuccessService {
 	public PaySuccess findOneByOutTradeNo(String outTradeNo) {
 		return paySuccessRepository.findOneByOutTradeNo(outTradeNo);
 	}
+
+	public PaySuccess save(PaySuccess paySuccess) {
+		paySuccess.setUpdateAt(new DateTime());
+		
+		return paySuccessRepository.save(paySuccess);
+	}
 }

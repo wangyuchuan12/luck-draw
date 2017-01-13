@@ -29,6 +29,7 @@ public class PersonalCenterApi {
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(true);
 			resultVo.setMsg("申请成功");
+			resultVo.setData(applyForm);
 			return resultVo;
 		}
 		return null;
