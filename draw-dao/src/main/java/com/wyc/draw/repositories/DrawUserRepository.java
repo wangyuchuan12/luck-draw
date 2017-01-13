@@ -3,6 +3,7 @@ package com.wyc.draw.repositories;
 import javax.persistence.LockModeType;
 
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -16,5 +17,9 @@ public interface DrawUserRepository extends CrudRepository<DrawUser, String>{
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	@Query(value="from com.wyc.draw.domain.DrawUser du where du.userId=:userId")
 	DrawUser findByUserIdWithLock(@Param("userId")String userId);
+
+	@Modifying
+	@Query(value="update com.wyc.draw.domain.DrawUser du set du.canTakeOutCount=:count")
+	void initDrawUserCanTakeOutCount(@Param("count") int count);
 
 }

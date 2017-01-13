@@ -6,18 +6,26 @@ import java.util.Calendar;
 import java.util.Random;
 import java.util.TreeMap;
 
+import javax.management.RuntimeErrorException;
+
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wyc.common.domain.ApplyForm;
 import com.wyc.common.domain.PaySuccess;
+import com.wyc.common.domain.vo.TransfersResultVo;
+import com.wyc.common.service.ApplyFormService;
 import com.wyc.common.service.PaySuccessService;
+import com.wyc.common.util.Constant;
 import com.wyc.common.util.MD5Util;
 import com.wyc.common.util.Request;
 import com.wyc.common.util.RequestFactory;
 import com.wyc.common.util.Response;
+import com.wyc.common.util.XmlUtil;
 import com.wyc.common.wx.domain.WxContext;
 
 @Service
@@ -31,7 +39,35 @@ public class PayService {
 	
 	@Autowired
 	private WxContext wxContext;
-	public String transfers(String openid,BigDecimal amount,String remoteAddress,String desc)throws Exception{
+	
+	@Autowired
+	private ApplyFormService applyFormService;
+	
+	
+	//因为之前已经有一次提现失败，再一次提现
+	public TransfersResultVo reTakeout(ApplyForm applyForm,String remoteAddress)throws Exception{
+		if(applyForm.getType()==Constant.APPLY_FORM_TYPE_TAKE_OUT){
+			TransfersResultVo resultVo = transfers(applyForm.getOpenid(), applyForm.getRealHandleAmount(), remoteAddress, "提现");
+			if(resultVo!=null&resultVo.getResultCode().equals("SUCCESS")){
+				applyForm.setStatus(Constant.APPLY_FORM_STATUS_SUCCESS);
+				applyForm.setHandleTime(new DateTime());
+				applyForm.setTradeOutNo(applyForm.getTradeOutNo()+","+resultVo.getOutTradeNo());
+				applyFormService.update(applyForm);
+				return resultVo;
+			}else{
+				applyForm.setErrorCount(applyForm.getErrorCount()+1);
+				applyForm.setStatus(Constant.APPLY_FORM_STATUS_FAILURE);
+				applyForm.setHandleTime(new DateTime());
+				applyForm.setErrCode(resultVo.getErrCode());
+				applyFormService.update(applyForm);
+				return resultVo;
+			}
+		}else{
+			throw new Exception("不是申请提现的表单，无法进行此操作");
+		}
+	}
+	
+	public TransfersResultVo transfers(String openid,BigDecimal amount,String remoteAddress,String desc)throws Exception{
 		String appid = wxContext.getAppid();
 		String mchid = wxContext.getMchId();
 		String deviceInfo = "wyc";
@@ -84,8 +120,11 @@ public class PayService {
         Request request = requestFactory.transfers();
         
         Response response = request.post(sb2.toString());
-        
-        return response.read();
+        SAXBuilder saxBuilder = new SAXBuilder();
+		Document document = saxBuilder.build(response.getInputStream());
+		TransfersResultVo resultVo = XmlUtil.xmlToObject(document,TransfersResultVo.class);
+		
+		return resultVo;
 	}
 	
 	

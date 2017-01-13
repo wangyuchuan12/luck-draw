@@ -7,18 +7,22 @@
 <tiles:insertDefinition name="resourceLayout">
 <tiles:putAttribute name="title">提取现金</tiles:putAttribute>
 <tiles:putAttribute name="body">
-
+			<input name="amountBalance" value="${user.amountBalance}" type="hidden"></input>
+			
+			<input name="canTakeOutCount" value="${user.canTakeOutCount}" type="hidden"></input>
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">提取现金</div>
 				<div class="luck_info_head_img">
-					<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0"></img>
+					<img src="${user.headimgurl}"></img>
 				</div>
-				<div class="luck_info_head_name">川川</div>
+				<div class="luck_info_head_name">${user.nickname}</div>
 
 			</div>
 			
-			<div class="take_out_balance">余额50元</div>
+			<div class="take_out_balance">余额${user.amountBalance}元</div>
+			
+			<div class="take_out_out">本月剩余可提现<span>${user.canTakeOutCount}</span>次</div>
 			
 			<div class="take_out_list">
 				<div class="take_out_item" onclick="takeOut(5);">
@@ -47,48 +51,118 @@
 			</div>
 			
 			
+			<div class="amount_details">
+			
+				<!--  <div class="amount_details_header">申请记录</div>-->
+				
+			</div>
+			
 			
 			<script type="text/javascript">
 				function takeOut(amount){
-					showLoading();
-					var url = "/api/draw/personal_center/take_out_amount";
-					var params = new Object();
-					params.amount = amount;
-					var callback = new Object();
-					callback.success = function(obj){
-						var url = "/api/pay/wx/choose_wx_pay_config";
+					var amountBalance = $("input[name=amountBalance]").val();
+					amountBalance = parseFloat(amountBalance);
+					amount = parseFloat(amount);
+					
+					if(amountBalance<amount){
+						showToast("账号余额已小于"+amount+"元，不可提现",5000);
+						return;
+					}
+					
+					var canTakeOutCount = $("input[name=canTakeOutCount]").val();
+					canTakeOutCount = parseFloat(canTakeOutCount);
+					if(canTakeOutCount<1){
+						showToast("本月可提现次数已用完",5000);
+						return;
+					}
+					layer.confirm("是否确定申请提现，将收取1%的手续费",function(){
+						layer.closeAll();
+						showLoading();
+						var url = "/api/draw/personal_center/take_out_amount";
+						var params = new Object();
+						params.amount = amount;
 						var callback = new Object();
 						callback.success = function(obj){
 							hideLoading();
-							var payCallback = new Object();
-							payCallback.success = function(){
-								alert("支付成功");
-							}
 							
-							payCallback.failure = function(){
-								showToast("现在网络繁忙，请稍后再试");
-							}
-							
-							payCallback.cancel = function(){
-
-							}
 							if(obj.success){
-								
-								wxPay(obj.data.timestamp,obj.data.nonceStr,obj.data.pack,obj.data.signType,obj.data.paySign,payCallback);
+								var canTakeOutCount = $("input[name=canTakeOutCount]").val();
+								canTakeOutCount = parseInt(canTakeOutCount);
+								canTakeOutCount = canTakeOutCount-1;
+								$("input[name=canTakeOutCount]").val(canTakeOutCount);
+								$(".take_out_out span").text(canTakeOutCount);
+								reloadDetail();
+								showToast("申请成功",5000);
+							}else{
+								alert(obj.errorMsg);
+								showToast("网络繁忙，请稍后再试",5000);
 							}
 							
 						}
 						
-						var params = new Object();
-						params.cost=amount;
-						params.body="发布问答红包";
-						params.detail = "问答红包";
-						params.outTradeNo  = obj.data.tradeOutNo;
 						request(url,callback,params);
-					}
+					});
 					
-					request(url,callback,params);
 				}
+				
+				
+				function reloadDetail(){
+					var url = "/api/draw/personal_center/apply_forms";
+					var callback = new Object();
+					callback.success = function(obj){
+						if(obj.success){
+							var array = obj.data;
+							$(".amount_details").empty();
+							for(var i=0;i<obj.data.length;i++){
+								var item = obj.data[i];
+								
+								var type ;
+								if(item.type==0){
+									type = "提现";
+								}
+								
+								
+								var applyTime = item.applyTime;
+								
+								var amount = item.realHandleAmount;
+								
+								var status;
+								
+								if(item.status==0){
+									status = "申请中<span>已到账</span>";
+								}else if(item.status==1){
+									status = "申请成功<span>将在24个小时内到账</span>";
+								}else if(item.status==2){
+									status = "申请成功<span>将在24个小时内到账</span>";
+								}
+								
+								
+								 var el =  "<div class='amount_detail_item'>";
+								 
+								 el = el + "<div class='amount_detail_item_span1'>"
+								 el = el + "<div class='amount_detail_item_span1_type'>"+type+"</div>";
+									
+								 el = el + "<div class='amount_detail_item_span1_time'>"+applyTime+"</div>";
+								 el = el + "</div>";
+								
+								 el = el + "<div class='amount_detail_item_span2'>";
+								 el = el + "<div class='amount_detail_item_span2_money'>"+amount+"</div>";
+								 el = el + "<div class='amount_detail_item_span2_status'>"+status+"</div>";
+								 el = el + "</div>";
+								 el = el + "</div>";
+								 
+								 $(".amount_details").append(el);
+							}
+							
+							
+						}
+					}
+					request(url,callback);
+				}
+				
+				$(document).ready(function(){
+					reloadDetail();
+				});
 			
 				
 			</script>

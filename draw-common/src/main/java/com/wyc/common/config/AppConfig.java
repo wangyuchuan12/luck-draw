@@ -24,6 +24,7 @@ import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.danga.MemCached.MemCachedClient;
 import com.danga.MemCached.SockIOPool;
@@ -39,6 +40,7 @@ import com.wyc.common.wx.domain.WxContext;
 @ComponentScan(basePackages = "com.wyc", excludeFilters = {
         @Filter(type = FilterType.ASSIGNABLE_TYPE, value = WebConfig.class),
         @Filter(type = FilterType.ASSIGNABLE_TYPE, value = DatabaseConfig.class) })
+@EnableScheduling
 public class AppConfig {
 	 @Autowired
 	    private WxContextService wxContextService;
@@ -136,6 +138,7 @@ public class AppConfig {
 	        wxContext.setDomainName(myProperties.getProperty("domain_name"));
 	        wxContext.setKey(myProperties.getProperty("key"));
 	        wxContext.setMchId(myProperties.getProperty("mch_id"));
+	        wxContext.setTransferFee(Integer.parseInt(myProperties.getProperty("transfer_fee")));
 //	        wxContext = wxContextService.getWxContextBean();
 	        return wxContext;
 	    }

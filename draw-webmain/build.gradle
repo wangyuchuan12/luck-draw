@@ -93,6 +93,8 @@ dependencies{
 	
 	compile project(':draw-pay');
 	
+	compile project(':draw-task');
+	
 	
 }
 

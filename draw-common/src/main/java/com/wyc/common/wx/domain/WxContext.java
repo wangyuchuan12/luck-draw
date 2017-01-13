@@ -1,5 +1,4 @@
 package com.wyc.common.wx.domain;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +22,18 @@ public class WxContext {
     private String mchId;
     @Column(name="mac_key")
     private String key;
-    public Long getId() {
+       
+    //转账手续费 小数点
+    @Column(name="transfer_fee")
+    private Integer transferFee;
+
+    public Integer getTransferFee() {
+		return transferFee;
+	}
+	public void setTransferFee(Integer transferFee) {
+		this.transferFee = transferFee;
+	}
+	public Long getId() {
         return id;
     }
     public void setId(Long id) {

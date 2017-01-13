@@ -14,10 +14,16 @@ public class Response {
 	public Response(InputStream inputStream){
 		this.inputStream = inputStream;
 	}
+	
 	public Response(InputStream inputStream , String charsetName){
 		this.inputStream = inputStream;
 		this.charsetName = charsetName;
 	}
+	
+	public InputStream getInputStream(){
+		return inputStream;
+	}
+	
 	public String read()throws Exception{
 		byte[] jsonBytes = new byte[this.inputStream.available()];
 		inputStream.read(jsonBytes);

@@ -2,6 +2,8 @@ package com.wyc.draw.service;
 
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -37,5 +39,12 @@ public class DrawUserService {
 	
 	public DrawUser findByUserIdWithLuck(String userId){
 		return drawUserRepository.findByUserIdWithLock(userId);
+	}
+
+	
+	@Transactional
+	public void initDrawUserCanTakeOutCount(int count) {
+		drawUserRepository.initDrawUserCanTakeOutCount(count);
+		
 	}
 }

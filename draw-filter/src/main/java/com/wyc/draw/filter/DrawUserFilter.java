@@ -47,6 +47,7 @@ public class DrawUserFilter extends Filter{
 			drawUser.setAnswerNum(0);
 			drawUser.setGetRedPacketAmount(new BigDecimal("0"));
 			drawUser.setGetRedPacketNum(0);
+			drawUser.setCanTakeOutCount(3);
 			drawUser.setWrongAnswerNum(0);
 			drawUser.setHandRedPacketAmount(new BigDecimal("0"));
 			drawUser.setHandRedPacketNum(0);

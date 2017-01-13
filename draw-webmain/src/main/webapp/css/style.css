@@ -788,3 +788,102 @@ li::before{
 	
 	font-weight: bold;
 }
+
+.take_out_out{
+	display: block;
+	text-align: center;
+	position: relative;
+	top:-30px;
+}
+.take_out_out span{
+	color: red;
+}
+
+.amount_details{
+	width:100%;
+	
+	background-color: white;
+}
+
+.amount_details_header{
+	padding-left: 10px;
+	color: black;
+	
+	background-color: RGBA(241,241,242,1);
+	
+	padding-bottom: 5px;
+}
+
+
+.amount_detail_item{
+	border: 1px solid RGBA(241,241,242,1);
+	height: 80px;
+	
+}
+
+.amount_detail_item_span1{
+	display: inline-block;
+	
+	padding-top: 10px;
+	
+	padding-bottom: 10px;
+	
+	position: relative;
+	
+	left: 20px;
+}
+
+.amount_detail_item_span1_type{
+	color: black;
+	
+	font-size:15px;
+	
+	font-weight: bold;
+}
+
+
+.amount_detail_item_span1_time{
+	font-size: 10px;	
+}
+
+.amount_detail_item_span2{
+	display: inline-block;
+	padding-top: 10px;
+	
+	padding-bottom: 10px;
+	
+	float: right;
+	
+	right: 20px;
+	
+	height:auto;
+	position: absolute;
+}
+
+.amount_detail_item_span2_money{
+	color: black;
+	
+	font-weight: bolder;
+	
+	font-size: 20px;
+	
+	width:200px;
+	
+	text-align: right;
+	
+}
+
+.amount_detail_item_span2_status{
+	font-size: 10px;
+	
+	color: green;
+	
+	width:200px;
+	
+	text-align: right;
+}
+
+.amount_detail_item_span2_status span{
+	color: black;
+	display: block;
+}

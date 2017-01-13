@@ -6,26 +6,37 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.domain.ApplyForm;
 import com.wyc.common.domain.vo.ResultVo;
+import com.wyc.common.domain.vo.TransfersResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.service.ApplyFormService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.common.wx.domain.UserInfo;
+import com.wyc.common.wx.domain.WxContext;
+import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.service.DrawUserService;
+import com.wyc.pay.service.PayService;
 
 public class TakeOutApplyFilter extends Filter{
 
 	@Autowired
 	private ApplyFormService applyFormService;
+	
+	@Autowired
+	private PayService payService;
+	
+	@Autowired
+	private DrawUserService drawUserServivce;
+	
+	@Autowired
+	private WxContext wxContext;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -50,6 +61,8 @@ public class TakeOutApplyFilter extends Filter{
 			filterManager.setReturnValue(resultVo);
 			return null;
 		}
+		
+		
 		BigDecimal amountBigDecimal = new BigDecimal(amount);
 		
 		if(new BigDecimal(amountBigDecimal.intValue()).compareTo(amountBigDecimal)!=0){
@@ -71,27 +84,89 @@ public class TakeOutApplyFilter extends Filter{
 		}
 		Calendar now = Calendar.getInstance();
 		now.setTime(new Date());
-		String outTradeNo = now.get(Calendar.YEAR)
-                +"-"+(now.get(Calendar.MONTH) + 1)
-                +"-"+now.get(Calendar.DAY_OF_MONTH)
-                +"-"+now.get(Calendar.HOUR_OF_DAY)
-                +"-"+now.get(Calendar.MINUTE)
-                +"-"+now.get(Calendar.SECOND)
-                +"-"+now.get(Calendar.MILLISECOND)
-                +"-"+new Random().nextInt(1000)+"";
+//		String outTradeNo = now.get(Calendar.YEAR)
+//                +"-"+(now.get(Calendar.MONTH) + 1)
+//                +"-"+now.get(Calendar.DAY_OF_MONTH)
+//                +"-"+now.get(Calendar.HOUR_OF_DAY)
+//                +"-"+now.get(Calendar.MINUTE)
+//                +"-"+now.get(Calendar.SECOND)
+//                +"-"+now.get(Calendar.MILLISECOND)
+//                +"-"+new Random().nextInt(1000)+"";
 		
+		
+		DrawUser drawUser = drawUserServivce.findByUserIdWithLuck(userInfo.getId());
+		
+		if(drawUser.getCanTakeOutCount()<=0){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("用户本月可提现次数已经用完");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		if(drawUser.getAmountBalance()==null||drawUser.getAmountBalance().compareTo(amountBigDecimal)<0){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("对不起，余额不足");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
 		
 		ApplyForm applyForm = new ApplyForm();
 		applyForm.setAmount(amountBigDecimal);
 		applyForm.setApplyTime(new DateTime());
-		applyForm.setTradeOutNo(outTradeNo);
+		//applyForm.setTradeOutNo(outTradeNo);
 		applyForm.setMsg(userInfo.getNickname()+"申请提现"+amount+"元");
 		applyForm.setOpenid(userInfo.getOpenid());
 		applyForm.setStatus(Constant.APPLY_FORM_STATUS_IN);
+		
+	
 		applyForm.setType(Constant.APPLY_FORM_TYPE_TAKE_OUT);
+		
+		BigDecimal realAmountBigDecimal = new BigDecimal(amountBigDecimal.floatValue());
+		
+		BigDecimal transferFeeBigDecimal = new BigDecimal(wxContext.getTransferFee());
+		transferFeeBigDecimal = transferFeeBigDecimal.divide(new BigDecimal(100));
+		realAmountBigDecimal = realAmountBigDecimal.subtract(realAmountBigDecimal.multiply(transferFeeBigDecimal));
+		
+		
+		applyForm.setRealHandleAmount(realAmountBigDecimal);
 		applyFormService.add(applyForm);
 		
+		drawUser.setAmountBalance(drawUser.getAmountBalance().subtract(amountBigDecimal));
 		
+		drawUser.setCanTakeOutCount(drawUser.getCanTakeOutCount()-1);
+		drawUserServivce.update(drawUser);
+		
+		
+		try{
+			
+			TransfersResultVo resultVo = payService.transfers(userInfo.getOpenid(), realAmountBigDecimal, httpServletRequest.getRemoteAddr(), "提取现金红包");
+			if(resultVo!=null){
+				applyForm.setTradeOutNo(resultVo.getOutTradeNo());
+			}
+			if(resultVo!=null&resultVo.getResultCode().equals("SUCCESS")){
+				applyForm.setStatus(Constant.APPLY_FORM_STATUS_SUCCESS);
+				applyForm.setHandleTime(new DateTime());
+				
+				applyFormService.update(applyForm);
+			}else{
+				
+				applyForm.setErrorCount(1);
+				applyForm.setStatus(Constant.APPLY_FORM_STATUS_FAILURE);
+				applyForm.setHandleTime(new DateTime());
+				applyForm.setMsg(userInfo.getNickname()+"申请提现失败"+","+resultVo.getReturnMsg());
+				applyForm.setErrCode(resultVo.getErrCode());
+				applyFormService.update(applyForm);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		filterManager.save(drawUser);
 		return applyForm;
 	}
 

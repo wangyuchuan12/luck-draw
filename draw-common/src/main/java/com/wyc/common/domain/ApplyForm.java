@@ -10,9 +10,11 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
+import com.wyc.common.util.MyDateSerializer;
 
 
 //申请单
@@ -39,6 +41,11 @@ public class ApplyForm {
 	@ParamAnnotation
 	private BigDecimal amount;
 	
+	//实际操作金额
+	@ParamAnnotation
+	@Column(name="real_handle_amount")
+	private BigDecimal realHandleAmount;
+	
 	//状态
 	@Column
 	@ParamAnnotation
@@ -46,6 +53,7 @@ public class ApplyForm {
 	
 	//申请时间
 	@Column(name="apply_time")
+	@JsonSerialize(using=MyDateSerializer.class)
 	@ParamAnnotation
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime applyTime;
@@ -65,6 +73,14 @@ public class ApplyForm {
 	@Column(name="trade_out_no")
 	private String tradeOutNo;
 	
+	@ParamAnnotation
+	@Column(name="err_code")
+	private String errCode;
+	
+	
+	//失败次数
+	@Column(name="error_count")
+	private Integer errorCount;
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -81,6 +97,33 @@ public class ApplyForm {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public Integer getErrorCount() {
+		return errorCount;
+	}
+	
+	
+	
+
+	public BigDecimal getRealHandleAmount() {
+		return realHandleAmount;
+	}
+
+	public void setRealHandleAmount(BigDecimal realHandleAmount) {
+		this.realHandleAmount = realHandleAmount;
+	}
+
+	public void setErrorCount(Integer errorCount) {
+		this.errorCount = errorCount;
+	}
+
+	public String getErrCode() {
+		return errCode;
+	}
+
+	public void setErrCode(String errCode) {
+		this.errCode = errCode;
 	}
 
 	public Integer getType() {

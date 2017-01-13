@@ -71,6 +71,11 @@ public class DrawUser {
 	private Integer wrongAnswerNum;
 	
 	
+	//本月可提现次数
+	@Column(name="can_take_out_count")
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
+	private Integer canTakeOutCount;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -82,6 +87,14 @@ public class DrawUser {
     
     
     
+
+	public Integer getCanTakeOutCount() {
+		return canTakeOutCount;
+	}
+
+	public void setCanTakeOutCount(Integer canTakeOutCount) {
+		this.canTakeOutCount = canTakeOutCount;
+	}
 
 	public DateTime getCreateAt() {
 		return createAt;

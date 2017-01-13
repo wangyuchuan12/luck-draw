@@ -1,5 +1,6 @@
 package com.wyc.common.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -23,4 +24,21 @@ public class ApplyFormService {
 		return applyFormRepository.save(applyForm);
 		
 	}
+
+	public List<ApplyForm> findAllByOpenidOrderByApplyTimeDesc(String openid) {
+		return applyFormRepository.findAllByOpenidOrderByApplyTimeDesc(openid);
+	}
+
+	public ApplyForm update(ApplyForm applyForm) {
+		applyForm.setUpdateAt(new DateTime());
+		
+		return applyFormRepository.save(applyForm);
+		
+	}
+
+	public List<ApplyForm> findAllByTypeAndStatusOrderByApplyTimeDesc(int type,
+			int status) {
+		return applyFormRepository.findAllByTypeAndStatusOrderByApplyTimeDesc(type,status);
+	}
+	
 }
