@@ -37,7 +37,7 @@ public class DrawUser {
 	
 	//账号余额
 	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
-	@Column(name="admount_balance")
+	@Column(name="amount_balance")
 	private BigDecimal amountBalance;
 	
 	//发红包个数

@@ -172,7 +172,7 @@ public class AnswerRedPackFilter extends Filter{
 			if(!drawRoomMember.getDrawUserId().equals(drawUser.getId())){
 				ResultVo resultVo = new ResultVo();
 				resultVo.setSuccess(false);
-				resultVo.setErrorMsg("房间成员的红包id跟本红包id不对应");
+				resultVo.setErrorMsg("房间成员的用户id跟本用户id不对应");
 				filterManager.setReturn(true);
 				filterManager.setReturnValue(resultVo);
 				return null;
@@ -234,8 +234,10 @@ public class AnswerRedPackFilter extends Filter{
 			if(amountBalance==null){
 				amountBalance = new BigDecimal(0);
 			}
-			
+			System.out.println("................................................"+redPacket.getAmount());
 			amountBalance.add(redPacket.getAmount());
+			
+			System.out.println("................................................."+amountBalance);
 			drawUser.setAmountBalance(amountBalance);
 			drawUserService.update(drawUser);
 			answerRedPacketResultVo.setIsRight(1);
