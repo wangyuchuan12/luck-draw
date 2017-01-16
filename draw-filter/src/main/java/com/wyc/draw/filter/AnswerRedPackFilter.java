@@ -137,7 +137,7 @@ public class AnswerRedPackFilter extends Filter{
 		//如果是房间问答红包
 		if(redPacket.getType()==Constant.ROOM_QUESTION_TYPE){
 			
-			DrawRoom drawRoom = drawRoomService.findOne(roomId);
+			
 			String roomMemberId = httpServletRequest.getParameter("room_member_id");
 			
 			if(CommonUtil.isEmpty(roomId)){
@@ -186,6 +186,7 @@ public class AnswerRedPackFilter extends Filter{
 				return null;
 			}
 			
+			DrawRoom drawRoom = drawRoomService.findOne(roomId);
 			if(CommonUtil.isEmpty(drawRoom)){
 				ResultVo resultVo = new ResultVo();
 				resultVo.setSuccess(false);
