@@ -177,7 +177,7 @@ public class AnswerRedPackFilter extends Filter{
 				return null;
 			}
 			
-			if(drawRoomMember.getDrawRoomId().equals(roomId)){
+			if(!drawRoomMember.getDrawRoomId().equals(roomId)){
 				ResultVo resultVo = new ResultVo();
 				resultVo.setSuccess(false);
 				resultVo.setErrorMsg("房间成员对象和房间id不对应");
