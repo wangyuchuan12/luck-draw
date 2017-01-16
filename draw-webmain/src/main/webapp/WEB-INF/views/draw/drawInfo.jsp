@@ -11,6 +11,20 @@
 			<input name="handTime" value="${result.data.handTime}" type="hidden"/>
 			<input name="timeLong" value="${result.data.timeLong}" type="hidden"/>
 			<input name="redPacketId" value="${result.data.id}" type="hidden"/>
+			<input name="packetRoomId" value="${result.data.drawRoomId}" type="hidden"/>
+			<input name="roomMemberId" value="${result.data.handRoomMemberId}" type="hidden"/>
+			
+			<input name="wordNum" value="${fn:length(result.data.answer)}" type="hidden"/>
+			
+			<input name="count" value="${result.data.count}" type="hidden"/>
+			
+			<input name="allowWrongCount" value="${result.data.allowWrongCount}" type="hidden"/>
+			
+			<input name="isReceive" value="${result.data.isReceive}" type="hidden"/>
+			
+			<input name="isTimeOut" value="${result.data.isTimeout}" type="hidden"/>
+			
+			<input name="isPay" value="${result.data.isPay}" type="hidden"/>
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">问答红包</div>
@@ -87,8 +101,60 @@
 			</div>
 			
 			<script type="text/javascript">
-			
-			
+				var isEnd = false;
+				initView();
+				function initView(prompt){
+					var count = $("input[name=count]").val();
+					count = parseInt(count);
+					
+					var allowWrongCount = $("input[name=allowWrongCount]").val();
+					allowWrongCount = parseInt(allowWrongCount);
+					
+					var isReceive = $("input[name=isReceive]").val();
+					isReceive = parseInt(isReceive);
+					
+					
+					var isPay = $("input[name=isPay]").val();
+					
+					isPay = parseInt(isPay);
+					
+					var isTimeOut = $("input[name=isTimeOut]").val();
+					if(prompt){
+						$(".luck_info_alert").text(prompt);
+						$(".luck_info_alert").css("display","block");
+					}
+					if(isReceive==1){
+						$(".luck_info_alert").text("该红包已经被领取");
+						$(".luck_info_answer").css("display","none");
+						$(".luck_info_situation").css("display","none");
+						$(".luck_info_alert").css("display","block");
+						
+						return;
+					}else if(isPay==0){
+						$(".luck_info_alert").text("该红包还未收到付款，再等半分钟");
+						$(".luck_info_answer").css("display","none");
+						$(".luck_info_situation").css("display","none");
+						$(".luck_info_alert").css("display","block");
+						return;
+					}else if(isTimeOut==1){
+						$(".luck_info_alert").text("该红包已超时");
+						$(".luck_info_answer").css("display","none");
+						$(".luck_info_alert").css("display","block");
+						
+						return;
+					}else if(allowWrongCount<=count){
+						$(".luck_info_alert").text("你答题次数已经超过"+count+"次，不能再答题了");
+						$(".luck_info_answer").css("display","none");
+						$(".luck_info_situation").css("display","none");
+						$(".luck_info_alert").css("display","block");
+						
+						if(prompt){
+							$(".luck_info_alert").text(prompt+",你回答次数已经超过"+count+"次，不能再答题了");
+						}
+						return;
+					}
+				}
+				
 				function appendPrompt(id,prompt){
 					$(".luck_info_question_prompt_items").append("<div id='"+id+"' class='luck_info_question_prompt_item'>"+prompt+" <em class='fa fa-close'></em></div>");
 				}
@@ -130,7 +196,95 @@
 				
 				
 				function submitAnswer(){
+					var roomId = $("input[name=packetRoomId]").val();
+
+					var roomMemberId = $("input[name=roomMemberId]").val();
 					
+					var answer = $("#luck_info_answer_input").val();
+					
+					var answerLength = answer.length;
+					
+					var wordNum = $("input[name=wordNum]").val();
+					
+					wordNum = parseInt(wordNum);
+					
+					
+					var count = $("input[name=count]").val();
+					count = parseInt(count);
+					
+					var allowWrongCount = $("input[name=allowWrongCount]").val();
+					allowWrongCount = parseInt(allowWrongCount);
+					
+					var isReceive = $("input[name=isReceive]").val();
+					isReceive = parseInt(isReceive);
+					
+					
+					var isPay = $("input[name=isPay]").val();
+					
+					isPay = parseInt(isPay);
+					
+					if(isPay!=1){
+						showToast("该红包尚未付款");
+						return;
+					}
+					
+					if(isReceive==1){
+						showToast("该红包已经被领取");
+						return;
+					}
+					if(!answer){
+						showToast("答案不能为空");
+						return;
+					}
+					
+					if(answerLength!=wordNum){
+						showToast("请输入"+wordNum+"个字");
+						return;
+					}
+					
+					if(isEnd){
+						showToast("时间已结束");
+						return;
+					}
+					
+					if(count>=allowWrongCount){
+						showToast("你的次数已经用完");
+						return;
+					}
+					
+					var redPacketId = $("input[name=redPacketId]").val();
+					var params = new Object();
+					params.id = redPacketId;
+					params.room_id = roomId;
+					params.room_member_id = roomMemberId;
+					params.answer = answer;
+					var callback = new Object();
+					showLoading();
+					callback.success = function(obj){
+						hideLoading();
+						if(obj.success){
+							if(obj.data.isRight==1){
+								$(".luck_info_alert").css("display","block");
+								$(".luck_info_alert").html("回答正确，金额已存入账户");
+								$(".luck_info_answer").css("display","none");
+							}else{
+								
+								var count = $("input[name=count]").val();
+								count = parseInt(count);
+								count = count+1;
+								
+								$("input[name=count]").val(count);
+								initView("回答错误");
+							}
+						}
+					}
+					
+					callback.failure = function(obj){
+						hideLoading();
+						showToast("现在用户访问量过大，请稍后再试");
+					}
+					
+					request("/api/draw/red_pack/answer",callback,params);
 				}
 				
 				function initPrompts(){
@@ -192,7 +346,9 @@
 					setIsDisplayRoom(1);
 					var callback = new Object();
 					callback.end = function(){
-						$(".luck_info_alert").css("display","block");
+						$("input[name=isTimeOut]").val(1);
+						initView();
+						
 					}
 					var handTime = $("input[name=handTime]").val();
 					

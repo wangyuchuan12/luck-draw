@@ -1,6 +1,11 @@
 package com.wyc.draw.vo;
 
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -13,76 +18,154 @@ import com.wyc.common.util.MyDateSerializer;
 public class RedPacketVo {
 
 	@IdAnnotation
-	private String id;
+    private String id;
 	
 	
-	//红包所属房间id
-	@ParamAnnotation
-	private String drawRoomId;
-	
-	
-	//提交用户
-	@ParamAnnotation
-	private String handDrawUserId;
-	
-	
-	//红包房间成员id
+	//红包所属房间参与用户id
 	@ParamAnnotation
 	private String handRoomMemberId;
 	
-
+	//所属房间id
+	@ParamAnnotation
+	private String drawRoomId;
+	
 	//红包类型
 	@ParamAnnotation
 	private Integer type;
 	
-	//提交时间
-	@JsonSerialize(using=MyDateSerializer.class)
+	//红包用户id
+	@ParamAnnotation
+	private String handDrawUserId;
+	
+	
+	//红包接收人
+	@ParamAnnotation
+	private String receiveDrawUserId;
+	
+	//发送时间
 	@ParamAnnotation
 	private DateTime handTime;
-
-	//支付类型
+	
+	//红包截止时长
 	@ParamAnnotation
-	private Integer payType;
-	
-	
-	//用户头像
-	@ParamAnnotation
-	private String userImgUrl;
-	
-	//用户昵称
-	@ParamAnnotation
-	private String nickname;
-	
-	
-	//问题
-	@ParamAnnotation
-	private String question;
+	private int timeLong;
 	
 	//红包金额
 	@ParamAnnotation
 	private BigDecimal amount;
 	
+	//问题
+	@ParamAnnotation
+	private String question;
+	
+	//答案
+	@ParamAnnotation
+	private String answer;
+	
+	
+	//红包付款订单号
+	@ParamAnnotation
+	private String outTradeNo;
+
+	//是否可领取
+	@ParamAnnotation
+	private Integer isReceiveAble;
+	
+	//红包是否已接受
+	@ParamAnnotation
+	private Integer isReceive;
+	
+	//红包是否已到时间
+	@ParamAnnotation
+	private Integer isTimeout;
+	
+	//允许错误次数
+	@ParamAnnotation
+	private Integer allowWrongCount;
+	
+	
+	//是否已付款
+	@ParamAnnotation
+	private Integer isPay;
+	
+	//支付类型
+	@ParamAnnotation
+	private Integer payType;
+	
 	//提示信息
 	@ParamAnnotation
 	private String prompt;
 	
+	//是否退款
 	@ParamAnnotation
-	private String answer;
-	
-	//是否已到时间
-	@ParamAnnotation
-	private Integer isTimeout;
-	
-	//时长
-	@ParamAnnotation
-	private int timeLong;
-	
+	private Integer isRefund;
 	
 	@ParamAnnotation
-	private String outTradeNo;
+	private String nickname;
+	
+	@ParamAnnotation
+	private String userImgUrl;
+	
+	@ParamAnnotation
+	private Integer count;
 	
 	
-	
+	public Integer getCount() {
+		return count;
+	}
+
+
+
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+
+
+
+	public String getNickname() {
+		return nickname;
+	}
+
+
+
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+
+
+
+	public String getUserImgUrl() {
+		return userImgUrl;
+	}
+
+
+
+
+	public void setUserImgUrl(String userImgUrl) {
+		this.userImgUrl = userImgUrl;
+	}
+
+
+
+
+	public Integer getIsPay() {
+		return isPay;
+	}
+
+
+
+
+	public void setIsPay(Integer isPay) {
+		this.isPay = isPay;
+	}
+
+
+
+
 	public int getTimeLong() {
 		return timeLong;
 	}
@@ -186,21 +269,77 @@ public class RedPacketVo {
 		this.handTime = handTime;
 	}
 
-	public String getUserImgUrl() {
-		return userImgUrl;
+	
+
+	public String getReceiveDrawUserId() {
+		return receiveDrawUserId;
 	}
 
-	public void setUserImgUrl(String userImgUrl) {
-		this.userImgUrl = userImgUrl;
+
+
+
+	public void setReceiveDrawUserId(String receiveDrawUserId) {
+		this.receiveDrawUserId = receiveDrawUserId;
 	}
 
-	public String getNickname() {
-		return nickname;
+
+
+
+	public Integer getIsReceiveAble() {
+		return isReceiveAble;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+
+
+
+	public void setIsReceiveAble(Integer isReceiveAble) {
+		this.isReceiveAble = isReceiveAble;
 	}
+
+
+
+
+	public Integer getIsReceive() {
+		return isReceive;
+	}
+
+
+
+
+	public void setIsReceive(Integer isReceive) {
+		this.isReceive = isReceive;
+	}
+
+
+
+
+	public Integer getAllowWrongCount() {
+		return allowWrongCount;
+	}
+
+
+
+
+	public void setAllowWrongCount(Integer allowWrongCount) {
+		this.allowWrongCount = allowWrongCount;
+	}
+
+
+
+
+	public Integer getIsRefund() {
+		return isRefund;
+	}
+
+
+
+
+	public void setIsRefund(Integer isRefund) {
+		this.isRefund = isRefund;
+	}
+
+
+
 
 	public String getQuestion() {
 		return question;

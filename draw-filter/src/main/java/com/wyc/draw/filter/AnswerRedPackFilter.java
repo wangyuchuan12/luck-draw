@@ -214,6 +214,7 @@ public class AnswerRedPackFilter extends Filter{
 		
 		redPacketTakepartMember.setOpenid(userInfo.getOpenid());
 		redPacketTakepartMember.setUserId(userInfo.getId());
+		redPacketTakepartMember.setDrawUserId(drawUser.getId());
 		redPacketTakepartMember.setAnswer(answer);
 		redPacketTakepartMember.setTakepartDateTime(new DateTime());
 		redPacketTakepartMember.setType(redPacket.getType());
@@ -234,10 +235,8 @@ public class AnswerRedPackFilter extends Filter{
 			if(amountBalance==null){
 				amountBalance = new BigDecimal(0);
 			}
-			System.out.println("................................................"+redPacket.getAmount());
-			amountBalance.add(redPacket.getAmount());
-			
-			System.out.println("................................................."+amountBalance);
+
+			amountBalance = amountBalance.add(redPacket.getAmount());
 			drawUser.setAmountBalance(amountBalance);
 			drawUserService.update(drawUser);
 			answerRedPacketResultVo.setIsRight(1);

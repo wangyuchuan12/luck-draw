@@ -14,8 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.wx.domain.UserInfo;
+import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
+import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.service.RedPacketService;
+import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.vo.RedPacketVo;
 
 //获取红包信息
@@ -23,30 +26,21 @@ public class GetRedPackFilter extends Filter{
 
 	@Autowired
 	private RedPacketService redPackageService;
+	
+	@Autowired
+	private RedPacketTakepartMemberService redPacketTakepartMemberService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		
 		UserInfo userInfo = (UserInfo)filterManager.getObject(UserInfo.class);
+		
+		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		String id = httpServletRequest.getParameter("id");
 		RedPacket redPacket  = redPackageService.findOne(id);
 		
 		
-		System.out.println("id:"+id);
-		if(redPacket.getIsTimeout()==0){
-			
-			Calendar calendar = Calendar.getInstance();
-			DateTime handTime = redPacket.getHandTime();
-			calendar.setTime(handTime.toDate());
-			int timeLong = redPacket.getTimeLong();
-			calendar.add(Calendar.HOUR_OF_DAY, timeLong);
-			
-			if(calendar.before(new Date())){
-				redPacket.setIsTimeout(1);
-				redPackageService.update(redPacket);
-			}
-			
-		}
+		int count = redPacketTakepartMemberService.countByRedPacketIdAndDrawUserId(id, drawUser.getId());
 		
 		RedPacketVo redPacketVo = new RedPacketVo();
 		redPacketVo.setDrawRoomId(redPacket.getDrawRoomId());
@@ -64,6 +58,12 @@ public class GetRedPackFilter extends Filter{
 		redPacketVo.setAnswer(redPacket.getAnswer());
 		redPacketVo.setIsTimeout(redPacket.getIsTimeout());
 		redPacketVo.setTimeLong(redPacket.getTimeLong());
+		redPacketVo.setIsPay(redPacket.getIsPay());
+		redPacketVo.setCount(count);
+		redPacketVo.setAllowWrongCount(redPacket.getAllowWrongCount());
+		redPacketVo.setIsPay(redPacket.getIsPay());
+		
+		redPacketVo.setIsReceive(redPacket.getIsReceive());
 		return redPacketVo;
 	}
 
