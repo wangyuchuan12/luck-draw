@@ -1,6 +1,7 @@
 package com.wyc.draw.filter;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -229,7 +230,13 @@ public class AnswerRedPackFilter extends Filter{
 			redPacketTakepartMember.setGetAmount(redPacket.getAmount());
 			redPackageService.update(redPacket);
 			
-			drawUser.setAmountBalance(redPacket.getAmount());
+			BigDecimal amountBalance =drawUser.getAmountBalance();
+			if(amountBalance==null){
+				amountBalance = new BigDecimal(0);
+			}
+			
+			amountBalance.add(redPacket.getAmount());
+			drawUser.setAmountBalance(amountBalance);
 			drawUserService.update(drawUser);
 			answerRedPacketResultVo.setIsRight(1);
 		}else{
