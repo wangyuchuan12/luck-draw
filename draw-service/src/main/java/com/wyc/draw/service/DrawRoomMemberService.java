@@ -28,5 +28,8 @@ public class DrawRoomMemberService {
 	public DrawRoomMember findByDrawUserIdAndDrawRoomId(String drawUserId,String drawRoomId) {
 		return drawRoomMemberRepository.findByDrawUserIdAndDrawRoomId(drawUserId,drawRoomId);
 	}
+	public DrawRoomMember findOne(String id) {
+		return drawRoomMemberRepository.findOne(id);
+	}
 
 }

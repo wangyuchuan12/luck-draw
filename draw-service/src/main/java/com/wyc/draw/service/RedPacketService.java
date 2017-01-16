@@ -10,7 +10,7 @@ import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.repositories.RedPackageRepository;
 
 @Service
-public class RedPackageService {
+public class RedPacketService {
 	
 	@Autowired
 	private RedPackageRepository redPackageRepository;

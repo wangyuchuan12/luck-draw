@@ -73,7 +73,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			setRoomId($("input[name=bakRoomId]").val());
-		}
+		});
 	
 	</script>
 			

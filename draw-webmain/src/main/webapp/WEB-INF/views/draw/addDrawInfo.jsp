@@ -144,7 +144,7 @@
 		
 		var answer = $("input[name=answer]").val();
 		
-		var type = $("input[name=type]").val();
+		var type = $("input[name=type]:checked").val();
 		
 		var room = $("select[name=room]").val();
 		
@@ -153,7 +153,8 @@
 		var url = "/api/draw/red_pack/add";
 		var params = new Object();
 		
-		params.draw_room_id = "9fc5e451-f762-4df7-91d0-ac39b888a82f";
+		params.draw_room_id = $("#room").val();
+
 		params.type = type;
 		
 		params.amount = amount;
@@ -164,9 +165,9 @@
 		
 		params.payType = payType;
 		
-		
 		var callback = new Object();
 		callback.success = function(obj){
+
 			var outObject = obj;
 			if(obj.success){
 				

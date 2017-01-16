@@ -1,11 +1,9 @@
 package com.wyc.common.domain.vo;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
 
-@ParamEntityAnnotation
+@ParamEntityAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 public class WxConfigBean {
 	
 	@IdAnnotation
@@ -13,14 +11,14 @@ public class WxConfigBean {
 	@ParamAnnotation
 	private String signature;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
     private String noncestr;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
     private String appId;
 
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	private String datetime;
 
 	public String getId() {

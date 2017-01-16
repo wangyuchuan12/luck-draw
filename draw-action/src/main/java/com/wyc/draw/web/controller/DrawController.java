@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawRoom;
@@ -52,6 +53,11 @@ public class DrawController {
 		String isDisplayRoom = httpServletRequest.getParameter("isDisplayRoom");
 		String isDisplayType = httpServletRequest.getParameter("isDisplayType");
 		
+		Integer isDisplayTypeInt = 1;
+		
+		if(!CommonUtil.isEmpty(isDisplayType)){
+			isDisplayTypeInt = Integer.parseInt(isDisplayType);
+		}
 		
 		httpServletRequest.setAttribute("redPackType", redPackType);
 		httpServletRequest.setAttribute("isDisplayRoom", isDisplayRoom);
@@ -63,8 +69,11 @@ public class DrawController {
 		
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
 		httpServletRequest.setAttribute("amountBalance", drawUser.getAmountBalance());
-		if(redPackTypeInt==Constant.ROOM_QUESTION_TYPE){
+		if(isDisplayTypeInt==1||redPackTypeInt==Constant.ROOM_QUESTION_TYPE){
 			List<DrawRoom> drawRooms = drawRoomService.findAllByDrawUserId(drawUser.getId());
+			
+			
+			System.out.println("........drawRooms:"+drawRooms);
 			httpServletRequest.setAttribute("rooms",drawRooms);
 			String roomId = httpServletRequest.getParameter("room_id");
 			httpServletRequest.setAttribute("roomId", roomId);

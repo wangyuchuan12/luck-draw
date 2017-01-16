@@ -12,23 +12,23 @@ import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
 
 
-@ParamEntityAnnotation
+@ParamEntityAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 @Entity(name="jsapi_ticket")
 public class JsapiTicketBean {
     @Id
     @IdAnnotation
     private String id;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
     private String errcode;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
     private String errmsg;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
     private String ticket;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
     private String expires_in;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")

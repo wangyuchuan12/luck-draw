@@ -15,14 +15,14 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.RedPacket;
-import com.wyc.draw.service.RedPackageService;
+import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.vo.RedPacketVo;
 
 //获取红包信息
 public class GetRedPackFilter extends Filter{
 
 	@Autowired
-	private RedPackageService redPackageService;
+	private RedPacketService redPackageService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();

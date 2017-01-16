@@ -29,7 +29,7 @@
 			</div>
 			
 			<div class="luck_info_answer">
-				<input />
+				<input id="luck_info_answer_input"/>
 				<div class="luck_info_answer_button">提交答案</div>
 			</div>
 			
@@ -128,6 +128,11 @@
 					});
 				}
 				
+				
+				function submitAnswer(){
+					
+				}
+				
 				function initPrompts(){
 					var callback = new Object();
 					callback.success = function(obj){
@@ -178,6 +183,10 @@
 				
 				$(document).ready(function(){
 					
+					
+					$(".luck_info_answer_button").click(function(){
+						submitAnswer();
+					});
 					initPrompts();
 					setIsDisplayType(1);
 					setIsDisplayRoom(1);

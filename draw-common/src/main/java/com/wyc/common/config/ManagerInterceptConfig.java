@@ -114,7 +114,11 @@ public class ManagerInterceptConfig {
 				 }
 				 
 				 returnValue = proceedingJoinPoint.proceed();
-				 handleAfterFilter(filter,filterManager);
+				 
+				 /**
+				  * 现在先不要后置处理，等以后框架成熟再加此功能，目前bug还很多
+				  */
+			//	 handleAfterFilter(filter,filterManager);
 				 ResultVo resultVo = (ResultVo)filterManager.getObject(ResultVo.class);
 				 if(resultVo!=null&&resultVo.isSuccess()==false){
 					 Transactional transactional = method.getAnnotation(Transactional.class);

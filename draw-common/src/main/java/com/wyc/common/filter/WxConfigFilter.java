@@ -26,8 +26,6 @@ public class WxConfigFilter extends Filter{
 	private WxContext wxContext;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		
-		
 		JsapiTicketBean jsapiTicketBean = (JsapiTicketBean)filterManager.getObject(JsapiTicketBean.class);
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");

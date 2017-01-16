@@ -10,92 +10,119 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wyc.annotation.IdAnnotation;
+import com.wyc.annotation.ParamAnnotation;
+import com.wyc.annotation.ParamEntityAnnotation;
 
 
 //红包
+@ParamEntityAnnotation
 @Entity(name="d_red_packet")
 public class RedPacket {
 	
-	
+	@IdAnnotation
 	@Id
     private String id;
 	
 	
 	//红包所属房间参与用户id
+	@ParamAnnotation
 	@Column(name="hand_room_member_id")
 	private String handRoomMemberId;
 	
 	//所属房间id
+	@ParamAnnotation
 	@Column(name="draw_room_id")
 	private String drawRoomId;
 	
 	//红包类型
 	@Column
+	@ParamAnnotation
 	private Integer type;
 	
 	//红包用户id
+	@ParamAnnotation
 	@Column(name="hand_draw_user_id")
 	private String handDrawUserId;
 	
 	
 	//红包接收人
+	@ParamAnnotation
 	@Column(name="receive_draw_user_id")
 	private String receiveDrawUserId;
 	
 	//发送时间
+	@ParamAnnotation
 	@Column(name="hand_time")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime handTime;
 	
 	//红包截止时长
+	@ParamAnnotation
 	@Column(name="time_long")
 	private int timeLong;
 	
 	//红包金额
+	@ParamAnnotation
 	@Column
 	private BigDecimal amount;
 	
 	//问题
+	@ParamAnnotation
 	@Column
 	private String question;
 	
 	//答案
+	@ParamAnnotation
 	@Column
 	private String answer;
 	
 	
 	//红包付款订单号
+	@ParamAnnotation
 	@Column(name="out_trade_no")
 	private String outTradeNo;
 
 	//是否可领取
+	@ParamAnnotation
 	@Column(name="is_receive_able")
 	private Integer isReceiveAble;
 	
 	//红包是否已接受
+	@ParamAnnotation
 	@Column(name="is_receive")
 	private Integer isReceive;
 	
 	//红包是否已到时间
+	@ParamAnnotation
 	@Column(name="is_timeout")
 	private Integer isTimeout;
 	
-	public Integer getIsTimeout() {
-		return isTimeout;
-	}
-	public void setIsTimeout(Integer isTimeout) {
-		this.isTimeout = isTimeout;
-	}
+	//允许错误次数
+	@ParamAnnotation
+	@Column(name="allow_wrong_count")
+	private Integer allowWrongCount;
+	
+	
 	//是否已付款
+	@ParamAnnotation
 	@Column(name="is_pay")
 	private Integer isPay;
 	
+	//支付类型
+	@ParamAnnotation
 	@Column(name="pay_type")
 	private Integer payType;
 	
 	//提示信息
+	@ParamAnnotation
 	@Column
 	private String prompt;
+	
+	//是否退款
+	@ParamAnnotation
+	@Column(name="is_refund")
+	private Integer isRefund;
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -105,11 +132,27 @@ public class RedPacket {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime updateAt;
-    
-    
-    
-    
-    
+	
+	public Integer getIsTimeout() {
+		return isTimeout;
+	}
+	public void setIsTimeout(Integer isTimeout) {
+		this.isTimeout = isTimeout;
+	}
+	
+	public Integer getIsRefund() {
+		return isRefund;
+	}
+	public void setIsRefund(Integer isRefund) {
+		this.isRefund = isRefund;
+	}
+	public Integer getAllowWrongCount() {
+		return allowWrongCount;
+	}
+	public void setAllowWrongCount(Integer allowWrongCount) {
+		this.allowWrongCount = allowWrongCount;
+	}
+ 
 	public String getOutTradeNo() {
 		return outTradeNo;
 	}
@@ -145,12 +188,6 @@ public class RedPacket {
 	}
 	public void setPayType(Integer payType) {
 		this.payType = payType;
-	}
-	public Integer isReceive() {
-		return isReceive;
-	}
-	public void setReceive(Integer isReceive) {
-		this.isReceive = isReceive;
 	}
 	public String getReceiveDrawUserId() {
 		return receiveDrawUserId;
@@ -194,10 +231,7 @@ public class RedPacket {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	
-	
-	
+
 	public String getHandRoomMemberId() {
 		return handRoomMemberId;
 	}

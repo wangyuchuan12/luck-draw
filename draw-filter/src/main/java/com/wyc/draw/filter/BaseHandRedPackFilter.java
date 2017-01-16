@@ -23,7 +23,7 @@ import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawUserService;
-import com.wyc.draw.service.RedPackageService;
+import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.vo.RedPacketVo;
 
 
@@ -31,7 +31,7 @@ import com.wyc.draw.vo.RedPacketVo;
 public class BaseHandRedPackFilter extends Filter{
 
 	@Autowired
-	private RedPackageService redPackageService;
+	private RedPacketService redPackageService;
 	
 	@Autowired
 	private DrawRoomMemberService drawRoomMemberService;
@@ -58,6 +58,14 @@ public class BaseHandRedPackFilter extends Filter{
 		String answer = httpServletRequest.getParameter("answer");
 		
 		String payType = httpServletRequest.getParameter("payType");
+		
+		String allowWrongCount = httpServletRequest.getParameter("allowWrongCount");
+		
+		if(CommonUtil.isEmpty(allowWrongCount)){
+			allowWrongCount = "3";
+		}
+		
+		Integer allowWrongCountInt = Integer.parseInt(allowWrongCount);
 		
 		if(CommonUtil.isEmpty(amount)){
 			ResultVo resultVo = new ResultVo();
@@ -163,7 +171,12 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setIsReceive(0);
 		redPacket.setPayType(payTypeInt);
 		redPacket.setIsTimeout(0);
+		redPacket.setAllowWrongCount(allowWrongCountInt);
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
+			
+			
+			System.out.println("drawUser.getId:"+drawUser.getId());
+			System.out.println("drawRoomId:"+drawRoomId);
 			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
 			ResultVo resultVo = new ResultVo();
 			if(CommonUtil.isEmpty(drawRoomId)){

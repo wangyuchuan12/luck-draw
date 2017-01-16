@@ -69,7 +69,7 @@ public class DatabaseConfig {
     public EntityManagerFactory entityManagerFactory(DataSource dataSource) {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
-        vendorAdapter.setShowSql(false);
+        vendorAdapter.setShowSql(true);
         vendorAdapter
                 .setDatabasePlatform("org.hibernate.dialect.MySQL5InnoDBDialect");
         vendorAdapter.setDatabase(Database.MYSQL);

@@ -35,6 +35,9 @@ public class RedPacketTakepartMember {
 	@Column(name="openid")
 	private String openid;
 	
+	@Column(name="draw_user_id")
+	private String drawUserId;
+	
 	//参加时间
 	@Column(name="takepart_datetime")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -48,6 +51,7 @@ public class RedPacketTakepartMember {
 	@Column
 	private String answer;
 	
+	
 	//参与类型
 	@Column
 	private int type;
@@ -59,6 +63,11 @@ public class RedPacketTakepartMember {
 	//获得金额
 	@Column(name="get_amount")
 	private BigDecimal getAmount;
+	
+	
+	//红包id
+	@Column(name="red_packet_id")
+	private String redPacketId;
 	
 	
 	@Column(name = "create_at")
@@ -74,6 +83,21 @@ public class RedPacketTakepartMember {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	
+	
+	public String getRedPacketId() {
+		return redPacketId;
+	}
+	public void setRedPacketId(String redPacketId) {
+		this.redPacketId = redPacketId;
+	}
+	public String getDrawUserId() {
+		return drawUserId;
+	}
+	public void setDrawUserId(String drawUserId) {
+		this.drawUserId = drawUserId;
 	}
 	public String getAdminId() {
 		return adminId;
