@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
-<tiles:insertDefinition name="infoLayout">
+<tiles:insertDefinition name="resourceLayout">
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
 
@@ -25,6 +25,10 @@
 			<input name="isTimeOut" value="${result.data.isTimeout}" type="hidden"/>
 			
 			<input name="isPay" value="${result.data.isPay}" type="hidden"/>
+			
+			<input name="isInRoom" value="${result.data.isInRoom}" type="hidden"/>
+			
+			<input name="type" value="${result.data.type}" type="hidden"/>
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">问答红包</div>
@@ -49,6 +53,23 @@
 			
 			<div class="luck_info_alert" style="display:none">已经到时间了</div>
 			
+			<div class="luck_info_href">
+				<div class="luck_info_item" onclick="skipToPersonalCenter();">
+					<i class="fa fa-user luck_info_item_i" style="color: RGBA(251,222,2,1);"></i>
+					<div class="luck_info_item_content">查看我的钱包</div>
+				</div>
+				
+				<div class="luck_info_item" onclick="skipToAddRedPack(1,1,1);">
+					<i class="fa fa-paper-plane luck_info_item_i" style="color: RGBA(243,151,37,1);"></i>
+					<div class="luck_info_item_content">我也发个红包</div>
+				</div>
+				
+				<div class="luck_info_item" onclick="skipToRoomInfo('${result.data.drawRoomId}');">
+					<i class="fa fa-users luck_info_item_i" style="color: RGBA(126,213,61,1);"></i>
+					<div class="luck_info_item_content">进入房间</div>
+				</div>
+				
+			</div>
 			<div class="luck_info_situation">
 					<div class="luck_info_situation_time">剩余<b id="luck_info_hour">00</b><b id="luck_info_min">00</b><b id="luck_info_second">00</b> 结束</div>
 			</div>
@@ -119,6 +140,20 @@
 					isPay = parseInt(isPay);
 					
 					var isTimeOut = $("input[name=isTimeOut]").val();
+					
+					isTimeOut = parseInt(isTimeOut);
+					
+					var isInRoom = $("input[name=isInRoom]").val();
+					
+					isInRoom = parseInt(isInRoom);
+					
+					var type = $("input[name=type]").val();
+					
+					type = parseInt(type);
+					
+					alert(type);
+					
+					alert(isInRoom);
 					if(prompt){
 						$(".luck_info_alert").text(prompt);
 						$(".luck_info_alert").css("display","block");
@@ -142,6 +177,10 @@
 						$(".luck_info_alert").css("display","block");
 						
 						return;
+					}else if(type==0&&isInRoom!=1){
+						$(".luck_info_alert").text("该红包为房间专属红包，你不在该房间中，无法领取，请点击进入该房间");
+						$(".luck_info_answer").css("display","none");
+						$(".luck_info_alert").css("display","block");
 					}else if(allowWrongCount<=count){
 						$(".luck_info_alert").text("你答题次数已经超过"+count+"次，不能再答题了");
 						$(".luck_info_answer").css("display","none");
@@ -267,6 +306,8 @@
 								$(".luck_info_alert").css("display","block");
 								$(".luck_info_alert").html("回答正确，金额已存入账户");
 								$(".luck_info_answer").css("display","none");
+								$(".luck_info_href").text("点击返回房间");
+								$(".luck_info_href").css("display","block");
 							}else{
 								
 								var count = $("input[name=count]").val();
@@ -275,6 +316,8 @@
 								
 								$("input[name=count]").val(count);
 								initView("回答错误");
+								
+								
 							}
 						}
 					}

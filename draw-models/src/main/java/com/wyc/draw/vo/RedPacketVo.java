@@ -109,7 +109,28 @@ public class RedPacketVo {
 	@ParamAnnotation
 	private Integer count;
 	
+	@ParamAnnotation
+	private Integer isInRoom;
 	
+	
+
+
+
+
+	public Integer getIsInRoom() {
+		return isInRoom;
+	}
+
+
+
+
+	public void setIsInRoom(Integer isInRoom) {
+		this.isInRoom = isInRoom;
+	}
+
+
+
+
 	public Integer getCount() {
 		return count;
 	}

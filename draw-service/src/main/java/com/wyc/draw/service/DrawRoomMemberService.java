@@ -31,5 +31,13 @@ public class DrawRoomMemberService {
 	public DrawRoomMember findOne(String id) {
 		return drawRoomMemberRepository.findOne(id);
 	}
+	public Integer isInRoom(String id, String drawUserId) {
+		int count = drawRoomMemberRepository.countByIdAndDrawUserId(id,drawUserId);
+		if(count==0){
+			return 0;
+		}else{
+			return 1;
+		}
+	}
 
 }

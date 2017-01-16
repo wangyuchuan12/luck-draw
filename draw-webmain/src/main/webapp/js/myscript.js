@@ -1,3 +1,41 @@
+function skipToRoomInfo(id){
+	var url = "/view/draw/draw_room/info";
+	var params = new Object();
+	params.id = id;
+	skipToUrl(url,params);
+}
+
+
+function skipToPersonalCenter(){
+	
+	var url = "/view/draw/personal_center/main";
+	
+	skipToUrl(url);
+}
+
+function skipToRoomInfo(id){
+	var params = new Object();
+	params.id = id;
+	
+	var url = "/view/draw/draw_room/info";
+	
+	skipToUrl(url,params);
+}
+
+
+function skipToAddRedPack(redPackType,isDisplayRoom,isDisplayType){
+	var url = "/view/draw/luck_draw/add";
+	
+	var params  = new Object();
+	params.redPackType = redPackType;
+	
+	params.isDisplayRoom = isDisplayRoom;
+	
+	params.isDisplayType = isDisplayType;
+	skipToUrl(url,params);
+}
+
+
 
 function skipToUrl(url,params,flag){
 	var temp = document.createElement("form");
@@ -6,7 +44,7 @@ function skipToUrl(url,params,flag){
 	}else{
 		temp.action = url;
 	}
-    temp.method = "post";        
+    temp.method = "get";        
     temp.style.display = "none";        
     var opt = document.createElement("textarea");
     temp.appendChild(opt);              
@@ -133,6 +171,10 @@ function wxConfig(appId,signature,noncestr,t){
 	                'chooseCard',
 	                'openCard'
 	              ]
+	});
+	
+	document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+		WeixinJSBridge.call('hideToolbar');
 	});
 //	wx.ready(function(){
 //		wx.showMenuItems({

@@ -2,13 +2,10 @@ package com.wyc.draw.filter;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.filter.Filter;
@@ -16,7 +13,8 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
-import com.wyc.draw.domain.RedPacketTakepartMember;
+import com.wyc.draw.filter.test.RedPacketReceiveAbleTestFilter;
+import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.vo.RedPacketVo;
@@ -29,6 +27,9 @@ public class GetRedPackFilter extends Filter{
 	
 	@Autowired
 	private RedPacketTakepartMemberService redPacketTakepartMemberService;
+	
+	@Autowired
+	private DrawRoomMemberService drawRoomMemberService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
@@ -39,6 +40,7 @@ public class GetRedPackFilter extends Filter{
 		String id = httpServletRequest.getParameter("id");
 		RedPacket redPacket  = redPackageService.findOne(id);
 		
+		int isInTheRoom = drawRoomMemberService.isInRoom(redPacket.getDrawRoomId(),drawUser.getId());
 		
 		int count = redPacketTakepartMemberService.countByRedPacketIdAndDrawUserId(id, drawUser.getId());
 		
@@ -64,6 +66,8 @@ public class GetRedPackFilter extends Filter{
 		redPacketVo.setIsPay(redPacket.getIsPay());
 		
 		redPacketVo.setIsReceive(redPacket.getIsReceive());
+		
+		redPacketVo.setIsInRoom(isInTheRoom);
 		return redPacketVo;
 	}
 
@@ -89,6 +93,7 @@ public class GetRedPackFilter extends Filter{
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
 		filterClasses.add(BaseDrawActionFilter.class);
+		filterClasses.add(RedPacketReceiveAbleTestFilter.class);
 		return filterClasses;
 	}
 

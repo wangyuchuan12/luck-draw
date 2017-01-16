@@ -32,8 +32,7 @@ public class DrawRoomController {
 		
 		
 		httpServletRequest.setAttribute("drawRoomInfo", drawRoomInfoVo);
-		
-		System.out.println("...........roomId:"+drawRoomInfoVo.getId());
+
 		httpServletRequest.setAttribute("roomId", drawRoomInfoVo.getId());
 		return "drawRoomInfo";
 	}

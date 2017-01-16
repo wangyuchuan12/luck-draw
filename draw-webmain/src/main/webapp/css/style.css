@@ -242,8 +242,33 @@
 	font-size: 20px;
 	font-weight: bold;
 	color:red;
-	padding-bottom:30px;
+	
 	text-align: center;
+	
+	bottom:30px;
+	position: relative;
+}
+
+.luck_info_href{
+	color:black;
+	text-align: center;
+	
+	position: relative;
+	
+	bottom: 15px;
+	
+	font-size: 17px;
+
+}
+
+.luck_info_item_i{
+	display: inline-block;
+}
+
+
+.luck_info_item_content{
+	display: inline-block;
+	color:RGBA(70,147,236,1);
 }
 
 .luck_info_records{
@@ -603,29 +628,62 @@ li::before{
 	display: inline-block;
 	position:relative;
 	left:20px;
-	top:-15px;
+	width:270px;
+	height:70px;
+	background-color: RGBA(250,158,59,1);
+	color: white;
+	
+	border-radius:10px;
+	
+	top:-5px;
+}
+
+
+
+.luck_room_package_item_info2 img{
+	width:40px;
+	height: 45px;
+	padding-left:10px;
+	padding-top:10px;
+	display: inline-block;
+}
+
+.luck_room_package_item_info2_block{
+	display: inline-block;
+	position:relative;
 }
 
 .luck_room_package_item_info2_name{
 	display: block;
-	color: black;
+	color: white;
 	font-size: 15px;
 	position: relative;
 }
 .luck_room_package_item_info2_name span{
-	padding-left: 20px;
+	padding-left: 10px;
 }
 .luck_room_package_item_info2_title{
 	display: block;
 	width:200px;
 	position: relative;
-	 overflow:hidden;text-overflow:ellipsis; -o-text-overflow:ellipsis;white-space:nowrap;
+	overflow:hidden;text-overflow:ellipsis; -o-text-overflow:ellipsis;white-space:nowrap;
 	
 }
 
 .luck_room_package_item_info2_money{
 	display: block;
 	position: relative;
+	
+	background: white;
+	
+	height:20px;
+	color: black;
+	border-bottom: 1px solid RGBA(228,228,228,1);
+	border-left: 1px solid RGBA(228,228,228,1);
+	border-right: 1px solid RGBA(228,228,228,1);
+	border-radius:0px 0px 10px 10px;
+	
+	padding-left: 10px;
 }
 
 .luck_room_package_item_info2_money span{

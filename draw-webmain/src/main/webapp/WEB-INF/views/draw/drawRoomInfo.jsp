@@ -34,9 +34,12 @@
 							<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0">
 							
 							<div class="luck_room_package_item_info2">
-								<div class="luck_room_package_item_info2_name"><b>川川发起</b><span>2014-12-13 07:23:22</span></div>
-								<div class="luck_room_package_item_info2_title">耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日</div>
-								
+								<img  src="/imgs/redpack.jpg">
+								<div class="luck_room_package_item_info2_block">
+									<div class="luck_room_package_item_info2_name"><b>川川发起</b><span>2014-12-13 07:23:22</span></div>
+									<div class="luck_room_package_item_info2_title">耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日</div>
+
+								</div>
 								<div class="luck_room_package_item_info2_money">金额：200元</div>
 							</div>
 						</div>
@@ -55,20 +58,25 @@
 							<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0">
 							
 							<div class="luck_room_package_item_info2">
-								<div class="luck_room_package_item_info2_name"><b>川川发起</b><span>2014-12-13 07:23:22</span></div>
-								<div class="luck_room_package_item_info2_title">耶稣诞生的年日</div>
-								
+								<img  src="/imgs/redpack.jpg">
+								<div class="luck_room_package_item_info2_block">
+									<div class="luck_room_package_item_info2_name"><b>川川发起</b><span>2014-12-13 07:23:22</span></div>
+									<div class="luck_room_package_item_info2_title">耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日</div>
+
+								</div>
 								<div class="luck_room_package_item_info2_money">金额：200元</div>
 							</div>
 						</div>
 					
 					</div>
+					
+					
 				</li>
 			</ul>
 		</div>
 	</div>
 	
-	<input name="bakRoomId" value="${drawRoomInfo.id}"/>
+	<input name="bakRoomId" value="${drawRoomInfo.id}" type="hidden"/>
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
