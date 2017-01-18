@@ -267,7 +267,6 @@
 					
 					type = parseInt(type);
 					
-					alert("type:"+type+",isInRoom:"+isInRoom);
 					if(type==0&&isInRoom==0){
 						showToast("本红包属于房间专属红包，你尚未加入本房间，请先点击‘进入房间’按钮加入房间",5000);
 						return;
@@ -311,6 +310,10 @@
 					var callback = new Object();
 					showLoading();
 					callback.success = function(obj){
+						
+						alert(obj.msg);
+						
+						alert(obj.errorMsg);
 						hideLoading();
 						if(obj.success){
 							if(obj.data.isRight==1){
@@ -327,7 +330,9 @@
 								
 								$("input[name=count]").val(count);
 								initView("回答错误");
+								showToast("回答错误");
 								
+								$("input[name=count]").val("");
 								
 							}
 						}
