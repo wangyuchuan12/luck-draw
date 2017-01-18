@@ -239,6 +239,8 @@ public class AnswerRedPackFilter extends Filter{
 			amountBalance = amountBalance.add(redPacket.getAmount());
 			drawUser.setAmountBalance(amountBalance);
 			drawUserService.update(drawUser);
+			
+			filterManager.save(drawUser);
 			answerRedPacketResultVo.setIsRight(1);
 		}else{
 			redPacketTakepartMember.setIsSuccess(0);
