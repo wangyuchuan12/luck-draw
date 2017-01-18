@@ -12,7 +12,7 @@
 			<input name="timeLong" value="${result.data.timeLong}" type="hidden"/>
 			<input name="redPacketId" value="${result.data.id}" type="hidden"/>
 			<input name="packetRoomId" value="${result.data.drawRoomId}" type="hidden"/>
-			<input name="roomMemberId" value="${result.data.handRoomMemberId}" type="hidden"/>
+			<input name="roomMemberId" value="${result.data.myRoomMemberId}" type="hidden"/>
 			
 			<input name="wordNum" value="${fn:length(result.data.answer)}" type="hidden"/>
 			
@@ -310,10 +310,6 @@
 					var callback = new Object();
 					showLoading();
 					callback.success = function(obj){
-						
-						alert(obj.msg);
-						
-						alert(obj.errorMsg);
 						hideLoading();
 						if(obj.success){
 							if(obj.data.isRight==1){

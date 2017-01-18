@@ -25,6 +25,10 @@ public class RedPacketVo {
 	@ParamAnnotation
 	private String handRoomMemberId;
 	
+	//本用户的房间成员id;
+	@ParamAnnotation
+	private String myRoomMemberId;
+	
 	//所属房间id
 	@ParamAnnotation
 	private String drawRoomId;
@@ -114,6 +118,20 @@ public class RedPacketVo {
 	private Integer isInRoom;
 	
 	
+
+
+
+
+	public String getMyRoomMemberId() {
+		return myRoomMemberId;
+	}
+
+
+
+
+	public void setMyRoomMemberId(String myRoomMemberId) {
+		this.myRoomMemberId = myRoomMemberId;
+	}
 
 
 

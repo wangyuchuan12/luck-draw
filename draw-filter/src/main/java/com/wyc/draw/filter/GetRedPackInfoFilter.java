@@ -5,13 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.wyc.common.filter.Filter;
-import com.wyc.common.service.WxUserInfoService;
 import com.wyc.common.session.SessionManager;
-import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
@@ -44,6 +40,8 @@ public class GetRedPackInfoFilter extends Filter{
 		int isInTheRoom = drawRoomMemberService.isInRoom(redPacket.getDrawRoomId(),drawUser.getId());
 		
 		DrawRoomMember handRoomMember = drawRoomMemberService.findOne(redPacket.getHandRoomMemberId());
+		
+		DrawRoomMember myRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(), redPacket.getDrawRoomId());
 		int count = redPacketTakepartMemberService.countByRedPacketIdAndDrawUserId(id, drawUser.getId());
 		
 		RedPacketVo redPacketVo = new RedPacketVo();
@@ -68,6 +66,7 @@ public class GetRedPackInfoFilter extends Filter{
 		redPacketVo.setIsPay(redPacket.getIsPay());
 		
 		redPacketVo.setIsReceive(redPacket.getIsReceive());
+		redPacketVo.setMyRoomMemberId(myRoomMember.getId());
 		
 		redPacketVo.setIsInRoom(isInTheRoom);
 		return redPacketVo;
