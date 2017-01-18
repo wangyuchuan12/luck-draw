@@ -15,8 +15,10 @@ import com.wyc.draw.filter.AddRedPacketPromptFilter;
 import com.wyc.draw.filter.AnswerRedPackFilter;
 import com.wyc.draw.filter.BaseHandRedPackFilter;
 import com.wyc.draw.filter.DelRedPacketPromptFilter;
+import com.wyc.draw.filter.GetRedPackListByRoomOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketPromptsByRedPacketIdFilter;
 import com.wyc.draw.vo.AnswerRedPacketResultVo;
+import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketPromptListVo;
 import com.wyc.draw.vo.RedPacketVo;
 import com.wyc.pay.service.PayService;
@@ -28,6 +30,23 @@ public class RedPackApi {
 	
 	@Autowired
 	private PayService payService;
+	
+	
+	@Transactional
+	@RequestMapping(value="listByRoom")
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=GetRedPackListByRoomOfPageFilter.class)
+	public ResultVo listByRoom(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		RedPacketListVo redPacketListVo = (RedPacketListVo)sessionManager.getObject(RedPacketListVo.class);
+		
+		ResultVo resultVo = new ResultVo();
+		resultVo.setData(redPacketListVo);
+		resultVo.setSuccess(true);
+		resultVo.setMsg("获取数据成功");
+		return resultVo;
+	}
 	
 	@Transactional
 	@RequestMapping(value="add")
@@ -46,8 +65,6 @@ public class RedPackApi {
 		
 		RedPacketVo redPacketVo = (RedPacketVo)sessionManager.getObject(RedPacketVo.class);
 		
-		
-		System.out.println("redPack is:"+redPacketVo.getId());
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setMsg("保存成功");

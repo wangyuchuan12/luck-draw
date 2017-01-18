@@ -7,6 +7,11 @@
 <tiles:insertDefinition name="infoLayout">
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
+
+	<div class="luck_room_headImg">
+		<img src="${drawRoomInfo.imgUrl}">
+	</div>
+
 	<div class="luck_room_members">
 
 		<div class="luck_room_members_title">全部成员</div>
@@ -26,52 +31,26 @@
 		
 		<div class="luck_room_package_list">
 			<ul>
-				<li>
-					
-					
-					<div class="luck_room_package_item_info">
-						<div class="luck_room_package_item_info1">
-							<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0">
-							
-							<div class="luck_room_package_item_info2">
-								<img  src="/imgs/redpack.jpg">
-								<div class="luck_room_package_item_info2_block">
-									<div class="luck_room_package_item_info2_name"><b>川川发起</b></div>
-									<div class="luck_room_package_item_info2_title">耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日</div>
-
+				<c:forEach items="${packets.redPacketVos}" var="packet">
+					<li onclick="skipToRedPackInfo('${packet.id}')">
+						<div class="luck_room_package_item_info">
+							<div class="luck_room_package_item_info1">
+								<img src="${packet.userImgUrl}">
+								
+								<div class="luck_room_package_item_info2">
+									<img  src="/imgs/redpack.jpg">
+									<div class="luck_room_package_item_info2_block">
+										<div class="luck_room_package_item_info2_name"><b>${packet.nickname}发起</b></div>
+										<div class="luck_room_package_item_info2_title">${packet.question}</div>
+	
+									</div>
+									<div class="luck_room_package_item_info2_money">金额：${packet.amount}元</div>
 								</div>
-								<div class="luck_room_package_item_info2_money">金额：200元</div>
 							</div>
+						
 						</div>
-					
-					</div>
-					
-					
-				</li>
-				
-				
-				<li>
-					
-					
-					<div class="luck_room_package_item_info">
-						<div class="luck_room_package_item_info1">
-							<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0">
-							
-							<div class="luck_room_package_item_info2">
-								<img  src="/imgs/redpack.jpg">
-								<div class="luck_room_package_item_info2_block">
-									<div class="luck_room_package_item_info2_name"><b>川川发起</b></div>
-									<div class="luck_room_package_item_info2_title">耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日</div>
-
-								</div>
-								<div class="luck_room_package_item_info2_money">金额：200元</div>
-							</div>
-						</div>
-					
-					</div>
-					
-					
-				</li>
+					</li>
+				</c:forEach>
 			</ul>
 		</div>
 	</div>

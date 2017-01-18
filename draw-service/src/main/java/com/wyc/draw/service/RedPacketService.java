@@ -1,9 +1,11 @@
 package com.wyc.draw.service;
-
 import java.util.UUID;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.wyc.draw.domain.RedPacket;
@@ -31,5 +33,9 @@ public class RedPacketService {
 		redPackageRepository.save(redPacket);
 		return redPacket;
 		
+	}
+
+	public Page<RedPacket> findAllByDrawRoomId(String roomId, Pageable pageable) {
+		return redPackageRepository.findAllByDrawRoomId(roomId,pageable);
 	}
 }

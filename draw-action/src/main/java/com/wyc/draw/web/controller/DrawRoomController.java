@@ -8,15 +8,16 @@ import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.DrawRoomViewFilter;
-import com.wyc.draw.filter.GetRoomListByUserOfPage;
+import com.wyc.draw.filter.GetRoomListByUserOfPageFilter;
 import com.wyc.draw.vo.DrawRoomInfoVo;
 import com.wyc.draw.vo.DrawRoomListVo;
+import com.wyc.draw.vo.RedPacketListVo;
 
 @Controller
 @RequestMapping(value="/view/draw/draw_room/")
 public class DrawRoomController {
 	
-	@HandlerAnnotation(hanlerFilter=GetRoomListByUserOfPage.class)
+	@HandlerAnnotation(hanlerFilter=GetRoomListByUserOfPageFilter.class)
 	@RequestMapping(value="list")
 	public String drawRooms(HttpServletRequest httpServletRequest)throws Exception{
 		
@@ -35,10 +36,12 @@ public class DrawRoomController {
 		
 		DrawRoomInfoVo drawRoomInfoVo = (DrawRoomInfoVo)sessionManager.getObject(DrawRoomInfoVo.class);
 		
-		
+		RedPacketListVo redPacketListVo = (RedPacketListVo)sessionManager.getObject(RedPacketListVo.class);
 		httpServletRequest.setAttribute("drawRoomInfo", drawRoomInfoVo);
 
 		httpServletRequest.setAttribute("roomId", drawRoomInfoVo.getId());
+		
+		httpServletRequest.setAttribute("packets", redPacketListVo);
 		return "drawRoomInfo";
 	}
 	

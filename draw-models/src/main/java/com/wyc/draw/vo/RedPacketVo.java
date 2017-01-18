@@ -43,6 +43,7 @@ public class RedPacketVo {
 	private String receiveDrawUserId;
 	
 	//发送时间
+//	@JsonSerialize(as=MyDateSerializer.class)
 	@ParamAnnotation
 	private DateTime handTime;
 	

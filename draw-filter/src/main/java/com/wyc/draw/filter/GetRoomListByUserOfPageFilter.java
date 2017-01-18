@@ -23,7 +23,7 @@ import com.wyc.draw.service.DrawRoomService;
 import com.wyc.draw.vo.DrawRoomInfoVo;
 import com.wyc.draw.vo.DrawRoomListVo;
 
-public class GetRoomListByUserOfPage extends Filter{
+public class GetRoomListByUserOfPageFilter extends Filter{
 
 	@Autowired
 	private DrawRoomService drawRoomService;

@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.filter.Filter;
+import com.wyc.common.service.WxUserInfoService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.wx.domain.UserInfo;
+import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.filter.test.RedPacketReceiveAbleTestFilter;
@@ -20,7 +22,7 @@ import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.vo.RedPacketVo;
 
 //获取红包信息
-public class GetRedPackFilter extends Filter{
+public class GetRedPackInfoFilter extends Filter{
 
 	@Autowired
 	private RedPacketService redPackageService;
@@ -30,11 +32,10 @@ public class GetRedPackFilter extends Filter{
 	
 	@Autowired
 	private DrawRoomMemberService drawRoomMemberService;
+	
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
-		
-		UserInfo userInfo = (UserInfo)filterManager.getObject(UserInfo.class);
 		
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		String id = httpServletRequest.getParameter("id");
@@ -42,6 +43,7 @@ public class GetRedPackFilter extends Filter{
 		
 		int isInTheRoom = drawRoomMemberService.isInRoom(redPacket.getDrawRoomId(),drawUser.getId());
 		
+		DrawRoomMember handRoomMember = drawRoomMemberService.findOne(redPacket.getHandRoomMemberId());
 		int count = redPacketTakepartMemberService.countByRedPacketIdAndDrawUserId(id, drawUser.getId());
 		
 		RedPacketVo redPacketVo = new RedPacketVo();
@@ -54,9 +56,9 @@ public class GetRedPackFilter extends Filter{
 		redPacketVo.setPayType(redPacket.getPayType());
 		redPacketVo.setType(redPacket.getType());
 		redPacketVo.setAmount(redPacket.getAmount());
-		redPacketVo.setNickname(userInfo.getNickname());
+		redPacketVo.setNickname(handRoomMember.getName());
 		redPacketVo.setQuestion(redPacket.getQuestion());
-		redPacketVo.setUserImgUrl(userInfo.getHeadimgurl());
+		redPacketVo.setUserImgUrl(handRoomMember.getImgUrl());
 		redPacketVo.setAnswer(redPacket.getAnswer());
 		redPacketVo.setIsTimeout(redPacket.getIsTimeout());
 		redPacketVo.setTimeLong(redPacket.getTimeLong());

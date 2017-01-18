@@ -18,8 +18,8 @@ import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.DrawUserFilter;
-import com.wyc.draw.filter.GetRedPackFilter;
-import com.wyc.draw.filter.GetRoomListOfUserFilter;
+import com.wyc.draw.filter.GetRedPackInfoFilter;
+import com.wyc.draw.filter.GetRoomListByUserFilter;
 import com.wyc.draw.service.DrawRoomService;
 import com.wyc.draw.vo.DrawRoomInfoVo;
 import com.wyc.draw.vo.DrawRoomListVo;
@@ -33,7 +33,7 @@ public class DrawController {
 	@Autowired
 	private DrawRoomService drawRoomService;
 	
-	@HandlerAnnotation(hanlerFilter=GetRedPackFilter.class)
+	@HandlerAnnotation(hanlerFilter=GetRedPackInfoFilter.class)
 	@RequestMapping(value="info")
 	public String drawInfo(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);

@@ -28,11 +28,21 @@ function doJoinRoom(type,question,roomId,callback){
 	}else{
 		layer.confirm("是否确定加入该房间",function(){
 			var url = "/api/draw/draw_room/join_room";
-			request(url,callback);
+			var params = new Object();
+			params.verify_type = type;
+			params.room_id = roomId;
+			request(url,callback,params);
 			layer.closeAll();
 		});
 	}
 	
+}
+
+function skipToRedPackInfo(id){
+	var url = "/view/draw/luck_draw/info";
+	var params = new Object();
+	params.id = id;
+	skipToUrl(url,params);
 }
 
 function skipToRoomInfo(id){
@@ -81,7 +91,7 @@ function skipToUrl(url,params,flag){
 	}else{
 		temp.action = url;
 	}
-    temp.method = "get";        
+    temp.method = "GET";        
     temp.style.display = "none";        
     var opt = document.createElement("textarea");
     temp.appendChild(opt);              

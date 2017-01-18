@@ -20,6 +20,8 @@
 	   <div style="height:20px;"></div>
 	   <tiles:insertAttribute name="footer" />
 	   <tiles:insertAttribute name="baseLayout" />
+	   
+	   <div style="height: 50px;"></div>
 	</div>
 </body>
 </html>

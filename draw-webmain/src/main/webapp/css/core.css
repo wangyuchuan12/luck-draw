@@ -9,7 +9,6 @@ body{color:#666;font-family:Helvetica,STHeiti STXihei,Microsoft JhengHei,Microso
 body{margin:0 auto;min-width:320px;max-width:640px;height:100%;background:#FFF;font-size:12px;font-family:Helvetica,STHeiti STXihei,Microsoft JhengHei,Microsoft YaHei,Arial;line-height:1.5;color:#666;-webkit-text-size-adjust:100%!important;-webkit-user-select:none;user-select:none;background-color:#F1F1F2}
 .container{
 	min-height:100%;
-	padding-bottom:50px;
 	margin:0 auto;
 	position:relative;
 	width:100%;

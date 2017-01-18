@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.filter.test.GetRedPacketFilter;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawRoomService;
 import com.wyc.draw.vo.DrawRoomInfoVo;
@@ -25,9 +26,6 @@ public class DrawRoomViewFilter extends Filter{
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		DrawRoomMemberListVo drawRoomMemberListVo = (DrawRoomMemberListVo)filterManager.getObject(DrawRoomMemberListVo.class);
 		drawRoomInfoVo.setDrawRoomMembers(drawRoomMemberListVo.getDrawRoomMembers());
-		
-		
-		System.out.println("roomId:"+drawRoomInfoVo.getId()+",userId:"+drawUser.getId());
 		int isInRoom = drawRoomMemberService.isInRoom(drawRoomInfoVo.getId(), drawUser.getId());
 		drawRoomInfoVo.setIsInRoom(isInRoom);
 		return drawRoomInfoVo;
@@ -56,6 +54,8 @@ public class DrawRoomViewFilter extends Filter{
 		List<Class<? extends Filter>> filters = new ArrayList<>();
 		filters.add(GetDrawRoomMembersByRoomIdFilter.class);
 		filters.add(GetDrawRoomInfoFilter.class);
+		
+		filters.add(GetRedPackListByRoomOfPageFilter.class);
 		return filters;
 	}
 

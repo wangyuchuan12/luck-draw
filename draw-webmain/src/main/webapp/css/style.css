@@ -555,6 +555,16 @@ li::before{
 	font-size: 15px;
 }
 
+
+.luck_room_headImg {
+	background: white;
+
+}
+.luck_room_headImg img{
+	width:100%;
+	max-height:250px;
+}
+
 .luck_room_members_title{
 	font-size: 20px;
 	color: black;
@@ -562,14 +572,12 @@ li::before{
 	position: relative;
 	background-color: white;
 	padding-left: 10px;
-	top:5px;
 }
 
 .luck_room_member_list{
 	width:100%;
 	max-height: 190px;
 	overflow-y: scroll;
-	border:7px solid white;
 	background: white;
 }
 
@@ -613,7 +621,7 @@ li::before{
 	height: 100px;
 	
 	border-bottom: 2px solid RGBA(241,241,242,1);
-	padding-top: 10px;
+	padding-top: 20px;
 }
 
 

@@ -13,7 +13,7 @@ import com.wyc.draw.filter.AddDrawRoomFilter;
 import com.wyc.draw.filter.DrawRoomViewFilter;
 import com.wyc.draw.filter.GetDrawRoomInfoFilter;
 import com.wyc.draw.filter.GetDrawRoomMembersByRoomIdFilter;
-import com.wyc.draw.filter.GetRoomListByUserOfPage;
+import com.wyc.draw.filter.GetRoomListByUserOfPageFilter;
 import com.wyc.draw.filter.JoinRoomFilter;
 import com.wyc.draw.vo.DrawRoomInfoVo;
 import com.wyc.draw.vo.DrawRoomListVo;
@@ -90,7 +90,7 @@ public class DrawRoomApi {
 	
 	
 	//获取房间用户
-	@HandlerAnnotation(hanlerFilter=GetRoomListByUserOfPage.class)
+	@HandlerAnnotation(hanlerFilter=GetRoomListByUserOfPageFilter.class)
 	@ResponseBody
 	@RequestMapping(value="rooms")
 	public Object rooms(HttpServletRequest httpServletRequest)throws Exception{

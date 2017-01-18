@@ -15,7 +15,7 @@ import com.wyc.draw.vo.DrawRoomInfoVo;
 import com.wyc.draw.vo.DrawRoomListVo;
 
 //用户所在的房间列表
-public class GetRoomListOfUserFilter extends Filter{
+public class GetRoomListByUserFilter extends Filter{
 
 	@Autowired
 	private DrawRoomService drawRoomService;

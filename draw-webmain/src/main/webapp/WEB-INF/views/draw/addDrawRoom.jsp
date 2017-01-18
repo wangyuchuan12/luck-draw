@@ -192,9 +192,10 @@
 				var callback = new Object();
 				callback.success = function(resp){
 					if(resp.success){
-						skipToUrl("/view/draw/draw_room/info?id="+resp.data.id,null,false);
+						var params = new Object();
+						params.id = resp.data.id;
+						skipToUrl("/view/draw/draw_room/info",params,false);
 					}else{
-						alert(JSON.stringify(resp));
 						hideLoading();
 						layer.alert("现在使用高峰期，稍后再试");
 					}
