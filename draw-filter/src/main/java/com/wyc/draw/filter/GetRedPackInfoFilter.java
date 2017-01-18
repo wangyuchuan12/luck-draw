@@ -41,7 +41,7 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		DrawRoomMember handRoomMember = drawRoomMemberService.findOne(redPacket.getHandRoomMemberId());
 		
-		DrawRoomMember myRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(), redPacket.getDrawRoomId());
+		
 		int count = redPacketTakepartMemberService.countByRedPacketIdAndDrawUserId(id, drawUser.getId());
 		
 		RedPacketVo redPacketVo = new RedPacketVo();
@@ -66,7 +66,11 @@ public class GetRedPackInfoFilter extends Filter{
 		redPacketVo.setIsPay(redPacket.getIsPay());
 		
 		redPacketVo.setIsReceive(redPacket.getIsReceive());
-		redPacketVo.setMyRoomMemberId(myRoomMember.getId());
+		
+		if(isInTheRoom==1){
+			DrawRoomMember myRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(), redPacket.getDrawRoomId());
+			redPacketVo.setMyRoomMemberId(myRoomMember.getId());
+		}
 		
 		redPacketVo.setIsInRoom(isInTheRoom);
 		return redPacketVo;
