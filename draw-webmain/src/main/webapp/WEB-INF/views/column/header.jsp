@@ -8,9 +8,54 @@
 
 <input name="isDisplayType" value="${isDisplayType}" hidden="true"/>
 
+<input name="isInRoom"  value="${isInRoom}" hidden="true"/>
+
+<input name="verifyType"  value="${verifyType}" hidden="true"/>
+
+<input name="verifyQuestion"  value="${VerifyQuestion}" hidden="true"/>
+
 <!-- 0为房间 -->
 <input name="view" value="${view}" hidden="true"/>
 <script type="text/javascript">
+
+
+function isInRoomFilterRequest(url,callback,params){
+	var isInRoom = getIsInRoom();
+	isInRoom = parseInt(isInRoom);
+	if(isInRoom==0){
+		showToast("你未加入本房间，不能进行任何操作，请先加入房间");
+	}else{
+		request(url,callback,params)
+	}
+}
+
+function setVerifyType(verifyType){
+	$("input[name=verifyType]").val(verifyType);
+}
+
+function getVerifyType(){
+	return $("input[name=verifyType]").val();
+}
+
+function getVerifyQuestion(){
+	return $("input[name=verifyQuestion]").val();
+}
+
+function setVerifyQuestion(question){
+	$("input[name=verifyQuestion]").val(question);
+}
+
+
+
+function setIsInRoom(isInRoom){
+	$("input[name=isInRoom]").val(isInRoom);
+}
+
+
+function getIsInRoom(){
+	return $("input[name=isInRoom]").val();
+}
+
 
 function setRoomId(roomId){
 	$("input[name=roomId]").val(roomId);
@@ -47,26 +92,67 @@ function skipToRoom(){
 }
 
 function skipToHandRedPack(){
-	var url = "/view/draw/luck_draw/add";
 	
-	var redPackType =0;
-	var isDisplayRoom =getIsDisplayRoom();
-	var isDisplayType =  getIsDisplayType();
+	var isInRoom = getIsInRoom();
+	isInRoom = parseInt(isInRoom);
 	
-	var params = new Object();
+	if(isInRoom==0){
+		showToast("你未加入本房间，不能进行任何操作，请先加入房间",5000);
+	}else{
+		var url = "/view/draw/luck_draw/add";
+		
+		var redPackType =0;
+		var isDisplayRoom =getIsDisplayRoom();
+		var isDisplayType =  getIsDisplayType();
+		
+		var params = new Object();
+		
+		params.redPackType = redPackType;
+		params.isDisplayRoom = isDisplayRoom;
+		params.isDisplayType = isDisplayType;
+		
+		params.room_id = getRoomId();
+		skipToUrl(url,params);
+	}
 	
-	params.redPackType = redPackType;
-	params.isDisplayRoom = isDisplayRoom;
-	params.isDisplayType = isDisplayType;
 	
-	params.room_id = getRoomId();
-	skipToUrl(url,params);
+	
 }
 
 function skipToAddRoom(){
 	var url = "/view/draw/draw_room/add";
 	skipToUrl(url);
 	
+}
+
+function joinRoom(){
+	var isInRoom = getIsInRoom();
+	isInRoom = parseInt(isInRoom);
+	var verifyType = getVerifyType();
+	verifyType = parseInt(verifyType);
+	var verifyQuestion = getVerifyQuestion();
+	var roomId = getRoomId();
+	if(isInRoom==1){
+		showToast("你已经加入房间，无需重复加入");
+	}else{
+		var callback = new Object();
+		callback.success = function(obj){
+			if(obj.success){
+				setIsInRoom(1);
+				showToast("申请加入成功");
+				if(drawRoomMemberAddListener){
+					drawRoomMemberAddListener(obj.data.imgUrl,obj.data.name);
+				}
+			}else{
+				showToast("对不起，你输入的密码不匹配");
+			}
+		}
+		
+		callback.failure = function(){
+			showToast("网络发生异常");
+		}
+		doJoinRoom(verifyType,verifyQuestion,roomId,callback)
+	}
 }
 
 </script>
@@ -88,7 +174,7 @@ function skipToAddRoom(){
 				<span>发红包</span>
 			</li>
 		
-			<li>
+			<li onclick="joinRoom();">
 				<em class="fa fa-sign-in" style="color: RGBA(126,213,61,1);"></em>
 				<span>加入房间</span>
 			</li>

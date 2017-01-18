@@ -9,47 +9,31 @@
 <tiles:putAttribute name="body">
 	<div class="luck_rooms">
 		<ul>
-			<li>
-				<div class="luck_rooms_img">
-					<img src="http://p3.so.qhmsg.com/t01c6bb4964b5e05fc8.jpg"></img>
-				</div>
-				
-				<div class="luck_rooms_footer">
-				
-					<div class="luck_rooms_footer_content">
-					
-						<div class="luck_rooms_footer_content_img">
-							<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0">
-						</div>
-						<div class="luck_rooms_footer_content_detail">
-							<div class="luck_rooms_footer_content_detail_title">耶稣之家</div>
-							<div class="luck_rooms_footer_content_detail_num">已参加300人</div>
-							<div class="luck_rooms_footer_content_detail_money">最大红包200元</div>
-						</div>
-					</div>
-				</div>
-			</li>
+			<c:forEach items="${roomListVo.drawRoomInfos}" var="roomInfo">
 			
-			<li>
-				<div class="luck_rooms_img">
-					<img src="http://p3.so.qhmsg.com/t01c6bb4964b5e05fc8.jpg"></img>
-				</div>
-				
-				<div class="luck_rooms_footer">
-				
-					<div class="luck_rooms_footer_content">
+				<li onclick="skipToRoomInfo('${roomInfo.id}')">
+					<div class="luck_rooms_img">
+						<img src="${roomInfo.imgUrl}"></img>
+					</div>
 					
-						<div class="luck_rooms_footer_content_img">
-							<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0">
-						</div>
-						<div class="luck_rooms_footer_content_detail">
-							<div class="luck_rooms_footer_content_detail_title">耶稣之家</div>
-							<div class="luck_rooms_footer_content_detail_num">已参加300人</div>
-							<div class="luck_rooms_footer_content_detail_money">最大红包200元</div>
+					<div class="luck_rooms_footer">
+					
+						<div class="luck_rooms_footer_content">
+						
+							<div class="luck_rooms_footer_content_img">
+								<img src="${roomInfo.createrHeadImg}">
+							</div>
+							<div class="luck_rooms_footer_content_detail">
+								<div class="luck_rooms_footer_content_detail_title">${roomInfo.name}</div>
+								<div class="luck_rooms_footer_content_detail_num">已参加${roomInfo.memberCount}人</div>
+								<c:if test="${roomInfo.maxRedPacketAmount!=null}">
+								<div class="luck_rooms_footer_content_detail_money">最大红包${roomInfo.maxRedPacketAmount}元</div>
+								</c:if>
+							</div>
 						</div>
 					</div>
-				</div>
-			</li>
+				</li>
+			</c:forEach>
 		</ul>
 	
 	</div>

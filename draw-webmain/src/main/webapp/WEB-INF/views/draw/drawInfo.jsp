@@ -151,9 +151,6 @@
 					
 					type = parseInt(type);
 					
-					alert(type);
-					
-					alert(isInRoom);
 					if(prompt){
 						$(".luck_info_alert").text(prompt);
 						$(".luck_info_alert").css("display","block");
@@ -385,8 +382,6 @@
 						submitAnswer();
 					});
 					initPrompts();
-					setIsDisplayType(1);
-					setIsDisplayRoom(1);
 					var callback = new Object();
 					callback.end = function(){
 						$("input[name=isTimeOut]").val(1);

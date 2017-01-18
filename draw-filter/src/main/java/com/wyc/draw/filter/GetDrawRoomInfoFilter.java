@@ -35,6 +35,8 @@ public class GetDrawRoomInfoFilter extends Filter{
 		drawRoomInfoVo.setMaxNum(drawRoom.getMaxNum());
 		drawRoomInfoVo.setMemberCount(drawRoom.getMemberCount());
 		drawRoomInfoVo.setName(drawRoom.getName());
+		drawRoomInfoVo.setVerifyType(drawRoom.getVerifyType());
+		drawRoomInfoVo.setVerifyQuestion(drawRoom.getVerifyQuestion());
 		return drawRoomInfoVo;
 	}
 

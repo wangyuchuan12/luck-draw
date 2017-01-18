@@ -18,10 +18,12 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
+import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.service.DrawRoomMemberService;
+import com.wyc.draw.service.DrawRoomService;
 import com.wyc.draw.service.DrawUserService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.vo.RedPacketVo;
@@ -38,6 +40,9 @@ public class BaseHandRedPackFilter extends Filter{
 	
 	@Autowired
 	private DrawUserService drawUserService;
+	
+	@Autowired
+	private DrawRoomService drawRoomService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -174,9 +179,6 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setAllowWrongCount(allowWrongCountInt);
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
 			
-			
-			System.out.println("drawUser.getId:"+drawUser.getId());
-			System.out.println("drawRoomId:"+drawRoomId);
 			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
 			ResultVo resultVo = new ResultVo();
 			if(CommonUtil.isEmpty(drawRoomId)){
@@ -211,6 +213,14 @@ public class BaseHandRedPackFilter extends Filter{
 			
 			
 			redPacket = redPackageService.add(redPacket);
+			
+			
+			DrawRoom drawRoom = drawRoomService.findOne(redPacket.getDrawRoomId());
+			BigDecimal maxRedPacketAmount = drawRoom.getMaxRedPacketAmount();
+			if(maxRedPacketAmount==null||(maxRedPacketAmount.floatValue()<redPacket.getAmount().floatValue())){
+				drawRoom.setMaxRedPacketAmount(maxRedPacketAmount);
+				drawRoomService.update(drawRoom);
+			}
 		}else if(typeInt==Constant.PERSONAL_QUESTION_TYPE){
 			
 			redPacket.setQuestion(question);

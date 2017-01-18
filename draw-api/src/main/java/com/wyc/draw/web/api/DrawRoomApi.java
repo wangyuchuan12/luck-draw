@@ -13,7 +13,10 @@ import com.wyc.draw.filter.AddDrawRoomFilter;
 import com.wyc.draw.filter.DrawRoomViewFilter;
 import com.wyc.draw.filter.GetDrawRoomInfoFilter;
 import com.wyc.draw.filter.GetDrawRoomMembersByRoomIdFilter;
+import com.wyc.draw.filter.GetRoomListByUserOfPage;
+import com.wyc.draw.filter.JoinRoomFilter;
 import com.wyc.draw.vo.DrawRoomInfoVo;
+import com.wyc.draw.vo.DrawRoomListVo;
 import com.wyc.draw.vo.DrawRoomMemberListVo;
 
 @Controller
@@ -83,5 +86,41 @@ public class DrawRoomApi {
 		resultVo.setSuccess(true);
 		resultVo.setMsg("获取数据成功");
 		return resultVo;
+	}
+	
+	
+	//获取房间用户
+	@HandlerAnnotation(hanlerFilter=GetRoomListByUserOfPage.class)
+	@ResponseBody
+	@RequestMapping(value="rooms")
+	public Object rooms(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		DrawRoomListVo drawRoomListVo = (DrawRoomListVo)sessionManager.getObject(DrawRoomListVo.class);
+		
+		ResultVo resultVo = new ResultVo();
+		resultVo.setData(drawRoomListVo);
+		resultVo.setSuccess(true);
+		resultVo.setMsg("获取数据成功");
+		return resultVo;
+	}
+	
+	
+	
+	
+	
+	//申请加入房间
+	@HandlerAnnotation(hanlerFilter=JoinRoomFilter.class)
+	@ResponseBody
+	@RequestMapping(value="join_room")
+	public Object JoinRoom(HttpServletRequest httpServletRequest)throws Exception{
+		
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		if(sessionManager.getObject(ResultVo.class)!=null){
+			return sessionManager.getObject(ResultVo.class);
+		}else{
+			return sessionManager.getReturnValue();
+		}
 	}
 }

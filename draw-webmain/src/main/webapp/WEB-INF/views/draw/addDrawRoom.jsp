@@ -20,9 +20,7 @@
   
     <div data-role="header">  
         <h1>新增房间</h1>  
-    </div>  
-    
-    
+    </div> 
       
     <div data-role="content">  
           
@@ -196,6 +194,7 @@
 					if(resp.success){
 						skipToUrl("/view/draw/draw_room/info?id="+resp.data.id,null,false);
 					}else{
+						alert(JSON.stringify(resp));
 						hideLoading();
 						layer.alert("现在使用高峰期，稍后再试");
 					}

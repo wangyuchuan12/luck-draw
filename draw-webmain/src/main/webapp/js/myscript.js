@@ -1,3 +1,34 @@
+function doJoinRoom(type,question,roomId,callback){
+	var url = "";
+	if(type==0){
+		layer.prompt({
+			title:"请输入密码",
+			formType:1
+		},function(password){
+			var url = "/api/draw/draw_room/join_room";
+			var params = new Object();
+			params.password = password;
+			params.verify_type = type;
+			params.room_id = roomId;
+			request(url,callback,params);
+			layer.closeAll();
+		});
+	}else{
+		layer.prompt({
+			title:question
+		},function(answer){
+			var url = "/api/draw/draw_room/join_room";
+			var params = new Object();
+			params.verify_type = type;
+			params.room_id = roomId;
+			params.verify_answer = answer;
+			request(url,callback,params);
+			layer.closeAll();
+		});
+	}
+	
+}
+
 function skipToRoomInfo(id){
 	var url = "/view/draw/draw_room/info";
 	var params = new Object();
@@ -44,7 +75,7 @@ function skipToUrl(url,params,flag){
 	}else{
 		temp.action = url;
 	}
-    temp.method = "get";        
+    temp.method = "post";        
     temp.style.display = "none";        
     var opt = document.createElement("textarea");
     temp.appendChild(opt);              

@@ -1,5 +1,7 @@
 package com.wyc.draw.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -62,6 +64,10 @@ public class DrawRoom {
 	@Column
 	private Integer memberCount;
 	
+	//该房间最大红包金额
+	@Column(name="max_red_packet_amount")
+	private BigDecimal maxRedPacketAmount;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -75,6 +81,12 @@ public class DrawRoom {
     
     
     
+	public BigDecimal getMaxRedPacketAmount() {
+		return maxRedPacketAmount;
+	}
+	public void setMaxRedPacketAmount(BigDecimal maxRedPacketAmount) {
+		this.maxRedPacketAmount = maxRedPacketAmount;
+	}
 	public String getCreateDrawUserId() {
 		return createDrawUserId;
 	}

@@ -1,6 +1,9 @@
 package com.wyc.draw.vo;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import javax.persistence.Column;
 
 import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
@@ -35,6 +38,77 @@ public class DrawRoomInfoVo {
 	
 	@ParamAnnotation
 	private List<RedPacketVo> redPacketVo;
+	
+	@ParamAnnotation
+	private Integer isInRoom;
+
+	@ParamAnnotation
+	private Integer verifyType;
+	
+	@ParamAnnotation
+	private String verifyQuestion;
+	
+	//创建者别呢
+	@ParamAnnotation
+	private String createrNickname;
+	
+	//创建者头像
+	@ParamAnnotation
+	private String createrHeadImg;
+	
+	//该房间最大红包金额
+	@Column(name="max_red_packet_amount")
+	private BigDecimal maxRedPacketAmount;
+	
+	public String getCreaterNickname() {
+		return createrNickname;
+	}
+
+	public void setCreaterNickname(String createrNickname) {
+		this.createrNickname = createrNickname;
+	}
+	
+	
+
+	public BigDecimal getMaxRedPacketAmount() {
+		return maxRedPacketAmount;
+	}
+
+	public void setMaxRedPacketAmount(BigDecimal maxRedPacketAmount) {
+		this.maxRedPacketAmount = maxRedPacketAmount;
+	}
+
+	public String getCreaterHeadImg() {
+		return createrHeadImg;
+	}
+
+	public void setCreaterHeadImg(String createrHeadImg) {
+		this.createrHeadImg = createrHeadImg;
+	}
+
+	public Integer getIsInRoom() {
+		return isInRoom;
+	}
+
+	public void setIsInRoom(Integer isInRoom) {
+		this.isInRoom = isInRoom;
+	}
+	
+	public Integer getVerifyType() {
+		return verifyType;
+	}
+
+	public void setVerifyType(Integer verifyType) {
+		this.verifyType = verifyType;
+	}
+
+	public String getVerifyQuestion() {
+		return verifyQuestion;
+	}
+
+	public void setVerifyQuestion(String verifyQuestion) {
+		this.verifyQuestion = verifyQuestion;
+	}
 
 	public String getId() {
 		return id;

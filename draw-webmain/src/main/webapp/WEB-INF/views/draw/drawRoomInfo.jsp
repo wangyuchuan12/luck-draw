@@ -36,7 +36,7 @@
 							<div class="luck_room_package_item_info2">
 								<img  src="/imgs/redpack.jpg">
 								<div class="luck_room_package_item_info2_block">
-									<div class="luck_room_package_item_info2_name"><b>川川发起</b><span>2014-12-13 07:23:22</span></div>
+									<div class="luck_room_package_item_info2_name"><b>川川发起</b></div>
 									<div class="luck_room_package_item_info2_title">耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日</div>
 
 								</div>
@@ -60,7 +60,7 @@
 							<div class="luck_room_package_item_info2">
 								<img  src="/imgs/redpack.jpg">
 								<div class="luck_room_package_item_info2_block">
-									<div class="luck_room_package_item_info2_name"><b>川川发起</b><span>2014-12-13 07:23:22</span></div>
+									<div class="luck_room_package_item_info2_name"><b>川川发起</b></div>
 									<div class="luck_room_package_item_info2_title">耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日,耶稣诞生的年日</div>
 
 								</div>
@@ -78,11 +78,30 @@
 	
 	<input name="bakRoomId" value="${drawRoomInfo.id}" type="hidden"/>
 	
+	<input name="bakIsInRoom" value="${drawRoomInfo.isInRoom}" type="hidden"/>
+	
+	<input name="bakVerifyType" value="${drawRoomInfo.verifyType}" type="hidden"/>
+	
+	<input name="bakVerifyQuestion" value="${drawRoomInfo.verifyQuestion}" type="hidden"/>
+	
 	<script type="text/javascript">
 		$(document).ready(function(){
 			setRoomId($("input[name=bakRoomId]").val());
+			setIsInRoom($("input[name=bakIsInRoom]").val());
+			
+			setVerifyType($("input[name=bakVerifyType]").val());
+			
+			setVerifyQuestion($("input[name=bakVerifyQuestion]").val());
 		});
 	
+		
+		function drawRoomMemberAddListener(img,name){
+			
+			var content = "<li>"+
+						  "<img src='"+img+"'/>"+
+						  "<span>"+name+"</span></li>";
+			$(".luck_room_member_list ul").append(content);
+		}
 	</script>
 			
 </tiles:putAttribute>

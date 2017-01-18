@@ -47,4 +47,9 @@ public class DrawUserService {
 		drawUserRepository.initDrawUserCanTakeOutCount(count);
 		
 	}
+
+	public DrawUser findOne(String id) {
+	
+		return drawUserRepository.findOne(id);
+	}
 }

@@ -16,7 +16,9 @@ public interface DrawRoomMemberRepository extends CrudRepository<DrawRoomMember,
 
 	DrawRoomMember findByDrawUserIdAndDrawRoomId(String drawUserId, String drawRoomId);
 
-	@Query("select count(*) from com.wyc.draw.domain.DrawRoomMember drm where drm.id=:id and drm.drawUserId=:drawUserId")
-	int countByIdAndDrawUserId(@Param("id")String id, @Param("drawUserId")String drawUserId);
+	@Query("select count(*) from com.wyc.draw.domain.DrawRoomMember drm where drm.drawRoomId=:drawRoomId and drm.drawUserId=:drawUserId")
+	int countByDrawRoomIdAndDrawUserId(@Param("drawRoomId")String drawRoomId, @Param("drawUserId")String drawUserId);
+
+	DrawRoomMember findByDrawRoomIdAndDrawUserId(String roomId, String createDrawUserId);
 
 }

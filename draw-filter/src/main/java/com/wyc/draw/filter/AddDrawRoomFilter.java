@@ -45,7 +45,7 @@ public class AddDrawRoomFilter extends Filter{
 		
 		System.out.println("verfyType:"+verifyType);
 		String imgUrl = httpServletRequest.getParameter("imgUrl");
-		String imgResourceId = httpServletRequest.getParameter("imgResourceId");
+//		String imgResourceId = httpServletRequest.getParameter("imgResourceId");
 		int verifyTypeInt = 0;
 		int isVerifyInt = 0;
 		if(CommonUtil.isEmpty(name)){
@@ -163,6 +163,8 @@ public class AddDrawRoomFilter extends Filter{
 				filterManager.setReturnValue(resultVo);
 				return null;
 			}
+		}else{
+			verifyTypeInt = 2;
 		}
 		
 		
@@ -180,6 +182,7 @@ public class AddDrawRoomFilter extends Filter{
 		drawRoom.setImgUrl(imgUrl);
 		drawRoom.setVerifyType(verifyTypeInt);
 		drawRoom.setCreateDateTime(new DateTime());
+		drawRoom.setMaxRedPacketAmount(new BigDecimal(0));
 		drawRoom = drawRoomService.add(drawRoom);
 		
 		

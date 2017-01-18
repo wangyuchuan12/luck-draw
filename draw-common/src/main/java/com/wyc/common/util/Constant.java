@@ -19,6 +19,9 @@ public class Constant {
 	//问题验证
 	public static final int QUESTION_VERIFY_TYPE = 1;
 	
+	//不进行问题验证
+	public static final int NO_VERIFY_TYPE = 2;
+	
 	
 	/***********************房间用户状态************************/
 	
