@@ -13,7 +13,7 @@ function doJoinRoom(type,question,roomId,callback){
 			request(url,callback,params);
 			layer.closeAll();
 		});
-	}else{
+	}else if(type==1){
 		layer.prompt({
 			title:question
 		},function(answer){
@@ -23,6 +23,12 @@ function doJoinRoom(type,question,roomId,callback){
 			params.room_id = roomId;
 			params.verify_answer = answer;
 			request(url,callback,params);
+			layer.closeAll();
+		});
+	}else{
+		layer.confirm("是否确定加入该房间",function(){
+			var url = "/api/draw/draw_room/join_room";
+			request(url,callback);
 			layer.closeAll();
 		});
 	}
@@ -75,7 +81,7 @@ function skipToUrl(url,params,flag){
 	}else{
 		temp.action = url;
 	}
-    temp.method = "post";        
+    temp.method = "get";        
     temp.style.display = "none";        
     var opt = document.createElement("textarea");
     temp.appendChild(opt);              
