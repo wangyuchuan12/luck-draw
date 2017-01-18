@@ -316,7 +316,6 @@
 								$(".luck_info_alert").css("display","block");
 								$(".luck_info_alert").html("回答正确，金额已存入账户");
 								$(".luck_info_answer").css("display","none");
-								$(".luck_info_href").text("点击返回房间");
 								$(".luck_info_href").css("display","block");
 							}else{
 								
@@ -328,7 +327,7 @@
 								initView("回答错误");
 								showToast("回答错误");
 								
-								$("input[name=count]").val("");
+								$("#luck_info_answer_input").val("");
 								
 							}
 						}
