@@ -259,6 +259,20 @@
 					
 					isPay = parseInt(isPay);
 					
+					var isInRoom = $("input[name=isInRoom]").val();
+					
+					isInRoom = parseInt(isInRoom);
+					
+					var type = $("input[name=type]").val();
+					
+					type = parseInt(type);
+					
+					alert("type:"+type+",isInRoom:"+isInRoom);
+					if(type==0&&isInRoom==0){
+						showToast("本红包属于房间专属红包，你尚未加入本房间，请先点击‘进入房间’按钮加入房间",5000);
+						return;
+					}
+					
 					if(isPay!=1){
 						showToast("该红包尚未付款");
 						return;
@@ -379,7 +393,9 @@
 					
 					
 					$(".luck_info_answer_button").click(function(){
+						
 						submitAnswer();
+						
 					});
 					initPrompts();
 					var callback = new Object();

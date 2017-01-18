@@ -19,7 +19,14 @@ public class PersonalCenter {
 	
 	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	@RequestMapping(value="main")
-	public String main(HttpServletRequest httpServletRequest){
+	public String main(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		DrawUser drawUser = (DrawUser) sessionManager.getObject(DrawUser.class);
+		
+		UserInfo userInfo = (UserInfo)sessionManager.getObject(UserInfo.class);
+		httpServletRequest.setAttribute("drawUser", drawUser);
+		
+		httpServletRequest.setAttribute("userInfo", userInfo);
 		return "personalCenter";
 	}
 	

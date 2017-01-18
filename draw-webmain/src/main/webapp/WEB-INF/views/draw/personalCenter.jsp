@@ -10,16 +10,16 @@
 	<div class="personal_center_header">
 		<div class="personal_center_header_title">个人中心</div>
 		<div class="personal_center_header_img">
-			<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0"/>
+			<img src="${userInfo.headimgurl}"/>
 		</div>
-		<div class="personal_center_header_name">川川</div>
+		<div class="personal_center_header_name">${userInfo.nickname}</div>
 		
 		
 		<div class="personal_center_header_money">
 
 			<div class="personal_center_header_money_type">总余额</div>
 			
-			<div class="personal_center_header_money_number">0.01元</div>
+			<div class="personal_center_header_money_number">${drawUser.amountBalance}元</div>
 		</div>
 	</div>
 	
