@@ -17,9 +17,11 @@ import com.wyc.draw.filter.BaseHandRedPackFilter;
 import com.wyc.draw.filter.DelRedPacketPromptFilter;
 import com.wyc.draw.filter.GetRedPackListByRoomOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketPromptsByRedPacketIdFilter;
+import com.wyc.draw.filter.GetTakepartMemberListByRedPacketOfPageFilter;
 import com.wyc.draw.vo.AnswerRedPacketResultVo;
 import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketPromptListVo;
+import com.wyc.draw.vo.RedPacketTakepartMemberListVo;
 import com.wyc.draw.vo.RedPacketVo;
 import com.wyc.pay.service.PayService;
 
@@ -148,5 +150,23 @@ public class RedPackApi {
 		resultVo.setMsg("提交答案成功");
 		return resultVo;
 		
+	}
+	
+	
+	@RequestMapping(value="takepart_members")
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=GetTakepartMemberListByRedPacketOfPageFilter.class)
+	public ResultVo takepartMembers(HttpServletRequest httpServletRequest)throws Exception{
+		
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		
+		RedPacketTakepartMemberListVo redPacketTakepartMemberListVo  = (RedPacketTakepartMemberListVo)sessionManager.getObject(RedPacketTakepartMemberListVo.class);
+		
+		ResultVo resultVo = new ResultVo();
+		resultVo.setSuccess(true);
+		resultVo.setMsg("获取数据成功");
+		resultVo.setData(redPacketTakepartMemberListVo);
+		return resultVo;
 	}
 }

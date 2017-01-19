@@ -93,31 +93,28 @@
 			<div class="luck_info_records">
 				<div class="luck_info_records_name">记录</div>
 				<div class="luck_info_record_list">
-					<div class="luck_info_record_item">
-						<div class="luck_info_record_item_img">
-							<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0"></img>
+				
+					<c:forEach items="${result.data.redPacketTakepartMemberVos}" var="takepart">
+						<div class="luck_info_record_item">
+							<div class="luck_info_record_item_img">
+								<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0"></img>
+							</div>
+							<div class="luck_info_record_item_nickname">川川</div>
+							<div class="luck_info_record_item_time">${takepart.takepartDateTime}</div>
+							<div class="luck_info_record_item_content">回答：${takepart.answer}</div>
+							<div class="luck_info_record_item_result">
+								<c:if test="${takepart.isSuccess==0}">
+									<em class="fa fa-close" style="color: red;"></em>
+								</c:if>
+								
+								<c:if test="${takepart.isSuccess==1}">
+									<em class="fa fa-check" style="color: green;"></em>
+								</c:if>
+								
+							</div>
 						</div>
-						<div class="luck_info_record_item_nickname">川川</div>
-						<div class="luck_info_record_item_time">2016-11-12 17:32:24</div>
-						<div class="luck_info_record_item_content">回答：鸡翅膀</div>
-						<div class="luck_info_record_item_result">
-							<em class="fa fa-check" style="color: green;"></em>
-						</div>
-					</div>
+					</c:forEach>
 					
-					
-					
-					<div class="luck_info_record_item">
-						<div class="luck_info_record_item_img">
-							<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0"></img>
-						</div>
-						<div class="luck_info_record_item_nickname">川川</div>
-						<div class="luck_info_record_item_time">2016-11-12 17:32:24</div>
-						<div class="luck_info_record_item_content">回答：鸡翅膀</div>
-						<div class="luck_info_record_item_result">
-							<em class="fa fa-times"></em>
-						</div>
-					</div>
 				</div>
 			</div>
 			

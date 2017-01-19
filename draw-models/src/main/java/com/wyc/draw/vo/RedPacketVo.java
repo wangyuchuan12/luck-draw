@@ -1,6 +1,7 @@
 package com.wyc.draw.vo;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -117,7 +118,21 @@ public class RedPacketVo {
 	@ParamAnnotation
 	private Integer isInRoom;
 	
-	
+	@ParamAnnotation
+	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
+
+
+
+	public List<RedPacketTakepartMemberVo> getRedPacketTakepartMemberVos() {
+		return redPacketTakepartMemberVos;
+	}
+
+
+
+
+	public void setRedPacketTakepartMemberVos(List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos) {
+		this.redPacketTakepartMemberVos = redPacketTakepartMemberVos;
+	}
 
 
 

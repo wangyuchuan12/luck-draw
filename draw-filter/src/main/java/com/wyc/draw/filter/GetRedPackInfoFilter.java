@@ -15,6 +15,7 @@ import com.wyc.draw.filter.test.RedPacketReceiveAbleTestFilter;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
+import com.wyc.draw.vo.RedPacketTakepartMemberListVo;
 import com.wyc.draw.vo.RedPacketVo;
 
 //获取红包信息
@@ -36,6 +37,8 @@ public class GetRedPackInfoFilter extends Filter{
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		String id = httpServletRequest.getParameter("id");
 		RedPacket redPacket  = redPackageService.findOne(id);
+		
+		RedPacketTakepartMemberListVo redPacketTakepartMemberListVo = (RedPacketTakepartMemberListVo)filterManager.getObject(RedPacketTakepartMemberListVo.class);
 		
 		int isInTheRoom = drawRoomMemberService.isInRoom(redPacket.getDrawRoomId(),drawUser.getId());
 		
@@ -66,6 +69,8 @@ public class GetRedPackInfoFilter extends Filter{
 		redPacketVo.setIsPay(redPacket.getIsPay());
 		
 		redPacketVo.setIsReceive(redPacket.getIsReceive());
+		
+		redPacketVo.setRedPacketTakepartMemberVos(redPacketTakepartMemberListVo.getRedPacketTakepartMemberVos());
 		
 		if(isInTheRoom==1){
 			DrawRoomMember myRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(), redPacket.getDrawRoomId());
@@ -99,6 +104,8 @@ public class GetRedPackInfoFilter extends Filter{
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
 		filterClasses.add(BaseDrawActionFilter.class);
 		filterClasses.add(RedPacketReceiveAbleTestFilter.class);
+		
+		filterClasses.add(GetTakepartMemberListByRedPacketOfPageFilter.class);
 		return filterClasses;
 	}
 
