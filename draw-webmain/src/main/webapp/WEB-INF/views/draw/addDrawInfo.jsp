@@ -7,6 +7,9 @@
 <tiles:insertDefinition name="formLayout">
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
+<script src="/js/jquery.ui.widget.js"></script>
+<script src="/js/jquery.iframe-transport.js"></script>
+<script src="/js/jquery.fileupload.js"></script>
 	
 	<input type="text" name="redPackType" value="${redPackType}"/>
 	<input type="text" name="isDisplayRoom" value="${isDisplayRoom}"/>
@@ -24,6 +27,25 @@
     <div data-role="content">  
           
         <form action="javascript:return false;" method="post" id="addDrawInfoForm">
+        
+        
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+			  <legend>是否有图片:</legend>
+			  <input type="radio" name="isImg" id="isImg1" value="1" checked="checked">
+			  <label for="isImg1">是</label>
+			 
+			  <input type="radio" name="isImg" id="isImg2" value="0">
+			  <label for="isImg2">否</label>
+			</fieldset>
+        </div>
+        
+        
+        <div data-role="fieldcontain" id="fileImg"> 
+	        <label for="file">上传图片:</label>   
+	        <div id="addCommodityIndex"></div>
+        </div>
+        
         
         
         <div data-role="fieldcontain">  
@@ -108,8 +130,17 @@
 
 
 	$(document).ready(function(){
+		
+		var callback = new Object();
+		callback.success = function(){
+		}
+		toImg("/api/common/resource/upload","#addCommodityIndex","file",callback)
 		initRoomDisplay();
 		$("input[name=type]").click(function(){
+			initRoomDisplay();
+		});
+		
+		$("input[name=isImg]").click(function(){
 			initRoomDisplay();
 		});
 	});
@@ -121,6 +152,15 @@
 	
 	
 	function initRoomDisplay(){
+		
+		var isImg = $("input[name=isImg]:checked").val();
+		isImg  = parseInt(isImg);
+		if(isImg==0){
+			$("#fileImg").css("display","none");
+		}else{
+			$("#fileImg").css("display","block");
+		}
+		
 		var isDisplayRoom = $("input[name=isDisplayRoom]").val();
 		if(isDisplayRoom==1){
 			var checked = $("input[name=type]:checked").val();
@@ -150,6 +190,10 @@
 		
 		var payType = $("input[name=payType]:checked").val();
 		
+		var imgUrl = $("#var_file").val();
+		
+		var isImg = $("input[name=isImg]:checked").val();
+		
 		var url = "/api/draw/red_pack/add";
 		var params = new Object();
 		
@@ -164,6 +208,13 @@
 		params.answer = answer;
 		
 		params.payType = payType;
+		
+		params.imgUrl = imgUrl;
+		
+		params.isImg = isImg;
+		
+		alert(isImg);
+		alert(imgUrl);
 		
 		var callback = new Object();
 		callback.success = function(obj){
@@ -287,6 +338,9 @@
 				},
 				payType:{
 					payCheck:true
+				},
+				var_file:{
+					required: true
 				}
 			},
 			messages: {
@@ -310,6 +364,9 @@
 				},
 				payType:{
 					payCheck:"余额不足，请用微信支付"
+				},
+				var_file:{
+					required: "未选中一张图片"
 				}
 				
 				

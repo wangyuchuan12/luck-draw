@@ -48,6 +48,15 @@
 				
 			</div>
 			
+			<c:if test="${result.data.isImg==1}">
+				<div class="luck_info_question_img">
+					<img src="${result.data.imgUrl}"></img>
+				</div>
+			
+			</c:if>
+			
+			
+			
 			<div class="luck_info_answer">
 				<input id="luck_info_answer_input"/>
 				<div class="luck_info_answer_button">提交答案</div>

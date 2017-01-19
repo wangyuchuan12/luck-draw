@@ -80,6 +80,20 @@
 	top:-30px;
 }
 
+.luck_info_question_img{
+	margin: 0 auto;
+	text-align:center;
+	
+	top:-20px;
+	position: relative;
+}
+
+.luck_info_question_img img{
+	width:50%;
+	
+	max-height: 300px;
+}
+
 .luck_info_qusition_title{
 	text-align: center;
 	padding-top:10px;

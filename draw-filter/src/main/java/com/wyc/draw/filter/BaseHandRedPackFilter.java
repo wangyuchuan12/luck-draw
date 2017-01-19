@@ -66,11 +66,37 @@ public class BaseHandRedPackFilter extends Filter{
 		
 		String allowWrongCount = httpServletRequest.getParameter("allowWrongCount");
 		
+		String isImg = httpServletRequest.getParameter("isImg");
+		
+		String imgUrl = httpServletRequest.getParameter("imgUrl");
+		
 		if(CommonUtil.isEmpty(allowWrongCount)){
 			allowWrongCount = "3";
 		}
 		
 		Integer allowWrongCountInt = Integer.parseInt(allowWrongCount);
+		
+		if(CommonUtil.isEmpty(isImg)){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("isImg参数不能为空");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		Integer isImgInt = Integer.parseInt(isImg);
+		
+		if(isImgInt==1){
+			if(CommonUtil.isEmpty(imgUrl)){
+				ResultVo resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("图片不能为空");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}
+		}
 		
 		if(CommonUtil.isEmpty(amount)){
 			ResultVo resultVo = new ResultVo();
@@ -173,6 +199,20 @@ public class BaseHandRedPackFilter extends Filter{
 			redPacket.setIsReceiveAble(0);
 		}
 		
+		if(isImgInt==0){
+			
+		}else if(isImgInt==1){
+			redPacket.setImgUrl(imgUrl);
+		}else{
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("isImg 参数超出了范围");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		redPacket.setIsImg(isImgInt);
 		redPacket.setIsReceive(0);
 		redPacket.setPayType(payTypeInt);
 		redPacket.setIsTimeout(0);

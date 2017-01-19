@@ -124,6 +124,17 @@ public class RedPacket {
 	@Column(name="is_refund")
 	private Integer isRefund;
 	
+	//是否有图片
+	@ParamAnnotation
+	@Column(name="is_img")
+	private Integer isImg;
+	
+	
+	//图片地址
+	@ParamAnnotation
+	@Column(name="img_url")
+	private String imgUrl;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -140,6 +151,18 @@ public class RedPacket {
 		this.isTimeout = isTimeout;
 	}
 	
+	public Integer getIsImg() {
+		return isImg;
+	}
+	public void setIsImg(Integer isImg) {
+		this.isImg = isImg;
+	}
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
 	public Integer getIsRefund() {
 		return isRefund;
 	}

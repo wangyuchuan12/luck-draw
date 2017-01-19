@@ -110,6 +110,8 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		redPacketVo.setRedPacketTakepartMemberVos(redPacketTakepartMemberListVo.getRedPacketTakepartMemberVos());
 		
+		redPacketVo.setIsImg(redPacket.getIsImg());
+		redPacketVo.setImgUrl(redPacket.getImgUrl());
 		
 		return redPacketVo;
 	}

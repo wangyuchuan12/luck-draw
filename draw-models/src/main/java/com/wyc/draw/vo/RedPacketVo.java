@@ -121,6 +121,16 @@ public class RedPacketVo {
 	@ParamAnnotation
 	private Integer isCreater;
 	
+	
+	//是否有图片
+	@ParamAnnotation
+	private Integer isImg;
+	
+	
+	//图片地址
+	@ParamAnnotation
+	private String imgUrl;
+	
 	@ParamAnnotation
 	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
 
@@ -435,6 +445,34 @@ public class RedPacketVo {
 
 	public void setPrompt(String prompt) {
 		this.prompt = prompt;
+	}
+
+
+
+
+	public Integer getIsImg() {
+		return isImg;
+	}
+
+
+
+
+	public void setIsImg(Integer isImg) {
+		this.isImg = isImg;
+	}
+
+
+
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+
+
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 	
 	
