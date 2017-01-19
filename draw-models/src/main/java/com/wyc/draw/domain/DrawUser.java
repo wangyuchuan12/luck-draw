@@ -35,6 +35,13 @@ public class DrawUser {
 	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	private String userId;
 	
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
+	@Column
+	private String nickname;
+	
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
+	@Column(name="img_url")
+	private String imgUrl;
 	//账号余额
 	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="amount_balance")
@@ -87,6 +94,22 @@ public class DrawUser {
     
     
     
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
 
 	public Integer getCanTakeOutCount() {
 		return canTakeOutCount;

@@ -51,6 +51,8 @@ public class DrawUserFilter extends Filter{
 			drawUser.setWrongAnswerNum(0);
 			drawUser.setHandRedPacketAmount(new BigDecimal("0"));
 			drawUser.setHandRedPacketNum(0);
+			drawUser.setNickname(userInfo.getNickname());
+			drawUser.setImgUrl(userInfo.getHeadimgurl());
 			drawUser = drawUserService.add(drawUser);
 		}
 		

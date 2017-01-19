@@ -7,12 +7,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.filter.Filter;
+import com.wyc.common.service.WxUserInfoService;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.Constant;
+import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.filter.test.RedPacketReceiveAbleTestFilter;
 import com.wyc.draw.service.DrawRoomMemberService;
+import com.wyc.draw.service.DrawUserService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.vo.RedPacketTakepartMemberListVo;
@@ -30,6 +34,12 @@ public class GetRedPackInfoFilter extends Filter{
 	@Autowired
 	private DrawRoomMemberService drawRoomMemberService;
 	
+	@Autowired
+	private WxUserInfoService userInfoService;
+	
+	@Autowired
+	private DrawUserService drawUserService;
+	
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
@@ -42,24 +52,37 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		int isInTheRoom = drawRoomMemberService.isInRoom(redPacket.getDrawRoomId(),drawUser.getId());
 		
-		DrawRoomMember handRoomMember = drawRoomMemberService.findOne(redPacket.getHandRoomMemberId());
+		
 		
 		
 		int count = redPacketTakepartMemberService.countByRedPacketIdAndDrawUserId(id, drawUser.getId());
 		
 		RedPacketVo redPacketVo = new RedPacketVo();
-		redPacketVo.setDrawRoomId(redPacket.getDrawRoomId());
+		
+		if(redPacket.getType()==Constant.ROOM_QUESTION_TYPE){
+			DrawRoomMember handRoomMember = drawRoomMemberService.findOne(redPacket.getHandRoomMemberId());
+			redPacketVo.setNickname(handRoomMember.getName());
+			redPacketVo.setUserImgUrl(handRoomMember.getImgUrl());
+			redPacketVo.setDrawRoomId(redPacket.getDrawRoomId());
+			redPacketVo.setHandRoomMemberId(redPacket.getHandRoomMemberId());
+		}else if(redPacket.getType()==Constant.PERSONAL_QUESTION_TYPE){
+			
+			DrawUser thisDrawUser = drawUserService.findOne(redPacket.getHandDrawUserId());
+			redPacketVo.setNickname(thisDrawUser.getNickname());
+			redPacketVo.setUserImgUrl(thisDrawUser.getImgUrl());
+		}
+		
 		redPacketVo.setHandDrawUserId(redPacket.getHandDrawUserId());
-		redPacketVo.setHandRoomMemberId(redPacket.getHandRoomMemberId());
+		
 		redPacketVo.setHandTime(redPacket.getHandTime());
 		redPacketVo.setHandDrawUserId(redPacket.getHandDrawUserId());
 		redPacketVo.setId(redPacket.getId());
 		redPacketVo.setPayType(redPacket.getPayType());
 		redPacketVo.setType(redPacket.getType());
 		redPacketVo.setAmount(redPacket.getAmount());
-		redPacketVo.setNickname(handRoomMember.getName());
+		
 		redPacketVo.setQuestion(redPacket.getQuestion());
-		redPacketVo.setUserImgUrl(handRoomMember.getImgUrl());
+		
 		redPacketVo.setAnswer(redPacket.getAnswer());
 		redPacketVo.setIsTimeout(redPacket.getIsTimeout());
 		redPacketVo.setTimeLong(redPacket.getTimeLong());
