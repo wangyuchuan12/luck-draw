@@ -97,14 +97,12 @@
 }
 .luck_info_question_prompt{
 	position: relative;
-	background-color: white;
 	display: block;
-	top:10px;
 	width:100%;
 	padding-left: 20px;
 	padding-right: 5px;
 	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-bottom: 20px;
 	display: block;
 	
 }
