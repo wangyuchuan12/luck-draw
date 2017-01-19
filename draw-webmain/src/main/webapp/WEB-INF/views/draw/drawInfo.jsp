@@ -66,10 +66,13 @@
 					<div class="luck_info_item_content">我也发个红包</div>
 				</div>
 				
-				<div class="luck_info_item" onclick="skipToRoomInfo('${result.data.drawRoomId}');">
-					<i class="fa fa-users luck_info_item_i" style="color: RGBA(126,213,61,1);"></i>
-					<div class="luck_info_item_content">进入房间</div>
-				</div>
+				<c:if test="${result.data.type==0}">
+					<div class="luck_info_item" onclick="skipToRoomInfo('${result.data.drawRoomId}');">
+						<i class="fa fa-users luck_info_item_i" style="color: RGBA(126,213,61,1);"></i>
+						<div class="luck_info_item_content">进入房间</div>
+					</div>
+				</c:if>
+				
 				
 			</div>
 			<div class="luck_info_situation">
