@@ -50,7 +50,7 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		RedPacketTakepartMemberListVo redPacketTakepartMemberListVo = (RedPacketTakepartMemberListVo)filterManager.getObject(RedPacketTakepartMemberListVo.class);
 		
-		int isInTheRoom = drawRoomMemberService.isInRoom(redPacket.getDrawRoomId(),drawUser.getId());
+		
 		
 		
 		
@@ -65,11 +65,26 @@ public class GetRedPackInfoFilter extends Filter{
 			redPacketVo.setUserImgUrl(handRoomMember.getImgUrl());
 			redPacketVo.setDrawRoomId(redPacket.getDrawRoomId());
 			redPacketVo.setHandRoomMemberId(redPacket.getHandRoomMemberId());
+			
+			int isInTheRoom = drawRoomMemberService.isInRoom(redPacket.getDrawRoomId(),drawUser.getId());
+			
+			if(isInTheRoom==1){
+				DrawRoomMember myRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(), redPacket.getDrawRoomId());
+				redPacketVo.setMyRoomMemberId(myRoomMember.getId());
+				redPacketVo.setIsCreater(myRoomMember.getIsCreater());
+			}
+			
+			redPacketVo.setIsInRoom(isInTheRoom);
 		}else if(redPacket.getType()==Constant.PERSONAL_QUESTION_TYPE){
 			
 			DrawUser thisDrawUser = drawUserService.findOne(redPacket.getHandDrawUserId());
 			redPacketVo.setNickname(thisDrawUser.getNickname());
 			redPacketVo.setUserImgUrl(thisDrawUser.getImgUrl());
+			
+			
+			if(redPacket.getHandDrawUserId().equals(drawUser.getId())){
+				redPacketVo.setIsCreater(1);
+			}
 		}
 		
 		redPacketVo.setHandDrawUserId(redPacket.getHandDrawUserId());
@@ -95,13 +110,7 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		redPacketVo.setRedPacketTakepartMemberVos(redPacketTakepartMemberListVo.getRedPacketTakepartMemberVos());
 		
-		if(isInTheRoom==1){
-			DrawRoomMember myRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(), redPacket.getDrawRoomId());
-			redPacketVo.setMyRoomMemberId(myRoomMember.getId());
-			redPacketVo.setIsCreater(myRoomMember.getIsCreater());
-		}
 		
-		redPacketVo.setIsInRoom(isInTheRoom);
 		return redPacketVo;
 	}
 
