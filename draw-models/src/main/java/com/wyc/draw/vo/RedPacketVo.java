@@ -119,6 +119,9 @@ public class RedPacketVo {
 	private Integer isInRoom;
 	
 	@ParamAnnotation
+	private Integer isCreater;
+	
+	@ParamAnnotation
 	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
 
 
@@ -132,6 +135,20 @@ public class RedPacketVo {
 
 	public void setRedPacketTakepartMemberVos(List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos) {
 		this.redPacketTakepartMemberVos = redPacketTakepartMemberVos;
+	}
+
+
+
+
+	public Integer getIsCreater() {
+		return isCreater;
+	}
+
+
+
+
+	public void setIsCreater(Integer isCreater) {
+		this.isCreater = isCreater;
 	}
 
 

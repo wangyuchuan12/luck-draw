@@ -29,6 +29,8 @@
 			<input name="isInRoom" value="${result.data.isInRoom}" type="hidden"/>
 			
 			<input name="type" value="${result.data.type}" type="hidden"/>
+			
+			<input name="isCreater" value="${result.data.isCreater}" type="hidden"/>
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">问答红包</div>
@@ -97,9 +99,9 @@
 					<c:forEach items="${result.data.redPacketTakepartMemberVos}" var="takepart">
 						<div class="luck_info_record_item">
 							<div class="luck_info_record_item_img">
-								<img src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iaCq2JwzfpkLPLREt1m1UcUoy17zzkNwgeAWqs6nHY1svj2NfMethmUqVpicG80yYdWn524E6fyBtpJB1CYhEB83yicLicJbUZ5U/0"></img>
+								<img src="${takepart.headImg}"></img>
 							</div>
-							<div class="luck_info_record_item_nickname">川川</div>
+							<div class="luck_info_record_item_nickname">${takepart.nickname}</div>
 							<div class="luck_info_record_item_time">${takepart.takepartDateTime}</div>
 							<div class="luck_info_record_item_content">回答：${takepart.answer}</div>
 							<div class="luck_info_record_item_result">
@@ -189,42 +191,59 @@
 				}
 				
 				function appendPrompt(id,prompt){
-					$(".luck_info_question_prompt_items").append("<div id='"+id+"' class='luck_info_question_prompt_item'>"+prompt+" <em class='fa fa-close'></em></div>");
+					
+					var isCreater = $("input[name=isCreater]").val();
+					isCreater = parseInt(isCreater);
+					if(isCreater==1){
+						$(".luck_info_question_prompt_items").append("<div id='"+id+"' class='luck_info_question_prompt_item'>"+prompt+" <em class='fa fa-close'></em></div>");
+					}else{
+						$(".luck_info_question_prompt_items").append("<div id='"+id+"' class='luck_info_question_prompt_item'>"+prompt+"</div>");
+					}
 				}
 				
 				function initAddPrompts(){
-					$(".luck_info_question_prompt_items").append("<div class='luck_info_question_prompt_add'>新增提示</div>");
 					
-					
-					$(".luck_info_question_prompt_add").click(function(){
+					var isCreater = $("input[name=isCreater]").val();
+					isCreater = parseInt(isCreater);
+					if(isCreater==1){
+						$(".luck_info_question_prompt_items").append("<div class='luck_info_question_prompt_add'>新增提示</div>");
 						
-						layer.prompt({
-							title:"请输入提示"
-						},function(value){
-							layer.closeAll();
-							var callback = new Object();
-							callback.success = function(){
-								initPrompts();
-							}
-							var url = "/api/draw/red_pack/add_prompt";
-							var params = new Object();
-							params.red_packet_id = $("input[name=redPacketId]").val();
-							params.prompt = value;
-							request(url,callback,params);
+						$(".luck_info_question_prompt_add").click(function(){
 							
+							layer.prompt({
+								title:"请输入提示"
+							},function(value){
+								layer.closeAll();
+								var callback = new Object();
+								callback.success = function(){
+									initPrompts();
+								}
+								var url = "/api/draw/red_pack/add_prompt";
+								var params = new Object();
+								params.red_packet_id = $("input[name=redPacketId]").val();
+								params.prompt = value;
+								request(url,callback,params);
+								
+							});
 						});
-					});
+					}	
 				}
 				
 				
 				
 				function initDelPrompts(){
-					$(".luck_info_question_prompt_items").append("<div class='luck_info_question_prompt_del'>删除提示</div>");
 					
+					var isCreater = $("input[name=isCreater]").val();
+					isCreater = parseInt(isCreater);
+					if(isCreater==1){
+						$(".luck_info_question_prompt_items").append("<div class='luck_info_question_prompt_del'>删除提示</div>");
+						
+						
+						$(".luck_info_question_prompt_del em").click(function(){
+							alert();
+						});
+					}
 					
-					$(".luck_info_question_prompt_del em").click(function(){
-						alert();
-					});
 				}
 				
 				

@@ -75,6 +75,7 @@ public class GetRedPackInfoFilter extends Filter{
 		if(isInTheRoom==1){
 			DrawRoomMember myRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(), redPacket.getDrawRoomId());
 			redPacketVo.setMyRoomMemberId(myRoomMember.getId());
+			redPacketVo.setIsCreater(myRoomMember.getIsCreater());
 		}
 		
 		redPacketVo.setIsInRoom(isInTheRoom);
