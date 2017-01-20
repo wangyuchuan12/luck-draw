@@ -10,7 +10,6 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.service.WxUserInfoService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
-import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;

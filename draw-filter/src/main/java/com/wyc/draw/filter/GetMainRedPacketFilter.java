@@ -42,8 +42,6 @@ public class GetMainRedPacketFilter extends Filter{
 			
 			redPacketVo.setNickname(drawUser.getNickname());
 			
-			redPacketVo.setNickname(drawUser.getNickname());
-			
 			redPacketVo.setTakePartCount(redPacket.getTakePartCount());
 			redPacketVo.setUserImgUrl(drawUser.getImgUrl());
 			redPacketVo.setDrawRoomId(redPacket.getDrawRoomId());

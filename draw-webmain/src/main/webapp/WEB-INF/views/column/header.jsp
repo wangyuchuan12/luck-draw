@@ -203,7 +203,7 @@ function joinRoom(){
 				<span>我的好友</span>
 			</li>
 			
-			<li>
+			<li onclick="skipToHome();">
 				<em class="fa fa-home" style="color:RGBA(126,213,61,1);"></em>
 				<span>返回主页</span>
 			</li>
