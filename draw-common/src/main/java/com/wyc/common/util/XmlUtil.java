@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import org.jdom.Document;
 import org.jdom.Element;
 
+import com.wyc.annotation.NameAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 
 public class XmlUtil {
@@ -13,9 +14,10 @@ public class XmlUtil {
         for(Field field:type.getDeclaredFields()){
             ParamAnnotation paramAnnotation = field.getAnnotation(ParamAnnotation.class);
             if(paramAnnotation!=null){
-                String name = paramAnnotation.name();
-                if(name.equals("")){
-                    name = field.getName();
+                String name = field.getName();
+                NameAnnotation nameAnnotation = field.getAnnotation(NameAnnotation.class);
+                if(nameAnnotation!=null){
+                	name = nameAnnotation.name();
                 }
                 String value = rootElement.getChildText(name);
                 field.setAccessible(true);

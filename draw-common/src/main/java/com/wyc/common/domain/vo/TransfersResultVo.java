@@ -1,6 +1,7 @@
 package com.wyc.common.domain.vo;
 
 import com.wyc.annotation.IdAnnotation;
+import com.wyc.annotation.NameAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
 
@@ -10,21 +11,27 @@ public class TransfersResultVo {
 	@IdAnnotation
 	private String id;
 	
+	@NameAnnotation(name="return_code")
 	@ParamAnnotation
 	private String returnCode;
 	
+	@NameAnnotation(name="return_msg")
 	@ParamAnnotation
 	private String returnMsg;
 	
+	@NameAnnotation(name="return_code")
 	@ParamAnnotation
 	private String resultCode;
 	
+	@NameAnnotation(name="error_code")
 	@ParamAnnotation
 	private String errCode;
 	
+	@NameAnnotation(name="error_code_desc")
 	@ParamAnnotation
 	private String errCodeDes;
 
+	@NameAnnotation(name="out_trade_no")
 	@ParamAnnotation
 	private String outTradeNo;
 	public String getId() {
