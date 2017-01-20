@@ -20,6 +20,7 @@ import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.common.wx.domain.Article;
 import com.wyc.common.wx.domain.WxContext;
+import com.wyc.common.wx.service.SendMessageService;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
@@ -48,6 +49,9 @@ public class BaseHandRedPackFilter extends Filter{
 	
 	@Autowired
 	private WxContext wxContext;
+	
+	@Autowired
+	private SendMessageService sendMessageService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -317,7 +321,7 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacketVo.setPayType(redPacket.getPayType());
 		redPacketVo.setOutTradeNo(outTradeNo);
 		
-		
+		sendMessageService.sendImgMessageToDawang(articles);
 		return redPacketVo;
 	}
 
