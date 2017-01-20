@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wyc.annotation.IdAnnotation;
+import com.wyc.annotation.NameAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
 @Entity(name="pay_success")
@@ -17,7 +18,9 @@ public class PaySuccess {
     @Id
     @IdAnnotation
     private String id;
-    @ParamAnnotation(name="order_id")
+    
+    @NameAnnotation(name="order_id")
+    @ParamAnnotation
     @Column(name="order_id")
     private String orderId;
     @ParamAnnotation
@@ -26,50 +29,75 @@ public class PaySuccess {
     @ParamAnnotation
     @Column
     private String attach;
-    @ParamAnnotation(name="bank_type")
+    
+    @NameAnnotation(name="bank_type")
+    @ParamAnnotation
     @Column(name="bank_type")
     private String bankType;
-    @ParamAnnotation(name="cash_fee")
+    
+    @NameAnnotation(name="cash_fee")
+    @ParamAnnotation
     @Column(name="cash_fee")
     private String cashFee;
-    @ParamAnnotation(name="is_subscribe")
+    
+    @NameAnnotation(name="is_subscribe")
+    @ParamAnnotation
     @Column(name="is_subscribe")
     private String isSubscribe;
-    @ParamAnnotation(name="mch_id")
+    
+    @NameAnnotation(name="mch_id")
+    @ParamAnnotation
     @Column(name="mch_id")
     private String mchId;
-    @ParamAnnotation(name="nonce_str")
+    
+    @NameAnnotation(name="nonce_str")
+    @ParamAnnotation
     @Column(name="nonce_str")
     private String nonceStr;
     @ParamAnnotation
     @Column
     private String openid;
-    @ParamAnnotation(name="out_trade_no")
+    
+    @NameAnnotation(name="out_trade_no")
+    @ParamAnnotation
     @Column(name="out_trade_no")
     private String outTradeNo;
-    @ParamAnnotation(name="result_code")
+    
+    @NameAnnotation(name="result_code")
+    @ParamAnnotation
     @Column(name="result_code")
     private String resultCode;
-    @ParamAnnotation(name="return_code")
+    
+    @NameAnnotation(name="return_code")
+    @ParamAnnotation
     @Column(name="return_code")
     private String returnCode;
     @ParamAnnotation
     @Column
     private String sign;
-    @ParamAnnotation(name="time_end")
+    
+    @NameAnnotation(name="time_end")
+    @ParamAnnotation
     @Column(name="time_end")
     private String timeEnd;
-    @ParamAnnotation(name="total_fee")
+    
+    @NameAnnotation(name="total_fee")
+    @ParamAnnotation
     @Column(name="total_fee")
     private String totalFee;
-    @ParamAnnotation(name="trade_type")
+    
+    @NameAnnotation(name="trade_type")
+    @ParamAnnotation
     @Column(name="trade_type")
     private String tradeType;
-    @ParamAnnotation(name="transaction_id")
+    
+    @NameAnnotation(name="transaction_id")
+    @ParamAnnotation
     @Column(name="transaction_id")
     private String transactionId;
     
-    @Column(name="is_refund")
+    @NameAnnotation(name="is_refund")
+    @Column
     private Integer isRefund;
     
     @Column(name = "create_at")

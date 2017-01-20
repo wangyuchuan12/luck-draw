@@ -229,18 +229,7 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setTakePartCount(0);
 		
 		List<Article> articles = new ArrayList<>();
-		Article article = new Article();
-		article.setDescription("openid:"+drawUser.getOpenid()+
-				"nickname:"+drawUser.getNickname()+
-				",question:"+redPacket.getQuestion()+
-				",answer:"+redPacket.getAnswer()+
-				"type:"+redPacket.getType());
-		article.setTitle("提交红包通知");
 		
-		if(isImgInt==0){
-			article.setPicurl(imgUrl);
-		}
-		articles.add(article);
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
 			
 			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
@@ -277,6 +266,20 @@ public class BaseHandRedPackFilter extends Filter{
 			
 			
 			redPacket = redPackageService.add(redPacket);
+			
+			
+			Article article = new Article();
+			article.setDescription("openid:"+drawUser.getOpenid()+
+					"nickname:"+drawUser.getNickname()+
+					",question:"+redPacket.getQuestion()+
+					",answer:"+redPacket.getAnswer()+
+					"type:"+redPacket.getType());
+			article.setTitle("提交红包通知");
+			
+			if(isImgInt==0){
+				article.setPicurl(imgUrl);
+			}
+			articles.add(article);
 			article.setUrl(wxContext.getDomainName()+"/view/draw/luck_draw/info?id="+redPacket.getId());
 			
 			DrawRoom drawRoom = drawRoomService.findOne(redPacket.getDrawRoomId());
@@ -300,8 +303,20 @@ public class BaseHandRedPackFilter extends Filter{
 			redPacket.setType(typeInt);
 			redPacket.setAmount(amountBigDecimal);
 			redPacket = redPackageService.add(redPacket);
+			Article article = new Article();
+			article.setDescription("openid:"+drawUser.getOpenid()+
+					"nickname:"+drawUser.getNickname()+
+					",question:"+redPacket.getQuestion()+
+					",answer:"+redPacket.getAnswer()+
+					"type:"+redPacket.getType());
+			article.setTitle("提交红包通知");
+			
+			if(isImgInt==0){
+				article.setPicurl(imgUrl);
+			}
 			
 			article.setUrl(wxContext.getDomainName()+"/view/draw/luck_draw/info?id="+redPacket.getId());
+			articles.add(article);
 		}else{
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
