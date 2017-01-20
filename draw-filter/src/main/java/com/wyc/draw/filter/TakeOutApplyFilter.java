@@ -170,7 +170,6 @@ public class TakeOutApplyFilter extends Filter{
 				articles.add(article);
 				
 				sendMessageService.sendImgMessage(applyForm.getOpenid(), articles);
-				return resultVo;
 			}else{
 				
 				applyForm.setErrorCount(1);
