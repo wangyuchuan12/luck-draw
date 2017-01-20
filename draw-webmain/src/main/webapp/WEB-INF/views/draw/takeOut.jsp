@@ -86,6 +86,9 @@
 							hideLoading();
 							
 							if(obj.success){
+								amountBalance = amountBalance - amount;
+								$("input[name=amountBalance]").val(amountBalance);
+								$(".take_out_balance").val(amountBalance);
 								var canTakeOutCount = $("input[name=canTakeOutCount]").val();
 								canTakeOutCount = parseInt(canTakeOutCount);
 								canTakeOutCount = canTakeOutCount-1;
@@ -94,7 +97,6 @@
 								reloadDetail();
 								showToast("申请成功",5000);
 							}else{
-								alert(obj.errorMsg);
 								showToast("网络繁忙，请稍后再试",5000);
 							}
 							
