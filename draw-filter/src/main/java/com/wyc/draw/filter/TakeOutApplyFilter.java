@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wyc.common.domain.ApplyForm;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.domain.vo.TransfersResultVo;
@@ -152,6 +153,9 @@ public class TakeOutApplyFilter extends Filter{
 			if(resultVo!=null){
 				applyForm.setTradeOutNo(resultVo.getOutTradeNo());
 			}
+			
+			ObjectMapper objectMapper = new ObjectMapper();
+			System.out.println(objectMapper.writeValueAsString(resultVo));
 			if(resultVo!=null&&resultVo.getResultCode()!=null&&resultVo.getResultCode().equals("SUCCESS")){
 				applyForm.setStatus(Constant.APPLY_FORM_STATUS_SUCCESS);
 				applyForm.setHandleTime(new DateTime());
