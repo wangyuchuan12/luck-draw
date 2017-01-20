@@ -15,13 +15,12 @@
 </head>
 <body>
     <div class="container">
-	  <tiles:insertAttribute name="header" />
 	   <tiles:insertAttribute name="body" />
 	   <div style="height:20px;"></div>
 	   <tiles:insertAttribute name="footer" />
 	   <tiles:insertAttribute name="baseLayout" />
 	   
-	   <div style="height: 50px;"></div>
+	   <div style="height: 250px;"></div>
 	</div>
 </body>
 </html>

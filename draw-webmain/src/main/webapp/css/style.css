@@ -972,3 +972,131 @@ li::before{
 	color: black;
 	display: block;
 }
+
+.main_room{
+	width:100%;
+	height:180px;
+	
+	 
+}
+
+.main_room_head{
+	color: RGBA(243,83,84,1);
+	
+	font-size: 20px;
+	
+	font-weight: bolder;
+	
+	padding-left: 10px;
+}
+
+.main_room_list{
+	padding-top: 10px;
+	
+	white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.main_room_list>ul>li{
+	width:100px;
+	
+	display: inline-block;
+}
+.main_room_list>ul>li>img{
+	width:100px;
+	height:100px;
+	display: inline-block;
+}
+
+.main_room_list>ul>li>span{
+	color: black;
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.main_packet_list{
+	padding-top: 10px;
+	
+	padding-left: 20px;
+}
+
+.main_packet_list>ul>li{
+
+	float:left;
+	
+	display: inline-block;
+	
+	width:45%;
+	background-color:white;
+	
+	margin:2px;
+	
+	
+	padding-top: 10px;
+
+}
+
+
+.main_packet_list_img{
+	text-align: center;
+	
+	width: 100%;
+}
+.main_packet_list_img>img{
+	width:50%;
+	margin: 0 auto;
+	display: inline-block;
+	
+	
+	
+	
+}
+
+.main_packet_list>ul>li>span{
+	display: block;
+}
+
+.main_packet_list_question{
+	color: black;
+	
+	font-size: 15px;
+	
+	font-weight: bolder;
+	
+	padding-left: 10px;
+}
+
+.main_Packet_list_content{
+	padding-left: 10px;
+}
+.main_Packet_list_content img{
+	width:55px;
+	height: 55px;
+	
+	border-radius:55px;
+	
+	display: inline-block;
+}
+
+.main_Packet_list_content_detail{
+	display: inline-block;
+	
+	padding-left: 10px;
+}
+
+.main_packet_list_nickname{
+	color: black;
+}
+
+.main_packet_list_amount{
+	position: relative;
+	top:-3px;
+}
+
+.main_packet_list_num{
+	position: relative;
+	top:-3px;
+}

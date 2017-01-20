@@ -130,6 +130,11 @@ public class RedPacket {
 	private Integer isImg;
 	
 	
+	//已参与用户数量
+	@ParamAnnotation
+	@Column(name="take_part_count")
+	private Integer takePartCount;
+	
 	//图片地址
 	@ParamAnnotation
 	@Column(name="img_url")
@@ -292,5 +297,13 @@ public class RedPacket {
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
+	public Integer getTakePartCount() {
+		return takePartCount;
+	}
+	public void setTakePartCount(Integer takePartCount) {
+		this.takePartCount = takePartCount;
+	}
+	
+	
     
 }

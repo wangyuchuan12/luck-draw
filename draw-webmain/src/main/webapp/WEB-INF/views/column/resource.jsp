@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="/css/style.css"/>
 <link rel="stylesheet" href="/css/core.css"/>
+
+<link rel="stylesheet" href="/css/swiper.min.css"/>
 <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css"/>
 
 <link rel="stylesheet" href="/fakeLoader/css/fakeLoader.css">
@@ -14,6 +16,9 @@
 <script src="/fakeLoader/js/fakeLoader.min.js"></script>
 
 <script src="/js/myscript.js"></script>
+<script src="/js/swiper.min.js"></script>
+
+<script src="/js/jquery.lazy.js"></script>
 
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 

@@ -43,5 +43,9 @@ public class DrawRoomService {
 		
 	}
 
+	public List<DrawRoom> findAllOfMainByPeriodId(String periodId) {
+		return drawRoomRepository.findAllOfMainByPeriodId(periodId);
+	}
+
 
 }

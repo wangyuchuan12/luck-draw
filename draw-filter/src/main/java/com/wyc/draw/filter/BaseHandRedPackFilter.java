@@ -217,6 +217,7 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setPayType(payTypeInt);
 		redPacket.setIsTimeout(0);
 		redPacket.setAllowWrongCount(allowWrongCountInt);
+		redPacket.setTakePartCount(0);
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
 			
 			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);

@@ -8,7 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.wyc.draw.domain.DrawRoom;
-import com.wyc.draw.domain.DrawRoomMember;
 
 public interface DrawRoomRepository extends CrudRepository<DrawRoom, String>{
 
@@ -17,6 +16,10 @@ public interface DrawRoomRepository extends CrudRepository<DrawRoom, String>{
 
 	@Query(value="from com.wyc.draw.domain.DrawRoom dr where dr.id in (select drawRoomId from com.wyc.draw.domain.DrawRoomMember drm where drm.drawUserId=:drawUserId and drm.status=1)")
 	Page<DrawRoom> findAllByDrawUserId(@Param("drawUserId")String drawUserId, Pageable pageable);
+
+	
+	@Query(value="from com.wyc.draw.domain.DrawRoom dr where dr.id in (select mr.roomId from com.wyc.draw.domain.view.MainRoom mr where mr.periodId=:periodId and mr.isDisplay=1)")
+	List<DrawRoom> findAllOfMainByPeriodId(@Param("periodId")String periodId);
 
 
 

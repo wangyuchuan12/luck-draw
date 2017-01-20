@@ -63,6 +63,11 @@ public class AnswerRedPackFilter extends Filter{
 
 		RedPacket redPacket = (RedPacket) filterManager.getObject(RedPacket.class);
 		
+		if(redPacket.getTakePartCount()==null){
+			redPacket.setTakePartCount(0);
+		}
+		redPacket.setTakePartCount(redPacket.getTakePartCount()+1);
+		
 		if(CommonUtil.isEmpty(answer)){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);

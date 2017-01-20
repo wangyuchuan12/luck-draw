@@ -126,6 +126,12 @@
 	
 	$(document).ready(function(){
 		wxConfig(getAppId(),getSignature(),getNoncestr(),getDatetime());
+		
+		$("img.lazy").lazyload({
+	        effect: "fadeIn",
+	        threshold : 200
+		});
+		$("img.lazy:eq(0)").attr('src',$("img.lazy:eq(0)").attr('data-original'));
 	});
 	
 	

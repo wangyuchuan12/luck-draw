@@ -132,6 +132,26 @@ public class RedPacketVo {
 	private String imgUrl;
 	
 	@ParamAnnotation
+	private Integer takePartCount;
+	
+	
+	
+	
+	public Integer getTakePartCount() {
+		return takePartCount;
+	}
+
+
+
+
+	public void setTakePartCount(Integer takePartCount) {
+		this.takePartCount = takePartCount;
+	}
+
+
+
+
+	@ParamAnnotation
 	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
 
 

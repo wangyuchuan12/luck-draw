@@ -1,4 +1,5 @@
 package com.wyc.draw.service;
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -37,5 +38,10 @@ public class RedPacketService {
 
 	public Page<RedPacket> findAllByDrawRoomId(String roomId, Pageable pageable) {
 		return redPackageRepository.findAllByDrawRoomId(roomId,pageable);
+	}
+
+	public List<RedPacket> findAllOfMainByPeriodId(String periodId) {
+		
+		return redPackageRepository.findAllOfMainByPeriodId(periodId);
 	}
 }
