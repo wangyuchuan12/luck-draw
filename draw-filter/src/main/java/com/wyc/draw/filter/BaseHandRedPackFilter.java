@@ -276,7 +276,7 @@ public class BaseHandRedPackFilter extends Filter{
 					"type:"+redPacket.getType());
 			article.setTitle("提交红包通知");
 			
-			if(isImgInt==0){
+			if(isImgInt==1){
 				article.setPicurl(imgUrl);
 			}
 			articles.add(article);

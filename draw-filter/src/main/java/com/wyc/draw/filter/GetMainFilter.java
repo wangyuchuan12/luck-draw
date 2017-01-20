@@ -41,6 +41,8 @@ public class GetMainFilter extends Filter{
 		filters.add(GetMainRoomFilter.class);
 		
 		filters.add(GetMainRedPacketFilter.class);
+		
+		filters.add(DrawUserFilter.class);
 		return filters;
 	}
 
