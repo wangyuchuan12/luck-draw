@@ -9,6 +9,12 @@
 <tiles:putAttribute name="body">
 	<div class="luck_rooms">
 		<ul>
+			<li onclick="skipToAddRoom();">
+				<div class="luck_rooms_plus">
+					<em class="fa fa-plus"></em>
+				</div>
+			</li>
+		
 			<c:forEach items="${roomListVo.drawRoomInfos}" var="roomInfo">
 			
 				<li onclick="skipToRoomInfo('${roomInfo.id}')">
@@ -37,6 +43,12 @@
 		</ul>
 	
 	</div>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			selectMain("main_room");
+		});
+	</script>
 			
 			
 </tiles:putAttribute>

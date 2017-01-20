@@ -18,8 +18,10 @@ import com.wyc.common.service.ApplyFormService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
+import com.wyc.common.wx.domain.Article;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.common.wx.domain.WxContext;
+import com.wyc.common.wx.service.SendMessageService;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.service.DrawUserService;
 import com.wyc.pay.service.PayService;
@@ -37,6 +39,9 @@ public class TakeOutApplyFilter extends Filter{
 	
 	@Autowired
 	private WxContext wxContext;
+	
+	@Autowired
+	private SendMessageService sendMessageService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -150,8 +155,18 @@ public class TakeOutApplyFilter extends Filter{
 			if(resultVo!=null&resultVo.getResultCode().equals("SUCCESS")){
 				applyForm.setStatus(Constant.APPLY_FORM_STATUS_SUCCESS);
 				applyForm.setHandleTime(new DateTime());
-				
 				applyFormService.update(applyForm);
+				
+				
+				List<Article> articles = new ArrayList<>();
+				Article article = new Article();
+				article.setDescription("你申请的金额"+applyForm.getRealHandleAmount()+"元已经入账，点击查看详情");
+				article.setTitle("红包提现入账通知");
+				article.setUrl(wxContext.getDomainName()+"/view/draw/personal_center/main");
+				articles.add(article);
+				
+				sendMessageService.sendImgMessage(applyForm.getOpenid(), articles);
+				return resultVo;
 			}else{
 				
 				applyForm.setErrorCount(1);

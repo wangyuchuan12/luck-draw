@@ -52,6 +52,10 @@
 		$("#takeOut").click(function(){
 			skipToUrl("/view/draw/personal_center/takeOut");
 		});
+		
+		$(document).ready(function(){
+			selectMain("main_personal_center");
+		});
 	
 	</script>
 </tiles:putAttribute>

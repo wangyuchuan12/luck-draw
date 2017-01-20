@@ -528,6 +528,19 @@ li::before{
 	margin-bottom: 10px;
 }
 
+.luck_rooms_plus{
+	text-align: center;
+	position: absolute;
+	top:0px;
+	margin: 0 auto;
+	background-color: white;
+	width: 48%;
+	height:185px;
+}
+.luck_rooms_plus>em{
+	font-size: 150px;
+	padding-top: 20px;
+}
 .luck_rooms_img{
 	
 }
@@ -1046,7 +1059,7 @@ li::before{
 	width: 100%;
 }
 .main_packet_list_img>img{
-	width:50%;
+	width:90%;
 	margin: 0 auto;
 	display: inline-block;
 	

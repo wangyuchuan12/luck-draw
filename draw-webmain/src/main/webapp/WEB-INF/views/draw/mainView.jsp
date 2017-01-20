@@ -79,6 +79,9 @@
 	        autoplay: 5000,
 	        autoplayDisableOnInteraction: false
 	    });
+		$(document).ready(function(){
+			selectMain("main_home");
+		});
 		
 	</script>
 </tiles:putAttribute>

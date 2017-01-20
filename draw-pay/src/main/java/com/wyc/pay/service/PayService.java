@@ -2,7 +2,9 @@ package com.wyc.pay.service;
 
 import java.io.StringReader;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 import java.util.TreeMap;
 
@@ -26,7 +28,9 @@ import com.wyc.common.util.Request;
 import com.wyc.common.util.RequestFactory;
 import com.wyc.common.util.Response;
 import com.wyc.common.util.XmlUtil;
+import com.wyc.common.wx.domain.Article;
 import com.wyc.common.wx.domain.WxContext;
+import com.wyc.common.wx.service.SendMessageService;
 
 @Service
 public class PayService {
@@ -43,7 +47,8 @@ public class PayService {
 	@Autowired
 	private ApplyFormService applyFormService;
 	
-	
+	@Autowired
+	private SendMessageService sendMessageService;
 	//因为之前已经有一次提现失败，再一次提现
 	public TransfersResultVo reTakeout(ApplyForm applyForm,String remoteAddress)throws Exception{
 		if(applyForm.getType()==Constant.APPLY_FORM_TYPE_TAKE_OUT){
@@ -53,6 +58,16 @@ public class PayService {
 				applyForm.setHandleTime(new DateTime());
 				applyForm.setTradeOutNo(applyForm.getTradeOutNo()+","+resultVo.getOutTradeNo());
 				applyFormService.update(applyForm);
+				
+				List<Article> articles = new ArrayList<>();
+				
+				Article article = new Article();
+				article.setDescription("你申请的金额"+applyForm.getRealHandleAmount()+"元已经入账，点击查看详情");
+				article.setTitle("红包提现入账通知");
+				article.setUrl(wxContext.getDomainName()+"/view/draw/personal_center/main");
+				articles.add(article);
+				
+				sendMessageService.sendImgMessage(applyForm.getOpenid(), articles);
 				return resultVo;
 			}else{
 				applyForm.setErrorCount(applyForm.getErrorCount()+1);

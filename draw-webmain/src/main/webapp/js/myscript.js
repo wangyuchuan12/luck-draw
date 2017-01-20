@@ -38,6 +38,12 @@ function doJoinRoom(type,question,roomId,callback){
 	
 }
 
+function skipToAddRoom(){
+	var url = "/view/draw/draw_room/add";
+	skipToUrl(url);
+	
+}
+
 function skipToRooms(){
 	var url = "/view/draw/draw_room/list";
 	var params = new Object();

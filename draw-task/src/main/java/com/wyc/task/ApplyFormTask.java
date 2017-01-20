@@ -25,7 +25,7 @@ public class ApplyFormTask {
 	
 	
 	//定时执行转行失败的任务
-	@Scheduled(cron = "0 30 18 * * ?")
+	@Scheduled(cron = "0 53 18 * * ?")
 	public void handleTakeOut(){
 		List<ApplyForm> applyForms = applyFormService.findAllByTypeAndStatusOrderByApplyTimeDesc(Constant.APPLY_FORM_TYPE_TAKE_OUT,Constant.APPLY_FORM_STATUS_FAILURE);
 		for(ApplyForm applyForm:applyForms){

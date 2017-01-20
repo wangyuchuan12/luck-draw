@@ -119,11 +119,7 @@ function skipToHandRedPack(){
 	
 }
 
-function skipToAddRoom(){
-	var url = "/view/draw/draw_room/add";
-	skipToUrl(url);
-	
-}
+
 
 function joinRoom(){
 	var isInRoom = getIsInRoom();

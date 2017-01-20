@@ -127,13 +127,12 @@
 								var amount = item.realHandleAmount;
 								
 								var status;
-								
 								if(item.status==0){
-									status = "申请中<span>已到账</span>";
+									status = "申请成功<span>将在48个小时内到账</span>";	
 								}else if(item.status==1){
-									status = "申请成功<span>将在24个小时内到账</span>";
+									status = "申请中<span>已到账</span>";
 								}else if(item.status==2){
-									status = "申请成功<span>将在24个小时内到账</span>";
+									status = "申请成功<span>将在48个小时内到账</span>";
 								}
 								
 								
