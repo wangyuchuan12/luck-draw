@@ -145,7 +145,7 @@ public class TakeOutApplyFilter extends Filter{
 		
 		drawUser.setCanTakeOutCount(drawUser.getCanTakeOutCount()-1);
 		drawUserServivce.update(drawUser);
-		
+		filterManager.save(drawUser);
 		
 		try{
 			
