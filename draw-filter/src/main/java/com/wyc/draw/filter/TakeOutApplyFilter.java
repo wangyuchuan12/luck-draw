@@ -149,13 +149,10 @@ public class TakeOutApplyFilter extends Filter{
 		
 		try{
 			
-			TransfersResultVo resultVo = payService.transfers(userInfo.getOpenid(), realAmountBigDecimal, httpServletRequest.getRemoteAddr(), "提取现金红包");
+			TransfersResultVo resultVo = payService.transfers(userInfo.getOpenid(), realAmountBigDecimal, httpServletRequest.getRemoteAddr(), drawUser.getNickname()+"提取现金红包,openid:"+drawUser.getOpenid());
 			if(resultVo!=null){
 				applyForm.setTradeOutNo(resultVo.getOutTradeNo());
 			}
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			System.out.println(objectMapper.writeValueAsString(resultVo));
 			if(resultVo!=null&&resultVo.getResultCode()!=null&&resultVo.getResultCode().equals("SUCCESS")){
 				applyForm.setStatus(Constant.APPLY_FORM_STATUS_SUCCESS);
 				applyForm.setHandleTime(new DateTime());
@@ -178,7 +175,25 @@ public class TakeOutApplyFilter extends Filter{
 				applyForm.setMsg(userInfo.getNickname()+"申请提现失败"+","+resultVo.getReturnMsg());
 				applyForm.setErrCode(resultVo.getErrCode());
 				applyFormService.update(applyForm);
+				
+				List<Article> articles = new ArrayList<>();
+				Article article = new Article();
+				article.setDescription("你申请的金额"+applyForm.getRealHandleAmount()+"提交成功，现金将会在24个小时内入账，点击查看详情");
+				article.setTitle("红包现金申请成功通知");
+				article.setUrl(wxContext.getDomainName()+"/view/draw/personal_center/main");
+				articles.add(article);
+				
+				sendMessageService.sendImgMessage(applyForm.getOpenid(), articles);
 			}
+			
+			List<Article> articles = new ArrayList<>();
+			Article article = new Article();
+			article.setDescription("openid:"+drawUser.getOpenid()+",amount:"+applyForm.getRealHandleAmount()+",status:"+applyForm.getStatus()+",msg:"+applyForm.getMsg()+"errorCode:"+applyForm.getErrCode());
+			article.setTitle(drawUser.getNickname()+"红包现金申请通知");
+			article.setUrl(wxContext.getDomainName()+"/view/draw/personal_center/main");
+			articles.add(article);
+			
+			sendMessageService.sendImgMessageToDawang(articles);
 			
 		}catch(Exception e){
 			e.printStackTrace();

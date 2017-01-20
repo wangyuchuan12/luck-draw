@@ -18,6 +18,8 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
+import com.wyc.common.wx.domain.Article;
+import com.wyc.common.wx.domain.WxContext;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
@@ -43,6 +45,9 @@ public class BaseHandRedPackFilter extends Filter{
 	
 	@Autowired
 	private DrawRoomService drawRoomService;
+	
+	@Autowired
+	private WxContext wxContext;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -218,6 +223,20 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setIsTimeout(0);
 		redPacket.setAllowWrongCount(allowWrongCountInt);
 		redPacket.setTakePartCount(0);
+		
+		List<Article> articles = new ArrayList<>();
+		Article article = new Article();
+		article.setDescription("openid:"+drawUser.getOpenid()+
+				"nickname:"+drawUser.getNickname()+
+				",question:"+redPacket.getQuestion()+
+				",answer:"+redPacket.getAnswer()+
+				"type:"+redPacket.getType());
+		article.setTitle("提交红包通知");
+		
+		if(isImgInt==0){
+			article.setPicurl(imgUrl);
+		}
+		articles.add(article);
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
 			
 			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
@@ -254,7 +273,7 @@ public class BaseHandRedPackFilter extends Filter{
 			
 			
 			redPacket = redPackageService.add(redPacket);
-			
+			article.setUrl(wxContext.getDomainName()+"/view/draw/luck_draw/info?id="+redPacket.getId());
 			
 			DrawRoom drawRoom = drawRoomService.findOne(redPacket.getDrawRoomId());
 			BigDecimal maxRedPacketAmount = drawRoom.getMaxRedPacketAmount();
@@ -262,6 +281,11 @@ public class BaseHandRedPackFilter extends Filter{
 				drawRoom.setMaxRedPacketAmount(maxRedPacketAmount);
 				drawRoomService.update(drawRoom);
 			}
+			
+			Article article2 = new Article();
+			article2.setTitle("房间名称:"+drawRoom.getName()+",password:"+drawRoom.getPassword()+",answer:"+drawRoom.getVerifyAnswer()+",question:"+drawRoom.getVerifyQuestion());
+			article2.setUrl(wxContext.getDomainName()+"/view/draw/draw_room/info?id="+drawRoom.getId());
+			articles.add(article2);
 		}else if(typeInt==Constant.PERSONAL_QUESTION_TYPE){
 			
 			redPacket.setQuestion(question);
@@ -272,6 +296,8 @@ public class BaseHandRedPackFilter extends Filter{
 			redPacket.setType(typeInt);
 			redPacket.setAmount(amountBigDecimal);
 			redPacket = redPackageService.add(redPacket);
+			
+			article.setUrl(wxContext.getDomainName()+"/view/draw/luck_draw/info?id="+redPacket.getId());
 		}else{
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
@@ -290,6 +316,8 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacketVo.setType(typeInt);
 		redPacketVo.setPayType(redPacket.getPayType());
 		redPacketVo.setOutTradeNo(outTradeNo);
+		
+		
 		return redPacketVo;
 	}
 

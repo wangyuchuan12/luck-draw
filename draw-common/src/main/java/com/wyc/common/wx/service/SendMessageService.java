@@ -29,6 +29,7 @@ public class SendMessageService {
     private RequestFactory requestFactory;
     
     
+    
     public Map<String, String> sendMessage(String content)throws Exception{
     	AccessTokenBean accessTokenBean = accessTokenSmartService.getFromDatabaseByKey(tokenKey);
         if(accessTokenBean==null){
@@ -49,5 +50,16 @@ public class SendMessageService {
         news.put("articles", articles);
         map.put("news", news);
         return sendMessage(objectMapper.writeValueAsString(map));
+    }
+    
+    public Map<String, String> sendImgMessageToDawang(List<Article> articles)throws Exception{
+    	 ObjectMapper objectMapper = new ObjectMapper();
+         Map<String, Object> map = new HashMap<String, Object>();
+         map.put("touser","ozwNjw5j1V2CfXkysb1YvEtTHPqU");
+         map.put("msgtype", "news");
+         Map<String, Object> news = new HashMap<String, Object>();
+         news.put("articles", articles);
+         map.put("news", news);
+         return sendMessage(objectMapper.writeValueAsString(map));
     }
 }
