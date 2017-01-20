@@ -10,22 +10,22 @@ public class TransfersResultVo {
 	@IdAnnotation
 	private String id;
 	
-	@ParamAnnotation(name="return_code")
+	@ParamAnnotation
 	private String returnCode;
 	
-	@ParamAnnotation(name="return_msg")
+	@ParamAnnotation
 	private String returnMsg;
 	
-	@ParamAnnotation(name="result_code")
+	@ParamAnnotation
 	private String resultCode;
 	
-	@ParamAnnotation(name="err_code")
+	@ParamAnnotation
 	private String errCode;
 	
-	@ParamAnnotation(name="err_code_des")
+	@ParamAnnotation
 	private String errCodeDes;
 
-	@ParamAnnotation(name="out_trade_no")
+	@ParamAnnotation
 	private String outTradeNo;
 	public String getId() {
 		return id;
