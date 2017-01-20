@@ -152,7 +152,7 @@ public class TakeOutApplyFilter extends Filter{
 			if(resultVo!=null){
 				applyForm.setTradeOutNo(resultVo.getOutTradeNo());
 			}
-			if(resultVo!=null&resultVo.getResultCode().equals("SUCCESS")){
+			if(resultVo!=null&&resultVo.getResultCode()!=null&&resultVo.getResultCode().equals("SUCCESS")){
 				applyForm.setStatus(Constant.APPLY_FORM_STATUS_SUCCESS);
 				applyForm.setHandleTime(new DateTime());
 				applyFormService.update(applyForm);
