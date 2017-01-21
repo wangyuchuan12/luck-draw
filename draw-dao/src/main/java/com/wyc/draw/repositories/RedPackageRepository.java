@@ -18,4 +18,16 @@ public interface RedPackageRepository extends CrudRepository<RedPacket, String>{
 	@Query(value="from com.wyc.draw.domain.RedPacket rp where rp.id in (select mrp.redPacketId from com.wyc.draw.domain.view.MainRedPack mrp where mrp.periodId=:periodId and mrp.isDisplay=1)")
 	List<RedPacket> findAllOfMainByPeriodId(@Param("periodId")String periodId);
 
+	@Query(value="from com.wyc.draw.domain.RedPacket rp where rp.handDrawUserId=:drawUserId")
+	Page<RedPacket> findAllByHandDrawUserId(@Param("drawUserId")String drawUserId,Pageable pageable);
+
+
+	//我参与的红包
+	@Query(value="from com.wyc.draw.domain.RedPacket rp where rp.id in (select rtm.redPacketId from com.wyc.draw.domain.RedPacketTakepartMember rtm where rtm.drawUserId = :drawUserId)")
+	Page<RedPacket> findAllByHandDrawUserIdOfTakepart(@Param("drawUserId")String drawUserId,Pageable pageable);
+	
+	
+	//所有与该用户相关的红包
+	@Query(value="select * from d_red_packet rp where rp.id in (select rp1.id from d_red_packet rp1 where rp1.hand_draw_user_id=:drawUserId union all select rtm.red_packet_id from d_red_packet_takepart_member rtm where rtm.draw_user_id = :drawUserId) order by rp.hand_time desc limit :start,:limit",nativeQuery=true)
+	List<RedPacket> findAllOfRelatedToDrawUserId(@Param("drawUserId")String drawUserId,@Param("start")int start,@Param("limit")int limit);
 }

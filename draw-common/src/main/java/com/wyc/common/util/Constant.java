@@ -67,4 +67,15 @@ public class Constant {
 	public static final int APPLY_FORM_TYPE_TAKE_OUT = 0;
 	
 	
+	
+	/***********************红包列表筛选类型************************/
+	//全部
+	public static final int RED_PACKET_TYPE_ALL = 0;
+	
+	//我发起的
+	public static final int RED_PACKET_TYPE_HAND=1;
+	
+	//我参与的
+	public static final int RED_PACKET_TYPE_TAKEPART=2;
+	
 }

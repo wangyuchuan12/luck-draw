@@ -44,4 +44,20 @@ public class RedPacketService {
 		
 		return redPackageRepository.findAllOfMainByPeriodId(periodId);
 	}
+
+	//所有我发起的
+	public Page<RedPacket> findAllByHandDrawUserId(String drawUserId,Pageable pageable) {
+		return redPackageRepository.findAllByHandDrawUserId(drawUserId,pageable);
+	}
+
+	
+	
+	//所有我参与的红包
+	public List<RedPacket> findAllOfRelatedToDrawUserId(String drawUserId,int start,int limit){
+		return redPackageRepository.findAllOfRelatedToDrawUserId(drawUserId,start,limit);
+	}
+	//我参与的红包
+	public Page<RedPacket> findAllByHandDrawUserIdOfTakepart(String drawUserId,Pageable pageable) {
+		return redPackageRepository.findAllByHandDrawUserIdOfTakepart(drawUserId,pageable);
+	}
 }

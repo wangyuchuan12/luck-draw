@@ -13,16 +13,13 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
-import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawUser;
-import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.DrawUserFilter;
 import com.wyc.draw.filter.GetRedPackInfoFilter;
-import com.wyc.draw.filter.GetRoomListByUserFilter;
+import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
 import com.wyc.draw.service.DrawRoomService;
-import com.wyc.draw.vo.DrawRoomInfoVo;
-import com.wyc.draw.vo.DrawRoomListVo;
+import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketVo;
 
 @Controller
@@ -32,6 +29,20 @@ public class DrawController {
 	
 	@Autowired
 	private DrawRoomService drawRoomService;
+	
+	@HandlerAnnotation(hanlerFilter=GetRedPacketListOfPageFilter.class)
+	@RequestMapping(value="list")
+	public String list(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		RedPacketListVo listVo = (RedPacketListVo)sessionManager.getObject(RedPacketListVo.class);
+		
+		httpServletRequest.setAttribute("drawList", listVo);
+		
+		httpServletRequest.setAttribute("type", httpServletRequest.getParameter("type"));
+		return "redPackets";
+	}
+	
 	
 	@HandlerAnnotation(hanlerFilter=GetRedPackInfoFilter.class)
 	@RequestMapping(value="info")

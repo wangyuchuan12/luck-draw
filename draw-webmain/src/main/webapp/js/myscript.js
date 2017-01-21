@@ -38,6 +38,14 @@ function doJoinRoom(type,question,roomId,callback){
 	
 }
 
+function skipToRedpackList(type){
+	var url = "/view/draw/luck_draw/list";
+	
+	var params = new Object();
+	params.type=type;
+	skipToUrl(url,params);
+}
+
 function skipToAddRoom(){
 	var url = "/view/draw/draw_room/add";
 	skipToUrl(url);

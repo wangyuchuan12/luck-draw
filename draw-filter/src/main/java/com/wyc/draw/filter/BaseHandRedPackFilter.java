@@ -18,6 +18,7 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
+import com.wyc.common.util.MySimpleDateFormat;
 import com.wyc.common.wx.domain.Article;
 import com.wyc.common.wx.domain.WxContext;
 import com.wyc.common.wx.service.SendMessageService;
@@ -52,6 +53,9 @@ public class BaseHandRedPackFilter extends Filter{
 	
 	@Autowired
 	private SendMessageService sendMessageService;
+	
+	@Autowired
+	private MySimpleDateFormat dateFormat;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -227,7 +231,9 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setIsTimeout(0);
 		redPacket.setAllowWrongCount(allowWrongCountInt);
 		redPacket.setTakePartCount(0);
-		
+		redPacket.setHandDrawUserId(drawUser.getId());
+		redPacket.setHandNickname(drawUser.getNickname());
+		redPacket.setHandUserImgUrl(drawUser.getImgUrl());
 		List<Article> articles = new ArrayList<>();
 		
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
@@ -330,7 +336,9 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacketVo.setDrawRoomId(drawRoomId);
 		redPacketVo.setHandDrawUserId(drawUser.getId());
 		redPacketVo.setHandRoomMemberId(redPacket.getHandRoomMemberId());
-		redPacketVo.setHandTime(redPacket.getHandTime());
+		if(redPacket.getHandTime()!=null){
+			redPacketVo.setHandTime(dateFormat.format(redPacket.getHandTime().toDate()));
+		}
 		redPacketVo.setId(redPacket.getId());
 		redPacketVo.setType(typeInt);
 		redPacketVo.setPayType(redPacket.getPayType());

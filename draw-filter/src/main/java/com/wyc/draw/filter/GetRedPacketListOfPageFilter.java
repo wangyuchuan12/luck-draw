@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -15,29 +14,27 @@ import org.springframework.data.domain.Sort.Direction;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
+import com.wyc.common.util.Constant;
 import com.wyc.common.util.MySimpleDateFormat;
+import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
-import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketVo;
 
-public class GetRedPackListByRoomOfPageFilter extends Filter{
+public class GetRedPacketListOfPageFilter extends Filter{
 
 	@Autowired
-	private RedPacketService redPacketService;
-	
-	@Autowired
-	private DrawRoomMemberService drawRoomMemberService;
-	
-	@Autowired
 	private MySimpleDateFormat dateFormat;
-	
+	@Autowired
+	private RedPacketService redPacketService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
-		String roomId = httpServletRequest.getParameter("id");
+		
+		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
+		String type = httpServletRequest.getParameter("type");
 		
 		String page = httpServletRequest.getParameter("page");
 		String size = httpServletRequest.getParameter("size");
@@ -47,26 +44,31 @@ public class GetRedPackListByRoomOfPageFilter extends Filter{
 		}
 		
 		if(CommonUtil.isEmpty(size)){
-			size = "10";
+			size = "50";
 		}
 		
 		int pageInt = Integer.parseInt(page);
 		
 		int sizeInt = Integer.parseInt(size);
+		
 		Sort sort = new Sort(Direction.DESC,"handTime");
 		PageRequest pageRequest = new PageRequest(pageInt, sizeInt, sort);
-		Page<RedPacket> redPackets = redPacketService.findAllByDrawRoomId(roomId,pageRequest);
+		
+		Integer typeInt = Integer.parseInt(type);
+		List<RedPacket> redPackets = new ArrayList<>();
+		if(typeInt==Constant.RED_PACKET_TYPE_ALL){
+			redPackets   = redPacketService.findAllOfRelatedToDrawUserId(drawUser.getId(),pageInt*sizeInt,sizeInt);
+		}else if(typeInt==Constant.RED_PACKET_TYPE_HAND){
+			redPackets   = redPacketService.findAllByHandDrawUserId(drawUser.getId(),pageRequest).getContent();
+		}else if(typeInt==Constant.RED_PACKET_TYPE_TAKEPART){
+			redPackets = redPacketService.findAllByHandDrawUserIdOfTakepart(drawUser.getId(),pageRequest).getContent();
+		}
+		
 		
 		RedPacketListVo redPacketListVo = new RedPacketListVo();
-		
-		redPacketListVo.setCount(redPackets.getTotalElements());
-		
-		redPacketListVo.setSize(redPackets.getSize());
-		
-		redPacketListVo.setPage(pageInt);
 		List<RedPacketVo> redPacketVos = new ArrayList<>();
 		
-		for(RedPacket redPacket:redPackets.getContent()){
+		for(RedPacket redPacket:redPackets){
 			RedPacketVo redPacketVo = new RedPacketVo();
 			redPacketVo.setDrawRoomId(redPacket.getDrawRoomId());
 			redPacketVo.setHandDrawUserId(redPacket.getHandDrawUserId());
@@ -79,15 +81,15 @@ public class GetRedPackListByRoomOfPageFilter extends Filter{
 			redPacketVo.setPayType(redPacket.getPayType());
 			redPacketVo.setType(redPacket.getType());
 			redPacketVo.setAmount(redPacket.getAmount());
-			redPacketVo.setNickname(redPacket.getHandNickname());
 			redPacketVo.setQuestion(redPacket.getQuestion());
-			redPacketVo.setUserImgUrl(redPacket.getHandUserImgUrl());
 			redPacketVo.setAnswer(redPacket.getAnswer());
 			redPacketVo.setIsTimeout(redPacket.getIsTimeout());
 			redPacketVo.setTimeLong(redPacket.getTimeLong());
 			redPacketVo.setIsPay(redPacket.getIsPay());
 			redPacketVo.setAllowWrongCount(redPacket.getAllowWrongCount());
 			redPacketVo.setIsPay(redPacket.getIsPay());
+			redPacketVo.setUserImgUrl(redPacket.getHandUserImgUrl());
+			redPacketVo.setImgUrl(redPacket.getImgUrl());
 			
 			redPacketVo.setIsReceive(redPacket.getIsReceive());
 			
@@ -117,10 +119,10 @@ public class GetRedPackListByRoomOfPageFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
-		filterClasses.add(BaseDrawActionFilter.class);
+		List<Class<? extends Filter>> classes = new ArrayList<>();
+		classes.add(BaseDrawActionFilter.class);
 		
-		return filterClasses;
+		return classes;
 	}
 
 }

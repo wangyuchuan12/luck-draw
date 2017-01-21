@@ -140,6 +140,14 @@ public class RedPacket {
 	@Column(name="img_url")
 	private String imgUrl;
 	
+	@Column(name="user_img_url")
+	@ParamAnnotation
+	private String handUserImgUrl;
+	
+	@Column(name="hand_nick_name")
+	@ParamAnnotation
+	private String handNickname;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -156,6 +164,18 @@ public class RedPacket {
 		this.isTimeout = isTimeout;
 	}
 	
+	public String getHandUserImgUrl() {
+		return handUserImgUrl;
+	}
+	public void setHandUserImgUrl(String handUserImgUrl) {
+		this.handUserImgUrl = handUserImgUrl;
+	}
+	public String getHandNickname() {
+		return handNickname;
+	}
+	public void setHandNickname(String handNickname) {
+		this.handNickname = handNickname;
+	}
 	public Integer getIsImg() {
 		return isImg;
 	}

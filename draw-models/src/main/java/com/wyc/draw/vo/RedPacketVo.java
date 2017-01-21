@@ -50,7 +50,7 @@ public class RedPacketVo {
 	//发送时间
 //	@JsonSerialize(as=MyDateSerializer.class)
 	@ParamAnnotation
-	private DateTime handTime;
+	private String handTime;
 	
 	//红包截止时长
 	@ParamAnnotation
@@ -363,15 +363,22 @@ public class RedPacketVo {
 		this.type = type;
 	}
 
-	public DateTime getHandTime() {
+	
+	
+
+	public String getHandTime() {
 		return handTime;
 	}
 
-	public void setHandTime(DateTime handTime) {
+
+
+
+	public void setHandTime(String handTime) {
 		this.handTime = handTime;
 	}
 
-	
+
+
 
 	public String getReceiveDrawUserId() {
 		return receiveDrawUserId;

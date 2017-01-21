@@ -1,6 +1,7 @@
 package com.wyc.draw.filter;
 
 import java.lang.reflect.Method;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.MySimpleDateFormat;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.view.MainPeriod;
@@ -23,6 +25,9 @@ public class GetMainRedPacketFilter extends Filter{
 	
 	@Autowired
 	private DrawUserService drawUserService;
+	
+	@Autowired
+	private MySimpleDateFormat dateFormat;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		MainPeriod mainPeriod = (MainPeriod)filterManager.getObject(MainPeriod.class);
@@ -38,17 +43,17 @@ public class GetMainRedPacketFilter extends Filter{
 		for(RedPacket redPacket:redPackets){
 			RedPacketVo redPacketVo = new RedPacketVo();
 			
-			DrawUser drawUser = drawUserService.findOne(redPacket.getHandDrawUserId());
-			
-			redPacketVo.setNickname(drawUser.getNickname());
+			redPacketVo.setNickname(redPacket.getHandNickname());
 			
 			redPacketVo.setTakePartCount(redPacket.getTakePartCount());
 			redPacketVo.setImgUrl(redPacket.getImgUrl());
-			redPacketVo.setUserImgUrl(drawUser.getImgUrl());
+			redPacketVo.setUserImgUrl(redPacket.getHandUserImgUrl());
 			redPacketVo.setDrawRoomId(redPacket.getDrawRoomId());
 			redPacketVo.setHandDrawUserId(redPacket.getHandDrawUserId());
 			redPacketVo.setHandRoomMemberId(redPacket.getHandRoomMemberId());
-			redPacketVo.setHandTime(redPacket.getHandTime());
+			if(redPacket.getHandTime()!=null){
+				redPacketVo.setHandTime(dateFormat.format(redPacket.getHandTime().toDate()));
+			}
 			redPacketVo.setHandDrawUserId(redPacket.getHandDrawUserId());
 			redPacketVo.setId(redPacket.getId());
 			redPacketVo.setPayType(redPacket.getPayType());
