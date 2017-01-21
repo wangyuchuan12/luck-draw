@@ -59,7 +59,7 @@ public class RedPacketRefundService {
 				List<Article> articles = new ArrayList<>();
 				
 				Article article = new Article();
-				article.setDescription("你的红包["+redPacket.getQuestion()+"]退款已到账<br/>退还金额："+redPacket.getAmount()+"，请查收");
+				article.setDescription("你的红包["+redPacket.getQuestion()+"]退款已到账\n退还金额："+redPacket.getAmount()+"，请查收");
 				article.setTitle("红包退款到账通知");
 				articles.add(article);
 				DrawUser drawUser = drawUserService.findOne(redPacket.getHandDrawUserId());
@@ -78,7 +78,7 @@ public class RedPacketRefundService {
 				List<Article> articles = new ArrayList<>();
 				
 				Article article = new Article();
-				article.setDescription("你的红包["+redPacket.getQuestion()+"]已退还到余额<br/>退还金额："+redPacket.getAmount()+"，请查收");
+				article.setDescription("你的红包["+redPacket.getQuestion()+"]已退还到余额\n退还金额："+redPacket.getAmount()+"，请查收");
 				article.setTitle("红包退款到账通知");
 				article.setUrl(wxContext.getDomainName()+"/view/draw/personal_center/main");
 				articles.add(article);
