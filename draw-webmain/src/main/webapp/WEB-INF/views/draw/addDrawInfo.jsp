@@ -213,9 +213,6 @@
 		
 		params.isImg = isImg;
 		
-		alert(isImg);
-		alert(imgUrl);
-		
 		var callback = new Object();
 		callback.success = function(obj){
 

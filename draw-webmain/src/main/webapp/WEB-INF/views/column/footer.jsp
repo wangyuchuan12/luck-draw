@@ -17,7 +17,7 @@
 					<span>发起红包</span>	
 			</div>
 			
-			<div class="luck_info_footer_item" id="main_redpack">
+			<div class="luck_info_footer_item" id="main_redpack" onclick="skipToRedpackList(0);">
 					<em class="fa fa-envelope"></em>
 					<span>我的红包</span>	
 			</div>
