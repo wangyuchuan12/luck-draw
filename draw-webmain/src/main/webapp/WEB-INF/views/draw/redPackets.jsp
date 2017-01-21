@@ -21,7 +21,7 @@
 		<ul>
 		
 			<c:forEach items="${drawList.redPacketVos}" var="item">
-				<li>
+				<li onclick="skipToRedPackInfo('${item.id}');">
 					<div class="red_packet_list_content_img">
 					
 						<c:if test="${item.imgUrl==null}">

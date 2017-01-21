@@ -435,6 +435,8 @@
 					var handTime = $("input[name=handTime]").val();
 					
 					var timeLong = $("input[name=timeLong]").val();
+					
+					handTime = handTime.replace(/-/g,"/");
 					initGroupInvalidDate(new Date(handTime),timeLong,".luck_info_situation_time",callback);
 					
 				});
