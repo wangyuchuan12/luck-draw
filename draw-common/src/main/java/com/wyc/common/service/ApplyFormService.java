@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.wyc.common.domain.ApplyForm;
@@ -36,9 +38,9 @@ public class ApplyFormService {
 		
 	}
 
-	public List<ApplyForm> findAllByTypeAndStatusOrderByApplyTimeDesc(int type,
-			int status) {
-		return applyFormRepository.findAllByTypeAndStatusOrderByApplyTimeDesc(type,status);
+	public Page<ApplyForm> findAllByTypeAndStatusOrderByApplyTimeDesc(int type,
+			int status,Pageable pageable) {
+		return applyFormRepository.findAllByTypeAndStatusOrderByApplyTimeDesc(type,status,pageable);
 	}
 	
 }

@@ -234,6 +234,7 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setHandDrawUserId(drawUser.getId());
 		redPacket.setHandNickname(drawUser.getNickname());
 		redPacket.setHandUserImgUrl(drawUser.getImgUrl());
+		redPacket.setIsRefund(0);
 		List<Article> articles = new ArrayList<>();
 		
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){

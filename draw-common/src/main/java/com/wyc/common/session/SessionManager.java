@@ -84,7 +84,7 @@ class Param{
 	
 }
 
-public class SessionManager<T> {
+public class SessionManager {
 	
 	
 	private Object returnValue;
@@ -96,7 +96,7 @@ public class SessionManager<T> {
 	private HttpSession httpSession;
 	private ServletContext servletContext;
 	
-	private T params;
+	private Object params;
 	
 	private Map<String,Object> returnAttribute;
 	
@@ -151,14 +151,14 @@ public class SessionManager<T> {
 	}
 
 
-	private SessionManager(HttpServletRequest httpServletRequest,Class<T> paramClass)throws Exception{
+	private SessionManager(HttpServletRequest httpServletRequest,Class<?> paramClass)throws Exception{
 		this.httpServletRequest = httpServletRequest;
 		this.httpSession = this.httpServletRequest.getSession();
 		this.servletContext = this.httpServletRequest.getServletContext();
 		
 		if(paramClass.isAssignableFrom(Map.class)){
 			Map<String, Object> obj = toParamObjectOfMap(httpServletRequest);
-			params = (T)obj;
+			params = obj;
 		}else{
 			params = toParamObject(paramClass, httpServletRequest);
 			save(params);
@@ -179,7 +179,7 @@ public class SessionManager<T> {
 		if(httpServletRequest.getAttribute(sessionManagerId)!=null){
 			filterManager = (SessionManager)httpServletRequest.getAttribute(sessionManagerId);
 		}else{
-			filterManager = new SessionManager<>(httpServletRequest, paramClass);
+			filterManager = new SessionManager(httpServletRequest, paramClass);
 			httpServletRequest.setAttribute(sessionManagerId, filterManager);
 		}
 		
@@ -199,7 +199,7 @@ public class SessionManager<T> {
 	
 	
 	
-	public T getParams() {
+	public Object getParams() {
 		return params;
 	}
 
@@ -260,10 +260,10 @@ public class SessionManager<T> {
 		 return map;
 	}
 	
-	private T toParamObject(Class<T> clazz ,HttpServletRequest httpServletRequest)throws Exception{
+	private Object toParamObject(Class<?> clazz ,HttpServletRequest httpServletRequest)throws Exception{
 		
 		
-			T target = clazz.newInstance();
+			Object target = clazz.newInstance();
 			
 			Field[] fileds = clazz.getDeclaredFields();
 			for(Field field:fileds){

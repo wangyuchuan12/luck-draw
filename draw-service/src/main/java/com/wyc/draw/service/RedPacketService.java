@@ -5,7 +5,6 @@ import java.util.UUID;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +58,15 @@ public class RedPacketService {
 	//我参与的红包
 	public Page<RedPacket> findAllByHandDrawUserIdOfTakepart(String drawUserId,Pageable pageable) {
 		return redPackageRepository.findAllByHandDrawUserIdOfTakepart(drawUserId,pageable);
+	}
+
+
+	public Page<RedPacket> findAllByIsTimeout(int isTimeout, Pageable pageable) {
+		return redPackageRepository.findAllByIsTimeout(isTimeout,pageable);
+	}
+
+	public Page<RedPacket> findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefund(int isReceive, int isTimeout, int isPay, int isRefund,
+			Pageable pageable) {
+		return redPackageRepository.findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefund(isReceive,isTimeout,isPay,isRefund,pageable);
 	}
 }

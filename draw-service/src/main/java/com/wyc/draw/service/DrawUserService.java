@@ -41,6 +41,9 @@ public class DrawUserService {
 		return drawUserRepository.findByUserIdWithLock(userId);
 	}
 
+	public DrawUser findOneWithLuck(String id){
+		return drawUserRepository.findOneWithLuck(id);
+	}
 	
 	@Transactional
 	public void initDrawUserCanTakeOutCount(int count) {

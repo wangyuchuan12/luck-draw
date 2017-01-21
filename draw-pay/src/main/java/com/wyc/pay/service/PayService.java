@@ -52,6 +52,15 @@ public class PayService {
 	//因为之前已经有一次提现失败，再一次提现
 	public TransfersResultVo reTakeout(ApplyForm applyForm,String remoteAddress)throws Exception{
 		if(applyForm.getType()==Constant.APPLY_FORM_TYPE_TAKE_OUT){
+			
+			//如果退款三次以上就让他返回,需要手动处理，避免重复给同一个人汇款
+			if(applyForm.getErrorCount()>3){
+				applyForm.setHandleTime(new DateTime());
+				applyForm.setStatus(Constant.APPLY_FORM_STATUS_MANUAL);
+				applyFormService.update(applyForm);
+				
+				return null;
+			}
 			TransfersResultVo resultVo = transfers(applyForm.getOpenid(), applyForm.getRealHandleAmount(), remoteAddress, "提现");
 			if(resultVo!=null&resultVo.getResultCode().equals("SUCCESS")){
 				applyForm.setStatus(Constant.APPLY_FORM_STATUS_SUCCESS);
@@ -141,6 +150,7 @@ public class PayService {
 		
 		return resultVo;
 	}
+	
 	
 	
 	public PaySuccess refund(String outTradeNo)throws Exception{

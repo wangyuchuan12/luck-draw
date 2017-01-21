@@ -19,10 +19,4 @@ configurations {
 
 dependencies{
 	compile project(':draw-common');
-	compile project(':draw-models');
-	compile project(':draw-dao');
-	
-	compile project(':draw-service');
-	
-	compile project(':draw-models');
 }

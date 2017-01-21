@@ -71,7 +71,7 @@ public class DatabaseConfig {
         vendorAdapter.setGenerateDdl(true);
         vendorAdapter.setShowSql(true);
         vendorAdapter
-                .setDatabasePlatform("org.hibernate.dialect.MySQL5InnoDBDialect");
+                .setDatabasePlatform("com.wyc.common.extend.MySqlDialectExtend");
         vendorAdapter.setDatabase(Database.MYSQL);
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();

@@ -11,7 +11,7 @@ public abstract class Filter {
 	
 	private List<Filter> depends;
 	
-	private SessionManager<?> filterManager;
+	private SessionManager filterManager;
 	
 	
 

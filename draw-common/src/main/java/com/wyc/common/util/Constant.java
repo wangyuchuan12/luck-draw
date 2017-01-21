@@ -61,6 +61,9 @@ public class Constant {
 	public static final int APPLY_FORM_STATUS_FAILURE = 2;
 	
 	
+	//手动处理申请单
+	public static final int APPLY_FORM_STATUS_MANUAL = 3;
+	
 	
 	/***********************申请单类型************************/
 	//申请单提现申请

@@ -39,16 +39,16 @@
 						<div class="red_packet_list_content_detail_time">${item.handTime}</div>
 
 						<div class="red_packet_list_content_detail_receive">状态：
-							<c:if test="${item.isReceive==1}">已领取</c:if>
+							<c:if test="${item.isReceive==1}"><span style="color: red">已领取</span></c:if>
 							<c:if test="${item.isReceive==0}">
-								<c:if test="${item.isPay==0}">未支付</c:if>
+								<c:if test="${item.isPay==0}"><span style="color: red">未支付</span></c:if>
 								<c:if test="${item.isPay==1}">
 									<c:if test="${item.isTimeout==1}">
-										已超时
+										<span style="color: red">已超时</span>
 									</c:if>
 									
 									<c:if test="${item.isTimeout!=1}">
-										进行中
+										<span style="color: red">进行中</span>
 									</c:if>
 								</c:if>
 							</c:if>
@@ -67,13 +67,13 @@
 			type = parseInt(type);
 			
 			if(type==0){
-				$("#red_packet_list_all").css("border-bottom","0px solid red");
+				$("#red_packet_list_all").css("border-bottom","1px solid red");
 				$("#red_packet_list_all").css("color","red");
 			}else if(type==1){
-				$("#red_packet_list_hand").css("border-bottom","0px solid red");
+				$("#red_packet_list_hand").css("border-bottom","1px solid red");
 				$("#red_packet_list_hand").css("color","red");
 			}else if(type==2){
-				$("#red_packet_list_takepart").css("border-bottom","0px solid red");
+				$("#red_packet_list_takepart").css("border-bottom","1px solid red");
 				$("#red_packet_list_takepart").css("color","red");
 			}
 		});

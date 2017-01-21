@@ -30,4 +30,13 @@ public interface RedPackageRepository extends CrudRepository<RedPacket, String>{
 	//所有与该用户相关的红包
 	@Query(value="select * from d_red_packet rp where rp.id in (select rp1.id from d_red_packet rp1 where rp1.hand_draw_user_id=:drawUserId union all select rtm.red_packet_id from d_red_packet_takepart_member rtm where rtm.draw_user_id = :drawUserId) order by rp.hand_time desc limit :start,:limit",nativeQuery=true)
 	List<RedPacket> findAllOfRelatedToDrawUserId(@Param("drawUserId")String drawUserId,@Param("start")int start,@Param("limit")int limit);
+
+
+	Page<RedPacket> findAllByIsTimeout(int isTimeout, Pageable pageable);
+
+
+	//查找可以退款的红包
+	Page<RedPacket> findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefund(int isReceive, int isTimeout, int isPay,
+			int isRefund, Pageable pageable);
+
 }
