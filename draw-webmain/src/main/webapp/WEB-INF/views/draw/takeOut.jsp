@@ -20,7 +20,7 @@
 
 			</div>
 			
-			<div class="take_out_balance">余额${user.amountBalance}元</div>
+			<div class="take_out_balance">余额<span>${user.amountBalance}</span>元</div>
 			
 			<div class="take_out_out">本月剩余可提现<span>${user.canTakeOutCount}</span>次</div>
 			
@@ -88,7 +88,7 @@
 							if(obj.success){
 								amountBalance = amountBalance - amount;
 								$("input[name=amountBalance]").val(amountBalance);
-								$(".take_out_balance").val(amountBalance);
+								$(".take_out_balance span").text(amountBalance);
 								var canTakeOutCount = $("input[name=canTakeOutCount]").val();
 								canTakeOutCount = parseInt(canTakeOutCount);
 								canTakeOutCount = canTakeOutCount-1;
