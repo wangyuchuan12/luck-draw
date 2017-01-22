@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
-<tiles:insertDefinition name="resourceLayout">
+<tiles:insertDefinition name="frameLayout">
 <tiles:putAttribute name="title">提取现金</tiles:putAttribute>
 <tiles:putAttribute name="body">
 			<input name="amountBalance" value="${user.amountBalance}" type="hidden"></input>
