@@ -2,6 +2,8 @@ package com.wyc.draw.service.other;
 
 import java.math.BigDecimal;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,7 @@ public class UserInfoApplyFormHandleService {
 	@Autowired
 	private PaySuccessService paySuccessService;
 
+	@Transactional
 	public boolean handTakeIn(DrawUser drawUser, ApplyForm applyForm) {
 		if(applyForm.getStatus()==Constant.APPLY_FORM_STATUS_IN&&applyForm.getType()==Constant.APPLY_FORM_TYPE_TAKE_IN){
 			PaySuccess paySuccess = paySuccessService.findOneByOutTradeNo(applyForm.getTradeOutNo());
@@ -34,10 +37,12 @@ public class UserInfoApplyFormHandleService {
 				if(drawUserAmountBalance==null){
 					drawUserAmountBalance = new BigDecimal("0");
 				}
-				drawUserAmountBalance.add(applyForm.getRealHandleAmount());
+				drawUserAmountBalance = drawUserAmountBalance.add(applyForm.getRealHandleAmount());
 				drawUser.setAmountBalance(drawUserAmountBalance);
 				
 				drawUserService.update(drawUser);
+				
+				applyForm.setStatus(Constant.APPLY_FORM_STATUS_SUCCESS);
 				return true;
 			}
 		}

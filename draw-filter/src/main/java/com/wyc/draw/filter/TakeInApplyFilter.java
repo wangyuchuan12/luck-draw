@@ -83,6 +83,8 @@ public class TakeInApplyFilter extends Filter{
 		applyForm.setTradeOutNo(outTradeNo);
 		applyForm.setType(Constant.APPLY_FORM_TYPE_TAKE_IN);
 		
+		applyForm.setStatus(Constant.APPLY_FORM_STATUS_IN);
+		
 		applyForm.setAmount(amountBigDecimal);
 		applyForm.setOpenid(drawUser.getOpenid());
 		applyForm.setRealHandleAmount(amountBigDecimal);
