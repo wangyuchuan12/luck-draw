@@ -28,7 +28,7 @@ public class UserInfoApplyFormHandleService {
 	private ApplyFormService applyFormService;
 
 	@Transactional
-	public boolean handTakeIn(String drawUserId, ApplyForm applyForm) {
+	public DrawUser handTakeIn(String drawUserId, ApplyForm applyForm) {
 		if(applyForm.getStatus()==Constant.APPLY_FORM_STATUS_IN&&applyForm.getType()==Constant.APPLY_FORM_TYPE_TAKE_IN){
 			PaySuccess paySuccess = paySuccessService.findOneByOutTradeNo(applyForm.getTradeOutNo());
 			DrawUser drawUser = drawUserService.findOneWithLuck(drawUserId);
@@ -45,10 +45,10 @@ public class UserInfoApplyFormHandleService {
 				applyForm.setStatus(Constant.APPLY_FORM_STATUS_SUCCESS);
 				
 				applyFormService.update(applyForm);
-				return true;
+				return drawUser;
 			}
 		}
-		return false;
+		return null;
 		
 	}
 }
