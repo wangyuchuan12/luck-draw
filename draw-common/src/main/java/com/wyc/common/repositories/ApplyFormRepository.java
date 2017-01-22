@@ -14,4 +14,6 @@ public interface ApplyFormRepository extends CrudRepository<ApplyForm, String>{
 
 	Page<ApplyForm> findAllByTypeAndStatusOrderByApplyTimeDesc(int type, int status, Pageable pageable);
 
+	List<ApplyForm> findAllByOpenidAndTypeAndStatus(String openid, int type, int status);
+
 }

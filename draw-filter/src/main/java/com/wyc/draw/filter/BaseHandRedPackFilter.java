@@ -312,10 +312,10 @@ public class BaseHandRedPackFilter extends Filter{
 			redPacket = redPackageService.add(redPacket);
 			Article article = new Article();
 			article.setDescription("openid:"+drawUser.getOpenid()+
-					"nickname:"+drawUser.getNickname()+
-					",question:"+redPacket.getQuestion()+
-					",answer:"+redPacket.getAnswer()+
-					"type:"+redPacket.getType());
+					"\nnickname:"+drawUser.getNickname()+
+					"\nquestion:"+redPacket.getQuestion()+
+					"\nanswer:"+redPacket.getAnswer()+
+					"\ntype:"+redPacket.getType());
 			article.setTitle("提交红包通知");
 			
 			if(isImgInt==0){

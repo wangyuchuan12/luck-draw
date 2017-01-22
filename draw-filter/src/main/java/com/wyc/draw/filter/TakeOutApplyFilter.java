@@ -188,7 +188,7 @@ public class TakeOutApplyFilter extends Filter{
 			
 			List<Article> articles = new ArrayList<>();
 			Article article = new Article();
-			article.setDescription("openid:"+drawUser.getOpenid()+",amount:"+applyForm.getRealHandleAmount()+",status:"+applyForm.getStatus()+",msg:"+applyForm.getMsg()+"errorCode:"+applyForm.getErrCode());
+			article.setDescription("openid:"+drawUser.getOpenid()+"\namount:"+applyForm.getRealHandleAmount()+"\nstatus:"+applyForm.getStatus()+"\nmsg:"+applyForm.getMsg()+"\nerrorCode:"+applyForm.getErrCode());
 			article.setTitle(drawUser.getNickname()+"红包现金申请通知");
 			article.setUrl(wxContext.getDomainName()+"/view/draw/personal_center/main");
 			articles.add(article);

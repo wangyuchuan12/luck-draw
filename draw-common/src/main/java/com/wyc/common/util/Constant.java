@@ -69,6 +69,9 @@ public class Constant {
 	//申请单提现申请
 	public static final int APPLY_FORM_TYPE_TAKE_OUT = 0;
 	
+	//申请单充值申请
+	public static final int APPLY_FORM_TYPE_TAKE_IN = 1;
+	
 	
 	
 	/***********************红包列表筛选类型************************/

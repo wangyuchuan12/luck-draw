@@ -5,14 +5,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 <tiles:insertDefinition name="resourceLayout">
-<tiles:putAttribute name="title">提取现金</tiles:putAttribute>
+<tiles:putAttribute name="title">充值现金</tiles:putAttribute>
 <tiles:putAttribute name="body">
 			<input name="amountBalance" value="${user.amountBalance}" type="hidden"></input>
 			
 			<input name="canTakeOutCount" value="${user.canTakeOutCount}" type="hidden"></input>
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
-				<div class="luck_info_head_title">提取现金</div>
+				<div class="luck_info_head_title">充值现金</div>
 				<div class="luck_info_head_img">
 					<img src="${user.headimgurl}"></img>
 				</div>
@@ -22,30 +22,29 @@
 			
 			<div class="take_out_balance">余额${user.amountBalance}元</div>
 			
-			<div class="take_out_out">本月剩余可提现<span>${user.canTakeOutCount}</span>次</div>
 			
 			<div class="take_out_list">
-				<div class="take_out_item" onclick="takeOut(5);">
+				<div class="take_out_item" onclick="takeIn(5);">
 					<div class="take_out_item_money">5<span>元</span></div>
 				</div>
 				
-				<div class="take_out_item" onclick="takeOut(10);">
+				<div class="take_out_item" onclick="takeIn(10);">
 					<div class="take_out_item_money">10<span>元</span></div>
 				</div>
 				
-				<div class="take_out_item" onclick="takeOut(20);">
+				<div class="take_out_item" onclick="takeIn(20);">
 					<div class="take_out_item_money">20<span>元</span></div>
 				</div>
 				
-				<div class="take_out_item" onclick="takeOut(50);">
+				<div class="take_out_item" onclick="takeIn(50);">
 					<div class="take_out_item_money">50<span>元</span></div>
 				</div>
 				
-				<div class="take_out_item" onclick="takeOut(100);">
+				<div class="take_out_item" onclick="takeIn(100);">
 					<div class="take_out_item_money">100<span>元</span></div>
 				</div>
 				
-				<div class="take_out_item" onclick="takeOut(200);">
+				<div class="take_out_item" onclick="takeIn(200);">
 					<div class="take_out_item_money">200<span>元</span></div>
 				</div>
 			</div>
@@ -59,43 +58,55 @@
 			
 			
 			<script type="text/javascript">
-				function takeOut(amount){
-					var amountBalance = $("input[name=amountBalance]").val();
-					amountBalance = parseFloat(amountBalance);
+				function takeIn(amount){
+	
 					amount = parseFloat(amount);
 					
-					if(amountBalance<amount){
-						showToast("账号余额已小于"+amount+"元，不可提现",5000);
-						return;
-					}
-					
-					var canTakeOutCount = $("input[name=canTakeOutCount]").val();
-					canTakeOutCount = parseFloat(canTakeOutCount);
-					if(canTakeOutCount<1){
-						showToast("本月可提现次数已用完",5000);
-						return;
-					}
-					layer.confirm("是否确定申请提现，将收取1%的手续费",function(){
+					layer.confirm("是否确定充值现金",function(){
 						layer.closeAll();
 						showLoading();
-						var url = "/api/draw/personal_center/take_out_amount";
+						var url = "/api/draw/personal_center/take_in_amount";
 						var params = new Object();
 						params.amount = amount;
 						var callback = new Object();
-						callback.success = function(obj){
-							hideLoading();
-							
-							if(obj.success){
-								amountBalance = amountBalance - amount;
-								$("input[name=amountBalance]").val(amountBalance);
-								$(".take_out_balance").val(amountBalance);
-								var canTakeOutCount = $("input[name=canTakeOutCount]").val();
-								canTakeOutCount = parseInt(canTakeOutCount);
-								canTakeOutCount = canTakeOutCount-1;
-								$("input[name=canTakeOutCount]").val(canTakeOutCount);
-								$(".take_out_out span").text(canTakeOutCount);
-								reloadDetail();
-								showToast("申请成功",5000);
+						callback.success = function(takeInObject){
+							if(takeInObject.success){
+								var id = takeInObject.data.id;
+								
+								var url = "/api/pay/wx/choose_wx_pay_config";
+								var callback = new Object();
+								callback.success = function(obj){
+									
+									var payCallback = new Object();
+									payCallback.success = function(){
+										
+										skipToUrl("/view/draw/personal_center/takeIn");
+									}
+									
+									payCallback.failure = function(){
+										showToast("现在网络繁忙，请稍后再试");
+									}
+									
+									payCallback.cancel = function(){
+
+									}
+									if(obj.success){
+										hideLoading();
+										wxPay(obj.data.timestamp,obj.data.nonceStr,obj.data.pack,obj.data.signType,obj.data.paySign,payCallback);
+									}
+									
+								}
+								
+								callback.failure = function(obj){
+									showToast("现在网络繁忙，请稍后再试");
+									hideLoading();
+								}
+								var params = new Object();
+								params.cost=amount;
+								params.body="现金充值";
+								params.detail = "充值";
+								params.outTradeNo  = takeInObject.data.tradeOutNo;
+								request(url,callback,params);
 							}else{
 								showToast("网络繁忙，请稍后再试",5000);
 							}

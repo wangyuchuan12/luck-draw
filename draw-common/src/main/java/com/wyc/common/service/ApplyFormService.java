@@ -42,5 +42,10 @@ public class ApplyFormService {
 			int status,Pageable pageable) {
 		return applyFormRepository.findAllByTypeAndStatusOrderByApplyTimeDesc(type,status,pageable);
 	}
+
+	public List<ApplyForm> findAllByOpenidAndTypeAndStatus(String openid, int type,
+			int status) {
+		return applyFormRepository.findAllByOpenidAndTypeAndStatus(openid,type,status);
+	}
 	
 }

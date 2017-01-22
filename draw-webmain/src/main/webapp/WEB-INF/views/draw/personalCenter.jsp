@@ -36,7 +36,7 @@
 			</div>
 			
 			
-			<div class="personal_center_content_item" id="recharge">
+			<div class="personal_center_content_item" id="takeIn">
 				<i class="fa fa-life-ring i" style="background-color: green;"></i>
 				<span class="span">充值</span>
 				
@@ -51,6 +51,10 @@
 	<script type="text/javascript">
 		$("#takeOut").click(function(){
 			skipToUrl("/view/draw/personal_center/takeOut");
+		});
+		
+		$("#takeIn").click(function(){
+			skipToUrl("/view/draw/personal_center/takeIn");
 		});
 		
 		$(document).ready(function(){

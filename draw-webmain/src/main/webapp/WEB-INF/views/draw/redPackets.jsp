@@ -76,6 +76,8 @@
 				$("#red_packet_list_takepart").css("border-bottom","1px solid red");
 				$("#red_packet_list_takepart").css("color","red");
 			}
+			
+			selectMain("main_redpack");
 		});
 		
 	</script>

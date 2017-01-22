@@ -27,7 +27,7 @@ public class RedPacketTask {
 	
 	@Autowired
 	private RedPacketRefundService redPacketRefundService;
-	@Scheduled(cron = "0/30 * * * * ?")
+	@Scheduled(cron = "0 0/30 * * * ?")
 	public void timeOutCheck(){
 		
 		Sort sort = new Sort(Direction.DESC,"handTime");
@@ -40,10 +40,10 @@ public class RedPacketTask {
 
 	}
 	
-	@Scheduled(cron = "0/30 * * * * ?")
+	@Scheduled(cron = "59 0/31 * * * ?")
 	public void refund(){
 		Sort sort = new Sort(Direction.DESC,"handTime");
-		PageRequest pageRequest = new PageRequest(0, 500,sort);
+		PageRequest pageRequest = new PageRequest(0, 550,sort);
 		Page<RedPacket> redPackets = redPacketService.findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefund(0,1,1,0,pageRequest);
 		
 		for(RedPacket redPacket:redPackets){
