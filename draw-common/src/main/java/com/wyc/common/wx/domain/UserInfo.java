@@ -66,6 +66,9 @@ public class UserInfo {
     @ParamAnnotation
     private String token;
     
+    @Column
+    private String tagid_list;
+    
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -79,7 +82,13 @@ public class UserInfo {
     
     
     
-    public Long getCount() {
+    public String getTagid_list() {
+		return tagid_list;
+	}
+	public void setTagid_list(String tagid_list) {
+		this.tagid_list = tagid_list;
+	}
+	public Long getCount() {
         return count;
     }
     public void setCount(Long count) {
