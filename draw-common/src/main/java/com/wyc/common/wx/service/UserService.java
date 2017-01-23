@@ -42,7 +42,7 @@ public class UserService {
         else if (lang_type==3) {
             lang="en";
         }
-        Request request = requestFactory.snsUserInfoRequest(accessToken, openid, lang);
+        Request request = requestFactory.userInfoRequest(accessToken, openid, lang);
         Response response = request.get(null);
         return response.readObject(UserInfo.class);
     }
