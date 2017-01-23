@@ -63,6 +63,8 @@
 	
 	<input name="bakVerifyQuestion" value="${drawRoomInfo.verifyQuestion}" type="hidden"/>
 	
+	<input name="subscribe" value="${userInfo.subsceibe}" type="text"/>
+	
 	<script type="text/javascript">
 		$(document).ready(function(){
 			setRoomId($("input[name=bakRoomId]").val());

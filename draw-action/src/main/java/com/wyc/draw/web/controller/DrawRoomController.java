@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.DrawRoomViewFilter;
 import com.wyc.draw.filter.GetRoomListByUserOfPageFilter;
@@ -34,6 +35,7 @@ public class DrawRoomController {
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		
+		UserInfo userInfo = (UserInfo)sessionManager.getObject(UserInfo.class);
 		DrawRoomInfoVo drawRoomInfoVo = (DrawRoomInfoVo)sessionManager.getObject(DrawRoomInfoVo.class);
 		
 		RedPacketListVo redPacketListVo = (RedPacketListVo)sessionManager.getObject(RedPacketListVo.class);
@@ -42,6 +44,8 @@ public class DrawRoomController {
 		httpServletRequest.setAttribute("roomId", drawRoomInfoVo.getId());
 		
 		httpServletRequest.setAttribute("packets", redPacketListVo);
+		
+		httpServletRequest.setAttribute("userInfo", userInfo);
 		return "drawRoomInfo";
 	}
 	

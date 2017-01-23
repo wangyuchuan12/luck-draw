@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.service.TokenService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.smart.service.UserSmartService;
+import com.wyc.common.util.CommonUtil;
 import com.wyc.common.wx.domain.Token;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.common.wx.domain.WxContext;
@@ -42,6 +43,7 @@ public class UserInfoFilter extends Filter{
 				UserInfo userInfo = null;
 				
 				HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
+				
 				String tokenId = httpServletRequest.getParameter("token");
 				
 				logger.debug("tokenId:{}",tokenId);

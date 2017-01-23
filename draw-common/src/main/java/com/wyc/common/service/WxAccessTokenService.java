@@ -1,5 +1,6 @@
 package com.wyc.common.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -25,6 +26,15 @@ public class WxAccessTokenService {
         wxAccessTokenRepository.save(accessTokenBean);
     }
     
+    
+    public AccessTokenBean findOne(){
+    	Iterable<AccessTokenBean> beans = wxAccessTokenRepository.findAll();
+    	
+    	for(AccessTokenBean accessTokenBean:beans){
+    		return accessTokenBean;
+    	}
+    	return null;
+    }
     public AccessTokenBean findByToken(String token){
         return wxAccessTokenRepository.findByToken(token);
     }

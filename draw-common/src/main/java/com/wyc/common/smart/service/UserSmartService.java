@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.wyc.common.domain.vo.ApplicationProperties;
 import com.wyc.common.service.TokenService;
+import com.wyc.common.service.WxAccessTokenService;
 import com.wyc.common.service.WxUserInfoService;
 import com.wyc.common.wx.domain.AccessTokenBean;
 import com.wyc.common.wx.domain.Authorize;
@@ -32,6 +33,10 @@ public class UserSmartService implements SmartService<UserInfo>{
     private AuthorizeSmartService authorizeInterceptService;
     @Autowired
     private AccessTokenSmartService accessTokenService;
+    
+    @Autowired
+    private WxAccessTokenService wxAccessTokenService;
+   
     @Autowired
     private TokenService tokenService;
     @Autowired
@@ -46,14 +51,14 @@ public class UserSmartService implements SmartService<UserInfo>{
     }
     
     public UserInfo getFromAccessToken(String openid)throws Exception{
-    	
-    	String token = "1234";
-    	AccessTokenBean accessToken = accessTokenService.getFromDatabase(token);
+    	AccessTokenBean accessToken = wxAccessTokenService.findOne();
     	if(accessToken==null||!accessTokenService.currentIsAvailable(accessToken)){
     		accessToken = accessTokenService.getFromWx();
-    		accessTokenService.saveToDatabase(accessToken, token);
+    		wxAccessTokenService.save(accessToken);
     	}
     	UserInfo userInfo = userService.getUserInfo(accessToken.getAccessToken(), openid, 1);
+    	
+    	wxUserInfoService.save(userInfo);
     	
     	return userInfo;
     }

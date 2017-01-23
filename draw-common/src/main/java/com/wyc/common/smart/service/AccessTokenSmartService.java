@@ -60,7 +60,7 @@ public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
     
     @Override
     public AccessTokenBean getFromDatabase(String token) {
-        AccessTokenBean accessTokenBean = wxAccessTokenService.findByToken(token);
+        AccessTokenBean accessTokenBean = wxAccessTokenService.findOne();
         logger.debug("get AccessTokenBean from database,the object is {}",accessTokenBean);
         return accessTokenBean;
     }

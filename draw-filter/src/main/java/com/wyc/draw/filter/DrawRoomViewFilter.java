@@ -7,11 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.filter.Filter;
+import com.wyc.common.filter.SyncUserInfoFilter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.DrawUser;
-import com.wyc.draw.filter.test.GetRedPacketFilter;
 import com.wyc.draw.service.DrawRoomMemberService;
-import com.wyc.draw.service.DrawRoomService;
 import com.wyc.draw.vo.DrawRoomInfoVo;
 import com.wyc.draw.vo.DrawRoomMemberListVo;
 
@@ -56,6 +55,8 @@ public class DrawRoomViewFilter extends Filter{
 		filters.add(GetDrawRoomInfoFilter.class);
 		
 		filters.add(GetRedPackListByRoomOfPageFilter.class);
+		
+		filters.add(SyncUserInfoFilter.class);
 		return filters;
 	}
 
