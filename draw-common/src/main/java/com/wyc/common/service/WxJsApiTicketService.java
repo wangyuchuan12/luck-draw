@@ -28,6 +28,7 @@ public class WxJsApiTicketService {
     
     public JsapiTicketBean getJsapiTicketBean(){
         Iterable<JsapiTicketBean> jsapiTicketBeans = wxJsApiTicketRepository.findAll();
+      
         for(JsapiTicketBean jsapiTicketBean:jsapiTicketBeans){
             return jsapiTicketBean;
         }

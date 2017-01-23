@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.wyc.common.domain.vo.ApplicationProperties;
 import com.wyc.common.service.TokenService;
 import com.wyc.common.service.WxUserInfoService;
+import com.wyc.common.wx.domain.AccessTokenBean;
 import com.wyc.common.wx.domain.Authorize;
 import com.wyc.common.wx.domain.Token;
 import com.wyc.common.wx.domain.UserInfo;
@@ -35,6 +36,8 @@ public class UserSmartService implements SmartService<UserInfo>{
     private TokenService tokenService;
     @Autowired
     private ApplicationProperties applicationProperties;
+    
+    private String accessToken;
     final static Logger logger = LoggerFactory.getLogger(UserSmartService.class);
     public void setCode(String code){
         this.code = code;
@@ -44,11 +47,16 @@ public class UserSmartService implements SmartService<UserInfo>{
         this.openid = openid;
     }
     
+    
+    
+    
     @Override
     public UserInfo getFromWx() throws Exception{
+    	
+    	AccessTokenBean accessTokenBean = accessTokenService.getFromWx();
         authorizeInterceptService.setCode(code);
         Authorize authorize = authorizeInterceptService.getFromWx();
-        UserInfo userInfo = userService.getUserInfoFromWeb(authorize.getAccess_token(), authorize.getOpenid(), 1);
+        UserInfo userInfo = userService.getUserInfo(accessTokenBean.getAccessToken(), authorize.getOpenid(), 1);
         logger.debug("get UserInfo from wx,the object is {}",userInfo);
         return userInfo;
     }
