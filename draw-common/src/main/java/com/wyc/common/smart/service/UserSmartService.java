@@ -52,10 +52,19 @@ public class UserSmartService implements SmartService<UserInfo>{
     
     public UserInfo getFromAccessToken(String openid)throws Exception{
     	AccessTokenBean accessToken = wxAccessTokenService.findOne();
+    	
     	if(accessToken==null||!accessTokenService.currentIsAvailable(accessToken)){
-    		accessToken = accessTokenService.getFromWx();
-    		wxAccessTokenService.save(accessToken);
-    	}
+	    		if(accessToken!=null){
+	    			String id = accessToken.getId();
+	    			accessToken = accessTokenService.getFromWx();
+	    			accessToken.setId(id);
+	        		wxAccessTokenService.save(accessToken);
+	        	}else{
+	        		accessToken = accessTokenService.getFromWx();
+	        		wxAccessTokenService.add(accessToken);
+	        	}
+    		}
+    		
     	UserInfo userInfo = userService.getUserInfo(accessToken.getAccessToken(), openid, 1);
     	
     	return userInfo;

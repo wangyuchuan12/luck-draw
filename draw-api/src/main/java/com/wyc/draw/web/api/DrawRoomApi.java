@@ -1,5 +1,8 @@
 package com.wyc.draw.web.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -8,13 +11,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
+import com.wyc.common.filter.BaseActionFilter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.filter.AddDrawRoomFilter;
 import com.wyc.draw.filter.DrawRoomViewFilter;
 import com.wyc.draw.filter.GetDrawRoomInfoFilter;
 import com.wyc.draw.filter.GetDrawRoomMembersByRoomIdFilter;
 import com.wyc.draw.filter.GetRoomListByUserOfPageFilter;
 import com.wyc.draw.filter.JoinRoomFilter;
+import com.wyc.draw.filter.SetRemindFilter;
 import com.wyc.draw.vo.DrawRoomInfoVo;
 import com.wyc.draw.vo.DrawRoomListVo;
 import com.wyc.draw.vo.DrawRoomMemberListVo;
@@ -121,6 +127,26 @@ public class DrawRoomApi {
 			return sessionManager.getObject(ResultVo.class);
 		}else{
 			return sessionManager.getReturnValue();
+		}
+	}
+	
+	//设置房间提醒
+	@HandlerAnnotation(hanlerFilter=SetRemindFilter.class)
+	@ResponseBody
+	@RequestMapping(value="set_remind")
+	public Object setRemind(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		if(sessionManager.getObject(ResultVo.class)!=null){
+			return sessionManager.getObject(ResultVo.class);
+		}else{
+			DrawRoomMember drawRoomMember = (DrawRoomMember)sessionManager.getObject(DrawRoomMember.class);
+			ResultVo resultVo = new ResultVo();
+			Map<String, String> remind = new HashMap<>();
+			remind.put("remind",drawRoomMember.getRemind()+"");
+			resultVo.setMsg("设置房间提醒成功");
+			resultVo.setData(remind);
+			return resultVo;
 		}
 	}
 }

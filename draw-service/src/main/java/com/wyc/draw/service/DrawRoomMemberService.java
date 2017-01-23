@@ -43,5 +43,9 @@ public class DrawRoomMemberService {
 	public DrawRoomMember findOneByDrawRoomIdDrawUserId(String roomId, String createDrawUserId) {
 		return drawRoomMemberRepository.findByDrawRoomIdAndDrawUserId(roomId,createDrawUserId);
 	}
+	public DrawRoomMember update(DrawRoomMember drawRoomMember) {
+		drawRoomMember.setUpdateAt(new DateTime());
+		return drawRoomMemberRepository.save(drawRoomMember);
+	}
 
 }

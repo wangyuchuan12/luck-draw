@@ -57,9 +57,25 @@ public class DrawRoomInfoVo {
 	private String createrHeadImg;
 	
 	//该房间最大红包金额
+	@ParamAnnotation
 	@Column(name="max_red_packet_amount")
 	private BigDecimal maxRedPacketAmount;
 	
+	@ParamAnnotation
+	@Column
+	private Integer remind;
+	
+	
+	
+	
+	public Integer getRemind() {
+		return remind;
+	}
+
+	public void setRemind(Integer remind) {
+		this.remind = remind;
+	}
+
 	public String getCreaterNickname() {
 		return createrNickname;
 	}

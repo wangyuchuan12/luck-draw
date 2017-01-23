@@ -85,6 +85,9 @@ public class DrawRoomMember {
 	@Column(name="img_url")
 	private String imgUrl;
 	
+	@Column
+	private Integer remind;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -98,6 +101,14 @@ public class DrawRoomMember {
     
     
     
+
+	public Integer getRemind() {
+		return remind;
+	}
+
+	public void setRemind(Integer remind) {
+		this.remind = remind;
+	}
 
 	public String getImgUrl() {
 		return imgUrl;

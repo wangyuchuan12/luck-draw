@@ -8,9 +8,30 @@
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
 
+
+<div class="ondisplay">
+
+	  
+	  <section title=".roundedOne">
+	    <!-- .roundedOne -->
+	    <div class="roundedOne" id="remindDiv">
+	      <input type="checkbox" id="roundedOne" name="remind" />
+	      <label></label>
+	    </div>
+	    
+	    
+	    
+	  </section>
+	  
+	  <div class="roundOneLabel">红包提醒</div>
+	  
+	 
+	</div>
 	<div class="luck_room_headImg">
 		<img src="${drawRoomInfo.imgUrl}">
 	</div>
+	
+	
 
 	<div class="luck_room_members">
 
@@ -65,6 +86,8 @@
 	
 	<input name="subscribe" value="${userInfo.subscribe}" type="text"/>
 	
+	<input name="remind" value="${drawRoomInfo.remind}" type="text"/>
+	
 	<script type="text/javascript">
 		$(document).ready(function(){
 			setRoomId($("input[name=bakRoomId]").val());
@@ -80,7 +103,29 @@
 			if(isInRoom!=1){
 				joinRoom();
 			}
+			$("#remindDiv").click(function(){
+				var subscribe = $("input[name=subscribe]").val();
+				
+				subscribe = parseInt(subscribe);
+				
+				if(subscribe==0){
+					layer.open({
+						content:"/view/draw/personal_center/qrcode"
+					});
+				}
+			});
 		});
+		
+		function initRemind(){
+			var remind = $("input[name=remind]").val();
+			remind = parseInt(remind);
+			
+			if(remind==1){
+				$(".roundedOne").addClass("roundedOneCheckStyle");
+			}else{
+				$(".roundedOne").removeClass("roundedOneCheckStyle");
+			}
+		}
 	
 		
 		function drawRoomMemberAddListener(img,name){

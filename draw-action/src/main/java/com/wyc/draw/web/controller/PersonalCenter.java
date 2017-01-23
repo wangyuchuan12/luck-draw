@@ -31,6 +31,12 @@ public class PersonalCenter {
 	}
 	
 	
+	@RequestMapping(value="qrcode")
+	public String qrcode(HttpServletRequest httpServletRequest)throws Exception{
+		return "qrcode";
+	}
+	
+	
 	@HandlerAnnotation(hanlerFilter=InitDataBaseDrawActionFilter.class)
 	@RequestMapping(value="takeOut")
 	public String takeOut(HttpServletRequest httpServletRequest)throws Exception{

@@ -12,6 +12,9 @@ import com.wyc.common.filter.BaseActionFilter;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.DrawRoom;
+import com.wyc.draw.domain.DrawRoomMember;
+import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawRoomService;
 import com.wyc.draw.vo.DrawRoomInfoVo;
 
@@ -21,10 +24,19 @@ public class GetDrawRoomInfoFilter extends Filter{
 
 	@Autowired
 	private DrawRoomService drawRoomService;
+	
+	@Autowired
+	private DrawRoomMemberService drawRoomMemberService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
+		
+		DrawUser drawUser = (DrawUser) filterManager.getObject(DrawUser.class);
+		
+		
 		String id = httpServletRequest.getParameter("id");
+		
+		DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(), id);
 		
 		DrawRoom drawRoom = drawRoomService.findOne(id);
 		
@@ -37,6 +49,7 @@ public class GetDrawRoomInfoFilter extends Filter{
 		drawRoomInfoVo.setName(drawRoom.getName());
 		drawRoomInfoVo.setVerifyType(drawRoom.getVerifyType());
 		drawRoomInfoVo.setVerifyQuestion(drawRoom.getVerifyQuestion());
+		drawRoomInfoVo.setRemind(drawRoomMember.getRemind());
 		return drawRoomInfoVo;
 	}
 

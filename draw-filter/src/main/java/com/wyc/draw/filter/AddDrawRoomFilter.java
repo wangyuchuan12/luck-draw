@@ -195,6 +195,7 @@ public class AddDrawRoomFilter extends Filter{
 		drawRoomMember.setHandRedPacketAmount(new BigDecimal("0"));
 		drawRoomMember.setHandRedPacketNum(0);
 		drawRoomMember.setIsCreater(1);
+		drawRoomMember.setRemind(0);
 		drawRoomMember.setStatus(Constant.PASSED_DRAW_ROOM_MEMEBER_STATUS);
 		drawRoomMember.setName(userInfo.getNickname());
 		drawRoomMember.setTakepartTime(new DateTime());
