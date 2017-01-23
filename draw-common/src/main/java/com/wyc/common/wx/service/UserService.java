@@ -47,4 +47,9 @@ public class UserService {
         return response.readObject(UserInfo.class);
     }
 
+	public void update(UserInfo userInfo) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

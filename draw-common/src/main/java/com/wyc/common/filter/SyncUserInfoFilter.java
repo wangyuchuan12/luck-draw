@@ -6,19 +6,26 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wyc.common.service.WxUserInfoService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.smart.service.UserSmartService;
 import com.wyc.common.wx.domain.UserInfo;
-
 public class SyncUserInfoFilter extends Filter{
 
 	@Autowired
 	private UserSmartService userSmartService;
+	
+	@Autowired
+	private WxUserInfoService userService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		UserInfo userInfo = (UserInfo)filterManager.getObject(UserInfo.class);
 		
 		userInfo = userSmartService.getFromAccessToken(userInfo.getOpenid());
+		
+		userInfo.setId(userInfo.getId());
+		
+		userService.update(userInfo);
 		return userInfo;
 	}
 

@@ -58,10 +58,6 @@ public class UserSmartService implements SmartService<UserInfo>{
     	}
     	UserInfo userInfo = userService.getUserInfo(accessToken.getAccessToken(), openid, 1);
     	
-    	wxUserInfoService.save(userInfo);
-    	
-    	System.out.println("..............userInfo:"+userInfo.getSubscribe());
-    	
     	return userInfo;
     }
     
@@ -122,7 +118,7 @@ public class UserSmartService implements SmartService<UserInfo>{
                 t.setCount(userInfo.getCount()+1);
                 t.setId(userInfo.getId());
                 t.setCreateAt(userInfo.getCreateAt());
-                wxUserInfoService.save(t);
+                wxUserInfoService.update(t);
             }else{
                 wxUserInfoService.add(t);
             }
@@ -147,7 +143,7 @@ public class UserSmartService implements SmartService<UserInfo>{
                 userInfo.setCount(0l);
             }
             userInfo.setCount(userInfo.getCount()+1);
-            wxUserInfoService.save(userInfo);
+            wxUserInfoService.update(userInfo);
         }
         
         logger.debug("save the userInfo to database,the UserInfo is {},the token is {}",t,token.getId());

@@ -22,7 +22,7 @@ public class WxUserInfoService {
         return userInfoRepository.save(userInfo);
     }
     
-    public void save(UserInfo userInfo){
+    public void update(UserInfo userInfo){
         userInfo.setUpdateAt(new DateTime());
         userInfoRepository.save(userInfo);
     }
