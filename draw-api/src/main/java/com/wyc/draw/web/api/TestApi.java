@@ -19,7 +19,7 @@ import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
 import com.wyc.draw.vo.RedPacketListVo;
 
 @Controller
-@RequestMapping(value="/api/test")
+@RequestMapping(value="/view/test")
 public class TestApi {
 	
 	@Autowired
@@ -33,7 +33,7 @@ public class TestApi {
 		
 		System.out.println(userInfo);
 		UserInfo userInfo2 = userSmartService.getFromAccessToken(userInfo.getOpenid());
-		
+		System.out.println("userInfo2:"+userInfo2);
 		return userInfo2;
 	}
 }
