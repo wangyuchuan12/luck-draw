@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -69,6 +70,7 @@ public class UserInfo {
     private String token;
     
 
+    @Transient
     private List<Object> tagid_list;
     
     @Column(name = "create_at")
