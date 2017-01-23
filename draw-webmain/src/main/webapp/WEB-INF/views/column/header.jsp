@@ -19,13 +19,7 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	var isInRoom = getIsInRoom();
-	isInRoom = parseInt(isInRoom);
 	
-	alert(isInRoom);
-	if(isInRoom!=1){
-		joinRoom();
-	}
 });
 
 function isInRoomFilterRequest(url,callback,params){

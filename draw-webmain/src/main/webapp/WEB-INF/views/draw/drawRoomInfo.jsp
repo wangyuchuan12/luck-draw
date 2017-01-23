@@ -71,6 +71,13 @@
 			setVerifyType($("input[name=bakVerifyType]").val());
 			
 			setVerifyQuestion($("input[name=bakVerifyQuestion]").val());
+			
+			
+			var isInRoom = getIsInRoom();
+			isInRoom = parseInt(isInRoom);
+			if(isInRoom!=1){
+				joinRoom();
+			}
 		});
 	
 		
