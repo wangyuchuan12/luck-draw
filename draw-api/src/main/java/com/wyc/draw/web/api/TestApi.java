@@ -24,7 +24,6 @@ public class TestApi {
 	
 	@Autowired
 	private UserSmartService userSmartService;
-	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=BaseActionFilter.class)
 	@RequestMapping(value="userInfo")
 	public Object userInfo(HttpServletRequest httpServletRequest)throws Exception{
