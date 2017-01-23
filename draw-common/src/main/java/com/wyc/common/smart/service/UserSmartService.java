@@ -60,6 +60,8 @@ public class UserSmartService implements SmartService<UserInfo>{
     	
     	wxUserInfoService.save(userInfo);
     	
+    	System.out.println("..............userInfo:"+userInfo.getSubscribe());
+    	
     	return userInfo;
     }
     
