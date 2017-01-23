@@ -63,7 +63,7 @@
 	
 	<input name="bakVerifyQuestion" value="${drawRoomInfo.verifyQuestion}" type="hidden"/>
 	
-	<input name="subscribe" value="${userInfo.subsceibe}" type="text"/>
+	<input name="subscribe" value="${userInfo.subscribe}" type="text"/>
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
