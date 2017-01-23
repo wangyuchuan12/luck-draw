@@ -36,8 +36,6 @@ public class UserSmartService implements SmartService<UserInfo>{
     private TokenService tokenService;
     @Autowired
     private ApplicationProperties applicationProperties;
-    
-    private String accessToken;
     final static Logger logger = LoggerFactory.getLogger(UserSmartService.class);
     public void setCode(String code){
         this.code = code;
@@ -47,16 +45,24 @@ public class UserSmartService implements SmartService<UserInfo>{
         this.openid = openid;
     }
     
-    
-    
+    public UserInfo getFromAccessToken(String openid)throws Exception{
+    	
+    	String token = "1234";
+    	AccessTokenBean accessToken = accessTokenService.getFromDatabase(token);
+    	if(accessToken==null||!accessTokenService.currentIsAvailable(accessToken)){
+    		accessToken = accessTokenService.getFromWx();
+    		accessTokenService.saveToDatabase(accessToken, token);
+    	}
+    	UserInfo userInfo = userService.getUserInfo(accessToken.getAccessToken(), openid, 1);
+    	
+    	return userInfo;
+    }
     
     @Override
     public UserInfo getFromWx() throws Exception{
-    	
-    	AccessTokenBean accessTokenBean = accessTokenService.getFromWx();
         authorizeInterceptService.setCode(code);
         Authorize authorize = authorizeInterceptService.getFromWx();
-        UserInfo userInfo = userService.getUserInfo(accessTokenBean.getAccessToken(), authorize.getOpenid(), 1);
+        UserInfo userInfo = userService.getUserInfoFromWeb(authorize.getAccess_token(), authorize.getOpenid(), 1);
         logger.debug("get UserInfo from wx,the object is {}",userInfo);
         return userInfo;
     }

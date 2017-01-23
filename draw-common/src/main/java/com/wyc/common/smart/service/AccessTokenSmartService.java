@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.wyc.common.service.TokenService;
 import com.wyc.common.service.WxAccessTokenService;
 import com.wyc.common.wx.domain.AccessTokenBean;
+import com.wyc.common.wx.domain.JsapiTicketBean;
 import com.wyc.common.wx.domain.Token;
 import com.wyc.common.wx.domain.WxContext;
 @Service
@@ -32,6 +33,22 @@ public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
     
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
+    }
+    
+    
+    public boolean currentIsAvailable(AccessTokenBean accessTokenBean)throws Exception{
+        
+        if(accessTokenBean==null){
+        	return false;
+        }
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(accessTokenBean.getUpdateAt().toDate());
+        calendar.add(Calendar.SECOND, Integer.parseInt(accessTokenBean.getExpiresIn())-100);
+        if(calendar.getTime().getTime()<new Date().getTime()){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @Override
