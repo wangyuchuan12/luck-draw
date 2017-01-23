@@ -29,6 +29,8 @@ public class TestApi {
 	public Object userInfo(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		UserInfo userInfo = (UserInfo)sessionManager.getObject(UserInfo.class);
+		
+		System.out.println(userInfo);
 		UserInfo userInfo2 = userSmartService.getFromAccessToken(userInfo.getOpenid());
 		
 		return userInfo2;
