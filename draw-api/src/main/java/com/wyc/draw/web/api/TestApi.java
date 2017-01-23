@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
+import com.wyc.common.filter.BaseActionFilter;
 import com.wyc.common.filter.UserInfoFilter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.smart.service.UserSmartService;
@@ -24,7 +25,7 @@ public class TestApi {
 	@Autowired
 	private UserSmartService userSmartService;
 	@ResponseBody
-	@HandlerAnnotation(hanlerFilter=UserInfoFilter.class)
+	@HandlerAnnotation(hanlerFilter=BaseActionFilter.class)
 	@RequestMapping(value="userInfo")
 	public Object userInfo(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
