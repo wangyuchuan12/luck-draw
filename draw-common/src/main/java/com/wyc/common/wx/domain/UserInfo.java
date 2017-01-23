@@ -68,7 +68,7 @@ public class UserInfo {
     @ParamAnnotation
     private String token;
     
-    @Column
+
     private List<Object> tagid_list;
     
     @Column(name = "create_at")
