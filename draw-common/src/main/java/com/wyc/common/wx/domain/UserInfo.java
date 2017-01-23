@@ -1,5 +1,7 @@
 package com.wyc.common.wx.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -67,7 +69,7 @@ public class UserInfo {
     private String token;
     
     @Column
-    private String tagid_list;
+    private List<Object> tagid_list;
     
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -82,10 +84,11 @@ public class UserInfo {
     
     
     
-    public String getTagid_list() {
+  
+	public List<Object> getTagid_list() {
 		return tagid_list;
 	}
-	public void setTagid_list(String tagid_list) {
+	public void setTagid_list(List<Object> tagid_list) {
 		this.tagid_list = tagid_list;
 	}
 	public Long getCount() {
