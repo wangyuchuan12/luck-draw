@@ -32,6 +32,9 @@ public class JsapiTicketFilter extends Filter{
             jsapiTicketBean = wxJsApiTicketSmartService.addToDataBase(jsapiTicketBean);
             filterManager.remove(WxConfigBean.class);
         }
+		
+		System.out.println("......................currentIsAvailable:"+wxJsApiTicketSmartService.currentIsAvailable());
+		
         if(!wxJsApiTicketSmartService.currentIsAvailable()){
             String id = jsapiTicketBean.getId();
             jsapiTicketBean = wxJsApiTicketSmartService.getFromWx();
