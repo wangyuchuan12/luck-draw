@@ -20,11 +20,9 @@ public class SyncUserInfoFilter extends Filter{
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		UserInfo userInfo = (UserInfo)filterManager.getObject(UserInfo.class);
-		
+		String id = userInfo.getId();
 		userInfo = userSmartService.getFromAccessToken(userInfo.getOpenid());
-		
-		userInfo.setId(userInfo.getId());
-		
+		userInfo.setId(id);
 		userService.update(userInfo);
 		return userInfo;
 	}
