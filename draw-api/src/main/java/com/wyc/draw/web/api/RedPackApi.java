@@ -17,6 +17,7 @@ import com.wyc.draw.filter.GetRedPackListByRoomOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketPromptsByRedPacketIdFilter;
 import com.wyc.draw.filter.GetTakepartMemberListByRedPacketOfPageFilter;
+import com.wyc.draw.filter.RemindHandRedPackFilter;
 import com.wyc.draw.vo.AnswerRedPacketResultVo;
 import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketPromptListVo;
@@ -63,7 +64,7 @@ public class RedPackApi {
 	@Transactional
 	@RequestMapping(value="add")
 	@ResponseBody
-	@HandlerAnnotation(hanlerFilter=BaseHandRedPackFilter.class)
+	@HandlerAnnotation(hanlerFilter=RemindHandRedPackFilter.class)
 	public ResultVo handRedPack(HttpServletRequest httpServletRequest)throws Exception{
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);

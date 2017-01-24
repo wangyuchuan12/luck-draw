@@ -56,7 +56,9 @@ public class SetRemindFilter extends Filter{
 			return null;
 		}
 		
-		DrawRoomMember drawRoomMember = drawRoomMemberService.findOne(roomId);
+		DrawRoomMember drawRoomMember = drawRoomMemberService.findOne(remberId);
+		
+		System.out.println("drawRoomMember:"+drawRoomMember);
 		
 		if(CommonUtil.isEmpty(drawRoomMember)){
 			ResultVo resultVo = new ResultVo();
@@ -76,7 +78,7 @@ public class SetRemindFilter extends Filter{
 			return null;
 		}
 		
-		Integer remindInteger = Integer.parseInt("remind");
+		Integer remindInteger = Integer.parseInt(remind);
 		
 		if(remindInteger==0||remindInteger==1){
 			drawRoomMember.setRemind(remindInteger);

@@ -84,9 +84,17 @@
 	
 	<input name="bakVerifyQuestion" value="${drawRoomInfo.verifyQuestion}" type="hidden"/>
 	
-	<input name="subscribe" value="${userInfo.subscribe}" type="text"/>
+	<input name="subscribe" value="${userInfo.subscribe}" type="hidden"/>
 	
-	<input name="remind" value="${drawRoomInfo.remind}" type="text"/>
+	<input name="isRemind" value="${drawRoomInfo.remind}" type="hidden"/>
+	
+	<input name="memberId" value="${drawRoomInfo.currentMemberId}" type="hidden"/>
+	
+	<div id="qrcode" style="display: none;">
+		<img src="/imgs/qrcode.jpg">
+		
+		<div style="color:red;text-align:center;font-size:15px;position: relative;top:-10px;">你还未关注该公众号，扫描二维码关注</div>
+	</div>
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -103,23 +111,78 @@
 			if(isInRoom!=1){
 				joinRoom();
 			}
+			initRemind();
 			$("#remindDiv").click(function(){
 				var subscribe = $("input[name=subscribe]").val();
 				
 				subscribe = parseInt(subscribe);
 				
-				if(subscribe==0){
+				var remind = $("input[name=isRemind]").val();
+				
+				remind = parseInt(remind);
+				
+				var bakRoomId = $("input[name=bakRoomId]").val();
+				
+				var memberId = $("input[name=memberId]").val();
+				
+				if(subscribe!=1&&remind!=1){
 					layer.open({
-						content:"/view/draw/personal_center/qrcode"
+						type:1,
+						
+						content:$("#qrcode")
 					});
+				}else if(subscribe==1){
+
+					if(remind==0){
+						remind=1;
+					}else if(remind==1){
+						remind=0;
+					}
+					var callback = new Object();
+					$("input[name=isRemind]").val(remind);
+					
+					initRemind();
+					callback.success = function(obj){
+						if(obj.success){
+							var remind = obj.data.remind;
+						}else{
+							if(remind==0){
+								remind=1;
+							}else if(remind==1){
+								remind=0;
+							}
+							
+							$("input[name=isRemind]").val(remind);
+							
+							initRemind();
+						}
+					}
+					
+					callback.failure = function(){
+						if(remind==0){
+							remind=1;
+						}else if(remind==1){
+							remind=0;
+						}
+						
+						$("input[name=isRemind]").val(remind);
+						
+						initRemind();
+					}
+					
+					var params = new Object();
+					params.remind = remind;
+					params.room_id = bakRoomId;
+					params.rember_id = memberId;
+					var url = "/api/draw/draw_room/set_remind";
+					request(url,callback,params);
 				}
 			});
 		});
 		
 		function initRemind(){
-			var remind = $("input[name=remind]").val();
+			var remind = $("input[name=isRemind]").val();
 			remind = parseInt(remind);
-			
 			if(remind==1){
 				$(".roundedOne").addClass("roundedOneCheckStyle");
 			}else{

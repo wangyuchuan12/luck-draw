@@ -9,8 +9,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wyc.common.domain.ApplyForm;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.domain.vo.TransfersResultVo;
@@ -185,15 +183,6 @@ public class TakeOutApplyFilter extends Filter{
 				
 				sendMessageService.sendImgMessage(applyForm.getOpenid(), articles);
 			}
-			
-			List<Article> articles = new ArrayList<>();
-			Article article = new Article();
-			article.setDescription("openid:"+drawUser.getOpenid()+"\namount:"+applyForm.getRealHandleAmount()+"\nstatus:"+applyForm.getStatus()+"\nmsg:"+applyForm.getMsg()+"\nerrorCode:"+applyForm.getErrCode());
-			article.setTitle(drawUser.getNickname()+"红包现金申请通知");
-			article.setUrl(wxContext.getDomainName()+"/view/draw/personal_center/main");
-			articles.add(article);
-			
-			sendMessageService.sendImgMessageToDawang(articles);
 			
 		}catch(Exception e){
 			e.printStackTrace();

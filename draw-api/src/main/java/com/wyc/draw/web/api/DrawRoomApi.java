@@ -137,16 +137,18 @@ public class DrawRoomApi {
 	public Object setRemind(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		
-		if(sessionManager.getObject(ResultVo.class)!=null){
-			return sessionManager.getObject(ResultVo.class);
-		}else{
-			DrawRoomMember drawRoomMember = (DrawRoomMember)sessionManager.getObject(DrawRoomMember.class);
-			ResultVo resultVo = new ResultVo();
-			Map<String, String> remind = new HashMap<>();
-			remind.put("remind",drawRoomMember.getRemind()+"");
-			resultVo.setMsg("设置房间提醒成功");
-			resultVo.setData(remind);
-			return resultVo;
+		if(sessionManager.isReturn()){
+			return sessionManager.getReturnValue();
 		}
+
+		DrawRoomMember drawRoomMember = (DrawRoomMember)sessionManager.getObject(DrawRoomMember.class);
+		ResultVo resultVo = new ResultVo();
+		Map<String, String> remind = new HashMap<>();
+		remind.put("remind",drawRoomMember.getRemind()+"");
+		resultVo.setMsg("设置房间提醒成功");
+		resultVo.setData(remind);
+		resultVo.setSuccess(true);
+		return resultVo;
+		
 	}
 }

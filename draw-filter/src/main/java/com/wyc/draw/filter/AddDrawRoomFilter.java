@@ -201,6 +201,9 @@ public class AddDrawRoomFilter extends Filter{
 		drawRoomMember.setTakepartTime(new DateTime());
 		drawRoomMember.setWrongAnswerNum(0);
 		drawRoomMember.setImgUrl(userInfo.getHeadimgurl());
+		drawRoomMember.setRoomName(drawRoom.getName());
+		drawRoomMember.setOpenid(drawUser.getOpenid());
+		drawRoomMember.setRoomImgUrl(drawRoom.getImgUrl());
 		drawRoomMemberService.add(drawRoomMember);
 		
 		ResultVo resultVo = new ResultVo();

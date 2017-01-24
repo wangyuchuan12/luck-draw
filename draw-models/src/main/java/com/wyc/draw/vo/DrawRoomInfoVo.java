@@ -65,7 +65,9 @@ public class DrawRoomInfoVo {
 	@Column
 	private Integer remind;
 	
-	
+	@ParamAnnotation
+	@Column(name="current_rember_id")
+	private String currentMemberId;
 	
 	
 	public Integer getRemind() {
@@ -74,6 +76,17 @@ public class DrawRoomInfoVo {
 
 	public void setRemind(Integer remind) {
 		this.remind = remind;
+	}
+	
+	
+	
+
+	public String getCurrentMemberId() {
+		return currentMemberId;
+	}
+
+	public void setCurrentMemberId(String currentMemberId) {
+		this.currentMemberId = currentMemberId;
 	}
 
 	public String getCreaterNickname() {

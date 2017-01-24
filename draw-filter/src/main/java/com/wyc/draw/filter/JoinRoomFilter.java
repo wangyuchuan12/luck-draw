@@ -150,8 +150,10 @@ public class JoinRoomFilter extends Filter{
 		drawRoomMember.setStatus(Constant.PASSED_DRAW_ROOM_MEMEBER_STATUS);
 		drawRoomMember.setTakepartTime(new DateTime());
 		drawRoomMember.setWrongAnswerNum(0);
-		
+		drawRoomMember.setOpenid(drawUser.getOpenid());
+		drawRoomMember.setRoomName(drawRoom.getName());
 		drawRoomMember.setRemind(0);
+		drawRoomMember.setRoomImgUrl(drawRoom.getImgUrl());
 		drawRoomMemberService.add(drawRoomMember);
 		
 		ResultVo resultVo = new ResultVo();

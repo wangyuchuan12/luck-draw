@@ -82,9 +82,7 @@ public class DrawController {
 		httpServletRequest.setAttribute("amountBalance", drawUser.getAmountBalance());
 		if(isDisplayTypeInt==1||redPackTypeInt==Constant.ROOM_QUESTION_TYPE){
 			List<DrawRoom> drawRooms = drawRoomService.findAllByDrawUserId(drawUser.getId());
-			
-			
-			System.out.println("........drawRooms:"+drawRooms);
+		
 			httpServletRequest.setAttribute("rooms",drawRooms);
 			String roomId = httpServletRequest.getParameter("room_id");
 			httpServletRequest.setAttribute("roomId", roomId);

@@ -7,8 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.wyc.common.filter.BaseActionFilter;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.DrawRoom;
@@ -50,6 +48,7 @@ public class GetDrawRoomInfoFilter extends Filter{
 		drawRoomInfoVo.setVerifyType(drawRoom.getVerifyType());
 		drawRoomInfoVo.setVerifyQuestion(drawRoom.getVerifyQuestion());
 		drawRoomInfoVo.setRemind(drawRoomMember.getRemind());
+		drawRoomInfoVo.setCurrentMemberId(drawRoomMember.getId());
 		return drawRoomInfoVo;
 	}
 

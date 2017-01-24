@@ -1224,4 +1224,16 @@ li::before{
 	top:25px;
 	
 	font-weight: bold;
+	
+	
+}
+
+
+.qrcode{
+	
+}
+
+.qrcode img{
+	width:300px;
+	height:300px;
 }
