@@ -10,9 +10,9 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/var/log/luck_draw/luck_draw.log</file>
+        <file>/var/log/onlineRetailers/onlineRetailers.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/var/log/luck_draw/luck_draw-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/var/log/onlineRetailers/onlineRetailers-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <append>true</append>
@@ -32,13 +32,13 @@
     <logger name="org.jboss.logging" level="WARN" />
     <logger name="com.alibaba.druid" level="WARN" />
 
-   <!-- <root level="debug">
-        <appender-ref ref="STDOUT" />
-    </root> -->
-
    <root level="debug">
-        <appender-ref ref="FILE" />
+        <appender-ref ref="STDOUT" />
     </root>
+
+   <!--  <root level="debug">
+        <appender-ref ref="FILE" />
+    </root> -->
 </configuration>
 
  
