@@ -48,6 +48,8 @@ public class RemindHandRedPackFilter extends Filter{
 						article.setTitle("["+drawUser.getNickname()+"]发布红包通知");
 						article.setPicurl(drawRoomMember.getRoomImgUrl());
 						
+						System.out.println(redPacketVo);
+						System.out.println(redPacketVo.getIsImg());
 						if(redPacketVo.getIsImg()==0){
 							article.setUrl(wxContext.getDomainName()+"/view/draw/draw_room/info?id="+redPacketVo.getDrawRoomId());
 						}else{
