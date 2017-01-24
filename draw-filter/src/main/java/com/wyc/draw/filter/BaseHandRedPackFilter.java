@@ -304,6 +304,7 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacketVo.setType(typeInt);
 		redPacketVo.setPayType(redPacket.getPayType());
 		redPacketVo.setOutTradeNo(outTradeNo);
+		redPacketVo.setIsImg(isImgInt);
 		return redPacketVo;
 	}
 
