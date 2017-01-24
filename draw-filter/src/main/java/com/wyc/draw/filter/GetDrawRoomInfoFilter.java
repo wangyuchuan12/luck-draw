@@ -48,7 +48,7 @@ public class GetDrawRoomInfoFilter extends Filter{
 		drawRoomInfoVo.setVerifyType(drawRoom.getVerifyType());
 		drawRoomInfoVo.setVerifyQuestion(drawRoom.getVerifyQuestion());
 		
-		if(drawRoom!=null){
+		if(drawRoomMember!=null){
 			drawRoomInfoVo.setRemind(drawRoomMember.getRemind());
 			drawRoomInfoVo.setCurrentMemberId(drawRoomMember.getId());
 		} else{
