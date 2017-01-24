@@ -1,7 +1,4 @@
 package com.wyc.common.wx.service;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wyc.common.service.WxAccessTokenService;
 import com.wyc.common.smart.service.AccessTokenSmartService;
-import com.wyc.common.smart.service.BasicSupportService;
 import com.wyc.common.util.Request;
 import com.wyc.common.util.RequestFactory;
 import com.wyc.common.util.Response;
@@ -23,6 +20,9 @@ import com.wyc.common.wx.domain.Article;
 public class SendMessageService {
     private String tokenKey = "sendMessage_"+UUID.randomUUID().toString();
     @Autowired
+    private WxAccessTokenService wxAccessTokenService;
+    
+    @Autowired
     private AccessTokenSmartService accessTokenSmartService;
     
     @Autowired
@@ -31,13 +31,23 @@ public class SendMessageService {
     
     
     public Map<String, String> sendMessage(String content)throws Exception{
-    	AccessTokenBean accessTokenBean = accessTokenSmartService.getFromDatabaseByKey(tokenKey);
-        if(accessTokenBean==null){
-            accessTokenBean = accessTokenSmartService.getFromWx();
-            accessTokenSmartService.saveToDatabase(accessTokenBean, tokenKey);
-        }
+    	
+    	
+    	AccessTokenBean accessToken = wxAccessTokenService.findOne();
+    	
+    	if(accessToken==null||!accessTokenSmartService.currentIsAvailable(accessToken)){
+	    		if(accessToken!=null){
+	    			String id = accessToken.getId();
+	    			accessToken = accessTokenSmartService.getFromWx();
+	    			accessToken.setId(id);
+	        		wxAccessTokenService.save(accessToken);
+	        	}else{
+	        		accessToken = accessTokenSmartService.getFromWx();
+	        		wxAccessTokenService.add(accessToken);
+	        	}
+    	}
     	ObjectMapper objectMapper = new ObjectMapper();
-        Request request = requestFactory.messageCustomRequest(accessTokenBean.getAccessToken());
+        Request request = requestFactory.messageCustomRequest(accessToken.getAccessToken());
         Response response = request.post(content);
         return objectMapper.readValue(response.read(), HashMap.class);
     }

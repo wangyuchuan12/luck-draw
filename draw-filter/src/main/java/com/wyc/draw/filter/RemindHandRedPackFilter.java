@@ -46,14 +46,12 @@ public class RemindHandRedPackFilter extends Filter{
 						Article article = new Article();
 						article.setDescription("你的房间["+drawRoomMember.getRoomName()+"]"+drawUser.getNickname()+"发布了一个红包，请查看");
 						article.setTitle("["+drawUser.getNickname()+"]发布红包通知");
-						article.setPicurl(drawRoomMember.getRoomImgUrl());
 						
-						System.out.println(redPacketVo);
-						System.out.println(redPacketVo.getIsImg());
+						article.setUrl(wxContext.getDomainName()+"/view/draw/draw_room/info?id="+redPacketVo.getDrawRoomId());
 						if(redPacketVo.getIsImg()==0){
-							article.setUrl(wxContext.getDomainName()+"/view/draw/draw_room/info?id="+redPacketVo.getDrawRoomId());
+							article.setPicurl(drawRoomMember.getRoomImgUrl());
 						}else{
-							article.setUrl(redPacketVo.getImgUrl());
+							article.setPicurl(redPacketVo.getImgUrl());
 						}
 						articles.add(article);
 						
