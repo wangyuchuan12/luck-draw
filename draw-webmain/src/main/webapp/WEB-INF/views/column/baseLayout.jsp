@@ -167,11 +167,9 @@
 			var title = getShareTile();
 			var instruction = getShareInstruction();
 			var shareUrl = getShareUrl();
-			shareUrl = shareUrl;
+			shareUrl = getWebpath()+shareUrl;
 			var shareImg = getShareImg();
 			var shareType = getShareType();
-			
-			alert(title+","+instruction+","+shareUrl+","+shareImg+","+shareType);
 			wxOnMenuShareAppMessage(title,instruction,shareUrl,shareImg,shareType);
 			wx.hideMenuItems({
 			    menuList: ["menuItem:copyUrl","menuItem:exposeArticle","menuItem:setFont","menuItem:readMode","menuItem:originPage","menuItem:share:email","menuItem:openWithQQBrowser","menuItem:openWithSafari"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3

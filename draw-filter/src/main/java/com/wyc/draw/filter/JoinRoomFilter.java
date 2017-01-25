@@ -135,7 +135,10 @@ public class JoinRoomFilter extends Filter{
 			
 		}
 		
+		Integer memberCount = drawRoom.getMemberCount();
+		drawRoom.setMemberCount(memberCount+1);
 		
+		drawRoomService.update(drawRoom);
 		DrawRoomMember drawRoomMember = new DrawRoomMember();
 		drawRoomMember.setAnswerNum(0);
 		drawRoomMember.setDrawRoomId(roomId);

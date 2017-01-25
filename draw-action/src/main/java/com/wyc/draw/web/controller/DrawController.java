@@ -13,6 +13,7 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
+import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.filter.DrawUserFilter;
@@ -48,12 +49,21 @@ public class DrawController {
 	@RequestMapping(value="info")
 	public String drawInfo(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		UserInfo userInfo = (UserInfo)sessionManager.getObject(UserInfo.class);
 		RedPacketVo redPacketVo = (RedPacketVo)sessionManager.getObject(RedPacketVo.class);
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setData(redPacketVo);
 		resultVo.setMsg("获取信息成功");
 		httpServletRequest.setAttribute("result", resultVo);
+		
+		
+		httpServletRequest.setAttribute("shareTitle", "【"+userInfo.getNickname()+"】给你发送了一个【问答红包】");
+	    httpServletRequest.setAttribute("shareInstruction", redPacketVo.getAnswer());
+	    httpServletRequest.setAttribute("shareUrl", "/view/draw/luck_draw/info?id="+redPacketVo.getId());
+	    httpServletRequest.setAttribute("shareImg", userInfo.getHeadimgurl());
+	    httpServletRequest.setAttribute("shareType", "link");
 		return "drawInfo";
 	}
 	
