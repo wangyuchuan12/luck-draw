@@ -11,7 +11,7 @@
         <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
              <c:forEach items="${mainImgs}" var="mainImg">
              	<div class="swiper-slide swiper-slide-active" style="width: 98%;margin-left: 0px;margin-right: 0px;">
-					<a href="${mainImg.href}"><img data-original="${mainImg.imgUrl}" src="/imgs/loading.gif" style="height:170px;width:100%;margin: 0px auto;" class="lazy"></a>
+					<a href="${mainImg.href}"><img data-original="${mainImg.imgUrl}" src="/imgs/loading.jpg" style="height:170px;width:100%;margin: 0px auto;" class="lazy"></a>
             	</div>
              
              </c:forEach>
