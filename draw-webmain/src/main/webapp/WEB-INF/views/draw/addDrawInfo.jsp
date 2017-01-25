@@ -242,7 +242,12 @@
 						}
 						
 						payCallback.cancel = function(){
-
+							var type = parseInt(type);
+							if(type==0){
+								skipToRoomInfo($("#room").val());
+							}else{
+								skipToRedpackList(0);
+							}
 						}
 						if(obj.success){
 							
