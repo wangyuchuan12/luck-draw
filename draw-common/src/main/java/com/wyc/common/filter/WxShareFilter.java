@@ -1,22 +1,25 @@
 package com.wyc.common.filter;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.wx.domain.UserInfo;
 
 public class WxShareFilter extends Filter{
 
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
+		 UserInfo userInfo = (UserInfo)filterManager.getObject(UserInfo.class);
 		 HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
-		 httpServletRequest.setAttribute("shareTitle", "城西拼团");
-         httpServletRequest.setAttribute("shareInstruction", "城西拼团22");
-         httpServletRequest.setAttribute("shareUrl", "http://www.chengxihome.com/");
-         httpServletRequest.setAttribute("shareImg", "http://7xlw44.com1.z0.glb.clouddn.com/1fafbd4f-b763-4615-b744-fda59752a96e");
+		 httpServletRequest.setAttribute("shareTitle", "["+userInfo.getNickname()+"]邀请你一起抢红包");
+         httpServletRequest.setAttribute("shareInstruction", "红包社区，等你来抢");
+         httpServletRequest.setAttribute("shareUrl", "/view/draw/main/home");
+         httpServletRequest.setAttribute("shareImg", userInfo.getHeadimgurl());
          httpServletRequest.setAttribute("shareType", "link");
 		return null;
 	}
@@ -41,8 +44,9 @@ public class WxShareFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Class<? extends Filter>> list = new ArrayList<>();
+		list.add(UserInfoFilter.class);
+		return list;
 	}
 
 }
