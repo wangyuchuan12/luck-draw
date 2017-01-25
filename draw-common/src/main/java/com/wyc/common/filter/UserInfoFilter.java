@@ -109,6 +109,8 @@ public class UserInfoFilter extends Filter{
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
 		filterClasses.add(WxConfigFilter.class);
+		
+		filterClasses.add(WxShareFilter.class);
 		return filterClasses;
 	}
 

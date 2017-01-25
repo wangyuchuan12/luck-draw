@@ -65,7 +65,44 @@
 
 </style>
 
+
+<input name="shareTitle" value="${shareTitle}"/>
+<input name="shareInstruction" value="${shareInstruction}"/>
+<input name="shareUrl" value="${shareUrl}"/>
+<input name="shareImg" value="${shareImg}"/>
+<input name="shareType" value="${shareType}"/>
+<input name="shareDataUrl" value="${shareDataUrl}"/>
+
+
+
 <script type="text/javascript">
+	/*获取分享信息*/
+	
+	function getShareTile(){
+		return $("input[name=shareTitle]").val();
+	}
+	
+	function getShareInstruction(){
+		return $("input[name=shareInstruction]").val();
+	}
+	
+	function getShareUrl(){
+		return $("input[name=shareUrl]").val();
+	}
+	
+	function getShareImg(){
+		return $("input[name=shareImg]").val();
+	}
+	
+	function getShareType(){
+		return $("input[name=shareType]").val();
+	}
+	
+	function getShareDataUrl(){
+		return $("input[name=shareDataUrl]").val();
+	}
+
+
 	function showToast(msg,timeLong){
 		if(!timeLong){
 			timeLong = 1500;
@@ -126,6 +163,27 @@
 	
 	$(document).ready(function(){
 		wxConfig(getAppId(),getSignature(),getNoncestr(),getDatetime());
+		wx.ready(function(){
+			var title = getShareTile();
+			var instruction = getShareInstruction();
+			var shareUrl = getShareUrl();
+			shareUrl = shareUrl;
+			var shareImg = getShareImg();
+			var shareType = getShareType();
+			
+			alert(title+","+instruction+","+shareUrl+","+shareImg+","+shareType);
+			wxOnMenuShareAppMessage(title,instruction,shareUrl,shareImg,shareType);
+			wx.hideMenuItems({
+			    menuList: ["menuItem:copyUrl","menuItem:exposeArticle","menuItem:setFont","menuItem:readMode","menuItem:originPage","menuItem:share:email","menuItem:openWithQQBrowser","menuItem:openWithSafari"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+			});
+			wx.showMenuItems({
+	            menuList: [
+	                "menuItem:profile",// 添加查看公众号
+	                "menuItem:addContact"
+	            ]
+	        	});
+		});
+		
 		
 		$("img.lazy").lazyload({
 	        effect: "fadeIn",
