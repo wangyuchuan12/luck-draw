@@ -114,7 +114,7 @@ public class BaseActionFilter extends Filter{
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filters = new ArrayList<>();
-		filters.add(UserInfoFilter.class);
+		filters.add(WxShareFilter.class);
 		return filters;
 	}
 
