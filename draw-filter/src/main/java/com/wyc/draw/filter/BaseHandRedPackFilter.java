@@ -230,8 +230,8 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setHandUserImgUrl(drawUser.getImgUrl());
 		redPacket.setIsRefund(0);
 		
+		
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
-			
 			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
 			ResultVo resultVo = new ResultVo();
 			if(CommonUtil.isEmpty(drawRoomId)){
@@ -270,7 +270,7 @@ public class BaseHandRedPackFilter extends Filter{
 			DrawRoom drawRoom = drawRoomService.findOne(redPacket.getDrawRoomId());
 			BigDecimal maxRedPacketAmount = drawRoom.getMaxRedPacketAmount();
 			if(maxRedPacketAmount==null||(maxRedPacketAmount.floatValue()<redPacket.getAmount().floatValue())){
-				drawRoom.setMaxRedPacketAmount(maxRedPacketAmount);
+				drawRoom.setMaxRedPacketAmount(redPacket.getAmount());
 				drawRoomService.update(drawRoom);
 			}
 			
