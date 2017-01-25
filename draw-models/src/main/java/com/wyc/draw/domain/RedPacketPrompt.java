@@ -3,6 +3,8 @@ package com.wyc.draw.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -10,6 +12,7 @@ import org.joda.time.DateTime;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name="d_red_packet_prompt")
+@Table(indexes={@Index(columnList="red_packet_id",name="red_packet_id_index")})
 public class RedPacketPrompt {
 	
 	@Id

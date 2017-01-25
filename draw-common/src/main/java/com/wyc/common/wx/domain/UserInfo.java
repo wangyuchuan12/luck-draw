@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
@@ -18,6 +20,8 @@ import com.wyc.annotation.ParamEntityAnnotation;
 
 @ParamEntityAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 @Entity(name="user_info")
+@Table(indexes={@Index(columnList="openid",name="openid_index"),
+				@Index(columnList="token",name="token_index")})
 public class UserInfo {
     @Id
     @IdAnnotation

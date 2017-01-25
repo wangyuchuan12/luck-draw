@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -13,7 +15,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 //房间
+
 @Entity(name="d_draw_room")
+@Table(indexes={@Index(columnList="create_draw_user_id",name="create_draw_user_id_index")})
 public class DrawRoom {
 	@Id
     private String id;

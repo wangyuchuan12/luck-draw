@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -18,6 +20,15 @@ import com.wyc.annotation.ParamEntityAnnotation;
 //红包
 @ParamEntityAnnotation
 @Entity(name="d_red_packet")
+@Table(indexes={@Index(columnList="hand_room_member_id",name="hand_room_member_id_index"),
+				@Index(columnList="draw_room_id",name="draw_room_id_index"),
+//				@Index(columnList="type",name="type_index"),
+				@Index(columnList="hand_draw_user_id",name="hand_draw_user_id_index"),
+//				@Index(columnList="is_img",name="is_img_index"),
+//				@Index(columnList="pay_type",name="pay_type_index"),
+//				@Index(columnList="is_pay",name="is_pay_index"),
+//				@Index(columnList="is_refund",name="is_refund_index"),
+				@Index(columnList="is_timeout",name="is_timeout_index")})
 public class RedPacket {
 	
 	@IdAnnotation

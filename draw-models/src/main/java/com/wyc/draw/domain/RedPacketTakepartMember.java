@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -13,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //红包参与者
 @Entity(name="d_red_packet_takepart_member")
+@Table(indexes={@Index(columnList="red_packet_id",name="red_packet_id_index")})
 public class RedPacketTakepartMember {
 	
 	//房间问答红包

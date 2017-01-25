@@ -323,7 +323,7 @@
 				question: {
 					required: true,
 					minlength: 1,
-					maxlength:15
+					maxlength:30
 				},
 				answer: {
 					required: true,
@@ -348,12 +348,12 @@
 				},
 				question: {
 					required: "请输入问题",
-					minlength: "最小长度不能小于3个字节",
-					maxlength: "最大长度不能超过7个字节"
+					minlength: "最小长度不能小于1个字节",
+					maxlength: "最大长度不能超过30个字节"
 				},
 				answer: {
 					required: "请输入问题答案",
-					minlength: "最小长度不能小于一个字",
+					minlength: "最小长度不能小于1个字",
 					maxlength: "最大长度不能超过7个字节"
 				},
 				room:{

@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -17,6 +19,8 @@ import com.wyc.annotation.ParamEntityAnnotation;
 
 @ParamEntityAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 @Entity(name="d_draw_user")
+
+@Table(indexes={@Index(columnList="user_id",name="user_id_index")})
 public class DrawUser {
 
 	@Id
