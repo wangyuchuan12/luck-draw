@@ -61,7 +61,7 @@ public class DrawController {
 		
 		
 		httpServletRequest.setAttribute("shareTitle", "【"+userInfo.getNickname()+"】给你发送了一个【问答红包】");
-	    httpServletRequest.setAttribute("shareInstruction", redPacketVo.getAnswer());
+	    httpServletRequest.setAttribute("shareInstruction", "【问题】"+redPacketVo.getAnswer());
 	    httpServletRequest.setAttribute("shareUrl", "/view/draw/luck_draw/info?id="+redPacketVo.getId());
 	    httpServletRequest.setAttribute("shareImg", userInfo.getHeadimgurl());
 	    httpServletRequest.setAttribute("shareType", "link");

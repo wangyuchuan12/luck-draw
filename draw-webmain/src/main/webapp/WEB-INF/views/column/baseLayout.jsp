@@ -66,12 +66,12 @@
 </style>
 
 
-<input name="shareTitle" value="${shareTitle}"/>
-<input name="shareInstruction" value="${shareInstruction}"/>
-<input name="shareUrl" value="${shareUrl}"/>
-<input name="shareImg" value="${shareImg}"/>
-<input name="shareType" value="${shareType}"/>
-<input name="shareDataUrl" value="${shareDataUrl}"/>
+<input name="shareTitle" value="${shareTitle}" type="hidden"/>
+<input name="shareInstruction" value="${shareInstruction}" type="hidden"/>
+<input name="shareUrl" value="${shareUrl}" type="hidden"/>
+<input name="shareImg" value="${shareImg}" type="hidden"/>
+<input name="shareType" value="${shareType}" type="hidden"/>
+<input name="shareDataUrl" value="${shareDataUrl}" type="hidden"/>
 
 
 
