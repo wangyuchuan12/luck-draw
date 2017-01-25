@@ -8,9 +8,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.domain.vo.ResultVo;
-import com.wyc.common.filter.BaseActionFilter;
 import com.wyc.common.filter.Filter;
-import com.wyc.common.filter.UserInfoFilter;
+import com.wyc.common.filter.WxShareFilter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawUser;
@@ -80,7 +79,7 @@ public class DrawUserFilter extends Filter{
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
-		filterClasses.add(BaseActionFilter.class);
+		filterClasses.add(WxShareFilter.class);
 		return filterClasses;
 	}
 

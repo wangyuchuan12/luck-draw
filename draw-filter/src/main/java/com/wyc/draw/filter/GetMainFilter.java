@@ -42,7 +42,7 @@ public class GetMainFilter extends Filter{
 		
 		filters.add(GetMainRedPacketFilter.class);
 		
-		filters.add(DrawUserFilter.class);
+		filters.add(BaseDrawActionFilter.class);
 		return filters;
 	}
 

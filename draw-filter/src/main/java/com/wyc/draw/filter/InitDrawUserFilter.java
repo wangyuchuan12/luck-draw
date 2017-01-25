@@ -91,7 +91,7 @@ public class InitDrawUserFilter extends Filter{
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
-		filterClasses.add(BaseActionFilter.class);
+		filterClasses.add(BaseDrawActionFilter.class);
 		return filterClasses;
 	}
 

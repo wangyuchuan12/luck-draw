@@ -16,6 +16,7 @@ import com.wyc.common.util.Constant;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.DrawUserFilter;
 import com.wyc.draw.filter.GetRedPackInfoFilter;
 import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
@@ -67,7 +68,7 @@ public class DrawController {
 		return "drawInfo";
 	}
 	
-	@HandlerAnnotation(hanlerFilter=DrawUserFilter.class)
+	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	@RequestMapping(value="add")
 	public String addDrawInfo(HttpServletRequest httpServletRequest)throws Exception{
 		String redPackType = httpServletRequest.getParameter("redPackType");
