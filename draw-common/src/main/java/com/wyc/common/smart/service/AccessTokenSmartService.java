@@ -43,7 +43,7 @@ public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
         }
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(accessTokenBean.getUpdateAt().toDate());
-        calendar.add(Calendar.SECOND, Integer.parseInt(accessTokenBean.getExpiresIn())-100);
+        calendar.add(Calendar.SECOND, Integer.parseInt(accessTokenBean.getExpiresIn())-500);
         if(calendar.getTime().getTime()<new Date().getTime()){
             return false;
         }else{

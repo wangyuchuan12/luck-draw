@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.service.WxUserInfoService;
@@ -17,13 +19,19 @@ public class SyncUserInfoFilter extends Filter{
 	
 	@Autowired
 	private WxUserInfoService userService;
+	final static Logger logger = LoggerFactory.getLogger(SyncUserInfoFilter.class);
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		UserInfo userInfo = (UserInfo)filterManager.getObject(UserInfo.class);
-		String id = userInfo.getId();
-		userInfo = userSmartService.getFromAccessToken(userInfo.getOpenid());
-		userInfo.setId(id);
-		userService.update(userInfo);
+		try{
+			String id = userInfo.getId();
+			userInfo = userSmartService.getFromAccessToken(userInfo.getOpenid());
+			userInfo.setId(id);
+			userService.update(userInfo);
+		}catch(Exception e){
+			logger.error("同步用户的时候出错了");
+		}
+		
 		return userInfo;
 	}
 

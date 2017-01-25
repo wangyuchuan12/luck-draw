@@ -10,6 +10,8 @@ import javax.transaction.Transactional;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
@@ -28,7 +30,7 @@ import com.wyc.common.session.SessionManager;
 @Component
 public class ManagerInterceptConfig {
 	
-	
+	final static Logger logger = LoggerFactory.getLogger(ManagerInterceptConfig.class);
 	@Autowired
     private AutowireCapableBeanFactory factory;
 	
@@ -129,11 +131,12 @@ public class ManagerInterceptConfig {
 				 }
 				 return returnValue;
 			 }catch(Exception e){
+				 logger.error("has an error:{}",e);
 				 Transactional transactional = method.getAnnotation(Transactional.class);
 				 if(transactional!=null){
 					 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				 }
-				 e.printStackTrace();
+				
 				 
 			 }
 		 }else{
@@ -142,7 +145,7 @@ public class ManagerInterceptConfig {
 			 try{
 				 returnValue = proceedingJoinPoint.proceed();
 			 }catch(Exception e){
-				 e.printStackTrace();
+				 logger.error("has an error:{}",e);
 				 Transactional transactional = method.getAnnotation(Transactional.class);
 				 if(transactional!=null){
 					 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
