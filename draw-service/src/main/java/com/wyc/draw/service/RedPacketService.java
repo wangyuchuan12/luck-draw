@@ -65,8 +65,8 @@ public class RedPacketService {
 		return redPackageRepository.findAllByIsTimeout(isTimeout,pageable);
 	}
 
-	public Page<RedPacket> findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefund(int isReceive, int isTimeout, int isPay, int isRefund,
+	public Page<RedPacket> findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefundAndIsRefundError(int isReceive, int isTimeout, int isPay, int isRefund,int isRefundError,
 			Pageable pageable) {
-		return redPackageRepository.findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefund(isReceive,isTimeout,isPay,isRefund,pageable);
+		return redPackageRepository.findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefundAndIsRefundError(isReceive,isTimeout,isPay,isRefund,isRefundError,pageable);
 	}
 }

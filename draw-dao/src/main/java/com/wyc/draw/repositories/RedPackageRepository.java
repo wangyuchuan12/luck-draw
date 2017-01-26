@@ -36,7 +36,7 @@ public interface RedPackageRepository extends CrudRepository<RedPacket, String>{
 
 
 	//查找可以退款的红包
-	Page<RedPacket> findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefund(int isReceive, int isTimeout, int isPay,
-			int isRefund, Pageable pageable);
+	Page<RedPacket> findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefundAndIsRefundError(int isReceive, int isTimeout, int isPay,
+			int isRefund,int isRefundError,Pageable pageable);
 
 }

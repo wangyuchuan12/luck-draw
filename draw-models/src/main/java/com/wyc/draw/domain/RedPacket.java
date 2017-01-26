@@ -135,6 +135,10 @@ public class RedPacket {
 	@Column(name="is_refund")
 	private Integer isRefund;
 	
+	@ParamAnnotation
+	@Column(name="is_refund_error")
+	private Integer isRefundError;
+	
 	//是否有图片
 	@ParamAnnotation
 	@Column(name="is_img")
@@ -175,6 +179,12 @@ public class RedPacket {
 		this.isTimeout = isTimeout;
 	}
 	
+	public Integer getIsRefundError() {
+		return isRefundError;
+	}
+	public void setIsRefundError(Integer isRefundError) {
+		this.isRefundError = isRefundError;
+	}
 	public String getHandUserImgUrl() {
 		return handUserImgUrl;
 	}

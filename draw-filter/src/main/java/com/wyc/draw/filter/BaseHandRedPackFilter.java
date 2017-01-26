@@ -19,9 +19,6 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.common.util.MySimpleDateFormat;
-import com.wyc.common.wx.domain.Article;
-import com.wyc.common.wx.domain.WxContext;
-import com.wyc.common.wx.service.SendMessageService;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
@@ -229,7 +226,7 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setHandNickname(drawUser.getNickname());
 		redPacket.setHandUserImgUrl(drawUser.getImgUrl());
 		redPacket.setIsRefund(0);
-		
+		redPacket.setIsRefundError(0);
 		
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
 			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);

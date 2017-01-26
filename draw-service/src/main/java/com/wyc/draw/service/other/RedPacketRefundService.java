@@ -43,27 +43,35 @@ public class RedPacketRefundService {
 	@Transactional
 	public RedPacket refund(RedPacket redPacket)throws Exception{
 		
-		if(redPacket.getIsPay()==1&&redPacket.getIsRefund()==0&&redPacket.getIsTimeout()==1&&redPacket.getIsReceive()==0){
+		if(redPacket.getIsPay()==1&&redPacket.getIsRefund()==0&&redPacket.getIsTimeout()==1&&redPacket.getIsReceive()==0&&redPacket.getIsRefundError()!=1){
+			
 			
 			if(redPacket.getPayType()==1){
-				String outTradeNo = redPacket.getOutTradeNo();
-				PaySuccess paySuccess  = payService.refund(outTradeNo);
 				
-				if(paySuccess.getIsRefund()==1){
-				
-					redPacket.setIsRefund(1);
+				try{
+					String outTradeNo = redPacket.getOutTradeNo();
+					PaySuccess paySuccess  = payService.refund(outTradeNo);
 					
+					if(paySuccess.getIsRefund()==1){
+					
+						redPacket.setIsRefund(1);
+						
+						redPacketService.update(redPacket);
+					}
+					
+					List<Article> articles = new ArrayList<>();
+					
+					Article article = new Article();
+					article.setDescription("你的红包["+redPacket.getQuestion()+"]退款已到账\n退还金额："+redPacket.getAmount()+"，请查收");
+					article.setTitle("红包退款到账通知");
+					articles.add(article);
+					DrawUser drawUser = drawUserService.findOne(redPacket.getHandDrawUserId());
+					sendMessageService.sendImgMessage(drawUser.getOpenid(), articles);
+				}catch(Exception e){
+					redPacket.setIsRefundError(1);
 					redPacketService.update(redPacket);
 				}
 				
-				List<Article> articles = new ArrayList<>();
-				
-				Article article = new Article();
-				article.setDescription("你的红包["+redPacket.getQuestion()+"]退款已到账\n退还金额："+redPacket.getAmount()+"，请查收");
-				article.setTitle("红包退款到账通知");
-				articles.add(article);
-				DrawUser drawUser = drawUserService.findOne(redPacket.getHandDrawUserId());
-				sendMessageService.sendImgMessage(drawUser.getOpenid(), articles);
 			}else if(redPacket.getPayType()==0){
 				
 				DrawUser drawUser = drawUserService.findOneWithLuck(redPacket.getHandDrawUserId());

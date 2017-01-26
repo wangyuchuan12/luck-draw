@@ -44,7 +44,7 @@ public class RedPacketTask {
 	public void refund(){
 		Sort sort = new Sort(Direction.DESC,"handTime");
 		PageRequest pageRequest = new PageRequest(0, 550,sort);
-		Page<RedPacket> redPackets = redPacketService.findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefund(0,1,1,0,pageRequest);
+		Page<RedPacket> redPackets = redPacketService.findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefundAndIsRefundError(0,1,1,0,0,pageRequest);
 		
 		for(RedPacket redPacket:redPackets){
 			try{
