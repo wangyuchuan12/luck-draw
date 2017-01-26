@@ -12,7 +12,7 @@
 	 <meta http-equiv="Pragma" content="no-cache">   
 	 <meta http-equiv="Cache-Control" content="no-store">
 	 <meta http-equiv="Expires" content="0">
-	 <title>问答红包</title>
+	 <title>${title}</title>
 <tiles:insertAttribute name="resource"/>
 </head>
 <body>
