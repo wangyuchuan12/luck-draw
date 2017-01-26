@@ -32,9 +32,9 @@
 			
 			<input name="isCreater" value="${result.data.isCreater}" type="hidden"/>
 			
-			<input name="isAmountDisplay" value="${result.data.isAmountDisplay}"/>
+			<input name="isAmountDisplay" value="${result.data.isAmountDisplay}" type="hidden"/>
 			
-			<input name="amount" value="${result.data.amount}"/>
+			<input name="amount" value="${result.data.amount}" type="hidden"/>
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">问答红包</div>
@@ -167,6 +167,8 @@
 								isAmountDisplay = 1;
 							}else if(isAmountDisplay==1){
 								isAmountDisplay = 0;
+							}else{
+								isAmountDisplay = 1;
 							}
 							$("input[name=isAmountDisplay]").val(isAmountDisplay);
 							initIsAmountDisplay();
@@ -214,7 +216,7 @@
 						});
 					}
 					if(isAmountDisplay==0){
-						$(".luck_info_head_money>span").text("***");
+						$(".luck_info_head_money>span").text("****");
 					}else{
 						var amount = $("input[name=amount]").val();
 						$(".luck_info_head_money>span").text(amount);

@@ -55,7 +55,16 @@
 						</div>
 					</div>
 					
-					<div class="red_packet_list_content_amount">${item.amount}元</div>
+					<div class="red_packet_list_content_amount">
+						<c:if test="${item.isAmountDisplay==1}">
+							${item.amount}
+						</c:if>
+						
+						<c:if test="${item.isAmountDisplay!=1}">
+							****
+						</c:if>
+					
+					元</div>
 				</li>
 			</c:forEach>
 			

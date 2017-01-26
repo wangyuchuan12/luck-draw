@@ -91,6 +91,8 @@ public class GetRedPackListByRoomOfPageFilter extends Filter{
 			
 			redPacketVo.setIsReceive(redPacket.getIsReceive());
 			
+			redPacketVo.setIsAmountDisplay(redPacket.getIsAmountDisplay());
+			
 			redPacketVos.add(redPacketVo);
 		}
 		redPacketListVo.setRedPacketVos(redPacketVos);

@@ -66,7 +66,10 @@
 	
 									</div>
 									<div class="luck_room_package_item_info2_money">
-										金额：${packet.amount}元
+										金额：
+										<c:if test="${packet.isAmountDisplay==1}">${packet.amount}</c:if>
+										<c:if test="${packet.isAmountDisplay!=1}">****</c:if>
+										元
 										<c:if test="${packet.isReceive==1}">
 											<span style="color:red">已领取</span>
 										</c:if>
