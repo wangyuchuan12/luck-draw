@@ -34,8 +34,17 @@ public class WxContext {
     //一天处理提现到账人数
     @Column(name="arrival_num")
     private Integer arrivalNum;
+    
+    
+    
 
-    public Integer getTransferFee() {
+    public Integer getArrivalNum() {
+		return arrivalNum;
+	}
+	public void setArrivalNum(Integer arrivalNum) {
+		this.arrivalNum = arrivalNum;
+	}
+	public Integer getTransferFee() {
 		return transferFee;
 	}
 	public void setTransferFee(Integer transferFee) {
