@@ -30,8 +30,8 @@ public class DrawRoomViewFilter extends Filter{
 		int isInRoom = drawRoomMemberService.isInRoom(drawRoomInfoVo.getId(), drawUser.getId());
 		drawRoomInfoVo.setIsInRoom(isInRoom);
 		
-		if(userInfo.getSubscribe()==null||!userInfo.getSubscribe().equals("1")){
-			drawRoomInfoVo.setIsInRoom(0);
+		if(userInfo.getSubscribe()==null&&!userInfo.getSubscribe().equals("1")){
+			drawRoomInfoVo.setRemind(0);
 		}
 		return drawRoomInfoVo;
 	}
