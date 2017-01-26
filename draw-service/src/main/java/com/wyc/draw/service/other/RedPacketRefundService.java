@@ -74,12 +74,15 @@ public class RedPacketRefundService {
 				
 			}else if(redPacket.getPayType()==0){
 				
+				
+				redPacket.setIsRefund(1);
+				redPacketService.update(redPacket);
 				DrawUser drawUser = drawUserService.findOneWithLuck(redPacket.getHandDrawUserId());
 				BigDecimal amountBalance = drawUser.getAmountBalance();
 				if(amountBalance == null){
 					amountBalance = new BigDecimal(0);
 				}
-				amountBalance.add(redPacket.getAmount());
+				amountBalance = amountBalance.add(redPacket.getAmount());
 				drawUser.setAmountBalance(amountBalance);
 				drawUserService.update(drawUser);
 				
