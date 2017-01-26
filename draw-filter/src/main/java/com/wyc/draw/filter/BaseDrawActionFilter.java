@@ -3,18 +3,18 @@ package com.wyc.draw.filter;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.wyc.common.filter.Filter;
-import com.wyc.common.filter.UserInfoFilter;
 import com.wyc.common.session.SessionManager;
-import com.wyc.draw.domain.DrawUser;
-
-
 //红包系统的基类
 public class BaseDrawActionFilter extends Filter{
 
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
+		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
+		httpServletRequest.setAttribute("title", "问答红包");
 		return null;
 	}
 
