@@ -29,7 +29,7 @@ public class SyncUserInfoFilter extends Filter{
 			userInfo.setId(id);
 			userService.update(userInfo);
 		}catch(Exception e){
-			logger.error("同步用户的时候出错了");
+			logger.error("同步用户的时候出错了{}",e);
 		}
 		
 		return userInfo;
