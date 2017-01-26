@@ -322,7 +322,7 @@
 			rules: {
 				amount:{
 					required: true,
-					range:[0,200],
+					range:[0.009,200],
 					notEqual:0
 				},
 				question: {
@@ -348,7 +348,7 @@
 			messages: {
 				amount: {
 					required: "请输入金额",
-					range:"金额大小在0到200元之间",
+					range:"金额大小在0.01到200元之间",
 					notEqual:"输入的金额不能等于0"
 				},
 				question: {

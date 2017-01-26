@@ -87,6 +87,8 @@
 							
 							if(obj.success){
 								amountBalance = amountBalance - amount;
+								amountBalance = parseFloat(amountBalance);
+								amountBalance = amountBalance.toFixed(2);
 								$("input[name=amountBalance]").val(amountBalance);
 								$(".take_out_balance span").text(amountBalance);
 								var canTakeOutCount = $("input[name=canTakeOutCount]").val();
