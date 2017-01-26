@@ -24,7 +24,7 @@ public class ApplyFormTask {
 	
 	
 	//定时执行转行失败的任务
-	@Scheduled(cron = "0 0 18 * * ?")
+	@Scheduled(cron = "0/30 * * * * ?")
 	public void handleTakeOut(){
 		PageRequest pageRequest = new PageRequest(0, 100);
 		doHandleTakeOut(pageRequest);
