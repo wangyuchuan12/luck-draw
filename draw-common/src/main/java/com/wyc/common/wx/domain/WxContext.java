@@ -26,12 +26,24 @@ public class WxContext {
     //转账手续费 小数点
     @Column(name="transfer_fee")
     private Integer transferFee;
+    
+    //提现即时到账
+    @Column(name="instant_arrival")
+    private Integer instantArrival;
 
     public Integer getTransferFee() {
 		return transferFee;
 	}
 	public void setTransferFee(Integer transferFee) {
 		this.transferFee = transferFee;
+	}
+	
+	
+	public Integer getInstantArrival() {
+		return instantArrival;
+	}
+	public void setInstantArrival(Integer instantArrival) {
+		this.instantArrival = instantArrival;
 	}
 	public Long getId() {
         return id;

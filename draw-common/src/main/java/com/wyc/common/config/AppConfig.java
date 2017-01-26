@@ -139,6 +139,7 @@ public class AppConfig {
 	        wxContext.setKey(myProperties.getProperty("key"));
 	        wxContext.setMchId(myProperties.getProperty("mch_id"));
 	        wxContext.setTransferFee(Integer.parseInt(myProperties.getProperty("transfer_fee")));
+	        wxContext.setInstantArrival(Integer.parseInt(myProperties.getProperty("instant_arrival")));
 //	        wxContext = wxContextService.getWxContextBean();
 	        return wxContext;
 	    }

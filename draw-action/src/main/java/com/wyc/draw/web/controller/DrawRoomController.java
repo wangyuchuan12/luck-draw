@@ -52,7 +52,7 @@ public class DrawRoomController {
 		
 		
 		httpServletRequest.setAttribute("shareTitle", "【"+userInfo.getNickname()+"】邀请你加入【"+drawRoomInfoVo.getName()+"】红包房间一起抢红包");
-	    httpServletRequest.setAttribute("shareInstruction", "【房间名称】"+drawRoomInfoVo.getName()+"【已参加】"+drawRoomInfoVo.getMemberCount());
+	    httpServletRequest.setAttribute("shareInstruction", "【房间名称】"+drawRoomInfoVo.getName()+"【已参加】"+drawRoomInfoVo.getMemberCount()+"人");
 	    httpServletRequest.setAttribute("shareUrl", "/view/draw/draw_room/info?id="+drawRoomInfoVo.getId());
 	    httpServletRequest.setAttribute("shareImg", userInfo.getHeadimgurl());
 	    httpServletRequest.setAttribute("shareType", "link");

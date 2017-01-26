@@ -151,7 +151,7 @@ public class TakeOutApplyFilter extends Filter{
 			if(resultVo!=null){
 				applyForm.setTradeOutNo(resultVo.getOutTradeNo());
 			}
-			if(resultVo!=null&&resultVo.getResultCode()!=null&&resultVo.getResultCode().equals("SUCCESS")){
+			if(resultVo!=null&&resultVo.getResultCode()!=null&&resultVo.getResultCode().equals("SUCCESS")&&wxContext.getInstantArrival()==1){
 				applyForm.setStatus(Constant.APPLY_FORM_STATUS_SUCCESS);
 				applyForm.setHandleTime(new DateTime());
 				applyFormService.update(applyForm);
@@ -167,11 +167,19 @@ public class TakeOutApplyFilter extends Filter{
 				sendMessageService.sendImgMessage(applyForm.getOpenid(), articles);
 			}else{
 				
-				applyForm.setErrorCount(1);
+				
 				applyForm.setStatus(Constant.APPLY_FORM_STATUS_FAILURE);
 				applyForm.setHandleTime(new DateTime());
-				applyForm.setMsg(userInfo.getNickname()+"申请提现失败"+","+resultVo.getReturnMsg());
-				applyForm.setErrCode(resultVo.getErrCode());
+				
+				if(wxContext.getInstantArrival()==1){
+					applyForm.setMsg(userInfo.getNickname()+"申请提现失败"+","+resultVo.getReturnMsg());
+					applyForm.setErrCode(resultVo.getErrCode());
+					applyForm.setErrorCount(1);
+				}else{
+					applyForm.setMsg(userInfo.getNickname()+"非即时到账"+","+resultVo.getReturnMsg());
+					applyForm.setErrorCount(0);
+				}
+				
 				applyFormService.update(applyForm);
 				
 				List<Article> articles = new ArrayList<>();

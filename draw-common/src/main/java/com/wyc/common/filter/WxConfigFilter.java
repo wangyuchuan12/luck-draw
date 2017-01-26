@@ -75,7 +75,6 @@ public class WxConfigFilter extends Filter{
         wxConfigBean.setAppId(wxContext.getAppid());
         wxConfigBean.setSignature(digestBuffer.toString());
         wxConfigBean.setNoncestr(noncestr);
-        wxConfigBean.setAppId(wxContext.getAppid());
         wxConfigBean.setDatetime(datetime);
 		return wxConfigBean;
 	}

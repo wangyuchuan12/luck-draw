@@ -4,8 +4,6 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.wyc.annotation.ParamEntityAnnotation;
 import com.wyc.common.domain.vo.WxConfigBean;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.smart.service.WxJsApiTicketSmartService;
