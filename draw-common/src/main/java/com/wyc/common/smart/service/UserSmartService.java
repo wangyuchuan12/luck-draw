@@ -56,18 +56,33 @@ public class UserSmartService implements SmartService<UserInfo>{
     	if(accessToken==null||!accessTokenService.currentIsAvailable(accessToken)){
 	    		if(accessToken!=null){
 	    			String id = accessToken.getId();
+	    			DateTime createTime = accessToken.getCreateAt();
 	    			accessToken = accessTokenService.getFromWx();
 	    			accessToken.setId(id);
+	    			accessToken.setCreateAt(createTime);
 	        		wxAccessTokenService.save(accessToken);
 	        	}else{
 	        		accessToken = accessTokenService.getFromWx();
 	        		wxAccessTokenService.add(accessToken);
 	        	}
     		}
-    		
-    	UserInfo userInfo = userService.getUserInfo(accessToken.getAccessToken(), openid, 1);
+    	try{
+    		UserInfo userInfo = userService.getUserInfo(accessToken.getAccessToken(), openid, 1);
+        	
+        	return userInfo;
+    	}catch(Exception e){
+    		try{
+    			String id = accessToken.getId();
+        		accessToken = accessTokenService.getFromWx();
+        		accessToken.setId(id);
+        		wxAccessTokenService.save(accessToken);
+        		UserInfo userInfo = userService.getUserInfo(accessToken.getAccessToken(), openid, 1);
+            	return userInfo;
+    		}catch(Exception e2){
+    			logger.debug("就算是在重新获取accessToken依然报错，{}",e2);
+    		}
+    	}
     	
-    	return userInfo;
     }
     
     @Override
