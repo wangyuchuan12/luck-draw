@@ -30,6 +30,10 @@ public class WxContext {
     //提现即时到账
     @Column(name="instant_arrival")
     private Integer instantArrival;
+    
+    //一天处理提现到账人数
+    @Column(name="arrival_num")
+    private Integer arrivalNum;
 
     public Integer getTransferFee() {
 		return transferFee;
