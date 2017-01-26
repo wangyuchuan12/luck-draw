@@ -65,7 +65,19 @@
 										<div class="luck_room_package_item_info2_title">${packet.question}</div>
 	
 									</div>
-									<div class="luck_room_package_item_info2_money">金额：${packet.amount}元</div>
+									<div class="luck_room_package_item_info2_money">
+										金额：${packet.amount}元
+										<c:if test="${packet.isReceive==1}">
+											<span style="color:red">已领取</span>
+										</c:if>
+										
+										<c:if test="${packet.isReceive!=1}">
+											<c:if test="${packet.isTimeout==1}">
+												<span style="color:red">已超时</span>
+											</c:if>
+										</c:if>
+										
+									</div>
 								</div>
 							</div>
 						

@@ -182,8 +182,6 @@ public class SessionManager {
 			filterManager = new SessionManager(httpServletRequest, paramClass);
 			httpServletRequest.setAttribute(sessionManagerId, filterManager);
 		}
-		
-		System.out.println("1sessionManager:"+sessionManagerId+",filterManager:"+filterManager);
 		return filterManager;
 		
 	}
@@ -192,7 +190,6 @@ public class SessionManager {
 //		return filterManagerThreadLocal.get();
 		String sessionManagerId = "sessionManager_"+httpServletRequest.getRequestedSessionId();
 		SessionManager sessionManager = (SessionManager)httpServletRequest.getAttribute(sessionManagerId);
-		System.out.println("2sessionManager:"+sessionManagerId+",filterManager:"+sessionManager);
 		return sessionManager;
 		
 	}
