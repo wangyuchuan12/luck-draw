@@ -82,7 +82,7 @@ public class UserSmartService implements SmartService<UserInfo>{
     			logger.debug("就算是在重新获取accessToken依然报错，{}",e2);
     		}
     	}
-    	
+    	return null;
     }
     
     @Override
