@@ -163,6 +163,12 @@ public class RedPacket {
 	@ParamAnnotation
 	private String handNickname;
 	
+	
+	//金额是否显示
+	@ParamAnnotation
+	@Column(name="is_amount_display")
+	private Integer isAmountDisplay;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -179,6 +185,14 @@ public class RedPacket {
 		this.isTimeout = isTimeout;
 	}
 	
+	
+	
+	public Integer getIsAmountDisplay() {
+		return isAmountDisplay;
+	}
+	public void setIsAmountDisplay(Integer isAmountDisplay) {
+		this.isAmountDisplay = isAmountDisplay;
+	}
 	public Integer getIsRefundError() {
 		return isRefundError;
 	}

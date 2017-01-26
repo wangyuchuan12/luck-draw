@@ -37,6 +37,7 @@ public class RedPacketTimeOutTestFilter extends Filter{
 		
 		if(calendar.getTime().getTime()<new Date().getTime()){
 			redPacket.setIsTimeout(1);
+			redPacket.setIsAmountDisplay(1);
 			redPackageService.update(redPacket);
 		}
 		return redPacket;

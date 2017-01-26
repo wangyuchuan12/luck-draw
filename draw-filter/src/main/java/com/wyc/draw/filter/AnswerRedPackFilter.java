@@ -233,6 +233,7 @@ public class AnswerRedPackFilter extends Filter{
 			redPacket.setIsReceive(1);
 			redPacket.setIsReceiveAble(0);
 			redPacket.setReceiveDrawUserId(drawUser.getId());
+			redPacket.setIsAmountDisplay(1);
 			redPacketTakepartMember.setGetAmount(redPacket.getAmount());
 			redPackageService.update(redPacket);
 			

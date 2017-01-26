@@ -116,6 +116,8 @@ public class GetRedPackInfoFilter extends Filter{
 		redPacketVo.setIsImg(redPacket.getIsImg());
 		redPacketVo.setImgUrl(redPacket.getImgUrl());
 		
+		redPacketVo.setIsAmountDisplay(redPacket.getIsAmountDisplay());
+		
 		return redPacketVo;
 	}
 

@@ -1,5 +1,8 @@
 package com.wyc.draw.web.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Controller;
@@ -9,15 +12,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.filter.AddRedPacketPromptFilter;
 import com.wyc.draw.filter.AnswerRedPackFilter;
-import com.wyc.draw.filter.BaseHandRedPackFilter;
 import com.wyc.draw.filter.DelRedPacketPromptFilter;
 import com.wyc.draw.filter.GetRedPackListByRoomOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketPromptsByRedPacketIdFilter;
 import com.wyc.draw.filter.GetTakepartMemberListByRedPacketOfPageFilter;
 import com.wyc.draw.filter.RemindHandRedPackFilter;
+import com.wyc.draw.filter.SetRedPacketIsAmountDisplay;
 import com.wyc.draw.vo.AnswerRedPacketResultVo;
 import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketPromptListVo;
@@ -180,4 +184,25 @@ public class RedPackApi {
 		resultVo.setData(redPacketTakepartMemberListVo);
 		return resultVo;
 	}
+	
+	
+	@RequestMapping(value="set_amount_display")
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=SetRedPacketIsAmountDisplay.class)
+	public ResultVo setAmountDisplay(HttpServletRequest httpServletRequest)throws Exception{
+		
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		RedPacket redPacket = (RedPacket)sessionManager.getObject(RedPacket.class);
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("isDisplay", redPacket.getIsAmountDisplay());
+		ResultVo resultVo = new ResultVo();
+		resultVo.setSuccess(true);
+		resultVo.setMsg("获取数据成功");
+		resultVo.setData(map);
+		return resultVo;
+	}
+	
+	
 }

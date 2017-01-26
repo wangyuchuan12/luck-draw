@@ -2,18 +2,9 @@ package com.wyc.draw.vo;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
-
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
-import com.wyc.common.util.MyDateSerializer;
 
 @ParamEntityAnnotation
 public class RedPacketVo {
@@ -134,7 +125,11 @@ public class RedPacketVo {
 	@ParamAnnotation
 	private Integer takePartCount;
 	
+	@ParamAnnotation
+	private Integer isAmountDisplay;
 	
+	@ParamAnnotation
+	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
 	
 	
 	public Integer getTakePartCount() {
@@ -151,8 +146,7 @@ public class RedPacketVo {
 
 
 
-	@ParamAnnotation
-	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
+	
 
 
 
@@ -172,6 +166,20 @@ public class RedPacketVo {
 
 	public Integer getIsCreater() {
 		return isCreater;
+	}
+
+
+
+
+	public Integer getIsAmountDisplay() {
+		return isAmountDisplay;
+	}
+
+
+
+
+	public void setIsAmountDisplay(Integer isAmountDisplay) {
+		this.isAmountDisplay = isAmountDisplay;
 	}
 
 

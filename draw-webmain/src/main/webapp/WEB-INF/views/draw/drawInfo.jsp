@@ -31,6 +31,10 @@
 			<input name="type" value="${result.data.type}" type="hidden"/>
 			
 			<input name="isCreater" value="${result.data.isCreater}" type="hidden"/>
+			
+			<input name="isAmountDisplay" value="${result.data.isAmountDisplay}"/>
+			
+			<input name="amount" value="${result.data.amount}"/>
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">问答红包</div>
@@ -39,7 +43,11 @@
 				</div>
 				<div class="luck_info_head_name">${result.data.nickname}的红包</div>
 
-				<div class="luck_info_head_money"><span>${result.data.amount}</span>元</div>
+				<div class="luck_info_head_money"><span>${result.data.amount}</span>元
+					<div class="luck_info_head_money_eye">
+						<span class="fa fa-eye"></span>
+					</div>
+				</div>
 			</div>
 			
 			<div class="luck_info_qusition">
@@ -135,6 +143,84 @@
 			<script type="text/javascript">
 				var isEnd = false;
 				initView();
+				initIsAmountDisplay();
+				
+				function initIsAmountDisplay(){
+					var isCreater = $(".isCreater").val();
+					isCreater = parseInt(isCreater);
+					
+					var isAmountDisplay = $("input[name=isAmountDisplay]").val();
+					isAmountDisplay = parseInt(isAmountDisplay);
+					
+					if(isCreater==0){
+						$(".luck_info_head_money_eye").css("display","none");
+					}else{
+						$(".luck_info_head_money_eye").css("display","inline-block");
+						$(".luck_info_head_money_eye").click(function(){
+							
+							var redPacketId = $("input[name=redPacketId]").val();
+							
+							
+							var url = "/api/draw/red_pack/set_amount_display";
+							
+							if(isAmountDisplay==0){
+								isAmountDisplay = 1;
+							}else if(isAmountDisplay==1){
+								isAmountDisplay = 0;
+							}
+							$("input[name=isAmountDisplay]").val(isAmountDisplay);
+							initIsAmountDisplay();
+							var params = new Object();
+							params.id = redPacketId;
+							params.isAmountDisplay = isAmountDisplay;
+							
+							if(isAmountDisplay==1){
+								$(".luck_info_head_money_eye>span").removeClass("fa-eye");
+								$(".luck_info_head_money_eye>span").addClass("fa-eye-slash");
+							}else if(isAmountDisplay==0){
+								
+								$(".luck_info_head_money_eye>span").removeClass("fa-eye-slash");
+								$(".luck_info_head_money_eye>span").addClass("fa-eye");
+							}
+							
+							
+							var callback = new Object();
+							callback.success = function(resp){
+								if(resp.success){
+									
+								}else{
+									if(isAmountDisplay==0){
+										isAmountDisplay = 1;
+									}else if(isAmountDisplay==1){
+										isAmountDisplay = 0;
+									}
+									$("input[name=isAmountDisplay]").val(isAmountDisplay);
+									initIsAmountDisplay();
+								}
+							}
+							
+							callback.failure = function(){
+								if(isAmountDisplay==0){
+									isAmountDisplay = 1;
+								}else if(isAmountDisplay==1){
+									isAmountDisplay = 0;
+								}
+								$("input[name=isAmountDisplay]").val(isAmountDisplay);
+								initIsAmountDisplay();
+							}
+							
+							
+							request(url,callback,params);
+						});
+					}
+					if(isAmountDisplay==0){
+						$(".luck_info_head_money>span").text("***");
+					}else{
+						var amount = $("input[name=amount]").val();
+						$(".luck_info_head_money>span").text(amount);
+					}
+				}
+				
 				function initView(prompt){
 					var count = $("input[name=count]").val();
 					count = parseInt(count);

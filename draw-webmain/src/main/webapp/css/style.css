@@ -59,7 +59,7 @@
 	top:-140px;
 }
 
-.luck_info_head_money span{
+.luck_info_head_money>span{
 	font-size: 50px;
 	font-weight: 400;
 	color: black;
@@ -73,6 +73,12 @@
 	top:-145px;
 	position: relative;
 }
+
+.luck_info_head_money_eye{
+	font-size: 20px;
+	display: inline-block;
+}
+
 
 .luck_info_qusition{
 	width:100%;
