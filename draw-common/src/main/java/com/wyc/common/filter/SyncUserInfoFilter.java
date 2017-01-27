@@ -26,9 +26,11 @@ public class SyncUserInfoFilter extends Filter{
 		try{
 			String id = userInfo.getId();
 			String token = userInfo.getToken();
+			String name = userInfo.getNickname();
 			userInfo = userSmartService.getFromAccessToken(userInfo.getOpenid());
 			userInfo.setId(id);
 			userInfo.setToken(token);
+			userInfo.setNickname(name);
 			userService.update(userInfo);
 		}catch(Exception e){
 			logger.error("同步用户的时候出错了{}",e);
