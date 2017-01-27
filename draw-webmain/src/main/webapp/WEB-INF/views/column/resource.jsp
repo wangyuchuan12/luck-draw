@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/style.css"/>
+<link rel="stylesheet" href="/css/style1.0.css"/>
 <link rel="stylesheet" href="/css/core.css"/>
 
 <link rel="stylesheet" href="/css/swiper.min.css"/>
@@ -15,7 +15,7 @@
 
 <script src="/fakeLoader/js/fakeLoader.min.js"></script>
 
-<script src="/js/myscript.js"></script>
+<script src="/js/myscript1.0.js"></script>
 <script src="/js/swiper.min.js"></script>
 
 <script src="/js/jquery.lazy.js"></script>
