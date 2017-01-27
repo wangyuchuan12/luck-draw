@@ -310,6 +310,11 @@
 	display: inline-block;
 }
 
+.luck_info_record_item_img img{
+	width:50px;
+	height:50px;
+}
+
 .luck_info_record_item_nickname{
 	display: inline-block;
 	top:-40px;
