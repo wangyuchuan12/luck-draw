@@ -59,6 +59,10 @@
 		
 		$(document).ready(function(){
 			selectMain("main_personal_center");
+			
+			wx.ready(function(){
+				shareInit();
+			});
 		});
 	
 	</script>

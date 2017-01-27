@@ -178,6 +178,10 @@
 				
 				$(document).ready(function(){
 					reloadDetail();
+					
+					wx.ready(function(){
+						shareInit();
+					});
 				});
 			
 				

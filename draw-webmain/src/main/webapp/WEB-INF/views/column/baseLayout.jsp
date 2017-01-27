@@ -166,14 +166,15 @@
 		},300);
 	});
 	
-	function shareInit(){
+	function shareInit(callback){
+		alert(callback);
 		var title = getShareTile();
 		var instruction = getShareInstruction();
 		var shareUrl = getShareUrl();
 		shareUrl = getWebpath()+shareUrl;
 		var shareImg = getShareImg();
 		var shareType = getShareType();
-		wxOnMenuShareAppMessage(title,instruction,shareUrl,shareImg,shareType,shareCallback);
+		wxOnMenuShareAppMessage(title,instruction,shareUrl,shareImg,shareType,null,callback);
 		wx.hideMenuItems({
 		    menuList: ["menuItem:copyUrl","menuItem:exposeArticle","menuItem:setFont","menuItem:readMode","menuItem:originPage","menuItem:share:email","menuItem:openWithQQBrowser","menuItem:openWithSafari"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
 		});
@@ -187,9 +188,7 @@
 	
 	$(document).ready(function(){
 		wxConfig(getAppId(),getSignature(),getNoncestr(),getDatetime());
-		wx.ready(function(){
-			shareInit();
-		});
+		
 		
 		
 		$("img.lazy").lazyload({

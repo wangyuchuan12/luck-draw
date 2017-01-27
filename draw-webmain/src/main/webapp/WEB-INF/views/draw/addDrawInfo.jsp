@@ -131,6 +131,10 @@
 
 	$(document).ready(function(){
 		
+		wx.ready(function(){
+			shareInit();
+		});
+		
 		var callback = new Object();
 		callback.success = function(){
 		}

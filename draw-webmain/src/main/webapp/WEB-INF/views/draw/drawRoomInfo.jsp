@@ -118,6 +118,11 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
+			wx.ready(function(){
+				shareInit();
+			});
+			
 			setRoomId($("input[name=bakRoomId]").val());
 			setIsInRoom($("input[name=bakIsInRoom]").val());
 			

@@ -47,6 +47,10 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			selectMain("main_room");
+			
+			wx.ready(function(){
+				shareInit();
+			});
 		});
 	</script>
 			

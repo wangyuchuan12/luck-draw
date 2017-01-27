@@ -104,6 +104,11 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		
+		wx.ready(function(){
+			shareInit();
+		});
+		
 		hideLoading();
 		
 		var callback = new Object();

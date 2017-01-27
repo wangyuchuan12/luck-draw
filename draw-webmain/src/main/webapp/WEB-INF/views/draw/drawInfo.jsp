@@ -523,8 +523,8 @@
 					callback.cancel = function(){
 						alert("cancel");
 					}
-					setShareCallback(callback);
-					shareInit();
+					
+					shareInit(callback);
 					
 					$(".luck_info_answer_button").click(function(){
 						

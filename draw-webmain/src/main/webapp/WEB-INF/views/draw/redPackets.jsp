@@ -72,6 +72,11 @@
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
+			wx.ready(function(){
+				shareInit();
+			});
+			
 			var type = $("input[name=type]").val();
 			type = parseInt(type);
 			

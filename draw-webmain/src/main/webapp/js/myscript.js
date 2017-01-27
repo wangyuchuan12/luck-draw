@@ -262,6 +262,8 @@ function wxConfig(appId,signature,noncestr,t){
 }
 
 function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl,callback){
+	
+	alert(callback);
 	var obj = new Object();
 	obj.title = title;
 	obj.desc = desc;

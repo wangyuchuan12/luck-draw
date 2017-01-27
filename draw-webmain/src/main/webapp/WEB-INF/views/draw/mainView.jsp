@@ -81,6 +81,10 @@
 	    });
 		$(document).ready(function(){
 			selectMain("main_home");
+			
+			wx.ready(function(){
+				shareInit();
+			});
 		});
 		
 	</script>
