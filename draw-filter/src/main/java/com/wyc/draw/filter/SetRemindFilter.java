@@ -58,8 +58,6 @@ public class SetRemindFilter extends Filter{
 		
 		DrawRoomMember drawRoomMember = drawRoomMemberService.findOne(remberId);
 		
-		System.out.println("drawRoomMember:"+drawRoomMember);
-		
 		if(CommonUtil.isEmpty(drawRoomMember)){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);

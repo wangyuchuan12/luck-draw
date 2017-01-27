@@ -42,8 +42,6 @@ public class AddDrawRoomFilter extends Filter{
 		String verifyQuestion = httpServletRequest.getParameter("verifyQuestion");
 		String verifyAnswer = httpServletRequest.getParameter("verifyAnswer");
 		String verifyType = httpServletRequest.getParameter("verifyType");
-		
-		System.out.println("verfyType:"+verifyType);
 		String imgUrl = httpServletRequest.getParameter("imgUrl");
 //		String imgResourceId = httpServletRequest.getParameter("imgResourceId");
 		int verifyTypeInt = 0;
