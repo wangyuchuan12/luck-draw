@@ -61,16 +61,16 @@ public class UserInfo {
     @ParamAnnotation
     private String remark;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String subscribe_time;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String groupid;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String subscribe;
     @Column(unique=true)
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String token;
     
 
