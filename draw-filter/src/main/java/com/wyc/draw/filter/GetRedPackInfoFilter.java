@@ -86,8 +86,11 @@ public class GetRedPackInfoFilter extends Filter{
 			
 		}
 		
+		
 		if(redPacket.getHandDrawUserId().equals(drawUser.getId())){
 			redPacketVo.setIsCreater(1);
+		}else{
+			redPacketVo.setIsCreater(0);
 		}
 		
 		redPacketVo.setHandDrawUserId(redPacket.getHandDrawUserId());
