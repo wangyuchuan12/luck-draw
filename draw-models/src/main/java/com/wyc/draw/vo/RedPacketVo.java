@@ -131,34 +131,34 @@ public class RedPacketVo {
 	@ParamAnnotation
 	private Integer shareNumShowAnswer;
 	
+	
+	//已经分享的数量
+	@ParamAnnotation
+	private Integer shareCount;
+	
 	@ParamAnnotation
 	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
 	
 	
+	public Integer getShareCount() {
+		return shareCount;
+	}
+	
+	public void setShareCount(Integer shareCount) {
+		this.shareCount = shareCount;
+	}
+
 	public Integer getTakePartCount() {
 		return takePartCount;
 	}
-
-
-
 
 	public void setTakePartCount(Integer takePartCount) {
 		this.takePartCount = takePartCount;
 	}
 
-
-
-	
-	
-
-
-
 	public Integer getShareNumShowAnswer() {
 		return shareNumShowAnswer;
 	}
-
-
-
 
 	public void setShareNumShowAnswer(Integer shareNumShowAnswer) {
 		this.shareNumShowAnswer = shareNumShowAnswer;

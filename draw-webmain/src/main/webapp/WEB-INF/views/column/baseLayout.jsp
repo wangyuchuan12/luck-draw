@@ -6,6 +6,18 @@
 		<img src="/imgs/loading.gif">
 </div>
 
+
+<div class="linkGuid"  style="display: none;" onclick="javascript:hideLinkGuid();">
+	<div class="linkGuid_img">
+		<img src="/imgs/arrow.png"></img>
+		<div class="linkGuid_img_content">分享至朋友圈或发送给好友<br/>咻的一下就来人了</div>
+	</div>
+	<div class="linkGuid_content">
+		分享的曙光
+	</div>
+</div>
+
+
 <div class="center"><div class="toast" style="display: none;">余额不足，请稍后再试</div></div>
 
 <input name="signature" value="${signature}" type="hidden"/>
@@ -76,11 +88,21 @@
 
 
 <script type="text/javascript">
-	/*获取分享信息*/
-	var shareCallback;
+	function showLinkGuid(content,imgContent){
+		$(".linkGuid").css("display","block");
+		
+		if(content){
+			$(".linkGuid_content").text(content);
+		}
+		
+		if(imgContent){
+			$(".linkGuid_img_content").text(imgContent);
+		}
+		
+	}
 	
-	function setShareCallback(callback){
-		shareCallback = callback;
+	function hideLinkGuid(){
+		$(".linkGuid").css("display","none");
 	}
 	
 	function getShareTile(){

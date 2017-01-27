@@ -1,6 +1,7 @@
 package com.wyc.draw.filter;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,13 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
+import com.wyc.common.service.ShareRecordService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
+import com.wyc.common.wx.domain.ShareRecord;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
-import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.service.RedPacketService;
-import com.wyc.draw.service.RedPacketTakepartMemberService;
 
 public class ShareRedPacketFilter extends Filter{
 
@@ -25,7 +26,8 @@ public class ShareRedPacketFilter extends Filter{
 	private RedPacketService redPacketService;
 	
 	@Autowired
-	private RedPacketTakepartMemberService redPacketTakepartMemberService;
+	private ShareRecordService shareRecordService;
+
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -33,6 +35,34 @@ public class ShareRedPacketFilter extends Filter{
 		
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		String id = httpServletRequest.getParameter("id");
+		String shareType = httpServletRequest.getParameter("shareType");
+		if(CommonUtil.isEmpty(shareType)){
+			shareType="0";
+		}
+		String type = httpServletRequest.getParameter("type");
+		
+		String url = httpServletRequest.getParameter("url");
+		
+		if(CommonUtil.isEmpty(type)){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("type参数不能为空");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		if(CommonUtil.isEmpty(url)){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("url参数不能为空");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		Integer shareTypeInt = Integer.parseInt(shareType);
+		
+		Integer typeInt = Integer.parseInt(type);
 		
 		if(CommonUtil.isEmpty(id)){
 			ResultVo resultVo = new ResultVo();
@@ -54,53 +84,17 @@ public class ShareRedPacketFilter extends Filter{
 			return null;
 		}
 		
-		RedPacketTakepartMember redPacketTakepartMember = redPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(id, drawUser.getId());
+		ShareRecord shareRecord = new ShareRecord();
 		
-		if(redPacketTakepartMember==null){
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("该用户未参与该红包抢答");
-			filterManager.setReturn(true);
-			filterManager.setReturnValue(resultVo);
-			return null;
-		}
+		shareRecord.setDrawUserId(drawUser.getId());
+		shareRecord.setOpenid(drawUser.getOpenid());
+		shareRecord.setRedPacketId(redPacket.getId());
+		shareRecord.setShareType(shareTypeInt);
+		shareRecord.setType(typeInt);
+		shareRecord.setUrl(url);
 		
-		if(redPacketTakepartMember.getIsShareComplete()==1){
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("该用户已经分享完成了，无需再调用分享接口");
-			filterManager.setReturn(true);
-			filterManager.setReturnValue(resultVo);
-			return null;
-		}
-		
-		Integer shareCount = redPacketTakepartMember.getShareCount();
-		
-		if(shareCount==null){
-			shareCount=0;
-		}
-		shareCount = shareCount +1;
-		
-		if(shareCount>=redPacket.getShareNumShowAnswer()){
-			redPacketTakepartMember.setIsShareComplete(1);
-		}else{
-			redPacketTakepartMember.setIsShareComplete(0);
-		}
-		redPacketTakepartMember.setShareCount(shareCount);
-		
-		redPacketTakepartMember = redPacketTakepartMemberService.update(redPacketTakepartMember);
-		
-		ResultVo resultVo = new ResultVo();
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("shareCount", redPacketTakepartMember.getShareCount());
-		map.put("isShareComplete", redPacketTakepartMember.getIsShareComplete());
-		
-		resultVo.setSuccess(true);
-		resultVo.setMsg("分享数据成功");
-		resultVo.setData(map);
-		
-		return resultVo;
+		shareRecord = shareRecordService.add(shareRecord);
+		return shareRecord;
 	}
 
 	@Override
@@ -123,8 +117,9 @@ public class ShareRedPacketFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Class<? extends Filter>> filters = new ArrayList<>();
+		filters.add(DrawUserFilter.class);
+		return filters;
 	}
 
 }

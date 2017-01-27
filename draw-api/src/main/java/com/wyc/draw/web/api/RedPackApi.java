@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.wx.domain.ShareRecord;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.filter.AddRedPacketPromptFilter;
 import com.wyc.draw.filter.AnswerRedPackFilter;
@@ -198,7 +199,7 @@ public class RedPackApi {
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		
 		if(sessionManager.isReturn()){
-			return (ResultVo)sessionManager.getObject(ResultVo.class);
+			return (ResultVo)sessionManager.getReturnValue();
 		}
 		
 		RedPacket redPacket = (RedPacket)sessionManager.getObject(RedPacket.class);
@@ -221,7 +222,13 @@ public class RedPackApi {
 		if(sessionManager.isReturn()){
 			return (ResultVo)sessionManager.getReturnValue();
 		}
-		return (ResultVo)sessionManager.getObject(ResultVo.class);
+		
+		ShareRecord shareRecord = (ShareRecord)sessionManager.getObject(ShareRecord.class);
+		ResultVo resultVo = new ResultVo();
+		resultVo.setSuccess(true);
+		resultVo.setMsg("返回数据成功");
+		resultVo.setData(shareRecord);
+		return resultVo;
 	}
 	
 	

@@ -7,10 +7,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.filter.Filter;
+import com.wyc.common.service.ShareRecordService;
 import com.wyc.common.service.WxUserInfoService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
 import com.wyc.common.util.MySimpleDateFormat;
+import com.wyc.common.wx.domain.WxContext;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
@@ -42,6 +44,12 @@ public class GetRedPackInfoFilter extends Filter{
 	
 	@Autowired
 	private MySimpleDateFormat dateFormat;
+	
+	@Autowired
+	private ShareRecordService shareRecordService;
+	
+	@Autowired
+	private WxContext wxContext;
 	
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
@@ -123,7 +131,13 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		redPacketVo.setIsAmountDisplay(redPacket.getIsAmountDisplay());
 		
-		redPacketVo.setShareNumShowAnswer(redPacket.getShareNumShowAnswer());
+		Integer shareNumShowAnswer = redPacket.getShareNumShowAnswer();
+		
+		if(shareNumShowAnswer==null){
+			shareNumShowAnswer = wxContext.getShareNumShowAnswer();
+		}
+		redPacketVo.setShareNumShowAnswer(shareNumShowAnswer);
+		redPacketVo.setShareCount(shareRecordService.countByRedPacketIdAndDrawUserId(redPacket.getId(), drawUser.getId()));
 		
 		return redPacketVo;
 	}

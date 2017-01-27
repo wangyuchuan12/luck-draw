@@ -71,12 +71,7 @@ public class RedPacketTakepartMember {
 	//红包id
 	@Column(name="red_packet_id")
 	private String redPacketId;
-	
-	@Column(name="share_count")
-	private Integer shareCount;
-	
-	@Column(name="is_share_complete")
-	private Integer isShareComplete;
+
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -93,20 +88,6 @@ public class RedPacketTakepartMember {
 		this.id = id;
 	}
 	
-	
-	
-	public Integer getShareCount() {
-		return shareCount;
-	}
-	public void setShareCount(Integer shareCount) {
-		this.shareCount = shareCount;
-	}
-	public Integer getIsShareComplete() {
-		return isShareComplete;
-	}
-	public void setIsShareComplete(Integer isShareComplete) {
-		this.isShareComplete = isShareComplete;
-	}
 	public String getRedPacketId() {
 		return redPacketId;
 	}

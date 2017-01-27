@@ -84,4 +84,17 @@ public class Constant {
 	//我参与的
 	public static final int RED_PACKET_TYPE_TAKEPART=2;
 	
+	
+	/***********************分享的类型************************/
+	//全部给好友
+	public static final int SHARE_APP_MSG_SHARE_TYPE = 0;
+	
+	//分享到朋友圈
+	public static final int SHARE_TIME_LINE_SHARE_TYPE = 1;
+	
+	
+	/***********************分享的类别************************/
+	
+	public static final int SHARE_RED_PACKET_TYPE = 0;
+	
 }

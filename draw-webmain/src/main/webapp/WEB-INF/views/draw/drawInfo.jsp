@@ -38,6 +38,8 @@
 			
 			<input name="shareNumShowAnswer" value="${result.data.shareNumShowAnswer}"/>
 			
+			<input name="shareCount" value="${result.data.shareCount}"/>
+			
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">问答红包</div>
@@ -290,6 +292,7 @@
 						$(".luck_info_situation").css("display","none");
 						$(".luck_info_alert").css("display","block");
 						$(".luck_info_question_answer").css("display","none");
+						initShareLinkGuid();
 						
 						if(prompt){
 							$(".luck_info_alert").text(prompt+",你回答次数已经超过"+count+"次，不能再答题了");
@@ -513,28 +516,54 @@
 					request(url,callback,params);
 				}
 				
+				
+				function initShareLinkGuid(){
+					var shareCount = $("input[name=shareCount]").val();
+					shareCount = parseInt(shareCount);
+					
+					var shareNumShowAnswer = $("input[name=shareNumShowAnswer]").val();
+					shareNumShowAnswer = parseInt(shareNumShowAnswer);
+					
+					if(shareCount>=shareNumShowAnswer){
+						$(".luck_info_question_answer").css("display","block");
+						
+						hideLinkGuid();
+					}else{
+						
+						showLinkGuid("再分享"+(shareNumShowAnswer-shareCount)+"人就可以查看答案");
+					}
+				}
+				
+				
 				$(document).ready(function(){
-
+					function doShare(){
+						var url = "/api/draw/red_pack/share_red_packet_filter";
+						
+						var requestCallback = new Object();
+						
+						requestCallback.success = function(resp){
+							var shareCount = $("input[name=shareCount]").val();
+							var shareCount = parseInt(shareCount);
+							shareCount = shareCount+1;
+							$("input[name=shareCount]").val(shareCount);
+							
+							initView();
+						}
+						
+						var params = new Object();
+						
+						params.id = $("input[name=redPacketId]").val();
+						params.url = getWebpath()+"/view/draw/luck_draw/info?id="+params.id;
+						
+						params.type = 0;
+						request(url,requestCallback,params);
+					}
+					
 					wx.ready(function(){
 						
 						var callback = new Object();
 						callback.success = function(){
-							
-							alert();
-							var url = "/api/draw/red_pack/share_red_packet_filter";
-							
-							var requestCallback = new Object();
-							
-							requestCallback.success = function(resp){
-								alert(resp);
-								
-								alert(JSON.stringify(resp));
-							}
-							
-							var params = new Object();
-							
-							params.id = $("input[name=redPacketId]").val();
-							request(url,requestCallback,params);
+							doShare();
 						}
 						
 						
