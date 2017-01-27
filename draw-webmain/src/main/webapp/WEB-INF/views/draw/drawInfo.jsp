@@ -146,7 +146,7 @@
 				initIsAmountDisplay();
 				
 				function initIsAmountDisplay(){
-					var isCreater = $(".isCreater").val();
+					var isCreater = $("input[name=isCreater]").val();
 					isCreater = parseInt(isCreater);
 					
 					var isAmountDisplay = $("input[name=isAmountDisplay]").val();
@@ -154,7 +154,7 @@
 					
 					if(isCreater==0){
 						$(".luck_info_head_money_eye").css("display","none");
-					}else{
+					}else {
 						$(".luck_info_head_money_eye").css("display","inline-block");
 						$(".luck_info_head_money_eye").click(function(){
 							
