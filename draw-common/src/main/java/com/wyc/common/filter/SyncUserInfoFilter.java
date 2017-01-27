@@ -42,7 +42,12 @@ public class SyncUserInfoFilter extends Filter{
 			String nickname = CommonUtil.filterEmoji(userInfo.getNickname());
             
             userInfo.setNickname(nickname);
-			userService.update(userInfo);
+            try{
+            	userService.update(userInfo);
+            }catch(Exception e){
+            	userInfo.setNickname(name);
+            	userService.update(userInfo);
+            }
 		}catch(Exception e){
 			logger.error("同步用户的时候出错了{}",e);
 		}
