@@ -190,10 +190,10 @@
 		
 		try{
 			$("img.lazy:eq(0)").attr('src',$("img.lazy:eq(0)").attr('data-original'));
-			$("img.lazy:eq(1)").attr('src',$("img.lazy:eq(0)").attr('data-original'));
-			$("img.lazy:eq(2)").attr('src',$("img.lazy:eq(0)").attr('data-original'));
-			$("img.lazy:eq(3)").attr('src',$("img.lazy:eq(0)").attr('data-original'));
-			$("img.lazy:eq(4)").attr('src',$("img.lazy:eq(0)").attr('data-original'));
+			$("img.lazy:eq(1)").attr('src',$("img.lazy:eq(1)").attr('data-original'));
+			$("img.lazy:eq(2)").attr('src',$("img.lazy:eq(2)").attr('data-original'));
+			$("img.lazy:eq(3)").attr('src',$("img.lazy:eq(3)").attr('data-original'));
+			$("img.lazy:eq(4)").attr('src',$("img.lazy:eq(4)").attr('data-original'));
 		}catch(e){
 			
 		}
