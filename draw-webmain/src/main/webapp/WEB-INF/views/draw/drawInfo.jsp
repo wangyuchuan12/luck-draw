@@ -36,9 +36,9 @@
 			
 			<input name="amount" value="${result.data.amount}" type="hidden"/>
 			
-			<input name="shareNumShowAnswer" value="${result.data.shareNumShowAnswer}"/>
+			<input name="shareNumShowAnswer" value="${result.data.shareNumShowAnswer}" type="hidden"/>
 			
-			<input name="shareCount" value="${result.data.shareCount}"/>
+			<input name="shareCount" value="${result.data.shareCount}" type="hidden"/>
 			
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
@@ -294,16 +294,7 @@
 						$(".luck_info_question_answer").css("display","none");
 						initShareLinkGuid();
 						
-						wx.ready(function(){
-							
-							var callback = new Object();
-							callback.success = function(){
-								doShare();
-							}
-							
-							
-							shareInit(callback);
-						});
+						
 						
 						if(prompt){
 							$(".luck_info_alert").text(prompt+",你回答次数已经超过"+count+"次，不能再答题了");
@@ -575,7 +566,24 @@
 				$(document).ready(function(){
 					
 					
-					
+					wx.ready(function(){
+						
+						var callback = new Object();
+						callback.success = function(){
+							/*var count = $("input[name=count]").val();
+							count = parseInt(count);
+							
+							var allowWrongCount = $("input[name=allowWrongCount]").val();
+							allowWrongCount = parseInt(allowWrongCount);
+							
+							if(allowWrongCount<=count){
+								doShare();
+							}*/	
+							
+							doShare();
+						}
+						shareInit(callback);
+					});
 					
 					
 					$(".luck_info_answer_button").click(function(){
