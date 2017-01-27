@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.service.WxUserInfoService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.smart.service.UserSmartService;
+import com.wyc.common.util.CommonUtil;
 import com.wyc.common.wx.domain.UserInfo;
 public class SyncUserInfoFilter extends Filter{
 
@@ -26,11 +27,13 @@ public class SyncUserInfoFilter extends Filter{
 		try{
 			String id = userInfo.getId();
 			String token = userInfo.getToken();
-			String name = userInfo.getNickname();
+			
 			userInfo = userSmartService.getFromAccessToken(userInfo.getOpenid());
 			userInfo.setId(id);
 			userInfo.setToken(token);
-			userInfo.setNickname(name);
+			String nickname = CommonUtil.filterEmoji(userInfo.getNickname());
+            
+            userInfo.setNickname(nickname);
 			userService.update(userInfo);
 		}catch(Exception e){
 			logger.error("同步用户的时候出错了{}",e);
