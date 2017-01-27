@@ -129,6 +129,9 @@ public class RedPacketVo {
 	private Integer isAmountDisplay;
 	
 	@ParamAnnotation
+	private Integer shareNumShowAnswer;
+	
+	@ParamAnnotation
 	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
 	
 	
@@ -145,8 +148,22 @@ public class RedPacketVo {
 
 
 
-
 	
+	
+
+
+
+	public Integer getShareNumShowAnswer() {
+		return shareNumShowAnswer;
+	}
+
+
+
+
+	public void setShareNumShowAnswer(Integer shareNumShowAnswer) {
+		this.shareNumShowAnswer = shareNumShowAnswer;
+	}
+
 
 
 

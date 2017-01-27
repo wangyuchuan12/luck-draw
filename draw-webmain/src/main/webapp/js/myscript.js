@@ -261,7 +261,7 @@ function wxConfig(appId,signature,noncestr,t){
 //	});
 }
 
-function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl){
+function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl,callback){
 	var obj = new Object();
 	obj.title = title;
 	obj.desc = desc;
@@ -269,12 +269,15 @@ function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl){
 	obj.imgUrl = imgUrl;
 	obj.type = type;
 	obj.dataUrl = dataUrl;
-	obj.success = function(){
-		
+	if(callback){
+		obj.success = function(){
+			callback.success();
+		}
+		obj.cancel = function(){
+			callback.cancel();
+		}
 	}
-	obj.cancel = function(){
-		
-	}
+	
 	wx.onMenuShareAppMessage(obj);
 	wx.onMenuShareTimeline(obj);
 }

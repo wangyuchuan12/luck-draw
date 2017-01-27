@@ -169,6 +169,11 @@ public class RedPacket {
 	@Column(name="is_amount_display")
 	private Integer isAmountDisplay;
 	
+	//分享几个人可看答案
+	@ParamAnnotation
+    @Column(name="share_num_show_answer")
+	private Integer shareNumShowAnswer;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -177,144 +182,12 @@ public class RedPacket {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime updateAt;
-	
-	public Integer getIsTimeout() {
-		return isTimeout;
-	}
-	public void setIsTimeout(Integer isTimeout) {
-		this.isTimeout = isTimeout;
-	}
-	
-	
-	
-	public Integer getIsAmountDisplay() {
-		return isAmountDisplay;
-	}
-	public void setIsAmountDisplay(Integer isAmountDisplay) {
-		this.isAmountDisplay = isAmountDisplay;
-	}
-	public Integer getIsRefundError() {
-		return isRefundError;
-	}
-	public void setIsRefundError(Integer isRefundError) {
-		this.isRefundError = isRefundError;
-	}
-	public String getHandUserImgUrl() {
-		return handUserImgUrl;
-	}
-	public void setHandUserImgUrl(String handUserImgUrl) {
-		this.handUserImgUrl = handUserImgUrl;
-	}
-	public String getHandNickname() {
-		return handNickname;
-	}
-	public void setHandNickname(String handNickname) {
-		this.handNickname = handNickname;
-	}
-	public Integer getIsImg() {
-		return isImg;
-	}
-	public void setIsImg(Integer isImg) {
-		this.isImg = isImg;
-	}
-	public String getImgUrl() {
-		return imgUrl;
-	}
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
-	}
-	public Integer getIsRefund() {
-		return isRefund;
-	}
-	public void setIsRefund(Integer isRefund) {
-		this.isRefund = isRefund;
-	}
-	public Integer getAllowWrongCount() {
-		return allowWrongCount;
-	}
-	public void setAllowWrongCount(Integer allowWrongCount) {
-		this.allowWrongCount = allowWrongCount;
-	}
- 
-	public String getOutTradeNo() {
-		return outTradeNo;
-	}
-	public void setOutTradeNo(String outTradeNo) {
-		this.outTradeNo = outTradeNo;
-	}
-	public String getPrompt() {
-		return prompt;
-	}
-	public void setPrompt(String prompt) {
-		this.prompt = prompt;
-	}
-	public Integer getIsReceiveAble() {
-		return isReceiveAble;
-	}
-	public void setIsReceiveAble(Integer isReceiveAble) {
-		this.isReceiveAble = isReceiveAble;
-	}
-	public Integer getIsReceive() {
-		return isReceive;
-	}
-	public void setIsReceive(Integer isReceive) {
-		this.isReceive = isReceive;
-	}
-	public Integer getIsPay() {
-		return isPay;
-	}
-	public void setIsPay(Integer isPay) {
-		this.isPay = isPay;
-	}
-	public Integer getPayType() {
-		return payType;
-	}
-	public void setPayType(Integer payType) {
-		this.payType = payType;
-	}
-	public String getReceiveDrawUserId() {
-		return receiveDrawUserId;
-	}
-	public void setReceiveDrawUserId(String receiveDrawUserId) {
-		this.receiveDrawUserId = receiveDrawUserId;
-	}
-	public String getQuestion() {
-		return question;
-	}
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-	public String getAnswer() {
-		return answer;
-	}
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-	public BigDecimal getAmount() {
-		return amount;
-	}
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
-	public String getHandDrawUserId() {
-		return handDrawUserId;
-	}
-	public void setHandDrawUserId(String handDrawUserId) {
-		this.handDrawUserId = handDrawUserId;
-	}
-	public int getTimeLong() {
-		return timeLong;
-	}
-	public void setTimeLong(int timeLong) {
-		this.timeLong = timeLong;
-	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public String getHandRoomMemberId() {
 		return handRoomMemberId;
 	}
@@ -333,12 +206,149 @@ public class RedPacket {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	
+	public String getHandDrawUserId() {
+		return handDrawUserId;
+	}
+	public void setHandDrawUserId(String handDrawUserId) {
+		this.handDrawUserId = handDrawUserId;
+	}
+	public String getReceiveDrawUserId() {
+		return receiveDrawUserId;
+	}
+	public void setReceiveDrawUserId(String receiveDrawUserId) {
+		this.receiveDrawUserId = receiveDrawUserId;
+	}
 	public DateTime getHandTime() {
 		return handTime;
 	}
 	public void setHandTime(DateTime handTime) {
 		this.handTime = handTime;
+	}
+	public int getTimeLong() {
+		return timeLong;
+	}
+	public void setTimeLong(int timeLong) {
+		this.timeLong = timeLong;
+	}
+	public BigDecimal getAmount() {
+		return amount;
+	}
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+	public String getQuestion() {
+		return question;
+	}
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+	public String getOutTradeNo() {
+		return outTradeNo;
+	}
+	public void setOutTradeNo(String outTradeNo) {
+		this.outTradeNo = outTradeNo;
+	}
+	public Integer getIsReceiveAble() {
+		return isReceiveAble;
+	}
+	public void setIsReceiveAble(Integer isReceiveAble) {
+		this.isReceiveAble = isReceiveAble;
+	}
+	public Integer getIsReceive() {
+		return isReceive;
+	}
+	public void setIsReceive(Integer isReceive) {
+		this.isReceive = isReceive;
+	}
+	public Integer getIsTimeout() {
+		return isTimeout;
+	}
+	public void setIsTimeout(Integer isTimeout) {
+		this.isTimeout = isTimeout;
+	}
+	public Integer getAllowWrongCount() {
+		return allowWrongCount;
+	}
+	public void setAllowWrongCount(Integer allowWrongCount) {
+		this.allowWrongCount = allowWrongCount;
+	}
+	public Integer getIsPay() {
+		return isPay;
+	}
+	public void setIsPay(Integer isPay) {
+		this.isPay = isPay;
+	}
+	public Integer getPayType() {
+		return payType;
+	}
+	public void setPayType(Integer payType) {
+		this.payType = payType;
+	}
+	public String getPrompt() {
+		return prompt;
+	}
+	public void setPrompt(String prompt) {
+		this.prompt = prompt;
+	}
+	public Integer getIsRefund() {
+		return isRefund;
+	}
+	public void setIsRefund(Integer isRefund) {
+		this.isRefund = isRefund;
+	}
+	public Integer getIsRefundError() {
+		return isRefundError;
+	}
+	public void setIsRefundError(Integer isRefundError) {
+		this.isRefundError = isRefundError;
+	}
+	public Integer getIsImg() {
+		return isImg;
+	}
+	public void setIsImg(Integer isImg) {
+		this.isImg = isImg;
+	}
+	public Integer getTakePartCount() {
+		return takePartCount;
+	}
+	public void setTakePartCount(Integer takePartCount) {
+		this.takePartCount = takePartCount;
+	}
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+	public String getHandUserImgUrl() {
+		return handUserImgUrl;
+	}
+	public void setHandUserImgUrl(String handUserImgUrl) {
+		this.handUserImgUrl = handUserImgUrl;
+	}
+	public String getHandNickname() {
+		return handNickname;
+	}
+	public void setHandNickname(String handNickname) {
+		this.handNickname = handNickname;
+	}
+	public Integer getIsAmountDisplay() {
+		return isAmountDisplay;
+	}
+	public void setIsAmountDisplay(Integer isAmountDisplay) {
+		this.isAmountDisplay = isAmountDisplay;
+	}
+	public Integer getShareNumShowAnswer() {
+		return shareNumShowAnswer;
+	}
+	public void setShareNumShowAnswer(Integer shareNumShowAnswer) {
+		this.shareNumShowAnswer = shareNumShowAnswer;
 	}
 	public DateTime getCreateAt() {
 		return createAt;
@@ -352,13 +362,6 @@ public class RedPacket {
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
-	public Integer getTakePartCount() {
-		return takePartCount;
-	}
-	public void setTakePartCount(Integer takePartCount) {
-		this.takePartCount = takePartCount;
-	}
 	
 	
-    
 }

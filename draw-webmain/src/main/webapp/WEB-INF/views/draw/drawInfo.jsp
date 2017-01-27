@@ -35,6 +35,9 @@
 			<input name="isAmountDisplay" value="${result.data.isAmountDisplay}" type="hidden"/>
 			
 			<input name="amount" value="${result.data.amount}" type="hidden"/>
+			
+			<input name="shareNumShowAnswer" value="${result.data.shareNumShowAnswer}"/>
+			
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">问答红包</div>
@@ -53,7 +56,7 @@
 			<div class="luck_info_qusition">
 				<div class="luck_info_qusition_title">问：${result.data.question}<span> ${fn:length(result.data.answer)}个字</span></div>
 				
-				
+				<div class="luck_info_question_answer" style="display: none">答案:${result.data.answer}</div>
 			</div>
 			
 			<c:if test="${result.data.isImg==1}">
@@ -259,6 +262,7 @@
 						$(".luck_info_answer").css("display","none");
 						$(".luck_info_situation").css("display","none");
 						$(".luck_info_alert").css("display","block");
+						$(".luck_info_question_answer").css("display","block");
 						
 						return;
 					}else if(isPay==0){
@@ -266,22 +270,26 @@
 						$(".luck_info_answer").css("display","none");
 						$(".luck_info_situation").css("display","none");
 						$(".luck_info_alert").css("display","block");
+						$(".luck_info_question_answer").css("display","none");
 						return;
 					}else if(isTimeOut==1){
 						$(".luck_info_alert").text("该红包已超时");
 						$(".luck_info_answer").css("display","none");
 						$(".luck_info_alert").css("display","block");
+						$(".luck_info_question_answer").css("display","block");
 						
 						return;
 					}else if(type==0&&isInRoom!=1){
 						$(".luck_info_alert").text("该红包为房间专属红包，你不在该房间中，无法领取，请点击进入该房间");
 						$(".luck_info_answer").css("display","none");
 						$(".luck_info_alert").css("display","block");
+						$(".luck_info_question_answer").css("display","none");
 					}else if(allowWrongCount<=count){
 						$(".luck_info_alert").text("你答题次数已经超过"+count+"次，不能再答题了");
 						$(".luck_info_answer").css("display","none");
 						$(".luck_info_situation").css("display","none");
 						$(".luck_info_alert").css("display","block");
+						$(".luck_info_question_answer").css("display","none");
 						
 						if(prompt){
 							$(".luck_info_alert").text(prompt+",你回答次数已经超过"+count+"次，不能再答题了");
@@ -507,6 +515,16 @@
 				
 				$(document).ready(function(){
 					
+					var callback = new Object();
+					callback.success = function(){
+						alert("success");
+					}
+					
+					callback.cancel = function(){
+						alert("cancel");
+					}
+					setShareCallback(callback);
+					shareInit();
 					
 					$(".luck_info_answer_button").click(function(){
 						

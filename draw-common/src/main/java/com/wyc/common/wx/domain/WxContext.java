@@ -35,10 +35,17 @@ public class WxContext {
     @Column(name="arrival_num")
     private Integer arrivalNum;
     
+    //分享几个人可看答案
+    @Column(name="share_num_show_answer")
+    private Integer shareNumShowAnswer;
     
-    
-
-    public Integer getArrivalNum() {
+    public Integer getShareNumShowAnswer() {
+		return shareNumShowAnswer;
+	}
+	public void setShareNumShowAnswer(Integer shareNumShowAnswer) {
+		this.shareNumShowAnswer = shareNumShowAnswer;
+	}
+	public Integer getArrivalNum() {
 		return arrivalNum;
 	}
 	public void setArrivalNum(Integer arrivalNum) {

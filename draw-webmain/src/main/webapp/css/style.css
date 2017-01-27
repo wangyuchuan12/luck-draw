@@ -100,6 +100,13 @@
 	max-height: 300px;
 }
 
+.luck_info_question_answer{
+	text-align: center;
+	font-size: 15px;
+	top:10px;
+	position: relative;
+}
+
 .luck_info_qusition_title{
 	text-align: center;
 	padding-top:10px;
@@ -596,11 +603,12 @@ li::before{
 
 .luck_room_headImg {
 	background: white;
-
+	margin-left: 10px;
+	margin-top: 10px;
 }
 .luck_room_headImg img{
-	width:100%;
-	max-height:250px;
+	width:100px;
+	height:100px;
 }
 
 .luck_room_members_title{

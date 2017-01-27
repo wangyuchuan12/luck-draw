@@ -24,6 +24,7 @@ import com.wyc.draw.filter.GetRedPacketPromptsByRedPacketIdFilter;
 import com.wyc.draw.filter.GetTakepartMemberListByRedPacketOfPageFilter;
 import com.wyc.draw.filter.RemindHandRedPackFilter;
 import com.wyc.draw.filter.SetRedPacketIsAmountDisplay;
+import com.wyc.draw.filter.ShareRedPacketFilter;
 import com.wyc.draw.vo.AnswerRedPacketResultVo;
 import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketPromptListVo;
@@ -75,6 +76,7 @@ public class RedPackApi {
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		
+		System.out.println("................:"+sessionManager.getReturnValue());
 		if(sessionManager.isReturn()){
 			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
 			if(resultVo!=null&&!resultVo.isSuccess()){
@@ -208,6 +210,18 @@ public class RedPackApi {
 		resultVo.setMsg("获取数据成功");
 		resultVo.setData(map);
 		return resultVo;
+	}
+	
+	
+	@RequestMapping(value="share_red_packet_filter")
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=ShareRedPacketFilter.class)
+	public ResultVo shareRedPacketFilter(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.isReturn()){
+			return (ResultVo)sessionManager.getObject(ResultVo.class);
+		}
+		return (ResultVo)sessionManager.getObject(ResultVo.class);
 	}
 	
 	

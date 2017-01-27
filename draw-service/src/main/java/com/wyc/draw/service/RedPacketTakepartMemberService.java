@@ -30,5 +30,14 @@ public class RedPacketTakepartMemberService {
 	public Page<RedPacketTakepartMember> findAllByRedPacketId(String redpacketId,Pageable pageable) {
 		return redPacketTakepartMemberRepository.findAllByRedPacketId(redpacketId,pageable);
 	}
+	public RedPacketTakepartMember findByRedPacketIdAndDrawUserId(String redPacketId, String drawUserId) {
+		
+		return redPacketTakepartMemberRepository.findByRedPacketIdAndDrawUserId(redPacketId,drawUserId);
+	}
+	public RedPacketTakepartMember update(RedPacketTakepartMember redPacketTakepartMember) {
+		redPacketTakepartMember.setUpdateAt(new DateTime());
+		
+		return redPacketTakepartMemberRepository.save(redPacketTakepartMember);
+	}
 
 }

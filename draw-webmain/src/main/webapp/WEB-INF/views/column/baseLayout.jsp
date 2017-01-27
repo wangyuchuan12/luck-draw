@@ -77,6 +77,11 @@
 
 <script type="text/javascript">
 	/*获取分享信息*/
+	var shareCallback;
+	
+	function setShareCallback(callback){
+		shareCallback = callback;
+	}
 	
 	function getShareTile(){
 		return $("input[name=shareTitle]").val();
@@ -161,25 +166,29 @@
 		},300);
 	});
 	
+	function shareInit(){
+		var title = getShareTile();
+		var instruction = getShareInstruction();
+		var shareUrl = getShareUrl();
+		shareUrl = getWebpath()+shareUrl;
+		var shareImg = getShareImg();
+		var shareType = getShareType();
+		wxOnMenuShareAppMessage(title,instruction,shareUrl,shareImg,shareType,shareCallback);
+		wx.hideMenuItems({
+		    menuList: ["menuItem:copyUrl","menuItem:exposeArticle","menuItem:setFont","menuItem:readMode","menuItem:originPage","menuItem:share:email","menuItem:openWithQQBrowser","menuItem:openWithSafari"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+		});
+		wx.showMenuItems({
+            menuList: [
+                "menuItem:profile",// 添加查看公众号
+                "menuItem:addContact"
+            ]
+        });
+	}
+	
 	$(document).ready(function(){
 		wxConfig(getAppId(),getSignature(),getNoncestr(),getDatetime());
 		wx.ready(function(){
-			var title = getShareTile();
-			var instruction = getShareInstruction();
-			var shareUrl = getShareUrl();
-			shareUrl = getWebpath()+shareUrl;
-			var shareImg = getShareImg();
-			var shareType = getShareType();
-			wxOnMenuShareAppMessage(title,instruction,shareUrl,shareImg,shareType);
-			wx.hideMenuItems({
-			    menuList: ["menuItem:copyUrl","menuItem:exposeArticle","menuItem:setFont","menuItem:readMode","menuItem:originPage","menuItem:share:email","menuItem:openWithQQBrowser","menuItem:openWithSafari"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
-			});
-			wx.showMenuItems({
-	            menuList: [
-	                "menuItem:profile",// 添加查看公众号
-	                "menuItem:addContact"
-	            ]
-	        	});
+			shareInit();
 		});
 		
 		

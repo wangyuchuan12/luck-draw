@@ -15,4 +15,6 @@ public interface RedPacketTakepartMemberRepository extends CrudRepository<RedPac
 
 	Page<RedPacketTakepartMember> findAllByRedPacketId(String redpacketId, Pageable pageable);
 
+	RedPacketTakepartMember findByRedPacketIdAndDrawUserId(String redPacketId, String drawUserId);
+
 }

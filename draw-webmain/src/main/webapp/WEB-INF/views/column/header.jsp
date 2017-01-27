@@ -214,6 +214,11 @@ function joinRoom(){
 				<span>创建房间</span>
 			</li>
 			
+			<li onclick="skipToPersonalCenter();">
+				<em class="fa fa-paypal" ></em>
+				<span>提现</span>
+			</li>
+			
 			<li style="display: none;">
 				<em class="fa fa-pencil-square-o" style="color: RGBA(19,162,133,1);"></em>
 				<span>更改口令</span>

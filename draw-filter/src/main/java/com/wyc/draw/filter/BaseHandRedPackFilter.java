@@ -19,6 +19,7 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.common.util.MySimpleDateFormat;
+import com.wyc.common.wx.domain.WxContext;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
@@ -47,6 +48,9 @@ public class BaseHandRedPackFilter extends Filter{
 	
 	@Autowired
 	private MySimpleDateFormat dateFormat;
+	
+	@Autowired
+	private WxContext wxContext;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -228,7 +232,12 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setIsRefund(0);
 		redPacket.setIsRefundError(0);
 		redPacket.setIsAmountDisplay(0);
+
 		
+		System.out.println(".............:"+wxContext.getShareNumShowAnswer());
+		redPacket.setShareNumShowAnswer(wxContext.getShareNumShowAnswer());
+		
+		System.out.println("getShareNumShowAnswer:"+redPacket.getShareNumShowAnswer());
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
 			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
 			ResultVo resultVo = new ResultVo();
@@ -261,8 +270,7 @@ public class BaseHandRedPackFilter extends Filter{
 			redPacket.setTimeLong(timeLong);
 			redPacket.setType(typeInt);
 			redPacket.setAmount(amountBigDecimal);
-			
-			
+
 			redPacket = redPackageService.add(redPacket);
 			
 			DrawRoom drawRoom = drawRoomService.findOne(redPacket.getDrawRoomId());
@@ -281,6 +289,7 @@ public class BaseHandRedPackFilter extends Filter{
 			redPacket.setTimeLong(timeLong);
 			redPacket.setType(typeInt);
 			redPacket.setAmount(amountBigDecimal);
+			System.out.println("redPacketaaaaaaaaaaa:"+redPacket.getShareNumShowAnswer());
 			redPacket = redPackageService.add(redPacket);
 		}else{
 			ResultVo resultVo = new ResultVo();

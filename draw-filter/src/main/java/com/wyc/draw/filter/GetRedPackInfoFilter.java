@@ -123,6 +123,8 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		redPacketVo.setIsAmountDisplay(redPacket.getIsAmountDisplay());
 		
+		redPacketVo.setShareNumShowAnswer(redPacket.getShareNumShowAnswer());
+		
 		return redPacketVo;
 	}
 

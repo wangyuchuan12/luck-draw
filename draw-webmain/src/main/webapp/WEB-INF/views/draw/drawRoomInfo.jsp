@@ -32,6 +32,7 @@
 	</div>
 	
 	
+	
 
 	<div class="luck_room_members">
 
