@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import org.jboss.jandex.Main;
+
 
 
 
@@ -24,6 +26,9 @@ import java.util.Random;
  */
 public class CommonUtil {
 	
+	public static void main(String[]args){
+		System.out.println(filterEmoji("sdfsdfdsf所属️️"));
+	}
 	
 	/**
      * 检测是否有emoji字符
@@ -32,6 +37,9 @@ public class CommonUtil {
      */
     public static boolean containsEmoji(String source) {
         
+    	if(source==null||source.equals("")){
+    		return false;
+    	}
         
         int len = source.length();
         
@@ -66,6 +74,9 @@ public class CommonUtil {
      */
     public static String filterEmoji(String source) {
         
+    	if(source==null||source.equals("")){
+    		return "";
+    	}
         if (!containsEmoji(source)) {
             return source;//如果不包含，直接返回
         }
@@ -351,10 +362,5 @@ public class CommonUtil {
 		}
 
 		return null;
-	}
-
-	public static void main(String[] args) {
-		System.out.println(getBirthdayByCardNo("33062419720420X"));
-		System.out.println(getBirthdayByCardNo("321088199003304317"));
 	}
 }

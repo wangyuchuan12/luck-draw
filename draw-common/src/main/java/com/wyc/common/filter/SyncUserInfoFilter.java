@@ -27,8 +27,16 @@ public class SyncUserInfoFilter extends Filter{
 		try{
 			String id = userInfo.getId();
 			String token = userInfo.getToken();
-			
+			String name = userInfo.getNickname();
+			String imgUrl = userInfo.getHeadimgurl();
 			userInfo = userSmartService.getFromAccessToken(userInfo.getOpenid());
+			
+			if(CommonUtil.isEmpty(userInfo.getNickname())){
+				userInfo.setNickname(name);
+			}
+			if(CommonUtil.isEmpty(userInfo.getHeadimgurl())){
+				userInfo.setHeadimgurl(imgUrl);
+			}
 			userInfo.setId(id);
 			userInfo.setToken(token);
 			String nickname = CommonUtil.filterEmoji(userInfo.getNickname());
