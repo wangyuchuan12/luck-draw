@@ -105,6 +105,10 @@
 	
 	<input name="memberId" value="${drawRoomInfo.currentMemberId}" type="hidden"/>
 	
+	<input name="maxNum" value="${drawRoomInfo.maxNum}" type="hidden"/>
+	
+	<input name="memberCount" value="${drawRoomInfo.memberCount}" type="hidden"/>
+	
 	<div id="qrcode" style="display: none;">
 		<img src="/imgs/qrcode.jpg">
 		
@@ -119,7 +123,9 @@
 			setVerifyType($("input[name=bakVerifyType]").val());
 			
 			setVerifyQuestion($("input[name=bakVerifyQuestion]").val());
+			setRoomMaxNum($("input[name=maxNum]").val())
 			
+			setRoomMemberCount($("input[name=memberCount]").val())
 			
 			var isInRoom = getIsInRoom();
 			isInRoom = parseInt(isInRoom);

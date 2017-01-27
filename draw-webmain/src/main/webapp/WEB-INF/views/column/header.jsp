@@ -4,6 +4,10 @@
 
 <input name="roomId" value="${roomId}" hidden="true"/>
 
+<input name="roomMaxNum" value="${rootMaxNum}" hidden="true"/>
+
+<input name="roomMemberCount" value="${roomMemberCount}" hidden="true">
+
 <input name="isDisplayRoom" value="${isDisplayRoom}" hidden="true"/>
 
 <input name="isDisplayType" value="${isDisplayType}" hidden="true"/>
@@ -30,6 +34,29 @@ function isInRoomFilterRequest(url,callback,params){
 	}else{
 		request(url,callback,params)
 	}
+}
+
+
+function getRoomMemberCount(){
+	var roomMemberCount = $("input[name=roomMemberCount]").val();
+	roomMemberCount = parseInt(roomMemberCount);
+	
+	return roomMemberCount;
+}
+
+function setRoomMemberCount(memberCount){
+	$("input[name=roomMemberCount]").val(memberCount);
+}
+
+function setRoomMaxNum(maxNum){
+	$("input[name=roomMaxNum]").val(maxNum);
+}
+
+function getRoomMaxNum(){
+	var roomMaxNum = $("input[name=roomMaxNum]").val();
+	roomMaxNum = parseInt(roomMaxNum);
+	
+	return roomMaxNum;
 }
 
 function setVerifyType(verifyType){
@@ -102,6 +129,7 @@ function skipToHandRedPack(){
 	if(isInRoom==0){
 		showToast("你未加入本房间，不能进行任何操作，请先加入房间",5000);
 	}else{
+		
 		var url = "/view/draw/luck_draw/add";
 		
 		var redPackType =0;
@@ -134,6 +162,15 @@ function joinRoom(){
 	if(isInRoom==1){
 		showToast("你已经加入房间，无需重复加入");
 	}else{
+		
+		var roomMaxNum = getRoomMaxNum();
+		var roomMemberCount = getRoomMemberCount();
+		if(roomMemberCount>=roomMaxNum){
+			showToast("房间人数已经超出限制",5000);
+			return;
+		}
+		
+		
 		var callback = new Object();
 		callback.success = function(obj){
 			if(obj.success){
