@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+
+import org.hibernate.annotations.ResultCheckStyle;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -192,6 +194,10 @@ public class RedPackApi {
 	public ResultVo setAmountDisplay(HttpServletRequest httpServletRequest)throws Exception{
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		if(sessionManager.isReturn()){
+			return (ResultVo)sessionManager.getObject(ResultVo.class);
+		}
 		
 		RedPacket redPacket = (RedPacket)sessionManager.getObject(RedPacket.class);
 		Map<String, Object> map = new HashMap<>();
