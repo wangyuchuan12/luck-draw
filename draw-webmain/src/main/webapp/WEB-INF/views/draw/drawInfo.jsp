@@ -514,17 +514,33 @@
 				}
 				
 				$(document).ready(function(){
+
+					wx.ready(function(){
+						
+						var callback = new Object();
+						callback.success = function(){
+							
+							alert();
+							var url = "/api/draw/red_pack/share_red_packet_filter";
+							
+							var requestCallback = new Object();
+							
+							requestCallback.success = function(resp){
+								alert(resp);
+								
+								alert(JSON.stringify(resp));
+							}
+							
+							var params = new Object();
+							
+							params.id = $("input[name=redPacketId]").val();
+							request(url,requestCallback,params);
+						}
+						
+						
+						shareInit(callback);
+					});
 					
-					var callback = new Object();
-					callback.success = function(){
-						alert("success");
-					}
-					
-					callback.cancel = function(){
-						alert("cancel");
-					}
-					
-					shareInit(callback);
 					
 					$(".luck_info_answer_button").click(function(){
 						

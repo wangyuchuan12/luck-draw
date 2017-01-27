@@ -167,7 +167,6 @@
 	});
 	
 	function shareInit(callback){
-		alert(callback);
 		var title = getShareTile();
 		var instruction = getShareInstruction();
 		var shareUrl = getShareUrl();

@@ -219,7 +219,7 @@ public class RedPackApi {
 	public ResultVo shareRedPacketFilter(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		if(sessionManager.isReturn()){
-			return (ResultVo)sessionManager.getObject(ResultVo.class);
+			return (ResultVo)sessionManager.getReturnValue();
 		}
 		return (ResultVo)sessionManager.getObject(ResultVo.class);
 	}

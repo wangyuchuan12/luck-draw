@@ -190,10 +190,7 @@ function request(url,callback,params){
 		data:params,
 		success:function(resp){
 			if(callback){
-			
 				callback.success(resp);
-					
-				
 			}
 		},
 		error:function(resp){
@@ -262,9 +259,7 @@ function wxConfig(appId,signature,noncestr,t){
 }
 
 function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl,callback){
-	
-	alert(callback);
-	alert(callback.success);
+
 	var obj = new Object();
 	obj.title = title;
 	obj.desc = desc;
@@ -273,18 +268,23 @@ function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl,callback){
 	obj.type = type;
 	obj.dataUrl = dataUrl;
 	obj.success = function(){
-		
-		alert("success");
-		callback.success();
+		if(callback&&callback.success){
+			callback.success();
+		}
 	}
 	obj.cancel = function(){
-		
-		alert("cancel");
-		callback.cancel();
+		if(callback&&callback.cancel){
+			callback.cancel();
+		}
 	}
+	wx.error(function(){
+		//alert("error");
+	});
 	
 	wx.onMenuShareAppMessage(obj);
 	wx.onMenuShareTimeline(obj);
+	
+	
 }
 
 
