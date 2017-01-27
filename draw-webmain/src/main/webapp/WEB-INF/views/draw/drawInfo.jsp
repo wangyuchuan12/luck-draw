@@ -294,6 +294,17 @@
 						$(".luck_info_question_answer").css("display","none");
 						initShareLinkGuid();
 						
+						wx.ready(function(){
+							
+							var callback = new Object();
+							callback.success = function(){
+								doShare();
+							}
+							
+							
+							shareInit(callback);
+						});
+						
 						if(prompt){
 							$(".luck_info_alert").text(prompt+",你回答次数已经超过"+count+"次，不能再答题了");
 						}
@@ -535,40 +546,36 @@
 				}
 				
 				
-				$(document).ready(function(){
-					function doShare(){
-						var url = "/api/draw/red_pack/share_red_packet_filter";
+				function doShare(){
+					var url = "/api/draw/red_pack/share_red_packet_filter";
+					
+					var requestCallback = new Object();
+					
+					requestCallback.success = function(resp){
+						var shareCount = $("input[name=shareCount]").val();
+						var shareCount = parseInt(shareCount);
+						shareCount = shareCount+1;
+						$("input[name=shareCount]").val(shareCount);
 						
-						var requestCallback = new Object();
-						
-						requestCallback.success = function(resp){
-							var shareCount = $("input[name=shareCount]").val();
-							var shareCount = parseInt(shareCount);
-							shareCount = shareCount+1;
-							$("input[name=shareCount]").val(shareCount);
-							
-							initView();
-						}
-						
-						var params = new Object();
-						
-						params.id = $("input[name=redPacketId]").val();
-						params.url = getWebpath()+"/view/draw/luck_draw/info?id="+params.id;
-						
-						params.type = 0;
-						request(url,requestCallback,params);
+						initView();
 					}
 					
-					wx.ready(function(){
-						
-						var callback = new Object();
-						callback.success = function(){
-							doShare();
-						}
-						
-						
-						shareInit(callback);
-					});
+					var params = new Object();
+					
+					params.id = $("input[name=redPacketId]").val();
+					params.url = getWebpath()+"/view/draw/luck_draw/info?id="+params.id;
+					
+					params.type = 0;
+					request(url,requestCallback,params);
+				}
+				
+				
+				
+				
+				$(document).ready(function(){
+					
+					
+					
 					
 					
 					$(".luck_info_answer_button").click(function(){
