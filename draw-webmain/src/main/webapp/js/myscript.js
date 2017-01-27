@@ -273,9 +273,13 @@ function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl,callback){
 	obj.dataUrl = dataUrl;
 	if(callback){
 		obj.success = function(){
+			
+			alert("success");
 			callback.success();
 		}
 		obj.cancel = function(){
+			
+			alert("cancel");
 			callback.cancel();
 		}
 	}
