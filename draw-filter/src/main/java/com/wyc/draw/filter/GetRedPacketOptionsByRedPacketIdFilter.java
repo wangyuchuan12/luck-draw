@@ -11,24 +11,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketOption;
 import com.wyc.draw.service.RedPacketOptionService;
+import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.vo.RedPacketOptionListVo;
 
 public class GetRedPacketOptionsByRedPacketIdFilter extends Filter{
 
 	@Autowired
 	private RedPacketOptionService redPacketOptionService;
+	
+	@Autowired
+	private RedPacketService redPacketService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		
 		String id = httpServletRequest.getParameter("id");
 		
+		RedPacket packet = redPacketService.findOne(id);
+		
 		List<RedPacketOption> redPacketOptions = redPacketOptionService.findAllByRedPacketIdAndIsDelOrderBySeqAsc(id,0);
 		
 		
 		RedPacketOptionListVo redPacketOptionListVo = new RedPacketOptionListVo();
+		
+		redPacketOptionListVo.setAnswer(packet.getAnswer());
 		
 		redPacketOptionListVo.setRedPacketOptions(redPacketOptions);
 		

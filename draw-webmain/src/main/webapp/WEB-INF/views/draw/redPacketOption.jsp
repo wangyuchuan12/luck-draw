@@ -32,6 +32,7 @@
 	</div>
 	
 	<input name="repacketId" value="${id}" type="hidden"/>
+	<input name="answer" value="${answer}" type="hidden"/>
 	
 	<script type="text/javascript">
 	
@@ -105,13 +106,13 @@
 		}
 		
 		
-		function addInput(){
+		function addInput(value){
 			
 			var array = new Array();
 			
 			var token = guid();
 		
-			var itemDiv = $("<div class='option_item' status=1 token='"+token+"'><input/><em class='fa fa-close'></em></div>");
+			var itemDiv = $("<div value='"+value+"' class='option_item' status=1 token='"+token+"'><input/><em class='fa fa-close'></em></div>");
 			$(".option_items").append(itemDiv);
 			$(".option_item>em").click(function(){
 				delInput($(this).parent());
@@ -141,6 +142,17 @@
 			$(".option_item>em").click(function(){
 				delInput($(this).parent());
 			});
+			
+			var flag = false;
+			$(".option_item").each(function(){
+				if($(this).children("input").val()==$("input[name=answer]").val()){
+					flag = true;
+				}
+			});
+			
+			if(!flag){
+				addInput($("input[name=answer]").val());
+			}
 		});
 	
 	</script>

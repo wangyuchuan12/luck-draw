@@ -14,6 +14,9 @@ public class RedPacketOptionListVo {
 	private String id;
 	
 	@ParamAnnotation
+	private String answer;
+	
+	@ParamAnnotation
 	private List<RedPacketOption> redPacketOptions;
 
 	public String getId() {
@@ -22,6 +25,14 @@ public class RedPacketOptionListVo {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	public List<RedPacketOption> getRedPacketOptions() {

@@ -114,6 +114,7 @@ public class DrawController {
 		
 		httpServletRequest.setAttribute("id", httpServletRequest.getParameter("id"));
 		httpServletRequest.setAttribute("options", redPacketOptionListVo.getRedPacketOptions());
+		httpServletRequest.setAttribute("answer", redPacketOptionListVo.getAnswer());
 		
 		return "redPacketOption";
 	}

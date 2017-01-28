@@ -40,7 +40,7 @@
 			
 			<input name="shareCount" value="${result.data.shareCount}" type="hidden"/>
 			
-			<input name="isSetOption" value="${result.data.isSetOption}" type="text"/>
+			<input name="isSetOption" value="${result.data.isSetOption}" type="hidden"/>
 			
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
@@ -86,7 +86,7 @@
 					</div>
 					
 					<c:forEach items="${result.data.redPacketOptions}" var="redPacketOption">
-						<div class="luck_info_option_item">${redPacketOption.answer}</div>
+						<div class="luck_info_option_item" onclick="checkOption('${redPacketOption.answer}')">${redPacketOption.answer}</div>
 					
 					</c:forEach>
 				</div>
@@ -167,6 +167,9 @@
 				initView();
 				initIsAmountDisplay();
 				
+				function checkOption(answer){
+					$("#luck_info_answer_input").val(answer);
+				}
 				
 				function initIsAmountDisplay(){
 					var isCreater = $("input[name=isCreater]").val();
@@ -253,9 +256,9 @@
 					isCreater = parseInt(isCreater);
 					
 					if(isCreater==1){
-						$(".luck_info_option_item_edit").css("display","none");
+						$("#luck_info_option_item_edit").css("display","inline-block");
 					}else{
-						$(".luck_info_option_item_edit").css("display","inline-block");
+						$("#luck_info_option_item_edit").css("display","none");
 					}
 					
 					var isSetOption = $("input[name=isSetOption]").val();
@@ -340,10 +343,6 @@
 							$(".luck_info_alert").text(prompt+",你回答次数已经超过"+count+"次，不能再答题了");
 						}
 						return;
-					}
-					
-					if(isSetOption==1){
-						$(".luck_info_answer").css("display","none");
 					}
 				}
 				
