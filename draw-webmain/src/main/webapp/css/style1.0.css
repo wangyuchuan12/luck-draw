@@ -62,9 +62,7 @@
 .luck_info_head_money>span{
 	font-size: 50px;
 	font-weight: 400;
-	color: black;
-	
-	
+	color: black;	
 }
 
 .luck_info_head_money{
@@ -84,6 +82,7 @@
 	width:100%;
 	position: relative;
 	top:-30px;
+	
 }
 
 .luck_info_question_img{
@@ -92,6 +91,59 @@
 	
 	top:-20px;
 	position: relative;
+	
+}
+
+.luck_info_options{
+
+	position:relative;
+	
+	top:-20px;	
+}
+
+.luck_info_options_list{
+	width:100%;
+	
+	padding-left: 20px;
+	
+	position: relative;
+	
+	text-align: center;
+	
+	padding-bottom: 10px;
+	
+	padding-top: 10px;
+	
+	display: inline-block;
+	
+}
+
+
+.luck_info_option_item{
+
+	border:2px solid RGBA(218,94,84,1);
+	display: inline-block;
+	
+	color: RGBA(218,94,84,1);
+	
+	
+	text-align: center;
+	
+	padding-top: 5px;
+	padding-bottom: 5px;
+	
+	padding-left: 7px;
+	
+	padding-right: 7px;
+	
+	font-weight: bold;
+	
+	border-radius:5px;
+	
+	margin: 5px;
+	
+	font-size: 20px;
+	
 }
 
 .luck_info_question_img img{
@@ -1298,4 +1350,56 @@ li::before{
 	width:100%;
 	top:250px;
 	position: fixed;
+}
+
+.option_items_headers{
+	text-align: right;
+}
+
+.option_items_header{
+	
+	text-align:right;
+
+	padding-top: 20px;
+	
+	padding-bottom: 20px;
+	
+	padding-right:20px;
+
+	
+	
+	display: inline-block;
+}
+
+.option_items_header>em{
+	font-size: 50px;
+}
+
+.option_items_header>span{
+	color: black;
+}
+.option_item{
+	text-align: center;
+	
+	padding-bottom: 5px;
+	
+}
+
+.option_item>input{
+	width: 200px;
+	
+	height:50px;
+	
+	font-size:35px;
+	border: 1px solid white;
+	
+	background-color: white;
+
+}
+
+.option_item>em{
+	font-size: 20px;
+	color: black;
+	padding-top:5px;
+	padding-left: 20px;
 }

@@ -174,6 +174,12 @@ public class RedPacket {
     @Column(name="share_num_show_answer")
 	private Integer shareNumShowAnswer;
 	
+	
+	//是否设置选项卡
+	@ParamAnnotation
+	@Column(name="is_set_option")
+	private Integer isSetOption;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -187,6 +193,15 @@ public class RedPacket {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	
+	
+	public Integer getIsSetOption() {
+		return isSetOption;
+	}
+	public void setIsSetOption(Integer isSetOption) {
+		this.isSetOption = isSetOption;
 	}
 	public String getHandRoomMemberId() {
 		return handRoomMemberId;

@@ -21,6 +21,7 @@ import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawUserService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
+import com.wyc.draw.vo.RedPacketOptionListVo;
 import com.wyc.draw.vo.RedPacketTakepartMemberListVo;
 import com.wyc.draw.vo.RedPacketVo;
 
@@ -62,7 +63,7 @@ public class GetRedPackInfoFilter extends Filter{
 		RedPacketTakepartMemberListVo redPacketTakepartMemberListVo = (RedPacketTakepartMemberListVo)filterManager.getObject(RedPacketTakepartMemberListVo.class);
 		
 		
-		
+		RedPacketOptionListVo redPacketOptionListVo = (RedPacketOptionListVo)filterManager.getObject(RedPacketOptionListVo.class);
 		
 		
 		
@@ -131,6 +132,8 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		redPacketVo.setIsAmountDisplay(redPacket.getIsAmountDisplay());
 		
+		redPacketVo.setRedPacketOptions(redPacketOptionListVo.getRedPacketOptions());
+		
 		Integer shareNumShowAnswer = redPacket.getShareNumShowAnswer();
 		
 		if(shareNumShowAnswer==null){
@@ -138,6 +141,13 @@ public class GetRedPackInfoFilter extends Filter{
 		}
 		redPacketVo.setShareNumShowAnswer(shareNumShowAnswer);
 		redPacketVo.setShareCount(shareRecordService.countByRedPacketIdAndDrawUserId(redPacket.getId(), drawUser.getId()));
+		
+		Integer isSetOption = redPacket.getIsSetOption();
+		
+		if(isSetOption==null){
+			isSetOption = 0;
+		}
+		redPacketVo.setIsSetOption(isSetOption);
 		
 		return redPacketVo;
 	}
@@ -167,6 +177,8 @@ public class GetRedPackInfoFilter extends Filter{
 		filterClasses.add(RedPacketReceiveAbleTestFilter.class);
 		
 		filterClasses.add(GetTakepartMemberListByRedPacketOfPageFilter.class);
+		
+		filterClasses.add(GetRedPacketOptionsByRedPacketIdFilter.class);
 		return filterClasses;
 	}
 

@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -100,6 +101,8 @@ public class SessionManager {
 	
 	private Map<String,Object> returnAttribute;
 	
+	private HttpServletResponse httpServletResponse;
+	
 	
 	
 	public static final String contextId = UUID.randomUUID().toString();
@@ -110,6 +113,16 @@ public class SessionManager {
 	
 
 	
+
+	public HttpServletResponse getHttpServletResponse() {
+		return httpServletResponse;
+	}
+
+
+	public void setHttpServletResponse(HttpServletResponse httpServletResponse) {
+		this.httpServletResponse = httpServletResponse;
+	}
+
 
 	public boolean isReturn() {
 		return isReturn;

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -97,7 +98,16 @@ public class ManagerInterceptConfig {
 			 
 			 HttpServletRequest httpServletRequest = (HttpServletRequest)proceedingJoinPoint.getArgs()[0];
 			 
+			 
+			 
+			 
+			 
 			 SessionManager filterManager = SessionManager.getFilterManager(httpServletRequest, paramType);
+			 if(proceedingJoinPoint.getArgs().length>1){
+				 HttpServletResponse httpServletResponse = (HttpServletResponse)proceedingJoinPoint.getArgs()[1];
+				 
+				 filterManager.setHttpServletResponse(httpServletResponse);
+			 }
 			 
 			 Filter filter = null;
 			 try{

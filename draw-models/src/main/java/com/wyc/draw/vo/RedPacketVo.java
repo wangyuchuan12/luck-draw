@@ -5,6 +5,7 @@ import java.util.List;
 import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
+import com.wyc.draw.domain.RedPacketOption;
 
 @ParamEntityAnnotation
 public class RedPacketVo {
@@ -137,9 +138,34 @@ public class RedPacketVo {
 	private Integer shareCount;
 	
 	@ParamAnnotation
+	private Integer isSetOption;
+	
+	@ParamAnnotation
 	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
 	
+	@ParamAnnotation
+	private List<RedPacketOption> redPacketOptions;
 	
+	
+	
+	
+	
+	public Integer getIsSetOption() {
+		return isSetOption;
+	}
+
+	public void setIsSetOption(Integer isSetOption) {
+		this.isSetOption = isSetOption;
+	}
+
+	public List<RedPacketOption> getRedPacketOptions() {
+		return redPacketOptions;
+	}
+
+	public void setRedPacketOptions(List<RedPacketOption> redPacketOptions) {
+		this.redPacketOptions = redPacketOptions;
+	}
+
 	public Integer getShareCount() {
 		return shareCount;
 	}

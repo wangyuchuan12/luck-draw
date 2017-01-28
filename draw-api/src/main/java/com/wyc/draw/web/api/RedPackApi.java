@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.hibernate.annotations.ResultCheckStyle;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,6 +25,7 @@ import com.wyc.draw.filter.GetRedPackListByRoomOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketPromptsByRedPacketIdFilter;
 import com.wyc.draw.filter.GetTakepartMemberListByRedPacketOfPageFilter;
+import com.wyc.draw.filter.HandRedPacketOptionsFilter;
 import com.wyc.draw.filter.RemindHandRedPackFilter;
 import com.wyc.draw.filter.SetRedPacketIsAmountDisplay;
 import com.wyc.draw.filter.ShareRedPacketFilter;
@@ -229,6 +232,22 @@ public class RedPackApi {
 		resultVo.setMsg("返回数据成功");
 		resultVo.setData(shareRecord);
 		return resultVo;
+	}
+	
+	
+	@RequestMapping(value="hand_red_packet_option")
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=HandRedPacketOptionsFilter.class)
+	public ResultVo handRedPacketOption(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		if(sessionManager.isReturn()){
+			return (ResultVo)sessionManager.getReturnValue();
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			
+			return resultVo;
+		}
 	}
 	
 	

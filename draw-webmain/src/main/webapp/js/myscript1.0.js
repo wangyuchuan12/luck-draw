@@ -38,6 +38,14 @@ function doJoinRoom(type,question,roomId,callback){
 	
 }
 
+
+function skipToRedPacketOption(id){
+	var url = "/view/draw/luck_draw/red_packet_option";
+	var params = new Object();
+	params.id=id;
+	skipToUrl(url,params);
+}
+
 function skipToRedpackList(type){
 	var url = "/view/draw/luck_draw/list";
 	
@@ -181,6 +189,20 @@ function fileRequest(url,callback,elementId){
 	
 }
 
+
+function requestData(url,callback,data){
+	data = JSON.stringify(data);
+	url = getWebpath()+url;
+	$.ajax({
+		url:url,
+		data:data,
+		type:"post",
+		dataType:"json",
+		success:function(obj){
+			alert(obj.errorMsg);
+		}
+	});
+}
 
 function request(url,callback,params){
 	url = getWebpath()+url;

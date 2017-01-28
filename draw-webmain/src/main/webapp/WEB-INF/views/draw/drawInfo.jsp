@@ -40,6 +40,8 @@
 			
 			<input name="shareCount" value="${result.data.shareCount}" type="hidden"/>
 			
+			<input name="isSetOption" value="${result.data.isSetOption}" type="text"/>
+			
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">问答红包</div>
@@ -61,7 +63,7 @@
 				<div class="luck_info_question_answer" style="display: none">答案:${result.data.answer}</div>
 			</div>
 			
-			<c:if test="${result.data.isImg==1}">
+		 	<c:if test="${result.data.isImg==1}">
 				<div class="luck_info_question_img">
 					<img src="${result.data.imgUrl}"></img>
 				</div>
@@ -73,6 +75,21 @@
 			<div class="luck_info_answer">
 				<input id="luck_info_answer_input"/>
 				<div class="luck_info_answer_button">提交答案</div>
+			</div>
+			
+			<div class="luck_info_options">
+				
+				<div class="luck_info_options_list">
+				
+					<div id="luck_info_option_item_edit" class="luck_info_option_item" onclick="skipToRedPacketOption('${result.data.id}');">
+						<em class="fa fa-edit">编辑选项卡</em>
+					</div>
+					
+					<c:forEach items="${result.data.redPacketOptions}" var="redPacketOption">
+						<div class="luck_info_option_item">${redPacketOption.answer}</div>
+					
+					</c:forEach>
+				</div>
 			</div>
 			
 			<div class="luck_info_alert" style="display:none">已经到时间了</div>
@@ -150,6 +167,7 @@
 				initView();
 				initIsAmountDisplay();
 				
+				
 				function initIsAmountDisplay(){
 					var isCreater = $("input[name=isCreater]").val();
 					isCreater = parseInt(isCreater);
@@ -159,6 +177,7 @@
 					
 					if(isCreater==0){
 						$(".luck_info_head_money_eye").css("display","none");
+						
 					}else {
 						$(".luck_info_head_money_eye").css("display","inline-block");
 						$(".luck_info_head_money_eye").click(function(){
@@ -229,6 +248,21 @@
 				}
 				
 				function initView(prompt){
+					
+					var isCreater = $("input[name=isCreater]").val();
+					isCreater = parseInt(isCreater);
+					
+					if(isCreater==1){
+						$(".luck_info_option_item_edit").css("display","none");
+					}else{
+						$(".luck_info_option_item_edit").css("display","inline-block");
+					}
+					
+					var isSetOption = $("input[name=isSetOption]").val();
+					isSetOption = parseInt(isSetOption);
+
+					
+					
 					var count = $("input[name=count]").val();
 					count = parseInt(count);
 					
@@ -266,6 +300,8 @@
 						$(".luck_info_alert").css("display","block");
 						$(".luck_info_question_answer").css("display","block");
 						
+						$(".luck_info_options").css("display","none");
+						
 						return;
 					}else if(isPay==0){
 						$(".luck_info_alert").text("该红包还未收到付款，再等半分钟");
@@ -273,12 +309,14 @@
 						$(".luck_info_situation").css("display","none");
 						$(".luck_info_alert").css("display","block");
 						$(".luck_info_question_answer").css("display","none");
+						$(".luck_info_options").css("display","none");
 						return;
 					}else if(isTimeOut==1){
 						$(".luck_info_alert").text("该红包已超时");
 						$(".luck_info_answer").css("display","none");
 						$(".luck_info_alert").css("display","block");
 						$(".luck_info_question_answer").css("display","block");
+						$(".luck_info_options").css("display","none");
 						
 						return;
 					}else if(type==0&&isInRoom!=1){
@@ -286,12 +324,14 @@
 						$(".luck_info_answer").css("display","none");
 						$(".luck_info_alert").css("display","block");
 						$(".luck_info_question_answer").css("display","none");
+						$(".luck_info_options").css("display","block");
 					}else if(allowWrongCount<=count){
 						$(".luck_info_alert").text("你答题次数已经超过"+count+"次，不能再答题了");
 						$(".luck_info_answer").css("display","none");
 						$(".luck_info_situation").css("display","none");
 						$(".luck_info_alert").css("display","block");
 						$(".luck_info_question_answer").css("display","none");
+						$(".luck_info_options").css("display","block");
 						initShareLinkGuid();
 						
 						
@@ -300,6 +340,10 @@
 							$(".luck_info_alert").text(prompt+",你回答次数已经超过"+count+"次，不能再答题了");
 						}
 						return;
+					}
+					
+					if(isSetOption==1){
+						$(".luck_info_answer").css("display","none");
 					}
 				}
 				
