@@ -79,7 +79,7 @@ public class BaseHandRedPackFilter extends Filter{
 		String imgUrl = httpServletRequest.getParameter("imgUrl");
 		
 		if(CommonUtil.isEmpty(allowWrongCount)){
-			allowWrongCount = "3";
+			allowWrongCount = "1";
 		}
 		
 		Integer allowWrongCountInt = Integer.parseInt(allowWrongCount);
@@ -233,11 +233,7 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setIsRefundError(0);
 		redPacket.setIsAmountDisplay(0);
 
-		
-		System.out.println(".............:"+wxContext.getShareNumShowAnswer());
 		redPacket.setShareNumShowAnswer(wxContext.getShareNumShowAnswer());
-		
-		System.out.println("getShareNumShowAnswer:"+redPacket.getShareNumShowAnswer());
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
 			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
 			ResultVo resultVo = new ResultVo();

@@ -49,6 +49,7 @@ public class OauthService {
         return authorize;
     }
     
+    
     //刷新access_token
     public Authorize refreshToken(String refreshToken)throws Exception{
         String appid = wxContext.getAppid();

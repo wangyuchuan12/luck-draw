@@ -1,14 +1,10 @@
 package com.wyc.draw.web.controller;
 
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.HandlerAnnotation;
@@ -19,7 +15,6 @@ import com.wyc.common.util.Constant;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawUser;
-import com.wyc.draw.domain.RedPacketOption;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.GetRedPackInfoFilter;
 import com.wyc.draw.filter.GetRedPacketListOfPageFilter;

@@ -6,6 +6,8 @@
 		<img src="/imgs/loading.gif">
 </div>
 
+<div class="errorToast"  style="display: none;">发生了错误</div>
+
 
 <div class="linkGuid"  style="display: none;" onclick="javascript:hideLinkGuid();">
 	<div class="linkGuid_img">
@@ -74,6 +76,18 @@
 	.loading img{
 		width:50px;
 	}
+	
+	.errorToast{
+		background-color: RGBA(250,0,0,0.1);
+		
+		text-align: center;
+		
+		padding-top: 15px;
+		
+		padding-bottom: 15px;
+		
+		color: RGBA(214,143,72,1);
+	}
 
 </style>
 
@@ -127,6 +141,19 @@
 	
 	function getShareDataUrl(){
 		return $("input[name=shareDataUrl]").val();
+	}
+	
+	function showErrorToast(msg){
+		$(".errorToast").css("display","block");
+		
+		if(msg){
+			$(".errorToast").text(msg);
+		}
+		
+	}
+	
+	function hideErrorToast(){
+		$(".errorToast").css("display","none");
 	}
 
 

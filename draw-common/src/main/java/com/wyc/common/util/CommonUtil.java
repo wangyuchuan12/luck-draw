@@ -27,7 +27,9 @@ import org.jboss.jandex.Main;
 public class CommonUtil {
 	
 	public static void main(String[]args){
-		System.out.println(filterEmoji("sdfsdfdsf所属️️"));
+		System.out.println(filterEmoji("sdfsdfdsf所属💗❤🐶🐈️️️🐔🐦⏰"));
+		
+		
 	}
 	
 	/**
@@ -87,7 +89,7 @@ public class CommonUtil {
         
         for (int i = 0; i < len; i++) {
             char codePoint = source.charAt(i);
-            
+            System.out.println(codePoint);
             if (isEmojiCharacter(codePoint)) {
                 if (buf == null) {
                     buf = new StringBuilder(source.length());

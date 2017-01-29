@@ -22,5 +22,4 @@ public interface DrawRoomRepository extends CrudRepository<DrawRoom, String>{
 	List<DrawRoom> findAllOfMainByPeriodId(@Param("periodId")String periodId);
 
 
-
 }

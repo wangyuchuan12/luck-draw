@@ -30,6 +30,8 @@ public class Response {
 		String message = new String(jsonBytes,charsetName);
 		logger.debug("readMessageFromWx:"+message);
 		this.inputStream.close();
+		
+		System.out.println(message);
 		return message;
 	}
 	

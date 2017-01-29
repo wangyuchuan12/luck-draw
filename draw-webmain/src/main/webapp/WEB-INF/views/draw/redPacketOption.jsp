@@ -24,6 +24,7 @@
 		
 		<c:forEach items="${options}" var="option">
 			<div class="option_item" status=0 isDel=0 id="${option.id}">
+				<div class="option_item_label">答案：</div>
 				<input value="${option.answer}"/> 
 				<em class="fa fa-close"></em>
 			</div>
@@ -38,13 +39,46 @@
 	
 	
 		function save(){
+			
+			var answer = $("input[name=answer]").val();
 			var updateArray = new Array();
 			var deleteArray = new Array();
 			var addArray = new Array();
 			var seq = 0;
+			
+			var flag = false;
+			
+			
+			var flag2 = false;
+			
 			$(".option_item").each(function(){
+			
 				seq = seq+1;
 				var status = $(this).attr("status");
+				
+				
+				
+				if(!$(this).children("input").val()){
+					$(this).children(".option_item_label").css("color","red");
+					showErrorToast("文本不能为空");
+					flag = true;
+					return;
+					
+				}
+
+				if($(this).children("input").val().length!=answer.length){
+					$(this).children(".option_item_label").css("color","red");
+					showErrorToast("文本字数不匹配,答案必须是"+answer.length+"个字");
+					
+					$(this).children("input").css("color","black");
+					flag = true;
+					return;
+				}
+				
+				if($(this).children("input").val()==answer){
+					flag2 = true;
+				}
+				
 				if(status==0){
 					var isDel = $(this).attr("isDel");
 					if(isDel==1){
@@ -77,6 +111,17 @@
 				
 			});
 			
+			if(flag){
+				hideLoading();
+				return;
+			}
+			
+			if(!flag2){
+				hideLoading();
+				showErrorToast("必须要有一个正确答案");
+				return;
+			}
+			
 			var responseObject = new Object();
 			
 			responseObject.id = $("input[name=repacketId]").val();
@@ -108,15 +153,26 @@
 		
 		function addInput(value){
 			
+			if($(".option_item").size()>=50){
+				showErrorToast("选项不能超过50个");
+				hideLoading();
+				return;
+			}
+			
 			var array = new Array();
 			
 			var token = guid();
-		
-			var itemDiv = $("<div value='"+value+"' class='option_item' status=1 token='"+token+"'><input/><em class='fa fa-close'></em></div>");
+			
+			var itemDiv = $("<div class='option_item' status=1 token='"+token+"'><div class='option_item_label'>答案：</div><input /><em class='fa fa-close'></em></div>");
 			$(".option_items").append(itemDiv);
 			$(".option_item>em").click(function(){
 				delInput($(this).parent());
 			});
+			
+			$("input").keyup(function(){
+				inputCheck($(this));
+			});
+			
 			
 		}
 		
@@ -129,7 +185,36 @@
 			}
 			
 		}
+		
+		function inputCheck(input){
+			var answer = $("input[name=answer]").val();
+			if(!input.val()){
+				input.parent().children(".option_item_label").css("color","red");
+				showErrorToast("文本不能为空");
+			}else{
+				input.parent().children(".option_item_label").css("color","black");
+				hideErrorToast("文本不能为空");
+			}
+			
+			
+			if(input.val().length!=answer.length){
+				/*
+					input.parent().children(".option_item_label").css("color","red");
+				*/
+			}else{
+				input.parent().children(".option_item_label").css("color","black");
+				input.css("color","black");
+			}
+			
+			input.attr("placeholder","请输入答案");
+		}
+		
 		$(document).ready(function(){
+			
+			
+			$("input").keyup(function(){
+				inputCheck($(this));
+			});
 			$("#addButton").click(function(){
 				addInput();
 			});
@@ -143,16 +228,6 @@
 				delInput($(this).parent());
 			});
 			
-			var flag = false;
-			$(".option_item").each(function(){
-				if($(this).children("input").val()==$("input[name=answer]").val()){
-					flag = true;
-				}
-			});
-			
-			if(!flag){
-				addInput($("input[name=answer]").val());
-			}
 		});
 	
 	</script>
