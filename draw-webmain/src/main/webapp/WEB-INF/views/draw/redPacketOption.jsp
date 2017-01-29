@@ -66,14 +66,14 @@
 					
 				}
 
-				if($(this).children("input").val().length!=answer.length){
+				/*if($(this).children("input").val().length!=answer.length){
 					$(this).children(".option_item_label").css("color","red");
 					showErrorToast("文本字数不匹配,答案必须是"+answer.length+"个字");
 					
 					$(this).children("input").css("color","black");
 					flag = true;
 					return;
-				}
+				}*/
 				
 				if($(this).children("input").val()==answer){
 					flag2 = true;

@@ -58,7 +58,7 @@
 			</div>
 			
 			<div class="luck_info_qusition">
-				<div class="luck_info_qusition_title">问：${result.data.question}<span> ${fn:length(result.data.answer)}个字</span></div>
+				<div class="luck_info_qusition_title">问：${result.data.question} <c:if test="${result.data.isSetOption!=1}"><span> ${fn:length(result.data.answer)}个字</span></c:if></div>
 				
 				<div class="luck_info_question_answer" style="display: none">答案:${result.data.answer}</div>
 			</div>
