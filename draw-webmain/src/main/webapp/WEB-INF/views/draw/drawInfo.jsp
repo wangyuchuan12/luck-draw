@@ -439,6 +439,10 @@
 					
 					type = parseInt(type);
 					
+					
+					var isSetOption = $("input[name=isSetOption]").val();
+					isSetOption = parseInt(isSetOption);
+					
 					if(type==0&&isInRoom==0){
 						showToast("本红包属于房间专属红包，你尚未加入本房间，请先点击‘进入房间’按钮加入房间",5000);
 						return;
@@ -458,7 +462,7 @@
 						return;
 					}
 					
-					if(answerLength!=wordNum){
+					if(answerLength!=wordNum&&isSetOption!=1){
 						showToast("请输入"+wordNum+"个字");
 						return;
 					}

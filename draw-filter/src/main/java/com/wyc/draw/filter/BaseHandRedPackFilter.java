@@ -231,7 +231,7 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setHandUserImgUrl(drawUser.getImgUrl());
 		redPacket.setIsRefund(0);
 		redPacket.setIsRefundError(0);
-		redPacket.setIsAmountDisplay(0);
+		redPacket.setIsAmountDisplay(1);
 
 		redPacket.setShareNumShowAnswer(wxContext.getShareNumShowAnswer());
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
