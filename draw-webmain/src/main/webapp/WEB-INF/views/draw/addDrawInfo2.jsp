@@ -29,13 +29,9 @@
 	
 	<input type="hidden" name="amount" />
 	
-	<input type="hidden" name="roomId"/>
+	<input type="hidden" name="roomId" value="${roomId}"/>
 	
-      
-    <div data-role="content">  
-          
-        <form action="javascript:return false;" method="post" id="addDrawInfoForm">
-        
+		<div class="addDrawInfo2">
         	<div class="option_items">
 
 					<div class="option_item"> 
@@ -130,10 +126,8 @@
          			</div>
          		</c:forEach>
          	</div>
-        </form>  
-  
-    </div>  
-  
+         	
+         </div>
 
 <script>
 
@@ -167,7 +161,16 @@
 	
 	
 	//初始化设置为个人
-	setPayUser($("#payUser .select_list_item[type=1]"));
+	
+	var type = $("input[name=type]").val();
+	
+	var roomId = $("input[name=roomId]").val();
+	if(type=="1"||!roomId){
+		setPayUser($("#payUser .select_list_item[type=1]"));
+	}else if(type=="0"){
+		setPayUser($("#payUser .select_list_item[id="+roomId+"]"));
+	}
+	
 	function setPayUser(item){
 
 		
@@ -309,7 +312,7 @@
 		callback.success = function(){
 			$("input[name=isImg]").val(1);
 		}
-		toImg("/api/common/resource/upload","#addCommodityIndex","file",callback)
+		toBigImg("/api/common/resource/upload","#addCommodityIndex","file",callback)
 	});
 	
 	
@@ -326,6 +329,8 @@
 		var type = $("input[name=type]").val();
 
 		var room = $("input[name=roomId]").val();
+		
+		alert(room);
 
 		var payType = $("input[name=payType]").val();
 
@@ -336,7 +341,7 @@
 		var url = "/api/draw/red_pack/add";
 		var params = new Object();
 		
-		params.draw_room_id = $("#room").val();
+		params.draw_room_id = room;
 
 		params.type = type;
 		
@@ -358,6 +363,9 @@
 			var outObject = obj;
 			
 			alert(obj.success);
+			
+			alert(obj.errorMsg);
+			
 			if(obj.success){
 				
 				if(obj.data.payType==0){

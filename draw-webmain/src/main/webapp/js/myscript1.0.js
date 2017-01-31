@@ -106,7 +106,7 @@ function skipToRoomInfo(id){
 
 
 function skipToAddRedPack(redPackType,isDisplayRoom,isDisplayType){
-	var url = "/view/draw/luck_draw/add";
+	var url = "/view/draw/luck_draw/add2";
 	
 	var params  = new Object();
 	params.redPackType = redPackType;
@@ -401,6 +401,68 @@ function toImg(url,element,name,callback){
 }
 
 
+
+
+function toBigImg(url,element,name,callback){
+
+	url = getWebpath()+url;
+	$(element).append("<div class='fileImg'>"+
+						"<input readonly='readonly' id='var_"+name+"' type='text' name='var_"+name+"'/>"+
+						"<img src='/imgs/photo_icon.png'"+
+						"style='width:200px;height:200px;z-index:10000'>"+
+						"</div><input name='"+name+"' type='file' "+
+						"style='display:none '"+
+					
+						"multiple>");
+	
+	$(element).append("<label for='var_"+name+"' class='error'></label>");
+	
+	$("input[name=var_"+name+"]").css("position","absolute");
+	$("input[name=var_"+name+"]").css("color","red");
+	$("input[name=var_"+name+"]").css("top","-1000px");
+	$("input[name=var_"+name+"]").css("padding-top","100px");
+	$(element).children(".fileImg").click(function(){
+		var file =  $("input[name='"+name+"']");
+		file.click();
+		file.fileupload({
+			url:url,
+			dataType: 'json',
+			add: function (e, data) {
+				$(".fileImg img").attr("src","/imgs/loading.gif");
+				var file = data.originalFiles[0];
+				var acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
+				if(acceptFileTypes.test(file.name)){
+					if(file.size>548576){
+						layer.alert("亲，图片太大了，图片不能超过530KB");
+						$(".fileImg img").attr("src","/imgs/photo_icon.png");
+						return false;
+					}else{
+						data.submit();
+					}
+				}
+				
+			},
+			done: function (e, resp) {
+				
+				if(resp.result&&resp.result.success){
+					if(resp.result.data){
+						var url = resp.result.data.url;
+						$(".fileImg img").attr("src",url);
+						if(callback){
+							$("input[name=var_"+name+"]").val(url);
+							callback.success(resp.result.data);
+						}
+					}
+				}else{
+					callback.failure(resp.result);
+				}
+				
+			},
+			progressall: function (e, data) {
+			}
+		});
+	});
+}
 
 
 
