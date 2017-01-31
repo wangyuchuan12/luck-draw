@@ -130,7 +130,7 @@ function skipToHandRedPack(){
 		showToast("你未加入本房间，不能进行任何操作，请先加入房间",5000);
 	}else{
 		
-		var url = "/view/draw/luck_draw/add";
+		var url = "/view/draw/luck_draw/add2";
 		
 		var redPackType =0;
 		var isDisplayRoom =getIsDisplayRoom();
