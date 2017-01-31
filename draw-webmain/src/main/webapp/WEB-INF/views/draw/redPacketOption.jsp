@@ -173,6 +173,8 @@
 				inputCheck($(this));
 			});
 			
+			var input = itemDiv.children("input");
+			input.attr("placeholder","请输入答案");
 			
 		}
 		

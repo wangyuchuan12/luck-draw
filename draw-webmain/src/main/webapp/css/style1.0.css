@@ -1386,7 +1386,9 @@ li::before{
 	
 	padding-bottom: 5px;
 	
-
+	width:95%;
+	
+	padding-left: 10px;
 	
 }
 
@@ -1397,23 +1399,29 @@ li::before{
 	
 	height:50px;
 
-	
+	width:80px;
 	position: relative;
 	left:10px;
 	
 	color: black;
 	
+	font-size:15px;
 	
-	padding-top: 20px;
+	
+	padding-top: 15px;
 	
 	padding-left: 10px;
 	
 	padding-right: 10px;
-	top:1px;
+	
+	top:-1px;
+	
+	font-weight:bold;
+	
 }
 
 .option_item>input{
-	width: 200px;
+	width: 70%;
 	
 	height:50px;
 	
@@ -1447,4 +1455,104 @@ li::before{
 	padding-top: 15px;
 	
 	top:0px;
+}
+
+.form_buttom{
+	width:70%;
+	
+	margin: 0 auto;
+	
+	background: RGBA(216,78,67,1);
+	
+	color: black;
+	
+	text-align: center;
+	
+	color: white;
+	
+	border-radius:4px;
+	
+	height: 50px;
+	
+	font-size: 20px;
+	
+	padding-top: 10px;
+	
+	position: relative;
+	
+	margin-top:15px;
+}
+
+.option_item_select{
+	
+	
+	padding-bottom: 5px;
+	
+	width:80%;
+	
+	margin:0 auto;
+	
+	background-color: white;
+	
+	text-align: center;
+	
+	padding-top: 15px;
+	
+	padding-bottom: 15px;
+	
+	border-radius:5px;
+	
+}
+
+.option_item_select>img{
+	width:20px;
+	height:20px;
+	
+	position: relative;
+	top:3px;
+}
+
+#option_item_select_icon{
+	font-size: 20px;
+}
+
+.option_item_select_content{
+	padding-left: 10px;
+}
+
+
+.select_list_item{
+	padding-left: 10px;
+	
+	padding-top: 10px;
+	
+	padding-bottom: 10px;
+	
+	border-bottom: 1px solid RGBA(0,0,0,0.1);
+	
+	border-top: 1px solid RGBA(0,0,0,0.1);
+	
+}
+
+.select_list_item>img{
+	width:20px;
+	height:20px;
+}
+
+.select_list_item>em{
+	font-size: 20px;
+}
+
+.select_list_item>span{
+	color: black;
+	
+	font-size: 15px;
+	
+	font-weight: bold;
+	
+	padding-left: 10px;
+}
+
+.add_draw_pay_view{
+	padding-top: 20px;
 }

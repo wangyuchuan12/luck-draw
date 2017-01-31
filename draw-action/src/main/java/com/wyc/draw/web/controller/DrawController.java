@@ -101,6 +101,28 @@ public class DrawController {
 		return "addDrawInfo";
 	}
 	
+	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
+	@RequestMapping(value="add2")
+	public String addDrawInfo2(HttpServletRequest httpServletRequest)throws Exception{
+		String redPackType = httpServletRequest.getParameter("redPackType");
+		
+		String roomId = httpServletRequest.getParameter("room_id");
+		httpServletRequest.setAttribute("roomId", roomId);
+		
+		httpServletRequest.setAttribute("redPackType", redPackType);
+		
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
+		httpServletRequest.setAttribute("amountBalance", drawUser.getAmountBalance());
+		List<DrawRoom> drawRooms = drawRoomService.findAllByDrawUserId(drawUser.getId());
+	
+		httpServletRequest.setAttribute("rooms",drawRooms);
+		
+		return "addDrawInfo2";
+	}
+	
+	
+	
 	@HandlerAnnotation(hanlerFilter=GetRedPacketOptionsByRedPacketIdFilter.class)
 	@RequestMapping(value="red_packet_option")
 	public String redPacketOption(HttpServletRequest httpServletRequest)throws Exception{
