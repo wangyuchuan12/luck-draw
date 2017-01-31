@@ -329,8 +329,6 @@
 		var type = $("input[name=type]").val();
 
 		var room = $("input[name=roomId]").val();
-		
-		alert(room);
 
 		var payType = $("input[name=payType]").val();
 
@@ -361,10 +359,6 @@
 		callback.success = function(obj){
 
 			var outObject = obj;
-			
-			alert(obj.success);
-			
-			alert(obj.errorMsg);
 			
 			if(obj.success){
 				
