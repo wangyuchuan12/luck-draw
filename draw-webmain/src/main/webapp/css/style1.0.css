@@ -1384,13 +1384,54 @@ li::before{
 .option_item{
 	text-align: center;
 	
-	padding-bottom: 5px;
+	width:95%;
+
+	
+}
+
+.option_item_area{
+	text-align: center;
 	
 	width:95%;
 	
-	padding-left: 10px;
+	position: relative;
+	
+	top:5px;
+
 	
 }
+
+.option_item_area .option_item_label{
+	height: 170px;
+	
+	position: relative;
+
+	vertical-align: top;
+}
+
+.option_item_area>textarea{
+	width: 70%;
+	
+	height:170px;
+	
+	font-size:20px;
+	text-align:right;
+	
+	border: 0px solid white;
+	
+	background-color: white;
+	
+	display: inline-block;
+	
+	padding-right: 50px;
+	
+	padding-top:15px;
+	
+	position:relative;
+	
+	top:-1px;
+}
+
 
 .option_item_label{
 	display: inline-block;
@@ -1418,6 +1459,8 @@ li::before{
 	
 	font-weight:bold;
 	
+	border-radius:5px;
+	
 }
 
 .option_item>input{
@@ -1435,6 +1478,8 @@ li::before{
 	display: inline-block;
 	
 	padding-right: 50px;
+	
+	
 
 }
 
@@ -1488,7 +1533,7 @@ li::before{
 	
 	padding-bottom: 5px;
 	
-	width:80%;
+	width:84%;
 	
 	margin:0 auto;
 	
@@ -1501,6 +1546,10 @@ li::before{
 	padding-bottom: 15px;
 	
 	border-radius:5px;
+	
+	position: relative;
+	
+	right: 5px;
 	
 }
 

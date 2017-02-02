@@ -34,12 +34,12 @@
 		<div class="addDrawInfo2">
         	<div class="option_items">
 
-					<div class="option_item"> 
+					<div class="option_item" style="padding-left: 10px;"> 
 				        <div id="addCommodityIndex"></div>
 			        </div>
-					<div class="option_item">
+					<div class="option_item_area">
 						<div class="option_item_label" id="question_label">问题：</div>
-						<input name="question" placeholder="不能超过50个字节"/> 
+						<textarea name="question" placeholder="不能超过50个字节"></textarea> 
 
 					</div>
 					
@@ -154,6 +154,19 @@
 	
 	function payAmount(amount){
 		$("input[name=amount]").val(amount);
+		var amountBalance = $("input[name=amountBalance]").val();
+		amountBalance = parseInt(amountBalance);
+		
+		amount = parseInt(amount);
+		
+		var payType = $("input[name=payType]").val();
+		
+		payType = parseInt(payType);
+		if(amountBalance<amount&&payType==0){
+			showErrorToast("您的金额不足"+amount+"元，请用微信支付");
+			
+			return;
+		}
 		
 		submit();
 	}
@@ -230,7 +243,7 @@
 	
 	function openPayView(){
 		
-		var question = $("input[name=question]").val();
+		var question = $("textarea[name=question]").val();
 		
 		if(!question){
 			$("#question_label").css("color","red");
@@ -242,6 +255,9 @@
 			$("#question_label").css("color","red");
 			showErrorToast("输入的问题不能超过50个字节");
 			return;
+		}else{
+			$("#question_label").css("color","black");
+			hideErrorToast("输入的问题不能超过50个字节");
 		}
 		
 		var answer = $("input[name=answer]").val();
@@ -293,6 +309,10 @@
 			inputCheck($(this));
 		});
 		
+		$("textarea").keyup(function(){
+			inputCheck($(this));
+		});
+		
 		
 		$(".form_buttom").click(function(){
 			openPayView();
@@ -313,7 +333,7 @@
 		callback.success = function(){
 			$("input[name=isImg]").val(1);
 		}
-		toBigImg("/api/common/resource/upload","#addCommodityIndex","file",callback)
+		toBigerImg("/api/common/resource/upload","#addCommodityIndex","file",callback)
 	});
 	
 	
@@ -322,7 +342,7 @@
 		showLoading();
 		var amount = $("input[name=amount]").val();
 
-		var question = $("input[name=question]").val();
+		var question = $("textarea[name=question]").val();
 		
 		var answer = $("input[name=answer]").val();
 

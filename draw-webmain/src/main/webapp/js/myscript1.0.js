@@ -403,13 +403,13 @@ function toImg(url,element,name,callback){
 
 
 
-function toBigImg(url,element,name,callback){
+function toBigerImg(url,element,name,callback){
 
 	url = getWebpath()+url;
 	$(element).append("<div class='fileImg'>"+
 						"<input readonly='readonly' id='var_"+name+"' type='text' name='var_"+name+"'/>"+
 						"<img src='/imgs/photo_icon.png'"+
-						"style='width:200px;height:200px;z-index:10000'>"+
+						"style='width:130px;height:130px;z-index:10000'>"+
 						"</div><input name='"+name+"' type='file' "+
 						"style='display:none '"+
 					
