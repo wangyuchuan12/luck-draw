@@ -74,7 +74,7 @@ public class UserInfoFilter extends Filter{
 	                } catch (Exception e) {
 	                    e.printStackTrace();
 	               //     logger.error("get userInfo from wx has error");
-	                    userInfo.setNickname("某某土豪");
+	                    userInfo.setNickname("匿名土豪");
 	                    //做最后一层保障，保证在数据库当中有userInfo
 	                    token = userSmartService.saveToDatabase(userInfo, key);
 	                }
