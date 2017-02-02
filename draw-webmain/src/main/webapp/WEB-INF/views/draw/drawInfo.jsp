@@ -178,7 +178,19 @@
 					var isAmountDisplay = $("input[name=isAmountDisplay]").val();
 					isAmountDisplay = parseInt(isAmountDisplay);
 					
-					if(isCreater==0){
+					
+					var isPay = $("input[name=isPay]").val();
+					
+					isPay = parseInt(isPay);
+					
+					var isTimeOut = $("input[name=isTimeOut]").val();
+					
+					isTimeOut = parseInt(isTimeOut);
+					
+					var isReceive = $("input[name=isReceive]").val();
+					isReceive = parseInt(isReceive);
+					
+					if(isCreater==0||isTimeOut==1||isPay==0||isReceive==1){
 						$(".luck_info_head_money_eye").css("display","none");
 						
 					}else {

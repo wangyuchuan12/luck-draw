@@ -80,8 +80,10 @@
 												<span style="color:red">已超时</span>
 											</c:if>
 											
-											<c:if test="${packet.isPay!=1}">
-												<span style="color:red">未支付</span>
+											<c:if test="${packet.isTimeout!=1}">
+												<c:if test="${packet.isPay!=1}">
+													<span style="color:red">未支付</span>
+												</c:if>
 											</c:if>
 										</c:if>
 										
