@@ -214,7 +214,7 @@
 			type:1,
 			title:"请选择支付对象",
 			shadeClose:true,
-			shade:false,
+			shade:[0.1,'#000'],
 			area:['250px',"300px"],
 			content:$("#payUser")
 		});
@@ -262,7 +262,7 @@
 			type:1,
 			title:"请选择支付金额",
 			shadeClose:true,
-			shade:false,
+			shade:[0.1,'#000'],
 			area:['300px',"300px"],
 			content:$("#pay_view")
 		});
@@ -288,6 +288,7 @@
 
 	$(document).ready(function(){
 		
+	
 		$("input").keyup(function(){
 			inputCheck($(this));
 		});
@@ -319,7 +320,6 @@
 	function submit(){
 		
 		showLoading();
-		
 		var amount = $("input[name=amount]").val();
 
 		var question = $("input[name=question]").val();

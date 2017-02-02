@@ -63,7 +63,7 @@
 
 	.loading{
 		position: fixed;
-		z-index: 11111;
+		z-index: 10000000000000;
 		width:100%;
 		height: 10000px;
 		text-align: center;
