@@ -155,9 +155,9 @@
 	function payAmount(amount){
 		$("input[name=amount]").val(amount);
 		var amountBalance = $("input[name=amountBalance]").val();
-		amountBalance = parseInt(amountBalance);
+		amountBalance = parseFloat(amountBalance);
 		
-		amount = parseInt(amount);
+		amount = parseFloat(amount);
 		
 		var payType = $("input[name=payType]").val();
 		

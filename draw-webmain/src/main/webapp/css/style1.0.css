@@ -1,6 +1,5 @@
 .luck_info_head{
 	height:200px;
-
 	padding-bottom: 20px;
 }
 
@@ -1608,5 +1607,168 @@ li::before{
 
 
 .addDrawInfo2{
+	padding-top: 20px;
+}
+
+
+.vie_luck_info{
+	padding-left: 10px;
+	
+	position: relative;
+	
+	top:-20px;
+
+}
+
+.vie_luck_info_img{
+	display: inline-block;
+	
+	padding-left: 10px;
+}
+
+.vie_luck_info_img>img{
+	width:120px;
+	height:120px;
+}
+
+.vie_luck_info_detail{
+	display: inline-block;
+	
+	vertical-align: top;
+	
+	padding-top: 5px;
+	
+	padding-left: 10px;
+}
+
+.vie_luck_info_detail_item{
+	padding-left: 10px;
+}
+
+
+.vie_luck_info_detail_item_label{
+	display: inline-block;
+}
+.vie_luck_info_detail_item_text{
+	display: inline-block;
+}
+
+.view_luck_members{
+	margin-top: 2px;
+}
+
+.view_luck_member{
+	background-color: white;
+	margin-bottom: 1px;
+	
+	padding-top: 10px;
+	
+	padding-bottom: 10px;
+}
+
+.view_luck_member_rank{
+	display: inline-block;
+	
+	vertical-align: top;
+	
+	padding-top: 15px;
+	
+	color: black;
+	
+	font-size: 13px;
+	
+	font-weight: bold;
+	
+	padding-left: 20px;
+	
+	width:45px;
+}
+
+.view_luck_member_img{
+	display: inline-block;
+	
+	padding-left: 20px;
+}
+
+.view_luck_member_img>img{
+	width:50px;
+	height:50px;
+	
+	border-radius:50px;
+}
+
+.view_luck_member_name{
+	color: black;
+	
+	width:110px;
+	
+	display: inline-block;
+	
+	vertical-align: top;
+	
+	padding-top: 15px;
+	padding-left: 10px;
+	
+	font-size: 20px;
+	
+	overflow:hidden;text-overflow:ellipsis; -o-text-overflow:ellipsis;white-space:nowrap;
+}
+
+.view_luck_member_name2{
+	display: inline-block;
+	
+	vertical-align: top;
+	padding-left: 10px;
+	
+	
+	
+	
+}
+
+.view_luck_member_name2_nickname{
+	
+	color: black;
+	font-size: 20px;
+	width:110px;
+	overflow:hidden;text-overflow:ellipsis; -o-text-overflow:ellipsis;white-space:nowrap;
+}
+
+.view_luck_member_name2_prompt{
+	color: RGBA(214,210,210,1);
+	
+	font-size: 15px;
+}
+
+.view_luck_member_name2_prompt>span{
+	font-size: 10px;
+	
+	color: black;
+}
+
+.view_luck_member_name2_prompt_absolute{
+	color: RGBA(214,210,210,1);
+	
+	padding-top: 20px;
+	
+	font-size: 15px;
+}
+
+.view_luck_member_result{
+	display: inline-block;
+	
+	vertical-align: top;
+	
+	padding-top: 5px;
+	
+	color: green;
+	
+	font-size: 15px;
+	
+	font-weight: bold;
+	
+	position: absolute;
+	
+	right: 50px;
+	
 	padding-top: 20px;
 }
