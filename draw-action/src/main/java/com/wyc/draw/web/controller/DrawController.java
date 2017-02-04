@@ -136,4 +136,9 @@ public class DrawController {
 		return "redPacketOption";
 	}
 	
+	@RequestMapping(value="subject_check")
+	public String subjectCheck(HttpServletRequest httpServletRequest){
+		return "subjectCheck";
+	}
+	
 }

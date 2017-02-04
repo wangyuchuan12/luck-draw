@@ -333,7 +333,7 @@
 		callback.success = function(){
 			$("input[name=isImg]").val(1);
 		}
-		toBigerImg("/api/common/resource/upload","#addCommodityIndex","file",callback)
+		toBigerImg("/api/common/resource/upload","#addCommodityIndex","file",callback);
 	});
 	
 	

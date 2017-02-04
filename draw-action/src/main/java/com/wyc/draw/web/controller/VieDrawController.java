@@ -13,4 +13,19 @@ public class VieDrawController {
 		
 		return "vie/vieRedPacket";
 	}
+	
+	
+	@RequestMapping(value="vie_set_problem")
+	public String vieSetProblem(HttpServletRequest httpServletRequest)throws Exception{
+		
+		return "vie/vieSetProblem";
+	}
+	
+	@RequestMapping(value="add")
+	public String add(HttpServletRequest httpServletRequest)throws Exception{
+		
+		return "vie/addVieRedPacket";
+	}
+	
+	
 }
