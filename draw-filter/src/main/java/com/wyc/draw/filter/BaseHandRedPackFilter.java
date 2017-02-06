@@ -78,6 +78,8 @@ public class BaseHandRedPackFilter extends Filter{
 		
 		String imgUrl = httpServletRequest.getParameter("imgUrl");
 		
+		String subjectId = httpServletRequest.getParameter("subjectId");
+		
 		if(CommonUtil.isEmpty(allowWrongCount)){
 			allowWrongCount = "1";
 		}
@@ -232,6 +234,15 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setIsRefund(0);
 		redPacket.setIsRefundError(0);
 		redPacket.setIsAmountDisplay(1);
+		redPacket.setSubjectId(subjectId);
+		redPacket.setHandTime(new DateTime());
+		
+		redPacket.setTimeLong(timeLong);
+		
+		redPacket.setType(typeInt);
+		redPacket.setAmount(amountBigDecimal);
+		
+		redPacket.setHandDrawUserId(drawUser.getId());
 
 		redPacket.setShareNumShowAnswer(wxContext.getShareNumShowAnswer());
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
@@ -255,17 +266,15 @@ public class BaseHandRedPackFilter extends Filter{
 			}
 			
 			redPacket.setDrawRoomId(drawRoomId);
-			redPacket.setHandDrawUserId(drawUser.getId());
+			
 			
 			
 			redPacket.setHandRoomMemberId(drawRoomMember.getId());
 			
 			redPacket.setQuestion(question);
 			redPacket.setAnswer(answer);
-			redPacket.setHandTime(new DateTime());
-			redPacket.setTimeLong(timeLong);
-			redPacket.setType(typeInt);
-			redPacket.setAmount(amountBigDecimal);
+			
+			
 
 			redPacket = redPackageService.add(redPacket);
 			
@@ -280,12 +289,6 @@ public class BaseHandRedPackFilter extends Filter{
 			
 			redPacket.setQuestion(question);
 			redPacket.setAnswer(answer);
-			redPacket.setHandDrawUserId(drawUser.getId());
-			redPacket.setHandTime(new DateTime());
-			redPacket.setTimeLong(timeLong);
-			redPacket.setType(typeInt);
-			redPacket.setAmount(amountBigDecimal);
-			System.out.println("redPacketaaaaaaaaaaa:"+redPacket.getShareNumShowAnswer());
 			redPacket = redPackageService.add(redPacket);
 		}else{
 			ResultVo resultVo = new ResultVo();

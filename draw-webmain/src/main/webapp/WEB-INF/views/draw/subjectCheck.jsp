@@ -7,53 +7,47 @@
 <tiles:insertDefinition name="resourceLayout">
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
+
+	<input name="redPackType" value="${redPackType}"/>
+	<input name="isDisplayRoom" value="${isDisplayRoom}"/>
+	<input name="isDisplayType" value="${isDisplayType}"/>
+	<input name="roomId" value="${roomId}"/>
 	<div class="subject_check_header">
 		<div class="subject_check_header_title">请选择红包的科目类型</div>
 	</div>
 	
 	<div class="subject_check_items">
 		<ul>
-			<li style="border: 1px solid red;color:red">互联网</li>
-			<li style="border: 1px solid blue;color:blue">电影</li>
-			<li style="border: 1px solid yellow;color:yellow">健身</li>
-			<li style="border: 1px solid yellow;color:yellow">职场</li>
 			
-			<li style="border: 1px solid yellow;color:yellow">旅行</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">心理学</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">音乐</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">美食</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">摄影</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">金融</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">阅读</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">设计</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">法律</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">科技</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">自然科学</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">汽车</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">健康</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">体育</li>
-			
-			<li style="border: 1px solid yellow;color:yellow">动漫</li>
+			<c:forEach items="${subjects}" var="subject">
+				<li style="border: 1px solid ${subject.color};color:${subject.color}" onclick="clickSubject('${subject.isLeaf}','${subject.id}')">${subject.name}</li>
+			</c:forEach>
 			
 		</ul>
 	</div>
 	
-	<div class="subject_check_button">选好了，下一步<span>→</span></div>
+	<!--  <div class="subject_check_button">选好了，下一步<span>→</span></div> -->
 	
 	<script type="text/javascript">
+	
+		function clickSubject(isLeaf,id){
+			var redPackType = $("input[name=redPackType]").val();
+			var isDisplayRoom = $("input[name=isDisplayRoom]").val();
+			var isDisplayType = $("input[name=isDisplayType]").val();
+			var roomId = $("input[name=roomId]").val();
+			if(isLeaf=="0"){
+				skipToSubject(id,redPackType,isDisplayRoom,isDisplayType,roomId);
+			
+			}else if(isLeaf=="1"){
+				if(redPackType=="0"||redPackType=="1"){
+					
+					skipToAddRedPack(redPackType,isDisplayRoom,isDisplayType,id,roomId);
+				}else if(redPackType=="2"||redPackType=="3"){
+					skipToVieDrawInfo(redPackType,isDisplayRoom,isDisplayType,id,roomId);
+				}
+				
+			}
+		}
 		$(document).ready(function(){
 			
 			

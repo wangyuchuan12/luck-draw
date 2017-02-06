@@ -19,10 +19,12 @@ import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.GetRedPackInfoFilter;
 import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketOptionsByRedPacketIdFilter;
+import com.wyc.draw.filter.GetSubjectCheckFilter;
 import com.wyc.draw.service.DrawRoomService;
 import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketOptionListVo;
 import com.wyc.draw.vo.RedPacketVo;
+import com.wyc.draw.vo.SubjectListVo;
 
 @Controller
 @RequestMapping(value="/view/draw/luck_draw")
@@ -107,6 +109,8 @@ public class DrawController {
 		String redPackType = httpServletRequest.getParameter("redPackType");
 		
 		String roomId = httpServletRequest.getParameter("room_id");
+		
+		String subjectId = httpServletRequest.getParameter("subjectId");
 		httpServletRequest.setAttribute("roomId", roomId);
 		
 		httpServletRequest.setAttribute("redPackType", redPackType);
@@ -118,6 +122,7 @@ public class DrawController {
 	
 		httpServletRequest.setAttribute("rooms",drawRooms);
 		
+		httpServletRequest.setAttribute("subjectId", subjectId);
 		return "addDrawInfo2";
 	}
 	
@@ -136,8 +141,26 @@ public class DrawController {
 		return "redPacketOption";
 	}
 	
+	
+	@HandlerAnnotation(hanlerFilter=GetSubjectCheckFilter.class)
 	@RequestMapping(value="subject_check")
-	public String subjectCheck(HttpServletRequest httpServletRequest){
+	public String subjectCheck(HttpServletRequest httpServletRequest)throws Exception{
+		
+		String redPackType = httpServletRequest.getParameter("redPackType");
+		String isDisplayRoom = httpServletRequest.getParameter("isDisplayRoom");
+		String isDisplayType = httpServletRequest.getParameter("isDisplayType");
+		
+		String roomId = httpServletRequest.getParameter("roomId");
+		
+		httpServletRequest.setAttribute("roomId", roomId);
+		httpServletRequest.setAttribute("redPackType", redPackType);
+		httpServletRequest.setAttribute("isDisplayRoom", isDisplayRoom);
+		httpServletRequest.setAttribute("isDisplayType", isDisplayType);
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		SubjectListVo subjectListVo = (SubjectListVo)sessionManager.getObject(SubjectListVo.class);
+		httpServletRequest.setAttribute("subjects", subjectListVo.getMainSubjectVos());
+		
 		return "subjectCheck";
 	}
 	

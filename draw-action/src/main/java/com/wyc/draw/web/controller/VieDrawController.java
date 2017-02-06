@@ -1,13 +1,28 @@
 package com.wyc.draw.web.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.wyc.annotation.HandlerAnnotation;
+import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.CommonUtil;
+import com.wyc.common.util.Constant;
+import com.wyc.draw.domain.DrawRoom;
+import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.filter.BaseDrawActionFilter;
+import com.wyc.draw.service.DrawRoomService;
 
 @Controller
 @RequestMapping(value="/view/vie/draw/vie_draw")
 public class VieDrawController {
+	
+	@Autowired
+	private DrawRoomService drawRoomService;
 	@RequestMapping(value="info")
 	public String list(HttpServletRequest httpServletRequest)throws Exception{
 		
@@ -21,9 +36,28 @@ public class VieDrawController {
 		return "vie/vieSetProblem";
 	}
 	
+	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	@RequestMapping(value="add")
 	public String add(HttpServletRequest httpServletRequest)throws Exception{
 		
+		
+		String redPackType = httpServletRequest.getParameter("redPackType");
+		
+		String roomId = httpServletRequest.getParameter("room_id");
+		
+		String subjectId = httpServletRequest.getParameter("subjectId");
+		httpServletRequest.setAttribute("roomId", roomId);
+		
+		httpServletRequest.setAttribute("redPackType", redPackType);
+		
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
+		httpServletRequest.setAttribute("amountBalance", drawUser.getAmountBalance());
+		List<DrawRoom> drawRooms = drawRoomService.findAllByDrawUserId(drawUser.getId());
+	
+		httpServletRequest.setAttribute("rooms",drawRooms);
+		
+		httpServletRequest.setAttribute("subjectId", subjectId);
 		return "vie/addVieRedPacket";
 	}
 	

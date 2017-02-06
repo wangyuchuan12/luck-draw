@@ -918,6 +918,10 @@ li::before{
 	
 	top:-30px;
 	position: relative;
+	
+	border-bottom: 1px solid RGBA(0,0,0,0.1);
+	
+	padding-bottom: 10px;
 }
 
 .take_out_item{
@@ -1997,18 +2001,22 @@ li::before{
 }
 
 .add_draw_pay_view_amount>input{
-	border: 0px solid white;
+
 	
 	width:50px;
 	
 	position: relative;
 
-	
+	top:-5px;
 	font-size: 20px;
 }
 
 .add_draw_pay_view_amount_label{
 	display: inline-block;
+	
+	top:-5px;
+	
+	position: relative;
 }
 
 .add_draw_pay_view_amount_check{
@@ -2017,6 +2025,10 @@ li::before{
 }
 .add_draw_pay_view_amount_sign{
 	display: inline-block;
+	
+	position: relative;
+	
+	top:-5px;
 }
 
 .add_draw_pay_view_amount_check>span{
@@ -2024,8 +2036,6 @@ li::before{
 	font-size: 25px;
 	
 	font-weight: bold;
-	
-	top: 5px;
 	
 	position: relative;
 

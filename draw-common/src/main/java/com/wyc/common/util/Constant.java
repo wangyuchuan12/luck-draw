@@ -42,6 +42,12 @@ public class Constant {
 	public static final int PERSONAL_QUESTION_TYPE=1;
 	
 	
+	//房间竞答红包
+	public static final int ROOM_VIE_TYPE = 0;
+	//个人竞答红包
+	public static final int PERSONAL_VIE_TYPE=1;
+	
+	
 	/***********************支付类型************************/
 	//余额支付
 	public static final int ACCOUNT_PAY_TYPE=0;

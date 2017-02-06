@@ -147,11 +147,15 @@ public class TakeOutApplyFilter extends Filter{
 		
 		try{
 			
-			TransfersResultVo resultVo = payService.transfers(userInfo.getOpenid(), realAmountBigDecimal, httpServletRequest.getRemoteAddr(), drawUser.getNickname()+"提取现金红包,openid:"+drawUser.getOpenid());
+			TransfersResultVo resultVo = null;
+			if(wxContext.getInstantArrival()==1){
+				resultVo = payService.transfers(userInfo.getOpenid(), realAmountBigDecimal, httpServletRequest.getRemoteAddr(), drawUser.getNickname()+"提取现金红包,openid:"+drawUser.getOpenid());
+			}
+			
 			if(resultVo!=null){
 				applyForm.setTradeOutNo(resultVo.getOutTradeNo());
 			}
-			if(resultVo!=null&&resultVo.getResultCode()!=null&&resultVo.getResultCode().equals("SUCCESS")&&wxContext.getInstantArrival()==1){
+			if(resultVo!=null&&resultVo.getResultCode()!=null&&resultVo.getResultCode().equals("SUCCESS")){
 				applyForm.setStatus(Constant.APPLY_FORM_STATUS_SUCCESS);
 				applyForm.setHandleTime(new DateTime());
 				applyFormService.update(applyForm);

@@ -105,7 +105,7 @@ function skipToRoomInfo(id){
 }
 
 
-function skipToAddRedPack(redPackType,isDisplayRoom,isDisplayType){
+function skipToAddRedPack(redPackType,isDisplayRoom,isDisplayType,subjectId,roomId){
 	var url = "/view/draw/luck_draw/add2";
 	
 	var params  = new Object();
@@ -114,10 +114,38 @@ function skipToAddRedPack(redPackType,isDisplayRoom,isDisplayType){
 	params.isDisplayRoom = isDisplayRoom;
 	
 	params.isDisplayType = isDisplayType;
+	
+	params.subjectId = subjectId;
+	params.room_id = roomId;
 	skipToUrl(url,params);
 }
 
+function skipToVieDrawInfo(redPackType,isDisplayRoom,isDisplayType,subjectId,roomId){
+	var url = "/view/vie/draw/vie_draw/add";
+	
+	var params = new Object();
+	params.redPackType = redPackType;
+	params.isDisplayRoom = isDisplayRoom;
+	params.isDisplayType = isDisplayType;
+	params.subjectId = subjectId;
+	params.room_id=roomId;
+	skipToUrl(url,params);
+}
 
+function skipToSubject(parentId,redPacketType,isDisplayRoom,isDisplayType,roomId){
+	
+	var url = "/view/draw/luck_draw/subject_check";
+	var params = new Object();
+	
+	params.parent_id =  parentId;
+	
+	params.redPackType = redPacketType;
+	params.isDisplayRoom = isDisplayRoom;
+	params.isDisplayType = isDisplayType;
+	
+	params.roomId = roomId;
+	skipToUrl(url,params);
+}
 
 function skipToUrl(url,params,flag){
 	var temp = document.createElement("form");
@@ -203,6 +231,7 @@ function requestData(url,callback,data){
 		}
 	});
 }
+
 
 function request(url,callback,params){
 	url = getWebpath()+url;

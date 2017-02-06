@@ -7,6 +7,27 @@
 <tiles:insertDefinition name="resourceLayout">
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
+
+	<!-- 红包类型0房间问答红包 1个人问答红包 -->
+	<input type="hidden" name="type" value="${redPackType}"/>
+	<input type="hidden" name="isDisplayRoom" value="${isDisplayRoom}"/>
+	
+	
+	<input type="hidden" name="isDisplayType" value="${isDisplayType}"/>
+	
+	<!-- 账号余额 -->
+	<input type="hidden" name="amountBalance" value="${amountBalance}"/>
+	
+	<!-- 0余额支付，1是微信支付 -->
+	<input type="hidden" name="payType" value="0"/>
+	
+	<input type="hidden" name="isImg" value="0"/>
+	
+	<input type="hidden" name="amount" />
+	
+	<input type="hidden" name="roomId" value="${roomId}"/>
+	
+	<input type="text" name="subjectId" value="${subjectId}"/>
 	<div class="addVieRedPacket">
 		<div class="option_items">
 				<div class="option_item" style="padding-left: 10px;"> 
@@ -14,13 +35,13 @@
 		        </div>
 		        
 		        <div class="option_item">
-					<div class="option_item_label" id="answer_label">主题：</div>
-					<input name="answer" placeholder="不能超过7个字节"/> 
+					<div class="option_item_label" id="theme_label">主题：</div>
+					<input name="theme" placeholder="不能超过7个字节"/> 
 				</div>
 				
 				<div class="option_item_area">
-					<div class="option_item_label" id="question_label">说明：</div>
-					<textarea name="question" placeholder="不能超过50个字节"></textarea> 
+					<div class="option_item_label" id="instruction_label">说明：</div>
+					<textarea name="instruction" placeholder="不能超过50个字节"></textarea> 
 
 				</div>
 				
@@ -40,7 +61,7 @@
 	
 	
 	
-	<div  id="pay_view">
+	<div  id="pay_view" style="display: none;">
 			
 				<div class="add_draw_pay_view">
 					<div class="take_out_list">
@@ -125,12 +146,196 @@
 			
 			
 	<script type="text/javascript">
-		$(document).ready(function(){
+	
+	setPayType(0);
+	function setPayType(type){
+		
+		$("input[name=payType]").val(type);
+		var wxPayTypeEm = $(".select_list_item[type=0] em").eq(0);
+		var amountPayTypeEm = $(".select_list_item[type=1] em").eq(0);
+		
+		if(type==1){
+			wxPayTypeEm.attr("class","fa fa-square-o");
+			wxPayTypeEm.css("color","black");
+			amountPayTypeEm.attr("class","fa fa-check-square");
+			amountPayTypeEm.css("color","red");
+		}else{
+			amountPayTypeEm.attr("class","fa fa-square-o");
+			amountPayTypeEm.css("color","black");
+			wxPayTypeEm.attr("class","fa fa-check-square");
+			wxPayTypeEm.css("color","red");
+		}	
+	}
+	
+	
+	function payAmount(amount){
+		$("input[name=amount]").val(amount);
+		var amountBalance = $("input[name=amountBalance]").val();
+		amountBalance = parseFloat(amountBalance);
+		
+		amount = parseFloat(amount);
+		
+		var payType = $("input[name=payType]").val();
+		
+		payType = parseInt(payType);
+		if(amountBalance<amount&&payType==0){
+			showErrorToast("您的金额不足"+amount+"元，请用微信支付");
+			
+			return;
+		}
+		
+		submit();
+	}
+	
+	
+	
+	//初始化设置为个人
+	
+	var type = $("input[name=type]").val();
+	
+	var roomId = $("input[name=roomId]").val();
+	if(type=="3"||!roomId){
+		setPayUser($("#payUser .select_list_item[type=1]"));
+	}else if(type=="0"){
+		setPayUser($("#payUser .select_list_item[id="+roomId+"]"));
+	}
+	
+	function setPayUser(item){
+
+		
+		var type=item.attr("type");
+		
+		var payUserTypeDisplay = $("#payUserTypeDisplay");
+		
+		payUserTypeDisplay.empty();
+		
+		$("input[name=type]").val(type);
+		if(type=="0"){
+			var id = item.attr("id");
+			
+			var imgSrc = item.children("img").attr("src");
+			$("input[name=roomId]").val(id);
+			
+			var img = "<img src='"+imgSrc+"' />"
+			
+			payUserTypeDisplay.append(img);
+			
+			var roomName = item.children(".select_list_item_name").text();
+			
+			payUserTypeDisplay.append("<span class='option_item_select_content'>"+roomName+"</span>");
+			
+			
+		}else if(type=="1"){
+			payUserTypeDisplay.append("<span class='fa fa-address-card' id='option_item_select_icon' style='color: green;'></span>");
+			
+			payUserTypeDisplay.append("<span class='option_item_select_content'>个人</span>");
+		}
+		
+		
+	}
+	
+	function clickAmount(amount){
+		$("input[name=amount]").val(amount);
+	}
+
+	function openPayUser(){
+		var payUser = layer.open({
+			type:1,
+			title:"请选择支付对象",
+			shadeClose:true,
+			shade:[0.1,'#000'],
+			area:['250px',"300px"],
+			content:$("#payUser")
+		});
+		
+		$("#payUser .select_list_item").click(function(){
+			setPayUser($(this));
+			
+			layer.close(payUser);
+			
+		});
+		
+	}
+	
+	function openPayView(){
+		
+		var theme = $("input[name=theme]").val();
+		
+		if(!theme){
+			$("#theme_label").css("color","red");
+			showErrorToast("输入的主题不能为空");
+			return;
+		}
+		
+		if(theme.length>7){
+			$("#theme_label").css("color","red");
+			showErrorToast("输入的主题超过7个字节");
+			return;
+		}else{
+			$("#theme_label").css("color","black");
+			hideErrorToast();
+		}
+		
+		var instruction = $("textarea[name=instruction]").val();
+		
+		if(!instruction){
+			$("#instruction_label").css("color","red");
+			showErrorToast("输入的简介不能为空");
+			return;
+		}else{
+			$("#instruction_label").css("color","black");
+			hideErrorToast();
+		}
+		
+		
+		if(instruction.length>50){
+			$("#instruction_label").css("color","red");
+			showErrorToast("输入的问题不能超过50个字节");
+			return;
+		}
+		layer.open({
+			type:1,
+			title:"请选择支付金额",
+			shadeClose:true,
+			shade:[0.1,'#000'],
+			area:['300px',"350px"],
+			content:$("#pay_view")
+		});
+		
+		
+	
+	}
+	
+	
+	
+	function inputCheck(input){
+		if(!input.val()){
+			input.parent().children(".option_item_label").css("color","red");
+			showErrorToast("文本不能为空");
+		}else{
+			input.parent().children(".option_item_label").css("color","black");
+			hideErrorToast("文本不能为空");
+		}
+		
+	}
+	
+	
+		$(document).ready(function(){			
 			var callback = new Object();
 			callback.success = function(){
 				$("input[name=isImg]").val(1);
 			}
 			toBigerImg("/api/common/resource/upload","#addCommodityIndex","file",callback);
+			
+			
+			$(".option_item_select").click(function(){
+				openPayUser();
+			});
+			
+			
+			$(".form_buttom").click(function(){
+				openPayView();
+			});
 		});
 	</script>
 			

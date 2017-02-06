@@ -19,8 +19,8 @@ import com.wyc.annotation.ParamEntityAnnotation;
 
 //红包
 @ParamEntityAnnotation
-@Entity(name="d_red_packet")
-@Table(indexes={@Index(columnList="hand_room_member_id",name="hand_room_member_id_index"),
+@Entity
+@Table(name="d_red_packet",indexes={@Index(columnList="hand_room_member_id",name="hand_room_member_id_index"),
 				@Index(columnList="draw_room_id",name="draw_room_id_index"),
 //				@Index(columnList="type",name="type_index"),
 				@Index(columnList="hand_draw_user_id",name="hand_draw_user_id_index"),
@@ -174,11 +174,39 @@ public class RedPacket {
     @Column(name="share_num_show_answer")
 	private Integer shareNumShowAnswer;
 	
+	//主题
+	@ParamAnnotation
+	@Column
+	private String theme;
+	
+	
+	//说明
+	@ParamAnnotation
+	@Column
+	private String instruction;
+	
+	//分类id
+	@ParamAnnotation
+	@Column
+	private String subjectId;
+	
+	
+	//分类名称
+	@ParamAnnotation
+	@Column(name="subject_name")
+	private String subjectName;
+	
 	
 	//是否设置选项卡
 	@ParamAnnotation
 	@Column(name="is_set_option")
 	private Integer isSetOption;
+	
+	
+	//中奖名额，在竞答红包中才有此字段
+	@ParamAnnotation
+	@Column
+	private Integer placesNum;
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -376,6 +404,30 @@ public class RedPacket {
 	}
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
+	}
+	public String getTheme() {
+		return theme;
+	}
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+	public String getInstruction() {
+		return instruction;
+	}
+	public void setInstruction(String instruction) {
+		this.instruction = instruction;
+	}
+	public String getSubjectId() {
+		return subjectId;
+	}
+	public void setSubjectId(String subjectId) {
+		this.subjectId = subjectId;
+	}
+	public String getSubjectName() {
+		return subjectName;
+	}
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
 	}
 	
 	

@@ -31,6 +31,8 @@
 	
 	<input type="hidden" name="roomId" value="${roomId}"/>
 	
+	<input type="text" name="subjectId" value="${subjectId}"/>
+	
 		<div class="addDrawInfo2">
         	<div class="option_items">
 
@@ -355,6 +357,8 @@
 		var imgUrl = $("#var_file").val();
 
 		var isImg = $("input[name=isImg]").val();
+		
+		var subjectId = $("input[name=subjectId]").val();
 
 		var url = "/api/draw/red_pack/add";
 		var params = new Object();
@@ -374,6 +378,8 @@
 		params.imgUrl = imgUrl;
 		
 		params.isImg = isImg;
+		
+		params.subjectId = subjectId;
 		
 		var callback = new Object();
 		callback.success = function(obj){
