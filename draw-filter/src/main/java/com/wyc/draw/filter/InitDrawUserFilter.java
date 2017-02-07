@@ -71,7 +71,11 @@ public class InitDrawUserFilter extends Filter{
 				System.out.println("drawUserId:"+drawUser.getId());
 				System.out.println("userInfoApplyFormHandleService:"+userInfoApplyFormHandleService);
 				
-				drawUser = userInfoApplyFormHandleService.handTakeIn(drawUser.getId(),applyForm);
+				DrawUser drawUser2 = userInfoApplyFormHandleService.handTakeIn(drawUser.getId(),applyForm);
+				
+				if(drawUser2!=null){
+					drawUser = drawUser2;
+				}
 			}
 		}
 		
