@@ -65,6 +65,12 @@ public class InitDrawUserFilter extends Filter{
 		
 		if(applyForms!=null&&applyForms.size()>0){
 			for(ApplyForm applyForm:applyForms){
+				
+				System.out.println("drawUser:"+drawUser);
+				System.out.println("applyForm:"+applyForm);
+				System.out.println("drawUserId:"+drawUser.getId());
+				System.out.println("userInfoApplyFormHandleService:"+userInfoApplyFormHandleService);
+				
 				drawUser = userInfoApplyFormHandleService.handTakeIn(drawUser.getId(),applyForm);
 			}
 		}
