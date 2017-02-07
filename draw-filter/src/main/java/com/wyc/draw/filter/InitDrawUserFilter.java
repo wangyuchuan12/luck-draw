@@ -63,8 +63,10 @@ public class InitDrawUserFilter extends Filter{
 		
 		List<ApplyForm> applyForms = applyFormService.findAllByOpenidAndTypeAndStatus(drawUser.getOpenid(),Constant.APPLY_FORM_TYPE_TAKE_IN,Constant.AUDIT_DRAW_ROOM_MEMEBER_STATUS);
 		
-		for(ApplyForm applyForm:applyForms){
-			drawUser = userInfoApplyFormHandleService.handTakeIn(drawUser.getId(),applyForm);
+		if(applyForms!=null&&applyForms.size()>0){
+			for(ApplyForm applyForm:applyForms){
+				drawUser = userInfoApplyFormHandleService.handTakeIn(drawUser.getId(),applyForm);
+			}
 		}
 		
 		return drawUser;

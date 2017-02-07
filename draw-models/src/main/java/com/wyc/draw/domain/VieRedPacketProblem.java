@@ -21,7 +21,7 @@ public class VieRedPacketProblem {
 	
 	//是否删除
 	@Column(name="is_del")
-	private String isDel;
+	private Integer isDel;
 	
 	//题目序号
 	@Column
@@ -55,10 +55,10 @@ public class VieRedPacketProblem {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
-	public String getIsDel() {
+	public Integer getIsDel() {
 		return isDel;
 	}
-	public void setIsDel(String isDel) {
+	public void setIsDel(Integer isDel) {
 		this.isDel = isDel;
 	}
 	public Integer getSeq() {

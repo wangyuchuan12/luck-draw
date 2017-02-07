@@ -20,7 +20,7 @@
 </div>
 
 
-<div class="center"><div class="toast" style="display: none;">余额不足，请稍后再试</div></div>
+<div class="toast" style="display: none;">余额不足，请稍后再试</div>
 
 <input name="signature" value="${signature}" type="hidden"/>
 <input name="noncestr" value="${noncestr}" type="hidden"/>
@@ -32,23 +32,13 @@
 
 
 <style type="text/css">
-
-	.center{
-		position: fixed;
-	    left: 50%;
-	    top: 50%;
-	    -webkit-transform: translate(-50%, -50%);
-	    transform: translate(-50%, -50%);
-	    z-index: 1000000;
-		
-	}
 	.toast{
 		background-color: black;
 		color: white;
 		
 		text-align: center;
 		
-		
+		position: fixed;
 		padding-left:15px;
 		padding-right:15px;
 		
@@ -59,6 +49,11 @@
 		
 		display: block;
 		
+		z-index: 10000000000000;
+		left: 50%;
+	    top: 50%;
+	    -webkit-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
 	}
 
 	.loading{

@@ -80,6 +80,10 @@ public class BaseHandRedPackFilter extends Filter{
 		
 		String subjectId = httpServletRequest.getParameter("subjectId");
 		
+		String theme = httpServletRequest.getParameter("theme");
+		
+		String instruction = httpServletRequest.getParameter("instruction");
+		
 		if(CommonUtil.isEmpty(allowWrongCount)){
 			allowWrongCount = "1";
 		}
@@ -148,23 +152,7 @@ public class BaseHandRedPackFilter extends Filter{
 				return null;
 			}
 			
-			if(payTypeInt==Constant.ACCOUNT_PAY_TYPE){
-				
-				//涉及到用户的账户余额资金数据，必须要加锁
-				drawUser = drawUserService.findByUserIdWithLuck(drawUser.getUserId());
-				if(drawUser.getAmountBalance().compareTo(amountBigDecimal)<0){
-					ResultVo resultVo = new ResultVo();
-					resultVo.setSuccess(false);
-					resultVo.setErrorMsg("账户可用余额小于实际可用余额");
-					filterManager.setReturn(true);
-					filterManager.setReturnValue(resultVo);
-					return null;
-				}else{
-					drawUser.setAmountBalance(drawUser.getAmountBalance().subtract(amountBigDecimal));
-					drawUserService.update(drawUser);
-					filterManager.save(drawUser);
-				}
-			}
+			
 		}
 		
 		Calendar now = Calendar.getInstance();
@@ -180,24 +168,6 @@ public class BaseHandRedPackFilter extends Filter{
 		RedPacket redPacket = new RedPacket();
 		
 		redPacket.setOutTradeNo(outTradeNo);
-		
-		if(CommonUtil.isEmpty(question)){
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("问题红包参数question不能为空");
-			filterManager.setReturn(true);
-			filterManager.setReturnValue(resultVo);
-			return null;
-		}
-		
-		if(CommonUtil.isEmpty(answer)){
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("问题红包参数answer不能为空");
-			filterManager.setReturn(true);
-			filterManager.setReturnValue(resultVo);
-			return null;
-		}
 		
 		Integer payTypeInt = Integer.parseInt(payType);
 		//如果是账号余额付款，就把状态改成已支付，直接扣除账号中的余额,领取状态也改成可领取
@@ -245,6 +215,7 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setHandDrawUserId(drawUser.getId());
 
 		redPacket.setShareNumShowAnswer(wxContext.getShareNumShowAnswer());
+
 		if(typeInt==Constant.ROOM_QUESTION_TYPE){
 			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
 			ResultVo resultVo = new ResultVo();
@@ -263,6 +234,24 @@ public class BaseHandRedPackFilter extends Filter{
 				filterManager.setReturnValue(resultVo);
 				return null;
 				
+			}
+			
+			if(CommonUtil.isEmpty(question)){
+				resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("问题红包参数question不能为空");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}
+			
+			if(CommonUtil.isEmpty(answer)){
+				resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("问题红包参数answer不能为空");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
 			}
 			
 			redPacket.setDrawRoomId(drawRoomId);
@@ -286,14 +275,89 @@ public class BaseHandRedPackFilter extends Filter{
 			}
 			
 		}else if(typeInt==Constant.PERSONAL_QUESTION_TYPE){
+			ResultVo resultVo = null;
+			if(CommonUtil.isEmpty(question)){
+				resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("问题红包参数question不能为空");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}
 			
+			if(CommonUtil.isEmpty(answer)){
+				resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("问题红包参数answer不能为空");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}
 			redPacket.setQuestion(question);
 			redPacket.setAnswer(answer);
 			redPacket = redPackageService.add(redPacket);
+		}else if(typeInt==Constant.ROOM_VIE_TYPE){
+			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
+			ResultVo resultVo = new ResultVo();
+			if(CommonUtil.isEmpty(drawRoomId)){
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("该红包为房间红包，drawRoomId参数不能为空");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}
+			
+			if(CommonUtil.isEmpty(drawRoomMember)){
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("该用户不在该房间中，无法执行发红包操作");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+				
+			}
+			
+			if(CommonUtil.isEmpty(theme)){
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("发送的主题不能为空");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}
+			
+			if(CommonUtil.isEmpty(instruction)){
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("发送的说明不能为空");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}
+			
+			
+			redPacket.setDrawRoomId(drawRoomId);
+			
+			redPacket.setTheme(theme);
+			
+			redPacket.setInstruction(instruction);
+			
+			redPacket.setPlacesNum(3);
+			
+			redPacket.setHandRoomMemberId(drawRoomMember.getId());
+			
+
+			redPacket = redPackageService.add(redPacket);
+			
+			System.out.println("................redPacket:"+redPacket);
+			
+			DrawRoom drawRoom = drawRoomService.findOne(redPacket.getDrawRoomId());
+			BigDecimal maxRedPacketAmount = drawRoom.getMaxRedPacketAmount();
+			if(maxRedPacketAmount==null||(maxRedPacketAmount.floatValue()<redPacket.getAmount().floatValue())){
+				drawRoom.setMaxRedPacketAmount(redPacket.getAmount());
+				drawRoomService.update(drawRoom);
+			}
 		}else{
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("输入的红包类型不在范围之内");
+			resultVo.setErrorMsg("类型不在范围");
 			filterManager.setReturn(true);
 			filterManager.setReturnValue(resultVo);
 			return null;
@@ -311,6 +375,26 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacketVo.setPayType(redPacket.getPayType());
 		redPacketVo.setOutTradeNo(outTradeNo);
 		redPacketVo.setIsImg(isImgInt);
+		
+		
+		
+		if(payTypeInt==Constant.ACCOUNT_PAY_TYPE){
+			
+			//涉及到用户的账户余额资金数据，必须要加锁
+			drawUser = drawUserService.findByUserIdWithLuck(drawUser.getUserId());
+			if(drawUser.getAmountBalance().compareTo(amountBigDecimal)<0){
+				ResultVo resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("账户可用余额小于实际可用余额");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}else{
+				drawUser.setAmountBalance(drawUser.getAmountBalance().subtract(amountBigDecimal));
+				drawUserService.update(drawUser);
+				filterManager.save(drawUser);
+			}
+		}
 		return redPacketVo;
 	}
 

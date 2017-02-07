@@ -79,8 +79,7 @@ public class RedPackApi {
 	public ResultVo handRedPack(HttpServletRequest httpServletRequest)throws Exception{
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
-		
-		System.out.println("................:"+sessionManager.getReturnValue());
+
 		if(sessionManager.isReturn()){
 			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
 			if(resultVo!=null&&!resultVo.isSuccess()){

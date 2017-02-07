@@ -208,6 +208,27 @@ public class RedPacket {
 	@Column
 	private Integer placesNum;
 	
+	//报名参赛费
+	@ParamAnnotation
+	@Column(name="is_entry_fee")
+	private Integer isEntryFee;
+	
+	//参赛费用
+	@ParamAnnotation
+	@Column(name="entry_fee")
+	private String entryFee;
+	
+	
+	//是否已经出题
+	@ParamAnnotation
+	@Column(name="is_give_question")
+	private Integer isGiveQuestion;
+	
+	//题目数量
+	@ParamAnnotation
+	@Column(name="question_num")
+	private Integer questionNum;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -225,6 +246,36 @@ public class RedPacket {
 	
 	
 	
+	public Integer getQuestionNum() {
+		return questionNum;
+	}
+	public void setQuestionNum(Integer questionNum) {
+		this.questionNum = questionNum;
+	}
+	public Integer getIsEntryFee() {
+		return isEntryFee;
+	}
+	public void setIsEntryFee(Integer isEntryFee) {
+		this.isEntryFee = isEntryFee;
+	}
+	public String getEntryFee() {
+		return entryFee;
+	}
+	public void setEntryFee(String entryFee) {
+		this.entryFee = entryFee;
+	}
+	public Integer getIsGiveQuestion() {
+		return isGiveQuestion;
+	}
+	public void setIsGiveQuestion(Integer isGiveQuestion) {
+		this.isGiveQuestion = isGiveQuestion;
+	}
+	public Integer getPlacesNum() {
+		return placesNum;
+	}
+	public void setPlacesNum(Integer placesNum) {
+		this.placesNum = placesNum;
+	}
 	public Integer getIsSetOption() {
 		return isSetOption;
 	}

@@ -66,11 +66,6 @@
 				</li>
 				
 				<li>
-					<span class="fa fa-reply"></span>
-					<div class="vie_problem_answer_button_text">返回红包</div>
-				</li>
-				
-				<li>
 					<span class="fa fa-save"></span>
 					<div class="vie_problem_answer_button_text">保存</div>
 				</li>

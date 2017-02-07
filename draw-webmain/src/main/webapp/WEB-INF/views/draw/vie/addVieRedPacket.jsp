@@ -7,9 +7,12 @@
 <tiles:insertDefinition name="resourceLayout">
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
+<script src="/js/jquery.ui.widget.js"></script>
+<script src="/js/jquery.iframe-transport.js"></script>
+<script src="/js/jquery.fileupload.js"></script>
 
 	<!-- 红包类型0房间问答红包 1个人问答红包 -->
-	<input type="hidden" name="type" value="${redPackType}"/>
+	<input type="text" name="type" value="${redPackType}"/>
 	<input type="hidden" name="isDisplayRoom" value="${isDisplayRoom}"/>
 	
 	
@@ -129,13 +132,13 @@
 	
 	
 	<div class="select_list" id="payUser" style="display: none;">
-         		<div class="select_list_item" type="1">
+         		<div class="select_list_item" type="3">
          			<em class="fa fa-address-card" style="color: green;"></em>
          			<span class="select_list_item_name">个人</span>
          		</div>
          		
          		<c:forEach items="${rooms}" var="room">
-         			<div class="select_list_item" type="0" id="${room.id}">
+         			<div class="select_list_item" type="2" id="${room.id}">
 	         			<img src="${room.imgUrl}">
 	         			<span class="select_list_item_name">房间：${room.name}</span>
          			</div>
@@ -195,7 +198,7 @@
 	
 	var roomId = $("input[name=roomId]").val();
 	if(type=="3"||!roomId){
-		setPayUser($("#payUser .select_list_item[type=1]"));
+		setPayUser($("#payUser .select_list_item[type=3]"));
 	}else if(type=="0"){
 		setPayUser($("#payUser .select_list_item[id="+roomId+"]"));
 	}
@@ -204,13 +207,13 @@
 
 		
 		var type=item.attr("type");
-		
+	
 		var payUserTypeDisplay = $("#payUserTypeDisplay");
 		
 		payUserTypeDisplay.empty();
 		
 		$("input[name=type]").val(type);
-		if(type=="0"){
+		if(type=="2"){
 			var id = item.attr("id");
 			
 			var imgSrc = item.children("img").attr("src");
@@ -225,7 +228,7 @@
 			payUserTypeDisplay.append("<span class='option_item_select_content'>"+roomName+"</span>");
 			
 			
-		}else if(type=="1"){
+		}else if(type=="3"){
 			payUserTypeDisplay.append("<span class='fa fa-address-card' id='option_item_select_icon' style='color: green;'></span>");
 			
 			payUserTypeDisplay.append("<span class='option_item_select_content'>个人</span>");
@@ -255,6 +258,127 @@
 			
 		});
 		
+	}
+	
+	
+	function submit(){
+		
+		showLoading();
+		var amount = $("input[name=amount]").val();
+
+		var theme = $("input[name=theme]").val();
+		
+		var instruction = $("textarea[name=instruction]").val();
+
+		var type = $("input[name=type]").val();
+
+		var room = $("input[name=roomId]").val();
+
+		var payType = $("input[name=payType]").val();
+
+		var imgUrl = $("#var_file").val();
+
+		var isImg = $("input[name=isImg]").val();
+		
+		var subjectId = $("input[name=subjectId]").val();
+
+		var url = "/api/draw/red_pack/add";
+		var params = new Object();
+		
+		params.draw_room_id = room;
+
+		params.type = type;
+		
+		params.amount = amount;
+		
+		params.theme = theme;
+		
+		params.instruction = instruction;
+		
+		params.payType = payType;
+		
+		params.imgUrl = imgUrl;
+		
+		params.isImg = isImg;
+		
+		params.subjectId = subjectId;
+		
+		var callback = new Object();
+		callback.success = function(obj){
+
+			if(!obj.success){
+				
+				alert(obj.errorMsg);
+				showToast("现在网络繁忙，请稍后再试");
+				hideLoading();
+				return;
+			}
+			var outObject = obj;
+			
+			if(obj.success){
+				
+				if(obj.data.payType==0){
+					skipToVieSetProblem();
+				}else if(obj.data.payType==1){
+					var id = obj.data.id;
+					
+					var url = "/api/pay/wx/choose_wx_pay_config";
+					var callback = new Object();
+					callback.success = function(obj){
+						hideLoading();
+						var payCallback = new Object();
+						payCallback.success = function(){
+							var params = new Object();
+							params.id = outObject.data.id;
+							skipToUrl("/view/draw/luck_draw/info",params);
+						}
+						
+						payCallback.failure = function(){
+							showToast("现在网络繁忙，请稍后再试");
+						}
+						
+						payCallback.cancel = function(){
+							var type = parseInt(type);
+							if(type==0){
+								skipToRoomInfo($("#room").val());
+							}else{
+								skipToRedpackList(0);
+							}
+						}
+						if(obj.success){
+							
+							wxPay(obj.data.timestamp,obj.data.nonceStr,obj.data.pack,obj.data.signType,obj.data.paySign,payCallback);
+						}else{
+							alert(obj.msg);
+						}
+						
+					}
+					
+					callback.failure = function(obj){
+						
+						showToast("现在网络繁忙，请稍后再试");
+						hideLoading();
+					}
+					var params = new Object();
+					params.cost=amount;
+					params.body="发布竞答答红包";
+					params.detail = "竞答答红包";
+					
+					
+					params.outTradeNo  = obj.data.outTradeNo;
+					request(url,callback,params);
+				}
+				
+			
+			}
+		}
+		
+		callback.failure = function(){
+			showToast("现在网络繁忙，请稍后再试");
+			hideLoading();
+		}
+		
+		request(url,callback,params);
 	}
 	
 	function openPayView(){

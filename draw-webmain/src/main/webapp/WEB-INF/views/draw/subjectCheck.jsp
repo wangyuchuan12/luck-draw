@@ -43,7 +43,7 @@
 					
 					skipToAddRedPack(redPackType,isDisplayRoom,isDisplayType,id,roomId);
 				}else if(redPackType=="2"||redPackType=="3"){
-					skipToVieDrawInfo(redPackType,isDisplayRoom,isDisplayType,id,roomId);
+					skipToAddVieDrawInfo(redPackType,isDisplayRoom,isDisplayType,id,roomId);
 				}
 				
 			}

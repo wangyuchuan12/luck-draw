@@ -43,9 +43,9 @@ public class Constant {
 	
 	
 	//房间竞答红包
-	public static final int ROOM_VIE_TYPE = 0;
+	public static final int ROOM_VIE_TYPE = 2;
 	//个人竞答红包
-	public static final int PERSONAL_VIE_TYPE=1;
+	public static final int PERSONAL_VIE_TYPE=3;
 	
 	
 	/***********************支付类型************************/

@@ -120,7 +120,19 @@ function skipToAddRedPack(redPackType,isDisplayRoom,isDisplayType,subjectId,room
 	skipToUrl(url,params);
 }
 
-function skipToVieDrawInfo(redPackType,isDisplayRoom,isDisplayType,subjectId,roomId){
+function skipToDrawInfo(){
+	var url = "/view/vie/draw/vie_draw/info";
+	var params = new Object();
+	skipToUrl(url,params);
+}
+
+function skipToVieSetProblem(){
+	var url = "/view/vie/draw/vie_draw/vie_set_problem";
+	var params = new Object();
+	skipToUrl(url,params);
+}
+
+function skipToAddVieDrawInfo(redPackType,isDisplayRoom,isDisplayType,subjectId,roomId){
 	var url = "/view/vie/draw/vie_draw/add";
 	
 	var params = new Object();

@@ -132,6 +132,10 @@ public class ManagerInterceptConfig {
 				  */
 			//	 handleAfterFilter(filter,filterManager);
 				 ResultVo resultVo = (ResultVo)filterManager.getObject(ResultVo.class);
+				 
+				 if(resultVo==null){
+					 resultVo = (ResultVo)filterManager.getReturnValue();
+				 }
 				 if(resultVo!=null&&resultVo.isSuccess()==false){
 					 Transactional transactional = method.getAnnotation(Transactional.class);
 					 if(transactional!=null){
