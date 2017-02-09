@@ -71,7 +71,7 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		RedPacketVo redPacketVo = new RedPacketVo();
 		
-		if(redPacket.getIsRoom()==1){
+		if(redPacket.getIsRoom()!=null&&redPacket.getIsRoom()==1){
 			DrawRoomMember handRoomMember = drawRoomMemberService.findOne(redPacket.getHandRoomMemberId());
 			redPacketVo.setNickname(handRoomMember.getName());
 			redPacketVo.setUserImgUrl(handRoomMember.getImgUrl());
@@ -87,7 +87,7 @@ public class GetRedPackInfoFilter extends Filter{
 			}
 			
 			redPacketVo.setIsInRoom(isInTheRoom);
-		}else if(redPacket.getIsRoom()==0){
+		}else if(redPacket.getIsRoom()==null||redPacket.getIsRoom()==0){
 			redPacketVo.setNickname(redPacket.getHandNickname());
 			redPacketVo.setUserImgUrl(redPacket.getHandUserImgUrl());
 			
