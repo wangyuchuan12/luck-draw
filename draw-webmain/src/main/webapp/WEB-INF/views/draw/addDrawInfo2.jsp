@@ -14,27 +14,27 @@
 	
 	
 
-	<input type="text" name="isDisplayRoom" value="${isDisplayRoom}"/>
+	<input type="hidden" name="isDisplayRoom" value="${isDisplayRoom}"/>
 	
 	
-	<input type="text" name="isDisplayType" value="${isDisplayType}"/>
+	<input type="hidden" name="isDisplayType" value="${isDisplayType}"/>
 	
 	<!-- 账号余额 -->
-	<input type="text" name="amountBalance" value="${amountBalance}"/>
+	<input type="hidden" name="amountBalance" value="${amountBalance}"/>
 	
 	<!-- 0余额支付，1是微信支付 -->
-	<input type="text" name="payType" value="0"/>
+	<input type="hidden" name="payType" value="0"/>
 	
-	<input type="text" name="isImg" value="0"/>
+	<input type="hidden" name="isImg" value="0"/>
 	
-	<input type="text" name="amount" />
+	<input type="hidden" name="amount" />
 	
-	<input type="text" name="roomId" value="${roomId}"/>
+	<input type="hidden" name="roomId" value="${roomId}"/>
 	
 	<!-- 红包类型1房间问答红包 0个人问答红包 -->
-	<input type="text" name="isRoom" value="${isRoom}"/>
+	<input type="hidden" name="isRoom" value="${isRoom}"/>
 	
-	<input type="text" name="subjectId" value="${subjectId}"/>
+	<input type="hidden" name="subjectId" value="${subjectId}"/>
 	
 		<div class="addDrawInfo2">
         	<div class="option_items">
@@ -182,8 +182,9 @@
 	
 	var isRoom = $("input[name=isRoom]").val();
 	
+	
 	var roomId = $("input[name=roomId]").val();
-	if(isRoom=="0"||!roomId){
+	if(isRoom!="1"||!roomId){
 		setPayUser($("#payUser .select_list_item[isRoom=0]"));
 	}else if(isRoom=="1"){
 		setPayUser($("#payUser .select_list_item[id="+roomId+"]"));

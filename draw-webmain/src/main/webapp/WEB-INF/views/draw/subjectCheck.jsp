@@ -8,11 +8,11 @@
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
 
-	<input name="redPackType" value="${redPackType}"/>
-	<input name="isDisplayRoom" value="${isDisplayRoom}"/>
-	<input name="isDisplayType" value="${isDisplayType}"/>
-	<input name="roomId" value="${roomId}"/>
-	<input name="isRoom" value="${isRoom}"/>
+	<input type="hidden" name="redPackType" value="${redPackType}"/>
+	<input type="hidden" name="isDisplayRoom" value="${isDisplayRoom}"/>
+	<input type="hidden" name="isDisplayType" value="${isDisplayType}"/>
+	<input type="hidden" name="roomId" value="${roomId}"/>
+	<input type="hidden" name="isRoom" value="${isRoom}"/>
 	<div class="subject_check_header">
 		<div class="subject_check_header_title">请选择红包的科目类型</div>
 	</div>
