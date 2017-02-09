@@ -13,8 +13,10 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
+import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.VieRedPacketOption;
 import com.wyc.draw.domain.VieRedPacketProblem;
+import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.VieRedPacketOptionService;
 import com.wyc.draw.service.VieRedPacketProblemService;
 
@@ -25,6 +27,9 @@ public class HandRedPacketQuestionFilter extends Filter{
 	
 	@Autowired
 	private VieRedPacketProblemService vieRedPacketProblemService;
+	
+	@Autowired
+	private RedPacketService redPacketService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
@@ -35,17 +40,33 @@ public class HandRedPacketQuestionFilter extends Filter{
 		String problemId =  httpServletRequest.getParameter("problem_id");
 		
 		String optionJson = httpServletRequest.getParameter("options");
-		
-		String seq = httpServletRequest.getParameter("seq");
-		
+
 		String imgUrl = httpServletRequest.getParameter("imgUrl");
 		
 		String question = httpServletRequest.getParameter("question");
+		
+		String previousProblemId = httpServletRequest.getParameter("previous_problem_id");
+		
+		String isFirst = httpServletRequest.getParameter("is_first");
+		
 		
 		if(CommonUtil.isEmpty(redPacketId)){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("redPacketId参数不能为空");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		
+		
+		RedPacket redPacket = redPacketService.findOne(redPacketId);
+		
+		if(CommonUtil.isEmpty(redPacket)){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("返回的redPacket为空");
 			filterManager.setReturn(true);
 			filterManager.setReturnValue(resultVo);
 			return null;
@@ -98,11 +119,7 @@ public class HandRedPacketQuestionFilter extends Filter{
 			return null;
 		}
 		
-		List<Map<String, Object>> addOptions = (List<Map<String, Object>>)optionMap.get("add");
 		
-		List<String> delOptionIds = (List<String>)optionMap.get("del");
-		
-		List<Map<String, Object>> updateOptionMaps = (List<Map<String,Object>>)optionMap.get("update");
 		
 		//0表示新增，1表示修改
 		Integer typeInt = null;
@@ -117,26 +134,41 @@ public class HandRedPacketQuestionFilter extends Filter{
 			return null;
 		}
 		
+		List<Map<String, Object>> addOptions = (List<Map<String, Object>>)optionMap.get("add");
+		
+		List<String> delOptionIds = (List<String>)optionMap.get("del");
+		
+		List<Map<String, Object>> updateOptions = (List<Map<String,Object>>)optionMap.get("update");
+		
 		
 		if(typeInt==0){
 			
-			
-			if(CommonUtil.isEmpty(seq)){
+			if(CommonUtil.isEmpty(isFirst)){
 				ResultVo resultVo = new ResultVo();
 				resultVo.setSuccess(false);
-				resultVo.setErrorMsg("seq参数不能为空");
+				resultVo.setErrorMsg("isFirst参数不能为空");
 				filterManager.setReturn(true);
 				filterManager.setReturnValue(resultVo);
 				return null;
 			}
 			
-			Integer seqInt = null;
+			Integer isFirstInt = null;
+			
 			try{
-				seqInt = Integer.parseInt(seq);
+				isFirstInt = Integer.parseInt(isFirst);
 			}catch(Exception e){
 				ResultVo resultVo = new ResultVo();
 				resultVo.setSuccess(false);
-				resultVo.setErrorMsg("seq不是数字");
+				resultVo.setErrorMsg("isFirst参数不能数字类型");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}
+			
+			if(isFirstInt!=0&&isFirstInt!=1){
+				ResultVo resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("isFirst参数不在范围中");
 				filterManager.setReturn(true);
 				filterManager.setReturnValue(resultVo);
 				return null;
@@ -145,18 +177,92 @@ public class HandRedPacketQuestionFilter extends Filter{
 			
 			
 			
-			VieRedPacketProblem vieRedPacketProblem = new VieRedPacketProblem();
-			vieRedPacketProblem.setSeq(seqInt);
-			vieRedPacketProblem.setIsDel(0);
-			vieRedPacketProblem.setQuestion(question);
-			vieRedPacketProblem.setRedPacketId(redPacketId);
-			vieRedPacketProblemService.add(vieRedPacketProblem);
-			ResultVo resultVo = checkOptions(addOptions,filterManager);
+			ResultVo resultVo = checkAddOptions(addOptions,filterManager);
 			if(resultVo!=null){
 				return resultVo;
 			}
+			
+			
+			VieRedPacketProblem vieRedPacketProblem = new VieRedPacketProblem();
+			Long count = vieRedPacketProblemService.coutByRedPacketId(redPacketId);
+			if(count==null){
+				count=0l;
+			}
+			vieRedPacketProblem.setSeq(new Integer((count+1)+""));
+			vieRedPacketProblem.setIsDel(0);
+			vieRedPacketProblem.setQuestion(question);
+			vieRedPacketProblem.setRedPacketId(redPacketId);
+			
+			vieRedPacketProblem.setIsFirst(isFirstInt);
+			vieRedPacketProblem = vieRedPacketProblemService.add(vieRedPacketProblem);
+			
+			problemId = vieRedPacketProblem.getId();
+			
+		}else if(typeInt==1){
+			
+			if(CommonUtil.isEmpty(problemId)){
+				ResultVo resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("problemId不能为空");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}
+			VieRedPacketProblem vieRedPacketProblem = vieRedPacketProblemService.findOne(problemId);
+			
+			if(CommonUtil.isEmpty(vieRedPacketProblem)){
+				ResultVo resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("返回的问题为空");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}
+			
+			if(!vieRedPacketProblem.getRedPacketId().equals(redPacketId)){
+				ResultVo resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("返回的问题id不属于该红包");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}
+			vieRedPacketProblem.setQuestion(question);
+			vieRedPacketProblemService.update(vieRedPacketProblem);
+		}else{
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("type不在范围");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		
+		
+		if(delOptionIds!=null&&delOptionIds.size()>0){
+			for(String delId:delOptionIds){
+				VieRedPacketOption vieRedPacketOption = vieRedPacketOptionService.findOne(delId);
+				
+				if(CommonUtil.isEmpty(vieRedPacketOption)){
+					ResultVo resultVo = new ResultVo();
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("删除的选项不存在");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+				}
+				
+				vieRedPacketOption.setIsDel(1);
+				
+				vieRedPacketOptionService.update(vieRedPacketOption);
+			}
+		}
+		
+		
+		if(addOptions!=null&&addOptions.size()>0){
 			for(Map<String, Object> addMap:addOptions){
-				resultVo = checkOption(addMap, filterManager);
+				ResultVo resultVo = checkOption(addMap, filterManager);
 				
 				if(resultVo!=null){
 					return resultVo;
@@ -176,32 +282,64 @@ public class HandRedPacketQuestionFilter extends Filter{
 				vieRedPacketOption.setIsRight(isRightInt);
 				vieRedPacketOption.setSeq(optionSeqInt);
 				vieRedPacketOption.setRedPacketId(redPacketId);
+				vieRedPacketOption.setRedPacketProblemId(problemId);
 				
 				vieRedPacketOptionService.add(vieRedPacketOption);
 			}
-		}else if(typeInt==1){
-			
-		}else{
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("type不在范围");
-			filterManager.setReturn(true);
-			filterManager.setReturnValue(resultVo);
-			return null;
 		}
+		
+		
+		
+		if(updateOptions!=null&&updateOptions.size()>0){
+			for(Map<String, Object> updateMap:updateOptions){
+				
+				ResultVo resultVo = checkOption(updateMap, filterManager);
+				if(resultVo!=null){
+					return resultVo;
+				}
+				
+				if(CommonUtil.isEmpty(updateMap.get("id"))){
+					resultVo = new ResultVo();
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("更新选项id不能为空");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+				}
+				
+				String isRight = updateMap.get("isRight")+"";
+				String optionSeq = updateMap.get("seq")+"";
+				String content = updateMap.get("content")+"";
+				
+				String optionId = updateMap.get("id")+"";
+				
+				Integer isRightInt = Integer.parseInt(isRight);
+				
+				Integer optionSeqInt = Integer.parseInt(optionSeq);
+				
+				VieRedPacketOption vieRedPacketOption = vieRedPacketOptionService.findOne(optionId);
+				
+				if(CommonUtil.isEmpty(vieRedPacketOption)){
+					resultVo = new ResultVo();
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("更新选项返回的对象为空");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+				}
+				
+				vieRedPacketOption.setContent(content);
+				vieRedPacketOption.setIsRight(isRightInt);
+				vieRedPacketOption.setSeq(optionSeqInt);
+				vieRedPacketOption = vieRedPacketOptionService.update(vieRedPacketOption);
+			}
+		}
+		
 		return null;
 	}
 	
 	
 	private ResultVo checkOptions(List<Map<String, Object>>options,SessionManager filterManager){
-		if(options==null||options.size()<2){
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("问题不能少于2个选项");
-			filterManager.setReturn(true);
-			filterManager.setReturnValue(resultVo);
-			return null;
-		}
 		boolean flag = true;
 		for(Map<String, Object> option:options){
 			
@@ -217,7 +355,7 @@ public class HandRedPacketQuestionFilter extends Filter{
 					resultVo.setErrorMsg("同一道题不能有两个正确选项");
 					filterManager.setReturn(true);
 					filterManager.setReturnValue(resultVo);
-					return null;
+					return resultVo;
 				}
 				flag = false;
 				
@@ -230,10 +368,22 @@ public class HandRedPacketQuestionFilter extends Filter{
 			resultVo.setErrorMsg("至少需要一个正确选项");
 			filterManager.setReturn(true);
 			filterManager.setReturnValue(resultVo);
-			return null;
+			return resultVo;
+		}
+		return null;
+	}
+	
+	private ResultVo checkAddOptions(List<Map<String, Object>>options,SessionManager filterManager){
+		if(options==null||options.size()<2){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("问题不能少于2个选项");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return resultVo;
 		}
 		
-		return null;
+		return checkOptions(options, filterManager);
 		
 	}
 	

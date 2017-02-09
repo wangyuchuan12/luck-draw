@@ -35,6 +35,16 @@ public class VieRedPacketProblem {
 	@Column(name="red_packet_id")
 	private String redPacketId;
 	
+	
+	//上一个节点
+	@Column(name="previous_problem_id")
+	private String previousProblemId;
+	
+	
+	//是否是第一个节点
+	@Column(name="is_first")
+	private Integer isFirst;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -48,6 +58,18 @@ public class VieRedPacketProblem {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getPreviousProblemId() {
+		return previousProblemId;
+	}
+	public void setPreviousProblemId(String previousProblemId) {
+		this.previousProblemId = previousProblemId;
+	}
+	public Integer getIsFirst() {
+		return isFirst;
+	}
+	public void setIsFirst(Integer isFirst) {
+		this.isFirst = isFirst;
 	}
 	public String getQuestion() {
 		return question;

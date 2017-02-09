@@ -26,4 +26,23 @@ public class VieRedPacketProblemService {
 		
 		return vieRedPacketProblem;
 	}
+
+	public VieRedPacketProblem findOne(String id) {
+		
+		return vieRedPacketProblemRepository.findOne(id);
+	}
+
+	public VieRedPacketProblem update(VieRedPacketProblem vieRedPacketProblem) {
+		vieRedPacketProblem.setUpdateAt(new DateTime());
+		return vieRedPacketProblemRepository.save(vieRedPacketProblem);
+		
+	}
+
+	public Long coutByRedPacketId(String redPacketId) {
+		return vieRedPacketProblemRepository.coutByRedPacketId(redPacketId);
+	}
+
+	public VieRedPacketProblem findOneByPreviousProblemId(String previousProblemId) {
+		return vieRedPacketProblemRepository.findOneByPreviousProblemId(previousProblemId);
+	}
 }

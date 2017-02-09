@@ -64,7 +64,6 @@ public class UserInfoFilter extends Filter{
 	                    userInfo = userSmartService.getFromWx();
 	                    
 	                    String nickname = CommonUtil.filterEmoji(userInfo.getNickname());
-	                    
 	                    userInfo.setNickname(nickname);
 	                    logger.debug("before handle nickname is {}",userInfo.getNickname());
 	                    userInfo.setNickname(StringEscapeUtils.escapeSql(userInfo.getNickname()));

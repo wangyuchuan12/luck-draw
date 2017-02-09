@@ -15,7 +15,9 @@ import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.filter.BaseDrawActionFilter;
+import com.wyc.draw.filter.GetRedPacketProblemFilter;
 import com.wyc.draw.service.DrawRoomService;
+import com.wyc.draw.vo.VieRedPacketProblemVo;
 
 @Controller
 @RequestMapping(value="/view/vie/draw/vie_draw")
@@ -30,9 +32,13 @@ public class VieDrawController {
 	}
 	
 	
+	@HandlerAnnotation(hanlerFilter=GetRedPacketProblemFilter.class)
 	@RequestMapping(value="vie_set_problem")
 	public String vieSetProblem(HttpServletRequest httpServletRequest)throws Exception{
 		
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		VieRedPacketProblemVo vieRedPacketProblemVo = (VieRedPacketProblemVo)sessionManager.getObject(VieRedPacketProblemVo.class);
+		httpServletRequest.setAttribute("redPacketProblem", vieRedPacketProblemVo);
 		return "vie/vieSetProblem";
 	}
 	

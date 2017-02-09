@@ -1,5 +1,6 @@
 package com.wyc.draw.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -22,5 +23,21 @@ public class VieRedPacketOptionService {
 		
 		return vieRedPacketOptionRepository.save(vieRedPacketOption);
 		
+	}
+
+	public VieRedPacketOption findOne(String id) {
+		
+		return vieRedPacketOptionRepository.findOne(id);
+	}
+
+	public VieRedPacketOption update(VieRedPacketOption vieRedPacketOption) {
+		
+		vieRedPacketOption.setUpdateAt(new DateTime());
+		
+		return vieRedPacketOptionRepository.save(vieRedPacketOption);
+	}
+
+	public List<VieRedPacketOption> findAllByRedPacketProblemId(String problemId) {
+		return vieRedPacketOptionRepository.findAllByRedPacketProblemId(problemId);
 	}
 }
