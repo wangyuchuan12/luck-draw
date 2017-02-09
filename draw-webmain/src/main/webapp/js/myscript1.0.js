@@ -126,9 +126,13 @@ function skipToDrawInfo(){
 	skipToUrl(url,params);
 }
 
-function skipToVieSetProblem(){
+function skipToVieSetProblem(status,redPacketId,problemId,previousProblemId){
 	var url = "/view/vie/draw/vie_draw/vie_set_problem";
 	var params = new Object();
+	params.status=status;
+	params.red_packet_id = redPacketId;
+	params.problem_id = problemId;
+	params.previous_problem_id = previousProblemId;
 	skipToUrl(url,params);
 }
 

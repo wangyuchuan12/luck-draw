@@ -11,6 +11,7 @@ import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.filter.HandRedPacketQuestionFilter;
+import com.wyc.draw.vo.VieRedPacketProblemVo;
 
 @Controller
 @RequestMapping(value="/api/vie/draw/vie_red_pack/")
@@ -20,7 +21,7 @@ public class VieRedPacketApi {
 	@HandlerAnnotation(hanlerFilter=HandRedPacketQuestionFilter.class)
 	@RequestMapping(value="hand_problem")
 	@Transactional
-	public Object handProblem(HttpServletRequest httpServletRequest){
+	public Object handProblem(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		
 		if(sessionManager.isReturn()){
@@ -28,6 +29,13 @@ public class VieRedPacketApi {
 			
 			return resultVo;
 		}
-		return null;
+		
+		VieRedPacketProblemVo vieRedPacketProblemVo = (VieRedPacketProblemVo)sessionManager.getObject(VieRedPacketProblemVo.class);
+		
+		ResultVo resultVo = new ResultVo();
+		resultVo.setSuccess(true);
+		resultVo.setMsg("success");
+		resultVo.setData(vieRedPacketProblemVo);
+		return resultVo;
 	}
 }

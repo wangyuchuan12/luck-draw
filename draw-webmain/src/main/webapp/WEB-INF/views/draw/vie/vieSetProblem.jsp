@@ -14,6 +14,8 @@
 	
 	<input name="isFirst" value="${redPacketProblem.isFirst}"/>
 	
+	<input name="isLast" value="${redPacketProblem.isLast}"/>
+	
 	<input name="count" value="${redPacketProblem.count}"/>
 	
 	<!-- 0游离状态，1存储状态，即已经保存到数据库中了 -->
@@ -22,6 +24,8 @@
 	<input name="seq" value="${redPacketProblem.seq}"/> 
 	
 	<input name="redPacketId" value="${redPacketProblem.redPacketId}"/> 
+	
+	<input name="id" value="${redPacketProblem.id}"/> 
 	<div class="vie_problem">
 		<div class="view_problem_title">第${redPacketProblem.seq}/${redPacketProblem.count}题</div>
 		
@@ -35,33 +39,107 @@
 	
 	<div class="vie_problem_answer" id="vie_problem_answer">
 		<ul>
-			<li isRight="0">
-				<span>A</span>
-				
-				
-				
-				<textarea rows="3" placeholder="请输入选项"></textarea>
-				
-				<em class="fa fa-times"></em>
-				
-				<div class="vie_problem_answer_check">
-					<em>正确答案:</em><span class="fa fa-square-o"></span>
-				</div>
-			</li>
+		
+			<c:if test="${redPacketProblem.status==0}">
+				<li isRight="0">
+					<span>A</span>
+					
+					
+					
+					<textarea rows="3" placeholder="请输入选项"></textarea>
+					
+					<em class="fa fa-times"></em>
+					
+					<div class="vie_problem_answer_check">
+						<em>正确答案:</em><span class="fa fa-square-o"></span>
+					</div>
+				</li>
 			
-			<li isRight="1">
-				<span>B</span>
-				
-				<textarea rows="3"  placeholder="请输入选项"></textarea>
-				
-				<em class="fa fa-times"></em>
-				
-				<div class="vie_problem_answer_check">
-					<em>正确答案:</em><span class="fa fa-square-o"></span>
-				</div>
-				
-				
-			</li>
+				<li isRight="0">
+					<span>B</span>
+					
+					<textarea rows="3"  placeholder="请输入选项"></textarea>
+					
+					<em class="fa fa-times"></em>
+					
+					<div class="vie_problem_answer_check">
+						<em>正确答案:</em><span class="fa fa-square-o"></span>
+					</div>
+					
+					
+				</li>
+			
+			</c:if>
+			
+			<c:if test="${redPacketProblem.status==1}">
+				<c:forEach items="${redPacketProblem.vieRedPacketOptionVos}" var="item" varStatus="varStatus">
+					<li isRight="${item.isRight}">
+					
+						<c:if test="${varStatus.index==0}">
+							<span>A</span>
+						</c:if>
+						
+						<c:if test="${varStatus.index==1}">
+							<span>B</span>
+						</c:if>
+						
+						<c:if test="${varStatus.index==2}">
+							<span>C</span>
+						</c:if>
+						
+						<c:if test="${varStatus.index==3}">
+							<span>D</span>
+						</c:if>
+						
+						<c:if test="${varStatus.index==4}">
+							<span>E</span>
+						</c:if>
+						
+						<c:if test="${varStatus.index==5}">
+							<span>F</span>
+						</c:if>
+						
+						<c:if test="${varStatus.index==6}">
+							<span>G</span>
+						</c:if>
+						
+						<c:if test="${varStatus.index==7}">
+							<span>H</span>
+						</c:if>
+						
+						<c:if test="${varStatus.index==8}">
+							<span>I</span>
+						</c:if>
+						
+						<c:if test="${varStatus.index==9}">
+							<span>J</span>
+						</c:if>
+						
+						<c:if test="${varStatus.index==10}">
+							<span>K</span>
+						</c:if>
+						
+						<c:if test="${varStatus.index==11}">
+							<span>L</span>
+						</c:if>
+						
+						<c:if test="${varStatus.index==12}">
+							<span>M</span>
+						</c:if>
+						
+						
+						<textarea rows="3" placeholder="请输入选项">${item.content}</textarea>
+						
+						<em class="fa fa-times"></em>
+						
+						<div class="vie_problem_answer_check">
+							<em>正确答案:</em><span class="fa fa-square-o"></span>
+						</div>
+					</li>
+				</c:forEach>
+			
+			</c:if>
+			
 			
 				
 		</ul>
@@ -75,7 +153,7 @@
 			
 				
 				
-				<li style="background: #cccccc">
+				<li id="delButton">
 					<span class="fa fa-minus"></span>
 					<div class="vie_problem_answer_button_text">删除该题</div>
 				</li>
@@ -90,12 +168,12 @@
 					<div class="vie_problem_answer_button_text">保存</div>
 				</li>
 				
-				<li>
+				<li id="previnceButton">
 					<span class="fa fa-hand-o-left"></span>
 					<div class="vie_problem_answer_button_text">上一题</div>
 				</li>
 				
-				<li>
+				<li id="nextButton">
 					<span class="fa fa-hand-o-right"></span>
 					<div class="vie_problem_answer_button_text">下一题</div>
 				</li>
@@ -106,7 +184,45 @@
 			
 	<script type="text/javascript">
 		
+		
+		function initView(){
+			var redPacketId = $("input[name=redPacketId]").val();
+			var status = $("input[name=status]").val();
+			var id = $("input[name=id]").val();
+			
+			var nextOption = $("input[name=nextOption]").val();
+			if(status=="0"){
+				$("#delButton").css("background","#cccccc");
+				$("#nextButton").css("background","#cccccc");
+			}else{
+				$("#nextButton").click(function(){
+					if(nextOption){
+						skipToVieSetProblem(1,redPacketId,nextOption,id);
+					}else{
+						skipToVieSetProblem(0,redPacketId,nextOption,id);
+					}
+					
+				});
+			}
+			
+			var isFirst = $("input[name=isFirst]").val();
+			if(isFirst==1){
+				$("#previnceButton").css("background","#cccccc");
+			}else{
+				$("#previnceButton").click(function(){
+					var previousOption = $("input[name=previousOption]").val();
+					
+					skipToVieSetProblem(1,redPacketId,previousOption,id);
+				});
+			}
+			
+		}
+		
+		$("#vie_problem_answer").children("ul").children("li").each(function(){
+			initOption($(this));
+		});
 		$(document).ready(function(){
+			initView();
 			$(".vie_problem_answer_check").click(function(){
 				$("#vie_problem_answer").children("ul").children("li").attr("isRight","0");
 				
@@ -146,6 +262,11 @@
 			var question = $("textarea[name=question]").val();
 			
 			var redPacketId = $("input[name=redPacketId]").val();
+			
+			var id = $("input[name=id]").val();
+			
+			var previousOption = $("input[name=previousOption]").val();
+
 			if(status==0){
 				//游离状态
 				var params = new Object();
@@ -153,6 +274,7 @@
 				params.is_first = isFirst;
 				params.question = question;
 				params.red_packet_id = redPacketId;
+				params.previous_problem_id = previousOption;
 				
 				var vie_problem_answer
 				var optionMap = new Object();
@@ -160,25 +282,24 @@
 				optionMap.add = addList;
 				$("#vie_problem_answer textarea").each(function(index){
 					var addMap = new Object();
-					addMap.isRight = 0;
-					addMap.optionSeq = index;
+					addMap.isRight = $(this).parent().attr("isRight");
+					addMap.seq = index;
 					addMap.content = $(this).val();
 					addList.push(addMap);
 				});
 				
 				var jsonOption = JSON.stringify(optionMap);
-				
-				alert(jsonOption);
 				params.options = jsonOption;
 				var url = "/api/vie/draw/vie_red_pack/hand_problem";
 				
 				var callback = new Object();
 				callback.success = function(resp){
 					
-					if(!resp.succss){
+					var problemId = resp.data.id;
+					if(!resp.success){
 						alert(resp.errorMsg);
 					}else{
-						alert("success");
+						skipToVieSetProblem(0,redPacketId,null,problemId)
 					}
 					
 				}

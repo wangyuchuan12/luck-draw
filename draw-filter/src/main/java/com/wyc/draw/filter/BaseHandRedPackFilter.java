@@ -370,7 +370,10 @@ public class BaseHandRedPackFilter extends Filter{
 			
 			redPacket.setHandRoomMemberId(drawRoomMember.getId());
 			
-
+			redPacket.setIsRoom(isRoomInt);
+			
+			redPacket.setIsGiveQuestion(0);
+			
 			redPacket = redPackageService.add(redPacket);
 		
 			

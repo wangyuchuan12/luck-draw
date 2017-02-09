@@ -12,7 +12,7 @@
 <script src="/js/jquery.fileupload.js"></script>
 
 	<!-- 红包类型0房间问答红包 1个人问答红包 -->
-	<input type="text" name="type" value="${redPackType}"/>
+	<input type="text" name="isRoom" value="${isRoom}"/>
 	<input type="hidden" name="isDisplayRoom" value="${isDisplayRoom}"/>
 	
 	
@@ -132,13 +132,13 @@
 	
 	
 	<div class="select_list" id="payUser" style="display: none;">
-         		<div class="select_list_item" type="3">
+         		<div class="select_list_item" isRoom=0>
          			<em class="fa fa-address-card" style="color: green;"></em>
          			<span class="select_list_item_name">个人</span>
          		</div>
          		
          		<c:forEach items="${rooms}" var="room">
-         			<div class="select_list_item" type="2" id="${room.id}">
+         			<div class="select_list_item" isRoom=1 id="${room.id}">
 	         			<img src="${room.imgUrl}">
 	         			<span class="select_list_item_name">房间：${room.name}</span>
          			</div>
@@ -194,26 +194,26 @@
 	
 	//初始化设置为个人
 	
-	var type = $("input[name=type]").val();
+	var isRoom = $("input[name=isRoom]").val();
 	
 	var roomId = $("input[name=roomId]").val();
-	if(type=="3"||!roomId){
-		setPayUser($("#payUser .select_list_item[type=3]"));
-	}else if(type=="0"){
+
+	if(isRoom!="1"||!roomId){
+		setPayUser($("#payUser").children(".select_list_item[isRoom=0]"));
+	}else if(isRoom=="1"&&roomId){
 		setPayUser($("#payUser .select_list_item[id="+roomId+"]"));
 	}
 	
 	function setPayUser(item){
-
 		
-		var type=item.attr("type");
+		var isRoom=item.attr("isRoom");
 	
 		var payUserTypeDisplay = $("#payUserTypeDisplay");
 		
 		payUserTypeDisplay.empty();
 		
-		$("input[name=type]").val(type);
-		if(type=="2"){
+		$("input[name=isRoom]").val(isRoom);
+		if(isRoom=="1"){
 			var id = item.attr("id");
 			
 			var imgSrc = item.children("img").attr("src");
@@ -228,7 +228,7 @@
 			payUserTypeDisplay.append("<span class='option_item_select_content'>"+roomName+"</span>");
 			
 			
-		}else if(type=="3"){
+		}else if(isRoom=="0"){
 			payUserTypeDisplay.append("<span class='fa fa-address-card' id='option_item_select_icon' style='color: green;'></span>");
 			
 			payUserTypeDisplay.append("<span class='option_item_select_content'>个人</span>");
@@ -270,7 +270,7 @@
 		
 		var instruction = $("textarea[name=instruction]").val();
 
-		var type = $("input[name=type]").val();
+		var type = $("input[name=isRoom]").val();
 
 		var room = $("input[name=roomId]").val();
 
@@ -287,7 +287,10 @@
 		
 		params.draw_room_id = room;
 
-		params.type = type;
+		params.isRoom = isRoom;
+		
+		//表示竞答红包类型
+		params.type=1;
 		
 		params.amount = amount;
 		
@@ -303,12 +306,11 @@
 		
 		params.subjectId = subjectId;
 		
+		
 		var callback = new Object();
 		callback.success = function(obj){
 
 			if(!obj.success){
-				
-				alert(obj.errorMsg);
 				showToast("现在网络繁忙，请稍后再试");
 				hideLoading();
 				return;
@@ -316,21 +318,19 @@
 			var outObject = obj;
 			
 			if(obj.success){
-				
+				var redPacketId = obj.data.id;
 				if(obj.data.payType==0){
-					skipToVieSetProblem();
+					skipToVieSetProblem(0,redPacketId);
 				}else if(obj.data.payType==1){
-					var id = obj.data.id;
-					
 					var url = "/api/pay/wx/choose_wx_pay_config";
 					var callback = new Object();
 					callback.success = function(obj){
+						
+						var redPacketId = obj.data.id;
 						hideLoading();
 						var payCallback = new Object();
 						payCallback.success = function(){
-							var params = new Object();
-							params.id = outObject.data.id;
-							skipToUrl("/view/draw/luck_draw/info",params);
+							skipToVieSetProblem(0,redPacketId);
 						}
 						
 						payCallback.failure = function(){

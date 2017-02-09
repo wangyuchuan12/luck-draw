@@ -46,15 +46,11 @@ public class VieDrawController {
 	@RequestMapping(value="add")
 	public String add(HttpServletRequest httpServletRequest)throws Exception{
 		
-		
-		String redPackType = httpServletRequest.getParameter("redPackType");
-		
 		String roomId = httpServletRequest.getParameter("room_id");
 		
+		String isRoom = httpServletRequest.getParameter("isRoom");
 		String subjectId = httpServletRequest.getParameter("subjectId");
 		httpServletRequest.setAttribute("roomId", roomId);
-		
-		httpServletRequest.setAttribute("redPackType", redPackType);
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
@@ -64,6 +60,7 @@ public class VieDrawController {
 		httpServletRequest.setAttribute("rooms",drawRooms);
 		
 		httpServletRequest.setAttribute("subjectId", subjectId);
+		httpServletRequest.setAttribute("isRoom", isRoom);
 		return "vie/addVieRedPacket";
 	}
 	

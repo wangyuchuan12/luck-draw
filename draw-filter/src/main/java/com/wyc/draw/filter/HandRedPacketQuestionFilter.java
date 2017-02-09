@@ -19,6 +19,7 @@ import com.wyc.draw.domain.VieRedPacketProblem;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.VieRedPacketOptionService;
 import com.wyc.draw.service.VieRedPacketProblemService;
+import com.wyc.draw.vo.VieRedPacketProblemVo;
 
 public class HandRedPacketQuestionFilter extends Filter{
 
@@ -139,7 +140,7 @@ public class HandRedPacketQuestionFilter extends Filter{
 		List<String> delOptionIds = (List<String>)optionMap.get("del");
 		
 		List<Map<String, Object>> updateOptions = (List<Map<String,Object>>)optionMap.get("update");
-		
+		VieRedPacketProblem vieRedPacketProblem = new VieRedPacketProblem();
 		
 		if(typeInt==0){
 			
@@ -183,7 +184,7 @@ public class HandRedPacketQuestionFilter extends Filter{
 			}
 			
 			
-			VieRedPacketProblem vieRedPacketProblem = new VieRedPacketProblem();
+			
 			Long count = vieRedPacketProblemService.coutByRedPacketId(redPacketId);
 			if(count==null){
 				count=0l;
@@ -194,6 +195,7 @@ public class HandRedPacketQuestionFilter extends Filter{
 			vieRedPacketProblem.setRedPacketId(redPacketId);
 			
 			vieRedPacketProblem.setIsFirst(isFirstInt);
+			vieRedPacketProblem.setPreviousProblemId(previousProblemId);
 			vieRedPacketProblem = vieRedPacketProblemService.add(vieRedPacketProblem);
 			
 			problemId = vieRedPacketProblem.getId();
@@ -208,7 +210,7 @@ public class HandRedPacketQuestionFilter extends Filter{
 				filterManager.setReturnValue(resultVo);
 				return null;
 			}
-			VieRedPacketProblem vieRedPacketProblem = vieRedPacketProblemService.findOne(problemId);
+			vieRedPacketProblem = vieRedPacketProblemService.findOne(problemId);
 			
 			if(CommonUtil.isEmpty(vieRedPacketProblem)){
 				ResultVo resultVo = new ResultVo();
@@ -334,8 +336,10 @@ public class HandRedPacketQuestionFilter extends Filter{
 				vieRedPacketOption = vieRedPacketOptionService.update(vieRedPacketOption);
 			}
 		}
+		VieRedPacketProblemVo vieRedPacketProblemVo = new VieRedPacketProblemVo();
+		vieRedPacketProblemVo.setId(vieRedPacketProblem.getId());
 		
-		return null;
+		return vieRedPacketProblemVo;
 	}
 	
 	
