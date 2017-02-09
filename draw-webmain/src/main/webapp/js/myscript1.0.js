@@ -105,11 +105,11 @@ function skipToRoomInfo(id){
 }
 
 
-function skipToAddRedPack(redPackType,isDisplayRoom,isDisplayType,subjectId,roomId){
+function skipToAddRedPack(isRoom,isDisplayRoom,isDisplayType,subjectId,roomId){
 	var url = "/view/draw/luck_draw/add2";
 	
 	var params  = new Object();
-	params.redPackType = redPackType;
+	params.is_room = isRoom;
 	
 	params.isDisplayRoom = isDisplayRoom;
 	
@@ -144,7 +144,7 @@ function skipToAddVieDrawInfo(redPackType,isDisplayRoom,isDisplayType,subjectId,
 	skipToUrl(url,params);
 }
 
-function skipToSubject(parentId,redPacketType,isDisplayRoom,isDisplayType,roomId){
+function skipToSubject(parentId,redPacketType,isDisplayRoom,isDisplayType,roomId,isRoom){
 	
 	var url = "/view/draw/luck_draw/subject_check";
 	var params = new Object();
@@ -156,6 +156,8 @@ function skipToSubject(parentId,redPacketType,isDisplayRoom,isDisplayType,roomId
 	params.isDisplayType = isDisplayType;
 	
 	params.roomId = roomId;
+	
+	params.isRoom = isRoom;
 	skipToUrl(url,params);
 }
 

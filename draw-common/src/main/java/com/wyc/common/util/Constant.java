@@ -36,16 +36,12 @@ public class Constant {
 	
 	
 	/***********************红包类型************************/
-	//房间问答红包
-	public static final int ROOM_QUESTION_TYPE = 0;
-	//个人问答红包
-	public static final int PERSONAL_QUESTION_TYPE=1;
+	//问答红包
+	public static final int QUESTION_TYPE = 0;
 	
 	
-	//房间竞答红包
-	public static final int ROOM_VIE_TYPE = 2;
-	//个人竞答红包
-	public static final int PERSONAL_VIE_TYPE=3;
+	//竞答红包
+	public static final int VIE_TYPE = 1;
 	
 	
 	/***********************支付类型************************/

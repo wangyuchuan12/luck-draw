@@ -71,7 +71,7 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		RedPacketVo redPacketVo = new RedPacketVo();
 		
-		if(redPacket.getType()==Constant.ROOM_QUESTION_TYPE){
+		if(redPacket.getIsRoom()==1){
 			DrawRoomMember handRoomMember = drawRoomMemberService.findOne(redPacket.getHandRoomMemberId());
 			redPacketVo.setNickname(handRoomMember.getName());
 			redPacketVo.setUserImgUrl(handRoomMember.getImgUrl());
@@ -87,7 +87,7 @@ public class GetRedPackInfoFilter extends Filter{
 			}
 			
 			redPacketVo.setIsInRoom(isInTheRoom);
-		}else if(redPacket.getType()==Constant.PERSONAL_QUESTION_TYPE){
+		}else if(redPacket.getIsRoom()==0){
 			redPacketVo.setNickname(redPacket.getHandNickname());
 			redPacketVo.setUserImgUrl(redPacket.getHandUserImgUrl());
 			
@@ -133,6 +133,8 @@ public class GetRedPackInfoFilter extends Filter{
 		redPacketVo.setIsAmountDisplay(redPacket.getIsAmountDisplay());
 		
 		redPacketVo.setRedPacketOptions(redPacketOptionListVo.getRedPacketOptions());
+		
+		redPacketVo.setIsRoom(redPacket.getIsRoom());
 		
 		Integer shareNumShowAnswer = redPacket.getShareNumShowAnswer();
 		

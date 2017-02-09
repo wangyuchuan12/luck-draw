@@ -42,6 +42,8 @@
 			
 			<input name="isSetOption" value="${result.data.isSetOption}" type="hidden"/>
 			
+			<input name="isRoom" value="${result.data.isRoom}" type="hidden"/>
+			
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">问答红包</div>
@@ -100,12 +102,12 @@
 					<div class="luck_info_item_content">查看我的钱包</div>
 				</div>
 				
-				<div class="luck_info_item" onclick="skipToAddRedPack(1,1,1);">
+				<div class="luck_info_item" onclick="skipToAddRedPack(0,1,1);">
 					<i class="fa fa-paper-plane luck_info_item_i" style="color: RGBA(243,151,37,1);"></i>
 					<div class="luck_info_item_content">我也发个红包</div>
 				</div>
-				
-				<c:if test="${result.data.type==0}">
+
+				<c:if test="${result.data.isRoom=='1'}">
 					<div class="luck_info_item" onclick="skipToRoomInfo('${result.data.drawRoomId}');">
 						<i class="fa fa-users luck_info_item_i" style="color: RGBA(126,213,61,1);"></i>
 						<div class="luck_info_item_content">进入房间</div>
@@ -304,6 +306,9 @@
 					
 					type = parseInt(type);
 					
+					var isRoom = $("input[name=isRoom]").val();
+					isRoom = parseInt(isRoom);
+					
 					if(prompt){
 						$(".luck_info_alert").text(prompt);
 						$(".luck_info_alert").css("display","block");
@@ -334,7 +339,7 @@
 						$(".luck_info_options").css("display","none");
 						
 						return;
-					}else if(type==0&&isInRoom!=1){
+					}else if(isRoom==1&&isInRoom!=1){
 						$(".luck_info_alert").text("该红包为房间专属红包，你不在该房间中，无法领取，请点击进入该房间");
 						$(".luck_info_answer").css("display","none");
 						$(".luck_info_alert").css("display","block");

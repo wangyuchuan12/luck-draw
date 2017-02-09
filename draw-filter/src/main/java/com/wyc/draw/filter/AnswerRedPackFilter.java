@@ -141,7 +141,7 @@ public class AnswerRedPackFilter extends Filter{
 		RedPacketTakepartMember redPacketTakepartMember = new RedPacketTakepartMember();
 		
 		//如果是房间问答红包
-		if(redPacket.getType()==Constant.ROOM_QUESTION_TYPE){
+		if(redPacket.getIsRoom()==1){
 			
 			
 			String roomMemberId = httpServletRequest.getParameter("room_member_id");

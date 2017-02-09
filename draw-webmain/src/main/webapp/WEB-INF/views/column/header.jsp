@@ -129,7 +129,7 @@ function skipToHandRedPack(){
 	if(isInRoom==0){
 		showToast("你未加入本房间，不能进行任何操作，请先加入房间",5000);
 	}else{
-		skipToSubject(0,0,1,1,getRoomId());
+		skipToSubject(0,0,1,1,getRoomId(),1);
 	}
 }
 

@@ -35,7 +35,7 @@ public class RemindHandRedPackFilter extends Filter{
 		
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		
-		if(redPacketVo.getType()==Constant.ROOM_QUESTION_TYPE){
+		if(redPacketVo.getIsInRoom()==1){
 			List<DrawRoomMember> drawRoomMembers = drawRoomMemberService.findAllByDrawRoomIdAndStatusOrderByTakepartTimeAsc(redPacketVo.getDrawRoomId(), Constant.PASSED_DRAW_ROOM_MEMEBER_STATUS);
 
 			for(DrawRoomMember drawRoomMember:drawRoomMembers){

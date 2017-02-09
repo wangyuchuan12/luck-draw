@@ -20,6 +20,7 @@ import com.wyc.common.wx.domain.ShareRecord;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.filter.AddRedPacketPromptFilter;
 import com.wyc.draw.filter.AnswerRedPackFilter;
+import com.wyc.draw.filter.BaseHandRedPackFilter;
 import com.wyc.draw.filter.DelRedPacketPromptFilter;
 import com.wyc.draw.filter.GetRedPackListByRoomOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
@@ -75,7 +76,7 @@ public class RedPackApi {
 	@Transactional
 	@RequestMapping(value="add")
 	@ResponseBody
-	@HandlerAnnotation(hanlerFilter=RemindHandRedPackFilter.class)
+	@HandlerAnnotation(hanlerFilter=BaseHandRedPackFilter.class)
 	public ResultVo handRedPack(HttpServletRequest httpServletRequest)throws Exception{
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);

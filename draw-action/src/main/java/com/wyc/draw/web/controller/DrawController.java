@@ -70,7 +70,7 @@ public class DrawController {
 		return "drawInfo";
 	}
 	
-	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
+	/*@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	@RequestMapping(value="add")
 	public String addDrawInfo(HttpServletRequest httpServletRequest)throws Exception{
 		String redPackType = httpServletRequest.getParameter("redPackType");
@@ -101,19 +101,19 @@ public class DrawController {
 			httpServletRequest.setAttribute("roomId", roomId);
 		}
 		return "addDrawInfo";
-	}
+	}*/
 	
 	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	@RequestMapping(value="add2")
 	public String addDrawInfo2(HttpServletRequest httpServletRequest)throws Exception{
-		String redPackType = httpServletRequest.getParameter("redPackType");
+		String isRoom = httpServletRequest.getParameter("is_room");
 		
 		String roomId = httpServletRequest.getParameter("room_id");
 		
 		String subjectId = httpServletRequest.getParameter("subjectId");
 		httpServletRequest.setAttribute("roomId", roomId);
 		
-		httpServletRequest.setAttribute("redPackType", redPackType);
+		httpServletRequest.setAttribute("isRoom", isRoom);
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
@@ -150,8 +150,11 @@ public class DrawController {
 		String isDisplayRoom = httpServletRequest.getParameter("isDisplayRoom");
 		String isDisplayType = httpServletRequest.getParameter("isDisplayType");
 		
+		String isRoom = httpServletRequest.getParameter("isRoom");
+		
 		String roomId = httpServletRequest.getParameter("roomId");
 		
+		httpServletRequest.setAttribute("isRoom", isRoom);
 		httpServletRequest.setAttribute("roomId", roomId);
 		httpServletRequest.setAttribute("redPackType", redPackType);
 		httpServletRequest.setAttribute("isDisplayRoom", isDisplayRoom);

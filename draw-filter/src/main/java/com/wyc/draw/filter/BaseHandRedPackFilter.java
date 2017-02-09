@@ -84,6 +84,8 @@ public class BaseHandRedPackFilter extends Filter{
 		
 		String instruction = httpServletRequest.getParameter("instruction");
 		
+		String isRoom = httpServletRequest.getParameter("isRoom");
+		
 		if(CommonUtil.isEmpty(allowWrongCount)){
 			allowWrongCount = "1";
 		}
@@ -94,6 +96,25 @@ public class BaseHandRedPackFilter extends Filter{
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("isImg参数不能为空");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		if(CommonUtil.isEmpty(isRoom)){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("isRoom参数不能为空");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		Integer isRoomInt = Integer.parseInt(isRoom);
+		
+		if(isRoomInt!=0&&isRoomInt!=1){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("isRoom参数不在范围");
 			filterManager.setReturn(true);
 			filterManager.setReturnValue(resultVo);
 			return null;
@@ -215,88 +236,94 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setHandDrawUserId(drawUser.getId());
 
 		redPacket.setShareNumShowAnswer(wxContext.getShareNumShowAnswer());
+		
+		redPacket.setIsRoom(isRoomInt);
 
-		if(typeInt==Constant.ROOM_QUESTION_TYPE){
-			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
-			ResultVo resultVo = new ResultVo();
-			if(CommonUtil.isEmpty(drawRoomId)){
-				resultVo.setSuccess(false);
-				resultVo.setErrorMsg("该红包为房间红包，drawRoomId参数不能为空");
-				filterManager.setReturn(true);
-				filterManager.setReturnValue(resultVo);
-				return null;
-			}
+		if(redPacket.getType()==Constant.QUESTION_TYPE){
 			
-			if(CommonUtil.isEmpty(drawRoomMember)){
-				resultVo.setSuccess(false);
-				resultVo.setErrorMsg("该用户不在该房间中，无法执行发红包操作");
-				filterManager.setReturn(true);
-				filterManager.setReturnValue(resultVo);
-				return null;
+			if(redPacket.getIsRoom()==1){
+				DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
+				ResultVo resultVo = new ResultVo();
+				if(CommonUtil.isEmpty(drawRoomId)){
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("该红包为房间红包，drawRoomId参数不能为空");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+				}
 				
-			}
-			
-			if(CommonUtil.isEmpty(question)){
-				resultVo = new ResultVo();
-				resultVo.setSuccess(false);
-				resultVo.setErrorMsg("问题红包参数question不能为空");
-				filterManager.setReturn(true);
-				filterManager.setReturnValue(resultVo);
-				return null;
-			}
-			
-			if(CommonUtil.isEmpty(answer)){
-				resultVo = new ResultVo();
-				resultVo.setSuccess(false);
-				resultVo.setErrorMsg("问题红包参数answer不能为空");
-				filterManager.setReturn(true);
-				filterManager.setReturnValue(resultVo);
-				return null;
-			}
-			
-			redPacket.setDrawRoomId(drawRoomId);
-			
-			
-			
-			redPacket.setHandRoomMemberId(drawRoomMember.getId());
-			
-			redPacket.setQuestion(question);
-			redPacket.setAnswer(answer);
-			
-			
+				if(CommonUtil.isEmpty(drawRoomMember)){
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("该用户不在该房间中，无法执行发红包操作");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+					
+				}
+				
+				if(CommonUtil.isEmpty(question)){
+					resultVo = new ResultVo();
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("问题红包参数question不能为空");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+				}
+				
+				if(CommonUtil.isEmpty(answer)){
+					resultVo = new ResultVo();
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("问题红包参数answer不能为空");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+				}
+				
+				redPacket.setDrawRoomId(drawRoomId);
+				
+				
+				
+				redPacket.setHandRoomMemberId(drawRoomMember.getId());
+				
+				redPacket.setQuestion(question);
+				redPacket.setAnswer(answer);
+				
+				
 
-			redPacket = redPackageService.add(redPacket);
-			
-			DrawRoom drawRoom = drawRoomService.findOne(redPacket.getDrawRoomId());
-			BigDecimal maxRedPacketAmount = drawRoom.getMaxRedPacketAmount();
-			if(maxRedPacketAmount==null||(maxRedPacketAmount.floatValue()<redPacket.getAmount().floatValue())){
-				drawRoom.setMaxRedPacketAmount(redPacket.getAmount());
-				drawRoomService.update(drawRoom);
+				redPacket = redPackageService.add(redPacket);
+				
+				DrawRoom drawRoom = drawRoomService.findOne(redPacket.getDrawRoomId());
+				BigDecimal maxRedPacketAmount = drawRoom.getMaxRedPacketAmount();
+				if(maxRedPacketAmount==null||(maxRedPacketAmount.floatValue()<redPacket.getAmount().floatValue())){
+					drawRoom.setMaxRedPacketAmount(redPacket.getAmount());
+					drawRoomService.update(drawRoom);
+				}
+			}else{
+				ResultVo resultVo = null;
+				if(CommonUtil.isEmpty(question)){
+					resultVo = new ResultVo();
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("问题红包参数question不能为空");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+				}
+				
+				if(CommonUtil.isEmpty(answer)){
+					resultVo = new ResultVo();
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("问题红包参数answer不能为空");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+				}
+				redPacket.setQuestion(question);
+				redPacket.setAnswer(answer);
+				redPacket = redPackageService.add(redPacket);
 			}
 			
-		}else if(typeInt==Constant.PERSONAL_QUESTION_TYPE){
-			ResultVo resultVo = null;
-			if(CommonUtil.isEmpty(question)){
-				resultVo = new ResultVo();
-				resultVo.setSuccess(false);
-				resultVo.setErrorMsg("问题红包参数question不能为空");
-				filterManager.setReturn(true);
-				filterManager.setReturnValue(resultVo);
-				return null;
-			}
 			
-			if(CommonUtil.isEmpty(answer)){
-				resultVo = new ResultVo();
-				resultVo.setSuccess(false);
-				resultVo.setErrorMsg("问题红包参数answer不能为空");
-				filterManager.setReturn(true);
-				filterManager.setReturnValue(resultVo);
-				return null;
-			}
-			redPacket.setQuestion(question);
-			redPacket.setAnswer(answer);
-			redPacket = redPackageService.add(redPacket);
-		}else if(typeInt==Constant.ROOM_VIE_TYPE){
+		}else if(redPacket.getType()==Constant.VIE_TYPE){
 			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
 			ResultVo resultVo = new ResultVo();
 			if(CommonUtil.isEmpty(drawRoomId)){

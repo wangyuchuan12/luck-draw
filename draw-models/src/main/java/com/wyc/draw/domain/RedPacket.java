@@ -229,6 +229,11 @@ public class RedPacket {
 	@Column(name="question_num")
 	private Integer questionNum;
 	
+	//是否是房间红包
+	@ParamAnnotation
+	@Column(name="is_room")
+	private Integer isRoom;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -246,6 +251,12 @@ public class RedPacket {
 	
 	
 	
+	public Integer getIsRoom() {
+		return isRoom;
+	}
+	public void setIsRoom(Integer isRoom) {
+		this.isRoom = isRoom;
+	}
 	public Integer getQuestionNum() {
 		return questionNum;
 	}

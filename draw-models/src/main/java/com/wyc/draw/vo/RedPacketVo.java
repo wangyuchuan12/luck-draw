@@ -140,6 +140,10 @@ public class RedPacketVo {
 	@ParamAnnotation
 	private Integer isSetOption;
 	
+	//是否是房间红包
+	@ParamAnnotation
+	private Integer isRoom;
+	
 	@ParamAnnotation
 	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
 	
@@ -150,6 +154,14 @@ public class RedPacketVo {
 	
 	
 	
+	public Integer getIsRoom() {
+		return isRoom;
+	}
+
+	public void setIsRoom(Integer isRoom) {
+		this.isRoom = isRoom;
+	}
+
 	public Integer getIsSetOption() {
 		return isSetOption;
 	}

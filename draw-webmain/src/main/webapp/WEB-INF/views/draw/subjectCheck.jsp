@@ -12,6 +12,7 @@
 	<input name="isDisplayRoom" value="${isDisplayRoom}"/>
 	<input name="isDisplayType" value="${isDisplayType}"/>
 	<input name="roomId" value="${roomId}"/>
+	<input name="isRoom" value="${isRoom}"/>
 	<div class="subject_check_header">
 		<div class="subject_check_header_title">请选择红包的科目类型</div>
 	</div>
@@ -34,16 +35,17 @@
 			var redPackType = $("input[name=redPackType]").val();
 			var isDisplayRoom = $("input[name=isDisplayRoom]").val();
 			var isDisplayType = $("input[name=isDisplayType]").val();
+			var isRoom = $("input[name=isRoom]").val();
 			var roomId = $("input[name=roomId]").val();
 			if(isLeaf=="0"){
-				skipToSubject(id,redPackType,isDisplayRoom,isDisplayType,roomId);
+				skipToSubject(id,redPackType,isDisplayRoom,isDisplayType,roomId,isRoom);
 			
 			}else if(isLeaf=="1"){
-				if(redPackType=="0"||redPackType=="1"){
+				if(redPackType=="0"){
 					
-					skipToAddRedPack(redPackType,isDisplayRoom,isDisplayType,id,roomId);
-				}else if(redPackType=="2"||redPackType=="3"){
-					skipToAddVieDrawInfo(redPackType,isDisplayRoom,isDisplayType,id,roomId);
+					skipToAddRedPack(isRoom,isDisplayRoom,isDisplayType,id,roomId);
+				}else if(redPackType=="1"){
+					skipToAddVieDrawInfo(isRoom,isDisplayRoom,isDisplayType,id,roomId);
 				}
 				
 			}

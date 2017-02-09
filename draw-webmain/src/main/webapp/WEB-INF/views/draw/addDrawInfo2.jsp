@@ -12,24 +12,27 @@
 <script src="/js/jquery.fileupload.js"></script>
 	
 	
-	<!-- 红包类型0房间问答红包 1个人问答红包 -->
-	<input type="hidden" name="type" value="${redPackType}"/>
-	<input type="hidden" name="isDisplayRoom" value="${isDisplayRoom}"/>
+	
+
+	<input type="text" name="isDisplayRoom" value="${isDisplayRoom}"/>
 	
 	
-	<input type="hidden" name="isDisplayType" value="${isDisplayType}"/>
+	<input type="text" name="isDisplayType" value="${isDisplayType}"/>
 	
 	<!-- 账号余额 -->
-	<input type="hidden" name="amountBalance" value="${amountBalance}"/>
+	<input type="text" name="amountBalance" value="${amountBalance}"/>
 	
 	<!-- 0余额支付，1是微信支付 -->
-	<input type="hidden" name="payType" value="0"/>
+	<input type="text" name="payType" value="0"/>
 	
-	<input type="hidden" name="isImg" value="0"/>
+	<input type="text" name="isImg" value="0"/>
 	
-	<input type="hidden" name="amount" />
+	<input type="text" name="amount" />
 	
-	<input type="hidden" name="roomId" value="${roomId}"/>
+	<input type="text" name="roomId" value="${roomId}"/>
+	
+	<!-- 红包类型1房间问答红包 0个人问答红包 -->
+	<input type="text" name="isRoom" value="${isRoom}"/>
 	
 	<input type="text" name="subjectId" value="${subjectId}"/>
 	
@@ -116,13 +119,13 @@
 			</div>
        
          	<div class="select_list" id="payUser" style="display: none;">
-         		<div class="select_list_item" type="1">
+         		<div class="select_list_item" isRoom="0">
          			<em class="fa fa-address-card" style="color: green;"></em>
          			<span class="select_list_item_name">个人</span>
          		</div>
          		
          		<c:forEach items="${rooms}" var="room">
-         			<div class="select_list_item" type="0" id="${room.id}">
+         			<div class="select_list_item" isRoom="1" id="${room.id}">
 	         			<img src="${room.imgUrl}">
 	         			<span class="select_list_item_name">房间：${room.name}</span>
          			</div>
@@ -177,26 +180,26 @@
 	
 	//初始化设置为个人
 	
-	var type = $("input[name=type]").val();
+	var isRoom = $("input[name=isRoom]").val();
 	
 	var roomId = $("input[name=roomId]").val();
-	if(type=="1"||!roomId){
-		setPayUser($("#payUser .select_list_item[type=1]"));
-	}else if(type=="0"){
+	if(isRoom=="0"||!roomId){
+		setPayUser($("#payUser .select_list_item[isRoom=0]"));
+	}else if(isRoom=="1"){
 		setPayUser($("#payUser .select_list_item[id="+roomId+"]"));
 	}
 	
 	function setPayUser(item){
 
 		
-		var type=item.attr("type");
+		var isRoom=item.attr("isRoom");
 		
 		var payUserTypeDisplay = $("#payUserTypeDisplay");
 		
 		payUserTypeDisplay.empty();
 		
-		$("input[name=type]").val(type);
-		if(type=="0"){
+		$("input[name=isRoom]").val(isRoom);
+		if(isRoom=="1"){
 			var id = item.attr("id");
 			
 			var imgSrc = item.children("img").attr("src");
@@ -211,7 +214,7 @@
 			payUserTypeDisplay.append("<span class='option_item_select_content'>"+roomName+"</span>");
 			
 			
-		}else if(type=="1"){
+		}else if(isRoom=="0"){
 			payUserTypeDisplay.append("<span class='fa fa-address-card' id='option_item_select_icon' style='color: green;'></span>");
 			
 			payUserTypeDisplay.append("<span class='option_item_select_content'>个人</span>");
@@ -348,7 +351,7 @@
 		
 		var answer = $("input[name=answer]").val();
 
-		var type = $("input[name=type]").val();
+		var isRoom = $("input[name=isRoom]").val();
 
 		var room = $("input[name=roomId]").val();
 
@@ -365,7 +368,7 @@
 		
 		params.draw_room_id = room;
 
-		params.type = type;
+		params.isRoom = isRoom;
 		
 		params.amount = amount;
 		
@@ -381,12 +384,15 @@
 		
 		params.subjectId = subjectId;
 		
+		params.type=0;
+		
 		var callback = new Object();
+
 		callback.success = function(obj){
 
 			var outObject = obj;
-			
 			if(obj.success){
+				
 				
 				if(obj.data.payType==0){
 					var params = new Object();
