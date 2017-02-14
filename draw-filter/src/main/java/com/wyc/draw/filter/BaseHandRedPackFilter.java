@@ -239,6 +239,7 @@ public class BaseHandRedPackFilter extends Filter{
 		
 		redPacket.setIsRoom(isRoomInt);
 
+		System.out.println("...............isRoom:"+isRoomInt);
 		if(redPacket.getType()==Constant.QUESTION_TYPE){
 			
 			if(redPacket.getIsRoom()==1){
@@ -326,20 +327,31 @@ public class BaseHandRedPackFilter extends Filter{
 		}else if(redPacket.getType()==Constant.VIE_TYPE){
 			DrawRoomMember drawRoomMember = drawRoomMemberService.findByDrawUserIdAndDrawRoomId(drawUser.getId(),drawRoomId);
 			ResultVo resultVo = new ResultVo();
-			if(CommonUtil.isEmpty(drawRoomId)){
-				resultVo.setSuccess(false);
-				resultVo.setErrorMsg("该红包为房间红包，drawRoomId参数不能为空");
-				filterManager.setReturn(true);
-				filterManager.setReturnValue(resultVo);
-				return null;
-			}
-			
-			if(CommonUtil.isEmpty(drawRoomMember)){
-				resultVo.setSuccess(false);
-				resultVo.setErrorMsg("该用户不在该房间中，无法执行发红包操作");
-				filterManager.setReturn(true);
-				filterManager.setReturnValue(resultVo);
-				return null;
+			if(isRoomInt==1){
+				if(CommonUtil.isEmpty(drawRoomId)){
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("该红包为房间红包，drawRoomId参数不能为空");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+				}
+				
+				if(CommonUtil.isEmpty(drawRoomMember)){
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("该用户不在该房间中，无法执行发红包操作");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+					
+				}
+				DrawRoom drawRoom = drawRoomService.findOne(redPacket.getDrawRoomId());
+				BigDecimal maxRedPacketAmount = drawRoom.getMaxRedPacketAmount();
+				if(maxRedPacketAmount==null||(maxRedPacketAmount.floatValue()<redPacket.getAmount().floatValue())){
+					drawRoom.setMaxRedPacketAmount(redPacket.getAmount());
+					drawRoomService.update(drawRoom);
+				}
+				
+				redPacket.setHandRoomMemberId(drawRoomMember.getId());
 				
 			}
 			
@@ -368,7 +380,7 @@ public class BaseHandRedPackFilter extends Filter{
 			
 			redPacket.setPlacesNum(3);
 			
-			redPacket.setHandRoomMemberId(drawRoomMember.getId());
+			
 			
 			redPacket.setIsRoom(isRoomInt);
 			
@@ -377,12 +389,7 @@ public class BaseHandRedPackFilter extends Filter{
 			redPacket = redPackageService.add(redPacket);
 		
 			
-			DrawRoom drawRoom = drawRoomService.findOne(redPacket.getDrawRoomId());
-			BigDecimal maxRedPacketAmount = drawRoom.getMaxRedPacketAmount();
-			if(maxRedPacketAmount==null||(maxRedPacketAmount.floatValue()<redPacket.getAmount().floatValue())){
-				drawRoom.setMaxRedPacketAmount(redPacket.getAmount());
-				drawRoomService.update(drawRoom);
-			}
+			
 		}else{
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);

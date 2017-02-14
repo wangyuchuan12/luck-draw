@@ -151,6 +151,13 @@ public class GetRedPackInfoFilter extends Filter{
 		}
 		redPacketVo.setIsSetOption(isSetOption);
 		
+		//竞答红包类型有以下几个字段
+		if(redPacket.getType()==Constant.VIE_TYPE){
+			redPacketVo.setTheme(redPacket.getTheme());
+			redPacketVo.setTakePartCount(redPacket.getTakePartCount());
+			redPacketVo.setEntryFee(redPacket.getEntryFee());
+		}
+		
 		return redPacketVo;
 	}
 

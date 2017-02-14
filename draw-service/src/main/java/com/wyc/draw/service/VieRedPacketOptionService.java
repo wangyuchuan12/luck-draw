@@ -37,7 +37,7 @@ public class VieRedPacketOptionService {
 		return vieRedPacketOptionRepository.save(vieRedPacketOption);
 	}
 
-	public List<VieRedPacketOption> findAllByRedPacketProblemId(String problemId) {
-		return vieRedPacketOptionRepository.findAllByRedPacketProblemId(problemId);
+	public List<VieRedPacketOption> findAllByRedPacketProblemIdAndIsDelOrderBySeqAsc(String problemId,int isDel) {
+		return vieRedPacketOptionRepository.findAllByRedPacketProblemIdAndIsDelOrderBySeqAsc(problemId,isDel);
 	}
 }

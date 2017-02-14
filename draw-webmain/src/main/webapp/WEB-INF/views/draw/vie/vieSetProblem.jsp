@@ -9,25 +9,26 @@
 <tiles:putAttribute name="body">
 	
 	
-	<input name="previousOption" value="${redPacketProblem.previousProblemId}"/>
-	<input name="nextOption" value="${redPacketProblem.nextProblemId}"/>
+	<input name="previousOption" value="${redPacketProblem.previousProblemId}" type="hidden"/>
+	<input name="nextOption" value="${redPacketProblem.nextProblemId}" type="hidden"/>
 	
-	<input name="isFirst" value="${redPacketProblem.isFirst}"/>
+	<input name="isFirst" value="${redPacketProblem.isFirst}" type="hidden"/>
 	
-	<input name="isLast" value="${redPacketProblem.isLast}"/>
+	<input name="isLast" value="${redPacketProblem.isLast}" type="hidden"/>
 	
-	<input name="count" value="${redPacketProblem.count}"/>
+	<input name="count" value="${redPacketProblem.count}" type="hidden"/>
 	
 	<!-- 0游离状态，1存储状态，即已经保存到数据库中了 -->
-	<input name="status" value="${redPacketProblem.status}"/> 
+	<input name="status" value="${redPacketProblem.status}" type="hidden"/> 
 	
-	<input name="seq" value="${redPacketProblem.seq}"/> 
+	<input name="seq" value="${redPacketProblem.seq}" type="hidden"/> 
 	
-	<input name="redPacketId" value="${redPacketProblem.redPacketId}"/> 
+	<input name="redPacketId" value="${redPacketProblem.redPacketId}" type="hidden"/> 
 	
-	<input name="id" value="${redPacketProblem.id}"/> 
+	<input name="id" value="${redPacketProblem.id}" type="hidden"/> 
 	<div class="vie_problem">
 		<div class="view_problem_title">第${redPacketProblem.seq}/${redPacketProblem.count}题</div>
+		<div class="view_problem_submit" id = "view_problem_submit">提交</div>
 		
 	</div>
 	
@@ -41,7 +42,7 @@
 		<ul>
 		
 			<c:if test="${redPacketProblem.status==0}">
-				<li isRight="0">
+				<li isRight="0" status="0" isDel="0">
 					<span>A</span>
 					
 					
@@ -55,7 +56,7 @@
 					</div>
 				</li>
 			
-				<li isRight="0">
+				<li isRight="0" status="0" isDel="0">
 					<span>B</span>
 					
 					<textarea rows="3"  placeholder="请输入选项"></textarea>
@@ -73,7 +74,7 @@
 			
 			<c:if test="${redPacketProblem.status==1}">
 				<c:forEach items="${redPacketProblem.vieRedPacketOptionVos}" var="item" varStatus="varStatus">
-					<li isRight="${item.isRight}">
+					<li isRight="${item.isRight}" status="1" isDel="0" id="${item.id}">
 					
 						<c:if test="${varStatus.index==0}">
 							<span>A</span>
@@ -158,7 +159,7 @@
 					<div class="vie_problem_answer_button_text">删除该题</div>
 				</li>
 				
-				<li>
+				<li id="addOptionButton">
 					<span class="fa fa-plus"></span>
 					<div class="vie_problem_answer_button_text">添加选项</div>
 				</li>
@@ -184,7 +185,104 @@
 			
 	<script type="text/javascript">
 		
-		
+		var addArray = new Array();
+		var updateArray = new Array();
+		var delArray = new Array();
+		initVieProblemAnswer();
+		initData();
+		function initVieProblemAnswer(){
+			var length = $("#vie_problem_answer").children("ul").children("li[isDel=0]").length;
+			
+			if(length<=2){
+				$(".vie_problem_answer>ul>li>em").css("display","none");
+			}else{
+				$(".vie_problem_answer>ul>li>em").css("display","");
+			}
+			var index = 0;
+			$("#vie_problem_answer").children("ul").children("li[isDel=0]").each(function(value){
+				var symbol;
+				if(index==0){
+					symbol="A";
+				}
+				if(index==1){
+					symbol="B";
+				}
+				if(index==2){
+					symbol="C";
+				}
+				if(index==3){
+					symbol="D";
+				}
+				if(index==4){
+					symbol="E";
+				}
+				if(index==5){
+					symbol="F";
+				}
+				if(index==6){
+					symbol="G";
+				}
+				if(index==7){
+					symbol="H";
+				}
+				if(index==8){
+					symbol="I";
+				}
+				if(index==9){
+					symbol="J";
+				}
+				if(index==10){
+					symbol="K";
+				}
+				if(index==11){
+					symbol="L";
+				}
+				if(index==12){
+					symbol="M";
+				}
+				$(this).children("span").html(symbol);
+				index++;
+			});
+			
+			$(".vie_problem_answer_check").click(function(){
+				$("#vie_problem_answer").children("ul").children("li").attr("isRight","0");
+				
+				$("#vie_problem_answer").children("ul").children("li").each(function(){
+					 initOption($(this));
+				});
+				
+				$(this).parent().attr("isRight","1");
+				initOption($(this).parent());
+			});
+			
+			$(".vie_problem_answer>ul>li>em").click(function(){
+				$(this).parent().css("display","none");
+				$(this).parent().attr("isDel","1");
+				initVieProblemAnswer();
+			});
+		}	
+	
+		function initData(){
+			updateArray = new Array();
+			delArray = new Array();
+			addArray = new Array();
+			var index = 0;
+			$("#vie_problem_answer").children("ul").children("li").each(function(){
+				var status = $(this).attr("status");
+				var isDel = $(this).attr("isDel");
+				
+				$(this).attr("seq",index);
+				if(status==1&&isDel==0){
+					updateArray.push($(this));
+				}else if(status==1&&isDel==1){
+					delArray.push($(this));
+				}else if(status==0&&isDel==0){
+					addArray.push($(this));
+				}
+				index++;
+			});
+		}
+	
 		function initView(){
 			var redPacketId = $("input[name=redPacketId]").val();
 			var status = $("input[name=status]").val();
@@ -222,16 +320,40 @@
 			initOption($(this));
 		});
 		$(document).ready(function(){
+			
+
+			$("#view_problem_submit").click(function(){
+				var url = "/api/vie/draw/vie_red_pack/submit_problem";
+				var params = new Object();
+				
+				var redPacketId = $("input[name=redPacketId]").val();
+				params.red_packet_id = redPacketId;
+				
+				var callback = new Object();
+				callback.success = function(resp){
+					if(resp.success){
+						skipToVieDrawInfo(redPacketId);
+					}
+				}
+				request(url,callback,params);
+			});
+			
 			initView();
-			$(".vie_problem_answer_check").click(function(){
-				$("#vie_problem_answer").children("ul").children("li").attr("isRight","0");
-				
-				$("#vie_problem_answer").children("ul").children("li").each(function(){
-					 initOption($(this));
-				});
-				
-				$(this).parent().attr("isRight","1");
-				initOption($(this).parent());
+			$("#addOptionButton").click(function(){
+				var size = $("#vie_problem_answer").children("ul").children("li").length;
+				if(size<=12){
+					var liDiv = "<li isRight='0' status='0' isDel='0'><span>A</span>"+
+					"<textarea rows='3' placeholder='请输入选项'></textarea>"+
+					"<em class='fa fa-times'></em>"+
+					"<div class='vie_problem_answer_check'>"+
+					"<em>正确答案:</em><span class='fa fa-square-o'></span>"+
+					"</div></li>";
+					var liEl = $(liDiv);
+					$("#vie_problem_answer>ul").append(liEl);
+					initVieProblemAnswer();
+				}else{
+					showToast("选项已经超过12个，不能再添加了",5000);
+				}
 			});
 		});
 		
@@ -254,7 +376,41 @@
 		
 		
 		function save(){
+			initData();
+			var optionMap = new Object();
+			var addList = new Array();
+			var delList = new Array();
+			var updateList = new Array();
+			optionMap.add = addList;
+			optionMap.update = updateList;
+			optionMap.del = delList;
+			for(var i = 0 ;i<addArray.length;i++){
+				var addMap = new Object();
+				addMap.isRight = addArray[i].attr("isRight");
+				addMap.seq = addArray[i].attr("seq");
+				addMap.content = addArray[i].children("textarea").val();
+				addList.push(addMap);
+			}
+			
+			for(var i = 0;i<updateArray.length;i++){
+				var updateMap = new Object();
+				updateMap.id = updateArray[i].attr("id");
+				
+				updateMap.isRight = updateArray[i].attr("isRight");
+				
+				updateMap.seq = updateArray[i].attr("seq");
+				updateMap.content = updateArray[i].children("textarea").val();
+				
+				updateList.push(updateMap);
+			}
+			
+			for(var i = 0;i<delArray.length;i++){
+
+				delList.push(delArray[i].attr("id"));
+			}
+			
 			var status = $("input[name=status]").val();
+			
 			status = parseInt(status);
 			
 			var isFirst = $("input[name=isFirst]").val();
@@ -266,7 +422,7 @@
 			var id = $("input[name=id]").val();
 			
 			var previousOption = $("input[name=previousOption]").val();
-
+			
 			if(status==0){
 				//游离状态
 				var params = new Object();
@@ -277,16 +433,7 @@
 				params.previous_problem_id = previousOption;
 				
 				var vie_problem_answer
-				var optionMap = new Object();
-				var addList = new Array();
-				optionMap.add = addList;
-				$("#vie_problem_answer textarea").each(function(index){
-					var addMap = new Object();
-					addMap.isRight = $(this).parent().attr("isRight");
-					addMap.seq = index;
-					addMap.content = $(this).val();
-					addList.push(addMap);
-				});
+				
 				
 				var jsonOption = JSON.stringify(optionMap);
 				params.options = jsonOption;
@@ -294,11 +441,10 @@
 				
 				var callback = new Object();
 				callback.success = function(resp){
-					
-					var problemId = resp.data.id;
 					if(!resp.success){
-						alert(resp.errorMsg);
+						showToast("网络繁忙，请稍后再试",5000);
 					}else{
+						var problemId = resp.data.id;
 						skipToVieSetProblem(0,redPacketId,null,problemId)
 					}
 					
@@ -306,6 +452,31 @@
 				request(url,callback,params);
 			}else if(status==1){
 				//数据库管理状态
+				
+				var params = new Object();
+				params.type = 1;
+				params.is_first = isFirst;
+				params.question = question;
+				params.red_packet_id = redPacketId;
+				params.previous_problem_id = previousOption;
+				params.problem_id = id;
+				var jsonOption = JSON.stringify(optionMap);
+				params.options = jsonOption;
+				var url = "/api/vie/draw/vie_red_pack/hand_problem";
+				
+				
+				var callback = new Object();
+				callback.success = function(resp){
+					
+					
+					if(!resp.success){
+						showToast("网络繁忙，请稍后再试",5000);
+					}else{
+						showToast("保存成功",5000);
+					}
+					
+				}
+				request(url,callback,params);
 			}
 		}
 	</script>

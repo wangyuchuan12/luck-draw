@@ -1,5 +1,6 @@
 package com.wyc.draw.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -44,5 +45,13 @@ public class VieRedPacketProblemService {
 
 	public VieRedPacketProblem findOneByPreviousProblemId(String previousProblemId) {
 		return vieRedPacketProblemRepository.findOneByPreviousProblemId(previousProblemId);
+	}
+
+	public List<VieRedPacketProblem> findFirstByRedPacketId(String redPacketId) {
+		return vieRedPacketProblemRepository.findFirstByRedPacketId(redPacketId);
+	}
+
+	public List<VieRedPacketProblem> findAllByRedPacketIdOrderBySeqAsc(String redPacketId) {
+		return vieRedPacketProblemRepository.findAllByRedPacketIdOrderBySeqAsc(redPacketId);
 	}
 }

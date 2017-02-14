@@ -216,7 +216,7 @@ public class RedPacket {
 	//参赛费用
 	@ParamAnnotation
 	@Column(name="entry_fee")
-	private String entryFee;
+	private BigDecimal entryFee;
 	
 	
 	//是否已经出题
@@ -269,10 +269,10 @@ public class RedPacket {
 	public void setIsEntryFee(Integer isEntryFee) {
 		this.isEntryFee = isEntryFee;
 	}
-	public String getEntryFee() {
+	public BigDecimal getEntryFee() {
 		return entryFee;
 	}
-	public void setEntryFee(String entryFee) {
+	public void setEntryFee(BigDecimal entryFee) {
 		this.entryFee = entryFee;
 	}
 	public Integer getIsGiveQuestion() {

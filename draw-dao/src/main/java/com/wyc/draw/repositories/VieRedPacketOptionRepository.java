@@ -8,6 +8,6 @@ import com.wyc.draw.domain.VieRedPacketOption;
 
 public interface VieRedPacketOptionRepository extends CrudRepository<VieRedPacketOption, String>{
 
-	List<VieRedPacketOption> findAllByRedPacketProblemId(String problemId);
+	List<VieRedPacketOption> findAllByRedPacketProblemIdAndIsDelOrderBySeqAsc(String problemId,int isDel);
 
 }

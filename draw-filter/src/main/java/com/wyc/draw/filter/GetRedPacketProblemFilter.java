@@ -66,11 +66,9 @@ public class GetRedPacketProblemFilter extends Filter{
 			vieRedPacketProblemVo.setSeq(Integer.parseInt((count+1)+""));
 		}else if(statusInt==1){
 			
-			
-			System.out.println("........................:"+problemId);
 			VieRedPacketProblem vieRedPacketProblem  = vieRedPacketProblemService.findOne(problemId);
 			
-			List<VieRedPacketOption> vieRedPacketOptions = vieRedPacketOptionService.findAllByRedPacketProblemId(problemId);
+			List<VieRedPacketOption> vieRedPacketOptions = vieRedPacketOptionService.findAllByRedPacketProblemIdAndIsDelOrderBySeqAsc(problemId,0);
 			
 			List<VieRedPacketOptionVo> vieRedPacketOptionVos = new ArrayList<>();
 			
@@ -140,8 +138,9 @@ public class GetRedPacketProblemFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Class<? extends Filter>> filters = new ArrayList<>();
+		filters.add(DrawUserFilter.class);
+		return filters;
 	}
 
 }

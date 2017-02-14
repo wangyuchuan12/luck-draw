@@ -126,6 +126,15 @@ function skipToDrawInfo(){
 	skipToUrl(url,params);
 }
 
+function skipToVieAnswerProblem(redPacketId,memberId){
+	var url = "/view/vie/draw/vie_draw/vie_answer_problem";
+	var params = new Object();
+	params.red_packet_id = redPacketId;
+	params.member_id = memberId;
+	skipToUrl(url,params);
+}
+
+
 function skipToVieSetProblem(status,redPacketId,problemId,previousProblemId){
 	var url = "/view/vie/draw/vie_draw/vie_set_problem";
 	var params = new Object();
@@ -135,6 +144,14 @@ function skipToVieSetProblem(status,redPacketId,problemId,previousProblemId){
 	params.previous_problem_id = previousProblemId;
 	skipToUrl(url,params);
 }
+
+function skipToVieDrawInfo(id){
+	var url = "/view/vie/draw/vie_draw/info"
+	var params = new Object();	
+	params.id = id;
+	skipToUrl(url,params);
+}
+
 
 function skipToAddVieDrawInfo(redPackType,isDisplayRoom,isDisplayType,subjectId,roomId){
 	var url = "/view/vie/draw/vie_draw/add";

@@ -1,5 +1,7 @@
 package com.wyc.draw.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -12,5 +14,11 @@ public interface VieRedPacketProblemRepository extends CrudRepository<VieRedPack
 	Long coutByRedPacketId(@Param("redPacketId")String redPacketId);
 
 	VieRedPacketProblem findOneByPreviousProblemId(String previousProblemId);
+
+	@Query(value="from com.wyc.draw.domain.VieRedPacketProblem vrp where vrp.redPacketId=:redPacketId and"
+			+ " vrp.seq=(select min(seq) from com.wyc.draw.domain.VieRedPacketProblem vrp2 where vrp2.redPacketId=:redPacketId)")
+	List<VieRedPacketProblem> findFirstByRedPacketId(@Param("redPacketId")String redPacketId);
+
+	List<VieRedPacketProblem> findAllByRedPacketIdOrderBySeqAsc(String redPacketId);
 
 }

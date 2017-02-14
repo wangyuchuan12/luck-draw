@@ -4,10 +4,12 @@
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <tiles:insertDefinition name="infoLayout">
 <tiles:putAttribute name="title">${title}</tiles:putAttribute>
 <tiles:putAttribute name="body">
-
+<div class="draw_room_info">
 
 <div class="ondisplay">
 
@@ -36,13 +38,19 @@
 
 	<div class="luck_room_members">
 
-		<div class="luck_room_members_title">全部成员</div>
+		<div class="luck_room_members_title">今日智慧英雄榜-前${fn:length(drawRoomInfo.drawRoomMembers)}名</div>
 		<div class="luck_room_member_list">
 			<ul>
-				<c:forEach items="${drawRoomInfo.drawRoomMembers}" var="member">
+				<c:forEach items="${drawRoomInfo.drawRoomMembers}" var="member" varStatus="varStatus">
 					<li>
+						
+						<div class="luck_room_member_list_rank" <c:if test="${varStatus.index==0}">style='background:RGBA(255,239,143,1);color:red;'</c:if><c:if test="${varStatus.index==1}">style='background:RGBA(141,210,239,1);color:green;'</c:if>>${varStatus.index+1}</div>
 						<img src="${member.imgUrl}"/>
-						<span>${member.name}</span>
+						<span> 
+						<c:if test="${member.name==null}">
+							匿名
+						</c:if>
+						${member.name}</span>
 					</li>
 				</c:forEach>
 			</ul>
@@ -97,6 +105,7 @@
 			</ul>
 		</div>
 	</div>
+</div>
 	
 	<input name="bakRoomId" value="${drawRoomInfo.id}" type="hidden"/>
 	
@@ -125,6 +134,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			
+			$("body").css("background","white");
 			wx.ready(function(){
 				shareInit();
 			});
@@ -145,7 +155,15 @@
 				joinRoom();
 			}
 			initRemind();
+			var clickRemindCount = 0;
 			$("#remindDiv").click(function(){
+				
+				clickRemindCount++;
+				
+				if(clickRemindCount>7){
+					layer.alert("对不起，操作已经超过限制，不能再操作了");
+					return;
+				}
 				var subscribe = $("input[name=subscribe]").val();
 				
 				subscribe = parseInt(subscribe);

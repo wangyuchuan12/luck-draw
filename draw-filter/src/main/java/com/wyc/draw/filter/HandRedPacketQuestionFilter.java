@@ -285,6 +285,7 @@ public class HandRedPacketQuestionFilter extends Filter{
 				vieRedPacketOption.setSeq(optionSeqInt);
 				vieRedPacketOption.setRedPacketId(redPacketId);
 				vieRedPacketOption.setRedPacketProblemId(problemId);
+				vieRedPacketOption.setIsDel(0);
 				
 				vieRedPacketOptionService.add(vieRedPacketOption);
 			}

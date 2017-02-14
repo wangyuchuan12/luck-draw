@@ -281,6 +281,8 @@
 		var isImg = $("input[name=isImg]").val();
 		
 		var subjectId = $("input[name=subjectId]").val();
+		
+		var isRoom = $("input[name=isRoom]").val();
 
 		var url = "/api/draw/red_pack/add";
 		var params = new Object();
@@ -309,7 +311,6 @@
 		
 		var callback = new Object();
 		callback.success = function(obj){
-
 			if(!obj.success){
 				showToast("现在网络繁忙，请稍后再试");
 				hideLoading();

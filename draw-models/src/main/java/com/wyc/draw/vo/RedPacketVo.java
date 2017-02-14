@@ -145,6 +145,28 @@ public class RedPacketVo {
 	private Integer isRoom;
 	
 	@ParamAnnotation
+	private String theme;
+	
+	@ParamAnnotation
+	private String instruction;
+	
+	//题目数量
+	@ParamAnnotation
+	private Integer questionNum;
+	
+	//正确数量
+	@ParamAnnotation
+	private Long rightCount;
+	
+	//错误数量
+	@ParamAnnotation
+	private Long wrongCount;
+	
+	//参赛费用
+	@ParamAnnotation
+	private BigDecimal entryFee;
+	
+	@ParamAnnotation
 	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
 	
 	@ParamAnnotation
@@ -160,6 +182,56 @@ public class RedPacketVo {
 
 	public void setIsRoom(Integer isRoom) {
 		this.isRoom = isRoom;
+	}
+
+	
+	
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+
+	public String getInstruction() {
+		return instruction;
+	}
+
+	public void setInstruction(String instruction) {
+		this.instruction = instruction;
+	}
+
+	public Integer getQuestionNum() {
+		return questionNum;
+	}
+
+	public void setQuestionNum(Integer questionNum) {
+		this.questionNum = questionNum;
+	}
+
+	public Long getRightCount() {
+		return rightCount;
+	}
+
+	public void setRightCount(Long rightCount) {
+		this.rightCount = rightCount;
+	}
+
+	public Long getWrongCount() {
+		return wrongCount;
+	}
+
+	public void setWrongCount(Long wrongCount) {
+		this.wrongCount = wrongCount;
+	}
+
+	public BigDecimal getEntryFee() {
+		return entryFee;
+	}
+
+	public void setEntryFee(BigDecimal entryFee) {
+		this.entryFee = entryFee;
 	}
 
 	public Integer getIsSetOption() {
