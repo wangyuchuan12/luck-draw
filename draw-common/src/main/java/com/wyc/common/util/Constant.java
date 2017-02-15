@@ -52,6 +52,30 @@ public class Constant {
 	public static final int WX_PAY_TYPE=1;
 	
 	
+	/************************账号交易类型********************/
+	//微信平台-本平台
+	public static final int ACCOUNT_RECORD_WP_TYPE=0;
+	
+	//微信平台-微信账户
+	public static final int ACCOUNT_RECORD_WO_TYPE=1;
+	
+	//本平台-微信账户
+	public static final int ACCOUNT_RECORD_PO_TYPE=2;
+	
+	
+	/************************付款方式********************/
+	//人民币
+	public static final int PAY_MODEL_RMB=0;
+	
+	
+	/*************************账号支出类型***************/
+	//入账
+	public static final int ACCOUNT_RECORD_IN=0;
+	
+	//出账
+	public static final int ACCOUNT_RECORD_OUT=1;
+	
+	
 	/***********************申请单状态************************/
 	//申请单申请中状态
 	public static final int APPLY_FORM_STATUS_IN = 0;
@@ -88,7 +112,7 @@ public class Constant {
 	
 	
 	/***********************分享的类型************************/
-	//全部给好友
+	//分享给好友
 	public static final int SHARE_APP_MSG_SHARE_TYPE = 0;
 	
 	//分享到朋友圈
@@ -98,5 +122,14 @@ public class Constant {
 	/***********************分享的类别************************/
 	
 	public static final int SHARE_RED_PACKET_TYPE = 0;
+	
+	
+	
+	/***********************支付之后回调类型********************/
+	//发起红包回调
+	public static final int PAY_SUCCESS_CALLBACK_ADDREDPACK=0;
+	
+	//充值金额回调
+	public static final int PAY_SUCCESS_CALLBACK_RECHARGE=1;
 	
 }

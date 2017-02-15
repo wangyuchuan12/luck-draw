@@ -49,7 +49,7 @@ public class PersonalCenterApi {
 	
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=TakeInApplyFilter.class)
-	@RequestMapping("take_in_amount")
+//	@RequestMapping("take_in_amount")
 	@Transactional
 	public ResultVo takeInAmount(HttpServletRequest httpServletRequest)throws Exception{
 		

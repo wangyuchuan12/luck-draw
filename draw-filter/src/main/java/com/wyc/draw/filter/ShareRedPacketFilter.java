@@ -84,17 +84,8 @@ public class ShareRedPacketFilter extends Filter{
 			return null;
 		}
 		
-		ShareRecord shareRecord = new ShareRecord();
 		
-		shareRecord.setDrawUserId(drawUser.getId());
-		shareRecord.setOpenid(drawUser.getOpenid());
-		shareRecord.setRedPacketId(redPacket.getId());
-		shareRecord.setShareType(shareTypeInt);
-		shareRecord.setType(typeInt);
-		shareRecord.setUrl(url);
-		
-		shareRecord = shareRecordService.add(shareRecord);
-		return shareRecord;
+		return null;
 	}
 
 	@Override

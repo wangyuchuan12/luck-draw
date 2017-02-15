@@ -238,8 +238,6 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setShareNumShowAnswer(wxContext.getShareNumShowAnswer());
 		
 		redPacket.setIsRoom(isRoomInt);
-
-		System.out.println("...............isRoom:"+isRoomInt);
 		if(redPacket.getType()==Constant.QUESTION_TYPE){
 			
 			if(redPacket.getIsRoom()==1){

@@ -1,26 +1,33 @@
-package com.wyc.common.wx.domain;
+package com.wyc.common.domain;
+
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name="share_record")
-public class ShareRecord {
-
+@Entity
+@Table(name="p_account")
+public class Account {
 	@Id
-	private String id;
+    private String id;
 	
-	//分享id
-	@Column(name="share_id")
-	private String shareId;
+	@Column
+	private BigDecimal amount;
 	
-	//点击用户openid
-	@Column(name="click_user_openid")
-	private String clickUserOpenid;
+	
+	@Column
+	private BigDecimal integral;
+	
+	@Column(name="empirical_value")
+	private BigDecimal empiricalValue;
+	
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -30,45 +37,40 @@ public class ShareRecord {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime updateAt;
-
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	public String getShareId() {
-		return shareId;
+	public BigDecimal getAmount() {
+		return amount;
 	}
-
-	public void setShareId(String shareId) {
-		this.shareId = shareId;
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
-
-	public String getClickUserOpenid() {
-		return clickUserOpenid;
+	public BigDecimal getIntegral() {
+		return integral;
 	}
-
-	public void setClickUserOpenid(String clickUserOpenid) {
-		this.clickUserOpenid = clickUserOpenid;
+	public void setIntegral(BigDecimal integral) {
+		this.integral = integral;
 	}
-
+	public BigDecimal getEmpiricalValue() {
+		return empiricalValue;
+	}
+	public void setEmpiricalValue(BigDecimal empiricalValue) {
+		this.empiricalValue = empiricalValue;
+	}
 	public DateTime getCreateAt() {
 		return createAt;
 	}
-
 	public void setCreateAt(DateTime createAt) {
 		this.createAt = createAt;
 	}
-
 	public DateTime getUpdateAt() {
 		return updateAt;
 	}
-
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
-	
 }

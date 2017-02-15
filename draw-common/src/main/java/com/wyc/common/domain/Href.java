@@ -1,26 +1,32 @@
-package com.wyc.common.wx.domain;
+package com.wyc.common.domain;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name="share_record")
-public class ShareRecord {
-
+@Entity
+@Table(name="href")
+public class Href {
 	@Id
-	private String id;
+    private String id;
 	
-	//分享id
-	@Column(name="share_id")
-	private String shareId;
+	//地址
+	@Column
+	private String address;
 	
-	//点击用户openid
-	@Column(name="click_user_openid")
-	private String clickUserOpenid;
+	//点击次数
+	@Column(name="click_count")
+	private int clickCount;
+	
+	//链接编号
+	@Column
+	private String code;
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -30,45 +36,43 @@ public class ShareRecord {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime updateAt;
-
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	public String getShareId() {
-		return shareId;
+	public String getAddress() {
+		return address;
 	}
-
-	public void setShareId(String shareId) {
-		this.shareId = shareId;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-
-	public String getClickUserOpenid() {
-		return clickUserOpenid;
+	public int getClickCount() {
+		return clickCount;
 	}
-
-	public void setClickUserOpenid(String clickUserOpenid) {
-		this.clickUserOpenid = clickUserOpenid;
+	public void setClickCount(int clickCount) {
+		this.clickCount = clickCount;
 	}
-
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 	public DateTime getCreateAt() {
 		return createAt;
 	}
-
 	public void setCreateAt(DateTime createAt) {
 		this.createAt = createAt;
 	}
-
 	public DateTime getUpdateAt() {
 		return updateAt;
 	}
-
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
+    
+    
 	
 }
