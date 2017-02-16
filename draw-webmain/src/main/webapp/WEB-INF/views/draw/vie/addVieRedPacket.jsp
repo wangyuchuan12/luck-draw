@@ -32,7 +32,7 @@
 	
 	<input type="hidden" name="subjectId" value="${subjectId}"/>
 	
-	<input type="text" name="isEntryFee" value="0"/>
+	<input type="hidden" name="isEntryFee" value="0"/>
 	<div class="addVieRedPacket">
 		<div class="option_items">
 				<div class="option_item" style="padding-left: 10px;"> 
@@ -201,9 +201,6 @@
 				showErrorToast("参赛费不能大于总金额的1/10");
 			}
 		}
-		
-		return null;
-		
 		
 		submit();
 	}
