@@ -144,6 +144,7 @@
 			params.member_id = memberId;
 			params.is_timeout=isTimeout;
 			params.time_long=timeLong;
+			
 			var url = "/api/vie/draw/vie_red_pack/select_option";
 			
 			var callback = new Object();

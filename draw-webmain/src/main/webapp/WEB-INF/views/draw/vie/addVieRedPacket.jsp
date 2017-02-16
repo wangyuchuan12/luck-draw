@@ -12,7 +12,7 @@
 <script src="/js/jquery.fileupload.js"></script>
 
 	<!-- 红包类型0房间问答红包 1个人问答红包 -->
-	<input type="text" name="isRoom" value="${isRoom}"/>
+	<input type="hidden" name="isRoom" value="${isRoom}"/>
 	<input type="hidden" name="isDisplayRoom" value="${isDisplayRoom}"/>
 	
 	
@@ -30,7 +30,9 @@
 	
 	<input type="hidden" name="roomId" value="${roomId}"/>
 	
-	<input type="text" name="subjectId" value="${subjectId}"/>
+	<input type="hidden" name="subjectId" value="${subjectId}"/>
+	
+	<input type="text" name="isEntryFee" value="0"/>
 	<div class="addVieRedPacket">
 		<div class="option_items">
 				<div class="option_item" style="padding-left: 10px;"> 
@@ -102,7 +104,7 @@
 						
 						<div class="add_draw_pay_view_amount_label">参赛费</div>
 						
-						<input type="number">
+						<input type="number" name="entryFee" maxlength="2">
 						
 						<div class="add_draw_pay_view_amount_sign">元</div>
 					</div>
@@ -186,6 +188,22 @@
 			
 			return;
 		}
+		
+		var isEntryFee = $("input[name=isEntryFee]").val();
+		
+		if(isEntryFee==1){
+			var entryFee = $("input[name=entryFee]").val();
+			if(!/^\d+(\.\d{0,2})?$/.test(entryFee)){
+				showErrorToast("参赛费不能超过两位小数");
+			}
+			
+			if(amount/10<entryFee){
+				showErrorToast("参赛费不能大于总金额的1/10");
+			}
+		}
+		
+		return null;
+		
 		
 		submit();
 	}
@@ -308,10 +326,14 @@
 		
 		params.subjectId = subjectId;
 		
+		params.isEntryFee = $("input[name=isEntryFee]").val();
+		params.entryFee = $("input[name=entryFee]").val();
+		
 		
 		var callback = new Object();
 		callback.success = function(obj){
 			if(!obj.success){
+				alert(obj.errorMsg);
 				showToast("现在网络繁忙，请稍后再试");
 				hideLoading();
 				return;
@@ -460,6 +482,22 @@
 			
 			$(".form_buttom").click(function(){
 				openPayView();
+			});
+			
+			$(".add_draw_pay_view_amount_check").click(function(){
+				var isEntryFee = $("input[name=isEntryFee]").val();
+				if(isEntryFee==0){
+					$(this).children("span").attr("class","fa fa-check-square");
+					$(this).children("span").css("color","red");
+					$("input[name=isEntryFee]").val(1);
+					$("input[name=entryFee]").val(0.01);
+				}else{
+					$(this).children("span").attr("class","fa fa-square-o");
+					$(this).children("span").css("color","");
+					$("input[name=isEntryFee]").val(0);
+					$("input[name=entryFee]").val(0);
+				}
+				
 			});
 		});
 	</script>

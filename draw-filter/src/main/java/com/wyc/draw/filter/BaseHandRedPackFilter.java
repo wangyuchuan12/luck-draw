@@ -86,6 +86,10 @@ public class BaseHandRedPackFilter extends Filter{
 		
 		String isRoom = httpServletRequest.getParameter("isRoom");
 		
+		String isEntryFee = httpServletRequest.getParameter("isEntryFee");
+		
+		String entryFee = httpServletRequest.getParameter("entryFee");
+		
 		if(CommonUtil.isEmpty(allowWrongCount)){
 			allowWrongCount = "1";
 		}
@@ -342,6 +346,85 @@ public class BaseHandRedPackFilter extends Filter{
 					return null;
 					
 				}
+				
+				if(CommonUtil.isEmpty(isEntryFee)){
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("参数isEntryFee为空");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+				}
+				
+				
+				
+				Integer isEntryFeeInt = null;
+				
+				try{
+					isEntryFeeInt = Integer.parseInt(isEntryFee);
+				}catch(Exception e){
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("参数isEntryFee不能转变为整数");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+				}
+				
+				if(isEntryFeeInt==0){
+					
+				}else if(isEntryFeeInt==1){
+					if(CommonUtil.isEmpty(entryFee)){
+						resultVo.setSuccess(false);
+						resultVo.setErrorMsg("参数entryFee不能为空");
+						filterManager.setReturn(true);
+						filterManager.setReturnValue(resultVo);
+						return null;
+					}
+					BigDecimal entryFeeBigDecimal = null;
+					try{
+						entryFeeBigDecimal = new BigDecimal(entryFee);
+						if(entryFeeBigDecimal.scale()>2){
+							resultVo.setSuccess(false);
+							resultVo.setErrorMsg("金额小数点不能超过两位数");
+							filterManager.setReturn(true);
+							filterManager.setReturnValue(resultVo);
+							return null;
+						}
+						if(entryFeeBigDecimal.compareTo(new BigDecimal("0.01"))<0){
+							
+							System.out.println("...............floatValue:"+entryFeeBigDecimal.floatValue());
+							resultVo.setSuccess(false);
+							resultVo.setErrorMsg("金额不能小于0.01元");
+							filterManager.setReturn(true);
+							filterManager.setReturnValue(resultVo);
+							return null;
+						}
+						
+						if(entryFeeBigDecimal.floatValue()>200){
+							resultVo.setSuccess(false);
+							resultVo.setErrorMsg("金额不能大于200元");
+							filterManager.setReturn(true);
+							filterManager.setReturnValue(resultVo);
+							return null;
+						}
+						
+					}catch(Exception e){
+						resultVo.setSuccess(false);
+						resultVo.setErrorMsg("参数entryFeeBigDecimal不能转变成金额类型");
+						filterManager.setReturn(true);
+						filterManager.setReturnValue(resultVo);
+						return null;
+					}
+					redPacket.setIsEntryFee(isEntryFeeInt);
+					redPacket.setEntryFee(entryFeeBigDecimal);
+				}else{
+					resultVo.setSuccess(false);
+					resultVo.setErrorMsg("参数isEntryFee超出范围");
+					filterManager.setReturn(true);
+					filterManager.setReturnValue(resultVo);
+					return null;
+				}
+				
+				
 				DrawRoom drawRoom = drawRoomService.findOne(drawRoomId);
 				BigDecimal maxRedPacketAmount = drawRoom.getMaxRedPacketAmount();
 				if(maxRedPacketAmount==null||(maxRedPacketAmount.floatValue()<redPacket.getAmount().floatValue())){
