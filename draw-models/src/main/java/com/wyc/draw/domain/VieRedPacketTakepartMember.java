@@ -56,6 +56,15 @@ public class VieRedPacketTakepartMember {
 	@Column(name="is_pay")
 	private Integer isPay;
 	
+	//是否答题完成
+	@Column(name="is_complete")
+	private Integer isComplete;
+	
+	
+	//当前正在答得题目
+	@Column(name="current_problem_id")
+	private String currentProblemId;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -69,6 +78,18 @@ public class VieRedPacketTakepartMember {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getCurrentProblemId() {
+		return currentProblemId;
+	}
+	public void setCurrentProblemId(String currentProblemId) {
+		this.currentProblemId = currentProblemId;
+	}
+	public Integer getIsComplete() {
+		return isComplete;
+	}
+	public void setIsComplete(Integer isComplete) {
+		this.isComplete = isComplete;
 	}
 	public Integer getIsPay() {
 		return isPay;

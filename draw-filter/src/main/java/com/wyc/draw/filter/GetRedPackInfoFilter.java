@@ -156,6 +156,7 @@ public class GetRedPackInfoFilter extends Filter{
 			redPacketVo.setTheme(redPacket.getTheme());
 			redPacketVo.setTakePartCount(redPacket.getTakePartCount());
 			redPacketVo.setEntryFee(redPacket.getEntryFee());
+			redPacketVo.setInstruction(redPacket.getInstruction());
 		}
 		
 		return redPacketVo;

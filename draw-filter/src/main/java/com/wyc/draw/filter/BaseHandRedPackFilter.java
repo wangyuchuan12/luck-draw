@@ -342,7 +342,7 @@ public class BaseHandRedPackFilter extends Filter{
 					return null;
 					
 				}
-				DrawRoom drawRoom = drawRoomService.findOne(redPacket.getDrawRoomId());
+				DrawRoom drawRoom = drawRoomService.findOne(drawRoomId);
 				BigDecimal maxRedPacketAmount = drawRoom.getMaxRedPacketAmount();
 				if(maxRedPacketAmount==null||(maxRedPacketAmount.floatValue()<redPacket.getAmount().floatValue())){
 					drawRoom.setMaxRedPacketAmount(redPacket.getAmount());

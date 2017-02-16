@@ -12,7 +12,12 @@
 					<span>我的房间</span>	
 			</div>
 			
-			<div class="luck_info_footer_item_center" onclick="skipToSubject(0,0,1,0,0);" id="main_add_pack">
+			<!--  <div class="luck_info_footer_item_center" onclick="skipToSubject(0,0,1,0,0);" id="main_add_pack">
+					<em class="fa fa-paper-plane-o"></em>
+					<span>发起红包</span>	
+			</div>-->
+			
+			<div class="luck_info_footer_item_center" onclick="showRedPacketTypes();" id="main_add_pack">
 					<em class="fa fa-paper-plane-o"></em>
 					<span>发起红包</span>	
 			</div>

@@ -1276,7 +1276,7 @@ li::before{
 	
 	position: relative;
 	
-	top:-25px;
+	top:-20px;
 	
 }
 
@@ -1290,21 +1290,17 @@ li::before{
 	
 	position: relative;
 	
-	top:-10px;
-	
 	font-size: 15px;
 	
 	width:130px;
 }
 
 .red_packet_list_content_detail_time{
-	top:-5px;
 	
 	position: relative;
 }
 
 .red_packet_list_content_detail_receive{
-	top:5px;
 	position: relative;
 }
 
@@ -2251,13 +2247,12 @@ li::before{
 	
 	background:red;
 	
-	width:100px;
+	width:150px;
 	
-	height: 30px;
+	height: 57px;
 	
 	color: white;
 	
-	padding-top: 5px;
 	
 	border-radius:5px;
 	
@@ -2269,5 +2264,94 @@ li::before{
 	
 	top:-10px;
 	
+
+	
+	padding-top: 10px;
+}
+
+.vieTakepartButtonName{
+	font-size: 15px;
 	font-weight: bold;
+}
+
+.vieTakepartButtonFee{
+	font-size: 10px;
+}
+
+
+
+.redPacketTypes{
+	position: fixed;
+	
+	background: white;
+	
+	width: 100%;
+	
+	padding-top: 20px;
+	text-align: center;
+	
+	padding-bottom: 20px;
+	
+	bottom:-200px;
+	
+}
+
+.redPacketTypes>ul>li{
+	
+	margin:20px;
+	
+	
+	display: inline-block;
+	
+	text-align: center;
+	
+}
+
+.redPacketTypesIcon{
+	width:50px;
+	height: 50px;
+	border-radius:100px;
+	
+	background: red;
+	
+	color: black;
+	
+	text-align: center;
+	
+	padding-top: 10px;
+	
+}
+
+.redPacketTypesIcon>span{
+	color: white;
+	
+	font-size: 30px;
+}
+
+.redPacketTypesFont{
+	position: relative;
+	
+	
+	padding-top: 10px;
+	
+	color: black;
+}
+
+.redPacketTypesImg{
+	
+	position: relative;
+	top:9px;
+
+}
+.redPacketTypesImg>img{
+	width:57px;
+	height: 57px;
+	
+	border-radius:70px;
+}
+
+.vieTakepartButtonInstruction{
+	padding-left: 20px;
+	
+	padding-bottom: 10px;
 }

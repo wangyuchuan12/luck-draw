@@ -234,6 +234,11 @@ public class RedPacket {
 	@Column(name="is_room")
 	private Integer isRoom;
 	
+	//是否显示
+	@ParamAnnotation
+	@Column(name="is_display")
+	private Integer isDisplay;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore

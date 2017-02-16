@@ -21,7 +21,7 @@
 		<ul>
 		
 			<c:forEach items="${drawList.redPacketVos}" var="item">
-				<li onclick="skipToRedPackInfo('${item.id}');">
+				<li onclick="skipToRedPackInfo('${item.id}','${item.type}');">
 					<div class="red_packet_list_content_img">
 					
 						<c:if test="${item.imgUrl==null}">
@@ -35,7 +35,23 @@
 					</div>
 					
 					<div class="red_packet_list_content_detail">
-						<div class="red_packet_list_content_detail_question overflow1">${item.question}</div>
+						<div class="red_packet_list_content_detail_question overflow1">
+							<c:if test="${item.type==0}">
+								${item.question}
+							</c:if>
+							<c:if test="${item.type==1}">
+								${item.theme}
+							</c:if>
+						</div>
+						<div class="red_packet_list_content_detail_type">
+							<c:if test="${item.type==0}">
+								问答红包
+							</c:if>
+							
+							<c:if test="${item.type==1}">
+								竞答红包
+							</c:if>
+						</div>
 						<div class="red_packet_list_content_detail_time">${item.handTime}</div>
 
 						<div class="red_packet_list_content_detail_receive">状态：

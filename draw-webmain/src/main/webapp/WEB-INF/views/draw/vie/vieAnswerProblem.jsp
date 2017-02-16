@@ -14,7 +14,7 @@
 			<c:forEach items="${problems}" var="item">
 			
 					<li>
-							<input name="problemId" value="${item.id}" seq="${item.seq}"/>
+							<input name="problemId" value="${item.id}" seq="${item.seq}" type="hidden"/>
 							<div class="vie_problem">
 								<div class="view_problem_title">第${item.seq}/${count}题</div>
 							</div>
@@ -109,6 +109,8 @@
 
 	<input name="memberId" value="${memberId}" type="hidden">
 	<input name="redPacketId" value="${redPacketId}" type="hidden">	
+	
+	<input name="currentSeq" value="${currentSeq}" type="hidden"/>
 	<script type="text/javascript">
 	
 		var secondNum;
@@ -133,6 +135,8 @@
 		}
 		
 		function submitAnswer(isTimeout,problemId,optionId){
+			stop();
+			showLoading();
 			var memberId = $("input[name=memberId]").val();
 			var params = new Object();
 			params.option_id=optionId;
@@ -143,15 +147,23 @@
 			var url = "/api/vie/draw/vie_red_pack/select_option";
 			
 			var callback = new Object();
-			stop();
-			nextWindow(20);
-			nextTab(20);
+			
 			
 			callback.success = function(resp){
+				hideLoading();
 				if(!resp.success){
+					alert(resp.errorMsg);
 					showToast("网络繁忙，请稍后再试😁");
 				}else{
-					
+					var isLast = resp.data.isLast;
+					if(isLast==1){
+						var redPacketId = $("input[name=redPacketId]").val();
+						skipToVieDrawInfo(redPacketId)
+					}else{
+						
+						nextWindow(20);
+						nextTab(20);
+					}
 				}
 			}
 			callback.failure = function(){
@@ -161,8 +173,8 @@
 		}
 		
 		function stop(){
-			$(".progress_bar_grap").css("width","");
-			$(".progress_bar_second").text(second+"s");
+			
+			
 			$(".vie_problem_question_list").stop();
 			$(".progress_bar_grap[seq="+seq+"]").stop(true);
 			
@@ -174,30 +186,42 @@
 		
 		function nextTab(second){
 			
+			var beforeDate = new Date();
+			var beforeTime = beforeDate.getTime();
+			$(".progress_bar_grap").css("width","");
+			$(".progress_bar_second").text(second+"s");
 			timeLong=0;
 			seq++;
 
 			var time = second*1000;
 			secondNum = second;
-			
-			
 			interval = setInterval(function(){
-				if(secondNum>0){
-					secondNum--;
-					timeLong = second-secondNum;
+				var currentDate = new Date();
+				var currentTime = currentDate.getTime();
+				
+				var diffSecond = (currentTime-beforeTime)/1000;
+			
+				var secondNum = second-diffSecond;
+				
+				var secondNum = parseInt(secondNum);
+				
+				if(secondNum>=0){
+					timeLong = parseInt(diffSecond);
+					
 					$(".progress_bar_second").text(secondNum+"s");
 				}else{
+					
 				}
-			},1000);
+			},500);
 			$(".progress_bar_grap[seq="+seq+"]").animate({
 				"width":"0"
 			},time,function(){
+				clearInterval(interval);
+				
 				setTimeout(function(){
-					stop();
-					submitAnswer(1);
-					nextTab(second);
-					nextWindow();
-				},1000);
+					var problemId = $("input[seq="+seq+"]").val();
+					submitAnswer(1,problemId);
+				},50);
 				
 			});
 		}

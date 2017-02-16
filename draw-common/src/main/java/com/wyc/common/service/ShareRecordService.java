@@ -17,7 +17,9 @@ public class ShareRecordService {
 
 	public int countByRedPacketIdAndDrawUserId(String redPacketId, String drawUserId) {
 		
-		return shareRecordRepository.countByRedPacketIdAndDrawUserId(redPacketId,drawUserId);
+	//	return shareRecordRepository.countByRedPacketIdAndDrawUserId(redPacketId,drawUserId);
+		
+		return 0;
 	}
 
 	public ShareRecord add(ShareRecord shareRecord) {

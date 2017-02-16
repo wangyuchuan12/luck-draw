@@ -54,4 +54,16 @@ public class VieRedPacketProblemService {
 	public List<VieRedPacketProblem> findAllByRedPacketIdOrderBySeqAsc(String redPacketId) {
 		return vieRedPacketProblemRepository.findAllByRedPacketIdOrderBySeqAsc(redPacketId);
 	}
+
+	public VieRedPacketProblem getFirstByRedPacketId(String redPacketId) {
+		return vieRedPacketProblemRepository.getFirstByRedPacketId(redPacketId);
+	}
+	
+	public VieRedPacketProblem getLastByRedPacketId(String redPacketId) {
+		return vieRedPacketProblemRepository.getLastByRedPacketId(redPacketId);
+	}
+
+	public VieRedPacketProblem findOneByRedPacketIdAndSeq(String redPacketId, int currentSeq) {
+		return vieRedPacketProblemRepository.findOneByRedPacketIdAndSeq(redPacketId,currentSeq);
+	}
 }

@@ -57,11 +57,11 @@ public class GetRedPacketListOfPageFilter extends Filter{
 		Integer typeInt = Integer.parseInt(type);
 		List<RedPacket> redPackets = new ArrayList<>();
 		if(typeInt==Constant.RED_PACKET_TYPE_ALL){
-			redPackets   = redPacketService.findAllOfRelatedToDrawUserId(drawUser.getId(),pageInt*sizeInt,sizeInt);
+			redPackets   = redPacketService.findAllOfRelatedToDrawUserIdAndIsDisplay(drawUser.getId(),1,pageInt*sizeInt,sizeInt);
 		}else if(typeInt==Constant.RED_PACKET_TYPE_HAND){
-			redPackets   = redPacketService.findAllByHandDrawUserId(drawUser.getId(),pageRequest).getContent();
+			redPackets   = redPacketService.findAllByHandDrawUserIdAndIsDisplay(drawUser.getId(),1,pageRequest).getContent();
 		}else if(typeInt==Constant.RED_PACKET_TYPE_TAKEPART){
-			redPackets = redPacketService.findAllByHandDrawUserIdOfTakepart(drawUser.getId(),pageRequest).getContent();
+			redPackets = redPacketService.findAllByHandDrawUserIdOfTakepartAndIsDisplay(drawUser.getId(),1,pageRequest).getContent();
 		}
 		
 		
@@ -94,6 +94,10 @@ public class GetRedPacketListOfPageFilter extends Filter{
 			redPacketVo.setIsReceive(redPacket.getIsReceive());
 			
 			redPacketVo.setIsAmountDisplay(redPacket.getIsAmountDisplay());
+			
+			redPacketVo.setInstruction(redPacket.getInstruction());
+			
+			redPacketVo.setTheme(redPacket.getTheme());
 			
 			redPacketVos.add(redPacketVo);
 		}

@@ -8,9 +8,9 @@
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
 
-			<input name="firstProblemId" value="${firtProblem.id}"/>
+			<input name="firstProblemId" value="${firtProblem.id}" type="hidden"/>
 			
-			<input name="redPacketId" value="${redPacketInfo.id}"/>
+			<input name="redPacketId" value="${redPacketInfo.id}" type="hidden"/>
 			
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
@@ -61,7 +61,15 @@
 			
 			</div>
 			
-			<div class="vieTakepartButton">参加竞答</div>
+			<div class="vieTakepartButton">
+				<div class="vieTakepartButtonName">参加竞答活动</div>
+				
+				<div class="vieTakepartButtonFee">报名费：￥${redPacketInfo.entryFee}</div>
+			</div>
+			
+			<div class="vieTakepartButtonInstruction">
+				详情：${redPacketInfo.instruction}
+			</div>
 			
 			<div class="luck_info_situation">
 					<div class="luck_info_situation_time">剩余<b id="luck_info_hour">00</b><b id="luck_info_min">00</b><b id="luck_info_second">00</b> 结束</div>

@@ -19,6 +19,21 @@
 	</div>
 </div>
 
+	<div class="redPacketTypes">
+		<ul>
+			<li onclick="skipToSubject(0,0,1,0,0);">
+				<div class="redPacketTypesIcon"><span class="fa fa-question-circle-o"></span></div>
+				<div class="redPacketTypesFont">问答红包</div>
+			</li>
+			<li onclick="skipToSubject(0,1,1,0,0);">
+				<div class="redPacketTypesImg">
+					<img alt="" src="/imgs/competition.jpg">
+				</div>
+				<div class="redPacketTypesFont">竞答红包</div>
+			</li>
+		</ul>
+	</div>
+
 
 <div class="toast" style="display: none;">余额不足，请稍后再试</div>
 
@@ -203,8 +218,30 @@
 		$(".loading").css("display","none");
 	}
 	
+	function showRedPacketTypes(){
+		$(".redPacketTypes").animate({
+			bottom:0
+		},1000,function(){
+			$(".container").click(function(){
+				hideRedPacketTypes();
+			});
+		});
+		
+
+		
+	}
+	
+	function hideRedPacketTypes(){
+		$(".redPacketTypes").animate({
+			bottom:-200
+		},2000);
+		
+		$(".container").unbind("click");
+	}
+	
 	$(document).ready(function(){
 		hideLoading();
+		
 		$(".pay_check_detail").animate({
 			bottom:0
 		},300);

@@ -67,7 +67,16 @@ function skipToRooms(){
 }
 
 
-function skipToRedPackInfo(id){
+function skipToRedPackInfo(id,type){
+	type = parseInt(type);
+	if(type==0){
+		skipToProblemRedPacketInfo(id);
+	}else if(type==1){
+		skipToVieDrawInfo(id);
+	}
+}
+
+function skipToProblemRedPacketInfo(id){
 	var url = "/view/draw/luck_draw/info";
 	var params = new Object();
 	params.id = id;

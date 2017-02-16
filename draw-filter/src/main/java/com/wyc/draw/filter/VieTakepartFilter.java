@@ -13,13 +13,18 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.VieRedPacketTakepartMember;
+import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 
 public class VieTakepartFilter extends Filter{
 
 	@Autowired
 	private VieRedPacketTakepartMemberService vieRedPacketTakepartMemberService;
+	
+	@Autowired
+	private RedPacketService redPacketService;
 	
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
@@ -38,6 +43,14 @@ public class VieTakepartFilter extends Filter{
 			return null;
 		}
 		
+		RedPacket redPacket = redPacketService.findOne(redPacketId);
+		Integer takePartCount = redPacket.getTakePartCount();
+		if(takePartCount==0){
+			takePartCount=0;
+		}
+		redPacket.setTakePartCount(takePartCount+1);
+		redPacketService.update(redPacket);
+		
 		VieRedPacketTakepartMember vieRedPacketTakepartMember = new VieRedPacketTakepartMember();
 		vieRedPacketTakepartMember.setDrawUserId(drawUser.getId());
 		vieRedPacketTakepartMember.setIsBest(0);
@@ -48,7 +61,7 @@ public class VieTakepartFilter extends Filter{
 		vieRedPacketTakepartMember.setTimeLong(0l);
 		vieRedPacketTakepartMember.setUserId(drawUser.getUserId());
 		vieRedPacketTakepartMember.setWrongCount(0l);
-		
+		vieRedPacketTakepartMember.setIsComplete(0);
 		vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.add(vieRedPacketTakepartMember);
 		
 		ResultVo resultVo = new ResultVo();

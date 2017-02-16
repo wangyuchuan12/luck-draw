@@ -45,19 +45,19 @@ public class RedPacketService {
 	}
 
 	//所有我发起的
-	public Page<RedPacket> findAllByHandDrawUserId(String drawUserId,Pageable pageable) {
-		return redPackageRepository.findAllByHandDrawUserId(drawUserId,pageable);
+	public Page<RedPacket> findAllByHandDrawUserIdAndIsDisplay(String drawUserId,int isDisplay,Pageable pageable) {
+		return redPackageRepository.findAllByHandDrawUserIdAndIsDisplay(drawUserId,isDisplay,pageable);
 	}
 
 	
 	
 	//所有我参与的红包
-	public List<RedPacket> findAllOfRelatedToDrawUserId(String drawUserId,int start,int limit){
-		return redPackageRepository.findAllOfRelatedToDrawUserId(drawUserId,start,limit);
+	public List<RedPacket> findAllOfRelatedToDrawUserIdAndIsDisplay(String drawUserId,int isDisplay,int start,int limit){
+		return redPackageRepository.findAllOfRelatedToDrawUserIdAndIsDisplay(drawUserId,isDisplay,start,limit);
 	}
 	//我参与的红包
-	public Page<RedPacket> findAllByHandDrawUserIdOfTakepart(String drawUserId,Pageable pageable) {
-		return redPackageRepository.findAllByHandDrawUserIdOfTakepart(drawUserId,pageable);
+	public Page<RedPacket> findAllByHandDrawUserIdOfTakepartAndIsDisplay(String drawUserId,int isDisplay,Pageable pageable) {
+		return redPackageRepository.findAllByHandDrawUserIdOfTakepartAndIsDisplay(drawUserId,isDisplay,pageable);
 	}
 
 
