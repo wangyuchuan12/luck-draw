@@ -136,13 +136,14 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		redPacketVo.setIsRoom(redPacket.getIsRoom());
 		
+		redPacketVo.setShareCount(redPacket.getShareNum());
+		
 		Integer shareNumShowAnswer = redPacket.getShareNumShowAnswer();
 		
 		if(shareNumShowAnswer==null){
 			shareNumShowAnswer = wxContext.getShareNumShowAnswer();
 		}
 		redPacketVo.setShareNumShowAnswer(shareNumShowAnswer);
-		redPacketVo.setShareCount(shareRecordService.countByRedPacketIdAndDrawUserId(redPacket.getId(), drawUser.getId()));
 		
 		Integer isSetOption = redPacket.getIsSetOption();
 		

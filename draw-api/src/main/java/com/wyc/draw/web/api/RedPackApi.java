@@ -35,6 +35,7 @@ import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketPromptListVo;
 import com.wyc.draw.vo.RedPacketTakepartMemberListVo;
 import com.wyc.draw.vo.RedPacketVo;
+import com.wyc.draw.vo.ShareVo;
 
 @Controller
 @RequestMapping(value="/api/draw/red_pack/")
@@ -220,13 +221,14 @@ public class RedPackApi {
 	@RequestMapping(value="share_red_packet_filter")
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=ShareRedPacketFilter.class)
+	@Transactional
 	public ResultVo shareRedPacketFilter(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		if(sessionManager.isReturn()){
 			return (ResultVo)sessionManager.getReturnValue();
 		}
 		
-		ShareRecord shareRecord = (ShareRecord)sessionManager.getObject(ShareRecord.class);
+		ShareVo shareRecord = (ShareVo)sessionManager.getObject(ShareVo.class);
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setMsg("返回数据成功");

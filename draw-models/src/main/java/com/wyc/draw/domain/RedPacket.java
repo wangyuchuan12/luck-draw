@@ -239,6 +239,11 @@ public class RedPacket {
 	@Column(name="is_display")
 	private Integer isDisplay;
 	
+	//分享次数
+	@ParamAnnotation
+	@Column(name="share_num")
+	private Integer shareNum;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -256,6 +261,18 @@ public class RedPacket {
 	
 	
 	
+	public Integer getIsDisplay() {
+		return isDisplay;
+	}
+	public void setIsDisplay(Integer isDisplay) {
+		this.isDisplay = isDisplay;
+	}
+	public Integer getShareNum() {
+		return shareNum;
+	}
+	public void setShareNum(Integer shareNum) {
+		this.shareNum = shareNum;
+	}
 	public Integer getIsRoom() {
 		return isRoom;
 	}

@@ -240,6 +240,8 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setHandDrawUserId(drawUser.getId());
 
 		redPacket.setShareNumShowAnswer(wxContext.getShareNumShowAnswer());
+		redPacket.setShareNum(0);
+	
 		
 		redPacket.setIsRoom(isRoomInt);
 		if(redPacket.getType()==Constant.QUESTION_TYPE){

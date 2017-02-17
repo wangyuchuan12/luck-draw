@@ -10,6 +10,7 @@ import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wyc.annotation.IdAnnotation;
+import com.wyc.annotation.ParamAnnotation;
 
 @Entity
 @Table(name="share")
@@ -19,24 +20,35 @@ public class Share {
     private String id;
 	
 	//链接id
+	@ParamAnnotation
 	@Column(name="href_id")
 	private String hrefId;
 	
 	//url地址
+	@ParamAnnotation
 	@Column
 	private String url;
 	
 	//发起人openid
+	@ParamAnnotation
 	@Column(name="sponsor_openid")
 	private String sponsorOpenid;
 	
 	//发起时间
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@ParamAnnotation
 	@Column(name="hand_time")
 	private DateTime handTime;
 	
 	//分享类型
+	@ParamAnnotation
 	@Column
 	private int type;
+	
+	//点击次数
+	@ParamAnnotation
+	@Column(name="click_count")
+	private int clickCount;
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -51,6 +63,14 @@ public class Share {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	
+	public int getClickCount() {
+		return clickCount;
+	}
+	public void setClickCount(int clickCount) {
+		this.clickCount = clickCount;
 	}
 	public String getHrefId() {
 		return hrefId;

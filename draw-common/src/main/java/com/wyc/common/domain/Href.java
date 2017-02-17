@@ -28,6 +28,9 @@ public class Href {
 	@Column
 	private String code;
 	
+	@Column(name="share_count")
+	private int shareCount;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -41,6 +44,14 @@ public class Href {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	
+	public int getShareCount() {
+		return shareCount;
+	}
+	public void setShareCount(int shareCount) {
+		this.shareCount = shareCount;
 	}
 	public String getAddress() {
 		return address;

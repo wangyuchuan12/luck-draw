@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
-import com.wyc.common.filter.BaseActionFilter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.filter.AddDrawRoomFilter;

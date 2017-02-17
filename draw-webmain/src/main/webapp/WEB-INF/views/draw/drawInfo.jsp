@@ -602,11 +602,14 @@
 				
 				
 				function doShare(){
+
 					var url = "/api/draw/red_pack/share_red_packet_filter";
 					
 					var requestCallback = new Object();
 					
 					requestCallback.success = function(resp){
+						
+						alert(resp.errorMsg);
 						var shareCount = $("input[name=shareCount]").val();
 						var shareCount = parseInt(shareCount);
 						shareCount = shareCount+1;
@@ -619,7 +622,7 @@
 					
 					params.id = $("input[name=redPacketId]").val();
 					params.url = getWebpath()+"/view/draw/luck_draw/info?id="+params.id;
-					
+					params.href_code = "luckDrawInfo";
 					params.type = 0;
 					request(url,requestCallback,params);
 				}
@@ -628,8 +631,6 @@
 				
 				
 				$(document).ready(function(){
-					
-					
 					wx.ready(function(){
 						
 						var callback = new Object();
@@ -642,7 +643,7 @@
 							
 							if(allowWrongCount<=count){
 								doShare();
-							}*/	
+							}*/
 							
 							doShare();
 						}
