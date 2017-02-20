@@ -427,7 +427,10 @@
 						}
 						if(obj.success){
 							
+							
 							wxPay(obj.data.timestamp,obj.data.nonceStr,obj.data.pack,obj.data.signType,obj.data.paySign,payCallback);
+						}else{
+							alert(JSON.stringify(obj));
 						}
 						
 					}
@@ -443,7 +446,7 @@
 					
 					params.type=0;
 					
-					params.redPacketId = obj.data.id;
+					params.red_packet_id = obj.data.id;
 					params.outTradeNo  = obj.data.outTradeNo;
 					request(url,callback,params);
 				}

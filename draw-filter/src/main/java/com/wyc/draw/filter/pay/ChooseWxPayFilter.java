@@ -49,6 +49,7 @@ public class ChooseWxPayFilter extends Filter{
 		String openid = userInfo.getOpenid();
 		
 		PayCostVo payCostVo = (PayCostVo)sessionManager.getObject(PayCostVo.class);
+	
 		
 		BigDecimal costBigDecimail = payCostVo.getCost();
 		
@@ -56,8 +57,9 @@ public class ChooseWxPayFilter extends Filter{
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("输入的参数cost数值不能为0");
-			sessionManager.setEnd(true);
+			sessionManager.setReturn(true);
 			sessionManager.setReturnValue(resultVo);
+			sessionManager.save(resultVo);
 			return null;
 		}
 		
@@ -68,8 +70,9 @@ public class ChooseWxPayFilter extends Filter{
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("支付body不能为空");
-			sessionManager.setEnd(true);
+			sessionManager.setReturn(true);
 			sessionManager.setReturnValue(resultVo);
+			sessionManager.save(resultVo);
 			return null;
 		}
 		
@@ -79,8 +82,9 @@ public class ChooseWxPayFilter extends Filter{
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("支付detail不能为空");
-			sessionManager.setEnd(true);
+			sessionManager.setReturn(true);
 			sessionManager.setReturnValue(resultVo);
+			sessionManager.save(resultVo);
 			return null;
 		}
 		
@@ -167,6 +171,7 @@ public class ChooseWxPayFilter extends Filter{
 			resultVo.setErrorMsg("支付失败了");
 			sessionManager.setEnd(true);
 			sessionManager.setReturnValue(resultVo);
+			sessionManager.save(resultVo);
 			return null;
         }
 	}

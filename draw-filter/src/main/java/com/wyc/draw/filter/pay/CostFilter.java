@@ -32,6 +32,7 @@ public class CostFilter extends Filter{
 			resultVo.setErrorMsg("type参数不能为空");
 			filterManager.setReturn(true);
 			filterManager.setReturnValue(resultVo);
+			filterManager.save(resultVo);
 			return null;
 		}
 		
@@ -44,6 +45,7 @@ public class CostFilter extends Filter{
 			resultVo.setErrorMsg("type无法转变成数字");
 			filterManager.setReturn(true);
 			filterManager.setReturnValue(resultVo);
+			filterManager.save(resultVo);
 			return null;
 		}
 		
@@ -71,6 +73,7 @@ public class CostFilter extends Filter{
 				resultVo.setErrorMsg("redPacketId参数不能为空");
 				filterManager.setReturn(true);
 				filterManager.setReturnValue(resultVo);
+				filterManager.save(resultVo);
 				return null;
 			}
 			RedPacket redPacket = redPacketService.findOne(redPacketId);
@@ -80,6 +83,7 @@ public class CostFilter extends Filter{
 				resultVo.setErrorMsg("返回的redPacket对象为空");
 				filterManager.setReturn(true);
 				filterManager.setReturnValue(resultVo);
+				filterManager.save(resultVo);
 				return null;
 			}
 			if(redPacket.getType()!=Constant.QUESTION_TYPE){
@@ -88,6 +92,7 @@ public class CostFilter extends Filter{
 				resultVo.setErrorMsg("该红包类型不是问答红包");
 				filterManager.setReturn(true);
 				filterManager.setReturnValue(resultVo);
+				filterManager.save(resultVo);
 				return null;
 			}
 			
@@ -104,6 +109,7 @@ public class CostFilter extends Filter{
 				resultVo.setErrorMsg("redPacketId参数不能为空");
 				filterManager.setReturn(true);
 				filterManager.setReturnValue(resultVo);
+				filterManager.save(resultVo);
 				return null;
 			}
 			RedPacket redPacket = redPacketService.findOne(redPacketId);
@@ -113,6 +119,7 @@ public class CostFilter extends Filter{
 				resultVo.setErrorMsg("返回的redPacket对象为空");
 				filterManager.setReturn(true);
 				filterManager.setReturnValue(resultVo);
+				filterManager.save(resultVo);
 				return null;
 			}
 			if(redPacket.getType()!=Constant.VIE_TYPE){
@@ -121,6 +128,7 @@ public class CostFilter extends Filter{
 				resultVo.setErrorMsg("该红包类型不是竞答红包");
 				filterManager.setReturn(true);
 				filterManager.setReturnValue(resultVo);
+				filterManager.save(resultVo);
 				return null;
 			}
 			

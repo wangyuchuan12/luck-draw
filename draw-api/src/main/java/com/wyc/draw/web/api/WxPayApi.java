@@ -37,8 +37,16 @@ public class WxPayApi {
 	@ResponseBody
 	public Object chooseWxPayConfig(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+		if(sessionManager.getObject(ResultVo.class)!=null){
+			resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setMsg("返回数据失败");
+			return sessionManager.getObject(ResultVo.class);
+		}
 		WxChooseWxPayBean chooseWxPayBean = (WxChooseWxPayBean)sessionManager.getObject(WxChooseWxPayBean.class);
-		ResultVo resultVo = new ResultVo();
+		resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setMsg("返回数据成功");
 		resultVo.setData(chooseWxPayBean);
