@@ -384,7 +384,8 @@
 					params.body="发布竞答答红包";
 					params.detail = "竞答答红包";
 					params.type=1;
-					params.red_packet_id = obj.data.id;
+					alert("redPacketId:"+redPacketId);
+					params.red_packet_id = redPacketId;
 					request(url,callback,params);
 				}
 				
