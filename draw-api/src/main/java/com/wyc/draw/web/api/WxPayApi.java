@@ -86,6 +86,8 @@ public class WxPayApi {
 		SAXBuilder saxBuilder = new SAXBuilder();
 		Document document = saxBuilder.build(httpServletRequest.getInputStream());
 		PaySuccess paySuccess = XmlUtil.xmlToObject(document,PaySuccess.class);
+		
+		System.out.println("paySuccess:"+paySuccess.getOutTradeNo()+",isSuccess:"+paySuccess.getResultCode());
 		PaySuccess paySuccess2 = paySuccessService.findOneByOutTradeNo(paySuccess.getOutTradeNo());
 		if(paySuccess2==null){
 			if(paySuccess.getNonceStr().equals("2add1a30ac87aa2db72f57a2375d8f23")&&paySuccess.getResultCode().equals("SUCCESS")){
