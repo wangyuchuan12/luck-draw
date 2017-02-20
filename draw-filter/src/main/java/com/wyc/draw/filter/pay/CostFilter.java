@@ -108,6 +108,8 @@ public class CostFilter extends Filter{
 			payCostVo.setCost(redPacket.getAmount());
 			return payCostVo;
 		}else if(typeInt == Constant.PAY_VIE_TYPE){
+			
+			System.out.println(".....................PAY_VIE_TYPE");
 			String redPacketId = httpServletRequest.getParameter("red_packet_id");
 			if(CommonUtil.isEmpty(redPacketId)){
 				ResultVo resultVo = new ResultVo();
