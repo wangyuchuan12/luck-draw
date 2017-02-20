@@ -345,8 +345,6 @@
 					var url = "/api/pay/wx/choose_wx_pay_config";
 					var callback = new Object();
 					callback.success = function(obj){
-						
-						var redPacketId = obj.data.id;
 						hideLoading();
 						var payCallback = new Object();
 						payCallback.success = function(){
@@ -384,7 +382,6 @@
 					params.body="发布竞答答红包";
 					params.detail = "竞答答红包";
 					params.type=1;
-					alert("redPacketId:"+redPacketId);
 					params.red_packet_id = redPacketId;
 					request(url,callback,params);
 				}
