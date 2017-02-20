@@ -39,6 +39,8 @@ public class CostFilter extends Filter{
 		Integer typeInt;
 		try{
 			typeInt = Integer.parseInt(type);
+			
+			System.out.println("........type:"+typeInt);
 		}catch(Exception e){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
