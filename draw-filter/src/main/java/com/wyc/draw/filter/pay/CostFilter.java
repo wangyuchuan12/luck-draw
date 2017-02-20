@@ -96,7 +96,8 @@ public class CostFilter extends Filter{
 				return null;
 			}
 			
-			String notifyUrl = Constant.PAY_QA_TYPE_NONCE_URL+"?redPacketId="+redPacketId;
+			redPacket.setOutTradeNo(outTradeNo);
+			String notifyUrl = Constant.PAY_QA_TYPE_NONCE_URL;
 			payCostVo.setNotifyUrl(notifyUrl);
 			payCostVo.setPayType(Constant.PAY_QA_TYPE);
 			payCostVo.setCost(redPacket.getAmount());

@@ -69,4 +69,8 @@ public class RedPacketService {
 			Pageable pageable) {
 		return redPackageRepository.findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefundAndIsRefundError(isReceive,isTimeout,isPay,isRefund,isRefundError,pageable);
 	}
+
+	public RedPacket findOneByOutTradeNo(String outTradeNo) {
+		return redPackageRepository.findOneByOutTradeNo(outTradeNo);
+	}
 }

@@ -1,5 +1,6 @@
 package com.wyc.draw.web.api;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
@@ -59,6 +60,7 @@ public class WxPayApi {
 	}
 	
 	@ResponseBody
+	@Transactional
 	@RequestMapping(value="pa_pay_success")
 	public Object qaPaySuccess(HttpServletRequest httpServletRequest)throws Exception{
 		SAXBuilder saxBuilder = new SAXBuilder();
@@ -67,12 +69,10 @@ public class WxPayApi {
 		PaySuccess paySuccess2 = paySuccessService.findOneByOutTradeNo(paySuccess.getOutTradeNo());
 		if(paySuccess2==null){
 			if(paySuccess.getNonceStr().equals("1add1a30ac87aa2db72f57a2375d8f22")&&paySuccess.getResultCode().equals("SUCCESS")){
-			
-				String redPacketId = httpServletRequest.getParameter("redPacketId");
-				
-				RedPacket redPacket = redPacketService.findOne(redPacketId);
+				RedPacket redPacket = redPacketService.findOneByOutTradeNo(paySuccess2.getOutTradeNo());
 				redPacket.setIsPay(1);
 				redPacket.setIsDisplay(1);
+				redPacketService.update(redPacket);
 				paySuccessService.add(paySuccess);
 			}
 		}

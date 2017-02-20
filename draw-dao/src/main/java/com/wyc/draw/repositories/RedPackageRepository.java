@@ -39,4 +39,7 @@ public interface RedPackageRepository extends CrudRepository<RedPacket, String>{
 	Page<RedPacket> findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefundAndIsRefundError(int isReceive, int isTimeout, int isPay,
 			int isRefund,int isRefundError,Pageable pageable);
 
+
+	RedPacket findOneByOutTradeNo(String outTradeNo);
+
 }
