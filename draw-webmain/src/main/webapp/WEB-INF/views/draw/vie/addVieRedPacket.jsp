@@ -70,8 +70,8 @@
 			
 				<div class="add_draw_pay_view">
 					<div class="take_out_list">
-						<div class="take_out_item" onclick="payAmount(5);">
-							<div class="take_out_item_money">5<span>元</span></div>
+						<div class="take_out_item" onclick="payAmount(0.01);">
+							<div class="take_out_item_money">0.01<span>元</span></div>
 						</div>
 						
 						
