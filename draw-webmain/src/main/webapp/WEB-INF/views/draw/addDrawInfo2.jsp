@@ -432,7 +432,7 @@
 						
 					}
 					
-					callback.failure = function(obj){
+					callback.failure = function(obj2){
 						showToast("现在网络繁忙，请稍后再试");
 						hideLoading();
 					}
@@ -441,7 +441,9 @@
 					params.body="发布问答红包";
 					params.detail = "问答红包";
 					
+					params.type=0;
 					
+					params.redPacketId = obj.data.id;
 					params.outTradeNo  = obj.data.outTradeNo;
 					request(url,callback,params);
 				}

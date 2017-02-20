@@ -36,17 +36,15 @@ public class ChooseWxPayFilter extends Filter{
 	@Autowired
 	private RequestFactory requestFactory;
 	
-	@Autowired
-	private SessionManager sessionManager;
 	
 	@Autowired
 	private WxContext wxContext;
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
+	public Object handlerBefore(SessionManager sessionManager) throws Exception {
 		
-		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
+		HttpServletRequest httpServletRequest = sessionManager.getHttpServletRequest();
 		
-		UserInfo userInfo = (UserInfo) filterManager.getObject(UserInfo.class);
+		UserInfo userInfo = (UserInfo) sessionManager.getObject(UserInfo.class);
 		
 		String openid = userInfo.getOpenid();
 		
@@ -58,8 +56,8 @@ public class ChooseWxPayFilter extends Filter{
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("输入的参数cost数值不能为0");
-			filterManager.setEnd(true);
-			filterManager.setReturnValue(resultVo);
+			sessionManager.setEnd(true);
+			sessionManager.setReturnValue(resultVo);
 			return null;
 		}
 		
@@ -70,8 +68,8 @@ public class ChooseWxPayFilter extends Filter{
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("支付body不能为空");
-			filterManager.setEnd(true);
-			filterManager.setReturnValue(resultVo);
+			sessionManager.setEnd(true);
+			sessionManager.setReturnValue(resultVo);
 			return null;
 		}
 		
@@ -81,8 +79,8 @@ public class ChooseWxPayFilter extends Filter{
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("支付detail不能为空");
-			filterManager.setEnd(true);
-			filterManager.setReturnValue(resultVo);
+			sessionManager.setEnd(true);
+			sessionManager.setReturnValue(resultVo);
 			return null;
 		}
 		
@@ -167,8 +165,8 @@ public class ChooseWxPayFilter extends Filter{
         	ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("支付失败了");
-			filterManager.setEnd(true);
-			filterManager.setReturnValue(resultVo);
+			sessionManager.setEnd(true);
+			sessionManager.setReturnValue(resultVo);
 			return null;
         }
 	}
