@@ -56,9 +56,17 @@ public class WxPayApi {
 	@ResponseBody
 	@RequestMapping(value="pa_pay_success")
 	public Object qaPaySuccess(HttpServletRequest httpServletRequest)throws Exception{
-		
-		System.out.println("................paySuccess");
-		return "";
+		SAXBuilder saxBuilder = new SAXBuilder();
+		Document document = saxBuilder.build(httpServletRequest.getInputStream());
+		PaySuccess paySuccess = XmlUtil.xmlToObject(document,PaySuccess.class);
+		PaySuccess paySuccess2 = paySuccessService.findOneByOutTradeNo(paySuccess.getOutTradeNo());
+		if(paySuccess2==null){
+			if(paySuccess.getNonceStr().equals("1add1a30ac87aa2db72f57a2375d8f22")&&paySuccess.getResultCode().equals("SUCCESS")){
+			
+				paySuccessService.add(paySuccess);
+			}
+		}
+		return paySuccess;
 	}
 	
 	@ResponseBody
