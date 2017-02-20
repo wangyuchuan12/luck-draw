@@ -182,17 +182,8 @@ public class BaseHandRedPackFilter extends Filter{
 		
 		Calendar now = Calendar.getInstance();
 		now.setTime(new Date());
-		String outTradeNo = now.get(Calendar.YEAR)
-                +"-"+(now.get(Calendar.MONTH) + 1)
-                +"-"+now.get(Calendar.DAY_OF_MONTH)
-                +"-"+now.get(Calendar.HOUR_OF_DAY)
-                +"-"+now.get(Calendar.MINUTE)
-                +"-"+now.get(Calendar.SECOND)
-                +"-"+now.get(Calendar.MILLISECOND)
-                +"-"+new Random().nextInt(1000)+"";
+
 		RedPacket redPacket = new RedPacket();
-		
-		redPacket.setOutTradeNo(outTradeNo);
 		
 		Integer payTypeInt = Integer.parseInt(payType);
 		//如果是账号余额付款，就把状态改成已支付，直接扣除账号中的余额,领取状态也改成可领取
@@ -492,7 +483,6 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacketVo.setId(redPacket.getId());
 		redPacketVo.setType(typeInt);
 		redPacketVo.setPayType(redPacket.getPayType());
-		redPacketVo.setOutTradeNo(outTradeNo);
 		redPacketVo.setIsImg(isImgInt);
 		
 		

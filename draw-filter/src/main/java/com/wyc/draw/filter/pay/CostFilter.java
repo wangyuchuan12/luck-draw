@@ -60,10 +60,10 @@ public class CostFilter extends Filter{
                 +"-"+now.get(Calendar.MILLISECOND)
                 +"-"+new Random().nextInt(1000)+"";
         
-        String noticStr = "1add1a30ac87aa2db72f57a2375d8f22";
+        
 		
 		PayCostVo payCostVo = new PayCostVo();
-		payCostVo.setNonceStr(noticStr);
+		
 		payCostVo.setOutTradeNo(outTradeNo);
 		if(typeInt==Constant.PAY_QA_TYPE){
 			String redPacketId = httpServletRequest.getParameter("red_packet_id");
@@ -96,6 +96,8 @@ public class CostFilter extends Filter{
 				return null;
 			}
 			
+			String noticStr = "1add1a30ac87aa2db72f57a2375d8f22";
+			payCostVo.setNonceStr(noticStr);
 			redPacket.setOutTradeNo(outTradeNo);
 			redPacketService.update(redPacket);
 			String notifyUrl = Constant.PAY_QA_TYPE_NONCE_URL;
@@ -133,7 +135,8 @@ public class CostFilter extends Filter{
 				filterManager.save(resultVo);
 				return null;
 			}
-			
+			String noticStr = "2add1a30ac87aa2db72f57a2375d8f23";
+			payCostVo.setNonceStr(noticStr);
 			payCostVo.setNotifyUrl(Constant.PAY_VIE_TYPE_NONCE_URL);
 			payCostVo.setPayType(Constant.PAY_VIE_TYPE);
 			payCostVo.setCost(redPacket.getAmount());

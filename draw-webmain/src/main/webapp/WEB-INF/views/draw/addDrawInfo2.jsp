@@ -447,7 +447,6 @@
 					params.type=0;
 					
 					params.red_packet_id = obj.data.id;
-					params.outTradeNo  = obj.data.outTradeNo;
 					request(url,callback,params);
 				}
 				

@@ -384,8 +384,7 @@
 					params.body="发布竞答答红包";
 					params.detail = "竞答答红包";
 					
-					
-					params.outTradeNo  = obj.data.outTradeNo;
+					params.red_packet_id = obj.data.id;
 					request(url,callback,params);
 				}
 				
