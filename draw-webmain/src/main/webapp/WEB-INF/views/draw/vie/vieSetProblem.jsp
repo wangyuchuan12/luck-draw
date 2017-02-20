@@ -333,6 +333,8 @@
 				callback.success = function(resp){
 					if(resp.success){
 						skipToVieDrawInfo(redPacketId);
+					}else{
+						alert(resp.errorMsg);
 					}
 				}
 				request(url,callback,params);
