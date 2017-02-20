@@ -143,6 +143,6 @@ public class Constant {
 	//普通问答红包支付回调地址
 	public static final String PAY_QA_TYPE_NONCE_URL="/api/pay/wx/pa_pay_success";
 	//竞答红包支付回调地址
-	public static final String PAY_VIE_TYPE_NONCE_URL="";
+	public static final String PAY_VIE_TYPE_NONCE_URL="/api/pay/wx/vie_pay_success";
 	
 }
