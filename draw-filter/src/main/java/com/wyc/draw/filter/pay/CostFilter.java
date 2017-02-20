@@ -135,6 +135,9 @@ public class CostFilter extends Filter{
 				filterManager.save(resultVo);
 				return null;
 			}
+			
+			redPacket.setOutTradeNo(outTradeNo);
+			redPacketService.update(redPacket);
 			String noticStr = "2add1a30ac87aa2db72f57a2375d8f23";
 			payCostVo.setNonceStr(noticStr);
 			payCostVo.setNotifyUrl(Constant.PAY_VIE_TYPE_NONCE_URL);
