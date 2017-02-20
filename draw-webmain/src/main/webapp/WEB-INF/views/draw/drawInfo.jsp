@@ -270,11 +270,7 @@
 					var isCreater = $("input[name=isCreater]").val();
 					isCreater = parseInt(isCreater);
 					
-					if(isCreater==1){
-						$("#luck_info_option_item_edit").css("display","inline-block");
-					}else{
-						$("#luck_info_option_item_edit").css("display","none");
-					}
+					
 					
 					var isSetOption = $("input[name=isSetOption]").val();
 					isSetOption = parseInt(isSetOption);
@@ -309,6 +305,13 @@
 					
 					var isRoom = $("input[name=isRoom]").val();
 					isRoom = parseInt(isRoom);
+					
+					
+					if(isCreater==1&&isTimeOut==0&&isReceive==0){
+						$("#luck_info_option_item_edit").css("display","inline-block");
+					}else{
+						$("#luck_info_option_item_edit").css("display","none");
+					}
 					
 					if(prompt){
 						$(".luck_info_alert").text(prompt);
