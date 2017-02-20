@@ -16,7 +16,9 @@ import com.wyc.common.filter.UserInfoFilter;
 import com.wyc.common.service.PaySuccessService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.XmlUtil;
+import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.filter.pay.ChooseWxPayFilter;
+import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.other.PayService;
 
 
@@ -31,6 +33,9 @@ public class WxPayApi {
 	
 	@Autowired
 	private PayService payService;
+	
+	@Autowired
+	private RedPacketService redPacketService;
 	
 	@HandlerAnnotation(hanlerFilter=ChooseWxPayFilter.class)
 	@RequestMapping(value="choose_wx_pay_config")
@@ -63,6 +68,11 @@ public class WxPayApi {
 		if(paySuccess2==null){
 			if(paySuccess.getNonceStr().equals("1add1a30ac87aa2db72f57a2375d8f22")&&paySuccess.getResultCode().equals("SUCCESS")){
 			
+				String redPacketId = httpServletRequest.getParameter("redPacketId");
+				
+				RedPacket redPacket = redPacketService.findOne(redPacketId);
+				redPacket.setIsPay(1);
+				redPacket.setIsDisplay(1);
 				paySuccessService.add(paySuccess);
 			}
 		}
