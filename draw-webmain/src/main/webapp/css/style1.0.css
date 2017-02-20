@@ -2422,3 +2422,17 @@ li::before{
 .vie_answer_result_select_option{
 	padding-left: 30px;
 }
+
+.help{
+	background-color: white;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+}
+.help>ul>li{
+	display: inline-block;
+	margin: 5px;
+}
+.help>ul>li>span:first-child{
+	color: red;

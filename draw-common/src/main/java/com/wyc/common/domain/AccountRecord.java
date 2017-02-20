@@ -27,6 +27,13 @@ public class AccountRecord {
 	@Column
 	private BigDecimal amount;
 	
+	//智慧豆数量
+	@Column(name="wisom_count")
+	private Long wisdomCount;
+	
+	@Column(name="empirical_value")
+	private BigDecimal empiricalValue;
+	
 	//入账还是出账0为入账，1为出账
 	@Column(name="in_or_out")
 	private Integer inOrOut;
@@ -125,4 +132,18 @@ public class AccountRecord {
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
+	public Long getWisdomCount() {
+		return wisdomCount;
+	}
+	public void setWisdomCount(Long wisdomCount) {
+		this.wisdomCount = wisdomCount;
+	}
+	public BigDecimal getEmpiricalValue() {
+		return empiricalValue;
+	}
+	public void setEmpiricalValue(BigDecimal empiricalValue) {
+		this.empiricalValue = empiricalValue;
+	}
+	
+	
 }

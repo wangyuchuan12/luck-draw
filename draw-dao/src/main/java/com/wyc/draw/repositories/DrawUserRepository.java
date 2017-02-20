@@ -18,10 +18,6 @@ public interface DrawUserRepository extends CrudRepository<DrawUser, String>{
 	@Query(value="from com.wyc.draw.domain.DrawUser du where du.userId=:userId")
 	DrawUser findByUserIdWithLock(@Param("userId")String userId);
 
-	@Modifying
-	@Query(value="update com.wyc.draw.domain.DrawUser du set du.canTakeOutCount=:count")
-	void initDrawUserCanTakeOutCount(@Param("count") int count);
-
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	@Query(value="from com.wyc.draw.domain.DrawUser du where du.id=:id")
 	DrawUser findOneWithLuck(@Param("id")String id);

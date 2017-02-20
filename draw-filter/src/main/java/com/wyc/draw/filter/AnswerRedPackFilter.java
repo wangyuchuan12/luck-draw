@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wyc.common.domain.Account;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
+import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
@@ -45,6 +47,9 @@ public class AnswerRedPackFilter extends Filter{
 	
 	@Autowired
 	private DrawUserService drawUserService;
+	
+	@Autowired
+	private AccountService accountService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
@@ -228,7 +233,6 @@ public class AnswerRedPackFilter extends Filter{
 		
 		AnswerRedPacketResultVo answerRedPacketResultVo = new AnswerRedPacketResultVo();
 		if(redPacket.getAnswer().equals(answer)){
-			drawUser  =  drawUserService.findByUserIdWithLuck(drawUser.getUserId());
 			redPacketTakepartMember.setIsSuccess(1);
 			redPacket.setIsReceive(1);
 			redPacket.setIsReceiveAble(0);
@@ -237,14 +241,15 @@ public class AnswerRedPackFilter extends Filter{
 			redPacketTakepartMember.setGetAmount(redPacket.getAmount());
 			redPackageService.update(redPacket);
 			
-			BigDecimal amountBalance =drawUser.getAmountBalance();
+			Account account = accountService.fineOneSync(drawUser.getAccountId());
+			BigDecimal amountBalance =account.getAmountBalance();
 			if(amountBalance==null){
 				amountBalance = new BigDecimal(0);
 			}
 
 			amountBalance = amountBalance.add(redPacket.getAmount());
-			drawUser.setAmountBalance(amountBalance);
-			drawUserService.update(drawUser);
+			account.setAmountBalance(amountBalance);
+			accountService.update(account);
 			
 			filterManager.save(drawUser);
 			answerRedPacketResultVo.setIsRight(1);

@@ -73,13 +73,9 @@
 			
 			</div>
 			
-			<c:if test="${redPacketInfo.isPay==1&&redPacketInfo.isTimeout==0&&redPacketInfo.isCreater==0&&redPacketInfo.isAnswer==0}">
-				<div class="vieTakepartButton">
-					<div class="vieTakepartButtonName">参加竞答活动</div>
-					
-					<div class="vieTakepartButtonFee">报名费：￥${redPacketInfo.entryFee}</div>
-				</div>
-			</c:if>
+			
+			
+			<div class="luck_info_alert" style="display: none;">该活动已结束</div>
 			
 			<c:if test="${redPacketInfo.isAnswer==1}">
 				<div class="vieShowAnswerButton" onclick="skipVieAnswerResult('${redPacketInfo.id}')">查看答题结果</div>
@@ -126,6 +122,46 @@
 					</div>
 				</c:if>
 				
+				<div class="help">
+					<ul>
+						<li>
+							<span class="fa fa-check-circle"></span>
+							<span>超时退款</span>
+						</li>
+						
+						<li>
+							<span class="fa fa-check-circle"></span>
+							<span>第一名：4元</span>
+						</li>
+						
+						<li>
+							<span class="fa fa-check-circle"></span>
+							<span>第二名：2元</span>
+						</li>
+						
+						<li>
+							<span class="fa fa-check-circle"></span>
+							<span>第三名：1元</span>
+						</li>
+						
+						<li>
+							<span class="fa fa-check-circle"></span>
+							<span>参赛费：0.1元，归发起人所有</span>
+						</li>
+						
+						<li>
+							<span class="fa fa-check-circle"></span>
+							<span>发起人可获取：好评数*2粒智慧豆</span>
+						</li>
+						
+						<li>
+							<span class="fa fa-check-circle"></span>
+							<span>只有参赛人员才可以好评</span>
+						</li>
+					</ul>
+			
+				</div>
+				
 				<div class="view_luck_members_rank">排行榜</div>
 				<c:forEach items="${takePartMembers.datas}" var="takePartMember">
 					<div class="view_luck_member">
@@ -155,19 +191,25 @@
 					</li>
 					<li style="width: 23%;">
 						<span class="fa fa-thumbs-o-up"></span>
-						<span>点赞</span>
+						<span>好评</span>
 					</li>
 					<li style="width: 23%;">
 						<span class="fa fa-users"></span>
 						<span>进入房间</span>
 					</li>
 					
-					<li style="width: 23%;">
-						<span class="fa fa-bullhorn"></span>
-						<span>红包详情</span>
-					</li>
+					
+					<c:if test="${redPacketInfo.isPay==1&&redPacketInfo.isTimeout==0&&redPacketInfo.isCreater==0&&redPacketInfo.isAnswer==0}">
+						<li style="width: 23%;" id="vieTakepartButton">
+							<span class="fa fa-space-shuttle"></span>
+							<span>参加</span>
+						</li>
+					</c:if>
+					
 				</ul>
 			</div>
+			
+			
 			
 			
 			<script type="text/javascript">
@@ -188,7 +230,7 @@
 						
 					},false);
 					
-					$(".vieTakepartButton").click(function(){
+					$("#vieTakepartButton").click(function(){
 						var url = "/api/vie/draw/vie_red_pack/takepart";
 						var params = new Object();
 						var redPacketId = $("input[name=redPacketId]").val();

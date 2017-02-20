@@ -21,12 +21,14 @@ public interface VieRedPacketProblemRepository extends CrudRepository<VieRedPack
 
 	List<VieRedPacketProblem> findAllByRedPacketIdOrderBySeqAsc(String redPacketId);
 
-	@Query(value="from com.wyc.draw.domain.VieRedPacketProblem vrp where vrp.redPacketId=:redPacketId and vrp.seq = (select min(seq) from com.wyc.draw.domain.VieRedPacketProblem vrp2 where vrp2.redPacketId=:redPacketId)")
+	@Query(value="from com.wyc.draw.domain.VieRedPacketProblem vrp where vrp.redPacketId=:redPacketId and vrp.isFirst=1")
 	VieRedPacketProblem getFirstByRedPacketId(@Param("redPacketId")String redPacketId);
 	
 	@Query(value="from com.wyc.draw.domain.VieRedPacketProblem vrp where vrp.redPacketId=:redPacketId and vrp.seq = (select max(seq) from com.wyc.draw.domain.VieRedPacketProblem vrp2 where vrp2.redPacketId=:redPacketId)")
 	VieRedPacketProblem getLastByRedPacketId(@Param("redPacketId")String redPacketId);
 
 	VieRedPacketProblem findOneByRedPacketIdAndSeq(String redPacketId, int currentSeq);
+
+	VieRedPacketProblem findOneByRedPacketIdAndIsFirst(String redPacketId, int isFirst);
 
 }

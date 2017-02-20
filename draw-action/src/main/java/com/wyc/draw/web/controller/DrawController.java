@@ -2,13 +2,16 @@ package com.wyc.draw.web.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.HandlerAnnotation;
+import com.wyc.common.domain.Account;
 import com.wyc.common.domain.vo.ResultVo;
+import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
@@ -33,6 +36,9 @@ public class DrawController {
 	
 	@Autowired
 	private DrawRoomService drawRoomService;
+	
+	@Autowired
+	private AccountService accountService;
 	
 	@HandlerAnnotation(hanlerFilter=GetRedPacketListOfPageFilter.class)
 	@RequestMapping(value="list")
@@ -104,6 +110,7 @@ public class DrawController {
 	}*/
 	
 	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
+	@Transactional
 	@RequestMapping(value="add2")
 	public String addDrawInfo2(HttpServletRequest httpServletRequest)throws Exception{
 		String isRoom = httpServletRequest.getParameter("is_room");
@@ -117,7 +124,8 @@ public class DrawController {
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
-		httpServletRequest.setAttribute("amountBalance", drawUser.getAmountBalance());
+		Account account = accountService.fineOneSync(drawUser.getAccountId());
+		httpServletRequest.setAttribute("amountBalance", account.getAmountBalance());
 		List<DrawRoom> drawRooms = drawRoomService.findAllByDrawUserId(drawUser.getId());
 	
 		httpServletRequest.setAttribute("rooms",drawRooms);

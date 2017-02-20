@@ -36,20 +36,12 @@ public class DrawUserService {
 		return drawUserRepository.save(drawUser);
 		
 	}
-	
-	public DrawUser findByUserIdWithLuck(String userId){
-		return drawUserRepository.findByUserIdWithLock(userId);
-	}
 
 	public DrawUser findOneWithLuck(String id){
 		return drawUserRepository.findOneWithLuck(id);
 	}
 	
-	@Transactional
-	public void initDrawUserCanTakeOutCount(int count) {
-		drawUserRepository.initDrawUserCanTakeOutCount(count);
-		
-	}
+	
 
 	public DrawUser findOne(String id) {
 	

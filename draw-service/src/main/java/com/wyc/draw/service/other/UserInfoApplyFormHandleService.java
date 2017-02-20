@@ -7,8 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wyc.common.domain.Account;
 import com.wyc.common.domain.ApplyForm;
 import com.wyc.common.domain.PaySuccess;
+import com.wyc.common.service.AccountService;
 import com.wyc.common.service.ApplyFormService;
 import com.wyc.common.service.PaySuccessService;
 import com.wyc.common.util.Constant;
@@ -19,7 +21,7 @@ import com.wyc.draw.service.DrawUserService;
 public class UserInfoApplyFormHandleService {
 
 	@Autowired
-	private DrawUserService drawUserService;
+	private AccountService accountService;
 	
 	@Autowired
 	private PaySuccessService paySuccessService;
@@ -28,24 +30,25 @@ public class UserInfoApplyFormHandleService {
 	private ApplyFormService applyFormService;
 
 	@Transactional
-	public DrawUser handTakeIn(String drawUserId, ApplyForm applyForm) {
+	public Account handTakeIn(String accountId, ApplyForm applyForm) {
 		if(applyForm.getStatus()==Constant.APPLY_FORM_STATUS_IN&&applyForm.getType()==Constant.APPLY_FORM_TYPE_TAKE_IN){
 			PaySuccess paySuccess = paySuccessService.findOneByOutTradeNo(applyForm.getTradeOutNo());
-			DrawUser drawUser = drawUserService.findOneWithLuck(drawUserId);
+			Account account = accountService.fineOneSync(accountId);
+			
 			if(paySuccess!=null){
-				BigDecimal drawUserAmountBalance = drawUser.getAmountBalance();
+				BigDecimal drawUserAmountBalance = account.getAmountBalance();
 				if(drawUserAmountBalance==null){
 					drawUserAmountBalance = new BigDecimal("0");
 				}
 				drawUserAmountBalance = drawUserAmountBalance.add(applyForm.getRealHandleAmount());
-				drawUser.setAmountBalance(drawUserAmountBalance);
+				account.setAmountBalance(drawUserAmountBalance);
 				
-				drawUserService.update(drawUser);
+				accountService.update(account);
 				
 				applyForm.setStatus(Constant.APPLY_FORM_STATUS_SUCCESS);
 				
 				applyFormService.update(applyForm);
-				return drawUser;
+				return account;
 			}
 		}
 		return null;

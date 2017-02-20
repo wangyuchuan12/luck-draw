@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wyc.common.domain.Account;
 import com.wyc.common.domain.PaySuccess;
+import com.wyc.common.service.AccountService;
 import com.wyc.common.wx.domain.Article;
 import com.wyc.common.wx.domain.WxContext;
 import com.wyc.common.wx.service.SendMessageService;
@@ -37,6 +39,9 @@ public class RedPacketRefundService {
 	
 	@Autowired
 	private SendMessageService sendMessageService;
+	
+	@Autowired
+	private AccountService accountService;
 	
 	final static Logger logger = LoggerFactory.getLogger(RedPacketRefundService.class);
 	@Transactional
@@ -76,14 +81,16 @@ public class RedPacketRefundService {
 				
 				redPacket.setIsRefund(1);
 				redPacketService.update(redPacket);
-				DrawUser drawUser = drawUserService.findOneWithLuck(redPacket.getHandDrawUserId());
-				BigDecimal amountBalance = drawUser.getAmountBalance();
+				
+				DrawUser drawUser = drawUserService.findOne(redPacket.getHandDrawUserId());
+				Account account = accountService.fineOneSync(drawUser.getAccountId());		
+				BigDecimal amountBalance = account.getAmountBalance();
 				if(amountBalance == null){
 					amountBalance = new BigDecimal(0);
 				}
 				amountBalance = amountBalance.add(redPacket.getAmount());
-				drawUser.setAmountBalance(amountBalance);
-				drawUserService.update(drawUser);
+				account.setAmountBalance(amountBalance);
+				accountService.update(account);
 				
 				List<Article> articles = new ArrayList<>();
 				

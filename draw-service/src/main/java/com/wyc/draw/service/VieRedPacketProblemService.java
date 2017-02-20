@@ -66,4 +66,8 @@ public class VieRedPacketProblemService {
 	public VieRedPacketProblem findOneByRedPacketIdAndSeq(String redPacketId, int currentSeq) {
 		return vieRedPacketProblemRepository.findOneByRedPacketIdAndSeq(redPacketId,currentSeq);
 	}
+
+	public VieRedPacketProblem findOneByRedPacketIdAndIsFirst(String redPacketId, int isFirst) {
+		return vieRedPacketProblemRepository.findOneByRedPacketIdAndIsFirst(redPacketId, isFirst);
+	}
 }

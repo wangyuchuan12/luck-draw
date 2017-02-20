@@ -9,10 +9,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.wyc.common.domain.Account;
 import com.wyc.common.domain.ApplyForm;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.domain.vo.TransfersResultVo;
 import com.wyc.common.filter.Filter;
+import com.wyc.common.service.AccountService;
 import com.wyc.common.service.ApplyFormService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
@@ -22,7 +25,6 @@ import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.common.wx.domain.WxContext;
 import com.wyc.common.wx.service.SendMessageService;
 import com.wyc.draw.domain.DrawUser;
-import com.wyc.draw.service.DrawUserService;
 import com.wyc.draw.service.other.PayService;
 
 
@@ -35,13 +37,13 @@ public class TakeOutApplyFilter extends Filter{
 	private PayService payService;
 	
 	@Autowired
-	private DrawUserService drawUserServivce;
-	
-	@Autowired
 	private WxContext wxContext;
 	
 	@Autowired
 	private SendMessageService sendMessageService;
+	
+	@Autowired
+	private AccountService accountService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -56,6 +58,7 @@ public class TakeOutApplyFilter extends Filter{
 		
 		
 		UserInfo userInfo = (UserInfo)filterManager.getObject(UserInfo.class);
+		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		String amount = httpServletRequest.getParameter("amount");
 		
 		if(CommonUtil.isEmpty(amount)){
@@ -99,9 +102,9 @@ public class TakeOutApplyFilter extends Filter{
 //                +"-"+new Random().nextInt(1000)+"";
 		
 		
-		DrawUser drawUser = drawUserServivce.findByUserIdWithLuck(userInfo.getId());
-		
-		if(drawUser.getCanTakeOutCount()<=0){
+
+		Account account = accountService.fineOneSync(drawUser.getAccountId());
+		if(account.getCanTakeOutCount()<=0){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("用户本月可提现次数已经用完");
@@ -110,7 +113,7 @@ public class TakeOutApplyFilter extends Filter{
 			return null;
 		}
 		
-		if(drawUser.getAmountBalance()==null||drawUser.getAmountBalance().compareTo(amountBigDecimal)<0){
+		if(account.getAmountBalance()==null||account.getAmountBalance().compareTo(amountBigDecimal)<0){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("对不起，余额不足");
@@ -140,11 +143,10 @@ public class TakeOutApplyFilter extends Filter{
 		applyForm.setRealHandleAmount(realAmountBigDecimal);
 		applyFormService.add(applyForm);
 		
-		drawUser.setAmountBalance(drawUser.getAmountBalance().subtract(amountBigDecimal));
+		account.setAmountBalance(account.getAmountBalance().subtract(amountBigDecimal));
 		
-		drawUser.setCanTakeOutCount(drawUser.getCanTakeOutCount()-1);
-		drawUserServivce.update(drawUser);
-		filterManager.save(drawUser);
+		account.setCanTakeOutCount(account.getCanTakeOutCount()-1);
+		accountService.update(account);
 		
 		try{
 			

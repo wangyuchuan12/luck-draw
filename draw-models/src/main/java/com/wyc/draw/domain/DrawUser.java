@@ -39,6 +39,11 @@ public class DrawUser {
 	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	private String userId;
 	
+	//账户id
+	@Column(name="account_id")
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
+	private String accountId;
+	
 	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column
 	private String nickname;
@@ -46,10 +51,6 @@ public class DrawUser {
 	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="img_url")
 	private String imgUrl;
-	//账号余额
-	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
-	@Column(name="amount_balance")
-	private BigDecimal amountBalance;
 	
 	//发红包个数
 	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
@@ -80,12 +81,7 @@ public class DrawUser {
 	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="wrong_answer_num")
 	private Integer wrongAnswerNum;
-	
-	
-	//本月可提现次数
-	@Column(name="can_take_out_count")
-	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
-	private Integer canTakeOutCount;
+
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -110,17 +106,19 @@ public class DrawUser {
 	public String getImgUrl() {
 		return imgUrl;
 	}
+	
+	
+
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
-	}
-
-	public Integer getCanTakeOutCount() {
-		return canTakeOutCount;
-	}
-
-	public void setCanTakeOutCount(Integer canTakeOutCount) {
-		this.canTakeOutCount = canTakeOutCount;
 	}
 
 	public DateTime getCreateAt() {
@@ -169,14 +167,6 @@ public class DrawUser {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	public BigDecimal getAmountBalance() {
-		return amountBalance;
-	}
-
-	public void setAmountBalance(BigDecimal amountBalance) {
-		this.amountBalance = amountBalance;
 	}
 
 	public Integer getHandRedPacketNum() {

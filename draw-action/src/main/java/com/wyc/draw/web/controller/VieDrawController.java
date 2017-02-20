@@ -2,11 +2,15 @@ package com.wyc.draw.web.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.wyc.annotation.HandlerAnnotation;
+import com.wyc.common.domain.Account;
 import com.wyc.common.domain.vo.ResultPageListVo;
+import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.draw.domain.DrawRoom;
@@ -41,6 +45,10 @@ public class VieDrawController {
 	@Autowired
 	private VieRedPacketTakepartMemberService vieRedPacketTakepartMemberService;
 	
+	@Autowired
+	private AccountService accountService;
+	
+	@Transactional
 	@HandlerAnnotation(hanlerFilter=GetVieRedPackInfoFilter.class)
 	@RequestMapping(value="info")
 	public String info(HttpServletRequest httpServletRequest)throws Exception{
@@ -66,7 +74,9 @@ public class VieDrawController {
 		if(vieRedPacketTakepartMembers!=null&&vieRedPacketTakepartMembers.size()>0){
 			VieRedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMembers.get(0);
 			if(CommonUtil.isEmpty(vieRedPacketTakepartMember.getCurrentProblemId())){
-				VieRedPacketProblem firstRedPacketProblem = vieRedPacketProblemService.getFirstByRedPacketId(redPacketVo.getId());
+				VieRedPacketProblem firstRedPacketProblem = vieRedPacketProblemService.findOneByRedPacketIdAndIsFirst(redPacketVo.getId(),1);
+				
+				
 				return "redirect:vie_answer_problem?member_id="+vieRedPacketTakepartMember.getId()+"&red_packet_id="+redPacketVo.getId()+"&current_seq="+firstRedPacketProblem.getSeq();
 			}
 			VieRedPacketProblem vieRedPacketProblem = vieRedPacketProblemService.findOne(vieRedPacketTakepartMember.getCurrentProblemId());
@@ -136,7 +146,8 @@ public class VieDrawController {
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
-		httpServletRequest.setAttribute("amountBalance", drawUser.getAmountBalance());
+		Account account = accountService.findOne(drawUser.getAccountId());
+		httpServletRequest.setAttribute("amountBalance", account.getAmountBalance());
 		List<DrawRoom> drawRooms = drawRoomService.findAllByDrawUserId(drawUser.getId());
 	
 		httpServletRequest.setAttribute("rooms",drawRooms);

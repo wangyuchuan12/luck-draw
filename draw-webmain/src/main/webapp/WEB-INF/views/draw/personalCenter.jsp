@@ -19,7 +19,7 @@
 
 			<div class="personal_center_header_money_type">总余额</div>
 			
-			<div class="personal_center_header_money_number">${drawUser.amountBalance}元</div>
+			<div class="personal_center_header_money_number">${account.amountBalance}元</div>
 		</div>
 	</div>
 	

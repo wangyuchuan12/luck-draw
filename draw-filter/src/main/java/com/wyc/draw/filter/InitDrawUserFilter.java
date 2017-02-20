@@ -1,28 +1,20 @@
 package com.wyc.draw.filter;
 
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.domain.ApplyForm;
-import com.wyc.common.domain.vo.ResultVo;
-import com.wyc.common.filter.BaseActionFilter;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.service.ApplyFormService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
-import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawUser;
-import com.wyc.draw.service.DrawUserService;
 import com.wyc.draw.service.other.UserInfoApplyFormHandleService;
 
 public class InitDrawUserFilter extends Filter{
-
-	@Autowired
-	private DrawUserService drawUserService;
 	
 	@Autowired
 	private ApplyFormService applyFormService;
@@ -31,33 +23,7 @@ public class InitDrawUserFilter extends Filter{
 	private UserInfoApplyFormHandleService userInfoApplyFormHandleService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		UserInfo userInfo = (UserInfo)filterManager.getObject(UserInfo.class);
-		if(userInfo==null){
-			filterManager.setEnd(true);
-			
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setMsg("找不到用户信息，请用微信客户端登录");
-			filterManager.setReturnValue(resultVo);
-			return null;
-		}
-		DrawUser drawUser = drawUserService.findByUserId(userInfo.getId());
-		if(drawUser==null){
-			drawUser = new DrawUser();
-			drawUser.setOpenid(userInfo.getOpenid());
-			drawUser.setUserId(userInfo.getId());
-			drawUser.setAmountBalance(new BigDecimal("0"));
-			drawUser.setAnswerNum(0);
-			drawUser.setGetRedPacketAmount(new BigDecimal("0"));
-			drawUser.setGetRedPacketNum(0);
-			drawUser.setCanTakeOutCount(3);
-			drawUser.setWrongAnswerNum(0);
-			drawUser.setHandRedPacketAmount(new BigDecimal("0"));
-			drawUser.setHandRedPacketNum(0);
-			drawUser.setNickname(userInfo.getNickname());
-			drawUser.setImgUrl(userInfo.getHeadimgurl());
-			drawUser = drawUserService.add(drawUser);
-		}
+		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		
 		
 		
@@ -65,11 +31,8 @@ public class InitDrawUserFilter extends Filter{
 		
 		if(applyForms!=null&&applyForms.size()>0){
 			for(ApplyForm applyForm:applyForms){
-				DrawUser drawUser2 = userInfoApplyFormHandleService.handTakeIn(drawUser.getId(),applyForm);
+				userInfoApplyFormHandleService.handTakeIn(drawUser.getId(),applyForm);
 				
-				if(drawUser2!=null){
-					drawUser = drawUser2;
-				}
 			}
 		}
 		

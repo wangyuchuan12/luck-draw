@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wyc.common.domain.Account;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
+import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
@@ -48,6 +50,9 @@ public class BaseHandRedPackFilter extends Filter{
 	
 	@Autowired
 	private MySimpleDateFormat dateFormat;
+	
+	@Autowired
+	private AccountService accountService;
 	
 	@Autowired
 	private WxContext wxContext;
@@ -490,8 +495,9 @@ public class BaseHandRedPackFilter extends Filter{
 		if(payTypeInt==Constant.ACCOUNT_PAY_TYPE){
 			
 			//涉及到用户的账户余额资金数据，必须要加锁
-			drawUser = drawUserService.findByUserIdWithLuck(drawUser.getUserId());
-			if(drawUser.getAmountBalance().compareTo(amountBigDecimal)<0){
+			Account account = accountService.fineOneSync(drawUser.getAccountId());
+			drawUser = drawUserService.findByUserId(drawUser.getUserId());
+			if(account.getAmountBalance().compareTo(amountBigDecimal)<0){
 				ResultVo resultVo = new ResultVo();
 				resultVo.setSuccess(false);
 				resultVo.setErrorMsg("账户可用余额小于实际可用余额");
@@ -499,8 +505,8 @@ public class BaseHandRedPackFilter extends Filter{
 				filterManager.setReturnValue(resultVo);
 				return null;
 			}else{
-				drawUser.setAmountBalance(drawUser.getAmountBalance().subtract(amountBigDecimal));
-				drawUserService.update(drawUser);
+				account.setAmountBalance(account.getAmountBalance().subtract(amountBigDecimal));
+				accountService.update(account);
 				filterManager.save(drawUser);
 			}
 		}
