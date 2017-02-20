@@ -95,7 +95,7 @@ public class ChooseWxPayFilter extends Filter{
         String appid = wxContext.getAppid();
         String attach = "paytest";
         String mchId = wxContext.getMchId();
-        String nonceStr = "1add1a30ac87aa2db72f57a2375d8f22";
+        String nonceStr = payCostVo.getNonceStr();
         String notifyUrl = "http://"+wxContext.getDomainName()+payCostVo.getNotifyUrl();
         String spbillCreateIp = httpServletRequest.getRemoteAddr();
         String datetime = String.valueOf(System.currentTimeMillis() / 1000);
