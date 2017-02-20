@@ -33,7 +33,7 @@ public class RedPacketIsPayTestFilter extends Filter{
 		
 		if(paySuccess!=null&&paySuccess.getResultCode().equals("SUCCESS")){
 			redPacket.setIsPay(1);
-			redPackageService.update(redPacket);
+	//		redPackageService.update(redPacket);
 		}
 		return redPacket;
 	}

@@ -237,10 +237,7 @@ public class PaySuccess {
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
-	public PaySuccess findOneByOutTradeNo(String outTradeNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
     
     
 }

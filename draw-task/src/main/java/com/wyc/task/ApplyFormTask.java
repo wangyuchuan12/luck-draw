@@ -8,8 +8,7 @@ import com.wyc.common.domain.vo.TransfersResultVo;
 import com.wyc.common.service.ApplyFormService;
 import com.wyc.common.util.Constant;
 import com.wyc.common.wx.domain.WxContext;
-import com.wyc.pay.service.PayService;
-
+import com.wyc.draw.service.other.PayService;
 @Component
 public class ApplyFormTask {
 	

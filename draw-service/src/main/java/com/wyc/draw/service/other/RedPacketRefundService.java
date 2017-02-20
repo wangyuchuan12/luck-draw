@@ -19,7 +19,6 @@ import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.service.DrawUserService;
 import com.wyc.draw.service.RedPacketService;
-import com.wyc.pay.service.PayService;
 
 @Service
 public class RedPacketRefundService {

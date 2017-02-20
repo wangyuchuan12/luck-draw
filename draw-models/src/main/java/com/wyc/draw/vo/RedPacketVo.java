@@ -166,6 +166,10 @@ public class RedPacketVo {
 	@ParamAnnotation
 	private BigDecimal entryFee;
 	
+	//是否已经答题，用于竞答红包
+	@ParamAnnotation
+	private Integer isAnswer;
+	
 	@ParamAnnotation
 	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
 	
@@ -176,6 +180,14 @@ public class RedPacketVo {
 	
 	
 	
+	public Integer getIsAnswer() {
+		return isAnswer;
+	}
+
+	public void setIsAnswer(Integer isAnswer) {
+		this.isAnswer = isAnswer;
+	}
+
 	public Integer getIsRoom() {
 		return isRoom;
 	}

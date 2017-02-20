@@ -28,13 +28,21 @@ public class VieRedPacketTakepartMember {
 	@Column(name="draw_user_id")
 	private String drawUserId;
 	
+	//别呢
+	@Column
+	private String nickname;
+	
+	//头像
+	@Column(name="head_img")
+	private String headImg;
+	
 	//用户id
 	@Column(name="user_id")
 	private String userId;
 	
 	//总用时
 	@Column(name="time_long")
-	private Long timeLong;
+	private Float timeLong;
 	
 	//正确答题数量
 	@Column(name="right_count")
@@ -121,10 +129,10 @@ public class VieRedPacketTakepartMember {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public Long getTimeLong() {
+	public Float getTimeLong() {
 		return timeLong;
 	}
-	public void setTimeLong(Long timeLong) {
+	public void setTimeLong(Float timeLong) {
 		this.timeLong = timeLong;
 	}
 	public Long getRightCount() {
@@ -157,4 +165,18 @@ public class VieRedPacketTakepartMember {
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getHeadImg() {
+		return headImg;
+	}
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
+	}
+	
+	
 }

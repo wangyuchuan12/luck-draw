@@ -198,10 +198,12 @@ public class BaseHandRedPackFilter extends Filter{
 		//如果是账号余额付款，就把状态改成已支付，直接扣除账号中的余额,领取状态也改成可领取
 		if(payTypeInt==Constant.ACCOUNT_PAY_TYPE){
 			redPacket.setIsPay(1);
+			redPacket.setIsDisplay(1);
 			redPacket.setIsReceiveAble(1);
 		}else{
 			redPacket.setIsPay(0);
 			redPacket.setIsReceiveAble(0);
+			redPacket.setIsDisplay(0);
 		}
 		
 		if(isImgInt==0){
@@ -366,8 +368,6 @@ public class BaseHandRedPackFilter extends Filter{
 						return null;
 					}
 					if(entryFeeBigDecimal.compareTo(new BigDecimal("0.01"))<0){
-						
-						System.out.println("...............floatValue:"+entryFeeBigDecimal.floatValue());
 						resultVo.setSuccess(false);
 						resultVo.setErrorMsg("金额不能小于0.01元");
 						filterManager.setReturn(true);

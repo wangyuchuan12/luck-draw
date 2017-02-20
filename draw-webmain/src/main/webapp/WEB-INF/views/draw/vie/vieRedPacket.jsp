@@ -12,20 +12,32 @@
 			
 			<input name="redPacketId" value="${redPacketInfo.id}" type="hidden"/>
 			
+			
+			<input name="isTimeOut" value="${redPacketInfo.isTimeout}" type="hidden"/>
+			<input name="handTime" value="${redPacketInfo.handTime}" type="hidden"/>
+			<input name="timeLong" value="${redPacketInfo.timeLong}" type="hidden"/>
+			
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">竞答红包</div>
 				<div class="luck_info_head_img">
 					<img src="${redPacketInfo.userImgUrl}"></img>
 				</div>
-				<div class="luck_info_head_name">川川的红包</div>
+				<div class="luck_info_head_name">${redPacketInfo.nickname}的红包</div>
 
 				<div class="luck_info_head_money"><span>${redPacketInfo.amount}</span>元
 				</div>
 			</div>
 			
 			<div class="vie_luck_info">
-				<div class="vie_luck_info_img"><img alt="" data-original="${redPacketInfo.imgUrl}" src="/imgs/loading.jpg" class="lazy"></div>
+				<c:if test="${redPacketInfo.isImg==1}">
+					<div class="vie_luck_info_img"><img alt="" data-original="${redPacketInfo.imgUrl}" src="/imgs/loading.jpg" class="lazy"></div>
+				</c:if>
+				
+				<c:if test="${redPacketInfo.isImg==0}">
+					<div class="vie_luck_info_img"><img alt="" src="/imgs/redpack.jpg"></div>
+				</c:if>
+				
 				
 				<div class="vie_luck_info_detail">
 					<div class="vie_luck_info_detail_item">
@@ -61,158 +73,111 @@
 			
 			</div>
 			
-			<div class="vieTakepartButton">
-				<div class="vieTakepartButtonName">参加竞答活动</div>
-				
-				<div class="vieTakepartButtonFee">报名费：￥${redPacketInfo.entryFee}</div>
-			</div>
+			<c:if test="${redPacketInfo.isPay==1&&redPacketInfo.isTimeout==0&&redPacketInfo.isCreater==0&&redPacketInfo.isAnswer==0}">
+				<div class="vieTakepartButton">
+					<div class="vieTakepartButtonName">参加竞答活动</div>
+					
+					<div class="vieTakepartButtonFee">报名费：￥${redPacketInfo.entryFee}</div>
+				</div>
+			</c:if>
 			
-			<div class="vieTakepartButtonInstruction">
-				详情：${redPacketInfo.instruction}
-			</div>
+			<c:if test="${redPacketInfo.isAnswer==1}">
+				<div class="vieShowAnswerButton" onclick="skipVieAnswerResult('${redPacketInfo.id}')">查看答题结果</div>
+			</c:if>
+			<c:if test="${redPacketInfo.instruction!=null}">
+				<div class="vieTakepartButtonInstruction">
+					详情：${redPacketInfo.instruction}
+				</div>
+			</c:if>
+			
 			
 			<div class="luck_info_situation">
 					<div class="luck_info_situation_time">剩余<b id="luck_info_hour">00</b><b id="luck_info_min">00</b><b id="luck_info_second">00</b> 结束</div>
 			</div>
 			
 			<div class="view_luck_members">
-				<div class="view_luck_member">
-					<div class="view_luck_member_rank">110000</div>
-					
-					<div class="view_luck_member_img">
-						<img src="/imgs/redpack.jpg">
-					</div>
-					
-					<div class="view_luck_member_name2">
-						<!--  <div class="view_luck_member_name2_nickname">牛牛妈妈</div>
+				<c:if test="${redPacketInfo.isAnswer==1}">
+					<div class="view_luck_member">
+						<div class="view_luck_member_rank">
+							<c:if test="${thisMember.rank!=null}">
+								${thisMember.rank}
+							</c:if>
+							
+							<c:if test="${thisMember.rank==null}">
+								${fn:length(takePartMembers.datas)}+
+							</c:if>
+						</div>
 						
-						<div class="view_luck_member_name2_prompt">第3名 <span>可获得30元</span></div>
-						-->
-						<div class="view_luck_member_name2_prompt_absolute">可获得30元</div>
+						<div class="view_luck_member_img">
+							<img src="${thisMember.headImg}">
+						</div>
+			
+						<div class="view_luck_member_name2">
+							 <div class="view_luck_member_name2_nickname">${thisMember.nickname}</div>
+							
+							<div class="view_luck_member_name2_prompt">第3名 <span>可获得30元</span></div>
+							
+							<!--  <div class="view_luck_member_name2_prompt_absolute">可获得30元</div>-->
+						</div>
+						
+						<div class="view_luck_member_result">
+							<div class="view_luck_member_result_correct">${thisMember.rightCount}题/${thisMember.timeLong}秒</div>
+						</div>
 					</div>
-					
-					<div class="view_luck_member_result">
-						<div class="view_luck_member_result_correct">15题/12秒</div>
+				</c:if>
+				
+				<div class="view_luck_members_rank">排行榜</div>
+				<c:forEach items="${takePartMembers.datas}" var="takePartMember">
+					<div class="view_luck_member">
+						<div class="view_luck_member_rank">${takePartMember.rank}</div>
+						
+						<div class="view_luck_member_img">
+							<img src="${takePartMember.headImg}">
+						</div>
+						
+						<div class="view_luck_member_name">${takePartMember.nickname}</div>
+						
+						<div class="view_luck_member_result">
+							<div class="view_luck_member_result_correct">${takePartMember.rightCount}题/${takePartMember.timeLong}秒</div>
+						</div>
 					</div>
+				</c:forEach>
 				
-				</div>
 				
-				
-				<div class="view_luck_member">
-					<div class="view_luck_member_rank">1</div>
-					
-					<div class="view_luck_member_img">
-						<img src="/imgs/redpack.jpg">
-					</div>
-					
-					<div class="view_luck_member_name">牛牛妈妈</div>
-					
-					<div class="view_luck_member_result">
-						<div class="view_luck_member_result_correct">15题/12秒</div>
-					</div>
-				
-				</div>
-				
-				<div class="view_luck_member">
-					<div class="view_luck_member_rank">1</div>
-					
-					<div class="view_luck_member_img">
-						<img src="/imgs/redpack.jpg">
-					</div>
-					
-					<div class="view_luck_member_name">牛牛妈妈</div>
-					
-					<div class="view_luck_member_result">
-						<div class="view_luck_member_result_correct">15题/12秒</div>
-					</div>
-				
-				</div>
-				
-				<div class="view_luck_member">
-					<div class="view_luck_member_rank">1</div>
-					
-					<div class="view_luck_member_img">
-						<img src="/imgs/redpack.jpg">
-					</div>
-					
-					<div class="view_luck_member_name">牛牛妈妈</div>
-					
-					<div class="view_luck_member_result">
-						<div class="view_luck_member_result_correct">15题/12秒</div>
-					</div>
-				
-				</div>
-				
-				<div class="view_luck_member">
-					<div class="view_luck_member_rank">1</div>
-					
-					<div class="view_luck_member_img">
-						<img src="/imgs/redpack.jpg">
-					</div>
-					
-					<div class="view_luck_member_name">牛牛妈妈</div>
-					
-					<div class="view_luck_member_result">
-						<div class="view_luck_member_result_correct">15题/12秒</div>
-					</div>
-				
-				</div>
-				
-				<div class="view_luck_member">
-					<div class="view_luck_member_rank">1</div>
-					
-					<div class="view_luck_member_img">
-						<img src="/imgs/redpack.jpg">
-					</div>
-					
-					<div class="view_luck_member_name">牛牛妈妈</div>
-					
-					<div class="view_luck_member_result">
-						<div class="view_luck_member_result_correct">15题/12秒</div>
-					</div>
-				
-				</div>
-				
-				<div class="view_luck_member">
-					<div class="view_luck_member_rank">1</div>
-					
-					<div class="view_luck_member_img">
-						<img src="/imgs/redpack.jpg">
-					</div>
-					
-					<div class="view_luck_member_name">牛牛妈妈</div>
-					
-					<div class="view_luck_member_result">
-						<div class="view_luck_member_result_correct">15题/12秒</div>
-					</div>
-				
-				</div>
 			
 			</div>
 			
 			<div class="foot_button">
 				<ul>
-					<li style="width: 31%;">
+					<li style="width: 23%;">
+						<span class="fa fa-home"></span>
+						<span>主页</span>
+					</li>
+					<li style="width: 23%;">
 						<span class="fa fa-thumbs-o-up"></span>
 						<span>点赞</span>
 					</li>
-					
-					<li style="width: 31%;">
-						<span class="fa fa-heart-o"></span>
-						<span>加入收藏</span>
-					</li>
-					
-					<li style="width: 31%;">
+					<li style="width: 23%;">
 						<span class="fa fa-users"></span>
 						<span>进入房间</span>
+					</li>
+					
+					<li style="width: 23%;">
+						<span class="fa fa-bullhorn"></span>
+						<span>红包详情</span>
 					</li>
 				</ul>
 			</div>
 			
 			
 			<script type="text/javascript">
+			
+				function initView(){
+					
+				}
 				$(document).ready(function(){
 				
+					$("body").css("padding-bottom","50px");
 					$("#receiveButton").click(function(){
 						var status=1;
 						var problemId = $("input[name=firstProblemId]").val();
@@ -245,6 +210,20 @@
 						request(url,callback,params);
 						
 					});
+					
+					
+					
+					var callback = new Object();
+					callback.end = function(){
+						$("input[name=isTimeOut]").val(1);
+						initView();
+					}
+					var handTime = $("input[name=handTime]").val();
+					
+					var timeLong = $("input[name=timeLong]").val();
+					
+					handTime = handTime.replace(/-/g,"/");
+					initGroupInvalidDate(new Date(handTime),timeLong,".luck_info_situation_time",callback);
 				});
 			</script>
 			

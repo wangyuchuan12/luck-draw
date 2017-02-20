@@ -132,4 +132,17 @@ public class Constant {
 	//充值金额回调
 	public static final int PAY_SUCCESS_CALLBACK_RECHARGE=1;
 	
+	
+	/**********************支付的类别************************/
+	//普通问答红包支付回调
+	public static final int PAY_QA_TYPE=0;
+	//竞答红包支付回调
+	public static final int PAY_VIE_TYPE=1;
+	
+	/**********************支付回调************************/
+	//普通问答红包支付回调地址
+	public static final String PAY_QA_TYPE_NONCE_URL="/api/pay/wx/pa_pay_success";
+	//竞答红包支付回调地址
+	public static final String PAY_VIE_TYPE_NONCE_URL="";
+	
 }

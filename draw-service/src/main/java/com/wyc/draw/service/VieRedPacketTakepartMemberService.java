@@ -5,9 +5,9 @@ import java.util.UUID;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import com.wyc.draw.domain.VieRedPacketProblem;
 import com.wyc.draw.domain.VieRedPacketTakepartMember;
 import com.wyc.draw.repositories.VieRedPacketTakepartMemberRepository;
 
@@ -35,5 +35,14 @@ public class VieRedPacketTakepartMemberService {
 
 	public List<VieRedPacketTakepartMember> findAllByRedPacketIdAndIsComplete(String redPacketId, int isComplete) {
 		return vieRedPacketTakepartMemberRepository.findAllByRedPacketIdAndIsComplete(redPacketId,isComplete);
+	}
+
+	public VieRedPacketTakepartMember findByRedPacketIdAndDrawUserId(String redPacketId, String drawUserId) {
+		return vieRedPacketTakepartMemberRepository.findByRedPacketIdAndDrawUserId(redPacketId,drawUserId);
+	}
+
+	public Page<VieRedPacketTakepartMember> findAllByRedPacketIdAndIsComplete(String redPacketId, int isComplete,
+			Pageable pageable) {
+		return vieRedPacketTakepartMemberRepository.findAllByRedPacketIdAndIsComplete(redPacketId,isComplete,pageable);
 	}
 }

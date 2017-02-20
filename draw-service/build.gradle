@@ -24,6 +24,4 @@ dependencies{
 	
 	compile project(':draw-models');
 	
-	compile project(':draw-pay');
-	
 }

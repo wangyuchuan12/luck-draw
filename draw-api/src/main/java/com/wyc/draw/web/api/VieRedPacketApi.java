@@ -12,12 +12,10 @@ import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.RedPacket;
-import com.wyc.draw.domain.VieRedPacketOption;
 import com.wyc.draw.filter.HandRedPacketQuestionFilter;
 import com.wyc.draw.filter.VieSelectOptionFilter;
 import com.wyc.draw.filter.VieTakepartFilter;
 import com.wyc.draw.service.RedPacketService;
-import com.wyc.draw.service.VieRedPacketOptionService;
 import com.wyc.draw.vo.VieRedPacketProblemVo;
 
 @Controller
@@ -26,9 +24,6 @@ public class VieRedPacketApi {
 	
 	@Autowired
 	private RedPacketService redPacketService;
-	
-	@Autowired
-	private VieRedPacketOptionService vieRedPacketOptionService;
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=HandRedPacketQuestionFilter.class)
 	@RequestMapping(value="hand_problem")

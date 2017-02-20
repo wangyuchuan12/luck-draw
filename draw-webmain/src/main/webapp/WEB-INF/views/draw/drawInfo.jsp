@@ -608,8 +608,6 @@
 					var requestCallback = new Object();
 					
 					requestCallback.success = function(resp){
-						
-						alert(resp.errorMsg);
 						var shareCount = $("input[name=shareCount]").val();
 						var shareCount = parseInt(shareCount);
 						shareCount = shareCount+1;

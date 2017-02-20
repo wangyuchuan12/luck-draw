@@ -1634,7 +1634,7 @@ li::before{
 
 
 .vie_luck_info{
-	padding-left: 10px;
+	padding-left: 25px;
 	
 	position: relative;
 	
@@ -1649,8 +1649,8 @@ li::before{
 }
 
 .vie_luck_info_img>img{
-	width:120px;
-	height:120px;
+	width:100px;
+	height:100px;
 }
 
 .vie_luck_info_detail{
@@ -1677,6 +1677,14 @@ li::before{
 
 .view_luck_members{
 	margin-top: 2px;
+}
+
+.view_luck_members_rank{
+	padding-left: 10px;
+	
+	padding-top: 10px;
+	
+	padding-bottom: 10px;
 }
 
 .view_luck_member{
@@ -2354,4 +2362,63 @@ li::before{
 	padding-left: 20px;
 	
 	padding-bottom: 10px;
+}
+
+.vieShowAnswerButton{
+	width:100px;
+	height: 40px;
+	
+	text-align: center;
+	
+	background-color: red;
+	
+	border-radius:7px;
+	
+	color: white;
+	
+	padding-top: 12px;
+	
+	margin: 0 auto;
+	
+	font-weight: bold;
+}
+
+.vie_answer_result{
+	
+	padding-top: 10px;
+}
+
+.vie_answer_result_title{
+	text-align: center;
+	color: black;
+	
+	font-size: 15px;
+}
+
+.vie_answer_result_question{
+	padding-left: 15px;
+}
+
+.vie_answer_result_select{
+	padding-left: 15px;
+}
+
+.vie_answer_result_answer{
+	padding-left: 15px;
+}
+
+.vie_answer_result_my_answer{
+	padding-left: 15px;
+}
+
+.vie_answer_result_is_right{
+	padding-left: 15px;
+}
+
+.vie_answer_result_timelong{
+	padding-left: 15px;
+}
+
+.vie_answer_result_select_option{
+	padding-left: 30px;
 }

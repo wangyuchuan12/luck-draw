@@ -20,8 +20,10 @@ public class RedPacketReceiveAbleTestFilter extends Filter{
 		RedPacket redPacket = (RedPacket)filterManager.getObject(RedPacket.class);
 		if(redPacket.getIsTimeout()==0&&redPacket.getIsPay()==1){
 			redPacket.setIsReceiveAble(1);
+			redPacket.setIsDisplay(1);
 		}else{
 			redPacket.setIsReceiveAble(0);
+			redPacket.setIsDisplay(0);
 		}
 		
 		redPacket = redPacketService.update(redPacket);

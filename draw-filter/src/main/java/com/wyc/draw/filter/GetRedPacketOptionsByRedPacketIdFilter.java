@@ -37,7 +37,6 @@ public class GetRedPacketOptionsByRedPacketIdFilter extends Filter{
 		
 		RedPacketOptionListVo redPacketOptionListVo = new RedPacketOptionListVo();
 		
-		System.out.println(packet.getAnswer());
 		redPacketOptionListVo.setAnswer(packet.getAnswer());
 		
 		redPacketOptionListVo.setRedPacketOptions(redPacketOptions);

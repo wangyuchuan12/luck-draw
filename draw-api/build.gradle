@@ -18,7 +18,5 @@ dependencies{
 	
 	compile project(':draw-filter');
 	
-	compile project(':draw-pay');
-	
 	
 }

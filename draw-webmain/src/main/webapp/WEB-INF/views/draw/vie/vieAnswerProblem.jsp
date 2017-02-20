@@ -153,7 +153,6 @@
 			callback.success = function(resp){
 				hideLoading();
 				if(!resp.success){
-					alert(resp.errorMsg);
 					showToast("网络繁忙，请稍后再试😁");
 				}else{
 					var isLast = resp.data.isLast;
@@ -161,7 +160,6 @@
 						var redPacketId = $("input[name=redPacketId]").val();
 						skipToVieDrawInfo(redPacketId)
 					}else{
-						
 						nextWindow(20);
 						nextTab(20);
 					}
@@ -207,8 +205,8 @@
 				var secondNum = parseInt(secondNum);
 				
 				if(secondNum>=0){
-					timeLong = parseInt(diffSecond);
-					
+					timeLong = diffSecond;
+					showToast(timeLong);
 					$(".progress_bar_second").text(secondNum+"s");
 				}else{
 					

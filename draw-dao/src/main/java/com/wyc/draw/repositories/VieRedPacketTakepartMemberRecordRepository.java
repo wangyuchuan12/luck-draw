@@ -6,4 +6,6 @@ import com.wyc.draw.domain.VieRedPacketTakepartMemberRecord;
 
 public interface VieRedPacketTakepartMemberRecordRepository extends CrudRepository<VieRedPacketTakepartMemberRecord, String>{
 
+	VieRedPacketTakepartMemberRecord findByMemberIdAndVieRedPacketProblemId(String memberId, String problemId);
+
 }

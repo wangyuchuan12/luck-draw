@@ -3,7 +3,6 @@ package com.wyc.draw.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -27,13 +26,17 @@ public class VieRedPacketTakepartMemberRecord {
 	@Column(name="vie_red_packet_problem_id")
 	private String vieRedPacketProblemId;
 	
+	
+	@Column(name="member_id")
+	private String memberId;
+	
 	//所选的选项id
 	@Column(name="vie_red_packet_option_id")
 	private String vieRedPacketOptionId;
 	
 	//用时多少
 	@Column(name="time_long")
-	private Long timeLong;
+	private Float timeLong;
 	
 	//是否正确
 	@Column(name="is_right")
@@ -58,6 +61,12 @@ public class VieRedPacketTakepartMemberRecord {
 	}
 	
 	
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
 	public int getIsTimeout() {
 		return isTimeout;
 	}
@@ -76,10 +85,10 @@ public class VieRedPacketTakepartMemberRecord {
 	public void setVieRedPacketOptionId(String vieRedPacketOptionId) {
 		this.vieRedPacketOptionId = vieRedPacketOptionId;
 	}
-	public Long getTimeLong() {
+	public Float getTimeLong() {
 		return timeLong;
 	}
-	public void setTimeLong(Long timeLong) {
+	public void setTimeLong(Float timeLong) {
 		this.timeLong = timeLong;
 	}
 	public int getIsRight() {

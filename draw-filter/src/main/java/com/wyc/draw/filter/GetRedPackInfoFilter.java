@@ -16,11 +16,14 @@ import com.wyc.common.wx.domain.WxContext;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
+import com.wyc.draw.domain.RedPacketTakepartMember;
+import com.wyc.draw.domain.VieRedPacketTakepartMember;
 import com.wyc.draw.filter.test.RedPacketReceiveAbleTestFilter;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawUserService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
+import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 import com.wyc.draw.vo.RedPacketOptionListVo;
 import com.wyc.draw.vo.RedPacketTakepartMemberListVo;
 import com.wyc.draw.vo.RedPacketVo;
@@ -33,6 +36,9 @@ public class GetRedPackInfoFilter extends Filter{
 	
 	@Autowired
 	private RedPacketTakepartMemberService redPacketTakepartMemberService;
+	
+	@Autowired
+	private VieRedPacketTakepartMemberService vieRedPacketTakepartMemberService;
 	
 	@Autowired
 	private DrawRoomMemberService drawRoomMemberService;
@@ -158,6 +164,16 @@ public class GetRedPackInfoFilter extends Filter{
 			redPacketVo.setTakePartCount(redPacket.getTakePartCount());
 			redPacketVo.setEntryFee(redPacket.getEntryFee());
 			redPacketVo.setInstruction(redPacket.getInstruction());
+			
+			VieRedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacket.getId(),drawUser.getId());
+			
+			if(vieRedPacketTakepartMember!=null&&vieRedPacketTakepartMember.getIsComplete()==1){
+				//已经答过
+				redPacketVo.setIsAnswer(1);
+			}else{
+				//未曾答过
+				redPacketVo.setIsAnswer(0);
+			}
 		}
 		
 		return redPacketVo;

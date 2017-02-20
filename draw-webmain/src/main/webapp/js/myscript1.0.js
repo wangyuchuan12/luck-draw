@@ -191,6 +191,17 @@ function skipToSubject(parentId,redPacketType,isDisplayRoom,isDisplayType,roomId
 	skipToUrl(url,params);
 }
 
+
+function skipVieAnswerResult(redPacketId){
+	var params = new Object();
+	
+	params.id = redPacketId;
+	
+	var url = "/view/vie/draw/vie_draw/vie_answer_result";
+	
+	skipToUrl(url,params);
+}
+
 function skipToUrl(url,params,flag){
 	var temp = document.createElement("form");
 	if(!flag){

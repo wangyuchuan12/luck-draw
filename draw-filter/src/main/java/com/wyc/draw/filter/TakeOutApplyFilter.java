@@ -23,7 +23,8 @@ import com.wyc.common.wx.domain.WxContext;
 import com.wyc.common.wx.service.SendMessageService;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.service.DrawUserService;
-import com.wyc.pay.service.PayService;
+import com.wyc.draw.service.other.PayService;
+
 
 public class TakeOutApplyFilter extends Filter{
 

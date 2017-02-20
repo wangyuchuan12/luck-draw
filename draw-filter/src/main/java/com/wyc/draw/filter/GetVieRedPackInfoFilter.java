@@ -3,7 +3,6 @@ package com.wyc.draw.filter;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 
@@ -37,6 +36,8 @@ public class GetVieRedPackInfoFilter extends Filter{
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
 		filterClasses.add(GetRedPackInfoFilter.class);
+		
+		filterClasses.add(GetVieRedPacketTakepartMemberListByRedPacketOfPageFilter.class);
 		return filterClasses;
 	}
 

@@ -60,10 +60,10 @@ public class VieSelectOptionFilter extends Filter{
 			return null;
 		}
 		
-		Long timeLongLong;
+		Float timeLongFloat;
 		
 		try{
-			timeLongLong = Long.parseLong(timeLong);
+			timeLongFloat = Float.parseFloat(timeLong);
 		}catch(Exception e){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
@@ -73,7 +73,7 @@ public class VieSelectOptionFilter extends Filter{
 			return null;
 		}
 		
-		if(timeLongLong==0){
+		if(timeLongFloat==0){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("timeLong不能为0");
@@ -82,7 +82,7 @@ public class VieSelectOptionFilter extends Filter{
 			return null;
 		}
 		
-		if(timeLongLong>60){
+		if(timeLongFloat>60){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("timeLong不能大于60");
@@ -225,12 +225,12 @@ public class VieSelectOptionFilter extends Filter{
 			
 		}
 		
-		Long countTimeLong = vieRedPacketTakepartMember.getTimeLong();
-		if(timeLong==null){
-			countTimeLong=0l;
+		Float countTimeFloat = vieRedPacketTakepartMember.getTimeLong();
+		if(timeLongFloat==null){
+			countTimeFloat=0f;
 		}
-		countTimeLong=countTimeLong+timeLongLong;
-		vieRedPacketTakepartMember.setTimeLong(countTimeLong);
+		countTimeFloat=countTimeFloat+timeLongFloat;
+		vieRedPacketTakepartMember.setTimeLong(countTimeFloat);
 		vieRedPacketTakepartMember.setCurrentProblemId(problemId);
 		
 		//判断选项是不是第一个
@@ -252,7 +252,8 @@ public class VieSelectOptionFilter extends Filter{
 
 		
 		vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.update(vieRedPacketTakepartMember);
-		vieRedPacketTakepartMemberRecord.setTimeLong(timeLongLong);
+		vieRedPacketTakepartMemberRecord.setTimeLong(timeLongFloat);
+		vieRedPacketTakepartMemberRecord.setMemberId(memberId);
 		vieRedPacketTakepartMemberRecord = vieRedPacketTakepartMemberRecordService.add(vieRedPacketTakepartMemberRecord);
 		
 		ResultVo resultVo = new ResultVo();

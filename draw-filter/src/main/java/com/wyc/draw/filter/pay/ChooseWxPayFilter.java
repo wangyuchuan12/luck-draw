@@ -1,12 +1,12 @@
-package com.wyc.pay.filter;
+package com.wyc.draw.filter.pay;
 
 import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.List;
-import java.util.Random;
+
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -29,11 +29,15 @@ import com.wyc.common.util.RequestFactory;
 import com.wyc.common.util.Response;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.common.wx.domain.WxContext;
+import com.wyc.draw.vo.PayCostVo;
 
 public class ChooseWxPayFilter extends Filter{
 
 	@Autowired
 	private RequestFactory requestFactory;
+	
+	@Autowired
+	private SessionManager sessionManager;
 	
 	@Autowired
 	private WxContext wxContext;
@@ -45,29 +49,10 @@ public class ChooseWxPayFilter extends Filter{
 		UserInfo userInfo = (UserInfo) filterManager.getObject(UserInfo.class);
 		
 		String openid = userInfo.getOpenid();
-		String cost = httpServletRequest.getParameter("cost");
 		
-		if(CommonUtil.isEmpty(cost)){
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("输入的金额不能为空");
-			filterManager.setEnd(true);
-			filterManager.setReturnValue(resultVo);
-			return null;
-		}
+		PayCostVo payCostVo = (PayCostVo)sessionManager.getObject(PayCostVo.class);
 		
-		BigDecimal costBigDecimail = null;
-		try{
-			costBigDecimail = new BigDecimal(cost);
-		}catch(Exception e){
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("输入的参数cost不是数字类型");
-			filterManager.setEnd(true);
-			filterManager.setReturnValue(resultVo);
-			return null;
-		}
-		
+		BigDecimal costBigDecimail = payCostVo.getCost();
 		
 		if(costBigDecimail.floatValue()==0){
 			ResultVo resultVo = new ResultVo();
@@ -102,37 +87,14 @@ public class ChooseWxPayFilter extends Filter{
 		}
 		
 		
-		
-		
-        /*Calendar now = Calendar.getInstance();
-         * String outTradeNo = now.get(Calendar.YEAR)
-                +"-"+(now.get(Calendar.MONTH) + 1)
-                +"-"+now.get(Calendar.DAY_OF_MONTH)
-                +"-"+now.get(Calendar.HOUR_OF_DAY)
-                +"-"+now.get(Calendar.MINUTE)
-                +"-"+now.get(Calendar.SECOND)
-                +"-"+now.get(Calendar.MILLISECOND)
-                +"-"+new Random().nextInt(1000)+"";*/
-		
-		String outTradeNo = httpServletRequest.getParameter("outTradeNo");
-		
-		if(CommonUtil.isEmpty(outTradeNo)){
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("商品订单号不能为空");
-			filterManager.setEnd(true);
-			filterManager.setReturnValue(resultVo);
-			return null;
-		}
-        
-        
-        
+		String outTradeNo = payCostVo.getOutTradeNo();
+ 
         Request request = requestFactory.payUnifiedorder();
         String appid = wxContext.getAppid();
         String attach = "paytest";
         String mchId = wxContext.getMchId();
         String nonceStr = "1add1a30ac87aa2db72f57a2375d8f22";
-        String notifyUrl = "http://"+wxContext.getDomainName()+"/api/pay/wx/pay_success";
+        String notifyUrl = "http://"+wxContext.getDomainName()+payCostVo.getNotifyUrl();
         String spbillCreateIp = httpServletRequest.getRemoteAddr();
         String datetime = String.valueOf(System.currentTimeMillis() / 1000);
         BigDecimal totalFee = costBigDecimail.multiply(new BigDecimal(100));
@@ -233,6 +195,7 @@ public class ChooseWxPayFilter extends Filter{
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filtes = new ArrayList<>();
 		filtes.add(BaseActionFilter.class);
+		filtes.add(CostFilter.class);
 		return filtes;
 	}
 

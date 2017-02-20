@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.wyc.annotation.HandlerAnnotation;
+import com.wyc.common.domain.vo.ResultPageListVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.draw.domain.DrawRoom;
@@ -16,13 +17,15 @@ import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.GetRedPacketProblemFilter;
 import com.wyc.draw.filter.GetRedPacketProblemListFilter;
 import com.wyc.draw.filter.GetVieRedPackInfoFilter;
+import com.wyc.draw.filter.GetVieRedPacketResultFilter;
 import com.wyc.draw.service.DrawRoomService;
-import com.wyc.draw.service.VieRedPacketOptionService;
 import com.wyc.draw.service.VieRedPacketProblemService;
 import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 import com.wyc.draw.vo.RedPacketVo;
+import com.wyc.draw.vo.VieProblemAnswerListVo;
 import com.wyc.draw.vo.VieRedPacketProblemListVo;
 import com.wyc.draw.vo.VieRedPacketProblemVo;
+import com.wyc.draw.vo.VieRedPacketTakepartMemberVo;
 
 @Controller
 @RequestMapping(value="/view/vie/draw/vie_draw")
@@ -33,9 +36,7 @@ public class VieDrawController {
 	
 	@Autowired
 	private VieRedPacketProblemService vieRedPacketProblemService;
-	
-	@Autowired
-	private VieRedPacketOptionService vieRedPacketOptionService;
+
 	
 	@Autowired
 	private VieRedPacketTakepartMemberService vieRedPacketTakepartMemberService;
@@ -45,9 +46,20 @@ public class VieDrawController {
 	public String info(HttpServletRequest httpServletRequest)throws Exception{
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
 		RedPacketVo redPacketVo = (RedPacketVo)sessionManager.getObject(RedPacketVo.class);
 		
 		httpServletRequest.setAttribute("redPacketInfo", redPacketVo);
+		
+		
+		VieRedPacketTakepartMemberVo thisMember = (VieRedPacketTakepartMemberVo)sessionManager.getObject(VieRedPacketTakepartMemberVo.class);
+		
+		
+		
+		ResultPageListVo resultPageListVo = (ResultPageListVo)sessionManager.getObject(ResultPageListVo.class);
+
+		httpServletRequest.setAttribute("takePartMembers", resultPageListVo);
 		
 		
 		List<VieRedPacketTakepartMember> vieRedPacketTakepartMembers = vieRedPacketTakepartMemberService.findAllByRedPacketIdAndIsComplete(redPacketVo.getId(),0);
@@ -72,6 +84,31 @@ public class VieDrawController {
 			//List<VieRedPacketProblem> firstVieRedPacketProblems = vieRedPacketProblemService.findFirstByRedPacketId(redPacketVo.getId());
 			//httpServletRequest.setAttribute("currentProblem", firstVieRedPacketProblems.get(0));
 		}
+		
+		
+		if(thisMember==null&&redPacketVo.getIsAnswer()==1){
+			VieRedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacketVo.getId(), drawUser.getId());
+			if(vieRedPacketTakepartMember!=null)
+			thisMember = new VieRedPacketTakepartMemberVo();
+			thisMember.setCurrentProblemId(vieRedPacketTakepartMember.getCurrentProblemId());
+			thisMember.setDrawUserId(vieRedPacketTakepartMember.getDrawUserId());
+			thisMember.setHeadImg(vieRedPacketTakepartMember.getHeadImg());
+			thisMember.setId(vieRedPacketTakepartMember.getId());
+			thisMember.setIsBest(vieRedPacketTakepartMember.getIsBest());
+			thisMember.setIsComplete(vieRedPacketTakepartMember.getIsComplete());
+			thisMember.setIsPay(vieRedPacketTakepartMember.getIsPay());
+			thisMember.setNickname(vieRedPacketTakepartMember.getNickname());
+			thisMember.setOpendid(vieRedPacketTakepartMember.getOpendid());
+			thisMember.setRedPacketId(vieRedPacketTakepartMember.getRedPacketId());
+			thisMember.setRightCount(vieRedPacketTakepartMember.getRightCount());
+			thisMember.setTimeLong(vieRedPacketTakepartMember.getTimeLong());
+			thisMember.setUserId(vieRedPacketTakepartMember.getUserId());
+			thisMember.setWrongCount(vieRedPacketTakepartMember.getWrongCount());
+			thisMember.setTimeLong(vieRedPacketTakepartMember.getTimeLong());
+		
+		}
+		//本用户的参与名额
+		httpServletRequest.setAttribute("thisMember", thisMember);
 		
 		return "vie/vieRedPacket";
 	}
@@ -129,6 +166,17 @@ public class VieDrawController {
 		httpServletRequest.setAttribute("redPacketId", redPacketId);
 		httpServletRequest.setAttribute("currentSeq", currentSeq);
 		return "vie/vieAnswerProblem";
+	}
+	
+	@HandlerAnnotation(hanlerFilter=GetVieRedPacketResultFilter.class)
+	@RequestMapping(value="vie_answer_result")
+	public String answerResult(HttpServletRequest httpServletRequest)throws Exception{
+		
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		VieProblemAnswerListVo vieProblemAnswerListVo = (VieProblemAnswerListVo)sessionManager.getObject(VieProblemAnswerListVo.class);
+		
+		httpServletRequest.setAttribute("vieProblemAnswers", vieProblemAnswerListVo.getVieProblemAnswerVos());
+		return "vie/vieAnswerResult";
 	}
 	
 	

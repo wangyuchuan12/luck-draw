@@ -22,4 +22,8 @@ public class VieRedPacketTakepartMemberRecordService {
 		return vieRedPacketTakepartMemberRecordRepository.save(vieRedPacketTakepartMemberRecord);
 		
 	}
+
+	public VieRedPacketTakepartMemberRecord findByMemberIdAndVieRedPacketProblemId(String memberId, String problemId) {
+		return vieRedPacketTakepartMemberRecordRepository.findByMemberIdAndVieRedPacketProblemId(memberId,problemId);
+	}
 }

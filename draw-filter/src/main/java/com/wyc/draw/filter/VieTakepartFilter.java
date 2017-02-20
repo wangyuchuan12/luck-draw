@@ -58,10 +58,12 @@ public class VieTakepartFilter extends Filter{
 		vieRedPacketTakepartMember.setOpendid(drawUser.getOpenid());
 		vieRedPacketTakepartMember.setRedPacketId(redPacketId);
 		vieRedPacketTakepartMember.setRightCount(0l);
-		vieRedPacketTakepartMember.setTimeLong(0l);
+		vieRedPacketTakepartMember.setTimeLong(0f);
 		vieRedPacketTakepartMember.setUserId(drawUser.getUserId());
 		vieRedPacketTakepartMember.setWrongCount(0l);
 		vieRedPacketTakepartMember.setIsComplete(0);
+		vieRedPacketTakepartMember.setNickname(drawUser.getNickname());
+		vieRedPacketTakepartMember.setHeadImg(drawUser.getImgUrl());
 		vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.add(vieRedPacketTakepartMember);
 		
 		ResultVo resultVo = new ResultVo();
