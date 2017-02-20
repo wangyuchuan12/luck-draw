@@ -197,8 +197,9 @@
 						
 					}else {
 						$(".luck_info_head_money_eye").css("display","inline-block");
+						$(".luck_info_head_money_eye").unbind("click");
 						$(".luck_info_head_money_eye").click(function(){
-							
+							$(".luck_info_head_money_eye").unbind("click");
 							var redPacketId = $("input[name=redPacketId]").val();
 							
 							
