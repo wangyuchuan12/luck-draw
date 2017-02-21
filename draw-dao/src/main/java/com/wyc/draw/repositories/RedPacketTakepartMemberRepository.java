@@ -1,5 +1,7 @@
 package com.wyc.draw.repositories;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +18,12 @@ public interface RedPacketTakepartMemberRepository extends CrudRepository<RedPac
 	Page<RedPacketTakepartMember> findAllByRedPacketId(String redpacketId, Pageable pageable);
 
 	RedPacketTakepartMember findByRedPacketIdAndDrawUserId(String redPacketId, String drawUserId);
+
+	List<RedPacketTakepartMember> findAllByRedPacketIdAndIsComplete(String redPacketId, int isComplete);
+
+	Page<RedPacketTakepartMember> findAllByRedPacketIdAndIsComplete(String redPacketId, int isComplete,
+			Pageable pageable);
+
+	RedPacketTakepartMember findByOutTradeNo(String outTradeNo);
 
 }

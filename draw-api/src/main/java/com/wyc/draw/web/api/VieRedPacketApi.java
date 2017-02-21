@@ -12,6 +12,7 @@ import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.RedPacket;
+import com.wyc.draw.filter.BalancePayTakepartFilter;
 import com.wyc.draw.filter.HandRedPacketQuestionFilter;
 import com.wyc.draw.filter.VieSelectOptionFilter;
 import com.wyc.draw.filter.VieTakepartFilter;
@@ -81,7 +82,23 @@ public class VieRedPacketApi {
 		}
 	}
 	
+	@Transactional
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=BalancePayTakepartFilter.class)
+	@RequestMapping(value="balance_pay_takepart")
+	public Object balancePayTakepart(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.isReturn()){
+			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+			sessionManager.save(resultVo);
+			return resultVo;
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			return resultVo;
+		}
+	}
 	
+	@Transactional
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=VieTakepartFilter.class)
 	@RequestMapping(value="takepart")

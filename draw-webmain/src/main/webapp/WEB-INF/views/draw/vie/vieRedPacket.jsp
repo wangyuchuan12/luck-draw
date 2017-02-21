@@ -17,6 +17,12 @@
 			<input name="handTime" value="${redPacketInfo.handTime}" type="hidden"/>
 			<input name="timeLong" value="${redPacketInfo.timeLong}" type="hidden"/>
 			
+			<input name="amountBalance" value="${account.amountBalance}" type="hidden"/>
+			
+			<input name="entryFee" value="${redPacketInfo.entryFee}" type="hidden"/>
+			
+			<input name="payType" type="hidden"/>
+			
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">竞答红包</div>
@@ -88,41 +94,10 @@
 			
 			
 			<div class="luck_info_situation">
-					<div class="luck_info_situation_time">剩余<b id="luck_info_hour">00</b><b id="luck_info_min">00</b><b id="luck_info_second">00</b> 结束</div>
+				<div class="luck_info_situation_time">剩余<b id="luck_info_hour">00</b><b id="luck_info_min">00</b><b id="luck_info_second">00</b> 结束</div>
 			</div>
 			
-			<div class="view_luck_members">
-				<c:if test="${redPacketInfo.isAnswer==1}">
-					<div class="view_luck_member">
-						<div class="view_luck_member_rank">
-							<c:if test="${thisMember.rank!=null}">
-								${thisMember.rank}
-							</c:if>
-							
-							<c:if test="${thisMember.rank==null}">
-								${fn:length(takePartMembers.datas)}+
-							</c:if>
-						</div>
-						
-						<div class="view_luck_member_img">
-							<img src="${thisMember.headImg}">
-						</div>
-			
-						<div class="view_luck_member_name2">
-							 <div class="view_luck_member_name2_nickname">${thisMember.nickname}</div>
-							
-							<div class="view_luck_member_name2_prompt">第3名 <span>可获得30元</span></div>
-							
-							<!--  <div class="view_luck_member_name2_prompt_absolute">可获得30元</div>-->
-						</div>
-						
-						<div class="view_luck_member_result">
-							<div class="view_luck_member_result_correct">${thisMember.rightCount}题/${thisMember.timeLong}秒</div>
-						</div>
-					</div>
-				</c:if>
-				
-				<div class="help">
+			<div class="help" style="margin-top: 1px;">
 					<ul>
 						<li>
 							<span class="fa fa-check-circle"></span>
@@ -161,8 +136,42 @@
 					</ul>
 			
 				</div>
+			
+			<div class="view_luck_members">
+				<c:if test="${redPacketInfo.isAnswer==1}">
+					<div class="view_luck_member">
+						<div class="view_luck_member_rank">
+							<c:if test="${thisMember.rank!=null}">
+								${thisMember.rank}
+							</c:if>
+							
+							<c:if test="${thisMember.rank==null}">
+								${fn:length(takePartMembers.datas)}+
+							</c:if>
+						</div>
+						
+						<div class="view_luck_member_img">
+							<img src="${thisMember.headImg}">
+						</div>
+			
+						<div class="view_luck_member_name2">
+							 <div class="view_luck_member_name2_nickname">${thisMember.nickname}</div>
+							
+							<div class="view_luck_member_name2_prompt">第3名 <span>可获得30元</span></div>
+							
+							<!--  <div class="view_luck_member_name2_prompt_absolute">可获得30元</div>-->
+						</div>
+						
+						<div class="view_luck_member_result">
+							<div class="view_luck_member_result_correct">${thisMember.rightCount}题/${thisMember.timeLong}秒</div>
+						</div>
+					</div>
+				</c:if>
 				
-				<div class="view_luck_members_rank">排行榜</div>
+				
+				<c:if test="${fn:length(takePartMembers.datas)>0}">
+					<div class="view_luck_members_rank">排行榜</div>
+				</c:if>
 				<c:forEach items="${takePartMembers.datas}" var="takePartMember">
 					<div class="view_luck_member">
 						<div class="view_luck_member_rank">${takePartMember.rank}</div>
@@ -178,9 +187,28 @@
 						</div>
 					</div>
 				</c:forEach>
-				
-				
+			</div>
 			
+			<div class="red_packet_takepart" id="red_packet_takepart">
+				<div class="red_packet_takepart_amount">50元</div>
+				<div>
+						<div class="select_list_item" type=0 onclick="setPayType(0)">
+						
+							<em class="fa fa-check-square"  style="color: red;"></em>
+		         			<em class="fa fa-address-card" style="color: green;"></em>
+		         			<span class="select_list_item_name">余额支付（剩余：${amountBalance}元）</span>
+	         			</div>
+	         			
+	         			<div class="select_list_item" id="amountPayType" type=1 onclick="setPayType(1)">
+	         			
+	         				<em class="fa fa-square-o"></em>
+		         			<em class="fa fa-weixin" style="color: green;"></em>
+		         			<span class="select_list_item_name">微信支付</span>
+	         			</div>
+         			
+         		</div>
+         		
+         		<div class="red_packet_takepart_button">开始答题</div>
 			</div>
 			
 			<div class="foot_button">
@@ -213,12 +241,73 @@
 			
 			
 			<script type="text/javascript">
+				function setPayType(type){
+					
+					$("input[name=payType]").val(type);
+					var wxPayTypeEm = $(".select_list_item[type=0] em").eq(0);
+					var amountPayTypeEm = $(".select_list_item[type=1] em").eq(0);
+					
+					if(type==1){
+						wxPayTypeEm.attr("class","fa fa-square-o");
+						wxPayTypeEm.css("color","black");
+						amountPayTypeEm.attr("class","fa fa-check-square");
+						amountPayTypeEm.css("color","red");
+					}else{
+						amountPayTypeEm.attr("class","fa fa-square-o");
+						amountPayTypeEm.css("color","black");
+						wxPayTypeEm.attr("class","fa fa-check-square");
+						wxPayTypeEm.css("color","red");
+					}	
+				}
+				
+				function payFee(){
+					var amountBalance = $("input[name=amountBalance]").val();
+					amountBalance = parseFloat(amountBalance);
+					var payType = $("input[name=payType]").val();
+					var entryFee = $("input[name=entryFee]").val();
+					entryFee = parseFloat(entryFee);
+					
+					var redPacketId = $("input[name=redPacketId]").val();
+					if(payType==0){
+						if(entryFee>amountBalance){
+							showToast("余额不足");
+							return;
+						}
+						
+						var url = "/api/vie/draw/vie_red_pack/balance_pay_takepart";
+						var params = new Object();
+						params.red_packet_id = $("input[name=redPacketId]").val();
+						var callback = new Object();
+						callback.success = function(balanceResult){
+							if(balanceResult.success){
+								skipToVieAnswerProblem(redPacketId,balanceResult.data.id);
+							}else{
+								showToast("网络繁忙，请稍后再试");
+							}
+						}
+						request(url,callback,params);
+						
+					}else{
+						alert("微信支付");
+					}
+				}
+			
+				
 			
 				function initView(){
 					
 				}
 				$(document).ready(function(){
+					
+					setPayType(0);
+					
+					$(".red_packet_takepart_button").click(function(){
+						payFee();
+					});
+					
+					
 				
+					$("#red_packet_takepart").css("bottom","-170px");
 					$("body").css("padding-bottom","50px");
 					$("#receiveButton").click(function(){
 						var status=1;
@@ -231,7 +320,11 @@
 					},false);
 					
 					$("#vieTakepartButton").click(function(){
-						var url = "/api/vie/draw/vie_red_pack/takepart";
+						
+						$("#red_packet_takepart").animate({
+							bottom:"50px"
+						},1000);
+						/*var url = "/api/vie/draw/vie_red_pack/takepart";
 						var params = new Object();
 						var redPacketId = $("input[name=redPacketId]").val();
 						
@@ -250,6 +343,7 @@
 							showToast("网络繁忙，请稍后再试，😁");
 						}
 						request(url,callback,params);
+						*/
 						
 					});
 					

@@ -5,7 +5,9 @@ import java.util.UUID;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import com.wyc.draw.domain.RedPacket;
@@ -72,5 +74,17 @@ public class RedPacketService {
 
 	public RedPacket findOneByOutTradeNo(String outTradeNo) {
 		return redPackageRepository.findOneByOutTradeNo(outTradeNo);
+	}
+
+	public List<RedPacket> findAllOfRelatedToDrawUserId(String drawUserId, int start,int limit) {
+		return redPackageRepository.findAllOfRelatedToDrawUserId(drawUserId,start,limit);
+	}
+
+	public Page<RedPacket> findAllByHandDrawUserId(String drawUserId, Pageable pageable) {
+		return redPackageRepository.findAllByHandDrawUserId(drawUserId,pageable);
+	}
+
+	public Page<RedPacket> findAllByHandDrawUserIdOfTakepart(String drawUserId,Pageable pageable) {
+		return redPackageRepository.findAllByHandDrawUserIdOfTakepart(drawUserId,pageable);
 	}
 }

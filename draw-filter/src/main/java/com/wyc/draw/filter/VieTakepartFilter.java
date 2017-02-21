@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.domain.vo.ResultVo;
@@ -14,7 +15,7 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
-import com.wyc.draw.domain.VieRedPacketTakepartMember;
+import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 
@@ -51,11 +52,11 @@ public class VieTakepartFilter extends Filter{
 		redPacket.setTakePartCount(takePartCount+1);
 		redPacketService.update(redPacket);
 		
-		VieRedPacketTakepartMember vieRedPacketTakepartMember = new VieRedPacketTakepartMember();
+		RedPacketTakepartMember vieRedPacketTakepartMember = new RedPacketTakepartMember();
 		vieRedPacketTakepartMember.setDrawUserId(drawUser.getId());
 		vieRedPacketTakepartMember.setIsBest(0);
 		vieRedPacketTakepartMember.setIsPay(0);
-		vieRedPacketTakepartMember.setOpendid(drawUser.getOpenid());
+		vieRedPacketTakepartMember.setOpenid(drawUser.getOpenid());
 		vieRedPacketTakepartMember.setRedPacketId(redPacketId);
 		vieRedPacketTakepartMember.setRightCount(0l);
 		vieRedPacketTakepartMember.setTimeLong(0f);
@@ -64,6 +65,9 @@ public class VieTakepartFilter extends Filter{
 		vieRedPacketTakepartMember.setIsComplete(0);
 		vieRedPacketTakepartMember.setNickname(drawUser.getNickname());
 		vieRedPacketTakepartMember.setHeadImg(drawUser.getImgUrl());
+		vieRedPacketTakepartMember.setTakepartDateTime(new DateTime());
+		vieRedPacketTakepartMember.setEntryFee(redPacket.getEntryFee());
+		vieRedPacketTakepartMember.setIsGiveEntryFee(redPacket.getIsEntryFee());
 		vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.add(vieRedPacketTakepartMember);
 		
 		ResultVo resultVo = new ResultVo();

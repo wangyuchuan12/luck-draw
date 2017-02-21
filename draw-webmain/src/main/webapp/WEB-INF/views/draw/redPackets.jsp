@@ -64,7 +64,18 @@
 									</c:if>
 									
 									<c:if test="${item.isTimeout!=1}">
-										<span style="color: red">进行中</span>
+										<c:if test="${item.type==0}">
+											<span style="color: red">进行中</span>
+										</c:if>
+										
+										<c:if test="${item.type==1&&item.isGiveQuestion!=1}">
+											<span style="color: red">未设置选项卡</span>
+										</c:if>
+										
+										<c:if test="${item.type==1&&item.isGiveQuestion==1}">
+											<span style="color: red">进行中</span>
+										</c:if>
+										
 									</c:if>
 								</c:if>
 							</c:if>

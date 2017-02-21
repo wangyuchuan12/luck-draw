@@ -57,11 +57,11 @@ public class GetRedPacketListOfPageFilter extends Filter{
 		Integer typeInt = Integer.parseInt(type);
 		List<RedPacket> redPackets = new ArrayList<>();
 		if(typeInt==Constant.RED_PACKET_TYPE_ALL){
-			redPackets   = redPacketService.findAllOfRelatedToDrawUserIdAndIsDisplay(drawUser.getId(),1,pageInt*sizeInt,sizeInt);
+			redPackets   = redPacketService.findAllOfRelatedToDrawUserId(drawUser.getId(),pageInt*sizeInt,sizeInt);
 		}else if(typeInt==Constant.RED_PACKET_TYPE_HAND){
-			redPackets   = redPacketService.findAllByHandDrawUserIdAndIsDisplay(drawUser.getId(),1,pageRequest).getContent();
+			redPackets   = redPacketService.findAllByHandDrawUserId(drawUser.getId(),pageRequest).getContent();
 		}else if(typeInt==Constant.RED_PACKET_TYPE_TAKEPART){
-			redPackets = redPacketService.findAllByHandDrawUserIdOfTakepartAndIsDisplay(drawUser.getId(),1,pageRequest).getContent();
+			redPackets = redPacketService.findAllByHandDrawUserIdOfTakepart(drawUser.getId(),pageRequest).getContent();
 		}
 		
 		
@@ -99,6 +99,7 @@ public class GetRedPacketListOfPageFilter extends Filter{
 			
 			redPacketVo.setTheme(redPacket.getTheme());
 			
+			redPacketVo.setIsGiveQuestion(redPacket.getIsGiveQuestion());
 			redPacketVos.add(redPacketVo);
 		}
 		redPacketListVo.setRedPacketVos(redPacketVos);

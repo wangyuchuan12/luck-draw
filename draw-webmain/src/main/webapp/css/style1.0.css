@@ -2436,3 +2436,39 @@ li::before{
 }
 .help>ul>li>span:first-child{
 	color: red;
+}
+
+.red_packet_takepart{
+	position: fixed;
+	bottom: 50px;
+	width: 100%;
+	background-color: white;
+	
+}
+
+.red_packet_takepart_amount{
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	
+	font-size: 30px;
+	
+	color: black;
+	
+	font-weight: bold;
+}
+
+.red_packet_takepart_button{
+	width:80%;
+	height: 50px;
+	background-color: RGBA(234,94,58,1);
+	color: white;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 10px;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius:5px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}

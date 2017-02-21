@@ -39,5 +39,11 @@ public class RedPacketTakepartMemberService {
 		
 		return redPacketTakepartMemberRepository.save(redPacketTakepartMember);
 	}
+	public RedPacketTakepartMember findOne(String id) {
+		return redPacketTakepartMemberRepository.findOne(id);
+	}
+	public RedPacketTakepartMember findByOutTradeNo(String outTradeNo) {
+		return redPacketTakepartMemberRepository.findByOutTradeNo(outTradeNo);
+	}
 
 }

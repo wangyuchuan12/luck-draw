@@ -139,10 +139,16 @@ public class Constant {
 	//竞答红包支付回调
 	public static final int PAY_VIE_TYPE=1;
 	
+	//竞答红包参赛
+	public static final int PAY_VIE_TAKEPART_TYPE=2;
+	
 	/**********************支付回调************************/
 	//普通问答红包支付回调地址
 	public static final String PAY_QA_TYPE_NONCE_URL="/api/pay/wx/pa_pay_success";
 	//竞答红包支付回调地址
 	public static final String PAY_VIE_TYPE_NONCE_URL="/api/pay/wx/vie_pay_success";
+	
+	//竞答红包参赛支付回调地址
+	public static final String PAY_VIE_TAKEPART_TYPE_NONCE_URL="/api/pay/wx/vie_takepart_pay_success";
 	
 }

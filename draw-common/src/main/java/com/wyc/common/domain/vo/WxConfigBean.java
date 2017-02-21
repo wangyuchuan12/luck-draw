@@ -3,7 +3,7 @@ import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
 
-@ParamEntityAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
+@ParamEntityAnnotation
 public class WxConfigBean {
 	
 	@IdAnnotation
@@ -11,14 +11,14 @@ public class WxConfigBean {
 	@ParamAnnotation
 	private String signature;
 	
-	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
+	@ParamAnnotation
     private String noncestr;
 	
-	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
+	@ParamAnnotation
     private String appId;
 
 	
-	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
+	@ParamAnnotation
 	private String datetime;
 
 	public String getId() {

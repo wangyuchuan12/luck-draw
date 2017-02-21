@@ -15,8 +15,8 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.VieRedPacketProblem;
-import com.wyc.draw.domain.VieRedPacketTakepartMember;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.GetRedPacketProblemFilter;
 import com.wyc.draw.filter.GetRedPacketProblemListFilter;
@@ -58,6 +58,11 @@ public class VieDrawController {
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
 		RedPacketVo redPacketVo = (RedPacketVo)sessionManager.getObject(RedPacketVo.class);
 		
+		//加入还未设置选项卡就跳到设置选项卡界面
+		if(redPacketVo.getHandDrawUserId().equals(drawUser.getId())&&redPacketVo.getIsGiveQuestion()==0){
+			return "redirect:vie_set_problem?status=0&red_packet_id="+redPacketVo.getId();
+		}
+		
 		httpServletRequest.setAttribute("redPacketInfo", redPacketVo);
 		
 		
@@ -70,9 +75,9 @@ public class VieDrawController {
 		httpServletRequest.setAttribute("takePartMembers", resultPageListVo);
 		
 		
-		List<VieRedPacketTakepartMember> vieRedPacketTakepartMembers = vieRedPacketTakepartMemberService.findAllByRedPacketIdAndIsComplete(redPacketVo.getId(),0);
+		List<RedPacketTakepartMember> vieRedPacketTakepartMembers = vieRedPacketTakepartMemberService.findAllByRedPacketIdAndIsComplete(redPacketVo.getId(),0);
 		if(vieRedPacketTakepartMembers!=null&&vieRedPacketTakepartMembers.size()>0){
-			VieRedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMembers.get(0);
+			RedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMembers.get(0);
 			if(CommonUtil.isEmpty(vieRedPacketTakepartMember.getCurrentProblemId())){
 				VieRedPacketProblem firstRedPacketProblem = vieRedPacketProblemService.findOneByRedPacketIdAndIsFirst(redPacketVo.getId(),1);
 				
@@ -97,7 +102,7 @@ public class VieDrawController {
 		
 		
 		if(thisMember==null&&redPacketVo.getIsAnswer()==1){
-			VieRedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacketVo.getId(), drawUser.getId());
+			RedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacketVo.getId(), drawUser.getId());
 			if(vieRedPacketTakepartMember!=null)
 			thisMember = new VieRedPacketTakepartMemberVo();
 			thisMember.setCurrentProblemId(vieRedPacketTakepartMember.getCurrentProblemId());
@@ -108,7 +113,7 @@ public class VieDrawController {
 			thisMember.setIsComplete(vieRedPacketTakepartMember.getIsComplete());
 			thisMember.setIsPay(vieRedPacketTakepartMember.getIsPay());
 			thisMember.setNickname(vieRedPacketTakepartMember.getNickname());
-			thisMember.setOpendid(vieRedPacketTakepartMember.getOpendid());
+			thisMember.setOpendid(vieRedPacketTakepartMember.getOpenid());
 			thisMember.setRedPacketId(vieRedPacketTakepartMember.getRedPacketId());
 			thisMember.setRightCount(vieRedPacketTakepartMember.getRightCount());
 			thisMember.setTimeLong(vieRedPacketTakepartMember.getTimeLong());
@@ -119,6 +124,8 @@ public class VieDrawController {
 		}
 		//本用户的参与名额
 		httpServletRequest.setAttribute("thisMember", thisMember);
+		Account account = accountService.fineOneSync(drawUser.getAccountId());
+		httpServletRequest.setAttribute("account", account);
 		
 		return "vie/vieRedPacket";
 	}

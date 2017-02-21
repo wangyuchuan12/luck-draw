@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.VieRedPacketOption;
 import com.wyc.draw.domain.VieRedPacketProblem;
-import com.wyc.draw.domain.VieRedPacketTakepartMember;
 import com.wyc.draw.domain.VieRedPacketTakepartMemberRecord;
 import com.wyc.draw.service.VieRedPacketOptionService;
 import com.wyc.draw.service.VieRedPacketProblemService;
@@ -45,7 +45,7 @@ public class GetVieRedPacketResultFilter extends Filter{
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		String redPacketId = httpServletRequest.getParameter("id");
 		
-		VieRedPacketTakepartMember vieRedPacketTakepartMember = redPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacketId, drawUser.getId());
+		RedPacketTakepartMember vieRedPacketTakepartMember = redPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacketId, drawUser.getId());
 		
 		VieProblemAnswerListVo vieProblemAnswerListVo = new VieProblemAnswerListVo();
 		

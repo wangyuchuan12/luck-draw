@@ -14,7 +14,9 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.RedPacket;
+import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.service.RedPacketService;
+import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.vo.PayCostVo;
 
 
@@ -22,6 +24,9 @@ public class CostFilter extends Filter{
 
 	@Autowired
 	private RedPacketService redPacketService;
+	
+	@Autowired
+	private RedPacketTakepartMemberService redPacketTakepartMemberService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
@@ -145,6 +150,53 @@ public class CostFilter extends Filter{
 			payCostVo.setNotifyUrl(Constant.PAY_VIE_TYPE_NONCE_URL);
 			payCostVo.setPayType(Constant.PAY_VIE_TYPE);
 			payCostVo.setCost(redPacket.getAmount());
+			return payCostVo;
+		}else if(typeInt==Constant.PAY_VIE_TAKEPART_TYPE){
+			String memberId = httpServletRequest.getParameter("member_id");
+			if(CommonUtil.isEmpty(memberId)){
+				ResultVo resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("memberId参数不能为空");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				filterManager.save(resultVo);
+				return null;
+			}
+			RedPacketTakepartMember redPacketTakepartMember = redPacketTakepartMemberService.findOne(memberId);
+			if(CommonUtil.isEmpty(redPacketTakepartMember)){
+				ResultVo resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("返回的redPacketTakepartMember对象为空");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+			}
+			
+			if(redPacketTakepartMember.getIsPay()==1){
+				ResultVo resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("该用户已经支付过了");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+			}
+			
+			if(redPacketTakepartMember.getIsGiveEntryFee()==0){
+				ResultVo resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("该红包不需要支付参赛费");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+			}
+			
+			
+			String noticStr = "2add1a30ac87aa2db72f57a2375d2232s";
+			payCostVo.setNonceStr(noticStr);
+			payCostVo.setNotifyUrl(Constant.PAY_VIE_TAKEPART_TYPE_NONCE_URL);
+			payCostVo.setPayType(Constant.PAY_VIE_TAKEPART_TYPE);
+			payCostVo.setCost(redPacketTakepartMember.getEntryFee());
+			
+			redPacketTakepartMember.setOutTradeNo(outTradeNo);
+			
+			redPacketTakepartMemberService.update(redPacketTakepartMember);
 			return payCostVo;
 		}
 		return null;

@@ -8,41 +8,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.wyc.draw.domain.VieRedPacketTakepartMember;
-import com.wyc.draw.repositories.VieRedPacketTakepartMemberRepository;
+
+import com.wyc.draw.domain.RedPacketTakepartMember;
+import com.wyc.draw.repositories.RedPacketTakepartMemberRepository;
+
 
 @Service
 public class VieRedPacketTakepartMemberService {
 	@Autowired
-	private VieRedPacketTakepartMemberRepository vieRedPacketTakepartMemberRepository;
+	private RedPacketTakepartMemberRepository redPacketTakepartMemberRepository;
 
-	public VieRedPacketTakepartMember findOne(String memberId) {
-		return vieRedPacketTakepartMemberRepository.findOne(memberId);
+	public RedPacketTakepartMember findOne(String memberId) {
+		return redPacketTakepartMemberRepository.findOne(memberId);
 	}
 
-	public VieRedPacketTakepartMember add(VieRedPacketTakepartMember vieRedPacketTakepartMember) {
+	public RedPacketTakepartMember add(RedPacketTakepartMember redPacketTakepartMember) {
 		
-		vieRedPacketTakepartMember.setUpdateAt(new DateTime());
-		vieRedPacketTakepartMember.setCreateAt(new DateTime());
-		vieRedPacketTakepartMember.setId(UUID.randomUUID().toString());
-		return vieRedPacketTakepartMemberRepository.save(vieRedPacketTakepartMember);
+		redPacketTakepartMember.setUpdateAt(new DateTime());
+		redPacketTakepartMember.setCreateAt(new DateTime());
+		redPacketTakepartMember.setId(UUID.randomUUID().toString());
+		return redPacketTakepartMemberRepository.save(redPacketTakepartMember);
 	}
 
-	public VieRedPacketTakepartMember update(VieRedPacketTakepartMember vieRedPacketTakepartMember) {
-		vieRedPacketTakepartMember.setUpdateAt(new DateTime());
-		return vieRedPacketTakepartMemberRepository.save(vieRedPacketTakepartMember);
+	public RedPacketTakepartMember update(RedPacketTakepartMember redPacketTakepartMember) {
+		redPacketTakepartMember.setUpdateAt(new DateTime());
+		return redPacketTakepartMemberRepository.save(redPacketTakepartMember);
 	}
 
-	public List<VieRedPacketTakepartMember> findAllByRedPacketIdAndIsComplete(String redPacketId, int isComplete) {
-		return vieRedPacketTakepartMemberRepository.findAllByRedPacketIdAndIsComplete(redPacketId,isComplete);
+	public List<RedPacketTakepartMember> findAllByRedPacketIdAndIsComplete(String redPacketId, int isComplete) {
+		return redPacketTakepartMemberRepository.findAllByRedPacketIdAndIsComplete(redPacketId,isComplete);
 	}
 
-	public VieRedPacketTakepartMember findByRedPacketIdAndDrawUserId(String redPacketId, String drawUserId) {
-		return vieRedPacketTakepartMemberRepository.findByRedPacketIdAndDrawUserId(redPacketId,drawUserId);
+	public RedPacketTakepartMember findByRedPacketIdAndDrawUserId(String redPacketId, String drawUserId) {
+		return redPacketTakepartMemberRepository.findByRedPacketIdAndDrawUserId(redPacketId,drawUserId);
 	}
 
-	public Page<VieRedPacketTakepartMember> findAllByRedPacketIdAndIsComplete(String redPacketId, int isComplete,
+	public Page<RedPacketTakepartMember> findAllByRedPacketIdAndIsComplete(String redPacketId, int isComplete,
 			Pageable pageable) {
-		return vieRedPacketTakepartMemberRepository.findAllByRedPacketIdAndIsComplete(redPacketId,isComplete,pageable);
+		return redPacketTakepartMemberRepository.findAllByRedPacketIdAndIsComplete(redPacketId,isComplete,pageable);
 	}
 }

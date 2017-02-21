@@ -18,11 +18,10 @@ import com.wyc.common.service.PaySuccessService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.XmlUtil;
 import com.wyc.draw.domain.RedPacket;
+import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.filter.pay.ChooseWxPayFilter;
 import com.wyc.draw.service.RedPacketService;
-import com.wyc.draw.service.other.PayService;
-
-
+import com.wyc.draw.service.RedPacketTakepartMemberService;
 
 @Controller
 @RequestMapping(value="/api/pay/wx/")
@@ -30,13 +29,12 @@ public class WxPayApi {
 	
 	@Autowired
 	private PaySuccessService paySuccessService;
-	
-	
-	@Autowired
-	private PayService payService;
-	
+
 	@Autowired
 	private RedPacketService redPacketService;
+	
+	@Autowired
+	private RedPacketTakepartMemberService redPacketTakepartMemberService;
 	
 	@HandlerAnnotation(hanlerFilter=ChooseWxPayFilter.class)
 	@RequestMapping(value="choose_wx_pay_config")
@@ -85,9 +83,7 @@ public class WxPayApi {
 	public Object viePaySuccess(HttpServletRequest httpServletRequest)throws Exception{
 		SAXBuilder saxBuilder = new SAXBuilder();
 		Document document = saxBuilder.build(httpServletRequest.getInputStream());
-		PaySuccess paySuccess = XmlUtil.xmlToObject(document,PaySuccess.class);
-		
-		System.out.println("paySuccess:"+paySuccess.getOutTradeNo()+",isSuccess:"+paySuccess.getResultCode()+",nonceStr:"+paySuccess.getNonceStr());
+		PaySuccess paySuccess = XmlUtil.xmlToObject(document,PaySuccess.class);		
 		PaySuccess paySuccess2 = paySuccessService.findOneByOutTradeNo(paySuccess.getOutTradeNo());
 		if(paySuccess2==null){
 			if(paySuccess.getNonceStr().equals("2add1a30ac87aa2db72f57a2375d8f23")&&paySuccess.getResultCode().equals("SUCCESS")){
@@ -95,6 +91,25 @@ public class WxPayApi {
 				redPacket.setIsPay(1);
 				redPacket.setIsDisplay(1);
 				redPacketService.update(redPacket);
+				paySuccessService.add(paySuccess);
+			}
+		}
+		return paySuccess;
+	}
+	
+	@ResponseBody
+	@Transactional
+	@RequestMapping(value="vie_takepart_pay_success")
+	public Object vieTakepartPaySuccess(HttpServletRequest httpServletRequest)throws Exception{
+		SAXBuilder saxBuilder = new SAXBuilder();
+		Document document = saxBuilder.build(httpServletRequest.getInputStream());
+		PaySuccess paySuccess = XmlUtil.xmlToObject(document,PaySuccess.class);		
+		PaySuccess paySuccess2 = paySuccessService.findOneByOutTradeNo(paySuccess.getOutTradeNo());
+		if(paySuccess2==null){
+			if(paySuccess.getNonceStr().equals("2add1a30ac87aa2db72f57a2375d2232s")&&paySuccess.getResultCode().equals("SUCCESS")){
+				RedPacketTakepartMember redPacketTakepartMember = redPacketTakepartMemberService.findByOutTradeNo(paySuccess.getOutTradeNo());
+				redPacketTakepartMember.setIsPay(1);
+				redPacketTakepartMemberService.update(redPacketTakepartMember);
 				paySuccessService.add(paySuccess);
 			}
 		}

@@ -465,6 +465,7 @@ public class BaseHandRedPackFilter extends Filter{
 			
 			redPacket.setIsGiveQuestion(0);
 			
+			redPacket.setIsSetOption(0);
 			redPacket = redPackageService.add(redPacket);
 		
 			

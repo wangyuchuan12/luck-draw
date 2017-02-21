@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.print.attribute.standard.RequestingUserName;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -132,6 +134,10 @@ public class ManagerInterceptConfig {
 				  */
 			//	 handleAfterFilter(filter,filterManager);
 				 ResultVo resultVo = (ResultVo)filterManager.getObject(ResultVo.class);
+				 
+				 if(filterManager.getReturnValue()!=null){
+					 ResultVo resultVo2 = (ResultVo)filterManager.getReturnValue();
+				 }
 				 
 				 if(resultVo==null){
 					 resultVo = (ResultVo)filterManager.getReturnValue();

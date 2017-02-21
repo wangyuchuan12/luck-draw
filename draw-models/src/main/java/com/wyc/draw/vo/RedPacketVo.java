@@ -166,9 +166,21 @@ public class RedPacketVo {
 	@ParamAnnotation
 	private BigDecimal entryFee;
 	
+	//是否需要参赛费
+	@ParamAnnotation
+	private Integer isEntryFee;
+	
 	//是否已经答题，用于竞答红包
 	@ParamAnnotation
 	private Integer isAnswer;
+	
+	//问题已经设置，这个字段用于竞答红包
+	@ParamAnnotation
+	private Integer isGiveQuestion;
+	
+	//是否已经上缴参赛费
+	@ParamAnnotation
+	private Integer isGiveEntryFee;
 	
 	@ParamAnnotation
 	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
@@ -180,6 +192,14 @@ public class RedPacketVo {
 	
 	
 	
+	public Integer getIsGiveEntryFee() {
+		return isGiveEntryFee;
+	}
+
+	public void setIsGiveEntryFee(Integer isGiveEntryFee) {
+		this.isGiveEntryFee = isGiveEntryFee;
+	}
+
 	public Integer getIsAnswer() {
 		return isAnswer;
 	}
@@ -192,12 +212,28 @@ public class RedPacketVo {
 		return isRoom;
 	}
 
+	public Integer getIsEntryFee() {
+		return isEntryFee;
+	}
+
+	public void setIsEntryFee(Integer isEntryFee) {
+		this.isEntryFee = isEntryFee;
+	}
+
 	public void setIsRoom(Integer isRoom) {
 		this.isRoom = isRoom;
 	}
 
 	
 	
+	public Integer getIsGiveQuestion() {
+		return isGiveQuestion;
+	}
+
+	public void setIsGiveQuestion(Integer isGiveQuestion) {
+		this.isGiveQuestion = isGiveQuestion;
+	}
+
 	public String getTheme() {
 		return theme;
 	}

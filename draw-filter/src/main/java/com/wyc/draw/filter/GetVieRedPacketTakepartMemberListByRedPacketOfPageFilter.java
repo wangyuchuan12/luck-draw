@@ -19,7 +19,7 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.draw.domain.DrawUser;
-import com.wyc.draw.domain.VieRedPacketTakepartMember;
+import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 import com.wyc.draw.vo.VieRedPacketTakepartMemberVo;
 
@@ -69,12 +69,12 @@ public class GetVieRedPacketTakepartMemberListByRedPacketOfPageFilter extends Fi
 		
 		PageRequest pageRequest = new PageRequest(pageInt, sizeInt, sort);
 		
-		Page<VieRedPacketTakepartMember> vieRedPacketTakepartMembers = vieRedPacketTakepartMemberService.findAllByRedPacketIdAndIsComplete(redPacketId, 1,pageRequest);
+		Page<RedPacketTakepartMember> vieRedPacketTakepartMembers = vieRedPacketTakepartMemberService.findAllByRedPacketIdAndIsComplete(redPacketId, 1,pageRequest);
 		
 		ResultPageListVo resultPageListVo = new ResultPageListVo();
 		List<VieRedPacketTakepartMemberVo> vieRedPacketTakepartMemberVos = new ArrayList<>();
 		int index= 0;
-		for(VieRedPacketTakepartMember vieRedPacketTakepartMember:vieRedPacketTakepartMembers){
+		for(RedPacketTakepartMember vieRedPacketTakepartMember:vieRedPacketTakepartMembers){
 			index++;
 			VieRedPacketTakepartMemberVo vieRedPacketTakepartMemberVo = new VieRedPacketTakepartMemberVo();
 			vieRedPacketTakepartMemberVo.setCurrentProblemId(vieRedPacketTakepartMember.getCurrentProblemId());
@@ -85,7 +85,7 @@ public class GetVieRedPacketTakepartMemberListByRedPacketOfPageFilter extends Fi
 			vieRedPacketTakepartMemberVo.setIsComplete(vieRedPacketTakepartMember.getIsComplete());
 			vieRedPacketTakepartMemberVo.setIsPay(vieRedPacketTakepartMember.getIsPay());
 			vieRedPacketTakepartMemberVo.setNickname(vieRedPacketTakepartMember.getNickname());
-			vieRedPacketTakepartMemberVo.setOpendid(vieRedPacketTakepartMember.getOpendid());
+			vieRedPacketTakepartMemberVo.setOpendid(vieRedPacketTakepartMember.getOpenid());
 			vieRedPacketTakepartMemberVo.setRedPacketId(vieRedPacketTakepartMember.getRedPacketId());
 			vieRedPacketTakepartMemberVo.setRightCount(vieRedPacketTakepartMember.getRightCount());
 			vieRedPacketTakepartMemberVo.setTimeLong(vieRedPacketTakepartMember.getTimeLong());

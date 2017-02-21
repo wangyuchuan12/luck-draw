@@ -17,7 +17,6 @@ import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketTakepartMember;
-import com.wyc.draw.domain.VieRedPacketTakepartMember;
 import com.wyc.draw.filter.test.RedPacketReceiveAbleTestFilter;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawUserService;
@@ -127,7 +126,6 @@ public class GetRedPackInfoFilter extends Filter{
 		redPacketVo.setIsPay(redPacket.getIsPay());
 		redPacketVo.setCount(count);
 		redPacketVo.setAllowWrongCount(redPacket.getAllowWrongCount());
-		redPacketVo.setIsPay(redPacket.getIsPay());
 		
 		redPacketVo.setIsReceive(redPacket.getIsReceive());
 		
@@ -143,6 +141,10 @@ public class GetRedPackInfoFilter extends Filter{
 		redPacketVo.setIsRoom(redPacket.getIsRoom());
 		
 		redPacketVo.setShareCount(redPacket.getShareNum());
+		
+		redPacketVo.setIsGiveQuestion(redPacket.getIsGiveQuestion());
+		
+		
 		
 		Integer shareNumShowAnswer = redPacket.getShareNumShowAnswer();
 		
@@ -164,8 +166,9 @@ public class GetRedPackInfoFilter extends Filter{
 			redPacketVo.setTakePartCount(redPacket.getTakePartCount());
 			redPacketVo.setEntryFee(redPacket.getEntryFee());
 			redPacketVo.setInstruction(redPacket.getInstruction());
+			redPacketVo.setIsEntryFee(redPacket.getIsEntryFee());
 			
-			VieRedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacket.getId(),drawUser.getId());
+			RedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacket.getId(),drawUser.getId());
 			
 			if(vieRedPacketTakepartMember!=null&&vieRedPacketTakepartMember.getIsComplete()==1){
 				//已经答过
@@ -173,6 +176,12 @@ public class GetRedPackInfoFilter extends Filter{
 			}else{
 				//未曾答过
 				redPacketVo.setIsAnswer(0);
+			}
+			
+			if(vieRedPacketTakepartMember!=null){
+				redPacketVo.setIsGiveEntryFee(vieRedPacketTakepartMember.getIsGiveEntryFee());
+			}else{
+				redPacketVo.setIsGiveEntryFee(0);
 			}
 		}
 		

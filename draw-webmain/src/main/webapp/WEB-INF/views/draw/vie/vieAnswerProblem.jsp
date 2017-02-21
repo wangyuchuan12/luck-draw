@@ -206,7 +206,6 @@
 				
 				if(secondNum>=0){
 					timeLong = diffSecond;
-					showToast(timeLong);
 					$(".progress_bar_second").text(secondNum+"s");
 				}else{
 					
