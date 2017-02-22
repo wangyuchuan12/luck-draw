@@ -76,24 +76,30 @@ public class VieDrawController {
 		
 		
 		List<RedPacketTakepartMember> vieRedPacketTakepartMembers = vieRedPacketTakepartMemberService.findAllByRedPacketIdAndIsComplete(redPacketVo.getId(),0);
+		
 		if(vieRedPacketTakepartMembers!=null&&vieRedPacketTakepartMembers.size()>0){
 			RedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMembers.get(0);
-			if(CommonUtil.isEmpty(vieRedPacketTakepartMember.getCurrentProblemId())){
-				VieRedPacketProblem firstRedPacketProblem = vieRedPacketProblemService.findOneByRedPacketIdAndIsFirst(redPacketVo.getId(),1);
+			if(vieRedPacketTakepartMember.getIsPay()!=1){
 				
-				
-				return "redirect:vie_answer_problem?member_id="+vieRedPacketTakepartMember.getId()+"&red_packet_id="+redPacketVo.getId()+"&current_seq="+firstRedPacketProblem.getSeq();
-			}
-			VieRedPacketProblem vieRedPacketProblem = vieRedPacketProblemService.findOne(vieRedPacketTakepartMember.getCurrentProblemId());
-			VieRedPacketProblem lastRedPacketProblem = vieRedPacketProblemService.getLastByRedPacketId(redPacketVo.getId());
-			if(lastRedPacketProblem.getSeq()>vieRedPacketProblem.getSeq()){
-				int currentSeq = vieRedPacketProblem.getSeq()+1;
-				VieRedPacketProblem currentVieRedPacketProblem = vieRedPacketProblemService.findOneByRedPacketIdAndSeq(redPacketVo.getId(),currentSeq);
-				return "redirect:vie_answer_problem?member_id="+vieRedPacketTakepartMember.getId()+"&red_packet_id="+redPacketVo.getId()+"&current_seq="+currentVieRedPacketProblem.getSeq();
 			}else{
-				vieRedPacketTakepartMember.setIsComplete(1);
-				vieRedPacketTakepartMemberService.update(vieRedPacketTakepartMember);
+				if(CommonUtil.isEmpty(vieRedPacketTakepartMember.getCurrentProblemId())){
+					VieRedPacketProblem firstRedPacketProblem = vieRedPacketProblemService.findOneByRedPacketIdAndIsFirst(redPacketVo.getId(),1);
+					
+					
+					return "redirect:vie_answer_problem?member_id="+vieRedPacketTakepartMember.getId()+"&red_packet_id="+redPacketVo.getId()+"&current_seq="+firstRedPacketProblem.getSeq();
+				}
+				VieRedPacketProblem vieRedPacketProblem = vieRedPacketProblemService.findOne(vieRedPacketTakepartMember.getCurrentProblemId());
+				VieRedPacketProblem lastRedPacketProblem = vieRedPacketProblemService.getLastByRedPacketId(redPacketVo.getId());
+				if(lastRedPacketProblem.getSeq()>vieRedPacketProblem.getSeq()){
+					int currentSeq = vieRedPacketProblem.getSeq()+1;
+					VieRedPacketProblem currentVieRedPacketProblem = vieRedPacketProblemService.findOneByRedPacketIdAndSeq(redPacketVo.getId(),currentSeq);
+					return "redirect:vie_answer_problem?member_id="+vieRedPacketTakepartMember.getId()+"&red_packet_id="+redPacketVo.getId()+"&current_seq="+currentVieRedPacketProblem.getSeq();
+				}else{
+					vieRedPacketTakepartMember.setIsComplete(1);
+					vieRedPacketTakepartMemberService.update(vieRedPacketTakepartMember);
+				}
 			}
+			
 			
 		}else{
 			//List<VieRedPacketProblem> firstVieRedPacketProblems = vieRedPacketProblemService.findFirstByRedPacketId(redPacketVo.getId());
@@ -102,7 +108,8 @@ public class VieDrawController {
 		
 		
 		if(thisMember==null&&redPacketVo.getIsAnswer()==1){
-			RedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacketVo.getId(), drawUser.getId());
+			
+			RedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMembers.get(0);
 			if(vieRedPacketTakepartMember!=null)
 			thisMember = new VieRedPacketTakepartMemberVo();
 			thisMember.setCurrentProblemId(vieRedPacketTakepartMember.getCurrentProblemId());

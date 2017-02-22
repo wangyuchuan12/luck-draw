@@ -45,8 +45,9 @@ public class GetVieRedPacketResultFilter extends Filter{
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		String redPacketId = httpServletRequest.getParameter("id");
 		
-		RedPacketTakepartMember vieRedPacketTakepartMember = redPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacketId, drawUser.getId());
+		List<RedPacketTakepartMember> vieRedPacketTakepartMembers = redPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacketId, drawUser.getId());
 		
+		RedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMembers.get(0);
 		VieProblemAnswerListVo vieProblemAnswerListVo = new VieProblemAnswerListVo();
 		
 		List<VieProblemAnswerVo> vieProblemAnswerVos = new ArrayList<>();

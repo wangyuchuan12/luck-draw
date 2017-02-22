@@ -44,8 +44,6 @@ public class CostFilter extends Filter{
 		Integer typeInt;
 		try{
 			typeInt = Integer.parseInt(type);
-			
-			System.out.println("........type:"+typeInt);
 		}catch(Exception e){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
@@ -188,7 +186,7 @@ public class CostFilter extends Filter{
 			}
 			
 			
-			String noticStr = "2add1a30ac87aa2db72f57a2375d2232s";
+			String noticStr = "2add1a30ac87aa2db72f57a2375d8f25";
 			payCostVo.setNonceStr(noticStr);
 			payCostVo.setNotifyUrl(Constant.PAY_VIE_TAKEPART_TYPE_NONCE_URL);
 			payCostVo.setPayType(Constant.PAY_VIE_TAKEPART_TYPE);

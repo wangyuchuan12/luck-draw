@@ -14,11 +14,15 @@ import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacketTakepartMember;
+import com.wyc.draw.service.RedPacketTakepartMemberService;
 
 public class BalancePayTakepartFilter extends Filter{
 
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private RedPacketTakepartMemberService redPacketTakepartMemberService;
 	@Override
 	public Object handlerBefore(SessionManager sessionManager) throws Exception {
 		
@@ -49,17 +53,16 @@ public class BalancePayTakepartFilter extends Filter{
 			return null;
 		}
 		
-		
-		System.out.println("...........account:"+account.getAmountBalance());
 		BigDecimal accountBalance = account.getAmountBalance();
-		
-		System.out.println(".............entryFee:"+vieRedPacketTakepartMember.getEntryFee());
+
 		accountBalance = accountBalance.subtract(vieRedPacketTakepartMember.getEntryFee());
-		
-		System.out.println("...........account:"+account.getAmountBalance());
 		
 		account.setAmountBalance(accountBalance);
 		accountService.update(account);
+		
+		vieRedPacketTakepartMember.setIsPay(1);
+		
+		redPacketTakepartMemberService.update(vieRedPacketTakepartMember);
 		
 		return resultVo;
 

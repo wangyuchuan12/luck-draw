@@ -39,7 +39,7 @@ public class VieRedPacketTakepartMemberService {
 		return redPacketTakepartMemberRepository.findAllByRedPacketIdAndIsComplete(redPacketId,isComplete);
 	}
 
-	public RedPacketTakepartMember findByRedPacketIdAndDrawUserId(String redPacketId, String drawUserId) {
+	public List<RedPacketTakepartMember> findByRedPacketIdAndDrawUserId(String redPacketId, String drawUserId) {
 		return redPacketTakepartMemberRepository.findByRedPacketIdAndDrawUserId(redPacketId,drawUserId);
 	}
 

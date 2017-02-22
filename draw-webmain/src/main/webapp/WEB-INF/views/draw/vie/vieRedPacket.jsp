@@ -190,13 +190,13 @@
 			</div>
 			
 			<div class="red_packet_takepart" id="red_packet_takepart">
-				<div class="red_packet_takepart_amount">50元</div>
+				<div class="red_packet_takepart_amount">${redPacketInfo.amount}元</div>
 				<div>
 						<div class="select_list_item" type=0 onclick="setPayType(0)">
 						
 							<em class="fa fa-check-square"  style="color: red;"></em>
 		         			<em class="fa fa-address-card" style="color: green;"></em>
-		         			<span class="select_list_item_name">余额支付（剩余：${amountBalance}元）</span>
+		         			<span class="select_list_item_name">余额支付（剩余：${account.amountBalance}元）</span>
 	         			</div>
 	         			
 	         			<div class="select_list_item" id="amountPayType" type=1 onclick="setPayType(1)">
@@ -288,7 +288,32 @@
 						request(url,callback,params);
 						
 					}else{
-						alert("微信支付");
+						var url = "/api/vie/draw/vie_red_pack/takepart";
+						var params = new Object();
+						params.red_packet_id = redPacketId;
+						
+						var callback = new Object();
+						callback.success = function(takepartData){
+							if(takepartData.success){
+								var configUrl = "/api/pay/wx/choose_wx_pay_config";
+								var configCallback = new Object();
+								configCallback.success = function(configData){
+									var payCallback = new Object();
+									payCallback.success = function(){
+										skipToVieAnswerProblem(redPacketId,takepartData.data.id);
+									}
+									wxPay(configData.data.timestamp,configData.data.nonceStr,configData.data.pack,configData.data.signType,configData.data.paySign,payCallback);
+								}
+								var configParams = new Object();
+								configParams.body="支付参赛费";
+								configParams.detail = "竞答红包";
+								configParams.type=2;
+								configParams.member_id=takepartData.data.id;
+								request(configUrl,configCallback,configParams);
+							}
+						}
+						
+						request(url,callback,params);
 					}
 				}
 			

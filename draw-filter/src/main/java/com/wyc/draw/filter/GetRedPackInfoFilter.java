@@ -168,7 +168,12 @@ public class GetRedPackInfoFilter extends Filter{
 			redPacketVo.setInstruction(redPacket.getInstruction());
 			redPacketVo.setIsEntryFee(redPacket.getIsEntryFee());
 			
-			RedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacket.getId(),drawUser.getId());
+			List<RedPacketTakepartMember> vieRedPacketTakepartMembers = vieRedPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacket.getId(),drawUser.getId());
+			
+			RedPacketTakepartMember vieRedPacketTakepartMember = null;
+			if(vieRedPacketTakepartMembers.size()>0){
+				vieRedPacketTakepartMember = vieRedPacketTakepartMembers.get(0);
+			}
 			
 			if(vieRedPacketTakepartMember!=null&&vieRedPacketTakepartMember.getIsComplete()==1){
 				//已经答过

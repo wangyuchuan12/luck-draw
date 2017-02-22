@@ -50,6 +50,8 @@ public class WxPayApi {
 			return sessionManager.getObject(ResultVo.class);
 		}
 		WxChooseWxPayBean chooseWxPayBean = (WxChooseWxPayBean)sessionManager.getObject(WxChooseWxPayBean.class);
+		
+		System.out.println(".........outTradeNo:"+chooseWxPayBean.getOutTradeNo());
 		resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setMsg("返回数据成功");
@@ -66,7 +68,7 @@ public class WxPayApi {
 		PaySuccess paySuccess = XmlUtil.xmlToObject(document,PaySuccess.class);
 		PaySuccess paySuccess2 = paySuccessService.findOneByOutTradeNo(paySuccess.getOutTradeNo());
 		if(paySuccess2==null){
-			if(paySuccess.getNonceStr().equals("1add1a30ac87aa2db72f57a2375d8f22")&&paySuccess.getResultCode().equals("SUCCESS")){
+			if(paySuccess.getNonceStr().equals("2add1a30ac87aa2db72f57a2375d8f25")&&paySuccess.getResultCode().equals("SUCCESS")){
 				RedPacket redPacket = redPacketService.findOneByOutTradeNo(paySuccess.getOutTradeNo());
 				redPacket.setIsPay(1);
 				redPacket.setIsDisplay(1);
