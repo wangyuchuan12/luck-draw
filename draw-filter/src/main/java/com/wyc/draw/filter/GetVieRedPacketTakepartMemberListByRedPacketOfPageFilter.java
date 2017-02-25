@@ -131,9 +131,7 @@ public class GetVieRedPacketTakepartMemberListByRedPacketOfPageFilter extends Fi
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
-		filterClasses.add(DrawUserFilter.class);
-		return filterClasses;
+		return null;
 	}
 
 }

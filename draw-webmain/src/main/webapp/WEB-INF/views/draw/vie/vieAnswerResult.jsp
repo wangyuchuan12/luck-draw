@@ -18,8 +18,61 @@
 					选项：
 					<div class="vie_answer_result_select_option">
 					
-						<c:forEach items="${vieProblemAnswer.vieRedPacketOptionVos}" var="option">
-							A.${option.content} <c:if test="${option.isRight==1}">✅</c:if><br/>
+						<c:forEach items="${vieProblemAnswer.vieRedPacketOptionVos}" var="option" varStatus="varStatus">
+							<c:if test="${varStatus.index==0}">
+								<span>A</span>
+							</c:if>
+						
+							<c:if test="${varStatus.index==1}">
+								<span>B</span>
+							</c:if>
+							
+							<c:if test="${varStatus.index==2}">
+								<span>C</span>
+							</c:if>
+							
+							<c:if test="${varStatus.index==3}">
+								<span>D</span>
+							</c:if>
+							
+							<c:if test="${varStatus.index==4}">
+								<span>E</span>
+							</c:if>
+							
+							<c:if test="${varStatus.index==5}">
+								<span>F</span>
+							</c:if>
+							
+							<c:if test="${varStatus.index==6}">
+								<span>G</span>
+							</c:if>
+							
+							<c:if test="${varStatus.index==7}">
+								<span>H</span>
+							</c:if>
+							
+							<c:if test="${varStatus.index==8}">
+								<span>I</span>
+							</c:if>
+							
+							<c:if test="${varStatus.index==9}">
+								<span>J</span>
+							</c:if>
+							
+							<c:if test="${varStatus.index==10}">
+								<span>K</span>
+							</c:if>
+							
+							<c:if test="${varStatus.index==11}">
+								<span>L</span>
+							</c:if>
+							
+							<c:if test="${varStatus.index==12}">
+								<span>M</span>
+							</c:if>
+						
+						
+							${option.content} <c:if test="${option.isRight==1}">✅</c:if><br/>
 						</c:forEach>
 					</div>
 				</div>

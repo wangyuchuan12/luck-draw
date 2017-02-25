@@ -16,12 +16,15 @@ import com.wyc.common.domain.vo.WxChooseWxPayBean;
 import com.wyc.common.filter.UserInfoFilter;
 import com.wyc.common.service.PaySuccessService;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.Constant;
 import com.wyc.common.util.XmlUtil;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketTakepartMember;
+import com.wyc.draw.domain.VieRedPacketToTakepartMember;
 import com.wyc.draw.filter.pay.ChooseWxPayFilter;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
+import com.wyc.draw.service.VieRedPacketToTakepartMemberService;
 
 @Controller
 @RequestMapping(value="/api/pay/wx/")
@@ -35,6 +38,9 @@ public class WxPayApi {
 	
 	@Autowired
 	private RedPacketTakepartMemberService redPacketTakepartMemberService;
+	
+	@Autowired
+	private VieRedPacketToTakepartMemberService vieRedPacketToTakepartMemberService;
 	
 	@HandlerAnnotation(hanlerFilter=ChooseWxPayFilter.class)
 	@RequestMapping(value="choose_wx_pay_config")
@@ -50,8 +56,7 @@ public class WxPayApi {
 			return sessionManager.getObject(ResultVo.class);
 		}
 		WxChooseWxPayBean chooseWxPayBean = (WxChooseWxPayBean)sessionManager.getObject(WxChooseWxPayBean.class);
-		
-		System.out.println(".........outTradeNo:"+chooseWxPayBean.getOutTradeNo());
+
 		resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setMsg("返回数据成功");
@@ -113,6 +118,12 @@ public class WxPayApi {
 				redPacketTakepartMember.setIsPay(1);
 				redPacketTakepartMemberService.update(redPacketTakepartMember);
 				paySuccessService.add(paySuccess);
+				
+				VieRedPacketToTakepartMember vieRedPacketToTakepartMember = vieRedPacketToTakepartMemberService.findByDrawUserIdAndRedPacketId(redPacketTakepartMember.getDrawUserId(), redPacketTakepartMember.getRedPacketId());
+				
+				vieRedPacketToTakepartMember.setIsPay(1);
+				vieRedPacketToTakepartMember.setTakepartStatus(Constant.UNDERWAY_TAKEPART_STATUS);
+				vieRedPacketToTakepartMemberService.update(vieRedPacketToTakepartMember);
 			}
 		}
 		return paySuccess;

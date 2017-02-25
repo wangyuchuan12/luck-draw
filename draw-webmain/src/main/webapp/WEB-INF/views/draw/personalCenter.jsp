@@ -5,8 +5,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 <tiles:insertDefinition name="frameLayout">
+
+	
+
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
+
+	
 	<div class="personal_center_header">
 		<div class="personal_center_header_title">个人中心</div>
 		<div class="personal_center_header_img">

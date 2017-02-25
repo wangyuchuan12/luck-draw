@@ -7,6 +7,10 @@
 <tiles:insertDefinition name="frameLayout">
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
+	<div class="headItems">
+		<img src="/imgs/bean.gif">
+		<span>智慧豆 50</span>
+	</div>
 	<div class="swiper-container swiper-container-horizontal">
         <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
              <c:forEach items="${mainImgs}" var="mainImg">

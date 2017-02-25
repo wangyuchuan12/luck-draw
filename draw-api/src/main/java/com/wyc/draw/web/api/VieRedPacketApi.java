@@ -16,6 +16,9 @@ import com.wyc.draw.filter.BalancePayTakepartFilter;
 import com.wyc.draw.filter.HandRedPacketQuestionFilter;
 import com.wyc.draw.filter.VieSelectOptionFilter;
 import com.wyc.draw.filter.VieTakepartFilter;
+import com.wyc.draw.filter.controller.api.VieRedPacketBalancePayTakepartFilter;
+import com.wyc.draw.filter.controller.api.VieRedPacketSelectOptionFilter;
+import com.wyc.draw.filter.controller.api.VieRedPacketTakepartApiFilter;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.vo.VieRedPacketProblemVo;
 
@@ -70,7 +73,7 @@ public class VieRedPacketApi {
 	}
 	
 	@ResponseBody
-	@HandlerAnnotation(hanlerFilter=VieSelectOptionFilter.class)
+	@HandlerAnnotation(hanlerFilter=VieRedPacketSelectOptionFilter.class)
 	@RequestMapping(value="select_option")
 	public Object selectOption(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
@@ -84,7 +87,7 @@ public class VieRedPacketApi {
 	
 	@Transactional
 	@ResponseBody
-	@HandlerAnnotation(hanlerFilter=BalancePayTakepartFilter.class)
+	@HandlerAnnotation(hanlerFilter=VieRedPacketBalancePayTakepartFilter.class)
 	@RequestMapping(value="balance_pay_takepart")
 	public Object balancePayTakepart(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
@@ -100,7 +103,7 @@ public class VieRedPacketApi {
 	
 	@Transactional
 	@ResponseBody
-	@HandlerAnnotation(hanlerFilter=VieTakepartFilter.class)
+	@HandlerAnnotation(hanlerFilter=VieRedPacketTakepartApiFilter.class)
 	@RequestMapping(value="takepart")
 	public Object takepart(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);

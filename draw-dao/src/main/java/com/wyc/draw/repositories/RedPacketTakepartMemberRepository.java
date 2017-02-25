@@ -26,4 +26,6 @@ public interface RedPacketTakepartMemberRepository extends CrudRepository<RedPac
 
 	RedPacketTakepartMember findByOutTradeNo(String outTradeNo);
 
+	List<RedPacketTakepartMember> findAllByRedPacketIdAndIsBest(String redPacketId, int isBest);
+
 }

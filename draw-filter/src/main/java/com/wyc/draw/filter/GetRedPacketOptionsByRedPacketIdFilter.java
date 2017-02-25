@@ -1,18 +1,14 @@
 package com.wyc.draw.filter;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketOption;
+import com.wyc.draw.domain.param.VieDrawInfoParam;
 import com.wyc.draw.service.RedPacketOptionService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.vo.RedPacketOptionListVo;
@@ -26,9 +22,9 @@ public class GetRedPacketOptionsByRedPacketIdFilter extends Filter{
 	private RedPacketService redPacketService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
+		VieDrawInfoParam vieDrawInfoParam = (VieDrawInfoParam)filterManager.getObject(VieDrawInfoParam.class);
 		
-		String id = httpServletRequest.getParameter("id");
+		String id = vieDrawInfoParam.getRedPacketId();
 		
 		RedPacket packet = redPacketService.findOne(id);
 		
@@ -64,10 +60,7 @@ public class GetRedPacketOptionsByRedPacketIdFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		List<Class<? extends Filter>> classes = new ArrayList<>();
-		classes.add(BaseDrawActionFilter.class);
-		
-		return classes;
+		return null;
 	}
 
 }

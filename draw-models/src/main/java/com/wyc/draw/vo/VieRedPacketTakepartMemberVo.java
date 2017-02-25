@@ -61,6 +61,11 @@ public class VieRedPacketTakepartMemberVo {
 	@ParamAnnotation
 	private String currentProblemId;
 	
+	
+	//参赛状态
+	@ParamAnnotation
+	private Integer takepartStatus;
+	
 	@ParamAnnotation
 	private Long rank;
 
@@ -72,6 +77,17 @@ public class VieRedPacketTakepartMemberVo {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+
+	
+	public Integer getTakepartStatus() {
+		return takepartStatus;
+	}
+
+
+	public void setTakepartStatus(Integer takepartStatus) {
+		this.takepartStatus = takepartStatus;
 	}
 
 

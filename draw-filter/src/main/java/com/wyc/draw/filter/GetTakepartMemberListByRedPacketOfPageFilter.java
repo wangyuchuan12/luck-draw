@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,11 +14,10 @@ import org.springframework.data.domain.Sort.Direction;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.service.WxUserInfoService;
 import com.wyc.common.session.SessionManager;
-import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.MySimpleDateFormat;
 import com.wyc.common.wx.domain.UserInfo;
-import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacketTakepartMember;
+import com.wyc.draw.domain.param.VieDrawInfoParam;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.vo.RedPacketTakepartMemberListVo;
 import com.wyc.draw.vo.RedPacketTakepartMemberVo;
@@ -36,26 +34,18 @@ public class GetTakepartMemberListByRedPacketOfPageFilter extends Filter{
 	private WxUserInfoService userInfoService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
-		String page = httpServletRequest.getParameter("page");
-		String size = httpServletRequest.getParameter("size");
-		String id = httpServletRequest.getParameter("id");
-		if(CommonUtil.isEmpty(page)){
-			page = "0";
-		}
 		
-		if(CommonUtil.isEmpty(size)){
-			size = "10";
-		}
+		VieDrawInfoParam vieDrawInfoParam = (VieDrawInfoParam)filterManager.getObject(VieDrawInfoParam.class);
 		
-		int pageInt = Integer.parseInt(page);
+		String id = vieDrawInfoParam.getRedPacketId();
 		
-		int sizeInt = Integer.parseInt(size);
-		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
+		int pageInt = vieDrawInfoParam.getTakepartMemberPage();
+		
+		int sizeInt = vieDrawInfoParam.getTakepartMemberSize();
 		Sort sort = new Sort(Direction.DESC,"takepartDateTime");
 		PageRequest pageRequest = new PageRequest(pageInt, sizeInt, sort);
 		Page<RedPacketTakepartMember> packetTakePage = redPacketTakepartMemberService.findAllByRedPacketId(id,pageRequest);
-		
+
 		RedPacketTakepartMemberListVo redPacketTakepartMemberListVo = new RedPacketTakepartMemberListVo();
 		List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos = new ArrayList<>();
 		
@@ -88,7 +78,6 @@ public class GetTakepartMemberListByRedPacketOfPageFilter extends Filter{
 			redPacketTakepartMemberVos.add(redPacketTakepartMemberVo);
 		}
 		redPacketTakepartMemberListVo.setRedPacketTakepartMemberVos(redPacketTakepartMemberVos);
-		
 		return redPacketTakepartMemberListVo;
 		
 	}
@@ -113,9 +102,7 @@ public class GetTakepartMemberListByRedPacketOfPageFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		List<Class<? extends Filter>> filters = new ArrayList<>();
-		filters.add(DrawUserFilter.class);
-		return filters;
+		return null;
 	}
 
 }

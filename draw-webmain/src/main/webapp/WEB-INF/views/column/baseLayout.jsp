@@ -33,7 +33,26 @@
 			</li>
 		</ul>
 	</div>
+	
+	
+<div class="redPacketAlert">
+	<div class="redPacketAlertContext">你已经发过红包了，不能再发了,你再发试试看，打死你</div>
+	
+	<div class="redPacketAlertButton">查看钱包</div>
+</div>
 
+
+<div class="sadAlert">
+	<div class="redPacketAlertContext">你已经发过红包了，不能再发了,你再发试试看，打死你</div>
+	
+	<div class="redPacketAlertButton">查看钱包</div>
+</div>
+
+<div class="happyAlert">
+	<div class="redPacketAlertContext">你已经发过红包了，不能再发了,你再发试试看，打死你</div>
+	
+	<div class="redPacketAlertButton">查看钱包</div>
+</div>
 
 <div class="toast" style="display: none;">余额不足，请稍后再试</div>
 
@@ -43,6 +62,9 @@
 <input name="datetime" value="${datetime}" type="hidden"/>
 
 <input name="webPath" value="${contextPath}" type="hidden"/>
+
+<input name="alert" value="${alert}" type="hidden"/>
+<input name="alertType" value="${alertType}" type="hidden"/>
     	
 
 
@@ -266,11 +288,98 @@
         });
 	}
 	
+	
+	function showRedPacketAlert(alertContext,buttonText,fun){
+		$(".redPacketAlert .redPacketAlertContext").text(alertContext);
+		$(".redPacketAlert .redPacketAlertButton").text(buttonText);
+		$(".redPacketAlert .redPacketAlertButton").click(function(){
+			fun.call();
+		});
+		var redPacketAlert = layer.open({
+			type:1,
+			title:false,
+			shadeClose:false,
+			shade:[0.1,'#000'],
+			area:['250px',"350px"],
+			content:$(".redPacketAlert")
+		});
+		return redPacketAlert;
+	}
+	
+	function showSadAlert(alertContext,buttonText,fun){
+		$(".sadAlert .redPacketAlertContext").text(alertContext);
+		$(".sadAlert .redPacketAlertButton").text(buttonText);
+		$(".sadAlert .redPacketAlertButton").click(function(){
+			fun.call();
+		});
+		var sadAlert = layer.open({
+			type:1,
+			title:false,
+			shadeClose:false,
+			shade:[0.1,'#000'],
+			area:['250px',"350px"],
+			content:$(".sadAlert")
+		});
+		return sadAlert;
+	}
+	
+	function showHappyAlert(alertContext,buttonText,fun){
+		$(".happyAlert .redPacketAlertContext").text(alertContext);
+		$(".happyAlert .redPacketAlertButton").text(buttonText);
+		$(".happyAlert .redPacketAlertButton").click(function(){
+			fun.call();
+		});
+		var happyAlert = layer.open({
+			type:1,
+			title:false,
+			shadeClose:false,
+			shade:[0.1,'#000'],
+			area:['250px',"350px"],
+			content:$(".happyAlert")
+		});
+		return happyAlert;
+	}
+	
+	
+	function initAlert(callback){
+		var alertContent = $("input[name=alert]").val();
+		var alertType = $("input[name=alertType]").val();
+		if(alertType!=0&&alertType!=1&&alertType!=2){
+			alertType=0;
+		}
+		if(alertType==0){
+			if(alertContent){
+				var redPacketAlert = showRedPacketAlert(alertContent,"确定",function(){
+					layer.closeAll();
+					if(callback){
+						callback.alert();
+					}
+				});
+			}
+		}else if(alertType==1){
+			if(alertContent){
+				var redPacketAlert = showSadAlert(alertContent,"确定",function(){
+					layer.closeAll();
+					if(callback){
+						callback.sadAlert();
+					}
+				});
+			}
+		}else if(alertType==2){
+			if(alertContent){
+				showHappyAlert(alertContent,"确定",function(){
+					layer.closeAll();
+					if(callback){
+						callback.happyAlert();
+					}
+				});
+			}
+		}
+	}
+	
 	$(document).ready(function(){
 		wxConfig(getAppId(),getSignature(),getNoncestr(),getDatetime());
-		
-		
-		
+
 		$("img.lazy").lazyload({
 	        effect: "fadeIn",
 	        threshold : 200
@@ -282,6 +391,8 @@
 			$("img.lazy:eq(2)").attr('src',$("img.lazy:eq(2)").attr('data-original'));
 			$("img.lazy:eq(3)").attr('src',$("img.lazy:eq(3)").attr('data-original'));
 			$("img.lazy:eq(4)").attr('src',$("img.lazy:eq(4)").attr('data-original'));
+			$("img.lazy:eq(5)").attr('src',$("img.lazy:eq(5)").attr('data-original'));
+			$("img.lazy:eq(6)").attr('src',$("img.lazy:eq(6)").attr('data-original'));
 		}catch(e){
 			
 		}

@@ -4,18 +4,18 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
+import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketTakepartMember;
+import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.param.VieDrawTakepartParam;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 
@@ -31,9 +31,10 @@ public class VieTakepartFilter extends Filter{
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
-		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		
-		String redPacketId = httpServletRequest.getParameter("red_packet_id");
+		VieDrawTakepartParam vieDrawTakepartParam = (VieDrawTakepartParam)filterManager.getObject(VieDrawTakepartParam.class);
+		
+		String redPacketId = vieDrawTakepartParam.getTakepartId();
 		
 		if(CommonUtil.isEmpty(redPacketId)){
 			ResultVo resultVo = new ResultVo();
@@ -70,10 +71,29 @@ public class VieTakepartFilter extends Filter{
 		vieRedPacketTakepartMember.setIsGiveEntryFee(redPacket.getIsEntryFee());
 		vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.add(vieRedPacketTakepartMember);
 		
+		VieRedPacketToTakepartMember vieRedPacketToTakepartMember = (VieRedPacketToTakepartMember)filterManager.getObject(VieRedPacketToTakepartMember.class);
+		
+		vieRedPacketToTakepartMember.setTakepartStatus(Constant.NOT_INVOLVED_TAKEPART_STATUS);
+		vieRedPacketToTakepartMember.setCurrentTakepartMemberId(vieRedPacketTakepartMember.getId());
+		if(redPacket.getIsEntryFee()==0){
+			vieRedPacketTakepartMember.setIsPay(1);
+			vieRedPacketToTakepartMember.setIsPay(1);
+			vieRedPacketToTakepartMember.setTakepartStatus(Constant.UNDERWAY_TAKEPART_STATUS);
+		}else{
+			vieRedPacketTakepartMember.setIsPay(0);
+			vieRedPacketToTakepartMember.setIsPay(0);
+			
+		}
+
+		filterManager.save(vieRedPacketTakepartMember);
+		
+		filterManager.save(vieRedPacketToTakepartMember);
+		
 		ResultVo resultVo = new ResultVo();
 		resultVo.setData(vieRedPacketTakepartMember);
 		resultVo.setSuccess(true);
 		resultVo.setMsg("参加成功");
+		
 		return resultVo;
 	}
 
@@ -97,9 +117,9 @@ public class VieTakepartFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		List<Class<? extends Filter>> filters = new ArrayList<>();
-		filters.add(DrawUserFilter.class);
-		return filters;
+		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
+		filterClasses.add(CurrentVieRedPacketToTakepartMemberFilter.class);
+		return filterClasses;
 	}
 
 }

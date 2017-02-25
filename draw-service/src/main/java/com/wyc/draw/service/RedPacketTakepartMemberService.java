@@ -46,5 +46,6 @@ public class RedPacketTakepartMemberService {
 	public RedPacketTakepartMember findByOutTradeNo(String outTradeNo) {
 		return redPacketTakepartMemberRepository.findByOutTradeNo(outTradeNo);
 	}
+	
 
 }

@@ -153,6 +153,7 @@
 			callback.success = function(resp){
 				hideLoading();
 				if(!resp.success){
+					alert(resp.errorMsg);
 					showToast("网络繁忙，请稍后再试😁");
 				}else{
 					var isLast = resp.data.isLast;

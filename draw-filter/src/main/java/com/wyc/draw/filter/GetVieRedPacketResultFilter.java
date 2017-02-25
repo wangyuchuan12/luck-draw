@@ -63,29 +63,31 @@ public class GetVieRedPacketResultFilter extends Filter{
 			
 			
 			VieRedPacketTakepartMemberRecord vieRedPacketTakepartMemberRecord = vieRedPacketTakepartMemberRecordService.findByMemberIdAndVieRedPacketProblemId(vieRedPacketTakepartMember.getId(),vieRedPacketProblem.getId());
-			vieProblemAnswerVo.setTimelong(vieRedPacketTakepartMemberRecord.getTimeLong());
-			List<VieRedPacketOption> vieRedPacketOptions = vieRedPacketOptionService.findAllByRedPacketProblemIdAndIsDelOrderBySeqAsc(vieRedPacketProblem.getId(), 0);
-			
-			List<VieRedPacketOptionVo> vieRedPacketOptionVos = new ArrayList<>();
-			
-			for(VieRedPacketOption vieRedPacketOption:vieRedPacketOptions){
-				VieRedPacketOptionVo vieRedPacketOptionVo = new VieRedPacketOptionVo();
-				vieRedPacketOptionVo.setContent(vieRedPacketOption.getContent());
-				vieRedPacketOptionVo.setId(vieRedPacketOption.getId());
-				vieRedPacketOptionVo.setIsDel(0);
-				vieRedPacketOptionVo.setIsRight(vieRedPacketOption.getIsRight());
-				vieRedPacketOptionVo.setRedPacketId(redPacketId);
-				vieRedPacketOptionVo.setRedPacketProblemId(vieRedPacketOption.getRedPacketProblemId());
-				vieRedPacketOptionVo.setSeq(vieRedPacketOption.getSeq());
+			if(vieRedPacketTakepartMemberRecord!=null){
+				vieProblemAnswerVo.setTimelong(vieRedPacketTakepartMemberRecord.getTimeLong());
+				List<VieRedPacketOption> vieRedPacketOptions = vieRedPacketOptionService.findAllByRedPacketProblemIdAndIsDelOrderBySeqAsc(vieRedPacketProblem.getId(), 0);
 				
-				vieRedPacketOptionVos.add(vieRedPacketOptionVo);
+				List<VieRedPacketOptionVo> vieRedPacketOptionVos = new ArrayList<>();
+				
+				for(VieRedPacketOption vieRedPacketOption:vieRedPacketOptions){
+					VieRedPacketOptionVo vieRedPacketOptionVo = new VieRedPacketOptionVo();
+					vieRedPacketOptionVo.setContent(vieRedPacketOption.getContent());
+					vieRedPacketOptionVo.setId(vieRedPacketOption.getId());
+					vieRedPacketOptionVo.setIsDel(0);
+					vieRedPacketOptionVo.setIsRight(vieRedPacketOption.getIsRight());
+					vieRedPacketOptionVo.setRedPacketId(redPacketId);
+					vieRedPacketOptionVo.setRedPacketProblemId(vieRedPacketOption.getRedPacketProblemId());
+					vieRedPacketOptionVo.setSeq(vieRedPacketOption.getSeq());
+					
+					vieRedPacketOptionVos.add(vieRedPacketOptionVo);
 
-				if(vieRedPacketOptionVo.getId().equals(vieRedPacketTakepartMemberRecord.getVieRedPacketOptionId())){
-					vieProblemAnswerVo.setMyOption(vieRedPacketOptionVo);
+					if(vieRedPacketOptionVo.getId().equals(vieRedPacketTakepartMemberRecord.getVieRedPacketOptionId())){
+						vieProblemAnswerVo.setMyOption(vieRedPacketOptionVo);
+					}
 				}
+				vieProblemAnswerVo.setVieRedPacketOptionVos(vieRedPacketOptionVos);
+				vieProblemAnswerVos.add(vieProblemAnswerVo);
 			}
-			vieProblemAnswerVo.setVieRedPacketOptionVos(vieRedPacketOptionVos);
-			vieProblemAnswerVos.add(vieProblemAnswerVo);
 		}
 		return vieProblemAnswerListVo;
 	}

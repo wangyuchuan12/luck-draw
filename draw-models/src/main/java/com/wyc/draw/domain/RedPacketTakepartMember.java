@@ -12,8 +12,12 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wyc.annotation.IdAnnotation;
+import com.wyc.annotation.ParamAnnotation;
+import com.wyc.annotation.ParamEntityAnnotation;
 
 //红包参与者
+@ParamEntityAnnotation
 @Entity(name="d_red_packet_takepart_member")
 @Table(indexes={@Index(columnList="red_packet_id",name="red_packet_id_index")})
 public class RedPacketTakepartMember {
@@ -24,97 +28,121 @@ public class RedPacketTakepartMember {
 	public static final int PERSONAL_QUESTION_TYPE=1;
 	
 	@Id
+	@IdAnnotation
     private String id;
 	
 	//adminId
+	@ParamAnnotation
 	@Column(name="admin_id")
 	private String adminId;
 	
 	//userid
+	@ParamAnnotation
 	@Column(name="user_id")
 	private String userId;
 	
 	//openid
+	@ParamAnnotation
 	@Column(name="openid")
 	private String openid;
 	
+	@ParamAnnotation
 	@Column(name="draw_user_id")
 	private String drawUserId;
 	
 	//参加时间
+	@ParamAnnotation
 	@Column(name="takepart_datetime")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime takepartDateTime;
 	
 	//是否领取成功
+	@ParamAnnotation
 	@Column
 	private int isSuccess;
 	
 	//提交答案
+	@ParamAnnotation
 	@Column
 	private String answer;
 
 	//参与类型
+	@ParamAnnotation
 	@Column
 	private int type;
 	
 	//房间参与者id 只有是房间红包的时候此字段不为空
+	@ParamAnnotation
 	@Column
 	private String roomMemberId;
 	
 	//获得金额
+	@ParamAnnotation
 	@Column(name="get_amount")
 	private BigDecimal getAmount;
 
 	//红包id
+	@ParamAnnotation
 	@Column(name="red_packet_id")
 	private String redPacketId;
 
 	//别呢
+	@ParamAnnotation
 	@Column
 	private String nickname;
 	
 	//头像
+	@ParamAnnotation
 	@Column(name="head_img")
 	private String headImg;
 
 	//总用时
+	@ParamAnnotation
 	@Column(name="time_long")
 	private Float timeLong;
 	
 	//正确答题数量
+	@ParamAnnotation
 	@Column(name="right_count")
 	private Long rightCount;
 	
 	//错误答题数量
+	@ParamAnnotation
 	@Column(name="wrong_count")
 	private Long wrongCount;
 	
 	//是否是所有参与者当中的最高分
+	@ParamAnnotation
 	@Column(name="is_best")
 	private int isBest;
 	
 	//是否已交参与费
+	@ParamAnnotation
 	@Column(name="is_pay")
 	private Integer isPay;
 	
 	//是否上缴参赛费
+	@ParamAnnotation
 	@Column(name="is_give_entry_fee")
 	private Integer isGiveEntryFee;
 	
 	//参赛费
+	@ParamAnnotation
 	@Column(name="entry_fee")
 	private BigDecimal entryFee;
 	
 	//是否答题完成
+	@ParamAnnotation
 	@Column(name="is_complete")
 	private Integer isComplete;
 
 	//当前正在答得题目
+	@ParamAnnotation
 	@Column(name="current_problem_id")
 	private String currentProblemId;
 	
 	//支付码
+	@ParamAnnotation
 	@Column(name="out_trade_no")
 	private String outTradeNo;
 

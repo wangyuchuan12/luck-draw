@@ -3,12 +3,8 @@ package com.wyc.draw.filter;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.filter.Filter;
-import com.wyc.common.service.ShareRecordService;
-import com.wyc.common.service.WxUserInfoService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
 import com.wyc.common.util.MySimpleDateFormat;
@@ -16,13 +12,12 @@ import com.wyc.common.wx.domain.WxContext;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
-import com.wyc.draw.domain.RedPacketTakepartMember;
+import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.param.VieDrawInfoParam;
 import com.wyc.draw.filter.test.RedPacketReceiveAbleTestFilter;
 import com.wyc.draw.service.DrawRoomMemberService;
-import com.wyc.draw.service.DrawUserService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
-import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 import com.wyc.draw.vo.RedPacketOptionListVo;
 import com.wyc.draw.vo.RedPacketTakepartMemberListVo;
 import com.wyc.draw.vo.RedPacketVo;
@@ -36,36 +31,27 @@ public class GetRedPackInfoFilter extends Filter{
 	@Autowired
 	private RedPacketTakepartMemberService redPacketTakepartMemberService;
 	
-	@Autowired
-	private VieRedPacketTakepartMemberService vieRedPacketTakepartMemberService;
 	
 	@Autowired
 	private DrawRoomMemberService drawRoomMemberService;
 	
-	@Autowired
-	private WxUserInfoService userInfoService;
-	
-	@Autowired
-	private DrawUserService drawUserService;
 	
 	@Autowired
 	private MySimpleDateFormat dateFormat;
 	
-	@Autowired
-	private ShareRecordService shareRecordService;
 	
 	@Autowired
 	private WxContext wxContext;
 	
+
+	
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
-		String id = httpServletRequest.getParameter("id");
+		VieDrawInfoParam vieDrawInfoParam = (VieDrawInfoParam)filterManager.getObject(VieDrawInfoParam.class);
+		String id = vieDrawInfoParam.getRedPacketId();
 		RedPacket redPacket  = redPackageService.findOne(id);
-		
-		RedPacketTakepartMemberListVo redPacketTakepartMemberListVo = (RedPacketTakepartMemberListVo)filterManager.getObject(RedPacketTakepartMemberListVo.class);
 		
 		
 		RedPacketOptionListVo redPacketOptionListVo = (RedPacketOptionListVo)filterManager.getObject(RedPacketOptionListVo.class);
@@ -107,6 +93,7 @@ public class GetRedPackInfoFilter extends Filter{
 			redPacketVo.setIsCreater(0);
 		}
 		
+		
 		redPacketVo.setHandDrawUserId(redPacket.getHandDrawUserId());
 		
 		if(redPacket.getHandTime()!=null){
@@ -128,8 +115,6 @@ public class GetRedPackInfoFilter extends Filter{
 		redPacketVo.setAllowWrongCount(redPacket.getAllowWrongCount());
 		
 		redPacketVo.setIsReceive(redPacket.getIsReceive());
-		
-		redPacketVo.setRedPacketTakepartMemberVos(redPacketTakepartMemberListVo.getRedPacketTakepartMemberVos());
 		
 		redPacketVo.setIsImg(redPacket.getIsImg());
 		redPacketVo.setImgUrl(redPacket.getImgUrl());
@@ -168,27 +153,24 @@ public class GetRedPackInfoFilter extends Filter{
 			redPacketVo.setInstruction(redPacket.getInstruction());
 			redPacketVo.setIsEntryFee(redPacket.getIsEntryFee());
 			
-			List<RedPacketTakepartMember> vieRedPacketTakepartMembers = vieRedPacketTakepartMemberService.findByRedPacketIdAndDrawUserId(redPacket.getId(),drawUser.getId());
+			VieRedPacketToTakepartMember vieRedPacketToTakepartMember = (VieRedPacketToTakepartMember)filterManager.getObject(VieRedPacketToTakepartMember.class);
 			
-			RedPacketTakepartMember vieRedPacketTakepartMember = null;
-			if(vieRedPacketTakepartMembers.size()>0){
-				vieRedPacketTakepartMember = vieRedPacketTakepartMembers.get(0);
-			}
-			
-			if(vieRedPacketTakepartMember!=null&&vieRedPacketTakepartMember.getIsComplete()==1){
-				//已经答过
-				redPacketVo.setIsAnswer(1);
+			if(vieRedPacketToTakepartMember!=null){
+				int takepartStatus = vieRedPacketToTakepartMember.getTakepartStatus();
+				if(takepartStatus==Constant.NOT_INVOLVED_TAKEPART_STATUS){
+					redPacketVo.setIsAnswer(0);
+				}else{
+					redPacketVo.setIsAnswer(1);
+				}
+				redPacketVo.setIsGiveEntryFee(vieRedPacketToTakepartMember.getIsPay());
+				
 			}else{
-				//未曾答过
 				redPacketVo.setIsAnswer(0);
-			}
-			
-			if(vieRedPacketTakepartMember!=null){
-				redPacketVo.setIsGiveEntryFee(vieRedPacketTakepartMember.getIsGiveEntryFee());
-			}else{
 				redPacketVo.setIsGiveEntryFee(0);
 			}
 		}
+		
+		
 		
 		return redPacketVo;
 	}
@@ -214,10 +196,9 @@ public class GetRedPackInfoFilter extends Filter{
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
-		filterClasses.add(BaseDrawActionFilter.class);
 		filterClasses.add(RedPacketReceiveAbleTestFilter.class);
 		
-		filterClasses.add(GetTakepartMemberListByRedPacketOfPageFilter.class);
+		filterClasses.add(GetVieRedPacketTakepartMemberListByRedPacketOfPageFilter.class);
 		
 		filterClasses.add(GetRedPacketOptionsByRedPacketIdFilter.class);
 		return filterClasses;

@@ -3,15 +3,13 @@ package com.wyc.draw.filter;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.VieRedPacketOption;
 import com.wyc.draw.domain.VieRedPacketProblem;
+import com.wyc.draw.domain.param.VieDrawInfoParam;
 import com.wyc.draw.service.VieRedPacketOptionService;
 import com.wyc.draw.service.VieRedPacketProblemService;
 import com.wyc.draw.vo.VieRedPacketOptionVo;
@@ -28,8 +26,8 @@ public class GetRedPacketProblemListFilter extends Filter{
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
-		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
-		String redPacketId = httpServletRequest.getParameter("red_packet_id");
+		VieDrawInfoParam vieDrawInfoParam = (VieDrawInfoParam)filterManager.getObject(VieDrawInfoParam.class);
+		String redPacketId = vieDrawInfoParam.getRedPacketId();
 		List<VieRedPacketProblem> vieRedPacketProblems = vieRedPacketProblemService.findAllByRedPacketIdOrderBySeqAsc(redPacketId);
 		List<VieRedPacketProblemVo> vieRedPacketProblemVos = new ArrayList<>();
 		for(VieRedPacketProblem vieRedPacketProblem:vieRedPacketProblems){
@@ -87,10 +85,7 @@ public class GetRedPacketProblemListFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		List<Class<? extends Filter>> classes = new ArrayList<>();
-		classes.add(BaseDrawActionFilter.class);
-		
-		return classes;
+		return null;
 	}
 
 }

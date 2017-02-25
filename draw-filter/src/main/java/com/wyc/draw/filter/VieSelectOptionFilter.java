@@ -13,10 +13,14 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.VieRedPacketOption;
 import com.wyc.draw.domain.VieRedPacketProblem;
 import com.wyc.draw.domain.VieRedPacketTakepartMemberRecord;
+import com.wyc.draw.domain.param.VieSelectOptionParam;
+import com.wyc.draw.service.RedPacketService;
+import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.service.VieRedPacketOptionService;
 import com.wyc.draw.service.VieRedPacketProblemService;
 import com.wyc.draw.service.VieRedPacketTakepartMemberRecordService;
@@ -36,17 +40,24 @@ public class VieSelectOptionFilter extends Filter{
 	
 	@Autowired
 	private VieRedPacketProblemService vieRedPacketProblemService;
+	
+	@Autowired
+	private RedPacketService redPacketService;
+	
+	@Autowired
+	private RedPacketTakepartMemberService redPacketTakepartMemberService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		
-		String optionId = httpServletRequest.getParameter("option_id");
-		String problemId = httpServletRequest.getParameter("problem_id");
-		String memberId = httpServletRequest.getParameter("member_id");
+		VieSelectOptionParam vieSelectOptionParam = (VieSelectOptionParam)filterManager.getObject(VieSelectOptionParam.class);
 		
-		String isTimeout = httpServletRequest.getParameter("is_timeout");
+		String optionId = vieSelectOptionParam.getOptionId();
+		String problemId = vieSelectOptionParam.getProblemId();
+		String memberId = vieSelectOptionParam.getMemberId();
 		
-		String timeLong  = httpServletRequest.getParameter("time_long");
+		String isTimeout = vieSelectOptionParam.getIsTimeout();
+		
+		String timeLong  = vieSelectOptionParam.getTimeLong();
 		
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		
@@ -221,12 +232,18 @@ public class VieSelectOptionFilter extends Filter{
 					rightCount=0L;
 				}
 				vieRedPacketTakepartMember.setRightCount(rightCount+1);
+			}else{
+				Long wrongCount = vieRedPacketTakepartMember.getWrongCount();
+				if(wrongCount==null){
+					wrongCount=0L;
+				}
+				vieRedPacketTakepartMember.setWrongCount(wrongCount+1);
 			}
 			
 		}
 		
 		Float countTimeFloat = vieRedPacketTakepartMember.getTimeLong();
-		if(timeLongFloat==null){
+		if(countTimeFloat==null){
 			countTimeFloat=0f;
 		}
 		countTimeFloat=countTimeFloat+timeLongFloat;
@@ -246,6 +263,39 @@ public class VieSelectOptionFilter extends Filter{
 		if(lastVieRedPacketProblem.getId().equals(problemId)){
 			optionSelectVo.setIsLast(1);
 			vieRedPacketTakepartMember.setIsComplete(1);
+
+			
+			List<RedPacketTakepartMember> bestTakepartMembers = vieRedPacketTakepartMemberService.findAllByRedPacketIdAndIsBest(vieRedPacketTakepartMember.getRedPacketId(),1);
+			//设置最佳答案
+			if(bestTakepartMembers==null||bestTakepartMembers.size()==0){
+				vieRedPacketTakepartMember.setIsBest(1);
+				vieRedPacketTakepartMemberService.update(vieRedPacketTakepartMember);
+			}else{
+				for(RedPacketTakepartMember bestRedPacketTakepartMember:bestTakepartMembers){
+					Long bestRightCount = bestRedPacketTakepartMember.getRightCount();
+					Float bestTimeLong = bestRedPacketTakepartMember.getTimeLong();
+					
+					if(bestRightCount>vieRedPacketTakepartMember.getRightCount()){
+						
+					}else if(bestRightCount<vieRedPacketTakepartMember.getRightCount()){
+						vieRedPacketTakepartMember.setIsBest(1);
+						bestRedPacketTakepartMember.setIsBest(0);
+						vieRedPacketTakepartMemberService.update(vieRedPacketTakepartMember);
+						vieRedPacketTakepartMemberService.update(bestRedPacketTakepartMember);
+					}else{
+						if(bestTimeLong>vieRedPacketTakepartMember.getTimeLong()){
+							vieRedPacketTakepartMember.setIsBest(1);
+							bestRedPacketTakepartMember.setIsBest(0);
+							vieRedPacketTakepartMemberService.update(vieRedPacketTakepartMember);
+							vieRedPacketTakepartMemberService.update(bestRedPacketTakepartMember);
+						}else{
+							vieRedPacketTakepartMember.setIsBest(0);
+							vieRedPacketTakepartMemberService.update(vieRedPacketTakepartMember);
+						}
+					}
+				}
+			}
+			
 		}else{
 			optionSelectVo.setIsLast(0);
 		}
@@ -283,9 +333,7 @@ public class VieSelectOptionFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		List<Class<? extends Filter>> filters = new ArrayList<>();
-		filters.add(DrawUserFilter.class);
-		return filters;
+		return null;
 	}
 
 }

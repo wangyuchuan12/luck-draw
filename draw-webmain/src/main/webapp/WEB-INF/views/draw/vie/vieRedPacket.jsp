@@ -23,6 +23,11 @@
 			
 			<input name="payType" type="hidden"/>
 			
+			<input name="isRoom" value="${redPacketInfo.isRoom}" type="hidden"/>
+			
+			<input name="isEntryFee" value="${redPacketInfo.isEntryFee}" type="hidden"/>
+			
+			
 			<div class="luck_info_head">
 				<div class="luck_info_head_background"></div>
 				<div class="luck_info_head_title">竞答红包</div>
@@ -48,7 +53,7 @@
 				<div class="vie_luck_info_detail">
 					<div class="vie_luck_info_detail_item">
 						<div class="vie_luck_info_detail_item_label">名称：</div>
-						<div class="vie_luck_info_detail_item_text">${redPacketInfo.theme}</div>
+						<div class="vie_luck_info_detail_item_text">${redPacketInfo.theme}少时诵诗书所所多付所多付所多付所多付</div>
 					</div>
 					
 					<div class="vie_luck_info_detail_item">
@@ -56,25 +61,18 @@
 						<div class="vie_luck_info_detail_item_text">${redPacketInfo.takePartCount}人</div>
 					</div>
 					
-					<div class="vie_luck_info_detail_item">
-						<div class="vie_luck_info_detail_item_label">最高分：</div>
-						<div class="vie_luck_info_detail_item_text">15/30题  22秒</div>
-					</div>
+					<c:if test="${bestTakepartMember!=null}">
+						<div class="vie_luck_info_detail_item">
+							<div class="vie_luck_info_detail_item_label">最高分：</div>
+							<div class="vie_luck_info_detail_item_text">${bestTakepartMember.rightCount}/${bestTakepartMember.rightCount+bestTakepartMember.wrongCount}题  ${bestTakepartMember.timeLong}秒</div>
+						</div>
+					</c:if>
 					
 					<div class="vie_luck_info_detail_item">
-						<div class="vie_luck_info_detail_item_label">难度：</div>
-						<div class="vie_luck_info_detail_item_text">4颗星</div>
+						<div class="vie_luck_info_detail_item_label">消耗智慧豆：</div>
+						<div class="vie_luck_info_detail_item_text">5颗</div>
 					</div>
 					
-					<div class="vie_luck_info_detail_item">
-						<div class="vie_luck_info_detail_item_label">平均正确率：</div>
-						<div class="vie_luck_info_detail_item_text">70%</div>
-					</div>
-					
-					<div class="vie_luck_info_detail_item">
-						<div class="vie_luck_info_detail_item_label">参赛费：</div>
-						<div class="vie_luck_info_detail_item_text">${redPacketInfo.entryFee}元</div>
-					</div>
 				</div>
 			
 			</div>
@@ -85,6 +83,10 @@
 			
 			<c:if test="${redPacketInfo.isAnswer==1}">
 				<div class="vieShowAnswerButton" onclick="skipVieAnswerResult('${redPacketInfo.id}')">查看答题结果</div>
+			</c:if>
+			
+			<c:if test="${redPacketInfo.isPay==1&&redPacketInfo.isTimeout==0&&redPacketInfo.isCreater==0&&redPacketInfo.isAnswer==0}">
+				<div class="vieShowAnswerButton" id="vieTakepartButton">参加（智慧豆：5颗，报名费：${redPacketInfo.entryFee}元）</div>
 			</c:if>
 			<c:if test="${redPacketInfo.instruction!=null}">
 				<div class="vieTakepartButtonInstruction">
@@ -121,7 +123,7 @@
 						
 						<li>
 							<span class="fa fa-check-circle"></span>
-							<span>参赛费：0.1元，归发起人所有</span>
+							<span>参赛费：${redPacketInfo.entryFee}元，归发起人所有</span>
 						</li>
 						
 						<li>
@@ -145,7 +147,7 @@
 								${thisMember.rank}
 							</c:if>
 							
-							<c:if test="${thisMember.rank==null}">
+							<c:if test="${thisMember.rank==null&&fn:length(takePartMembers.datas)>1}">
 								${fn:length(takePartMembers.datas)}+
 							</c:if>
 						</div>
@@ -189,52 +191,52 @@
 				</c:forEach>
 			</div>
 			
-			<div class="red_packet_takepart" id="red_packet_takepart">
-				<div class="red_packet_takepart_amount">${redPacketInfo.amount}元</div>
-				<div>
-						<div class="select_list_item" type=0 onclick="setPayType(0)">
-						
-							<em class="fa fa-check-square"  style="color: red;"></em>
-		         			<em class="fa fa-address-card" style="color: green;"></em>
-		         			<span class="select_list_item_name">余额支付（剩余：${account.amountBalance}元）</span>
-	         			</div>
-	         			
-	         			<div class="select_list_item" id="amountPayType" type=1 onclick="setPayType(1)">
-	         			
-	         				<em class="fa fa-square-o"></em>
-		         			<em class="fa fa-weixin" style="color: green;"></em>
-		         			<span class="select_list_item_name">微信支付</span>
-	         			</div>
-         			
-         		</div>
-         		
-         		<div class="red_packet_takepart_button">开始答题</div>
-			</div>
+			
 			
 			<div class="foot_button">
 				<ul>
-					<li style="width: 23%;">
-						<span class="fa fa-home"></span>
-						<span>主页</span>
-					</li>
-					<li style="width: 23%;">
-						<span class="fa fa-thumbs-o-up"></span>
-						<span>好评</span>
-					</li>
-					<li style="width: 23%;">
-						<span class="fa fa-users"></span>
-						<span>进入房间</span>
-					</li>
-					
-					
-					<c:if test="${redPacketInfo.isPay==1&&redPacketInfo.isTimeout==0&&redPacketInfo.isCreater==0&&redPacketInfo.isAnswer==0}">
-						<li style="width: 23%;" id="vieTakepartButton">
-							<span class="fa fa-space-shuttle"></span>
-							<span>参加</span>
+				
+					<c:if test="${redPacketInfo.isRoom==0}">
+						<li style="width: 48%;">
+							<span class="fa fa-thumbs-o-up"></span>
+							<span>点评</span>
 						</li>
+						
+						<li style="width: 48%;" onclick="showRedPacketTypes();">
+							<span>
+								<img src="/imgs/sendRedPacket.jpg"></img>
+							</span>
+							<span>我也发一个</span>
+						</li>
+					
 					</c:if>
 					
+					<c:if test="${redPacketInfo.isRoom==1}">
+					
+						<li style="width: 32%;">
+							<span class="fa fa-thumbs-o-up"></span>
+							<span>点评</span>
+						</li>
+						<li style="width: 32%;">
+							<span class="fa fa-users"></span>
+							<span>进入房间</span>
+						</li>
+						
+						<li style="width: 32%;" onclick="showRedPacketTypes();">
+							<span>
+								<img src="/imgs/sendRedPacket.jpg"></img>
+							</span>
+							<span>我也发一个</span>
+						</li>
+					</c:if>
+				
+					
+					
 				</ul>
+			</div>
+			
+			<div class="moreRedPackets" onclick="skipToHome();">
+				<img src="/imgs/moreRedPacket.png">
 			</div>
 			
 			
@@ -282,6 +284,7 @@
 							if(balanceResult.success){
 								skipToVieAnswerProblem(redPacketId,balanceResult.data.id);
 							}else{
+								alert(balanceResult.errorMsg);
 								showToast("网络繁忙，请稍后再试");
 							}
 						}
@@ -322,9 +325,46 @@
 				function initView(){
 					
 				}
+				
+				function addVieTakepartButtonListener(){
+					$("#vieTakepartButton").click(function(){
+						var isEntryFee = $("input[name=isEntryFee]").val();
+						if(isEntryFee==1){
+							$("#red_packet_takepart").animate({
+								bottom:"5px"
+							},1000,function(){
+								$("#vieTakepartButton").unbind("click");
+								$(".container").click(function(){
+									$("#red_packet_takepart").animate({
+										bottom:"-200px"
+									},1000,function(){
+										addVieTakepartButtonListener();
+									});
+									$(".container").unbind("click");
+								});
+							});
+						}else{
+							//无参赛费参与
+							var redPacketId = $("input[name=redPacketId]").val();
+							var params = new Object();
+							params.red_packet_id = redPacketId;
+							var callback = new Object();
+							callback.success = function(takepartResp){
+								skipToVieAnswerProblem(redPacketId,takepartResp.data.id);
+							}
+							var url = "/api/vie/draw/vie_red_pack/takepart";
+							request(url,callback,params);
+						}
+						
+						
+					});
+				}
 				$(document).ready(function(){
-					
 					setPayType(0);
+					addVieTakepartButtonListener();
+					
+					
+					
 					
 					$(".red_packet_takepart_button").click(function(){
 						payFee();
@@ -332,7 +372,7 @@
 					
 					
 				
-					$("#red_packet_takepart").css("bottom","-170px");
+					$("#red_packet_takepart").css("bottom","-200px");
 					$("body").css("padding-bottom","50px");
 					$("#receiveButton").click(function(){
 						var status=1;
@@ -344,33 +384,7 @@
 						
 					},false);
 					
-					$("#vieTakepartButton").click(function(){
-						
-						$("#red_packet_takepart").animate({
-							bottom:"50px"
-						},1000);
-						/*var url = "/api/vie/draw/vie_red_pack/takepart";
-						var params = new Object();
-						var redPacketId = $("input[name=redPacketId]").val();
-						
-						params.red_packet_id = redPacketId;
-						var callback = new Object();
-						callback.success = function(resp){
-							if(resp.success){
-								skipToVieAnswerProblem(redPacketId,resp.data.id);
-							}else{
-								showToast("网络繁忙，请稍后再试，😁");
-							}
-							
-						}
-						
-						callback.failure = function(){
-							showToast("网络繁忙，请稍后再试，😁");
-						}
-						request(url,callback,params);
-						*/
-						
-					});
+					
 					
 					
 					
@@ -390,3 +404,28 @@
 			
 </tiles:putAttribute>
 </tiles:insertDefinition>
+
+
+<div class="red_packet_takepart" id="red_packet_takepart">
+	<div class="red_packet_takepart_amount">需要智慧豆：5颗，支付：${redPacketInfo.entryFee}元</div>
+			<div>
+				<div class="select_list_item" type=0 onclick="setPayType(0)">
+			
+					<em class="fa fa-check-square"  style="color: red;"></em>
+        			<em class="fa fa-address-card" style="color: green;"></em>
+        			<span class="select_list_item_name">余额支付（剩余：${account.amountBalance}元）</span>
+       			</div>
+       			
+       			<div class="select_list_item" id="amountPayType" type=1 onclick="setPayType(1)">
+       			
+       				<em class="fa fa-square-o"></em>
+        			<em class="fa fa-weixin" style="color: green;"></em>
+        			<span class="select_list_item_name">微信支付</span>
+       			</div>
+      			
+      		</div>
+      		
+     <div class="red_packet_takepart_button">确定</div>
+</div>
+
+

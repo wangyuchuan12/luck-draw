@@ -1665,14 +1665,24 @@ li::before{
 
 .vie_luck_info_detail_item{
 	padding-left: 10px;
+	color: black;
+	font-size: 15px;
 }
 
 
 .vie_luck_info_detail_item_label{
 	display: inline-block;
+
+	
 }
 .vie_luck_info_detail_item_text{
 	display: inline-block;
+	
+	width:100px;
+	
+	vertical-align: top;
+	
+	overflow:hidden;text-overflow:ellipsis; -o-text-overflow:ellipsis;white-space:nowrap;
 }
 
 .view_luck_members{
@@ -2200,6 +2210,15 @@ li::before{
 	font-size: 20px;
 	
 }
+.foot_button>ul>li>span:first-child>img{
+	width:20px;
+	height:20px;
+	position: relative;
+	
+	top:5px;
+	
+	border-radius:2px;
+}
 
 .progress_bar{
 	position:relative;
@@ -2301,6 +2320,7 @@ li::before{
 	padding-bottom: 20px;
 	
 	bottom:-200px;
+	z-index: 100000;
 	
 }
 
@@ -2365,22 +2385,28 @@ li::before{
 }
 
 .vieShowAnswerButton{
-	width:100px;
+	width:80%;
 	height: 40px;
 	
 	text-align: center;
 	
-	background-color: red;
+	background-color: RGBA(250,110,109,1);
 	
 	border-radius:7px;
 	
 	color: white;
 	
-	padding-top: 12px;
+	top:-10px;
+	
+	position:relative;
+	
+	padding-top: 10px;
 	
 	margin: 0 auto;
 	
 	font-weight: bold;
+	
+	font-size: 15px;
 }
 
 .vie_answer_result{
@@ -2392,11 +2418,17 @@ li::before{
 	text-align: center;
 	color: black;
 	
-	font-size: 15px;
+	font-size: 20px;
+	
+	font-weight: bold;
 }
 
 .vie_answer_result_question{
 	padding-left: 15px;
+	
+	color: black;
+	
+	font-size: 15px;
 }
 
 .vie_answer_result_select{
@@ -2423,6 +2455,10 @@ li::before{
 	padding-left: 30px;
 }
 
+.vie_answer_result_select_option>span{
+	color: black;
+}
+
 .help{
 	background-color: white;
 	padding-top: 10px;
@@ -2444,6 +2480,9 @@ li::before{
 	width: 100%;
 	background-color: white;
 	
+	border-top:3px solid RGB(241,241,242);
+	
+	
 }
 
 .red_packet_takepart_amount{
@@ -2451,7 +2490,7 @@ li::before{
 	padding-top: 10px;
 	padding-bottom: 10px;
 	
-	font-size: 30px;
+	font-size: 15px;
 	
 	color: black;
 	
@@ -2471,4 +2510,143 @@ li::before{
 	border-radius:5px;
 	margin-bottom: 5px;
 	margin-top: 5px;
+}
+.headItems{
+	position: absolute;
+	
+	right: 10px;
+	
+	top:10px;
+	
+	z-index: 1000000;
+}
+
+.headItems>img{
+	widht:30px;
+	height: 25px;
+}
+
+.headItems>span{
+	color:RGBA(252,215,141,1);
+	display: block;
+	font-weight: bolder;
+
+}
+
+.moreRedPackets{
+	position: absolute;
+	
+	top:100px;
+	
+	right:10px;
+}
+
+.moreRedPackets>img{
+	width:70px;
+}
+
+.redPacketAlert{
+	background: url("/imgs/redpacketBackground.gif");
+	
+	background-size:100% 100%;
+	width: 250px;
+
+	
+	height: 350px;
+	
+	display: none;
+	
+	text-align: center;
+}
+
+.sadAlert{
+	background: url("/imgs/sadAlert.jpg");
+	
+	background-position:0px 10px;
+	
+	background-size:100% 100%;
+	width: 250px;
+
+	
+	height: 250px;
+	
+	display: none;
+	
+	text-align: center;
+}
+
+.happyAlert{
+	background: url("/imgs/happy.jpg");
+	
+	background-position:0px 30px;
+	
+	background-size:100% 90%;
+	width: 250px;
+
+	
+	height: 250px;
+	
+	display: none;
+	
+	text-align: center;
+}
+
+.redPacketAlertContext{
+	position: absolute;
+	
+	top:20px;
+	
+	color: RGBA(240,240,200,1);
+	
+	font-size: 15px;
+	
+	font-weight: bold;
+	
+	padding-left: 15px;
+	
+	padding-right: 15px;
+}
+
+.sadAlert .redPacketAlertContext{
+	color: black;
+}
+
+.sadAlert .redPacketAlertButton{
+	background: RGBA(48,198,108,1);
+}
+
+.happyAlert .redPacketAlertContext{
+	color: black;
+}
+
+.happyAlert .redPacketAlertButton{
+	background: RGBA(251,111,111,0.5);
+}
+.redPacketAlertButton{
+	position: absolute;
+	
+	top:270px;
+	
+	background: RGBA(220,187,133,1);
+	
+	color: black;
+	
+	width:100px;
+	height: 100px;
+	
+	border-radius:100px;
+	
+	margin: 0 auto;
+	
+	text-align: center;
+	
+	padding-top: 33px;
+	
+	font-size: 25px;
+	
+	font-weight: bold;
+	
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }

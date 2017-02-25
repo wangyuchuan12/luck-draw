@@ -47,4 +47,8 @@ public class VieRedPacketTakepartMemberService {
 			Pageable pageable) {
 		return redPacketTakepartMemberRepository.findAllByRedPacketIdAndIsComplete(redPacketId,isComplete,pageable);
 	}
+	
+	public List<RedPacketTakepartMember> findAllByRedPacketIdAndIsBest(String redPacketId, int isBest) {
+		return redPacketTakepartMemberRepository.findAllByRedPacketIdAndIsBest(redPacketId,isBest);
+	}
 }
