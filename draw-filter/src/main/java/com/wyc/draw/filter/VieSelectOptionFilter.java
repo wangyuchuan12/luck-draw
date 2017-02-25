@@ -12,12 +12,14 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
+import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.VieRedPacketOption;
 import com.wyc.draw.domain.VieRedPacketProblem;
 import com.wyc.draw.domain.VieRedPacketTakepartMemberRecord;
+import com.wyc.draw.domain.VieRedPacketToTakepartMember;
 import com.wyc.draw.domain.param.VieSelectOptionParam;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
@@ -25,6 +27,7 @@ import com.wyc.draw.service.VieRedPacketOptionService;
 import com.wyc.draw.service.VieRedPacketProblemService;
 import com.wyc.draw.service.VieRedPacketTakepartMemberRecordService;
 import com.wyc.draw.service.VieRedPacketTakepartMemberService;
+import com.wyc.draw.service.VieRedPacketToTakepartMemberService;
 import com.wyc.draw.vo.OptionSelectVo;
 
 public class VieSelectOptionFilter extends Filter{
@@ -46,6 +49,9 @@ public class VieSelectOptionFilter extends Filter{
 	
 	@Autowired
 	private RedPacketTakepartMemberService redPacketTakepartMemberService;
+	
+	@Autowired
+	private VieRedPacketToTakepartMemberService vieRedPacketToTakepartMemberService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -152,11 +158,26 @@ public class VieSelectOptionFilter extends Filter{
 			filterManager.setReturnValue(resultVo);
 			return null;
 		}
+		
 		RedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.findOne(memberId);
+		
+		
+		
 		if(vieRedPacketTakepartMember==null){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
 			resultVo.setErrorMsg("返回的vieRedPacketTakepartMember对象为空");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		
+		VieRedPacketToTakepartMember vieRedPacketToTakepartMember = vieRedPacketToTakepartMemberService.findByDrawUserIdAndRedPacketId(drawUser.getId(), vieRedPacketTakepartMember.getRedPacketId());
+		if(vieRedPacketToTakepartMember.getTakepartStatus()!=Constant.UNDERWAY_TAKEPART_STATUS){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("参与红包不是正在进行中");
 			filterManager.setReturn(true);
 			filterManager.setReturnValue(resultVo);
 			return null;
