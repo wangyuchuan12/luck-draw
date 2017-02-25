@@ -8,6 +8,7 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.filter.CurrentVieRedPacketToTakepartMemberFilter;
 import com.wyc.draw.filter.GetRedPackInfoFilter;
+import com.wyc.draw.filter.RedPacketAmountDistributionFilter;
 import com.wyc.draw.filter.controller.param.VieDrawInfoParamFilter;
 
 public class VieDrawInfoActionFilter extends Filter{
@@ -42,6 +43,7 @@ public class VieDrawInfoActionFilter extends Filter{
 		filterClasses.add(VieDrawInfoParamFilter.class);
 		filterClasses.add(CurrentVieRedPacketToTakepartMemberFilter.class);
 		filterClasses.add(GetRedPackInfoFilter.class);
+		filterClasses.add(RedPacketAmountDistributionFilter.class);
 		return filterClasses;
 	}
 

@@ -1,24 +1,17 @@
 package com.wyc.draw.filter.test;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.RedPacket;
-import com.wyc.draw.service.RedPacketService;
 
 
 //红包是否到期检测
 public class RedPacketTimeOutTestFilter extends Filter{
-
-	
-	@Autowired
-	private RedPacketService redPackageService;
 	
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
@@ -65,10 +58,7 @@ public class RedPacketTimeOutTestFilter extends Filter{
 	public List<Class<? extends Filter>> dependClasses() {
 		
 		
-		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
-		
-		filterClasses.add(GetRedPacketFilter.class);
-		return filterClasses;
+		return null;
 	}
 
 }

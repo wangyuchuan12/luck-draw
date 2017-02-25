@@ -21,10 +21,7 @@ public class GetRedPacketFilter extends Filter{
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		RedPacket redPacket = (RedPacket)filterManager.getObject(RedPacket.class);
-		
-		if(redPacket!=null){
-			return redPacket;
-		}
+	
 		
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		String id = httpServletRequest.getParameter("id");

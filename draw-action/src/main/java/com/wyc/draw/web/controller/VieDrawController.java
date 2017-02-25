@@ -12,23 +12,20 @@ import com.wyc.common.domain.Account;
 import com.wyc.common.domain.vo.ResultPageListVo;
 import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
-import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacketTakepartMember;
-import com.wyc.draw.domain.VieRedPacketProblem;
 import com.wyc.draw.domain.VieRedPacketToTakepartMember;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.GetRedPacketProblemFilter;
-import com.wyc.draw.filter.GetRedPacketProblemListFilter;
 import com.wyc.draw.filter.GetVieRedPacketResultFilter;
 import com.wyc.draw.filter.controller.action.VieAnswerProblemActionFilter;
 import com.wyc.draw.filter.controller.action.VieDrawInfoActionFilter;
 import com.wyc.draw.service.DrawRoomService;
-import com.wyc.draw.service.VieRedPacketProblemService;
 import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 import com.wyc.draw.service.VieRedPacketToTakepartMemberService;
+import com.wyc.draw.vo.RedPacketAmountDistributionListVo;
 import com.wyc.draw.vo.RedPacketVo;
 import com.wyc.draw.vo.VieProblemAnswerListVo;
 import com.wyc.draw.vo.VieRedPacketProblemListVo;
@@ -69,7 +66,7 @@ public class VieDrawController {
 		
 		httpServletRequest.setAttribute("redPacketInfo", redPacketVo);
 		
-		VieRedPacketTakepartMemberVo thisMember = (VieRedPacketTakepartMemberVo)sessionManager.getObject(VieRedPacketTakepartMemberVo.class);
+		
 		
 		
 		
@@ -95,7 +92,7 @@ public class VieDrawController {
 			
 		}
 		
-
+		VieRedPacketTakepartMemberVo thisMember = null;
 		if(vieRedPacketToTakepartMember.getTakepartStatus()!=Constant.NOT_INVOLVED_TAKEPART_STATUS){
 
 			RedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.findOne(vieRedPacketToTakepartMember.getCurrentTakepartMemberId());
@@ -131,6 +128,10 @@ public class VieDrawController {
 		if(bestTakepartMemberts!=null&&bestTakepartMemberts.size()>0){
 			httpServletRequest.setAttribute("bestTakepartMember", bestTakepartMemberts.get(0));
 		}
+		
+		RedPacketAmountDistributionListVo redPacketAmountDistributionListVo = (RedPacketAmountDistributionListVo)sessionManager.getObject(RedPacketAmountDistributionListVo.class);
+		
+		httpServletRequest.setAttribute("distributions", redPacketAmountDistributionListVo.getRedPacketAmountDistributions());
 		return "vie/vieRedPacket";
 	}
 	

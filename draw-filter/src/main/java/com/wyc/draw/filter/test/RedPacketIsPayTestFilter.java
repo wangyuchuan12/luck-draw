@@ -1,7 +1,6 @@
 package com.wyc.draw.filter.test;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +10,12 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.service.PaySuccessService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.RedPacket;
-import com.wyc.draw.service.RedPacketService;
 
 //红包是否已付款检测
 public class RedPacketIsPayTestFilter extends Filter{
 
 	@Autowired
 	private PaySuccessService paySuccessService;
-	
-	@Autowired
-	private RedPacketService redPackageService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -58,10 +53,7 @@ public class RedPacketIsPayTestFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
-		
-		filterClasses.add(GetRedPacketFilter.class);
-		return filterClasses;
+		return null;
 	}
 
 }

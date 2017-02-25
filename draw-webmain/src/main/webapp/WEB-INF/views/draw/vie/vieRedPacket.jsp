@@ -106,20 +106,25 @@
 							<span>超时退款</span>
 						</li>
 						
-						<li>
-							<span class="fa fa-check-circle"></span>
-							<span>第一名：4元</span>
-						</li>
 						
-						<li>
-							<span class="fa fa-check-circle"></span>
-							<span>第二名：2元</span>
-						</li>
+						<c:forEach items="${distributions}" var="distribution">
 						
-						<li>
-							<span class="fa fa-check-circle"></span>
-							<span>第三名：1元</span>
-						</li>
+							<li>
+								<span class="fa fa-check-circle"></span>
+								<c:if test="${distribution.seq==0}">
+									<span>第一名：${distribution.amount}元</span>
+								</c:if>
+								
+								<c:if test="${distribution.seq==1}">
+									<span>第二名：${distribution.amount}元</span>
+								</c:if>
+								
+								<c:if test="${distribution.seq==2}">
+									<span>第三名：${distribution.amount}元</span>
+								</c:if>
+								
+							</li>
+						</c:forEach>
 						
 						<li>
 							<span class="fa fa-check-circle"></span>
@@ -141,7 +146,7 @@
 			
 			<div class="view_luck_members">
 				<c:if test="${redPacketInfo.isAnswer==1}">
-					<div class="view_luck_member">
+					<div class="view_luck_member" id="thisMember">
 						<div class="view_luck_member_rank">
 							<c:if test="${thisMember.rank!=null}">
 								${thisMember.rank}
@@ -156,13 +161,7 @@
 							<img src="${thisMember.headImg}">
 						</div>
 			
-						<div class="view_luck_member_name2">
-							 <div class="view_luck_member_name2_nickname">${thisMember.nickname}</div>
-							
-							<div class="view_luck_member_name2_prompt">第3名 <span>可获得30元</span></div>
-							
-							<!--  <div class="view_luck_member_name2_prompt_absolute">可获得30元</div>-->
-						</div>
+						<div class="view_luck_member_name">${thisMember.nickname}</div>
 						
 						<div class="view_luck_member_result">
 							<div class="view_luck_member_result_correct">${thisMember.rightCount}题/${thisMember.timeLong}秒</div>
@@ -174,15 +173,43 @@
 				<c:if test="${fn:length(takePartMembers.datas)>0}">
 					<div class="view_luck_members_rank">排行榜</div>
 				</c:if>
-				<c:forEach items="${takePartMembers.datas}" var="takePartMember">
+				<c:forEach items="${takePartMembers.datas}" var="takePartMember" varStatus="varStatus">
+					
+					
 					<div class="view_luck_member">
-						<div class="view_luck_member_rank">${takePartMember.rank}</div>
+						<div class="view_luck_member_rank">
+							${takePartMember.rank}	
+						</div>
 						
 						<div class="view_luck_member_img">
 							<img src="${takePartMember.headImg}">
 						</div>
 						
-						<div class="view_luck_member_name">${takePartMember.nickname}</div>
+						
+						
+						<c:if test="${varStatus.index<4}">
+						
+							<c:forEach items="${distributions}" var="distribution">
+								<c:if test="${distribution.seq==varStatus.index}">
+									<div class="view_luck_member_name2">
+										<div class="view_luck_member_name2_nickname">${takePartMember.nickname}</div>
+										
+										<div class="view_luck_member_name2_prompt">第${distribution.seq+1}名 <span>可获得${distribution.amount}元</span></div>
+									</div>
+								
+								</c:if>
+								
+							</c:forEach>
+			
+						
+						</c:if>
+						
+						
+						<c:if test="${varStatus.index>=4}">
+							<div class="view_luck_member_name">${takePartMember.nickname}</div>
+						
+						</c:if>
+						
 						
 						<div class="view_luck_member_result">
 							<div class="view_luck_member_result_correct">${takePartMember.rightCount}题/${takePartMember.timeLong}秒</div>

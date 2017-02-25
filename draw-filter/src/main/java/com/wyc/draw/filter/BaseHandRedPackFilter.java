@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,9 +25,11 @@ import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
+import com.wyc.draw.domain.RedPacketAmountDistribution;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawRoomService;
 import com.wyc.draw.service.DrawUserService;
+import com.wyc.draw.service.RedPacketAmountDistributionService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.vo.RedPacketVo;
 
@@ -53,6 +54,9 @@ public class BaseHandRedPackFilter extends Filter{
 	
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private RedPacketAmountDistributionService redPacketAmountDistributionService;
 	
 	@Autowired
 	private WxContext wxContext;
@@ -468,7 +472,11 @@ public class BaseHandRedPackFilter extends Filter{
 			redPacket.setIsSetOption(0);
 			redPacket = redPackageService.add(redPacket);
 		
+			List<RedPacketAmountDistribution> redPacketAmountDistributions = vieAmountDistribution(redPacket);
 			
+			for(RedPacketAmountDistribution redPacketAmountDistribution:redPacketAmountDistributions){
+				redPacketAmountDistributionService.add(redPacketAmountDistribution);
+			}
 			
 		}else{
 			ResultVo resultVo = new ResultVo();
@@ -514,6 +522,41 @@ public class BaseHandRedPackFilter extends Filter{
 		return redPacketVo;
 	}
 
+	private List<RedPacketAmountDistribution> vieAmountDistribution(RedPacket redPacket){
+		BigDecimal amount = redPacket.getAmount();
+		BigDecimal bigDecimalNum  = new BigDecimal("7");
+		BigDecimal firstAmount = amount.multiply(new BigDecimal(4)).divide(bigDecimalNum,2,BigDecimal.ROUND_HALF_UP);
+		BigDecimal secondAmount = amount.multiply(new BigDecimal(2)).divide(bigDecimalNum,2,BigDecimal.ROUND_HALF_UP);
+		BigDecimal thirdAmount = amount.subtract(firstAmount).subtract(secondAmount);
+		
+		List<RedPacketAmountDistribution> redPacketAmountDistributions = new ArrayList<>();
+		RedPacketAmountDistribution redPacketAmountDistribution1 = new RedPacketAmountDistribution();
+		redPacketAmountDistribution1.setAmount(firstAmount);
+		redPacketAmountDistribution1.setRedPacketId(redPacket.getId());
+		redPacketAmountDistribution1.setSeq(0);
+		redPacketAmountDistribution1.setStatus(Constant.NOT_DISTRIBUTION_STATUS);
+		redPacketAmountDistributions.add(redPacketAmountDistribution1);
+		
+		
+		RedPacketAmountDistribution redPacketAmountDistribution2 = new RedPacketAmountDistribution();
+		redPacketAmountDistribution2.setAmount(secondAmount);
+		redPacketAmountDistribution2.setRedPacketId(redPacket.getId());
+		redPacketAmountDistribution2.setSeq(1);
+		redPacketAmountDistribution2.setStatus(Constant.NOT_DISTRIBUTION_STATUS);
+		redPacketAmountDistributions.add(redPacketAmountDistribution2);
+		
+		
+		RedPacketAmountDistribution redPacketAmountDistribution3 = new RedPacketAmountDistribution();
+		redPacketAmountDistribution3.setAmount(thirdAmount);
+		redPacketAmountDistribution3.setRedPacketId(redPacket.getId());
+		redPacketAmountDistribution3.setSeq(2);
+		redPacketAmountDistribution3.setStatus(Constant.NOT_DISTRIBUTION_STATUS);
+		redPacketAmountDistributions.add(redPacketAmountDistribution3);
+		
+		return redPacketAmountDistributions;
+		
+	}
+	
 	@Override
 	public Object handlerAfter(SessionManager filterManager) throws Exception {
 		// TODO Auto-generated method stub

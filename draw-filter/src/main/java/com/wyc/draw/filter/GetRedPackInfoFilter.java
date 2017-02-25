@@ -14,19 +14,15 @@ import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.VieRedPacketToTakepartMember;
 import com.wyc.draw.domain.param.VieDrawInfoParam;
+import com.wyc.draw.filter.test.GetRedPacketFilter;
 import com.wyc.draw.filter.test.RedPacketReceiveAbleTestFilter;
 import com.wyc.draw.service.DrawRoomMemberService;
-import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.vo.RedPacketOptionListVo;
-import com.wyc.draw.vo.RedPacketTakepartMemberListVo;
 import com.wyc.draw.vo.RedPacketVo;
 
 //获取红包信息
 public class GetRedPackInfoFilter extends Filter{
-
-	@Autowired
-	private RedPacketService redPackageService;
 	
 	@Autowired
 	private RedPacketTakepartMemberService redPacketTakepartMemberService;
@@ -51,7 +47,7 @@ public class GetRedPackInfoFilter extends Filter{
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		VieDrawInfoParam vieDrawInfoParam = (VieDrawInfoParam)filterManager.getObject(VieDrawInfoParam.class);
 		String id = vieDrawInfoParam.getRedPacketId();
-		RedPacket redPacket  = redPackageService.findOne(id);
+		RedPacket redPacket  = (RedPacket)filterManager.getObject(RedPacket.class);
 		
 		
 		RedPacketOptionListVo redPacketOptionListVo = (RedPacketOptionListVo)filterManager.getObject(RedPacketOptionListVo.class);
@@ -196,6 +192,9 @@ public class GetRedPackInfoFilter extends Filter{
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
+
+		filterClasses.add(GetRedPacketFilter.class);
+		
 		filterClasses.add(RedPacketReceiveAbleTestFilter.class);
 		
 		filterClasses.add(GetVieRedPacketTakepartMemberListByRedPacketOfPageFilter.class);

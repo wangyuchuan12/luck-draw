@@ -10,7 +10,6 @@ import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketOption;
 import com.wyc.draw.domain.param.VieDrawInfoParam;
 import com.wyc.draw.service.RedPacketOptionService;
-import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.vo.RedPacketOptionListVo;
 
 public class GetRedPacketOptionsByRedPacketIdFilter extends Filter{
@@ -18,15 +17,13 @@ public class GetRedPacketOptionsByRedPacketIdFilter extends Filter{
 	@Autowired
 	private RedPacketOptionService redPacketOptionService;
 	
-	@Autowired
-	private RedPacketService redPacketService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		VieDrawInfoParam vieDrawInfoParam = (VieDrawInfoParam)filterManager.getObject(VieDrawInfoParam.class);
 		
 		String id = vieDrawInfoParam.getRedPacketId();
 		
-		RedPacket packet = redPacketService.findOne(id);
+		RedPacket packet = (RedPacket)filterManager.getObject(RedPacket.class);
 		
 		List<RedPacketOption> redPacketOptions = redPacketOptionService.findAllByRedPacketIdAndIsDelOrderBySeqAsc(id,0);
 		

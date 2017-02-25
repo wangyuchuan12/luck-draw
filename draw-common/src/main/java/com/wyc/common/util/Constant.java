@@ -165,4 +165,14 @@ public class Constant {
 	//中途退出
 	public static final int RENEGINT_TAKEPART_STATUS=3;
 	
+	
+	/************************ 竞答红包分配状态 *********************/
+	//未分配
+	public static final int NOT_DISTRIBUTION_STATUS = 0;
+	
+	//已分配
+	public static final int ALEADY_RECEIVE_STATUS = 1;
+	
+	
+	
 }
