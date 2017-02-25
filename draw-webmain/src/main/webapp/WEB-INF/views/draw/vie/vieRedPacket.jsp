@@ -284,8 +284,7 @@
 							if(balanceResult.success){
 								skipToVieAnswerProblem(redPacketId,balanceResult.data.id);
 							}else{
-								alert(balanceResult.errorMsg);
-								showToast("网络繁忙，请稍后再试");
+								showToast("发生错误了，请查看你现在所参与的状态😁");
 							}
 						}
 						request(url,callback,params);
