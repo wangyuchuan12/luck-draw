@@ -217,7 +217,7 @@
 							<span class="fa fa-thumbs-o-up"></span>
 							<span>点评</span>
 						</li>
-						<li style="width: 32%;">
+						<li style="width: 32%;" onclick="skipToRoomInfo('${redPacketInfo.drawRoomId}');">
 							<span class="fa fa-users"></span>
 							<span>进入房间</span>
 						</li>
