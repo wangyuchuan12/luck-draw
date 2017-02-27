@@ -203,10 +203,15 @@ public class RedPacket {
 	private Integer isSetOption;
 	
 	
-	//中奖名额，在竞答红包中才有此字段
+	//可领取名额
 	@ParamAnnotation
 	@Column
 	private Integer placesNum;
+	
+	//已领取数量
+	@ParamAnnotation
+	@Column
+	private Integer receiveNum;
 	
 	//报名参赛费
 	@ParamAnnotation
@@ -261,6 +266,12 @@ public class RedPacket {
 	
 	
 	
+	public Integer getReceiveNum() {
+		return receiveNum;
+	}
+	public void setReceiveNum(Integer receiveNum) {
+		this.receiveNum = receiveNum;
+	}
 	public Integer getIsDisplay() {
 		return isDisplay;
 	}

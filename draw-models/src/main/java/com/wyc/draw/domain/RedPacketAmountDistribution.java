@@ -25,6 +25,9 @@ public class RedPacketAmountDistribution {
 	@Column(name="takepart_member_id")
 	private String takepartMemberId;
 	
+	@Column(name="draw_user_id")
+	private String drawUserId;
+	
 	@Column
 	private BigDecimal amount;
 	
@@ -99,4 +102,12 @@ public class RedPacketAmountDistribution {
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
+	public String getDrawUserId() {
+		return drawUserId;
+	}
+	public void setDrawUserId(String drawUserId) {
+		this.drawUserId = drawUserId;
+	}
+	
+	
 }

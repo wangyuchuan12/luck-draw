@@ -14,7 +14,7 @@ import org.springframework.data.domain.Sort.Direction;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.service.WxUserInfoService;
 import com.wyc.common.session.SessionManager;
-import com.wyc.common.util.MySimpleDateFormat;
+import com.wyc.common.util.MyLongDateFormat;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.param.VieDrawInfoParam;
@@ -28,7 +28,7 @@ public class GetTakepartMemberListByRedPacketOfPageFilter extends Filter{
 	private RedPacketTakepartMemberService redPacketTakepartMemberService;
 	
 	@Autowired
-	private MySimpleDateFormat mySimpleDateFormat;
+	private MyLongDateFormat mySimpleDateFormat;
 	
 	@Autowired
 	private WxUserInfoService userInfoService;

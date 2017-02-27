@@ -20,6 +20,7 @@ public class VieDrawInfoParamFilter extends Filter{
 		String id = httpServletRequest.getParameter("id");
 		
 		VieDrawInfoParam vieDrawInfoParam = new VieDrawInfoParam();
+		
 		vieDrawInfoParam.setRedPacketId(id);
 		
 		String page = httpServletRequest.getParameter("page");
@@ -40,6 +41,8 @@ public class VieDrawInfoParamFilter extends Filter{
 		
 		vieDrawInfoParam.setTakepartMemberPage(pageInt);
 		vieDrawInfoParam.setTakepartMemberSize(sizeInt);
+		
+		System.out.println(".......................................这里有没有进来");
 		return vieDrawInfoParam;
 	}
 

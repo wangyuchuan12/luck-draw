@@ -13,6 +13,7 @@ import com.wyc.common.domain.vo.ResultPageListVo;
 import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
+import com.wyc.common.util.MySimpleDateFormat;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacketTakepartMember;
@@ -48,6 +49,9 @@ public class VieDrawController {
 	
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private MySimpleDateFormat mySimpleDateFormat;
 	
 	@Transactional
 	@HandlerAnnotation(hanlerFilter=VieDrawInfoActionFilter.class)
@@ -96,6 +100,7 @@ public class VieDrawController {
 		if(vieRedPacketToTakepartMember.getTakepartStatus()!=Constant.NOT_INVOLVED_TAKEPART_STATUS){
 
 			RedPacketTakepartMember vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.findOne(vieRedPacketToTakepartMember.getCurrentTakepartMemberId());
+
 			if(vieRedPacketTakepartMember!=null){
 				thisMember = new VieRedPacketTakepartMemberVo();
 				thisMember.setCurrentProblemId(vieRedPacketTakepartMember.getCurrentProblemId());
@@ -114,11 +119,18 @@ public class VieDrawController {
 				thisMember.setWrongCount(vieRedPacketTakepartMember.getWrongCount());
 				thisMember.setTimeLong(vieRedPacketTakepartMember.getTimeLong());
 				thisMember.setTakepartStatus(vieRedPacketToTakepartMember.getTakepartStatus());
+				thisMember.setRank(vieRedPacketTakepartMemberService.rowNumberByRedPacketId(vieRedPacketTakepartMember.getRightCount(), vieRedPacketTakepartMember.getTimeLong(), vieRedPacketTakepartMember.getRedPacketId()));
+				thisMember.setGetAmount(vieRedPacketTakepartMember.getGetAmount());
+				thisMember.setTakepartDateTime(mySimpleDateFormat.format(vieRedPacketTakepartMember.getTakepartDateTime().toDate()));
 			}
 		
 		}
 		
 
+		//总共参与人数
+		
+		Long takeMemberCount = vieRedPacketTakepartMemberService.countByRedPacketId(redPacketVo.getId());
+		httpServletRequest.setAttribute("takePartCount", takeMemberCount);
 		//本用户的参与名额
 		httpServletRequest.setAttribute("thisMember", thisMember);
 		Account account = accountService.fineOneSync(drawUser.getAccountId());
@@ -132,6 +144,9 @@ public class VieDrawController {
 		RedPacketAmountDistributionListVo redPacketAmountDistributionListVo = (RedPacketAmountDistributionListVo)sessionManager.getObject(RedPacketAmountDistributionListVo.class);
 		
 		httpServletRequest.setAttribute("distributions", redPacketAmountDistributionListVo.getRedPacketAmountDistributions());
+		
+		httpServletRequest.setAttribute("drawUser", drawUser);
+		
 		return "vie/vieRedPacket";
 	}
 	

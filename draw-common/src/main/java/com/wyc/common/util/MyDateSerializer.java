@@ -20,6 +20,7 @@ public class MyDateSerializer extends JsonSerializer<DateTime>{
 		jgen.writeString(simpleDateFormat.format(value.toDate()));
 		
 	}
+	
 
 	
 	

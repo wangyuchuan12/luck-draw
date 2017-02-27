@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
-import com.wyc.common.util.MySimpleDateFormat;
+import com.wyc.common.util.MyLongDateFormat;
 import com.wyc.common.wx.domain.WxContext;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
@@ -33,7 +33,7 @@ public class GetRedPackInfoFilter extends Filter{
 	
 	
 	@Autowired
-	private MySimpleDateFormat dateFormat;
+	private MyLongDateFormat dateFormat;
 	
 	
 	@Autowired
@@ -125,6 +125,8 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		redPacketVo.setIsGiveQuestion(redPacket.getIsGiveQuestion());
 		
+		redPacketVo.setPlacesNum(redPacket.getPlacesNum());
+		
 		
 		
 		Integer shareNumShowAnswer = redPacket.getShareNumShowAnswer();
@@ -159,6 +161,7 @@ public class GetRedPackInfoFilter extends Filter{
 					redPacketVo.setIsAnswer(1);
 				}
 				redPacketVo.setIsGiveEntryFee(vieRedPacketToTakepartMember.getIsPay());
+				redPacketVo.setGetAmount(vieRedPacketToTakepartMember.getGetAmount());
 				
 			}else{
 				redPacketVo.setIsAnswer(0);

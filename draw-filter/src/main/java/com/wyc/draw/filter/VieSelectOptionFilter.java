@@ -1,13 +1,20 @@
 package com.wyc.draw.filter;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleIfStatement.Else;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
@@ -15,12 +22,14 @@ import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
+import com.wyc.draw.domain.RedPacketAmountDistribution;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.VieRedPacketOption;
 import com.wyc.draw.domain.VieRedPacketProblem;
 import com.wyc.draw.domain.VieRedPacketTakepartMemberRecord;
 import com.wyc.draw.domain.VieRedPacketToTakepartMember;
 import com.wyc.draw.domain.param.VieSelectOptionParam;
+import com.wyc.draw.service.RedPacketAmountDistributionService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.service.VieRedPacketOptionService;
@@ -52,6 +61,9 @@ public class VieSelectOptionFilter extends Filter{
 	
 	@Autowired
 	private VieRedPacketToTakepartMemberService vieRedPacketToTakepartMemberService;
+	
+	@Autowired
+	private RedPacketAmountDistributionService redPacketAmountDistributionService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -284,13 +296,60 @@ public class VieSelectOptionFilter extends Filter{
 		if(lastVieRedPacketProblem.getId().equals(problemId)){
 			optionSelectVo.setIsLast(1);
 			vieRedPacketTakepartMember.setIsComplete(1);
-
 			
+			Long rightCount = vieRedPacketTakepartMember.getRightCount();
+			
+			BigDecimal rightCountBigDecimal = new BigDecimal(rightCount);
+			Long wrongCount = vieRedPacketTakepartMember.getWrongCount();
+			
+			BigDecimal wrongCountBigDecimal = new BigDecimal(wrongCount);
+			
+			BigDecimal countBigDecimal = new BigDecimal(rightCount+wrongCount);
+			
+			PageRequest pageRequest = new PageRequest(0, 10);
+			List<RedPacketAmountDistribution> redPacketAmountDistributions = redPacketAmountDistributionService.findAllByRedPacketIdOrderBySeqAsc(vieRedPacketTakepartMember.getRedPacketId(),pageRequest);
+			
+			Collections.sort(redPacketAmountDistributions, new Comparator<RedPacketAmountDistribution>() {
+
+				@Override
+				public int compare(RedPacketAmountDistribution o1, RedPacketAmountDistribution o2) {
+					return o2.getAmount().compareTo(o1.getAmount());
+				}
+			});
+			
+			RedPacketAmountDistribution selectDistribution;
+			Random random = new Random();
+			
+			//满分
+			if(wrongCount==0){
+				selectDistribution = redPacketAmountDistributions.get(0);
+			
+			//90分以上
+			}else if(rightCountBigDecimal.divide(countBigDecimal,2, BigDecimal.ROUND_HALF_UP).floatValue()>0.9){
+				int randInt = random.nextInt(new BigDecimal(redPacketAmountDistributions.size()*0.2).intValue());
+				selectDistribution = redPacketAmountDistributions.get(randInt);
+			//80到90分
+			}else if(rightCountBigDecimal.divide(countBigDecimal,2, BigDecimal.ROUND_HALF_UP).floatValue()>0.8){
+				int randInt = random.nextInt(new BigDecimal(redPacketAmountDistributions.size()*0.4).intValue());
+				
+				randInt = randInt+new BigDecimal(redPacketAmountDistributions.size()*0.2).intValue();
+				
+				selectDistribution = redPacketAmountDistributions.get(randInt);
+			}else if(rightCountBigDecimal.divide(countBigDecimal,2, BigDecimal.ROUND_HALF_UP).floatValue()>0.6){
+				int randInt = random.nextInt(new BigDecimal(redPacketAmountDistributions.size()*0.6).intValue());
+				randInt = randInt + new BigDecimal(redPacketAmountDistributions.size()*0.3).intValue();
+				selectDistribution = redPacketAmountDistributions.get(randInt);
+			}else{
+				int randInt = random.nextInt(new BigDecimal(redPacketAmountDistributions.size()*0.8).intValue());
+				randInt = randInt + new BigDecimal(redPacketAmountDistributions.size()*0.2).intValue();
+				selectDistribution = redPacketAmountDistributions.get(randInt);
+			}
+			
+			vieRedPacketTakepartMember.setGetAmount(selectDistribution.getAmount());
 			List<RedPacketTakepartMember> bestTakepartMembers = vieRedPacketTakepartMemberService.findAllByRedPacketIdAndIsBest(vieRedPacketTakepartMember.getRedPacketId(),1);
 			//设置最佳答案
 			if(bestTakepartMembers==null||bestTakepartMembers.size()==0){
 				vieRedPacketTakepartMember.setIsBest(1);
-				vieRedPacketTakepartMemberService.update(vieRedPacketTakepartMember);
 			}else{
 				for(RedPacketTakepartMember bestRedPacketTakepartMember:bestTakepartMembers){
 					Long bestRightCount = bestRedPacketTakepartMember.getRightCount();
@@ -301,22 +360,20 @@ public class VieSelectOptionFilter extends Filter{
 					}else if(bestRightCount<vieRedPacketTakepartMember.getRightCount()){
 						vieRedPacketTakepartMember.setIsBest(1);
 						bestRedPacketTakepartMember.setIsBest(0);
-						vieRedPacketTakepartMemberService.update(vieRedPacketTakepartMember);
-						vieRedPacketTakepartMemberService.update(bestRedPacketTakepartMember);
 					}else{
 						if(bestTimeLong>vieRedPacketTakepartMember.getTimeLong()){
 							vieRedPacketTakepartMember.setIsBest(1);
 							bestRedPacketTakepartMember.setIsBest(0);
-							vieRedPacketTakepartMemberService.update(vieRedPacketTakepartMember);
-							vieRedPacketTakepartMemberService.update(bestRedPacketTakepartMember);
 						}else{
 							vieRedPacketTakepartMember.setIsBest(0);
-							vieRedPacketTakepartMemberService.update(vieRedPacketTakepartMember);
+							
 						}
 					}
 				}
 			}
 			
+			vieRedPacketToTakepartMember.setGetAmount(vieRedPacketTakepartMember.getGetAmount());
+			vieRedPacketToTakepartMemberService.update(vieRedPacketToTakepartMember);
 		}else{
 			optionSelectVo.setIsLast(0);
 		}

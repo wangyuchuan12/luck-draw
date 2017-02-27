@@ -1,5 +1,9 @@
 package com.wyc.draw.vo;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
+
 import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
@@ -66,12 +70,39 @@ public class VieRedPacketTakepartMemberVo {
 	@ParamAnnotation
 	private Integer takepartStatus;
 	
+	@Column(name="get_amount")
+	private BigDecimal getAmount;
+	
 	@ParamAnnotation
 	private Long rank;
 
+	@ParamAnnotation
+	private String takepartDateTime;
 
 	public String getId() {
 		return id;
+	}
+
+
+	public BigDecimal getGetAmount() {
+		return getAmount;
+	}
+
+	
+	
+
+	public String getTakepartDateTime() {
+		return takepartDateTime;
+	}
+
+
+	public void setTakepartDateTime(String takepartDateTime) {
+		this.takepartDateTime = takepartDateTime;
+	}
+
+
+	public void setGetAmount(BigDecimal getAmount) {
+		this.getAmount = getAmount;
 	}
 
 

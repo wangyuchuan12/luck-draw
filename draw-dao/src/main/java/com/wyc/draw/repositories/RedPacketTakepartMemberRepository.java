@@ -28,4 +28,15 @@ public interface RedPacketTakepartMemberRepository extends CrudRepository<RedPac
 
 	List<RedPacketTakepartMember> findAllByRedPacketIdAndIsBest(String redPacketId, int isBest);
 
+	@Query(nativeQuery=true,value="SELECT num1.right_count+num2.time_count from "+
+								   "(select count(*) right_count from d_red_packet_takepart_member member1 where "+
+								   	"member1.red_packet_id=:redPacketId and member1.right_count>:rightCount) num1,"+
+								   	"(select count(*) time_count from d_red_packet_takepart_member member2 where "+
+								   	"member2.red_packet_id=:redPacketId and "+
+								   	"member2.right_count=:rightCount and member2.time_long<=:timeLong+0.000001)num2")
+	Long rowNumberByRedPacketId(@Param("rightCount")Long rightCount,@Param("timeLong")Float timeLong, @Param("redPacketId")String redPacketId);
+
+	@Query(nativeQuery=true,value="select count(*) from d_red_packet_takepart_member member where member.red_packet_id=:redPacketId")
+	Long countByRedPacketId(@Param("redPacketId")String redPacketId);
+
 }

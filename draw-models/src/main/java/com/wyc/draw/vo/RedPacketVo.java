@@ -183,6 +183,12 @@ public class RedPacketVo {
 	private Integer isGiveEntryFee;
 	
 	@ParamAnnotation
+	private BigDecimal getAmount;
+	
+	@ParamAnnotation
+	private int placesNum;
+	
+	@ParamAnnotation
 	private List<RedPacketTakepartMemberVo> redPacketTakepartMemberVos;
 	
 	@ParamAnnotation
@@ -192,6 +198,24 @@ public class RedPacketVo {
 	
 	
 	
+	public BigDecimal getGetAmount() {
+		return getAmount;
+	}
+
+	public void setGetAmount(BigDecimal getAmount) {
+		this.getAmount = getAmount;
+	}
+
+	
+	
+	public int getPlacesNum() {
+		return placesNum;
+	}
+
+	public void setPlacesNum(int placesNum) {
+		this.placesNum = placesNum;
+	}
+
 	public Integer getIsGiveEntryFee() {
 		return isGiveEntryFee;
 	}

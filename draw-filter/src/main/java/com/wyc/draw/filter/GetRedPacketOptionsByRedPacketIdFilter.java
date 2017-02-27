@@ -21,6 +21,7 @@ public class GetRedPacketOptionsByRedPacketIdFilter extends Filter{
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		VieDrawInfoParam vieDrawInfoParam = (VieDrawInfoParam)filterManager.getObject(VieDrawInfoParam.class);
 		
+		System.out.println("..................VieDrawInfoParam:"+vieDrawInfoParam);
 		String id = vieDrawInfoParam.getRedPacketId();
 		
 		RedPacket packet = (RedPacket)filterManager.getObject(RedPacket.class);

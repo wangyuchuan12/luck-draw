@@ -1,5 +1,7 @@
 package com.wyc.draw.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -61,6 +63,10 @@ public class VieRedPacketToTakepartMember {
 	@ParamAnnotation
 	private Integer takepartStatus;
 	
+	@Column(name="amount")
+	@ParamAnnotation
+	private BigDecimal getAmount;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -88,6 +94,14 @@ public class VieRedPacketToTakepartMember {
 
 	public DateTime getUpdateAt() {
 		return updateAt;
+	}
+
+	public BigDecimal getGetAmount() {
+		return getAmount;
+	}
+
+	public void setGetAmount(BigDecimal getAmount) {
+		this.getAmount = getAmount;
 	}
 
 	public void setUpdateAt(DateTime updateAt) {

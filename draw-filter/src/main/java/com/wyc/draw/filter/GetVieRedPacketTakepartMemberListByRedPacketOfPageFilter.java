@@ -18,6 +18,7 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
+import com.wyc.common.util.MyLongDateFormat;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.service.VieRedPacketTakepartMemberService;
@@ -27,6 +28,9 @@ public class GetVieRedPacketTakepartMemberListByRedPacketOfPageFilter extends Fi
 
 	@Autowired
 	private VieRedPacketTakepartMemberService vieRedPacketTakepartMemberService;
+	
+	@Autowired
+	private MyLongDateFormat mySimpleDateFormat;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -93,7 +97,8 @@ public class GetVieRedPacketTakepartMemberListByRedPacketOfPageFilter extends Fi
 			vieRedPacketTakepartMemberVo.setWrongCount(vieRedPacketTakepartMember.getWrongCount());
 			vieRedPacketTakepartMemberVo.setTimeLong(vieRedPacketTakepartMember.getTimeLong());
 			vieRedPacketTakepartMemberVo.setRank(Long.parseLong((pageInt*sizeInt+index)+""));
-			
+			vieRedPacketTakepartMemberVo.setGetAmount(vieRedPacketTakepartMember.getGetAmount());
+			vieRedPacketTakepartMemberVo.setTakepartDateTime(mySimpleDateFormat.format(vieRedPacketTakepartMember.getTakepartDateTime().toDate()));
 			vieRedPacketTakepartMemberVos.add(vieRedPacketTakepartMemberVo);
 			
 			if(vieRedPacketTakepartMember.getDrawUserId().equals(drawUser.getId())){

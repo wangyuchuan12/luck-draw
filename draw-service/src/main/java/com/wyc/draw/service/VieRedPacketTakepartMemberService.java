@@ -21,6 +21,14 @@ public class VieRedPacketTakepartMemberService {
 	public RedPacketTakepartMember findOne(String memberId) {
 		return redPacketTakepartMemberRepository.findOne(memberId);
 	}
+	
+	public Long rowNumberByRedPacketId(Long rightCount,Float timeLong,String redPacketId){
+		return redPacketTakepartMemberRepository.rowNumberByRedPacketId(rightCount,timeLong,redPacketId);
+	}
+	
+	public Long countByRedPacketId(String redPacketId){
+		return redPacketTakepartMemberRepository.countByRedPacketId(redPacketId);
+	}
 
 	public RedPacketTakepartMember add(RedPacketTakepartMember redPacketTakepartMember) {
 		

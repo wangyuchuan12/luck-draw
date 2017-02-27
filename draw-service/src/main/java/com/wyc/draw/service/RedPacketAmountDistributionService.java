@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.wyc.draw.domain.RedPacketAmountDistribution;
@@ -28,6 +29,10 @@ public class RedPacketAmountDistributionService {
 
 	public List<RedPacketAmountDistribution> findAllByRedPacketIdOrderBySeqAsc(String redPacketId) {
 		return redPacketAmountDistributionRepository.findAllByRedPacketIdOrderBySeqAsc(redPacketId);
+	}
+	
+	public List<RedPacketAmountDistribution> findAllByRedPacketIdOrderBySeqAsc(String redPacketId,Pageable pageable) {
+		return redPacketAmountDistributionRepository.findAllByRedPacketIdOrderBySeqAsc(redPacketId,pageable);
 	}
 
 }

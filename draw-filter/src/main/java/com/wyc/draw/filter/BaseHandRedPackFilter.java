@@ -19,7 +19,8 @@ import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
-import com.wyc.common.util.MySimpleDateFormat;
+import com.wyc.common.util.DistributionAmountUtil;
+import com.wyc.common.util.MyLongDateFormat;
 import com.wyc.common.wx.domain.WxContext;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawRoomMember;
@@ -50,7 +51,7 @@ public class BaseHandRedPackFilter extends Filter{
 	private DrawRoomService drawRoomService;
 	
 	@Autowired
-	private MySimpleDateFormat dateFormat;
+	private MyLongDateFormat dateFormat;
 	
 	@Autowired
 	private AccountService accountService;
@@ -99,9 +100,18 @@ public class BaseHandRedPackFilter extends Filter{
 		
 		String entryFee = httpServletRequest.getParameter("entryFee");
 		
+		//红包个数
+		String placeNum = httpServletRequest.getParameter("place_num");
+		
 		if(CommonUtil.isEmpty(allowWrongCount)){
 			allowWrongCount = "1";
 		}
+		
+		if(CommonUtil.isEmpty(placeNum)){
+			placeNum = "100";
+		}
+		
+		Integer placeNumInt = Integer.parseInt(placeNum);
 		
 		Integer allowWrongCountInt = Integer.parseInt(allowWrongCount);
 		
@@ -244,6 +254,7 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setShareNumShowAnswer(wxContext.getShareNumShowAnswer());
 		redPacket.setShareNum(0);
 	
+		redPacket.setPlacesNum(placeNumInt);
 		
 		redPacket.setIsRoom(isRoomInt);
 		if(redPacket.getType()==Constant.QUESTION_TYPE){
@@ -461,22 +472,12 @@ public class BaseHandRedPackFilter extends Filter{
 			
 			redPacket.setInstruction(instruction);
 			
-			redPacket.setPlacesNum(3);
-			
-			
-			
 			redPacket.setIsRoom(isRoomInt);
 			
 			redPacket.setIsGiveQuestion(0);
 			
 			redPacket.setIsSetOption(0);
 			redPacket = redPackageService.add(redPacket);
-		
-			List<RedPacketAmountDistribution> redPacketAmountDistributions = vieAmountDistribution(redPacket);
-			
-			for(RedPacketAmountDistribution redPacketAmountDistribution:redPacketAmountDistributions){
-				redPacketAmountDistributionService.add(redPacketAmountDistribution);
-			}
 			
 		}else{
 			ResultVo resultVo = new ResultVo();
@@ -519,42 +520,30 @@ public class BaseHandRedPackFilter extends Filter{
 				filterManager.save(drawUser);
 			}
 		}
+		
+		//分配金额数量
+		DistributionAmountUtil dd = new DistributionAmountUtil();
+		BigDecimal multeplyAmount = amountBigDecimal.multiply(new BigDecimal(100));
+		List<Integer> amounts = dd.splitRedPackets(multeplyAmount.intValue(), placeNumInt);
+		if(CommonUtil.isEmpty(amounts)){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("金额数量分配错误");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		for(int i = 0;i<amounts.size();i++){
+			Integer amountEntry = amounts.get(i);
+			RedPacketAmountDistribution redPacketAmountDistribution = new RedPacketAmountDistribution();
+			redPacketAmountDistribution.setAmount(new BigDecimal(amountEntry).divide(new BigDecimal(100)));
+			redPacketAmountDistribution.setRedPacketId(redPacket.getId());
+			redPacketAmountDistribution.setSeq(i);
+			redPacketAmountDistribution.setStatus(Constant.NOT_DISTRIBUTION_STATUS);
+			redPacketAmountDistributionService.add(redPacketAmountDistribution);
+		}
 		return redPacketVo;
-	}
-
-	private List<RedPacketAmountDistribution> vieAmountDistribution(RedPacket redPacket){
-		BigDecimal amount = redPacket.getAmount();
-		BigDecimal bigDecimalNum  = new BigDecimal("7");
-		BigDecimal firstAmount = amount.multiply(new BigDecimal(4)).divide(bigDecimalNum,2,BigDecimal.ROUND_HALF_UP);
-		BigDecimal secondAmount = amount.multiply(new BigDecimal(2)).divide(bigDecimalNum,2,BigDecimal.ROUND_HALF_UP);
-		BigDecimal thirdAmount = amount.subtract(firstAmount).subtract(secondAmount);
-		
-		List<RedPacketAmountDistribution> redPacketAmountDistributions = new ArrayList<>();
-		RedPacketAmountDistribution redPacketAmountDistribution1 = new RedPacketAmountDistribution();
-		redPacketAmountDistribution1.setAmount(firstAmount);
-		redPacketAmountDistribution1.setRedPacketId(redPacket.getId());
-		redPacketAmountDistribution1.setSeq(0);
-		redPacketAmountDistribution1.setStatus(Constant.NOT_DISTRIBUTION_STATUS);
-		redPacketAmountDistributions.add(redPacketAmountDistribution1);
-		
-		
-		RedPacketAmountDistribution redPacketAmountDistribution2 = new RedPacketAmountDistribution();
-		redPacketAmountDistribution2.setAmount(secondAmount);
-		redPacketAmountDistribution2.setRedPacketId(redPacket.getId());
-		redPacketAmountDistribution2.setSeq(1);
-		redPacketAmountDistribution2.setStatus(Constant.NOT_DISTRIBUTION_STATUS);
-		redPacketAmountDistributions.add(redPacketAmountDistribution2);
-		
-		
-		RedPacketAmountDistribution redPacketAmountDistribution3 = new RedPacketAmountDistribution();
-		redPacketAmountDistribution3.setAmount(thirdAmount);
-		redPacketAmountDistribution3.setRedPacketId(redPacket.getId());
-		redPacketAmountDistribution3.setSeq(2);
-		redPacketAmountDistribution3.setStatus(Constant.NOT_DISTRIBUTION_STATUS);
-		redPacketAmountDistributions.add(redPacketAmountDistribution3);
-		
-		return redPacketAmountDistributions;
-		
 	}
 	
 	@Override

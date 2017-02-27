@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
-import com.wyc.common.util.MySimpleDateFormat;
+import com.wyc.common.util.MyLongDateFormat;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.view.MainPeriod;
@@ -27,7 +27,7 @@ public class GetMainRedPacketFilter extends Filter{
 	private DrawUserService drawUserService;
 	
 	@Autowired
-	private MySimpleDateFormat dateFormat;
+	private MyLongDateFormat dateFormat;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		MainPeriod mainPeriod = (MainPeriod)filterManager.getObject(MainPeriod.class);

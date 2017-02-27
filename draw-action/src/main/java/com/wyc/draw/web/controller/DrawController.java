@@ -17,10 +17,10 @@ import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.filter.BaseDrawActionFilter;
-import com.wyc.draw.filter.GetRedPackInfoFilter;
 import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketOptionsByRedPacketIdFilter;
 import com.wyc.draw.filter.GetSubjectCheckFilter;
+import com.wyc.draw.filter.controller.action.VieDrawInfoActionFilter;
 import com.wyc.draw.service.DrawRoomService;
 import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketOptionListVo;
@@ -52,7 +52,7 @@ public class DrawController {
 	}
 	
 	
-	@HandlerAnnotation(hanlerFilter=GetRedPackInfoFilter.class)
+	@HandlerAnnotation(hanlerFilter=VieDrawInfoActionFilter.class)
 	@RequestMapping(value="info")
 	public String drawInfo(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);

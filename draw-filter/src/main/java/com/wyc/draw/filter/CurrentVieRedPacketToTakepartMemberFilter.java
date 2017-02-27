@@ -33,6 +33,7 @@ public class CurrentVieRedPacketToTakepartMemberFilter extends Filter{
 			vieRedPacketToTakepartMember.setTakepartCount(0);
 			vieRedPacketToTakepartMember.setTakepartStatus(Constant.NOT_INVOLVED_TAKEPART_STATUS);
 			vieRedPacketToTakepartMember.setVisitCount(1);
+			
 			vieRedPacketToTakepartMemberService.add(vieRedPacketToTakepartMember);
 		}else{
 			String currentTakepartMembetId = vieRedPacketToTakepartMember.getCurrentTakepartMemberId();

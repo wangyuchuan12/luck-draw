@@ -15,7 +15,7 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
-import com.wyc.common.util.MySimpleDateFormat;
+import com.wyc.common.util.MyLongDateFormat;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.service.RedPacketService;
@@ -25,7 +25,7 @@ import com.wyc.draw.vo.RedPacketVo;
 public class GetRedPacketListOfPageFilter extends Filter{
 
 	@Autowired
-	private MySimpleDateFormat dateFormat;
+	private MyLongDateFormat dateFormat;
 	@Autowired
 	private RedPacketService redPacketService;
 	@Override

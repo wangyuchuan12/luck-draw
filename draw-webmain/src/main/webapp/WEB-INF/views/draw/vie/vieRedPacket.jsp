@@ -35,9 +35,26 @@
 					<img src="${redPacketInfo.userImgUrl}"></img>
 				</div>
 				<div class="luck_info_head_name">${redPacketInfo.nickname}的红包</div>
-
-				<div class="luck_info_head_money"><span>${redPacketInfo.amount}</span>元
-				</div>
+				<c:if test="${thisMember!=null}">
+					<div class="luck_info_head_money"><span>
+						<fmt:formatNumber type="number" maxFractionDigits="1" value="${thisMember.rightCount/(thisMember.rightCount+thisMember.wrongCount)*100}"></fmt:formatNumber>
+						分</span><span>领取：${thisMember.getAmount}元</span></div>
+						<div class="luck_info_head_evaluate">
+							<c:if test="${takePartCount<5}">
+								答对${thisMember.rightCount}题，用时${thisMember.timeLong}秒
+							</c:if>
+							<c:if test="${takePartCount>=5}">
+								答对${thisMember.rightCount}题，用时${thisMember.timeLong}秒
+								<c:if test="${(takePartCount-thisMember.rank+1)/takePartCount*100>40}">
+									击败了
+									<fmt:formatNumber type="number" value="${(takePartCount-thisMember.rank+1)/takePartCount*100}" maxFractionDigits="0"></fmt:formatNumber>
+									%的选手
+								</c:if>
+								
+							</c:if>
+					 </div>
+				</c:if>
+				
 			</div>
 			
 			<div class="vie_luck_info">
@@ -52,24 +69,34 @@
 				
 				<div class="vie_luck_info_detail">
 					<div class="vie_luck_info_detail_item">
-						<div class="vie_luck_info_detail_item_label">名称：</div>
-						<div class="vie_luck_info_detail_item_text">${redPacketInfo.theme}少时诵诗书所所多付所多付所多付所多付</div>
+						<img src="${drawUser.imgUrl}">
+						
+						<div class=vie_luck_info_detail_item_user>
+							<span class="vie_luck_info_detail_item_user_name">${drawUser.nickname}</span>
+							<span class="vie_luck_info_detail_item_time">参赛时间：${thisMember.takepartDateTime}</span>
+							
+							<span class="vie_luck_info_detail_item_status" style="display:none;">未参赛</span>
+						</div>
+					</div>
+					<div class="vie_luck_info_detail_item">
+						<div class="vie_luck_info_detail_item_label">名称:</div>
+						<div class="vie_luck_info_detail_item_text">${redPacketInfo.theme}</div>
 					</div>
 					
 					<div class="vie_luck_info_detail_item">
-						<div class="vie_luck_info_detail_item_label">已参加：</div>
+						<div class="vie_luck_info_detail_item_label">已参加:</div>
 						<div class="vie_luck_info_detail_item_text">${redPacketInfo.takePartCount}人</div>
 					</div>
 					
 					<c:if test="${bestTakepartMember!=null}">
 						<div class="vie_luck_info_detail_item">
-							<div class="vie_luck_info_detail_item_label">最高分：</div>
+							<div class="vie_luck_info_detail_item_label">最高分:</div>
 							<div class="vie_luck_info_detail_item_text">${bestTakepartMember.rightCount}/${bestTakepartMember.rightCount+bestTakepartMember.wrongCount}题  ${bestTakepartMember.timeLong}秒</div>
 						</div>
 					</c:if>
 					
 					<div class="vie_luck_info_detail_item">
-						<div class="vie_luck_info_detail_item_label">消耗智慧豆：</div>
+						<div class="vie_luck_info_detail_item_label">消耗智慧豆:</div>
 						<div class="vie_luck_info_detail_item_text">5颗</div>
 					</div>
 					
@@ -77,9 +104,6 @@
 			
 			</div>
 			
-			
-			
-			<div class="luck_info_alert" style="display: none;">该活动已结束</div>
 			
 			<c:if test="${redPacketInfo.isAnswer==1}">
 				<div class="vieShowAnswerButton" onclick="skipVieAnswerResult('${redPacketInfo.id}')">查看答题结果</div>
@@ -99,6 +123,8 @@
 				<div class="luck_info_situation_time">剩余<b id="luck_info_hour">00</b><b id="luck_info_min">00</b><b id="luck_info_second">00</b> 结束</div>
 			</div>
 			
+			<div style="padding-left: 10px;">已领取8/${redPacketInfo.placesNum}个，共1/10元，红包已超时</div>
+			
 			<div class="help" style="margin-top: 1px;">
 					<ul>
 						<li>
@@ -106,25 +132,15 @@
 							<span>超时退款</span>
 						</li>
 						
+						<li>
+							<span class="fa fa-check-circle"></span>
+							<span>分数越高可领取金额优先级越高</span>
+						</li>
 						
-						<c:forEach items="${distributions}" var="distribution">
-						
-							<li>
-								<span class="fa fa-check-circle"></span>
-								<c:if test="${distribution.seq==0}">
-									<span>第一名：${distribution.amount}元</span>
-								</c:if>
-								
-								<c:if test="${distribution.seq==1}">
-									<span>第二名：${distribution.amount}元</span>
-								</c:if>
-								
-								<c:if test="${distribution.seq==2}">
-									<span>第三名：${distribution.amount}元</span>
-								</c:if>
-								
-							</li>
-						</c:forEach>
+						<li>
+							<span class="fa fa-check-circle"></span>
+							<span>参加越早可领取金额优秀级越高</span>
+						</li>
 						
 						<li>
 							<span class="fa fa-check-circle"></span>
@@ -166,12 +182,14 @@
 						<div class="view_luck_member_result">
 							<div class="view_luck_member_result_correct">${thisMember.rightCount}题/${thisMember.timeLong}秒</div>
 						</div>
+						
+						<div class="view_luck_member_takepart_time">${thisMember.takepartDateTime}</div>
 					</div>
 				</c:if>
 				
 				
 				<c:if test="${fn:length(takePartMembers.datas)>0}">
-					<div class="view_luck_members_rank">排行榜</div>
+					<div class="view_luck_members_rank">排行榜，总参与 ${takePartCount}人</div>
 				</c:if>
 				<c:forEach items="${takePartMembers.datas}" var="takePartMember" varStatus="varStatus">
 					
@@ -187,33 +205,20 @@
 						
 						
 						
-						<c:if test="${varStatus.index<4}">
-						
-							<c:forEach items="${distributions}" var="distribution">
-								<c:if test="${distribution.seq==varStatus.index}">
-									<div class="view_luck_member_name2">
+						<div class="view_luck_member_name2">
 										<div class="view_luck_member_name2_nickname">${takePartMember.nickname}</div>
 										
-										<div class="view_luck_member_name2_prompt">第${distribution.seq+1}名 <span>可获得${distribution.amount}元</span></div>
-									</div>
-								
-								</c:if>
-								
-							</c:forEach>
-			
+										<div class="view_luck_member_name2_prompt">第${varStatus.index+1}名 <span>领取${takePartMember.getAmount}元</span></div>
+						</div>
 						
-						</c:if>
-						
-						
-						<c:if test="${varStatus.index>=4}">
-							<div class="view_luck_member_name">${takePartMember.nickname}</div>
-						
-						</c:if>
 						
 						
 						<div class="view_luck_member_result">
 							<div class="view_luck_member_result_correct">${takePartMember.rightCount}题/${takePartMember.timeLong}秒</div>
+							
 						</div>
+						
+						<div class="view_luck_member_takepart_time">${takePartMember.takepartDateTime}</div>
 					</div>
 				</c:forEach>
 			</div>

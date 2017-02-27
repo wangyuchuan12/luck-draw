@@ -35,6 +35,7 @@ import com.wyc.common.domain.vo.ApplicationProperties;
 import com.wyc.common.domain.vo.ShareConfigVo;
 import com.wyc.common.service.HrefService;
 import com.wyc.common.service.WxContextService;
+import com.wyc.common.util.MyLongDateFormat;
 import com.wyc.common.util.MySimpleDateFormat;
 import com.wyc.common.wx.domain.WxContext;
 
@@ -156,9 +157,15 @@ public class AppConfig {
 	    
 	    
 	    @Bean
-	    public MySimpleDateFormat mySimpleDateFormat(){
-	        MySimpleDateFormat sdf = new MySimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    public MyLongDateFormat myLongDateFormat(){
+	        MyLongDateFormat sdf = new MyLongDateFormat("yyyy-MM-dd HH:mm:ss");
 	        return sdf;
+	    }
+	    
+	    @Bean
+	    public MySimpleDateFormat mySimpleDateFormat(){
+	    	MySimpleDateFormat sdf = new MySimpleDateFormat("MM-dd HH:mm");
+	    	return sdf;
 	    }
 	    
 	    @Bean

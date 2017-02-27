@@ -15,7 +15,7 @@ import org.springframework.data.domain.Sort.Direction;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
-import com.wyc.common.util.MySimpleDateFormat;
+import com.wyc.common.util.MyLongDateFormat;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.RedPacketService;
@@ -31,7 +31,7 @@ public class GetRedPackListByRoomOfPageFilter extends Filter{
 	private DrawRoomMemberService drawRoomMemberService;
 	
 	@Autowired
-	private MySimpleDateFormat dateFormat;
+	private MyLongDateFormat dateFormat;
 	
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
