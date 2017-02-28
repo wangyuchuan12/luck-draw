@@ -97,7 +97,7 @@
 					
 					<div class="vie_luck_info_detail_item">
 						<div class="vie_luck_info_detail_item_label">消耗智慧豆:</div>
-						<div class="vie_luck_info_detail_item_text">5颗</div>
+						<div class="vie_luck_info_detail_item_text">${redPacketInfo.wisdomCount}颗</div>
 					</div>
 					
 				</div>
@@ -110,7 +110,7 @@
 			</c:if>
 			
 			<c:if test="${redPacketInfo.isPay==1&&redPacketInfo.isTimeout==0&&redPacketInfo.isCreater==0&&redPacketInfo.isAnswer==0}">
-				<div class="vieShowAnswerButton" id="vieTakepartButton">参加（智慧豆：5颗，报名费：${redPacketInfo.entryFee}元）</div>
+				<div class="vieShowAnswerButton" id="vieTakepartButton">参加（智慧豆：${redPacketInfo.wisdomCount}颗，报名费：${redPacketInfo.entryFee}元）</div>
 			</c:if>
 			<c:if test="${redPacketInfo.instruction!=null}">
 				<div class="vieTakepartButtonInstruction">

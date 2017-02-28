@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
-import com.wyc.draw.domain.param.VieDrawInfoParam;
 import com.wyc.draw.domain.param.VieSelectOptionParam;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 

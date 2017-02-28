@@ -1,21 +1,21 @@
-package com.wyc.draw.filter.controller.api;
+package com.wyc.draw.filter.getter.handler;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
-import com.wyc.draw.filter.VieTakepartFilter;
-import com.wyc.draw.filter.controller.param.VieDrawTakepartParamFilter;
-import com.wyc.draw.filter.getter.VieTakepartGetterFilter;
-import com.wyc.draw.filter.update.VieTakepartUpdateFilter;
+import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.param.VieSelectOptionParam;
+import com.wyc.draw.service.VieRedPacketProblemService;
+import com.wyc.draw.service.VieRedPacketToTakepartMemberService;
 
-public class VieRedPacketTakepartApiFilter extends Filter{
-
+public class VieRedPacketToTakepartMemberGetterHandlerFilter extends Filter{
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -39,16 +39,8 @@ public class VieRedPacketTakepartApiFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
-		filterClasses.add(VieDrawTakepartParamFilter.class);
-		
-		filterClasses.add(VieTakepartGetterFilter.class);
-		
-		filterClasses.add(VieTakepartFilter.class);
-		
-		filterClasses.add(VieTakepartUpdateFilter.class);
-		
-		return filterClasses;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

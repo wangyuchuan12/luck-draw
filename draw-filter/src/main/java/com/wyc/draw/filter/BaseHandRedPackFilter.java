@@ -103,6 +103,12 @@ public class BaseHandRedPackFilter extends Filter{
 		//红包个数
 		String placeNum = httpServletRequest.getParameter("place_num");
 		
+		String wisdomCount = httpServletRequest.getParameter("wisdom_count");
+		
+		if(CommonUtil.isEmpty(wisdomCount)){
+			wisdomCount = "0";
+		}
+		
 		if(CommonUtil.isEmpty(allowWrongCount)){
 			allowWrongCount = "1";
 		}
@@ -114,6 +120,8 @@ public class BaseHandRedPackFilter extends Filter{
 		Integer placeNumInt = Integer.parseInt(placeNum);
 		
 		Integer allowWrongCountInt = Integer.parseInt(allowWrongCount);
+		
+		Long wisdomCountInt = Long.parseLong(wisdomCount);
 		
 		if(CommonUtil.isEmpty(isImg)){
 			ResultVo resultVo = new ResultVo();
@@ -257,6 +265,14 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setPlacesNum(placeNumInt);
 		
 		redPacket.setIsRoom(isRoomInt);
+		
+		if(wisdomCountInt==0){
+			redPacket.setIsWisdom(0);
+			redPacket.setWisdomCount(0l);
+		}else{
+			redPacket.setIsWisdom(1);
+			redPacket.setWisdomCount(wisdomCountInt);
+		}
 		if(redPacket.getType()==Constant.QUESTION_TYPE){
 			
 			if(redPacket.getIsRoom()==1){

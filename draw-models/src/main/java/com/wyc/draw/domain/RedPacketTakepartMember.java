@@ -131,6 +131,11 @@ public class RedPacketTakepartMember {
 	@Column(name="entry_fee")
 	private BigDecimal entryFee;
 	
+	//是否需要智慧豆
+	@ParamAnnotation
+	@Column(name="is_wisdom")
+	private Integer isWisdom;
+	
 	//是否答题完成
 	@ParamAnnotation
 	@Column(name="is_complete")
@@ -309,6 +314,12 @@ public class RedPacketTakepartMember {
 	}
 	public void setOutTradeNo(String outTradeNo) {
 		this.outTradeNo = outTradeNo;
+	}
+	public Integer getIsWisdom() {
+		return isWisdom;
+	}
+	public void setIsWisdom(Integer isWisdom) {
+		this.isWisdom = isWisdom;
 	}
 	
 	

@@ -2,26 +2,18 @@ package com.wyc.draw.filter;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
-import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleIfStatement.Else;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
-import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketAmountDistribution;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.VieRedPacketOption;
@@ -30,8 +22,6 @@ import com.wyc.draw.domain.VieRedPacketTakepartMemberRecord;
 import com.wyc.draw.domain.VieRedPacketToTakepartMember;
 import com.wyc.draw.domain.param.VieSelectOptionParam;
 import com.wyc.draw.service.RedPacketAmountDistributionService;
-import com.wyc.draw.service.RedPacketService;
-import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.service.VieRedPacketOptionService;
 import com.wyc.draw.service.VieRedPacketProblemService;
 import com.wyc.draw.service.VieRedPacketTakepartMemberRecordService;
@@ -52,12 +42,6 @@ public class VieSelectOptionFilter extends Filter{
 	
 	@Autowired
 	private VieRedPacketProblemService vieRedPacketProblemService;
-	
-	@Autowired
-	private RedPacketService redPacketService;
-	
-	@Autowired
-	private RedPacketTakepartMemberService redPacketTakepartMemberService;
 	
 	@Autowired
 	private VieRedPacketToTakepartMemberService vieRedPacketToTakepartMemberService;
@@ -302,8 +286,6 @@ public class VieSelectOptionFilter extends Filter{
 			BigDecimal rightCountBigDecimal = new BigDecimal(rightCount);
 			Long wrongCount = vieRedPacketTakepartMember.getWrongCount();
 			
-			BigDecimal wrongCountBigDecimal = new BigDecimal(wrongCount);
-			
 			BigDecimal countBigDecimal = new BigDecimal(rightCount+wrongCount);
 			
 			PageRequest pageRequest = new PageRequest(0, 10);
@@ -384,6 +366,9 @@ public class VieSelectOptionFilter extends Filter{
 		vieRedPacketTakepartMemberRecord.setMemberId(memberId);
 		vieRedPacketTakepartMemberRecord = vieRedPacketTakepartMemberRecordService.add(vieRedPacketTakepartMemberRecord);
 		
+		
+		filterManager.save(vieRedPacketTakepartMember);
+		filterManager.save(vieRedPacketToTakepartMember);
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setData(optionSelectVo);

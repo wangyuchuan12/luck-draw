@@ -6,17 +6,17 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.wyc.common.domain.Account;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
-import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.VieRedPacketToTakepartMember;
 import com.wyc.draw.domain.param.VieDrawTakepartParam;
-import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 
 public class VieTakepartFilter extends Filter{
@@ -24,35 +24,39 @@ public class VieTakepartFilter extends Filter{
 	@Autowired
 	private VieRedPacketTakepartMemberService vieRedPacketTakepartMemberService;
 	
-	@Autowired
-	private RedPacketService redPacketService;
-	
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		
+		Account account = (Account)filterManager.getObject(Account.class);
+		
 		VieDrawTakepartParam vieDrawTakepartParam = (VieDrawTakepartParam)filterManager.getObject(VieDrawTakepartParam.class);
 		
 		String redPacketId = vieDrawTakepartParam.getTakepartId();
 		
-		if(CommonUtil.isEmpty(redPacketId)){
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("redPacketId参数不能为空");
-			filterManager.setReturn(true);
-			filterManager.setReturnValue(resultVo);
-			return null;
-		}
-		
-		RedPacket redPacket = redPacketService.findOne(redPacketId);
+		RedPacket redPacket = (RedPacket)filterManager.getObject(RedPacket.class);
 		Integer takePartCount = redPacket.getTakePartCount();
 		if(takePartCount==0){
 			takePartCount=0;
 		}
 		redPacket.setTakePartCount(takePartCount+1);
-		redPacketService.update(redPacket);
 		
+		
+		int isWisdom = redPacket.getIsWisdom();
+		if(isWisdom==1){
+			
+			if(account.getWisdomCount()<redPacket.getWisdomCount()){
+				ResultVo resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("你的智慧豆已经少于所需智慧豆数量");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				return null;
+			}else{
+				account.setWisdomCount(account.getWisdomCount()-redPacket.getWisdomCount());
+			}
+		}
 		RedPacketTakepartMember vieRedPacketTakepartMember = new RedPacketTakepartMember();
 		vieRedPacketTakepartMember.setDrawUserId(drawUser.getId());
 		vieRedPacketTakepartMember.setIsBest(0);

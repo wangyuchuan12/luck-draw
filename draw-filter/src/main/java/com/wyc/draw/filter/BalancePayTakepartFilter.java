@@ -10,17 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.domain.Account;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
-import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
-import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.VieRedPacketToTakepartMember;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
 
 public class BalancePayTakepartFilter extends Filter{
 
-	@Autowired
-	private AccountService accountService;
 	
 	@Autowired
 	private RedPacketTakepartMemberService redPacketTakepartMemberService;
@@ -31,9 +27,8 @@ public class BalancePayTakepartFilter extends Filter{
 		
 		RedPacketTakepartMember vieRedPacketTakepartMember = (RedPacketTakepartMember)resultVo.getData();
 		
-		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
 		
-		Account account = accountService.fineOneSync(drawUser.getAccountId());
+		Account account = (Account)sessionManager.getObject(Account.class);
 		
 		if(vieRedPacketTakepartMember.getIsGiveEntryFee()!=1){
 			ResultVo errorResultVo = new ResultVo();
@@ -59,7 +54,6 @@ public class BalancePayTakepartFilter extends Filter{
 		accountBalance = accountBalance.subtract(vieRedPacketTakepartMember.getEntryFee());
 		
 		account.setAmountBalance(accountBalance);
-		accountService.update(account);
 		
 		vieRedPacketTakepartMember.setIsPay(1);
 		

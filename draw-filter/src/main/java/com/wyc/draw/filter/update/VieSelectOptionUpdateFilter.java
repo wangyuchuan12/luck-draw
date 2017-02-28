@@ -1,4 +1,4 @@
-package com.wyc.draw.filter.controller.api;
+package com.wyc.draw.filter.update;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -6,12 +6,10 @@ import java.util.List;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
-import com.wyc.draw.filter.VieTakepartFilter;
-import com.wyc.draw.filter.controller.param.VieDrawTakepartParamFilter;
-import com.wyc.draw.filter.getter.VieTakepartGetterFilter;
-import com.wyc.draw.filter.update.VieTakepartUpdateFilter;
+import com.wyc.draw.filter.update.handler.RedPacketTakepartMemberUpdateHandlerFilter;
+import com.wyc.draw.filter.update.handler.VieRedPacketToTakepartMemberUpdateHandlerFilter;
 
-public class VieRedPacketTakepartApiFilter extends Filter{
+public class VieSelectOptionUpdateFilter extends Filter{
 
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
@@ -40,14 +38,8 @@ public class VieRedPacketTakepartApiFilter extends Filter{
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
-		filterClasses.add(VieDrawTakepartParamFilter.class);
-		
-		filterClasses.add(VieTakepartGetterFilter.class);
-		
-		filterClasses.add(VieTakepartFilter.class);
-		
-		filterClasses.add(VieTakepartUpdateFilter.class);
-		
+		filterClasses.add(RedPacketTakepartMemberUpdateHandlerFilter.class);
+		filterClasses.add(VieRedPacketToTakepartMemberUpdateHandlerFilter.class);
 		return filterClasses;
 	}
 

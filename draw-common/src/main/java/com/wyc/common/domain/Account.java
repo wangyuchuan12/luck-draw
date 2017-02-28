@@ -11,31 +11,42 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wyc.annotation.IdAnnotation;
+import com.wyc.annotation.ParamAnnotation;
+import com.wyc.annotation.ParamEntityAnnotation;
 
 @Entity
 @Table(name="p_account")
+@ParamEntityAnnotation
 public class Account {
 	@Id
+	@IdAnnotation
     private String id;
 	
+	@ParamAnnotation
 	@Column
 	private BigDecimal amount;
 	
 	
 	//智慧豆数量
+	@ParamAnnotation
+	@Column(name="wisdom_count")
 	private Long wisdomCount;
 	
 	//经验
+	@ParamAnnotation
 	@Column(name="empirical_value")
 	private BigDecimal empiricalValue;
 	
 	
 	//本月可提现次数
+	@ParamAnnotation
 	@Column(name="can_take_out_count")
 	private Integer canTakeOutCount;
 	
 	
 	//账户余额
+	@ParamAnnotation
 	@Column(name="amount_balance")
 	private BigDecimal amountBalance;
 	

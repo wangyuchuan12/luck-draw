@@ -249,6 +249,16 @@ public class RedPacket {
 	@Column(name="share_num")
 	private Integer shareNum;
 	
+	//所需智慧豆
+	@ParamAnnotation
+	@Column(name="wisdom_count")
+	private Long wisdomCount;
+	
+	//是否需要智慧豆
+	@ParamAnnotation
+	@Column(name="is_wisdom")
+	private Integer isWisdom;
+	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -523,6 +533,18 @@ public class RedPacket {
 	}
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
+	}
+	public Long getWisdomCount() {
+		return wisdomCount;
+	}
+	public void setWisdomCount(Long wisdomCount) {
+		this.wisdomCount = wisdomCount;
+	}
+	public Integer getIsWisdom() {
+		return isWisdom;
+	}
+	public void setIsWisdom(Integer isWisdom) {
+		this.isWisdom = isWisdom;
 	}
 	
 	

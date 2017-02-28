@@ -8,6 +8,7 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.filter.VieSelectOptionFilter;
 import com.wyc.draw.filter.controller.param.VieRedPacketSelectOptionParamFilter;
+import com.wyc.draw.filter.update.VieSelectOptionUpdateFilter;
 
 public class VieRedPacketSelectOptionFilter extends Filter{
 
@@ -40,6 +41,7 @@ public class VieRedPacketSelectOptionFilter extends Filter{
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
 		filterClasses.add(VieRedPacketSelectOptionParamFilter.class);
 		filterClasses.add(VieSelectOptionFilter.class);
+		filterClasses.add(VieSelectOptionUpdateFilter.class);
 		return filterClasses;
 	}
 

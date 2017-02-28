@@ -2,6 +2,9 @@ package com.wyc.draw.vo;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import javax.persistence.Column;
+
 import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
@@ -194,7 +197,15 @@ public class RedPacketVo {
 	@ParamAnnotation
 	private List<RedPacketOption> redPacketOptions;
 	
+	//所需智慧豆
+	@ParamAnnotation
+	@Column(name="wisdom_count")
+	private Long wisdomCount;
 	
+	//是否需要智慧豆
+	@ParamAnnotation
+	@Column(name="is_wisdom")
+	private Integer isWisdom;
 	
 	
 	
@@ -208,6 +219,22 @@ public class RedPacketVo {
 
 	
 	
+	public Long getWisdomCount() {
+		return wisdomCount;
+	}
+
+	public void setWisdomCount(Long wisdomCount) {
+		this.wisdomCount = wisdomCount;
+	}
+
+	public Integer getIsWisdom() {
+		return isWisdom;
+	}
+
+	public void setIsWisdom(Integer isWisdom) {
+		this.isWisdom = isWisdom;
+	}
+
 	public int getPlacesNum() {
 		return placesNum;
 	}

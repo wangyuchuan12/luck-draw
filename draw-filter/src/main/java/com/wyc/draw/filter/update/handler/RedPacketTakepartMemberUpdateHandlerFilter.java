@@ -1,4 +1,4 @@
-package com.wyc.draw.filter.update;
+package com.wyc.draw.filter.update.handler;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -7,18 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
-import com.wyc.draw.domain.VieRedPacketToTakepartMember;
-import com.wyc.draw.service.VieRedPacketToTakepartMemberService;
+import com.wyc.draw.domain.RedPacketTakepartMember;
+import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 
-public class VieRedPacketToTakepartMemberUpdateFilter extends Filter{
+public class RedPacketTakepartMemberUpdateHandlerFilter extends Filter{
 
 	@Autowired
-	private VieRedPacketToTakepartMemberService vieRedPacketToTakepartMemberService;
+	private VieRedPacketTakepartMemberService vieRedPacketTakepartMemberService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		VieRedPacketToTakepartMember vieRedPacketToTakepartMember = (VieRedPacketToTakepartMember)filterManager.getObject(VieRedPacketToTakepartMember.class);
-		vieRedPacketToTakepartMemberService.update(vieRedPacketToTakepartMember);
-		return vieRedPacketToTakepartMember;
+		RedPacketTakepartMember redPacketTakepartMember = (RedPacketTakepartMember)filterManager.getObject(RedPacketTakepartMember.class);
+		vieRedPacketTakepartMemberService.update(redPacketTakepartMember);
+		return redPacketTakepartMember;
 	}
 
 	@Override
