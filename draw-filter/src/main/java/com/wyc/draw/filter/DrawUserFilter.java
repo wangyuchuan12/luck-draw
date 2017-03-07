@@ -65,6 +65,7 @@ public class DrawUserFilter extends Filter{
 			Account account = new Account();
 			account.setAmountBalance(new BigDecimal("0"));
 			account.setCanTakeOutCount(3);
+			account.setWisdomCount(0l);
 			account = accountService.add(account);
 			drawUser.setAccountId(account.getId());
 			drawUserService.update(drawUser);

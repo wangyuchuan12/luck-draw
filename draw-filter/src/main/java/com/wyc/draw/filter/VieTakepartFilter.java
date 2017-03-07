@@ -61,10 +61,7 @@ public class VieTakepartFilter extends Filter{
 				account.setWisdomCount(account.getWisdomCount()-redPacket.getWisdomCount());
 				
 				accountService.update(account);
-				
-				redPacket.setGetWisdomCount(redPacket.getGetWisdomCount()+redPacket.getWisdomCount());
-				
-				filterManager.update(redPacket);
+
 			}
 		}
 		RedPacketTakepartMember vieRedPacketTakepartMember = new RedPacketTakepartMember();

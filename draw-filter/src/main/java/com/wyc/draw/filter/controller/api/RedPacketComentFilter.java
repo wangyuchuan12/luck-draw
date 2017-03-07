@@ -14,6 +14,7 @@ import com.wyc.draw.domain.RedPacketToComent;
 import com.wyc.draw.domain.param.RedPacketComentParam;
 import com.wyc.draw.filter.controller.param.RedPacketComentParamFilter;
 import com.wyc.draw.service.RedPacketComentService;
+import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketToComentService;
 
 public class RedPacketComentFilter extends Filter{
@@ -23,6 +24,9 @@ public class RedPacketComentFilter extends Filter{
 	
 	@Autowired
 	private RedPacketToComentService redPacketToComentService;
+	
+	@Autowired
+	private RedPacketService redPacketService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		RedPacketComentParam redPacketComentParam = (RedPacketComentParam)filterManager.getObject(RedPacketComentParam.class);
@@ -44,6 +48,16 @@ public class RedPacketComentFilter extends Filter{
 		redPacketComent.setUsefulStar(redPacketComentParam.getUsefulStar());
 		
 		redPacketComent = redPacketComentService.add(redPacketComent);
+		
+		if(redPacketComentParam.getType()==0){
+			RedPacket redPacket = redPacketService.findOne(redPacketComentParam.getRedPacketId());
+			
+			redPacket.setGetWisdomCount(redPacket.getGetWisdomCount()+2);
+			
+			filterManager.update(redPacket);
+		}else if(redPacketComentParam.getType()==1){
+			
+		}
 		
 		RedPacketToComent redPacketToComent = redPacketToComentService.findByRedPacketId(redPacketComentParam.getRedPacketId());
 		redPacketToComentService.commentRedPacket(redPacketToComent, redPacketComentParam.getAccordStar(), redPacketComentParam.getUsefulStar(), redPacketComentParam.getInterestingStar(),redPacketComentParam.getType());

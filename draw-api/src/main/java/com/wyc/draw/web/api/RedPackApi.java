@@ -247,6 +247,8 @@ public class RedPackApi {
 		}
 	}
 	
+	
+	@Transactional
 	@RequestMapping(value="coment")
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=RedPacketComentFilter.class)

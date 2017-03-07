@@ -44,6 +44,8 @@
 		
 		<input name="isWisdom" value="${redPacketInfo.isWisdom}" type="hidden"/>
 		
+		<input name="getWisdom" value="${redPacketInfo.getWisdomCount}" type="hidden"/>
+		
 		<c:if test="${coment!=null}">
 			<input name="status" value="1" type="hidden"/>
 		</c:if>
@@ -135,7 +137,7 @@
 				
 				<div class="vie_luck_info_detail_item">
 					<div class="vie_luck_info_detail_item_label">累积智慧豆:</div>
-					<div class="vie_luck_info_detail_item_text">${redPacketInfo.wisdomCount}颗</div>
+					<div class="vie_luck_info_detail_item_text" id="getWisdomItemText">${redPacketInfo.getWisdomCount}颗</div>
 				</div>
 				
 				<div class="vie_luck_info_detail_item" id="publicCommendItem">
@@ -620,8 +622,16 @@
 							$("input[name=status]").val(1);
 							if(type==0){
 								$("input[name=goodNum]").val($("input[name=goodNum]").val()*1+1);
+								
+								
 							}else if(type==1){
 								$("input[name=badNum]").val($("input[name=badNum]").val()*1+1);
+								
+								var getWisdom = $("input[name=getWisdom]").val();
+								getWisdom = parseInt(getWisdom);
+								getWisdom = getWisdom+2;
+								
+								$("#getWisdomItemText").text(getWisdom+"颗");
 							}
 							comment();
 							

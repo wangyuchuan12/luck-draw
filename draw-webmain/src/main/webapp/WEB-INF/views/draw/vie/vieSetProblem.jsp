@@ -26,6 +26,8 @@
 	<input name="redPacketId" value="${redPacketProblem.redPacketId}" type="hidden"/> 
 	
 	<input name="id" value="${redPacketProblem.id}" type="hidden"/> 
+	
+	<input name="count" value="${redPacketProblem.count}" type="hidden"/>
 	<div class="vie_problem">
 		<div class="view_problem_title">第${redPacketProblem.seq}/${redPacketProblem.count}题</div>
 		<div class="view_problem_submit" id = "view_problem_submit">提交</div>
@@ -156,7 +158,7 @@
 				
 				<li id="delButton">
 					<span class="fa fa-minus"></span>
-					<div class="vie_problem_answer_button_text">删除该题</div>
+					<div class="vie_problem_answer_button_text">刷新</div>
 				</li>
 				
 				<li id="addOptionButton">
@@ -290,7 +292,6 @@
 			
 			var nextOption = $("input[name=nextOption]").val();
 			if(status=="0"){
-				$("#delButton").css("background","#cccccc");
 				$("#nextButton").css("background","#cccccc");
 			}else{
 				$("#nextButton").click(function(){
@@ -321,8 +322,18 @@
 		});
 		$(document).ready(function(){
 			
+			$("#delButton").click(function(){
+				location.reload();
+			});
 
 			$("#view_problem_submit").click(function(){
+				
+				var count = $("input[name=count]").val();
+				count = parseInt(count);
+				if(count<5){
+					showToast("题目数量不能少于4");
+					return;
+				}
 				var url = "/api/vie/draw/vie_red_pack/submit_problem";
 				var params = new Object();
 				
@@ -378,6 +389,7 @@
 		
 		
 		function save(){
+			
 			initData();
 			var optionMap = new Object();
 			var addList = new Array();
@@ -386,15 +398,30 @@
 			optionMap.add = addList;
 			optionMap.update = updateList;
 			optionMap.del = delList;
+			var flag = false;
 			for(var i = 0 ;i<addArray.length;i++){
+				
+				if(addArray[i].attr("isRight")==1){
+					flag = true;
+				}
 				var addMap = new Object();
 				addMap.isRight = addArray[i].attr("isRight");
 				addMap.seq = addArray[i].attr("seq");
 				addMap.content = addArray[i].children("textarea").val();
+				
+				if(!addMap.content){
+					showToast("选项内容不能为空");
+					return;
+				}
 				addList.push(addMap);
 			}
 			
 			for(var i = 0;i<updateArray.length;i++){
+				
+			
+				if(!updateArray[i].attr("isRight")==1){
+					flag = true;
+				}
 				var updateMap = new Object();
 				updateMap.id = updateArray[i].attr("id");
 				
@@ -403,8 +430,26 @@
 				updateMap.seq = updateArray[i].attr("seq");
 				updateMap.content = updateArray[i].children("textarea").val();
 				
+				if(!updateMap.content){
+					showToast("选项内容不能为空");
+					return;
+				}
+				
 				updateList.push(updateMap);
 			}
+			
+			var question = $("textarea[name=question]").val();
+			if(!question){
+				showToast("输入的问题内容不能为空");
+				return;
+			}
+			
+			if(!flag){
+				showToast("请选择一个正确答案");
+				return;
+			}
+			
+			
 			
 			for(var i = 0;i<delArray.length;i++){
 
@@ -417,7 +462,7 @@
 			
 			var isFirst = $("input[name=isFirst]").val();
 			
-			var question = $("textarea[name=question]").val();
+			
 			
 			var redPacketId = $("input[name=redPacketId]").val();
 			

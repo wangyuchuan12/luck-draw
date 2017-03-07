@@ -257,6 +257,10 @@
 		$(".loading").css("display","none");
 	}
 	
+	function hideRedPacketTypes(){
+		
+	}
+	
 	function showRedPacketTypes(){
 		$(".redPacketTypes").animate({
 			bottom:0
@@ -265,9 +269,14 @@
 				hideRedPacketTypes();
 			});
 		});
+	}
+	
+	function hideRedPacketTypes(){
+		$(".redPacketTypes").animate({
+			bottom:-200
+		},2000);
 		
-
-		
+		$(".container").unbind("click");
 	}
 	
 	function showSmartAlert(){
