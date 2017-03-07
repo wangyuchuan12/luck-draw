@@ -54,6 +54,23 @@
 	<div class="redPacketAlertButton">查看钱包</div>
 </div>
 
+<div class="smartAlert">
+	<div class="smartAlertContext">你没有门票，请参加专题下的任务获取</div>
+	
+	<div class="smartAlertButton">确定</div>
+</div>
+
+<div class="smartConfirm">
+	<div class="smartConfirmContext">你没有门票，请参加专题下的任务获取</div>
+	
+	<div class="smartConfirmButtons">
+		<div class="smartConfirmButtonNo">否</div>
+		
+		<div class="smartConfirmButtonYes">是</div>
+	</div>
+	
+</div>
+
 <div class="toast" style="display: none;">余额不足，请稍后再试</div>
 
 <input name="signature" value="${signature}" type="hidden"/>
@@ -253,12 +270,14 @@
 		
 	}
 	
-	function hideRedPacketTypes(){
-		$(".redPacketTypes").animate({
-			bottom:-200
-		},2000);
-		
-		$(".container").unbind("click");
+	function showSmartAlert(){
+		$(".smartAlert").animate({
+			bottom:0
+		},1000,function(){
+			$(".container").click(function(){
+				hideSmartAlert();
+			});
+		});
 	}
 	
 	$(document).ready(function(){
@@ -288,6 +307,52 @@
         });
 	}
 	
+	
+	function showSmartAlert(alertContext,buttonText,fun){
+		
+		$(".smartAlert .smartAlertContext").text(alertContext);
+		$(".smartAlert .smartAlertButton").text(buttonText);
+		$(".smartAlert .smartAlertButton").click(function(){
+			
+			layer.closeAll();
+			fun.call();
+		});
+		var smartAlert = layer.open({
+			type:1,
+			title:false,
+			shadeClose:false,
+			shade:[0.1,'#000'],
+			area:['250px',"150px"],
+			content:$(".smartAlert")
+		});
+		
+		return smartAlert;
+	}
+	
+	function showSmartConfirm(context,button1Text,button2Text,fun1,fun2){
+		$(".smartConfirm .smartConfirmContext").text(context);
+		$(".smartConfirm .smartConfirmButtons .smartConfirmButtonNo").text(button1Text);
+		$(".smartConfirm .smartConfirmButtons .smartConfirmButtonYes").text(button2Text);
+		$(".smartConfirm .smartConfirmButtons .smartConfirmButtonNo").click(function(){
+			layer.closeAll();
+			fun1.call();
+		});
+		
+		$(".smartConfirm .smartConfirmButtons .smartConfirmButtonYes").click(function(){
+			layer.closeAll();
+			fun2.call();
+		});
+		var smartConfirm = layer.open({
+			type:1,
+			title:false,
+			shadeClose:false,
+			shade:[0.1,'#000'],
+			area:['300px',"150px"],
+			content:$(".smartConfirm")
+		});
+		
+		return smartAlert;
+	}
 	
 	function showRedPacketAlert(alertContext,buttonText,fun){
 		$(".redPacketAlert .redPacketAlertContext").text(alertContext);

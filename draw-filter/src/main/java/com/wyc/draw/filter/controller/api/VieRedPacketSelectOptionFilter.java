@@ -41,7 +41,6 @@ public class VieRedPacketSelectOptionFilter extends Filter{
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
 		filterClasses.add(VieRedPacketSelectOptionParamFilter.class);
 		filterClasses.add(VieSelectOptionFilter.class);
-		filterClasses.add(VieSelectOptionUpdateFilter.class);
 		return filterClasses;
 	}
 

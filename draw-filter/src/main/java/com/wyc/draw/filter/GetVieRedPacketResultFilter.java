@@ -60,8 +60,6 @@ public class GetVieRedPacketResultFilter extends Filter{
 			vieProblemAnswerVo.setId(vieRedPacketProblem.getId());
 			vieProblemAnswerVo.setQuestion(vieRedPacketProblem.getQuestion());
 			vieProblemAnswerVo.setSeq(vieRedPacketProblem.getSeq());
-			
-			
 			VieRedPacketTakepartMemberRecord vieRedPacketTakepartMemberRecord = vieRedPacketTakepartMemberRecordService.findByMemberIdAndVieRedPacketProblemId(vieRedPacketTakepartMember.getId(),vieRedPacketProblem.getId());
 			if(vieRedPacketTakepartMemberRecord!=null){
 				vieProblemAnswerVo.setTimelong(vieRedPacketTakepartMemberRecord.getTimeLong());

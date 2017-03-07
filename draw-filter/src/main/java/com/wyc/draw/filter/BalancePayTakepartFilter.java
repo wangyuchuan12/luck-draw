@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.domain.Account;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
+import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.VieRedPacketToTakepartMember;
@@ -20,6 +21,9 @@ public class BalancePayTakepartFilter extends Filter{
 	
 	@Autowired
 	private RedPacketTakepartMemberService redPacketTakepartMemberService;
+	
+	@Autowired
+	private AccountService accountService;
 	@Override
 	public Object handlerBefore(SessionManager sessionManager) throws Exception {
 		
@@ -55,6 +59,8 @@ public class BalancePayTakepartFilter extends Filter{
 		
 		account.setAmountBalance(accountBalance);
 		
+		accountService.update(account);
+		
 		vieRedPacketTakepartMember.setIsPay(1);
 		
 		redPacketTakepartMemberService.update(vieRedPacketTakepartMember);
@@ -64,8 +70,12 @@ public class BalancePayTakepartFilter extends Filter{
 
 		sessionManager.save(vieRedPacketToTakepartMember);
 		
+		sessionManager.update(vieRedPacketToTakepartMember);
+		
 		vieRedPacketToTakepartMember = (VieRedPacketToTakepartMember)sessionManager.getObject(VieRedPacketToTakepartMember.class);
 
+		sessionManager.update(vieRedPacketToTakepartMember);
+		
 		return resultVo;
 
 	}

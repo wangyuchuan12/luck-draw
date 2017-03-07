@@ -8,12 +8,16 @@ import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+
+import com.wyc.common.domain.Account;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
+import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketAmountDistribution;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.VieRedPacketOption;
@@ -48,6 +52,10 @@ public class VieSelectOptionFilter extends Filter{
 	
 	@Autowired
 	private RedPacketAmountDistributionService redPacketAmountDistributionService;
+	
+	@Autowired
+	private AccountService accountService;
+
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -189,6 +197,35 @@ public class VieSelectOptionFilter extends Filter{
 		}
 		
 		
+		if(vieRedPacketTakepartMember.getIsComplete()==1){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("该用户已经参与完成");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		if(vieRedPacketTakepartMember.getIsPay()==0){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("该用户未支付");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		RedPacket redPacket = filterManager.findOne(RedPacket.class,vieRedPacketTakepartMember.getRedPacketId());
+		
+		if(redPacket.getReceiveNum()>=redPacket.getPlacesNum()){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("该红包已经领取完成");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
 		VieRedPacketProblem vieRedPacketProblem = vieRedPacketProblemService.findOne(problemId);
 		
 		if(vieRedPacketProblem==null){
@@ -209,6 +246,11 @@ public class VieSelectOptionFilter extends Filter{
 			vieRedPacketTakepartMemberRecord.setIsRight(0);
 			optionSelectVo.setIsRight(0);
 			optionSelectVo.setIsTimeout(1);
+			Long wrongCount = vieRedPacketTakepartMember.getWrongCount();
+			if(wrongCount==null){
+				wrongCount=0L;
+			}
+			vieRedPacketTakepartMember.setWrongCount(wrongCount+1);
 		}else{
 			if(CommonUtil.isEmpty(optionId)){
 				ResultVo resultVo = new ResultVo();
@@ -289,7 +331,7 @@ public class VieSelectOptionFilter extends Filter{
 			BigDecimal countBigDecimal = new BigDecimal(rightCount+wrongCount);
 			
 			PageRequest pageRequest = new PageRequest(0, 10);
-			List<RedPacketAmountDistribution> redPacketAmountDistributions = redPacketAmountDistributionService.findAllByRedPacketIdOrderBySeqAsc(vieRedPacketTakepartMember.getRedPacketId(),pageRequest);
+			List<RedPacketAmountDistribution> redPacketAmountDistributions = redPacketAmountDistributionService.findAllByRedPacketIdOrderBySeqAsc(vieRedPacketTakepartMember.getRedPacketId(),Constant.NOT_DISTRIBUTION_STATUS,pageRequest);
 			
 			Collections.sort(redPacketAmountDistributions, new Comparator<RedPacketAmountDistribution>() {
 
@@ -308,26 +350,102 @@ public class VieSelectOptionFilter extends Filter{
 			
 			//90分以上
 			}else if(rightCountBigDecimal.divide(countBigDecimal,2, BigDecimal.ROUND_HALF_UP).floatValue()>0.9){
-				int randInt = random.nextInt(new BigDecimal(redPacketAmountDistributions.size()*0.2).intValue());
+				int baseNum =  new BigDecimal(redPacketAmountDistributions.size()*0.2).intValue();
+				if(baseNum<1){
+					baseNum=1;
+				}
+				int randInt = random.nextInt(baseNum);
+				
+				if(randInt<1){
+					randInt=0;
+				}
+				
+				if(randInt>redPacketAmountDistributions.size()-1){
+					randInt = redPacketAmountDistributions.size()-1;
+				}
 				selectDistribution = redPacketAmountDistributions.get(randInt);
 			//80到90分
 			}else if(rightCountBigDecimal.divide(countBigDecimal,2, BigDecimal.ROUND_HALF_UP).floatValue()>0.8){
-				int randInt = random.nextInt(new BigDecimal(redPacketAmountDistributions.size()*0.4).intValue());
+				
+				int baseNum = new BigDecimal(redPacketAmountDistributions.size()*0.4).intValue();
+				if(baseNum<1){
+					baseNum=1;
+				}
+				int randInt = random.nextInt(baseNum);
 				
 				randInt = randInt+new BigDecimal(redPacketAmountDistributions.size()*0.2).intValue();
 				
+				if(randInt<1){
+					randInt=0;
+				}
+				if(randInt>redPacketAmountDistributions.size()-1){
+					randInt = redPacketAmountDistributions.size()-1;
+				}
 				selectDistribution = redPacketAmountDistributions.get(randInt);
 			}else if(rightCountBigDecimal.divide(countBigDecimal,2, BigDecimal.ROUND_HALF_UP).floatValue()>0.6){
-				int randInt = random.nextInt(new BigDecimal(redPacketAmountDistributions.size()*0.6).intValue());
+				
+				int baseNum = new BigDecimal(redPacketAmountDistributions.size()*0.6).intValue();
+				
+				if(baseNum<1){
+					baseNum=1;
+				}
+				int randInt = random.nextInt(baseNum);
 				randInt = randInt + new BigDecimal(redPacketAmountDistributions.size()*0.3).intValue();
+				
+				if(randInt<1){
+					randInt=0;
+				}
+				if(randInt>redPacketAmountDistributions.size()-1){
+					randInt = redPacketAmountDistributions.size();
+				}
 				selectDistribution = redPacketAmountDistributions.get(randInt);
 			}else{
-				int randInt = random.nextInt(new BigDecimal(redPacketAmountDistributions.size()*0.8).intValue());
+				
+				int baseNum = new BigDecimal(redPacketAmountDistributions.size()*0.8).intValue();
+				if(baseNum<1){
+					baseNum=1;
+				}
+				int randInt = random.nextInt(baseNum);
 				randInt = randInt + new BigDecimal(redPacketAmountDistributions.size()*0.2).intValue();
+				
+				if(randInt<1){
+					randInt=0;
+				}
+				if(randInt>redPacketAmountDistributions.size()-1){
+					randInt = redPacketAmountDistributions.size()-1;
+				}
 				selectDistribution = redPacketAmountDistributions.get(randInt);
 			}
 			
+			
+			Account account  = accountService.fineOneSync(drawUser.getAccountId());
+			account.setAmountBalance(account.getAmountBalance().add(selectDistribution.getAmount()));
+			accountService.update(account);
+			
 			vieRedPacketTakepartMember.setGetAmount(selectDistribution.getAmount());
+			selectDistribution.setStatus(Constant.ALEADY_RECEIVE_STATUS);
+		
+			filterManager.update(selectDistribution);
+			
+			
+			
+			BigDecimal receiveAmount = redPacket.getReceiveAmount();
+			
+			if(receiveAmount==null){
+				receiveAmount = new BigDecimal("0");
+			}
+
+			redPacket.setReceiveAmount(receiveAmount.add(selectDistribution.getAmount()));
+			
+			Integer receiveNum = redPacket.getReceiveNum();
+			if(receiveNum==null){
+				receiveNum = 0;
+			}
+			
+			redPacket.setReceiveNum(receiveNum+1);
+			
+			filterManager.update(redPacket);
+			
 			List<RedPacketTakepartMember> bestTakepartMembers = vieRedPacketTakepartMemberService.findAllByRedPacketIdAndIsBest(vieRedPacketTakepartMember.getRedPacketId(),1);
 			//设置最佳答案
 			if(bestTakepartMembers==null||bestTakepartMembers.size()==0){
@@ -355,20 +473,23 @@ public class VieSelectOptionFilter extends Filter{
 			}
 			
 			vieRedPacketToTakepartMember.setGetAmount(vieRedPacketTakepartMember.getGetAmount());
-			vieRedPacketToTakepartMemberService.update(vieRedPacketToTakepartMember);
+//			vieRedPacketToTakepartMemberService.update(vieRedPacketToTakepartMember);
+			
+			filterManager.update(vieRedPacketToTakepartMember);
 		}else{
 			optionSelectVo.setIsLast(0);
 		}
-
-		
-		vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.update(vieRedPacketTakepartMember);
 		vieRedPacketTakepartMemberRecord.setTimeLong(timeLongFloat);
 		vieRedPacketTakepartMemberRecord.setMemberId(memberId);
+
 		vieRedPacketTakepartMemberRecord = vieRedPacketTakepartMemberRecordService.add(vieRedPacketTakepartMemberRecord);
+		
 		
 		
 		filterManager.save(vieRedPacketTakepartMember);
 		filterManager.save(vieRedPacketToTakepartMember);
+		filterManager.update(vieRedPacketTakepartMember);
+		filterManager.update(vieRedPacketToTakepartMember);
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setData(optionSelectVo);

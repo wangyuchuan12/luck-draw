@@ -20,7 +20,7 @@ public class RedPacketIsPayTestFilter extends Filter{
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
 		RedPacket redPacket = (RedPacket)filterManager.getObject(RedPacket.class);
-		
+
 		if(redPacket.getIsPay()==1){
 			return null;
 		}

@@ -11,6 +11,6 @@ public interface RedPacketAmountDistributionRepository extends CrudRepository<Re
 
 	List<RedPacketAmountDistribution> findAllByRedPacketIdOrderBySeqAsc(String redPacketId);
 
-	List<RedPacketAmountDistribution> findAllByRedPacketIdOrderBySeqAsc(String redPacketId, Pageable pageable);
+	List<RedPacketAmountDistribution> findAllByRedPacketIdAndStatusOrderBySeqAsc(String redPacketId, int status,Pageable pageable);
 
 }

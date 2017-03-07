@@ -31,8 +31,14 @@ public class RedPacketAmountDistributionService {
 		return redPacketAmountDistributionRepository.findAllByRedPacketIdOrderBySeqAsc(redPacketId);
 	}
 	
-	public List<RedPacketAmountDistribution> findAllByRedPacketIdOrderBySeqAsc(String redPacketId,Pageable pageable) {
-		return redPacketAmountDistributionRepository.findAllByRedPacketIdOrderBySeqAsc(redPacketId,pageable);
+	public List<RedPacketAmountDistribution> findAllByRedPacketIdOrderBySeqAsc(String redPacketId,int status,Pageable pageable) {
+		return redPacketAmountDistributionRepository.findAllByRedPacketIdAndStatusOrderBySeqAsc(redPacketId,status,pageable);
+	}
+
+	public void update(RedPacketAmountDistribution selectDistribution) {
+		selectDistribution.setUpdateAt(new DateTime());
+		redPacketAmountDistributionRepository.save(selectDistribution);
+		
 	}
 
 }

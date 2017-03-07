@@ -71,7 +71,7 @@ public class RedPacket {
 	//红包截止时长
 	@ParamAnnotation
 	@Column(name="time_long")
-	private int timeLong;
+	private Integer timeLong;
 	
 	//红包金额
 	@ParamAnnotation
@@ -254,15 +254,27 @@ public class RedPacket {
 	@Column(name="wisdom_count")
 	private Long wisdomCount;
 	
+	//积累智慧豆数量
+	@ParamAnnotation
+	@Column(name="get_wisdom_count")
+	private Long getWisdomCount;
 	//是否需要智慧豆
 	@ParamAnnotation
 	@Column(name="is_wisdom")
 	private Integer isWisdom;
 	
+	//已经被领取的数量
+	@ParamAnnotation
+	@Column(name="receive_amount")
+	private BigDecimal receiveAmount;
+	
+	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime createAt;
+	
+	@ParamAnnotation
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -372,10 +384,10 @@ public class RedPacket {
 	public void setHandTime(DateTime handTime) {
 		this.handTime = handTime;
 	}
-	public int getTimeLong() {
+	public Integer getTimeLong() {
 		return timeLong;
 	}
-	public void setTimeLong(int timeLong) {
+	public void setTimeLong(Integer timeLong) {
 		this.timeLong = timeLong;
 	}
 	public BigDecimal getAmount() {
@@ -545,6 +557,18 @@ public class RedPacket {
 	}
 	public void setIsWisdom(Integer isWisdom) {
 		this.isWisdom = isWisdom;
+	}
+	public BigDecimal getReceiveAmount() {
+		return receiveAmount;
+	}
+	public void setReceiveAmount(BigDecimal receiveAmount) {
+		this.receiveAmount = receiveAmount;
+	}
+	public Long getGetWisdomCount() {
+		return getWisdomCount;
+	}
+	public void setGetWisdomCount(Long getWisdomCount) {
+		this.getWisdomCount = getWisdomCount;
 	}
 	
 	

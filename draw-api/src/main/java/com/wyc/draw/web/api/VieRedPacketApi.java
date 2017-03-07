@@ -68,7 +68,7 @@ public class VieRedPacketApi {
 		
 		
 	}
-	
+	@Transactional
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=VieRedPacketSelectOptionFilter.class)
 	@RequestMapping(value="select_option")

@@ -131,6 +131,11 @@ public class GetRedPackInfoFilter extends Filter{
 		
 		redPacketVo.setWisdomCount(redPacket.getWisdomCount());
 		
+		redPacketVo.setReceiveAmount(redPacket.getReceiveAmount());
+		
+		redPacketVo.setReceiveNum(redPacket.getReceiveNum());
+		
+		redPacketVo.setGetWisdomCount(redPacket.getGetWisdomCount());
 		
 		Integer shareNumShowAnswer = redPacket.getShareNumShowAnswer();
 		

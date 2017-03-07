@@ -30,8 +30,6 @@ public class RedPacketGetterHandlerFilter extends Filter{
 			return null;
 		}
 		RedPacket redPacket = redPacketService.findOne(redPacketId);
-		
-		System.out.println("..................redPacket:"+redPacket);
 		return redPacket;
 	}
 

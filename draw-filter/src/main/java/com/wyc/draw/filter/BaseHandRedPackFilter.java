@@ -27,11 +27,13 @@ import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketAmountDistribution;
+import com.wyc.draw.domain.RedPacketToComent;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawRoomService;
 import com.wyc.draw.service.DrawUserService;
 import com.wyc.draw.service.RedPacketAmountDistributionService;
 import com.wyc.draw.service.RedPacketService;
+import com.wyc.draw.service.RedPacketToComentService;
 import com.wyc.draw.vo.RedPacketVo;
 
 
@@ -58,6 +60,9 @@ public class BaseHandRedPackFilter extends Filter{
 	
 	@Autowired
 	private RedPacketAmountDistributionService redPacketAmountDistributionService;
+	
+	@Autowired
+	private RedPacketToComentService redPacketToComentService;
 	
 	@Autowired
 	private WxContext wxContext;
@@ -114,7 +119,7 @@ public class BaseHandRedPackFilter extends Filter{
 		}
 		
 		if(CommonUtil.isEmpty(placeNum)){
-			placeNum = "100";
+			placeNum = "5";
 		}
 		
 		Integer placeNumInt = Integer.parseInt(placeNum);
@@ -265,6 +270,12 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setPlacesNum(placeNumInt);
 		
 		redPacket.setIsRoom(isRoomInt);
+		
+		redPacket.setReceiveNum(0);
+		
+		redPacket.setReceiveAmount(new BigDecimal(0));
+		
+		redPacket.setGetWisdomCount(0l);
 		
 		if(wisdomCountInt==0){
 			redPacket.setIsWisdom(0);
@@ -559,6 +570,31 @@ public class BaseHandRedPackFilter extends Filter{
 			redPacketAmountDistribution.setStatus(Constant.NOT_DISTRIBUTION_STATUS);
 			redPacketAmountDistributionService.add(redPacketAmountDistribution);
 		}
+		
+		RedPacketToComent redPacketToComent = new RedPacketToComent();
+		redPacketToComent.setAccordStar1Num(0);
+		redPacketToComent.setAccordStar2Num(0);
+		redPacketToComent.setAccordStar3Num(0);
+		redPacketToComent.setAccordStar4Num(0);
+		redPacketToComent.setAccordStar5Num(0);
+		
+		redPacketToComent.setInterestingStar1Num(0);
+		redPacketToComent.setInterestingStar2Num(0);
+		redPacketToComent.setInterestingStar3Num(0);
+		redPacketToComent.setInterestingStar4Num(0);
+		redPacketToComent.setInterestingStar5Num(0);
+		
+		redPacketToComent.setUsefulStar1Num(0);
+		redPacketToComent.setUsefulStar2Num(0);
+		redPacketToComent.setUsefulStar3Num(0);
+		redPacketToComent.setUsefulStar4Num(0);
+		redPacketToComent.setUsefulStar5Num(0);
+		
+		
+		redPacketToComent.setBadCommentNum(0);
+		redPacketToComent.setGoodCommentNum(0);
+		redPacketToComent.setRedPacketId(redPacket.getId());
+		redPacketToComent = redPacketToComentService.add(redPacketToComent);
 		return redPacketVo;
 	}
 	

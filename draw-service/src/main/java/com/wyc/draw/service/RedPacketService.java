@@ -1,7 +1,10 @@
 package com.wyc.draw.service;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,7 +30,8 @@ public class RedPacketService {
 	}
 
 	public RedPacket findOne(String id) {
-		return redPackageRepository.findOne(id);
+		RedPacket redPacket = redPackageRepository.findOne(id);
+		return redPacket;
 	}
 
 	public RedPacket update(RedPacket redPacket) {

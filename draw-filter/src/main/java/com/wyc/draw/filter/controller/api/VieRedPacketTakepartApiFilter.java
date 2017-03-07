@@ -46,7 +46,7 @@ public class VieRedPacketTakepartApiFilter extends Filter{
 		
 		filterClasses.add(VieTakepartFilter.class);
 		
-		filterClasses.add(VieTakepartUpdateFilter.class);
+	//	filterClasses.add(VieTakepartUpdateFilter.class);
 		
 		return filterClasses;
 	}

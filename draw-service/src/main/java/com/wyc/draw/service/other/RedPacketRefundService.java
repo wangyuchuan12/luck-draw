@@ -101,12 +101,10 @@ public class RedPacketRefundService {
 				articles.add(article);
 				sendMessageService.sendImgMessage(drawUser.getOpenid(), articles);
 			}else{
-				System.out.println("不在范围，注意：这是一个很严重的错误，肯定是代码哪里有遗漏的地方");
 				
 				logger.error("不在范围，注意：这是一个很严重的错误，肯定是代码哪里有遗漏的地方");
 			}
 		}else{
-			System.out.println("不在范围，注意：这是一个很严重的错误，肯定是代码哪里有遗漏的地方");
 			logger.error("不在范围，注意：这是一个很严重的错误，肯定是代码哪里有遗漏的地方");
 		}
 		return null;

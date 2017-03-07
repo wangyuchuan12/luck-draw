@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import javax.print.attribute.standard.RequestingUserName;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -20,6 +18,7 @@ import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.alibaba.druid.filter.FilterManager;
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.annotation.ParamClassAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
@@ -105,6 +104,7 @@ public class ManagerInterceptConfig {
 			 
 			 
 			 SessionManager filterManager = SessionManager.getFilterManager(httpServletRequest, paramType);
+			 factory.autowireBean(filterManager);
 			 if(proceedingJoinPoint.getArgs().length>1){
 				 HttpServletResponse httpServletResponse = (HttpServletResponse)proceedingJoinPoint.getArgs()[1];
 				 
@@ -142,6 +142,8 @@ public class ManagerInterceptConfig {
 				 if(resultVo==null){
 					 resultVo = (ResultVo)filterManager.getReturnValue();
 				 }
+				 
+				 filterManager.commitUpdate();
 				 if(resultVo!=null&&resultVo.isSuccess()==false){
 					 Transactional transactional = method.getAnnotation(Transactional.class);
 					 if(transactional!=null){
@@ -162,8 +164,10 @@ public class ManagerInterceptConfig {
 		 }else{
 			 HttpServletRequest httpServletRequest = (HttpServletRequest)proceedingJoinPoint.getArgs()[0];
 			 SessionManager filterManager = SessionManager.getFilterManager(httpServletRequest, Map.class);
+			 factory.autowireBean(filterManager);
 			 try{
 				 returnValue = proceedingJoinPoint.proceed();
+				 filterManager.commitUpdate();
 			 }catch(Exception e){
 				 logger.error("has an error:{}",e);
 				 Transactional transactional = method.getAnnotation(Transactional.class);
@@ -173,7 +177,10 @@ public class ManagerInterceptConfig {
 				 
 			 }
 			 
+			 
 		 }
+		 
+		 
 		 
 		 return returnValue;
 	 }

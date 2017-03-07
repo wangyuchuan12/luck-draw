@@ -18,7 +18,7 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
-import com.wyc.common.util.MyLongDateFormat;
+import com.wyc.common.util.MySimpleDateFormat;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.service.VieRedPacketTakepartMemberService;
@@ -30,7 +30,7 @@ public class GetVieRedPacketTakepartMemberListByRedPacketOfPageFilter extends Fi
 	private VieRedPacketTakepartMemberService vieRedPacketTakepartMemberService;
 	
 	@Autowired
-	private MyLongDateFormat mySimpleDateFormat;
+	private MySimpleDateFormat mySimpleDateFormat;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		
@@ -102,8 +102,6 @@ public class GetVieRedPacketTakepartMemberListByRedPacketOfPageFilter extends Fi
 			vieRedPacketTakepartMemberVos.add(vieRedPacketTakepartMemberVo);
 			
 			if(vieRedPacketTakepartMember.getDrawUserId().equals(drawUser.getId())){
-				
-				System.out.println("...............在这里保存了："+vieRedPacketTakepartMemberVo);
 				filterManager.save(vieRedPacketTakepartMemberVo);
 			}
 		}

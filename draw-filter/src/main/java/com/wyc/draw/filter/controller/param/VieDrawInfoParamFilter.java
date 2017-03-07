@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
+import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.domain.param.GetCommentParam;
 import com.wyc.draw.domain.param.VieDrawInfoParam;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 
@@ -17,11 +19,21 @@ public class VieDrawInfoParamFilter extends Filter{
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
+		
+		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		String id = httpServletRequest.getParameter("id");
 		
 		VieDrawInfoParam vieDrawInfoParam = new VieDrawInfoParam();
 		
+		GetCommentParam getCommentParam = new GetCommentParam();
+		
 		vieDrawInfoParam.setRedPacketId(id);
+		
+		getCommentParam.setRedPacketId(id);
+		
+		getCommentParam.setDrawUserId(drawUser.getId());
+		
+		filterManager.save(getCommentParam);
 		
 		String page = httpServletRequest.getParameter("page");
 		String size = httpServletRequest.getParameter("size");
@@ -41,8 +53,6 @@ public class VieDrawInfoParamFilter extends Filter{
 		
 		vieDrawInfoParam.setTakepartMemberPage(pageInt);
 		vieDrawInfoParam.setTakepartMemberSize(sizeInt);
-		
-		System.out.println(".......................................这里有没有进来");
 		return vieDrawInfoParam;
 	}
 

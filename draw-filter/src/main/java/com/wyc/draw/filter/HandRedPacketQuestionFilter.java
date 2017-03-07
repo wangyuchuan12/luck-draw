@@ -339,7 +339,7 @@ public class HandRedPacketQuestionFilter extends Filter{
 		}
 		VieRedPacketProblemVo vieRedPacketProblemVo = new VieRedPacketProblemVo();
 		vieRedPacketProblemVo.setId(vieRedPacketProblem.getId());
-		
+		vieRedPacketProblemVo.setRedPacketId(vieRedPacketProblem.getRedPacketId());
 		return vieRedPacketProblemVo;
 	}
 	

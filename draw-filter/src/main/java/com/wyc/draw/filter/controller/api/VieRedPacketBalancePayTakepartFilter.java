@@ -42,7 +42,7 @@ public class VieRedPacketBalancePayTakepartFilter extends Filter{
 		filterClasses.add(VieDrawTakepartParamFilter.class);
 		filterClasses.add(VieTakepartGetterFilter.class);
 		filterClasses.add(BalancePayTakepartFilter.class);
-		filterClasses.add(BalancePayTakeparUpdateFilter.class);
+	//	filterClasses.add(BalancePayTakeparUpdateFilter.class);
 		return filterClasses;
 	}
 

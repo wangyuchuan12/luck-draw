@@ -19,8 +19,6 @@ public class AccountGetterHandlerFilter extends Filter{
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		Account account = accountService.findOne(drawUser.getAccountId());
-		
-		System.out.println("....................account:"+account);
 		return account;
 	}
 

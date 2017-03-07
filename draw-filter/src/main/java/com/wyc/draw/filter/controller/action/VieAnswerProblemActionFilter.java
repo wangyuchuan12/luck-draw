@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
@@ -22,10 +23,22 @@ public class VieAnswerProblemActionFilter extends Filter{
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		VieRedPacketToTakepartMember vieRedPacketToTakepartMember = (VieRedPacketToTakepartMember)filterManager.getObject(VieRedPacketToTakepartMember.class);
-		vieRedPacketToTakepartMember.setTakepartStatus(Constant.UNDERWAY_TAKEPART_STATUS);
 		
-		vieRedPacketToTakepartMemberService.update(vieRedPacketToTakepartMember);
-		return vieRedPacketToTakepartMember;
+		if(vieRedPacketToTakepartMember.getIsPay()==1){
+			vieRedPacketToTakepartMember.setTakepartStatus(Constant.UNDERWAY_TAKEPART_STATUS);
+			
+			vieRedPacketToTakepartMemberService.update(vieRedPacketToTakepartMember);
+			
+			return vieRedPacketToTakepartMember;
+		}else{
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("该用户未付款");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
+		
 	}
 
 	@Override

@@ -13,7 +13,6 @@ import com.wyc.draw.domain.RedPacket;
 public interface RedPackageRepository extends CrudRepository<RedPacket, String>{
 
 	Page<RedPacket> findAllByDrawRoomId(String roomId, Pageable pageable);
-
 	
 	@Query(value="from com.wyc.draw.domain.RedPacket rp where rp.id in (select mrp.redPacketId from com.wyc.draw.domain.view.MainRedPack mrp where mrp.periodId=:periodId and mrp.isDisplay=1)")
 	List<RedPacket> findAllOfMainByPeriodId(@Param("periodId")String periodId);

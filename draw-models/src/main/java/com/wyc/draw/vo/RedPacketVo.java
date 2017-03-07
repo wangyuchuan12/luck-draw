@@ -199,13 +199,23 @@ public class RedPacketVo {
 	
 	//所需智慧豆
 	@ParamAnnotation
-	@Column(name="wisdom_count")
 	private Long wisdomCount;
 	
 	//是否需要智慧豆
 	@ParamAnnotation
-	@Column(name="is_wisdom")
 	private Integer isWisdom;
+	
+	@ParamAnnotation
+	private BigDecimal receiveAmount;
+	
+	//已经领取的个数
+	@ParamAnnotation
+	private Integer receiveNum;
+	
+	
+	//累计智慧豆数量
+	@ParamAnnotation
+	private Long getWisdomCount;
 	
 	
 	
@@ -219,6 +229,22 @@ public class RedPacketVo {
 
 	
 	
+	public Integer getReceiveNum() {
+		return receiveNum;
+	}
+
+	public void setReceiveNum(Integer receiveNum) {
+		this.receiveNum = receiveNum;
+	}
+
+	public BigDecimal getReceiveAmount() {
+		return receiveAmount;
+	}
+
+	public void setReceiveAmount(BigDecimal receiveAmount) {
+		this.receiveAmount = receiveAmount;
+	}
+
 	public Long getWisdomCount() {
 		return wisdomCount;
 	}
@@ -734,6 +760,14 @@ public class RedPacketVo {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+
+	public Long getGetWisdomCount() {
+		return getWisdomCount;
+	}
+
+	public void setGetWisdomCount(Long getWisdomCount) {
+		this.getWisdomCount = getWisdomCount;
 	}
 	
 	

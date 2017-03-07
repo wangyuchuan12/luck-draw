@@ -77,8 +77,6 @@ public class DoWxShareFilter extends Filter{
 		}
 		
 		
-		System.out.println("..............hrefCode:"+hrefCode);
-		
 		Href href = hrefService.findOneByCode(hrefCode);
 		
 		if(CommonUtil.isEmpty(href)){

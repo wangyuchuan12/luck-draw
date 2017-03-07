@@ -4,19 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
-
-import org.hibernate.annotations.ResultCheckStyle;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
-import com.wyc.common.wx.domain.ShareRecord;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.filter.AddRedPacketPromptFilter;
 import com.wyc.draw.filter.AnswerRedPackFilter;
@@ -27,9 +22,9 @@ import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketPromptsByRedPacketIdFilter;
 import com.wyc.draw.filter.GetTakepartMemberListByRedPacketOfPageFilter;
 import com.wyc.draw.filter.HandRedPacketOptionsFilter;
-import com.wyc.draw.filter.RemindHandRedPackFilter;
 import com.wyc.draw.filter.SetRedPacketIsAmountDisplay;
 import com.wyc.draw.filter.ShareRedPacketFilter;
+import com.wyc.draw.filter.controller.api.RedPacketComentFilter;
 import com.wyc.draw.vo.AnswerRedPacketResultVo;
 import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketPromptListVo;
@@ -241,6 +236,21 @@ public class RedPackApi {
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=HandRedPacketOptionsFilter.class)
 	public ResultVo handRedPacketOption(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		if(sessionManager.isReturn()){
+			return (ResultVo)sessionManager.getReturnValue();
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			
+			return resultVo;
+		}
+	}
+	
+	@RequestMapping(value="coment")
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=RedPacketComentFilter.class)
+	public ResultVo coment(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		
 		if(sessionManager.isReturn()){

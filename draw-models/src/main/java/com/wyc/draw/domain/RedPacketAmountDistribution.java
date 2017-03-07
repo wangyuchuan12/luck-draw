@@ -11,39 +11,53 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wyc.annotation.IdAnnotation;
+import com.wyc.annotation.ParamAnnotation;
+import com.wyc.annotation.ParamEntityAnnotation;
 
+@ParamEntityAnnotation
 @Entity
 @Table(name="d_red_packet_amount_distribution")
 public class RedPacketAmountDistribution {
 	
 	@Id
+	@IdAnnotation
 	private String id;
 	
+	@ParamAnnotation
 	@Column(name="red_packet_id")
 	private String redPacketId;
 	
+	@ParamAnnotation
 	@Column(name="takepart_member_id")
 	private String takepartMemberId;
 	
 	@Column(name="draw_user_id")
 	private String drawUserId;
 	
+	@ParamAnnotation
 	@Column
 	private BigDecimal amount;
 	
+	@ParamAnnotation
 	@Column
 	private Integer seq;
 	
+	@ParamAnnotation
 	@Column
 	private Integer status;
 	
+	@ParamAnnotation
 	@Column(name="receive_time")
 	private DateTime receiveTime;
 	
+	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime createAt;
+	
+	@ParamAnnotation
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore

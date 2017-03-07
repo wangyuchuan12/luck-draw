@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.domain.Account;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
+import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
@@ -23,6 +24,9 @@ public class VieTakepartFilter extends Filter{
 
 	@Autowired
 	private VieRedPacketTakepartMemberService vieRedPacketTakepartMemberService;
+	
+	@Autowired
+	private AccountService accountService;
 	
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
@@ -55,6 +59,12 @@ public class VieTakepartFilter extends Filter{
 				return null;
 			}else{
 				account.setWisdomCount(account.getWisdomCount()-redPacket.getWisdomCount());
+				
+				accountService.update(account);
+				
+				redPacket.setGetWisdomCount(redPacket.getGetWisdomCount()+redPacket.getWisdomCount());
+				
+				filterManager.update(redPacket);
 			}
 		}
 		RedPacketTakepartMember vieRedPacketTakepartMember = new RedPacketTakepartMember();
@@ -88,10 +98,13 @@ public class VieTakepartFilter extends Filter{
 			vieRedPacketToTakepartMember.setIsPay(0);
 			
 		}
-
-		filterManager.save(vieRedPacketTakepartMember);
 		
 		filterManager.save(vieRedPacketToTakepartMember);
+		filterManager.save(vieRedPacketTakepartMember);
+		filterManager.save(redPacket);
+		filterManager.update(vieRedPacketToTakepartMember);
+		filterManager.update(vieRedPacketTakepartMember);
+		filterManager.update(redPacket);
 		
 		ResultVo resultVo = new ResultVo();
 		resultVo.setData(vieRedPacketTakepartMember);

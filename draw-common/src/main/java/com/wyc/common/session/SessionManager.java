@@ -13,15 +13,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleIfStatement.Else;
-import com.sun.net.httpserver.HttpsConfigurator;
 import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
+import com.wyc.common.util.CommonUtil;
 class Param{
 	private String type;
 	private String name;
@@ -103,10 +102,12 @@ public class SessionManager {
 	
 	private HttpServletResponse httpServletResponse;
 	
-	
-	
 	public static final String contextId = UUID.randomUUID().toString();
-	private static final ThreadLocal<SessionManager> filterManagerThreadLocal = new ThreadLocal<>();
+	
+	@Autowired
+	private DbServiceExecuter updateExecuter;
+
+//	private static final ThreadLocal<SessionManager> filterManagerThreadLocal = new ThreadLocal<>();
 	
 	final static Logger logger = LoggerFactory.getLogger(SessionManager.class);
 	
@@ -385,6 +386,8 @@ public class SessionManager {
 		
 		Object obj = type.newInstance();
 		Field[] fields = type.getDeclaredFields();
+		
+		boolean flag = false;
 		for(Field field:fields){
 			field.setAccessible(true);
 			
@@ -396,9 +399,19 @@ public class SessionManager {
 				String name = name(field);
 				Object value = getValue(type, id, name);
 				field.set(obj, value);
+				if(!CommonUtil.isEmpty(value)){
+					flag = true;
+				}else{
+					
+				}
 			}
 		}
-		return obj;
+		
+		if(flag){
+			return obj;
+		}else{
+			return null;
+		}
 		
 	}
 	
@@ -476,6 +489,53 @@ public class SessionManager {
 		return null;
 	}
 	
+	public void commitUpdate()throws Exception{
+		List<Object> updateCache = (List<Object>)httpServletRequest.getAttribute("13738139702updateCache");
+		updateExecuter.update(updateCache);
+	}
+	
+	public <T>T findOne(Class<T> type , String id)throws Exception{
+		Object obj = getObject(type,id);
+		if(obj!=null){
+			System.out.println("。。。。。。。。。。。。。从缓存获取");
+		}else{
+			System.out.println("。。。。。。。。。。。。。。。从数据库获取");
+			obj = updateExecuter.findOne(type, id);
+		}
+		
+		save(obj);
+		return (T)obj;
+	}
+	
+	public void update(Object obj)throws Exception{
+		List<Object> updateCache = null;
+		if(httpServletRequest.getAttribute("13738139702updateCache")!=null){
+			updateCache = (List<Object>)httpServletRequest.getAttribute("13738139702updateCache");
+		}else{
+			updateCache = new ArrayList<>();
+			httpServletRequest.setAttribute("13738139702updateCache", updateCache);
+		}
+		 
+		for(Object cacheObj:updateCache){
+			Class<?> cacheClass = cacheObj.getClass();
+			if(cacheClass.equals(obj.getClass())){
+				Field idField = cacheClass.getDeclaredField("id");
+				idField.setAccessible(true);
+				Object cacheIdValue = idField.get(cacheObj);
+				Object objIdValue = idField.get(obj);
+				if(cacheIdValue.equals(objIdValue)){
+					updateCache.remove(cacheObj);
+					break;
+				}
+			}
+			
+		}
+		
+		save(obj);
+
+		updateCache.add(obj);
+	}
+	
 	public void save(Object obj)throws Exception{
 		
 		Class<?> clazz = obj.getClass();
@@ -510,6 +570,7 @@ public class SessionManager {
 		}else if(paramEntityAnnotation2.type().equals(ParamEntityAnnotation.CONTEXT_TYPE)){
 			rawSaveToContext(idRef(clazz), idValue);
 		}
+		
 	}
 	
 	

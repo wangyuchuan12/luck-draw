@@ -18,9 +18,6 @@
 	position: relative;
 	text-align: center;
 	display:block;
-	
-
-	
 }
 
 
@@ -1913,7 +1910,7 @@ li::before{
 	
 	padding-left: 2%;
 	
-	
+	white-space: normal;
 	
 }
 
@@ -2231,15 +2228,15 @@ li::before{
 
 .foot_button>ul>li>span:first-child{
 	display: block;
-	font-size: 20px;
+	font-size: 15px;
 	
 }
 .foot_button>ul>li>span:first-child>img{
-	width:20px;
-	height:20px;
+	width:15px;
+	height:15px;
 	position: relative;
 	
-	top:5px;
+	top:7px;
 	
 	border-radius:2px;
 }
@@ -2616,6 +2613,128 @@ li::before{
 	text-align: center;
 }
 
+.smartAlert{
+	background-color: RGBA(243,219,190,0.7);
+	width: 250px;
+	height: 150px;
+	text-align: center;
+	color: RGBA(105,33,6,1);
+	display: none;	
+}
+
+.smartConfirm{
+	background-color: RGBA(243,219,190,0.7);
+	width: 300px;
+	height: 150px;
+	text-align: center;
+	display: none;
+}
+
+.smartConfirmContext{
+	top: 30px;
+	
+	position: absolute;
+	
+	padding-left: 20px;
+	
+	padding-right: 20px;
+	
+	font-size: 15px;
+	
+	font-weight: bolder;
+	
+	color: RGBA(105,33,6,1);
+}
+
+
+.smartConfirmButtons{
+	position: absolute;
+	
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	
+	top:100px;
+	
+	width: 100%;
+}
+
+.smartConfirmButtonNo{
+	display: inline-block;
+	
+	width:120px;
+	height:30px;
+	
+	background-color: RGBA(2,124,201,1);
+	
+	color: white;
+	
+	padding-top: 5px;
+	
+	border-radius:5px;
+	
+	font-weight: bolder;
+}
+
+.smartConfirmButtonYes{
+	display:inline-block;
+	width:120px;
+	height:30px;
+	background-color: RGBA(226,172,4,1);
+	
+	color: white;
+	
+	padding-top: 5px;
+	
+	border-radius:5px;
+	
+	font-weight: bolder;
+	
+	margin-left: 20px;
+}
+
+.smartAlertContext{
+	
+	top: 30px;
+	
+	position: absolute;
+	
+	padding-left: 20px;
+	
+	padding-right: 20px;
+	
+	font-size: 15px;
+	
+	font-weight: bolder;
+}
+
+.smartAlertButton{
+	
+	top:110px;
+	
+	position: absolute;
+	
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	
+	background: RGBA(226,172,4,1);
+	
+	color: white;
+	
+	width:100px;
+	
+	height: 40px;
+	
+	font-weight: bolder;
+	
+	padding-top: 5px;
+	
+	font-size: 20px;
+	
+	border-radius:5px;
+}
+
 .redPacketAlertContext{
 	position: absolute;
 	
@@ -2687,4 +2806,119 @@ li::before{
 
 .view_luck_member_takepart_time{
 	padding-left: 10px;
+}
+
+.red_packet_comment{
+	background: white;
+	
+	position: fixed;
+	
+	width:100%;
+	
+	top:800px;
+	
+	height: 100%;
+	
+	display: none;
+	
+}
+
+.red_packet_comment_header{
+	width:100%;
+	
+	
+	height:50px;
+	
+	text-align: center;
+	
+}
+
+.red_packet_comment_header_buttom_left{
+	color: green;
+	
+	display: inline-block;
+
+	
+	float: left;
+
+	
+	font-size: 20px;
+	
+	padding-top: 10px;
+	
+	padding-left: 10px;
+}
+
+.red_packet_comment_header_name{
+	color: black;
+	
+	text-align: center;
+	
+	margin: 0 auto;
+	
+	display: inline-block;
+	
+	padding-top:10px;
+	
+	font-size: 20px;
+	
+	padding-right: 10px;
+}
+
+.red_packet_comment_header_buttom_right{
+	color: green;
+	
+	display: inline-block;
+	
+	padding-right: 10px;
+	
+	float: right;
+	
+	position:relative;
+	
+	padding-top: 15px;
+	
+	font-size: 20px;
+}
+
+.red_packet_comment_star_name{
+	color: black;
+	
+	padding-left: 10px;
+}
+
+.red_packet_comment_star_img{
+
+	display: block;
+	
+	margin: 0 auto;
+	
+	text-align: center;
+	
+	
+	width:300px;
+	
+}
+
+.red_packet_comment_title{
+	
+	color: black;
+	
+	padding-left: 10px;
+}
+
+.red_packet_comment_cotent_input{
+	width:90%;
+	
+	height: 200px;
+	
+	background: white;
+	
+	margin-left: 10px;
+	
+	border:0px solid white;
+	
+	border: 1px solid RGBA(204,204,204,1);
+	
+	
 }

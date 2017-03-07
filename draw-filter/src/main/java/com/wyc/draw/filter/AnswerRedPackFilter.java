@@ -16,7 +16,6 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
-import com.wyc.common.util.Constant;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawRoomMember;
@@ -26,7 +25,6 @@ import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.filter.test.RedPacketReceiveAbleTestFilter;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawRoomService;
-import com.wyc.draw.service.DrawUserService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.vo.AnswerRedPacketResultVo;
@@ -44,9 +42,6 @@ public class AnswerRedPackFilter extends Filter{
 	
 	@Autowired
 	private DrawRoomService drawRoomService;
-	
-	@Autowired
-	private DrawUserService drawUserService;
 	
 	@Autowired
 	private AccountService accountService;
@@ -239,7 +234,7 @@ public class AnswerRedPackFilter extends Filter{
 			redPacket.setReceiveDrawUserId(drawUser.getId());
 			redPacket.setIsAmountDisplay(1);
 			redPacketTakepartMember.setGetAmount(redPacket.getAmount());
-			redPackageService.update(redPacket);
+			filterManager.update(redPacket);
 			
 			Account account = accountService.fineOneSync(drawUser.getAccountId());
 			BigDecimal amountBalance =account.getAmountBalance();

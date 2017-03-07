@@ -11,7 +11,6 @@ public class BalancePayTakeparUpdateFilter extends Filter{
 
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		System.out.println("。。。。。。。。。。看看这里有没有进来");
 		return null;
 	}
 

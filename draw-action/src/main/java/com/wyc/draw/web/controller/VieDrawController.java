@@ -17,6 +17,7 @@ import com.wyc.common.util.MySimpleDateFormat;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacketTakepartMember;
+import com.wyc.draw.domain.RedPacketToComent;
 import com.wyc.draw.domain.VieRedPacketToTakepartMember;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.GetRedPacketProblemFilter;
@@ -27,6 +28,7 @@ import com.wyc.draw.service.DrawRoomService;
 import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 import com.wyc.draw.service.VieRedPacketToTakepartMemberService;
 import com.wyc.draw.vo.RedPacketAmountDistributionListVo;
+import com.wyc.draw.vo.RedPacketComentListVo;
 import com.wyc.draw.vo.RedPacketVo;
 import com.wyc.draw.vo.VieProblemAnswerListVo;
 import com.wyc.draw.vo.VieRedPacketProblemListVo;
@@ -59,6 +61,10 @@ public class VieDrawController {
 	public String info(HttpServletRequest httpServletRequest)throws Exception{
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		if(sessionManager.isReturn()){
+			return null;
+		}
 		
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
 		RedPacketVo redPacketVo = (RedPacketVo)sessionManager.getObject(RedPacketVo.class);
@@ -147,6 +153,17 @@ public class VieDrawController {
 		
 		httpServletRequest.setAttribute("drawUser", drawUser);
 		
+		RedPacketToComent redPacketToComent = (RedPacketToComent)sessionManager.getObject(RedPacketToComent.class);
+		
+		httpServletRequest.setAttribute("redPacketToComment", redPacketToComent);
+		
+		RedPacketComentListVo redPacketComentListVo = (RedPacketComentListVo)sessionManager.getObject(RedPacketComentListVo.class);
+		
+		if(redPacketComentListVo!=null&&redPacketComentListVo.getComents()!=null&&redPacketComentListVo.getComents().size()>0){
+			httpServletRequest.setAttribute("coment", redPacketComentListVo.getComents().get(0));
+		}
+
+		
 		return "vie/vieRedPacket";
 	}
 	
@@ -188,11 +205,14 @@ public class VieDrawController {
 	@RequestMapping(value="vie_answer_problem")
 	public String answer(HttpServletRequest httpServletRequest)throws Exception{
 		
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.isReturn()){
+			return null;
+		}
 		String memberId = httpServletRequest.getParameter("member_id");
 		
 		String redPacketId = httpServletRequest.getParameter("red_packet_id");
 		String currentSeq = httpServletRequest.getParameter("current_seq");
-		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		VieRedPacketProblemListVo vieRedPacketProblemListVo = (VieRedPacketProblemListVo)sessionManager.getObject(VieRedPacketProblemListVo.class);
 		
 		httpServletRequest.setAttribute("problems", vieRedPacketProblemListVo.getVieRedPacketProblemVos());

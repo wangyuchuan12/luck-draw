@@ -60,7 +60,7 @@ public class DatabaseConfig {
         ds.setTestOnReturn(false);
         ds.setPoolPreparedStatements(false);
         ds.setMaxPoolPreparedStatementPerConnectionSize(20);
-        
+
         return ds;
     }
 

@@ -3,11 +3,7 @@ package com.wyc.common.filter;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
-
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringEscapeUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +15,6 @@ import com.wyc.common.smart.service.UserSmartService;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.wx.domain.Token;
 import com.wyc.common.wx.domain.UserInfo;
-import com.wyc.common.wx.domain.WxContext;
 
 public class UserInfoFilter extends Filter{
 
@@ -28,11 +23,7 @@ public class UserInfoFilter extends Filter{
 	
 	@Autowired
 	private TokenService tokenService;
-	
 
-	@Autowired
-	private WxContext wxContext;
-	
 	final static Logger logger = LoggerFactory.getLogger(UserInfoFilter.class);
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
@@ -63,19 +54,22 @@ public class UserInfoFilter extends Filter{
 	                try {
 	                    userInfo = userSmartService.getFromWx();
 	                    
-	                    String nickname = CommonUtil.filterEmoji(userInfo.getNickname());
-	                    userInfo.setNickname(nickname);
-	                    logger.debug("before handle nickname is {}",userInfo.getNickname());
-	                    userInfo.setNickname(StringEscapeUtils.escapeSql(userInfo.getNickname()));
-	                    logger.debug("after handle nickname is {}",userInfo.getNickname());
 	                    token = userSmartService.saveToDatabase(userInfo, key);
 	                    logger.debug("save to database success ,the key is {} , the token is {}" , key , token);
 	                } catch (Exception e) {
 	                    e.printStackTrace();
 	               //     logger.error("get userInfo from wx has error");
-	                    userInfo.setNickname("匿名土豪");
-	                    //做最后一层保障，保证在数据库当中有userInfo
-	                    token = userSmartService.saveToDatabase(userInfo, key);
+	                    try{
+	                    	userInfo.setNickname(CommonUtil.filterEmoji(userInfo.getNickname()));
+		                    //做最后一层保障，保证在数据库当中有userInfo
+		                    token = userSmartService.saveToDatabase(userInfo, key);
+	                    }catch(Exception e2){
+	                    	
+	                    	userInfo.setNickname("***");
+	                    	
+	                    	token = userSmartService.saveToDatabase(userInfo, key);
+	                    }
+	                    
 	                }
 	                
 	            }  
