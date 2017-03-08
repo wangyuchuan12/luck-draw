@@ -60,6 +60,7 @@ public class VieDrawController {
 	@RequestMapping(value="info")
 	public String info(HttpServletRequest httpServletRequest)throws Exception{
 		
+		String firstVisit = httpServletRequest.getParameter("firstVisit");
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		
 		if(sessionManager.isReturn()){
@@ -156,6 +157,8 @@ public class VieDrawController {
 		RedPacketToComent redPacketToComent = (RedPacketToComent)sessionManager.getObject(RedPacketToComent.class);
 		
 		httpServletRequest.setAttribute("redPacketToComment", redPacketToComent);
+		
+		httpServletRequest.setAttribute("firstVisit", firstVisit);
 		
 		RedPacketComentListVo redPacketComentListVo = (RedPacketComentListVo)sessionManager.getObject(RedPacketComentListVo.class);
 		

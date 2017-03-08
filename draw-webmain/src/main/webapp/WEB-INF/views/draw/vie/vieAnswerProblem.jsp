@@ -159,7 +159,7 @@
 					var isLast = resp.data.isLast;
 					if(isLast==1){
 						var redPacketId = $("input[name=redPacketId]").val();
-						skipToVieDrawInfo(redPacketId)
+						skipToVieDrawInfo(redPacketId,1)
 					}else{
 						nextWindow(20);
 						nextTab(20);

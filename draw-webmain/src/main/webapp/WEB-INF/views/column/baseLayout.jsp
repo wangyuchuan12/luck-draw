@@ -71,6 +71,23 @@
 	
 </div>
 
+<div class="rankAlert">
+	<div class="rankAlertContext">恭喜您，获得第三名，奖励5颗智慧豆</div>
+	<div class="rankAlertImg1">
+		<img src="/imgs/question_mark.jpg">
+	</div>
+	<div class="rankAlertImg2">
+		<img src="/imgs/question_mark.jpg">
+	</div>
+	<div class="rankAlertImg3">
+		<img src="/imgs/question_mark.jpg">
+	</div>
+	
+	<div class="rankLabel1">第一名</div>
+	<div class="rankLabel2">第二名</div>
+	<div class="rankLabel3">第三名</div>
+</div>
+
 <div class="toast" style="display: none;">余额不足，请稍后再试</div>
 
 <input name="signature" value="${signature}" type="hidden"/>
@@ -279,6 +296,8 @@
 		$(".container").unbind("click");
 	}
 	
+	
+	
 	function showSmartAlert(){
 		$(".smartAlert").animate({
 			bottom:0
@@ -316,11 +335,28 @@
         });
 	}
 	
+	function showRankAlert(context,rankImg1,rankImg2,rankImg3){
+		
+		$(".rankAlertContext").text(context);
+		$(".rankAlertImg1>img").attr("src",rankImg1);
+		$(".rankAlertImg2>img").attr("src",rankImg2);
+		$(".rankAlertImg3>img").attr("src",rankImg3);
+		var rankAlert = layer.open({
+			type:1,
+			title:false,
+			shadeClose:false,
+			shade:[0.1,'#000'],
+			area:['250px',"350px"],
+			content:$(".rankAlert")
+		});
+	}
 	
 	function showSmartAlert(alertContext,buttonText,fun){
 		
+		
 		$(".smartAlert .smartAlertContext").text(alertContext);
 		$(".smartAlert .smartAlertButton").text(buttonText);
+		$(".smartAlert .smartAlertButton").unbind("click");
 		$(".smartAlert .smartAlertButton").click(function(){
 			
 			layer.closeAll();
@@ -401,6 +437,7 @@
 		$(".happyAlert .redPacketAlertContext").text(alertContext);
 		$(".happyAlert .redPacketAlertButton").text(buttonText);
 		$(".happyAlert .redPacketAlertButton").click(function(){
+			layer.closeAll();
 			fun.call();
 		});
 		var happyAlert = layer.open({
@@ -408,7 +445,7 @@
 			title:false,
 			shadeClose:false,
 			shade:[0.1,'#000'],
-			area:['250px',"350px"],
+			area:['300px',"350px"],
 			content:$(".happyAlert")
 		});
 		return happyAlert;

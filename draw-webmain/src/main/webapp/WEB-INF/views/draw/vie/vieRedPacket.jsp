@@ -46,6 +46,22 @@
 		
 		<input name="getWisdom" value="${redPacketInfo.getWisdomCount}" type="hidden"/>
 		
+		<input name="isCreater" value="${redPacketInfo.isCreater}" type="hidden"/>
+		
+		<input name="firstVisit" value="${firstVisit}" type="hidden"/>
+		
+		<input name="rank" value="${thisMember.rank}" type="hidden"/>
+		
+		<input name="receiveAmount" value="${thisMember.getAmount}" type="hidden"/>
+		
+		<c:if test="${thisMember.takepartDateTime==null}">
+			<input name="takepartStatus" value="0" type="hidden"/>
+		</c:if>
+		
+		<c:if test="${thisMember.takepartDateTime!=null}">
+			<input name="takepartStatus" value="1" type="hidden"/>
+		</c:if>
+		
 		<c:if test="${coment!=null}">
 			<input name="status" value="1" type="hidden"/>
 		</c:if>
@@ -261,7 +277,7 @@
 				<div class="view_luck_members_rank">排行榜，总参与 ${takePartCount}人</div>
 			</c:if>
 			<c:forEach items="${takePartMembers.datas}" var="takePartMember" varStatus="varStatus">
-				
+				<input name="rankImg" rank="${takePartMember.rank}" value="${takePartMember.headImg}" type="hidden"/>
 				
 				<div class="view_luck_member">
 					<div class="view_luck_member_rank">
@@ -484,7 +500,7 @@
 
 					if(isWisdom==1&&haveWisdomCount<wisdomCount){
 						showSmartAlert("您的智慧豆已不足"+wisdomCount+"颗，请充值","确定",function(){
-							
+							alert("1");
 						});
 						return;
 					}else if(isWisdom==0){
@@ -509,6 +525,12 @@
 				
 				$("#goodCommentButton").click(function(){
 					
+					var isCreater = $("input[name=isCreater]").val();
+					
+					if(isCreater==1){
+						showToast("您是创建者，无法进行评论");
+						return;
+					}
 					if($("input[name=status]").val()==1){
 						showToast("已评论");
 						return;
@@ -530,6 +552,13 @@
 				});
 				
 				$("#badCommentButton").click(function(){
+					
+					var isCreater = $("input[name=isCreater]").val();
+					if(isCreater==1){
+						showToast("您是创建者，无法进行评论");
+						return;
+					}
+					
 					if($("input[name=status]").val()==1){
 						showToast("已评论");
 						return;
@@ -770,6 +799,54 @@
 
 <script type="text/javascript">
 
+
+function initDialog(){
+	
+	var firstVisit = $("input[name=firstVisit]").val();
+	
+	var isCreater = $("input[name=isCreater]").val();
+	
+	var getWisdom = $("input[name=getWisdom]").val();
+	
+	var isTimeOut = $("input[name=isTimeOut]").val();
+	
+	var rank = $("input[name=rank]").val();
+	
+	var takepartStatus = $("input[name=takepartStatus]").val();
+	
+	var memberRank1 = $("input[name=rankImg][rank=1]").val();
+	
+	var memberRank2 = $("input[name=rankImg][rank=2]").val();
+	
+	var memberRank3 = $("input[name=rankImg][rank=3]").val();
+	
+	var receiveAmount = $("input[name=receiveAmount]").val();
+	
+	rank = parseInt(rank);
+	
+	if(isTimeOut==0){
+		if(isCreater==1&&firstVisit==1){
+			showHappyAlert("恭喜您，创建红包成功，赠送您10颗智慧豆","确定",function(){
+				showLinkGuid("好友好评一次，您能获得2颗智慧豆",null);
+			});
+		}else if(isCreater==1&&firstVisit!=1){
+			if(getWisdom!=0){
+				showSmartAlert("恭喜您，您的选手已经为您积累了"+getWisdom+"颗智慧豆","确定",function(){
+					showLinkGuid("好友好评一次，您能获得2颗智慧豆",null);
+				});
+			}else{
+				showLinkGuid("好友好评一次，您能获得2颗智慧豆",null);
+			}
+		}else if(isCreater==0&&firstVisit==1&&takepartStatus==1){
+			showRankAlert("恭喜你，获得第"+rank+"名，获得"+receiveAmount+"元已收入钱包",memberRank1,memberRank2,memberRank3);
+		}
+	}else{
+		
+	}
+	
+	
+}
+
 function averageStarCount(){
 	var accordStar1Num = $("input[name=accordStar1Num]").val();
 	var accordStar2Num = $("input[name=accordStar2Num]").val();
@@ -835,7 +912,7 @@ function comment(){
 	}
 }
 $(document).ready(function(){
-	
+	initDialog();
 	comment();
 });
 </script>

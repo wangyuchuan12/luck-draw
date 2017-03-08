@@ -1,3 +1,10 @@
+function uuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+        return v.toString(16);
+    });
+}
+
 function doJoinRoom(type,question,roomId,callback){
 	var url = "";
 	if(type==0){
@@ -154,10 +161,11 @@ function skipToVieSetProblem(status,redPacketId,problemId,previousProblemId){
 	skipToUrl(url,params);
 }
 
-function skipToVieDrawInfo(id){
+function skipToVieDrawInfo(id,firstVisit){
 	var url = "/view/vie/draw/vie_draw/info"
 	var params = new Object();	
 	params.id = id;
+	params.firstVisit = firstVisit;
 	skipToUrl(url,params);
 }
 

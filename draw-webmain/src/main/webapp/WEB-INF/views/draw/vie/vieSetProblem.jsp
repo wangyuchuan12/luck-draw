@@ -343,7 +343,7 @@
 				var callback = new Object();
 				callback.success = function(resp){
 					if(resp.success){
-						skipToVieDrawInfo(redPacketId);
+						skipToVieDrawInfo(redPacketId,1);
 					}else{
 						alert(resp.errorMsg);
 					}

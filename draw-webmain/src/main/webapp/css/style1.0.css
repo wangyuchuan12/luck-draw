@@ -2598,14 +2598,13 @@ li::before{
 }
 
 .happyAlert{
-	background: url("/imgs/happy.jpg");
+	background: url("/imgs/jump.png");
 	
-	background-position:0px 30px;
+	background-position:0px 40px;
 	
 	background-size:100% 90%;
-	width: 250px;
+	width: 300px;
 
-	
 	height: 250px;
 	
 	display: none;
@@ -2735,6 +2734,102 @@ li::before{
 	border-radius:5px;
 }
 
+.rankAlert{
+	background: url("/imgs/rank.jpg");
+	position: absolute;
+	background-position:0px 70px;
+	
+	background-size:270px 300px;
+	
+	width:250px;
+	height: 350px;
+	
+	display: none;
+}
+
+.rankAlert img{
+	width:30px;
+	
+	height:30px;
+	
+	border-radius:30px;
+}
+
+.rankLabel1{
+	position: absolute;
+	
+	color: black;
+	
+	left:117px;
+	top:270px;
+	
+	font-weight: bolder;
+}
+
+.rankLabel2{
+	position: absolute;
+	
+	color: black;
+	
+	left:45px;
+	
+	top:305px;
+	
+	font-weight: bolder;
+}
+
+.rankLabel3{
+	position: absolute;
+	
+	color: black;
+	
+	left:195px;
+	
+	top:305px;
+	
+	font-weight: bolder;
+}
+
+.rankAlertContext{
+	color: white;
+	text-align: center;
+	
+	padding-top: 15px;
+	
+	font-size: 20px;
+	
+	font-weight: bolder;
+	
+	padding-left: 20px;
+	
+	padding-right: 20px;
+
+}
+
+.rankAlertImg1{
+	position: absolute;
+	
+	left:125px;
+	
+	top:80px;
+}
+
+.rankAlertImg2{
+	position: absolute;
+	
+	left:50px;
+	
+	top:130px;
+}
+
+.rankAlertImg3{
+	position: absolute;
+	
+	left:200px;
+	
+	top:130px;
+}
+
 .redPacketAlertContext{
 	position: absolute;
 	
@@ -2764,27 +2859,27 @@ li::before{
 }
 
 .happyAlert .redPacketAlertButton{
-	background: RGBA(251,111,111,0.5);
+	background: RGBA(239,210,0,1);
 }
 .redPacketAlertButton{
 	position: absolute;
 	
-	top:270px;
+	top:300px;
 	
 	background: RGBA(220,187,133,1);
 	
-	color: black;
+	color: white;
 	
-	width:100px;
-	height: 100px;
+	width:150px;
+	height: 50px;
 	
-	border-radius:100px;
+	border-radius:50px;
 	
 	margin: 0 auto;
 	
 	text-align: center;
-	
-	padding-top: 33px;
+
+	padding-top:5px;
 	
 	font-size: 25px;
 	
