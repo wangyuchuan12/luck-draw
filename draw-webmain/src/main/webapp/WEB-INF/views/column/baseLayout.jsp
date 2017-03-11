@@ -335,24 +335,34 @@
         });
 	}
 	
-	function showRankAlert(context,rankImg1,rankImg2,rankImg3){
+	function showRankAlert(context,rankImg1,rankImg2,rankImg3,timelong){
 		
+		if(!timelong){
+			timelong = 0;
+		}
 		$(".rankAlertContext").text(context);
 		$(".rankAlertImg1>img").attr("src",rankImg1);
 		$(".rankAlertImg2>img").attr("src",rankImg2);
 		$(".rankAlertImg3>img").attr("src",rankImg3);
-		var rankAlert = layer.open({
-			type:1,
-			title:false,
-			shadeClose:false,
-			shade:[0.1,'#000'],
-			area:['250px',"350px"],
-			content:$(".rankAlert")
-		});
+		var rankAlert;
+		setTimeout(function(){
+			rankAlert = layer.open({
+				type:1,
+				title:false,
+				shadeClose:false,
+				shade:[0.1,'#000'],
+				area:['250px',"350px"],
+				content:$(".rankAlert")
+			});
+		},timelong);
+		
 	}
 	
-	function showSmartAlert(alertContext,buttonText,fun){
+	function showSmartAlert(alertContext,buttonText,fun,timelong){
 		
+		if(!timelong){
+			timelong=0;
+		}
 		
 		$(".smartAlert .smartAlertContext").text(alertContext);
 		$(".smartAlert .smartAlertButton").text(buttonText);
@@ -362,14 +372,18 @@
 			layer.closeAll();
 			fun.call();
 		});
-		var smartAlert = layer.open({
-			type:1,
-			title:false,
-			shadeClose:false,
-			shade:[0.1,'#000'],
-			area:['250px',"150px"],
-			content:$(".smartAlert")
-		});
+		var smartAlert;
+		setTimeout(function(){
+			smartAlert = layer.open({
+				type:1,
+				title:false,
+				shadeClose:false,
+				shade:[0.1,'#000'],
+				area:['250px',"150px"],
+				content:$(".smartAlert")
+			});
+		},timelong);
+		 
 		
 		return smartAlert;
 	}
@@ -433,21 +447,29 @@
 		return sadAlert;
 	}
 	
-	function showHappyAlert(alertContext,buttonText,fun){
+	function showHappyAlert(alertContext,buttonText,fun,timelong){
+		
+		if(!timelong){
+			timelong = 0;
+		}
 		$(".happyAlert .redPacketAlertContext").text(alertContext);
 		$(".happyAlert .redPacketAlertButton").text(buttonText);
 		$(".happyAlert .redPacketAlertButton").click(function(){
 			layer.closeAll();
 			fun.call();
 		});
-		var happyAlert = layer.open({
-			type:1,
-			title:false,
-			shadeClose:false,
-			shade:[0.1,'#000'],
-			area:['300px',"350px"],
-			content:$(".happyAlert")
-		});
+		var happyAlert;
+		
+		setTimeout(function(){
+			happyAlert = layer.open({
+				type:1,
+				title:false,
+				shadeClose:false,
+				shade:[0.1,'#000'],
+				area:['300px',"350px"],
+				content:$(".happyAlert")
+			});
+		},timelong);
 		return happyAlert;
 	}
 	

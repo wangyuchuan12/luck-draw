@@ -16,7 +16,7 @@ import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketTakepartMember;
-import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.RedPacketToTakepartMember;
 import com.wyc.draw.domain.param.VieDrawTakepartParam;
 import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 
@@ -73,7 +73,7 @@ public class VieTakepartFilter extends Filter{
 		vieRedPacketTakepartMember.setRightCount(0l);
 		vieRedPacketTakepartMember.setTimeLong(0f);
 		vieRedPacketTakepartMember.setUserId(drawUser.getUserId());
-		vieRedPacketTakepartMember.setWrongCount(0l);
+		vieRedPacketTakepartMember.setWrongCount(0);
 		vieRedPacketTakepartMember.setIsComplete(0);
 		vieRedPacketTakepartMember.setNickname(drawUser.getNickname());
 		vieRedPacketTakepartMember.setHeadImg(drawUser.getImgUrl());
@@ -82,7 +82,7 @@ public class VieTakepartFilter extends Filter{
 		vieRedPacketTakepartMember.setIsGiveEntryFee(redPacket.getIsEntryFee());
 		vieRedPacketTakepartMember = vieRedPacketTakepartMemberService.add(vieRedPacketTakepartMember);
 		
-		VieRedPacketToTakepartMember vieRedPacketToTakepartMember = (VieRedPacketToTakepartMember)filterManager.getObject(VieRedPacketToTakepartMember.class);
+		RedPacketToTakepartMember vieRedPacketToTakepartMember = (RedPacketToTakepartMember)filterManager.getObject(RedPacketToTakepartMember.class);
 		
 		vieRedPacketToTakepartMember.setTakepartStatus(Constant.NOT_INVOLVED_TAKEPART_STATUS);
 		vieRedPacketToTakepartMember.setCurrentTakepartMemberId(vieRedPacketTakepartMember.getId());

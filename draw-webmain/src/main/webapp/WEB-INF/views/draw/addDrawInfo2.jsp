@@ -42,19 +42,24 @@
 					<div class="option_item" style="padding-left: 10px;"> 
 				        <div id="addCommodityIndex"></div>
 			        </div>
+			        
+			        <div class="option_item">
+						<div class="option_item_label" id="num_label">红包个数：</div>
+						<input name="num" placeholder="填写个数" type="number"/> 
+					</div>
 					<div class="option_item_area">
 						<div class="option_item_label" id="question_label">问题：</div>
 						<textarea name="question" placeholder="不能超过50个字节"></textarea> 
 
 					</div>
 					
-					<div class="option_item">
+					<div class="option_item" style="position: relative;top:-4px;">
 						<div class="option_item_label" id="answer_label">答案：</div>
 						<input name="answer" placeholder="不能超过7个字节"/> 
 					</div>
 					
 					
-					<div class="option_item_select" id="payUserTypeDisplay">
+					<div class="option_item_select" id="payUserTypeDisplay" style="position: relative;top:-4px;">
 						<!--  <span class="fa fa-address-card" id="option_item_select_icon" style="color: green;"></span>-->
 						<span class="option_item_select_content">个人</span>
 					</div>
@@ -68,7 +73,7 @@
 			<div  id="pay_view"  style="display: none;" >
 			
 				<div class="add_draw_pay_view">
-					<div class="take_out_list">
+					<div class="take_out_list" id="takeOutList1">
 						<div class="take_out_item" onclick="payAmount(0.1);">
 							<div class="take_out_item_money">0.1<span>元</span></div>
 						</div>
@@ -94,6 +99,63 @@
 							<div class="take_out_item_money">20<span>元</span></div>
 						</div>
 					</div>
+					
+					
+					<div class="take_out_list" id="takeOutList2">
+						<div class="take_out_item" onclick="payAmount(1);">
+							<div class="take_out_item_money">1<span>元</span></div>
+						</div>
+						
+						
+						<div class="take_out_item" onclick="payAmount(5);">
+							<div class="take_out_item_money">5<span>元</span></div>
+						</div>
+						
+						<div class="take_out_item" onclick="payAmount(10);">
+							<div class="take_out_item_money">10<span>元</span></div>
+						</div>
+						
+						<div class="take_out_item" onclick="payAmount(20);">
+							<div class="take_out_item_money">20<span>元</span></div>
+						</div>
+						
+						<div class="take_out_item" onclick="payAmount(50);">
+							<div class="take_out_item_money">50<span>元</span></div>
+						</div>
+						
+						<div class="take_out_item" onclick="payAmount(100);">
+							<div class="take_out_item_money">100<span>元</span></div>
+						</div>
+					</div>
+					
+					
+					<div class="take_out_list" id="takeOutList3">
+						<div class="take_out_item" onclick="payAmount(1);">
+							<div class="take_out_item_money">2<span>元</span></div>
+						</div>
+						
+						
+						<div class="take_out_item" onclick="payAmount(5);">
+							<div class="take_out_item_money">10<span>元</span></div>
+						</div>
+						
+						<div class="take_out_item" onclick="payAmount(10);">
+							<div class="take_out_item_money">20<span>元</span></div>
+						</div>
+						
+						<div class="take_out_item" onclick="payAmount(20);">
+							<div class="take_out_item_money">40<span>元</span></div>
+						</div>
+						
+						<div class="take_out_item" onclick="payAmount(50);">
+							<div class="take_out_item_money">100<span>元</span></div>
+						</div>
+						
+						<div class="take_out_item" onclick="payAmount(100);">
+							<div class="take_out_item_money">200<span>元</span></div>
+						</div>
+					</div>
+					
 					
 					
 					<div>
@@ -249,6 +311,51 @@
 	
 	function openPayView(){
 		
+		var num = $("input[name=num]").val();
+		numFloat = parseFloat(num);
+		numInt = parseInt(num);
+		
+		if(!numInt){
+			$("#num_label").css("color","red");
+			showErrorToast("红包个数输入不合法");
+			return;
+		}
+		
+		if(numFloat>numInt){
+			$("#num_label").css("color","red");
+			showErrorToast("红包个数不能有小数点");
+			return;
+		}
+		
+		if(numInt==0){
+			$("#num_label").css("color","red");
+			showErrorToast("红包个数不能是0");
+			return;
+		}
+		
+		if(numInt>200){
+			$("#num_label").css("color","red");
+			showErrorToast("红包个数不能大于200");
+			return;
+		}
+		
+		if(numInt<=10){
+			$("#takeOutList1").css("display","block");
+			$("#takeOutList2").css("display","none");
+			$("#takeOutList3").css("display","none");
+		}else if(numInt<=100){
+			$("#takeOutList1").css("display","none");
+			$("#takeOutList2").css("display","block");
+			$("#takeOutList3").css("display","none");
+		}else{
+			$("#takeOutList1").css("display","none");
+			$("#takeOutList2").css("display","none");
+			$("#takeOutList3").css("display","block");
+		}
+		
+		
+		
+		
 		var question = $("textarea[name=question]").val();
 		
 		if(!question){
@@ -363,9 +470,13 @@
 		var isImg = $("input[name=isImg]").val();
 		
 		var subjectId = $("input[name=subjectId]").val();
+		
+		var num = $("input[name=num]").val();
 
 		var url = "/api/draw/red_pack/add";
 		var params = new Object();
+		
+		params.place_num = num;
 		
 		params.draw_room_id = room;
 
@@ -387,6 +498,8 @@
 		
 		params.type=0;
 		
+
+		
 		var callback = new Object();
 
 		callback.success = function(obj){
@@ -398,7 +511,7 @@
 				if(obj.data.payType==0){
 					var params = new Object();
 					params.id = obj.data.id;
-					skipToUrl("/view/draw/luck_draw/info",params);
+					skipToProblemRedPacketInfo(params.id,1);
 				}else if(obj.data.payType==1){
 					var id = obj.data.id;
 					
@@ -409,8 +522,7 @@
 						var payCallback = new Object();
 						payCallback.success = function(){
 							var params = new Object();
-							params.id = outObject.data.id;
-							skipToUrl("/view/draw/luck_draw/info",params);
+							skipToProblemRedPacketInfo(params.id,1);
 						}
 						
 						payCallback.failure = function(){
@@ -451,6 +563,8 @@
 				}
 				
 			
+			}else{
+				alert(obj.errorMsg);
 			}
 		}
 		

@@ -13,7 +13,7 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.RedPacketTakepartMember;
-import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.RedPacketToTakepartMember;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
 
 public class BalancePayTakepartFilter extends Filter{
@@ -65,15 +65,11 @@ public class BalancePayTakepartFilter extends Filter{
 		
 		redPacketTakepartMemberService.update(vieRedPacketTakepartMember);
 		
-		VieRedPacketToTakepartMember vieRedPacketToTakepartMember = (VieRedPacketToTakepartMember)sessionManager.getObject(VieRedPacketToTakepartMember.class);
+		RedPacketToTakepartMember vieRedPacketToTakepartMember = (RedPacketToTakepartMember)sessionManager.getObject(RedPacketToTakepartMember.class);
 		vieRedPacketToTakepartMember.setIsPay(1);
 
 		sessionManager.save(vieRedPacketToTakepartMember);
 		
-		sessionManager.update(vieRedPacketToTakepartMember);
-		
-		vieRedPacketToTakepartMember = (VieRedPacketToTakepartMember)sessionManager.getObject(VieRedPacketToTakepartMember.class);
-
 		sessionManager.update(vieRedPacketToTakepartMember);
 		
 		return resultVo;

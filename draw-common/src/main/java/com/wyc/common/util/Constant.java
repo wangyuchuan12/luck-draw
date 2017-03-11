@@ -159,11 +159,18 @@ public class Constant {
 	//正在进行
 	public static final int UNDERWAY_TAKEPART_STATUS=1;
 	
-	//参与结束
+	//参与结数，问答红包表示金额已经领取
 	public static final int COMPLETE_TAKEPART_STATUS=2;
 	
 	//中途退出
 	public static final int RENEGINT_TAKEPART_STATUS=3;
+	
+	
+	//领取失败
+	public static final int FAIL_TAKEPART_STATUS=4;
+	
+	
+	
 	
 	
 	/************************ 竞答红包分配状态 *********************/

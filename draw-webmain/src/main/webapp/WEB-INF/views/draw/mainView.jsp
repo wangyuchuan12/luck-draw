@@ -8,7 +8,7 @@
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
 	<div class="headItems">
-		<img src="/imgs/bean.gif">
+		<img src="/imgs/bean2.png">
 		<span>智慧豆 50</span>
 	</div>
 	<div class="swiper-container swiper-container-horizontal">

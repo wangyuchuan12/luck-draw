@@ -8,7 +8,7 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
-import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.RedPacketToTakepartMember;
 import com.wyc.draw.domain.param.VieDrawInfoParam;
 import com.wyc.draw.service.VieRedPacketToTakepartMemberService;
 
@@ -23,9 +23,9 @@ public class CurrentVieRedPacketToTakepartMemberFilter extends Filter{
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		VieDrawInfoParam vieDrawInfoParam = (VieDrawInfoParam)filterManager.getObject(VieDrawInfoParam.class);
 		String redPacketId = vieDrawInfoParam.getRedPacketId();
-		VieRedPacketToTakepartMember vieRedPacketToTakepartMember = vieRedPacketToTakepartMemberService.findByDrawUserIdAndRedPacketId(drawUser.getId(),redPacketId);
+		RedPacketToTakepartMember vieRedPacketToTakepartMember = vieRedPacketToTakepartMemberService.findByDrawUserIdAndRedPacketId(drawUser.getId(),redPacketId);
 		if(vieRedPacketToTakepartMember==null){
-			vieRedPacketToTakepartMember = new VieRedPacketToTakepartMember();
+			vieRedPacketToTakepartMember = new RedPacketToTakepartMember();
 			vieRedPacketToTakepartMember.setDrawUserId(drawUser.getId());
 			vieRedPacketToTakepartMember.setIsAnswer(0);
 			vieRedPacketToTakepartMember.setIsPay(0);
@@ -33,7 +33,7 @@ public class CurrentVieRedPacketToTakepartMemberFilter extends Filter{
 			vieRedPacketToTakepartMember.setTakepartCount(0);
 			vieRedPacketToTakepartMember.setTakepartStatus(Constant.NOT_INVOLVED_TAKEPART_STATUS);
 			vieRedPacketToTakepartMember.setVisitCount(1);
-			
+			vieRedPacketToTakepartMember.setWrongCount(0);
 			vieRedPacketToTakepartMemberService.add(vieRedPacketToTakepartMember);
 		}else{
 			String currentTakepartMembetId = vieRedPacketToTakepartMember.getCurrentTakepartMemberId();

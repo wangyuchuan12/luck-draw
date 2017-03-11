@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 
 import com.wyc.common.domain.Account;
 import com.wyc.common.domain.vo.ResultVo;
@@ -16,23 +17,25 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
+import com.wyc.common.util.Constant;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
+import com.wyc.draw.domain.RedPacketAmountDistribution;
 import com.wyc.draw.domain.RedPacketTakepartMember;
+import com.wyc.draw.domain.RedPacketToTakepartMember;
+import com.wyc.draw.filter.test.GetRedPacketFilter;
 import com.wyc.draw.filter.test.RedPacketReceiveAbleTestFilter;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawRoomService;
-import com.wyc.draw.service.RedPacketService;
+import com.wyc.draw.service.RedPacketAmountDistributionService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.vo.AnswerRedPacketResultVo;
 
 public class AnswerRedPackFilter extends Filter{
 
-	@Autowired
-	private RedPacketService redPackageService;
 	
 	@Autowired
 	private RedPacketTakepartMemberService redPacketTakepartMemberService;
@@ -42,6 +45,9 @@ public class AnswerRedPackFilter extends Filter{
 	
 	@Autowired
 	private DrawRoomService drawRoomService;
+	
+	@Autowired
+	private RedPacketAmountDistributionService redPacketAmountDistributionService;
 	
 	@Autowired
 	private AccountService accountService;
@@ -63,10 +69,21 @@ public class AnswerRedPackFilter extends Filter{
 
 		RedPacket redPacket = (RedPacket) filterManager.getObject(RedPacket.class);
 		
+		RedPacketToTakepartMember redPacketToTakepartMember = (RedPacketToTakepartMember)filterManager.getObject(RedPacketToTakepartMember.class);
+		
 		if(redPacket.getTakePartCount()==null){
 			redPacket.setTakePartCount(0);
 		}
 		redPacket.setTakePartCount(redPacket.getTakePartCount()+1);
+		
+		if(redPacketToTakepartMember.getTakepartStatus()!=Constant.UNDERWAY_TAKEPART_STATUS){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("用户状态不是正在参与中");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
 		
 		if(CommonUtil.isEmpty(answer)){
 			ResultVo resultVo = new ResultVo();
@@ -127,8 +144,9 @@ public class AnswerRedPackFilter extends Filter{
 		}
 		
 		
-		int takePartCount = redPacketTakepartMemberService.countByRedPacketIdAndDrawUserId(redPacket.getId(),drawUser.getId());
+	//	int takePartCount = redPacketToTakepartMember.getTakepartCount();
 		
+		/*
 		if(redPacket.getAllowWrongCount()<takePartCount){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
@@ -137,6 +155,7 @@ public class AnswerRedPackFilter extends Filter{
 			filterManager.setReturnValue(resultVo);
 			return null;
 		}
+		*/
 		
 		RedPacketTakepartMember redPacketTakepartMember = new RedPacketTakepartMember();
 		
@@ -218,47 +237,85 @@ public class AnswerRedPackFilter extends Filter{
 		
 		
 		redPacketTakepartMember.setOpenid(userInfo.getOpenid());
+		
+		redPacketTakepartMember.setHeadImg(userInfo.getHeadimgurl());
+		redPacketTakepartMember.setNickname(userInfo.getNickname());
 		redPacketTakepartMember.setUserId(userInfo.getId());
 		redPacketTakepartMember.setDrawUserId(drawUser.getId());
 		redPacketTakepartMember.setAnswer(answer);
 		redPacketTakepartMember.setTakepartDateTime(new DateTime());
 		redPacketTakepartMember.setType(redPacket.getType());
 		redPacketTakepartMember.setRedPacketId(redPacket.getId());
-		
+		redPacketTakepartMember.setIsComplete(1);
 		
 		AnswerRedPacketResultVo answerRedPacketResultVo = new AnswerRedPacketResultVo();
 		if(redPacket.getAnswer().equals(answer)){
 			redPacketTakepartMember.setIsSuccess(1);
-			redPacket.setIsReceive(1);
-			redPacket.setIsReceiveAble(0);
-			redPacket.setReceiveDrawUserId(drawUser.getId());
-			redPacket.setIsAmountDisplay(1);
-			redPacketTakepartMember.setGetAmount(redPacket.getAmount());
-			filterManager.update(redPacket);
+			redPacket.setReceiveNum(redPacket.getReceiveNum()+1);
 			
-			Account account = accountService.fineOneSync(drawUser.getAccountId());
-			BigDecimal amountBalance =account.getAmountBalance();
-			if(amountBalance==null){
-				amountBalance = new BigDecimal(0);
-			}
-
-			amountBalance = amountBalance.add(redPacket.getAmount());
-			account.setAmountBalance(amountBalance);
-			accountService.update(account);
+			
+			redPacketToTakepartMember.setTakepartStatus(Constant.COMPLETE_TAKEPART_STATUS);
+			redPacketTakepartMember.setGetAmount(redPacket.getAmount());
+			
+			
+			
+			
 			
 			filterManager.save(drawUser);
 			answerRedPacketResultVo.setIsRight(1);
+			
+			
+			
+			PageRequest pageRequest = new PageRequest(0, 1);
+			
+			List<RedPacketAmountDistribution> redPacketAmountDistributions = redPacketAmountDistributionService.findAllByRedPacketIdOrderBySeqAsc(redPacket.getId(),Constant.NOT_DISTRIBUTION_STATUS,pageRequest);
+			if(redPacketAmountDistributions!=null&&redPacketAmountDistributions.size()>0){
+				RedPacketAmountDistribution redPacketAmountDistribution = redPacketAmountDistributions.get(0);
+				
+				Account account = accountService.fineOneSync(drawUser.getAccountId());
+				BigDecimal amountBalance =account.getAmountBalance();
+				if(amountBalance==null){
+					amountBalance = new BigDecimal(0);
+				}
+
+				amountBalance = amountBalance.add(redPacketAmountDistribution.getAmount());
+				account.setAmountBalance(amountBalance);
+				accountService.update(account);
+				
+				redPacketAmountDistribution.setStatus(Constant.ALEADY_RECEIVE_STATUS);
+				
+				filterManager.update(redPacketAmountDistribution);
+				
+				redPacket.setReceiveAmount(redPacket.getReceiveAmount().add(redPacketAmountDistribution.getAmount()));
+			}
+			filterManager.update(redPacket);
 		}else{
 			redPacketTakepartMember.setIsSuccess(0);
 			answerRedPacketResultVo.setIsRight(0);
+			redPacketToTakepartMember.setWrongCount(redPacketToTakepartMember.getWrongCount()+1);
+			redPacketToTakepartMember.setTakepartStatus(Constant.FAIL_TAKEPART_STATUS);
+		
 		}
 		
 		redPacketTakepartMember = redPacketTakepartMemberService.add(redPacketTakepartMember);
 		
 		
+		redPacketToTakepartMember.setCurrentTakepartMemberId(redPacketTakepartMember.getId());
+		
+		redPacketToTakepartMember.setIsAnswer(1);
+		
+		redPacketToTakepartMember.setTakepartCount(redPacketToTakepartMember.getTakepartCount()+1);
+		
+		
+		filterManager.update(redPacketTakepartMember);
+		
+		filterManager.update(redPacketToTakepartMember);
+		
 		answerRedPacketResultVo.setId(redPacket.getId());
 		answerRedPacketResultVo.setMyAnswer(answer);
 		answerRedPacketResultVo.setRedPacket(redPacket);
+		
+		
 		
 		return answerRedPacketResultVo;
 	}
@@ -285,7 +342,9 @@ public class AnswerRedPackFilter extends Filter{
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> classes = new ArrayList<>();
 		classes.add(BaseDrawActionFilter.class);
+		classes.add(GetRedPacketFilter.class);
 		classes.add(RedPacketReceiveAbleTestFilter.class);
+		classes.add(CurrentVieRedPacketToTakepartMemberFilter.class);
 		return classes;
 	}
 

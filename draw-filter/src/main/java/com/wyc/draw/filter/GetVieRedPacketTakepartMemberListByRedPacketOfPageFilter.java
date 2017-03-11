@@ -66,10 +66,12 @@ public class GetVieRedPacketTakepartMemberListByRedPacketOfPageFilter extends Fi
 		
 		Order timelongOrder = new Order(Direction.ASC,"timeLong");
 		
+		Order updateAt = new Order(Direction.ASC,"updateAt");
+		
 		List<Order> orders = new ArrayList<>();
 		orders.add(rightCountOrder);
 		orders.add(timelongOrder);
-		Sort sort = new Sort(rightCountOrder,timelongOrder);
+		Sort sort = new Sort(rightCountOrder,timelongOrder,updateAt);
 		
 		PageRequest pageRequest = new PageRequest(pageInt, sizeInt, sort);
 		
@@ -99,6 +101,8 @@ public class GetVieRedPacketTakepartMemberListByRedPacketOfPageFilter extends Fi
 			vieRedPacketTakepartMemberVo.setRank(Long.parseLong((pageInt*sizeInt+index)+""));
 			vieRedPacketTakepartMemberVo.setGetAmount(vieRedPacketTakepartMember.getGetAmount());
 			vieRedPacketTakepartMemberVo.setTakepartDateTime(mySimpleDateFormat.format(vieRedPacketTakepartMember.getTakepartDateTime().toDate()));
+			vieRedPacketTakepartMemberVo.setAnswer(vieRedPacketTakepartMember.getAnswer());
+			vieRedPacketTakepartMemberVo.setIsSuccess(vieRedPacketTakepartMember.getIsSuccess());
 			vieRedPacketTakepartMemberVos.add(vieRedPacketTakepartMemberVo);
 			
 			if(vieRedPacketTakepartMember.getDrawUserId().equals(drawUser.getId())){

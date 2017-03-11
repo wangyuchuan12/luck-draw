@@ -5,6 +5,10 @@ function uuid() {
     });
 }
 
+function skipToTakeout(){
+	skipToUrl("/view/draw/personal_center/takeOut");
+}
+
 function doJoinRoom(type,question,roomId,callback){
 	var url = "";
 	if(type==0){
@@ -83,10 +87,11 @@ function skipToRedPackInfo(id,type){
 	}
 }
 
-function skipToProblemRedPacketInfo(id){
+function skipToProblemRedPacketInfo(id,firstVisit){
 	var url = "/view/draw/luck_draw/info";
 	var params = new Object();
 	params.id = id;
+	params.firstVisit = firstVisit;
 	skipToUrl(url,params);
 }
 

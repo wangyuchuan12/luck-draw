@@ -77,15 +77,14 @@
 .luck_info_qusition{
 	width:100%;
 	position: relative;
-	top:-30px;
+	
+	float: left;
 	
 }
 
 .luck_info_question_img{
 	margin: 0 auto;
 	text-align:center;
-	
-	top:-20px;
 	position: relative;
 	
 }
@@ -144,29 +143,39 @@
 }
 
 .luck_info_question_img img{
-	width:50%;
-	
-	max-height: 300px;
+	max-height: 200px;
+	max-width: 95%;
 }
 
 .luck_info_question_answer{
-	text-align: center;
 	font-size: 15px;
-	top:10px;
 	position: relative;
+	
+	padding-left: 10px;
 }
 
 .luck_info_qusition_title{
-	text-align: center;
 	padding-top:10px;
 	color: black;
 	font-size: 20px;
 	font-weight: bold;
 	width:80%;
-	margin: 0 auto;
+	
+	padding-left: 10px;
+	
 }
 
-.luck_info_qusition_title span{
+.luck_info_qusition_title>span:nth-child(1){
+	font-size: 15px;
+	font-weight: normal;
+}
+
+.luck_info_qusition_title>span:nth-child(2){
+	font-size: 15px;
+	font-weight: normal;
+}
+
+.luck_info_qusition_title>span:nth-child(3){
 	font-size: 15px;
 	font-weight: normal;
 	color: red;
@@ -178,8 +187,10 @@
 	padding-left: 20px;
 	padding-right: 5px;
 	padding-top: 10px;
-	padding-bottom: 20px;
+	padding-bottom: 30px;
 	display: block;
+	
+	border-bottom: 1px solid white;
 	
 }
 
@@ -277,31 +288,40 @@
 
 .luck_info_answer{
 	width: 100%;
-	position: relative;
-	text-align: left;
-	text-align: center;
-	top:-20px;
+	
 	
 }
 
 
-.luck_info_answer input{
-	font-size:25px;
-	widht:30px;
-	text-align: center;
+.luck_info_answer>textarea{
+	width:95%;
+	
+	background: RGBA(255,248,246,1);
+	
+	border: 0 solid RGBA(255,248,246,1);
+	
 	border-radius:10px;
+	
+	height: 100px;
+	
+	padding-top: 10px;
+	
+	padding-left: 20px;
+	
+	font-size: 20px;
+	
+	margin: 10px;
 }
 
 .luck_info_answer_button{
-	background-color: red;
+	background-color: RGBA(252,112,111,1);
 	color: white;
-	width:280px;
-	height:35px;
+	width:95%;
+	height:50px;
 	margin: 0 auto;
 	position: relative;
-	top:5px;
 	text-align: center;
-	padding-top: 3px;
+	padding-top: 10px;
 	border-radius:10px;
 	font-size: 20px;
 
@@ -1402,25 +1422,28 @@ li::before{
 .option_item{
 	text-align: center;
 	
-	width:95%;
-
+	width:99%;
 	
+	position: relative;
+
 }
 
 .option_item_area{
 	text-align: center;
 	
-	width:95%;
+	width:99%;
 	
 	position: relative;
 	
-	top:5px;
+	margin-top: 2px;
+	
+	padding-bottom: 0px;
 
 	
 }
 
 .option_item_area .option_item_label{
-	height: 170px;
+	height: 175px;
 	
 	position: relative;
 
@@ -1428,9 +1451,9 @@ li::before{
 }
 
 .option_item_area>textarea{
-	width: 70%;
+	width: 60%;
 	
-	height:170px;
+	height:175px;
 	
 	font-size:20px;
 	text-align:right;
@@ -1458,7 +1481,7 @@ li::before{
 	
 	height:50px;
 
-	width:80px;
+	width:30%;
 	position: relative;
 	left:10px;
 	
@@ -1479,10 +1502,12 @@ li::before{
 	
 	border-radius:5px;
 	
+	text-align: left;
+	
 }
 
 .option_item>input{
-	width: 70%;
+	width: 60%;
 	
 	height:50px;
 	
@@ -1497,8 +1522,6 @@ li::before{
 	
 	padding-right: 50px;
 	
-	
-
 }
 
 .option_item>em{
@@ -1521,7 +1544,7 @@ li::before{
 }
 
 .form_buttom{
-	width:70%;
+	width:90%;
 	
 	margin: 0 auto;
 	
@@ -1542,8 +1565,6 @@ li::before{
 	padding-top: 10px;
 	
 	position: relative;
-	
-	margin-top:15px;
 }
 
 .option_item_select{
@@ -1551,9 +1572,11 @@ li::before{
 	
 	padding-bottom: 5px;
 	
-	width:84%;
+	width:87%;
 	
 	margin:0 auto;
+
+	left:2px;
 	
 	background-color: white;
 	
@@ -1567,7 +1590,6 @@ li::before{
 	
 	position: relative;
 	
-	right: 5px;
 	
 }
 
@@ -2544,14 +2566,20 @@ li::before{
 }
 
 .headItems>img{
-	widht:30px;
-	height: 25px;
+	widht:70px;
+	height: 70px;
 }
 
 .headItems>span{
-	color:RGBA(252,215,141,1);
+	color:RGBA(51,158,54,1);
 	display: block;
 	font-weight: bolder;
+	
+	position: relative;
+	
+	top:-10px;
+	
+	padding-left: 5px;
 
 }
 
@@ -2564,7 +2592,32 @@ li::before{
 }
 
 .moreRedPackets>img{
-	width:70px;
+	width:50px;
+}
+
+.wallet{
+	position: absolute;
+	
+	top:155px;
+	
+	right: 14px;
+}
+
+.wallet>img{
+	width:40px;
+	display: block;
+}
+
+.wallet>span{
+	color: RGBA(226,135,135,1);
+	
+	font-weight: bold;
+	
+	font-size: 10px;
+	
+	position:absolute;
+	
+	display: inline-block;
 }
 
 .redPacketAlert{

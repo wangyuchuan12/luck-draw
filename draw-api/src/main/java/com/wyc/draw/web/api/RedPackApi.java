@@ -14,7 +14,6 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.filter.AddRedPacketPromptFilter;
-import com.wyc.draw.filter.AnswerRedPackFilter;
 import com.wyc.draw.filter.BaseHandRedPackFilter;
 import com.wyc.draw.filter.DelRedPacketPromptFilter;
 import com.wyc.draw.filter.GetRedPackListByRoomOfPageFilter;
@@ -24,6 +23,7 @@ import com.wyc.draw.filter.GetTakepartMemberListByRedPacketOfPageFilter;
 import com.wyc.draw.filter.HandRedPacketOptionsFilter;
 import com.wyc.draw.filter.SetRedPacketIsAmountDisplay;
 import com.wyc.draw.filter.ShareRedPacketFilter;
+import com.wyc.draw.filter.controller.api.RedPackApiAnswerApiFilter;
 import com.wyc.draw.filter.controller.api.RedPacketComentFilter;
 import com.wyc.draw.vo.AnswerRedPacketResultVo;
 import com.wyc.draw.vo.RedPacketListVo;
@@ -152,7 +152,7 @@ public class RedPackApi {
 	@Transactional
 	@RequestMapping(value="answer")
 	@ResponseBody
-	@HandlerAnnotation(hanlerFilter=AnswerRedPackFilter.class)
+	@HandlerAnnotation(hanlerFilter=RedPackApiAnswerApiFilter.class)
 	public ResultVo answer(HttpServletRequest httpServletRequest)throws Exception{
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);

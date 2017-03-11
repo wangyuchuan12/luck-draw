@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
-import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.RedPacketToTakepartMember;
 import com.wyc.draw.service.VieRedPacketToTakepartMemberService;
 
 public class VieRedPacketToTakepartMemberUpdateHandlerFilter extends Filter{
@@ -16,7 +16,7 @@ public class VieRedPacketToTakepartMemberUpdateHandlerFilter extends Filter{
 	private VieRedPacketToTakepartMemberService vieRedPacketToTakepartMemberService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		VieRedPacketToTakepartMember vieRedPacketToTakepartMember = (VieRedPacketToTakepartMember)filterManager.getObject(VieRedPacketToTakepartMember.class);
+		RedPacketToTakepartMember vieRedPacketToTakepartMember = (RedPacketToTakepartMember)filterManager.getObject(RedPacketToTakepartMember.class);
 		vieRedPacketToTakepartMemberService.update(vieRedPacketToTakepartMember);
 		return vieRedPacketToTakepartMember;
 	}

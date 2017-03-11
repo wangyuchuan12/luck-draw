@@ -18,7 +18,7 @@ import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.RedPacketToComent;
-import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.RedPacketToTakepartMember;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.GetRedPacketProblemFilter;
 import com.wyc.draw.filter.GetVieRedPacketResultFilter;
@@ -87,7 +87,7 @@ public class VieDrawController {
 		httpServletRequest.setAttribute("takePartMembers", resultPageListVo);
 		
 		
-		VieRedPacketToTakepartMember vieRedPacketToTakepartMember = (VieRedPacketToTakepartMember)sessionManager.getObject(VieRedPacketToTakepartMember.class);
+		RedPacketToTakepartMember vieRedPacketToTakepartMember = (RedPacketToTakepartMember)sessionManager.getObject(RedPacketToTakepartMember.class);
 		
 		if(vieRedPacketToTakepartMember.getTakepartStatus()==Constant.UNDERWAY_TAKEPART_STATUS){
 			vieRedPacketToTakepartMember.setTakepartStatus(Constant.RENEGINT_TAKEPART_STATUS);

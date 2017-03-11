@@ -17,8 +17,8 @@ import com.wyc.annotation.ParamEntityAnnotation;
 
 @ParamEntityAnnotation
 @Entity
-@Table(name="d_vie_red_packet_to_takepart_member")
-public class VieRedPacketToTakepartMember {
+@Table(name="d_red_packet_to_takepart_member")
+public class RedPacketToTakepartMember {
 	@Id
 	@IdAnnotation
 	private String id;
@@ -66,6 +66,10 @@ public class VieRedPacketToTakepartMember {
 	@Column(name="amount")
 	@ParamAnnotation
 	private BigDecimal getAmount;
+	
+	@Column(name="wrong_count")
+	@ParamAnnotation
+	private Integer wrongCount;
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -170,6 +174,14 @@ public class VieRedPacketToTakepartMember {
 
 	public void setTakepartStatus(Integer takepartStatus) {
 		this.takepartStatus = takepartStatus;
+	}
+
+	public Integer getWrongCount() {
+		return wrongCount;
+	}
+
+	public void setWrongCount(Integer wrongCount) {
+		this.wrongCount = wrongCount;
 	}
 	
 	

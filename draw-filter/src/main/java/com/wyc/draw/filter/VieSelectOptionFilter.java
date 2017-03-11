@@ -20,10 +20,10 @@ import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketAmountDistribution;
 import com.wyc.draw.domain.RedPacketTakepartMember;
+import com.wyc.draw.domain.RedPacketToTakepartMember;
 import com.wyc.draw.domain.VieRedPacketOption;
 import com.wyc.draw.domain.VieRedPacketProblem;
 import com.wyc.draw.domain.VieRedPacketTakepartMemberRecord;
-import com.wyc.draw.domain.VieRedPacketToTakepartMember;
 import com.wyc.draw.domain.param.VieSelectOptionParam;
 import com.wyc.draw.service.RedPacketAmountDistributionService;
 import com.wyc.draw.service.VieRedPacketOptionService;
@@ -177,7 +177,7 @@ public class VieSelectOptionFilter extends Filter{
 		}
 		
 		
-		VieRedPacketToTakepartMember vieRedPacketToTakepartMember = vieRedPacketToTakepartMemberService.findByDrawUserIdAndRedPacketId(drawUser.getId(), vieRedPacketTakepartMember.getRedPacketId());
+		RedPacketToTakepartMember vieRedPacketToTakepartMember = vieRedPacketToTakepartMemberService.findByDrawUserIdAndRedPacketId(drawUser.getId(), vieRedPacketTakepartMember.getRedPacketId());
 		if(vieRedPacketToTakepartMember.getTakepartStatus()!=Constant.UNDERWAY_TAKEPART_STATUS){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);
@@ -246,9 +246,9 @@ public class VieSelectOptionFilter extends Filter{
 			vieRedPacketTakepartMemberRecord.setIsRight(0);
 			optionSelectVo.setIsRight(0);
 			optionSelectVo.setIsTimeout(1);
-			Long wrongCount = vieRedPacketTakepartMember.getWrongCount();
+			Integer wrongCount = vieRedPacketTakepartMember.getWrongCount();
 			if(wrongCount==null){
-				wrongCount=0L;
+				wrongCount=0;
 			}
 			vieRedPacketTakepartMember.setWrongCount(wrongCount+1);
 		}else{
@@ -292,9 +292,9 @@ public class VieSelectOptionFilter extends Filter{
 				}
 				vieRedPacketTakepartMember.setRightCount(rightCount+1);
 			}else{
-				Long wrongCount = vieRedPacketTakepartMember.getWrongCount();
+				Integer wrongCount = vieRedPacketTakepartMember.getWrongCount();
 				if(wrongCount==null){
-					wrongCount=0L;
+					wrongCount=0;
 				}
 				vieRedPacketTakepartMember.setWrongCount(wrongCount+1);
 			}
@@ -326,7 +326,7 @@ public class VieSelectOptionFilter extends Filter{
 			Long rightCount = vieRedPacketTakepartMember.getRightCount();
 			
 			BigDecimal rightCountBigDecimal = new BigDecimal(rightCount);
-			Long wrongCount = vieRedPacketTakepartMember.getWrongCount();
+			Integer wrongCount = vieRedPacketTakepartMember.getWrongCount();
 			
 			BigDecimal countBigDecimal = new BigDecimal(rightCount+wrongCount);
 			

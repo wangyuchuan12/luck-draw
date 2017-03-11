@@ -10,7 +10,7 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
-import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.RedPacketToTakepartMember;
 import com.wyc.draw.filter.CurrentVieRedPacketToTakepartMemberFilter;
 import com.wyc.draw.filter.GetRedPacketProblemListFilter;
 import com.wyc.draw.filter.controller.param.VieAnswerProblemParamFilter;
@@ -22,7 +22,7 @@ public class VieAnswerProblemActionFilter extends Filter{
 	private VieRedPacketToTakepartMemberService vieRedPacketToTakepartMemberService;
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		VieRedPacketToTakepartMember vieRedPacketToTakepartMember = (VieRedPacketToTakepartMember)filterManager.getObject(VieRedPacketToTakepartMember.class);
+		RedPacketToTakepartMember vieRedPacketToTakepartMember = (RedPacketToTakepartMember)filterManager.getObject(RedPacketToTakepartMember.class);
 		
 		if(vieRedPacketToTakepartMember.getIsPay()==1){
 			vieRedPacketToTakepartMember.setTakepartStatus(Constant.UNDERWAY_TAKEPART_STATUS);

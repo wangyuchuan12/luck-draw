@@ -42,7 +42,7 @@ public class VieRedPacketTakepartMemberVo {
 	
 	//错误答题数量
 	@ParamAnnotation
-	private Long wrongCount;
+	private Integer wrongCount;
 
 	//红包id
 	@ParamAnnotation
@@ -78,6 +78,12 @@ public class VieRedPacketTakepartMemberVo {
 
 	@ParamAnnotation
 	private String takepartDateTime;
+	
+	@ParamAnnotation
+	private Integer isSuccess;
+	
+	@ParamAnnotation
+	private String answer;
 
 	public String getId() {
 		return id;
@@ -192,12 +198,12 @@ public class VieRedPacketTakepartMemberVo {
 	}
 
 
-	public Long getWrongCount() {
+	public Integer getWrongCount() {
 		return wrongCount;
 	}
 
 
-	public void setWrongCount(Long wrongCount) {
+	public void setWrongCount(Integer wrongCount) {
 		this.wrongCount = wrongCount;
 	}
 
@@ -259,6 +265,26 @@ public class VieRedPacketTakepartMemberVo {
 
 	public void setRank(Long rank) {
 		this.rank = rank;
+	}
+
+
+	public Integer getIsSuccess() {
+		return isSuccess;
+	}
+
+
+	public void setIsSuccess(Integer isSuccess) {
+		this.isSuccess = isSuccess;
+	}
+
+
+	public String getAnswer() {
+		return answer;
+	}
+
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 	
 	

@@ -2,10 +2,10 @@ package com.wyc.draw.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.RedPacketToTakepartMember;
 
-public interface VieRedPacketToTakepartMemberRepository extends CrudRepository<VieRedPacketToTakepartMember, String>{
+public interface VieRedPacketToTakepartMemberRepository extends CrudRepository<RedPacketToTakepartMember, String>{
 
-	VieRedPacketToTakepartMember findByDrawUserIdAndRedPacketId(String drawUserId, String redPacketId);
+	RedPacketToTakepartMember findByDrawUserIdAndRedPacketId(String drawUserId, String redPacketId);
 
 }

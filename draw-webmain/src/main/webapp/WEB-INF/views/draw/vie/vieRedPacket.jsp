@@ -366,6 +366,10 @@
 			<img src="/imgs/moreRedPacket.png">
 		</div>
 		
+		<div class="wallet">
+			<img src="/imgs/wallet.jpg">
+		</div>
+		
 		
 		
 		
@@ -838,10 +842,10 @@ function initDialog(){
 				showLinkGuid("好友好评一次，您能获得2颗智慧豆",null);
 			}
 		}else if(isCreater==0&&firstVisit==1&&takepartStatus==1){
-			showRankAlert("恭喜你，获得第"+rank+"名，获得"+receiveAmount+"元已收入钱包",memberRank1,memberRank2,memberRank3);
+			showRankAlert("恭喜您，获得第"+rank+"名，"+receiveAmount+"元已收入钱包",memberRank1,memberRank2,memberRank3,1000);
 		}
 	}else{
-		
+		showSmartAlert("该红包已经超时，您获得"+rank+"名","确定");
 	}
 	
 	

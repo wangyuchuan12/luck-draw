@@ -20,7 +20,7 @@ import com.wyc.common.util.Constant;
 import com.wyc.common.util.XmlUtil;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketTakepartMember;
-import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.RedPacketToTakepartMember;
 import com.wyc.draw.filter.pay.ChooseWxPayFilter;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
@@ -119,7 +119,7 @@ public class WxPayApi {
 				redPacketTakepartMemberService.update(redPacketTakepartMember);
 				paySuccessService.add(paySuccess);
 				
-				VieRedPacketToTakepartMember vieRedPacketToTakepartMember = vieRedPacketToTakepartMemberService.findByDrawUserIdAndRedPacketId(redPacketTakepartMember.getDrawUserId(), redPacketTakepartMember.getRedPacketId());
+				RedPacketToTakepartMember vieRedPacketToTakepartMember = vieRedPacketToTakepartMemberService.findByDrawUserIdAndRedPacketId(redPacketTakepartMember.getDrawUserId(), redPacketTakepartMember.getRedPacketId());
 				
 				vieRedPacketToTakepartMember.setIsPay(1);
 				vieRedPacketToTakepartMember.setTakepartStatus(Constant.UNDERWAY_TAKEPART_STATUS);

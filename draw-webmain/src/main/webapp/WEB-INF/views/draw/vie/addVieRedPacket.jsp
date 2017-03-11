@@ -40,6 +40,11 @@
 		        </div>
 		        
 		        <div class="option_item">
+					<div class="option_item_label" id="num_label">红包个数：</div>
+					<input name="num" placeholder="填写个数" type="number"/> 
+				</div>
+		        
+		        <div class="option_item">
 					<div class="option_item_label" id="theme_label">主题：</div>
 					<input name="theme" placeholder="不能超过7个字节"/> 
 				</div>
@@ -298,9 +303,13 @@
 		var subjectId = $("input[name=subjectId]").val();
 		
 		var isRoom = $("input[name=isRoom]").val();
+		
+		var num = $("input[name=num]").val();
 
 		var url = "/api/draw/red_pack/add";
 		var params = new Object();
+		
+		params.place_num = num;
 		
 		params.draw_room_id = room;
 
@@ -401,6 +410,35 @@
 	function openPayView(){
 		
 		var theme = $("input[name=theme]").val();
+		
+		var num = $("input[name=num]").val();
+		numFloat = parseFloat(num);
+		numInt = parseInt(num);
+		
+		if(!numInt){
+			$("#num_label").css("color","red");
+			showErrorToast("红包个数输入不合法");
+			return;
+		}
+		
+		if(numFloat>numInt){
+			$("#num_label").css("color","red");
+			showErrorToast("红包个数不能有小数点");
+			return;
+		}
+		
+		if(numInt==0){
+			$("#num_label").css("color","red");
+			showErrorToast("红包个数不能是0");
+			return;
+		}
+		
+		if(numInt>1000){
+			$("#num_label").css("color","red");
+			showErrorToast("红包个数不能大于1000");
+			return;
+		}
+		
 		
 		if(!theme){
 			$("#theme_label").css("color","red");

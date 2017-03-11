@@ -12,7 +12,7 @@ import com.wyc.common.wx.domain.WxContext;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
-import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.RedPacketToTakepartMember;
 import com.wyc.draw.domain.param.VieDrawInfoParam;
 import com.wyc.draw.filter.test.GetRedPacketFilter;
 import com.wyc.draw.filter.test.RedPacketReceiveAbleTestFilter;
@@ -159,7 +159,7 @@ public class GetRedPackInfoFilter extends Filter{
 			redPacketVo.setInstruction(redPacket.getInstruction());
 			redPacketVo.setIsEntryFee(redPacket.getIsEntryFee());
 			
-			VieRedPacketToTakepartMember vieRedPacketToTakepartMember = (VieRedPacketToTakepartMember)filterManager.getObject(VieRedPacketToTakepartMember.class);
+			RedPacketToTakepartMember vieRedPacketToTakepartMember = (RedPacketToTakepartMember)filterManager.getObject(RedPacketToTakepartMember.class);
 			
 			if(vieRedPacketToTakepartMember!=null){
 				int takepartStatus = vieRedPacketToTakepartMember.getTakepartStatus();

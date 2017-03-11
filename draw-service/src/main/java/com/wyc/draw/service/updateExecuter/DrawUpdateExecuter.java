@@ -9,7 +9,7 @@ import com.wyc.common.session.DbServiceExecuter;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketAmountDistribution;
 import com.wyc.draw.domain.RedPacketTakepartMember;
-import com.wyc.draw.domain.VieRedPacketToTakepartMember;
+import com.wyc.draw.domain.RedPacketToTakepartMember;
 import com.wyc.draw.service.RedPacketAmountDistributionService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
@@ -34,8 +34,8 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 	public void update(List<Object> objs) {
 		if(objs!=null){
 			for(Object object:objs){
-				if(object.getClass().equals(VieRedPacketToTakepartMember.class)){
-					vieRedPacketToTakepartMemberService.update((VieRedPacketToTakepartMember)object);
+				if(object.getClass().equals(RedPacketToTakepartMember.class)){
+					vieRedPacketToTakepartMemberService.update((RedPacketToTakepartMember)object);
 				}else if(object.getClass().equals(RedPacketTakepartMember.class)){
 					redPacketTakepartMemberService.update((RedPacketTakepartMember)object);
 				}else if(object.getClass().equals(RedPacket.class)){

@@ -106,11 +106,6 @@ public class RedPacketTakepartMember {
 	@Column(name="right_count")
 	private Long rightCount;
 	
-	//错误答题数量
-	@ParamAnnotation
-	@Column(name="wrong_count")
-	private Long wrongCount;
-	
 	//是否是所有参与者当中的最高分
 	@ParamAnnotation
 	@Column(name="is_best")
@@ -145,6 +140,11 @@ public class RedPacketTakepartMember {
 	@ParamAnnotation
 	@Column(name="current_problem_id")
 	private String currentProblemId;
+	
+	//竞答红包错误几题
+	@ParamAnnotation
+	@Column(name="wrong_count")
+	private Integer wrongCount;
 	
 	//支付码
 	@ParamAnnotation
@@ -279,12 +279,6 @@ public class RedPacketTakepartMember {
 	public void setRightCount(Long rightCount) {
 		this.rightCount = rightCount;
 	}
-	public Long getWrongCount() {
-		return wrongCount;
-	}
-	public void setWrongCount(Long wrongCount) {
-		this.wrongCount = wrongCount;
-	}
 	public int getIsBest() {
 		return isBest;
 	}
@@ -321,6 +315,10 @@ public class RedPacketTakepartMember {
 	public void setIsWisdom(Integer isWisdom) {
 		this.isWisdom = isWisdom;
 	}
-	
-	
+	public Integer getWrongCount() {
+		return wrongCount;
+	}
+	public void setWrongCount(Integer wrongCount) {
+		this.wrongCount = wrongCount;
+	}
 }
