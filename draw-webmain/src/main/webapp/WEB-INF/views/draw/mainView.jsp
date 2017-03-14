@@ -4,9 +4,7 @@
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
-<tiles:insertDefinition name="frameLayout">
-<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
-<tiles:putAttribute name="body">
+
 	<div class="headItems">
 		<img src="/imgs/bean2.png">
 		<span>智慧豆 50</span>
@@ -92,5 +90,4 @@
 		});
 		
 	</script>
-</tiles:putAttribute>
-</tiles:insertDefinition>
+

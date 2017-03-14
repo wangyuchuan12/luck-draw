@@ -20,6 +20,8 @@
 
 <script src="/js/jquery.lazy.js"></script>
 
+<script src="/js/skip.js"></script>
+
 <script src="/js/jquery.event.swipe.js"></script>
 
 <script src="/js/jquery.tabso_yeso.js"></script>

@@ -751,7 +751,13 @@ function initDialog(){
 			showRankAlert("恭喜您，获得第"+rank+"名，"+receiveAmount+"元已收入钱包",memberRank1,memberRank2,memberRank3,1000);
 		}
 	}else{
-		showSmartAlert("该红包已经超时，您获得"+rank+"名","确定");
+		
+		if(isCreater==1){
+			showSmartAlert("红包已经超时，你获取了"+getWisdom+"颗智慧豆");
+		}else{
+			showSmartAlert("该红包已经超时，您获得"+rank+"名","确定");
+		}
+		
 	}
 	
 	

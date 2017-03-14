@@ -14,7 +14,7 @@
 <tiles:insertAttribute name="resource"/>
 <tiles:insertAttribute name="formResource"/>
 </head>
-<body>
+
 	
     <div class="container">
 	   <tiles:insertAttribute name="body" />

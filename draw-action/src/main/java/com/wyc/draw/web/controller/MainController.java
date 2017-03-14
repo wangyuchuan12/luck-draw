@@ -33,4 +33,10 @@ public class MainController {
 		httpServletRequest.setAttribute("mainRedPackets", redPacketListVo.getRedPacketVos());
 		return "mainView";
 	}
+	
+	
+	@RequestMapping(value="test")
+	public String test(HttpServletRequest httpServletRequest)throws Exception{
+		return "test/test";
+	}
 }
