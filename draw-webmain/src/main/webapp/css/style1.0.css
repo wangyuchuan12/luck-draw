@@ -3067,6 +3067,94 @@ li::before{
 	border:0px solid white;
 	
 	border: 1px solid RGBA(204,204,204,1);
+}
+
+.gameRedPacketImgHeader{
+	background: url("/imgs/bean2.png") no-repeat;
+	background-size:70% 80%;
 	
+	background-position:40px 0px;
+	width: 100%;
+	height: 200px;
+	
+	background-color: RGBA(116,33,7,0.7);
+}
+
+.gameRedPacketImgHeader>img{
+	width:70px;
+	height: 70px;
+	position: absolute;
+	
+	left:20px;
+	
+	top:120px;
+	
+	border-radius:10px;
+}
+
+.gameRedPacketImgHeaderName{
+	left:110px;
+	top:120px;
+	
+	position: absolute;
+	
+	color: white;
+	
+	font-size: 20px;
+	
+	font-weight: bolder;
+}
+
+.gameRedPacketImgHeaderNickname{
+	left:110px;
+	top:145px;
+	position: absolute;
+	
+	color: white;
+}
+
+.gameRedPacketImgHeaderScore{
+	left:110px;
+	top:162px;
+	position: absolute;
+	color: white;
+}
+
+.gameRedPacketTab{
+	position: relative;
+	width:100%;
+	padding-left: 2px;
+	color: white;
+	
+	text-align: center;
+}
+
+.gameRedPacketTab>ul>li{
+	width:70px;
+	height:40px;
+	float: left;
+	text-align: center;
+	padding-top:13px;
+	color: black;
+	font-size: 15px;
+}
+
+.gameRedPacketFooter{
+	position: fixed;
+	width:90%;
+	height:40px;
+	text-align: center;
+	color: white;
+	bottom: 0px;
+	
+	border-radius:10px;
+	background: RGBA(6,189,3,1);
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	
+	padding-top: 10px;
+	
+	font-size: 15px;
 	
 }

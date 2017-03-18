@@ -22,6 +22,8 @@
 
 <script src="/js/skip.js"></script>
 
+<script src="/js/jump.js"></script>
+
 <script src="/js/jquery.event.swipe.js"></script>
 
 <script src="/js/jquery.tabso_yeso.js"></script>
@@ -29,6 +31,7 @@
 <script src="/raty/jquery.raty.js"></script>
 
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
 
 
 

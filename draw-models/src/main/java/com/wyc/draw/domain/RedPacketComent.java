@@ -27,6 +27,12 @@ public class RedPacketComent {
 	@ParamAnnotation
 	private Integer type;
 	
+	
+	//评论对象 0红包 1挑战
+	@ParamAnnotation
+	@Column
+	private Integer target;
+	
 	//问题答案符合度
 	@ParamAnnotation
 	@Column(name="accord_star")
@@ -37,10 +43,15 @@ public class RedPacketComent {
 	@Column(name="useful_star")
 	private Integer usefulStar;
 	
-	//问题有趣度
+	//问题和游戏有趣度
 	@ParamAnnotation
 	@Column(name="isteresting_star")
 	private Integer interestingStar;
+	
+	//游戏难度
+	@ParamAnnotation
+	@Column(name="difficult_star")
+	private Integer difficultStar;
 	
 	//评论内容
 	@ParamAnnotation
@@ -56,6 +67,12 @@ public class RedPacketComent {
 	@ParamAnnotation
 	@Column(name="red_packet_id")
 	private String redPacketId;
+	
+	//挑战id
+	@ParamAnnotation
+	@Column(name="dekorn_id")
+	private String dekornId;
+	
 	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -149,7 +166,20 @@ public class RedPacketComent {
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
-	
-	
-	
+
+	public Integer getTarget() {
+		return target;
+	}
+
+	public void setTarget(Integer target) {
+		this.target = target;
+	}
+
+	public String getDekornId() {
+		return dekornId;
+	}
+
+	public void setDekornId(String dekornId) {
+		this.dekornId = dekornId;
+	}	
 }

@@ -21,14 +21,13 @@
 
 
 <script type="text/javascript">
-	 var actionMapper = new ActionMapper("#container");
-	 actionMapper.paraseEntities();
-	 actionMapper.show("1");
-	 var page=1;
-	 $("#container").click(function(){
-		 actionMapper.show(page++);
-		 
-	 });
+var actionMapper = new ActionMapper("#container");
+actionMapper.paraseEntities();
+actionMapper.show("1");
+var page=1;
+$("#container").click(function(){
+	 actionMapper.show(page++);
+});
 </script>
 
 </tiles:putAttribute>

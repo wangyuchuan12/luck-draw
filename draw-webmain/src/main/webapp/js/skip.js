@@ -25,6 +25,13 @@ function ActionMapper(selector){
 			var id = $(this).attr("id");
 			var currentPage = $(this).attr("currentPage");
 			var destroy = $(this).attr("destroy");
+			var isCache = $(this).attr("isCache");
+			
+			if(html){
+				isCache = 1;
+			}else{
+				isCache = 0;
+			}
 			if(!destroy){
 				if(html){
 					destroy = "cache";
@@ -46,9 +53,9 @@ function ActionMapper(selector){
 			object.destroy = destroy;
 			object.el = $(this);
 			object.currentPage=0;
+			object.isCache = isCache;
 			//此为序号，用户判断是向左move还是向右move
 			object.seq = 0;
-			object.currentPage = currentPage;
 			object.animateTimeLong = animateTimeLong;
 			entityArray.push(object);
 		});
@@ -70,6 +77,7 @@ function ActionMapper(selector){
 		el.css("display","block");
 		el.css("position","absolute");
 		el.css("left",selectorDiv.width());
+		el.css("z-index",10000);
 		el.html(html);
 	}
 	
@@ -83,86 +91,134 @@ function ActionMapper(selector){
 	}
 	
 	this.hideAnimate = function hideAnimate(object,direction){
-		var selectorDivWidth = selectorDiv.width();
-		var selectorDivHeight = selectorDiv.height();
-		var el = object.el;
-		var animateTimeLong = object.animateTimeLong;
-		if(direction=="left"){
-			el.animate({
-				left:-selectorDivWidth
-			},animateTimeLong,function(){
-				el.empty();
-				el.html("");
-				el.css("display","none");
-			});
-		}else if(direction=="right"){
-			el.animate({
-				left:selectorDivWidth
-			},animateTimeLong,function(){
-				el.empty();
-				el.html("");
-				el.css("display","none");
-			});
+		if(object){
+			var selectorDivWidth = selectorDiv.width();
+			var selectorDivHeight = selectorDiv.height();
+			var el = object.el;
+			var animateTimeLong = object.animateTimeLong;
+			if(direction=="left"){
+				el.animate({
+					left:-selectorDivWidth
+				},animateTimeLong,function(){
+					
+					if(object.isCache==1){
+						el.empty();
+						el.html("");
+						el.css("display","none");
+					}
+					
+				});
+			}else if(direction=="right"){
+				el.animate({
+					left:selectorDivWidth
+				},animateTimeLong,function(){
+					if(object.isCache==1){
+						el.empty();
+						el.html("");
+						el.css("display","none");
+					}
+				});
+			}
 		}
+		
 	}
 	
 	this.showAnimate = function showAnimate(object,direction){
+		
+		if(direction=="left"){
+			
+		}else if(direction=="right"){
+			el.left = -selectorDivWidth;
+		}
+		
+	}
+	
+	this.showLeftAnimate = function showLeftAnimate(object){
 		var selectorDivWidth = selectorDiv.width();
 		var selectorDivHeight = selectorDiv.height();
 		var el = object.el;
 		var animateTimeLong = object.animateTimeLong;
-		if(direction=="left"){
-			el.left = selectorDivWidth;	
-		}else if(direction=="right"){
-			el.left = -selectorDivWidth;
-		}
+		el.css("left",selectorDivWidth);
 		el.animate({
 			left:0
 		},animateTimeLong);
 	}
+	
+	this.showRightAnimate = function showRightAnimate(object){
+		var selectorDivWidth = selectorDiv.width();
+		var selectorDivHeight = selectorDiv.height();
+		var el = object.el;
+		var animateTimeLong = object.animateTimeLong;
+		el.css("left",0-selectorDivWidth);
+		el.animate({
+			left:0
+		},animateTimeLong);
+	}
+	
+	this.middleAnimate = function  middleAnimate(object){
+		var selectorDivWidth = selectorDiv.width();
+		var selectorDivHeight = selectorDiv.height();
+		var el = object.el;
+		var animateTimeLong = object.animateTimeLong;
+		
+
+		el.css("left",0);
+		
+	}
+	
+	
 	
 	//显示页面
 	this.show = function show(id){
 		var object = outThis.getObjectById(id);
 		var currentPage = outThis.getCurrentPage();
 		var selectorDivWidth = selectorDiv.width();
-		if(!object.currentSeq){
-			object.currentSeq=currentSeq;
-			currentSeq++;
-		}
 		if(object.currentPage==1){
 			//表示激活的正是当前页面
 			return;
 		}else{
-			
+			if(currentPage){
+				currentPage.currentPage=0;
+			}
 			object.currentPage=1;
-			if(object.html){
-				outThis.fillEl(object,html);
-				if(currentPage){
-					outThis.fillEl(object,data);
-					if(currentPage){
-						currentPage.currentPage=0;
-						outThis.hideAnimate(currentPage,"left");
-						outThis.showAnimate(object,"left");
-					}else{
-						object.el.css("left",0);
-					}
-				}
-			}else{
-				var url = object.url;
-				$.ajax({
-					url:url,
-					success:function(data){
-						outThis.fillEl(object,data);
-						if(currentPage){
-							currentPage.currentPage=0;
-							outThis.hideAnimate(currentPage,"left");
-							outThis.showAnimate(object,"left");
-						}else{
-							object.el.css("left",0);
-						}
-					}
+			if(object.showModel=="layer"){
+				var index = layer.open({
+					title:false,
+					area:["100%","100%"],
+					type:2,
+					shade:false,
+					content:object.url,
+					shift:10,
+					closeBtn:0
 				});
+				layer.full(index);
+			}else{
+				if(object.html){
+					if(object.isCache==1){
+						outThis.fillEl(object,object.html);
+					}
+					object.el.css("display","block");
+
+					
+					outThis.hideAnimate(currentPage,"left");
+					outThis.middleAnimate(object);
+					
+				}else{
+					var url = object.url;
+					$.ajax({
+						url:url,
+						success:function(data){
+							outThis.fillEl(object,data);
+							if(currentPage){
+								currentPage.currentPage=0;
+								outThis.hideAnimate(currentPage,"left");
+								outThis.middleAnimate(object);
+							}else{
+								outThis.middleAnimate(object);
+							}
+						}
+					});
+				}
 			}
 		}
 	}

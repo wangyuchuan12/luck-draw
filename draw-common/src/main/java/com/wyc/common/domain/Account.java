@@ -33,6 +33,11 @@ public class Account {
 	@Column(name="wisdom_count")
 	private Long wisdomCount;
 	
+	//智慧豆上限
+	@ParamAnnotation
+	@Column(name="wisdom_limit")
+	private Long wisdomLimit;
+	
 	//经验
 	@ParamAnnotation
 	@Column(name="empirical_value")
@@ -44,8 +49,22 @@ public class Account {
 	@Column(name="can_take_out_count")
 	private Integer canTakeOutCount;
 	
+	//爱心个数
+	@ParamAnnotation
+	@Column(name="love_life")
+	private Integer loveLife;
 	
-	//账户余额
+	//爱心上限
+	@ParamAnnotation
+	@Column(name="love_life_limit")
+	private Integer loveLifeLimit;
+	
+	//积分数
+	@ParamAnnotation
+	@Column
+	private Integer integral;
+	
+	//账户余额以元为单位，有小数点
 	@ParamAnnotation
 	@Column(name="amount_balance")
 	private BigDecimal amountBalance;
@@ -107,6 +126,30 @@ public class Account {
 	}
 	public void setAmountBalance(BigDecimal amountBalance) {
 		this.amountBalance = amountBalance;
+	}
+	public Long getWisdomLimit() {
+		return wisdomLimit;
+	}
+	public void setWisdomLimit(Long wisdomLimit) {
+		this.wisdomLimit = wisdomLimit;
+	}
+	public Integer getLoveLife() {
+		return loveLife;
+	}
+	public void setLoveLife(Integer loveLife) {
+		this.loveLife = loveLife;
+	}
+	public Integer getLoveLifeLimit() {
+		return loveLifeLimit;
+	}
+	public void setLoveLifeLimit(Integer loveLifeLimit) {
+		this.loveLifeLimit = loveLifeLimit;
+	}
+	public Integer getIntegral() {
+		return integral;
+	}
+	public void setIntegral(Integer integral) {
+		this.integral = integral;
 	}
 	
 	
