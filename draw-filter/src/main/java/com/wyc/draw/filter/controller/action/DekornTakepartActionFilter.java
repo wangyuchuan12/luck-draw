@@ -6,11 +6,10 @@ import java.util.List;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
-import com.wyc.draw.filter.CurrentDekornToTakepartFilter;
-import com.wyc.draw.filter.GameDekornInfoFilter;
-import com.wyc.draw.filter.controller.param.GameDekornInfoParamFilter;
+import com.wyc.draw.filter.DekornTakepartFilter;
+import com.wyc.draw.filter.controller.param.DekornTakepartParamFilter;
 
-public class GameDekornInfoActionFilter extends Filter{
+public class DekornTakepartActionFilter extends Filter{
 
 	@Override
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
@@ -39,9 +38,8 @@ public class GameDekornInfoActionFilter extends Filter{
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> classes = new ArrayList<>();
-		classes.add(GameDekornInfoParamFilter.class);
-		classes.add(GameDekornInfoFilter.class);
-		classes.add(CurrentDekornToTakepartFilter.class);
+		classes.add(DekornTakepartParamFilter.class);
+		classes.add(DekornTakepartFilter.class);
 		return classes;
 	}
 

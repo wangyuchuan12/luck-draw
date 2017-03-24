@@ -25,6 +25,11 @@ public class Dekorn {
 	@Column
 	private Integer type;
 	
+	//游戏类型
+	@ParamAnnotation
+	@Column(name="game_type")
+	private Integer gameType;
+	
 	//游戏id
 	@ParamAnnotation
 	@Column(name="game_id")
@@ -44,6 +49,11 @@ public class Dekorn {
 	@ParamAnnotation
 	@Column(name="hand_draw_user_img")
 	private String handDrawUserImg;
+	
+	//发起人名称
+	@ParamAnnotation
+	@Column(name="hand_draw_user_name")
+	private String handDrawUserName;
 	
 	//及格分数
 	@ParamAnnotation
@@ -276,7 +286,66 @@ public class Dekorn {
 	public void setPraiseIntegralNum(Long praiseIntegralNum) {
 		this.praiseIntegralNum = praiseIntegralNum;
 	}
-	
-	
 
+	public Integer getGameType() {
+		return gameType;
+	}
+
+	public void setGameType(Integer gameType) {
+		this.gameType = gameType;
+	}
+
+	public Long getTakepartCount() {
+		return takepartCount;
+	}
+
+	public void setTakepartCount(Long takepartCount) {
+		this.takepartCount = takepartCount;
+	}
+
+	public Long getTakepartSuccessCount() {
+		return takepartSuccessCount;
+	}
+
+	public void setTakepartSuccessCount(Long takepartSuccessCount) {
+		this.takepartSuccessCount = takepartSuccessCount;
+	}
+
+	public Long getTakepartFailCount() {
+		return takepartFailCount;
+	}
+
+	public void setTakepartFailCount(Long takepartFailCount) {
+		this.takepartFailCount = takepartFailCount;
+	}
+
+	public Long getHighestScore() {
+		return highestScore;
+	}
+
+	public void setHighestScore(Long highestScore) {
+		this.highestScore = highestScore;
+	}
+
+	public Long getAverageScore() {
+		return averageScore;
+	}
+
+	public void setAverageScore(Long averageScore) {
+		this.averageScore = averageScore;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getHandDrawUserName() {
+		return handDrawUserName;
+	}
+
+	public void setHandDrawUserName(String handDrawUserName) {
+		this.handDrawUserName = handDrawUserName;
+	}
+	
+	
 }

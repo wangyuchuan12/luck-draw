@@ -50,7 +50,7 @@ public class DekornTakepartMember {
 	@Column(name="is_success")
 	private int isSuccess;
 	
-	//使用爱心个数
+	//使用爱心个数，这个爱心指的是参加这个挑战消耗了多少爱心
 	@ParamAnnotation
 	@Column(name="use_love_life")
 	private Long useLoveLife;
@@ -81,7 +81,8 @@ public class DekornTakepartMember {
 	@Column(name="obtain_integral_num")
 	private Long obtainIntegralNum;
 	
-	
+	@Column(name="takepart_status")
+	private Integer takepartStatus;
 	
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -227,7 +228,12 @@ public class DekornTakepartMember {
 	public void setDekornId(String dekornId) {
 		this.dekornId = dekornId;
 	}
-	
-	
 
+	public Integer getTakepartStatus() {
+		return takepartStatus;
+	}
+
+	public void setTakepartStatus(Integer takepartStatus) {
+		this.takepartStatus = takepartStatus;
+	}
 }

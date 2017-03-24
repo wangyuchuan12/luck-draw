@@ -61,11 +61,10 @@ public class DekornTakepartFilter extends Filter{
 		dekornTakepartMember.setOpenid(drawUser.getOpenid());
 		dekornTakepartMember.setScore(0l);
 		dekornTakepartMember.setTakepartDateTime(new DateTime());
+		dekornTakepartMember.setTakepartStatus(Constant.DEKORN_UNDERWAY_TAKEPART_STATUS);
 		dekornTakepartMemberService.add(dekornTakepartMember);
 		Integer deductLoveLife = 4;
-		
-		System.out.println(".............drawUser_id:"+drawUser.getId());
-		System.out.println(".............accountId:"+drawUser.getAccountId());
+
 		Account account = accountService.fineOneSync(drawUser.getAccountId());
 		Integer loveLife = account.getLoveLife();
 		if(loveLife >= deductLoveLife){

@@ -17,6 +17,10 @@ public class DekornVo {
 	@ParamAnnotation
 	private String gameId;
 	
+	//游戏名称
+	@ParamAnnotation
+	private String gameName;
+	
 	//试卷id
 	@ParamAnnotation
 	private String testPaperId;
@@ -28,6 +32,10 @@ public class DekornVo {
 	//发起人图片
 	@ParamAnnotation
 	private String handDrawUserImg;
+	
+	//发起人别呢
+	@ParamAnnotation
+	private String handDrawUserName;
 	
 	//及格分数
 	@ParamAnnotation
@@ -291,6 +299,22 @@ public class DekornVo {
 
 	public void setGameUrl(String gameUrl) {
 		this.gameUrl = gameUrl;
+	}
+
+	public String getGameName() {
+		return gameName;
+	}
+
+	public void setGameName(String gameName) {
+		this.gameName = gameName;
+	}
+
+	public String getHandDrawUserName() {
+		return handDrawUserName;
+	}
+
+	public void setHandDrawUserName(String handDrawUserName) {
+		this.handDrawUserName = handDrawUserName;
 	}
 	
 	

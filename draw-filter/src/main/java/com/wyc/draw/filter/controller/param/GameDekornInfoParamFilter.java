@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.param.DekornTakepartParam;
 import com.wyc.draw.domain.param.GameDekornInfoParam;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 
@@ -24,6 +25,9 @@ public class GameDekornInfoParamFilter extends Filter{
 		String dekornId = httpServletRequest.getParameter("id");
 		gameDekornInfoParam.setDekornId(dekornId);
 		
+		DekornTakepartParam dekornTakepartParam = new DekornTakepartParam();
+		dekornTakepartParam.setDekornId(dekornId);
+		filterManager.save(dekornTakepartParam);
 		return gameDekornInfoParam;
 	}
 

@@ -11,12 +11,11 @@ import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.filter.controller.api.DekornTakepartApiFilter;
+import com.wyc.draw.filter.controller.api.SubmitScoreApiFilter;
 
 @Controller
 @RequestMapping(value="/api/dekorn/")
 public class DekornApi {
-	
-	
 	
 	@RequestMapping(value="takepart")
 	@Transactional
@@ -24,6 +23,19 @@ public class DekornApi {
 	@HandlerAnnotation(hanlerFilter=DekornTakepartApiFilter.class)
 	public Object takepart(HttpServletRequest httpServletRequest)throws Exception{
 		
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.getObject(ResultVo.class)!=null){
+			return sessionManager.getObject(ResultVo.class);
+		}else{
+			return sessionManager.getReturnValue();
+		}
+	}
+
+	@RequestMapping(value="submit_score")
+	@HandlerAnnotation(hanlerFilter=SubmitScoreApiFilter.class)
+	@Transactional
+	@ResponseBody
+	public Object submitScore(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		if(sessionManager.getObject(ResultVo.class)!=null){
 			return sessionManager.getObject(ResultVo.class);

@@ -5,20 +5,39 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<html>
+	<head>
+		<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+	</head>
+	<body>
+		<input name ="handDrawUserImg" value="${dekornInfo.handDrawUserImg}"/>
+		<input name ="passScore" value="${dekornInfo.passScore}"/>
+		<input name ="handDrawUserImg" value="${dekornInfo.handDrawUserImg}"/>
+		<input name ="handDrawUserName" value="${dekornInfo.handDrawUserName}"/>
+		<input name ="acceptFightSuccessWisdomNum" value="${dekornInfo.acceptFightSuccessWisdomNum}"/>
+		
+		<input name ="dekornId" value="${dekornInfo.id}"/>
+		<input name ="gameName" value="${dekornInfo.gameName}"/>
+		
+		<input name="myNickname" value="${drawUser.nickname}"/>
+		<input name="myImgUrl" value="${drawUser.imgUrl}"/>
+		
+		<input name="fightSuccessWisdomNum" value="${dekornInfo.fightSuccessWisdomNum}"/>
+			
 		<div class="switchSubjectPlug">
 			 <div class="switchSubjectPlugTitle">挑战分数：100次</div>
 			 <div class="switchSubjectPlugName">挑战项目：小鸟飞飞</div>
 			 
-			 <div class="switchSubjectPlugPlayers">
-			 	<div class="switchSubjectPlugPlayer" style="left:5%;">
+			 <div class="switchSubjectPlugPlayers" >
+			 	<div class="switchSubjectPlugPlayer" style="left:5%;" id="handDrawUser">
 			 		<img src="http://wx.qlogo.cn/mmopen/8t8etdDXwrDvPykbY7HSFbvwhgQSeEUugmwibCsicASzPnsIchkjmU4ibM8OnLnarrI54cuicSbIZBP7RlEdDvOpD2EghMkicStQT/0">
-			 		<span>川川无敌飞车手</span>
-			 		<div class="switchSubjectPlugPlayerDialog">你是谁呀，我叫王煜川，初中一班学生哈哈</div>
+			 		<span id="handDrawUserName">川川无敌飞车手</span>
+			 		<div class="switchSubjectPlugPlayerDialog" style="display: none;">你是谁呀，我叫王煜川，初中一班学生哈哈</div>
 			 	</div>
 			 	
-			 	<div class="switchSubjectPlugPlayer" style="right: 5%;">
+			 	<div class="switchSubjectPlugPlayer" style="right: 5%;" id="myDrawUser">
 			 		<img src="http://wx.qlogo.cn/mmopen/8t8etdDXwrDvPykbY7HSFbvwhgQSeEUugmwibCsicASzPnsIchkjmU4ibM8OnLnarrI54cuicSbIZBP7RlEdDvOpD2EghMkicStQT/0">
-			 		<span>大卫</span>
+			 		<span id="myNickname">大卫</span>
 			 	</div>
 			 </div>
 			 
@@ -28,7 +47,7 @@
 			 		<ul>
 			 			<li>
 			 				<img src="/imgs/plug/bean.png">
-			 				<span>200</span>
+			 				<span id="fightSuccessWisdomNum">200</span>
 			 			</li>
 			 			
 			 			<li>
@@ -46,7 +65,35 @@
 			 </div>
 		</div>
 
+</body>
 
+<script type="text/javascript">
+	function initView(){
+		var passScore = $("input[name=passScore]").val();
+		$(".switchSubjectPlugTitle").text("挑战分数："+passScore+"分");
+		var handDrawUserImg = $("input[name=handDrawUserImg]").val();
+		$("#handDrawUser>img").attr("src",handDrawUserImg);
+		
+		var handDrawUserName = $("input[name=handDrawUserName]").val();
+		$("#handDrawUserName").text(handDrawUserName);
+		
+		var myImgUrl = $("input[name=myImgUrl]").val();
+		$("#myDrawUser>img").attr("src",myImgUrl);
+		
+		var myNickname = $("input[name=myNickname]").val();
+		$("#myNickname").text(myNickname);
+		
+		var gameName= $("input[name=gameName]").val();
+		
+		$(".switchSubjectPlugName").text("挑战项目："+gameName);
+		
+		var fightSuccessWisdomNum = $("input[name=fightSuccessWisdomNum]").val();
+		$("#fightSuccessWisdomNum").text(fightSuccessWisdomNum);
+	}
+	$(document).ready(function(){
+		initView();
+	});
+</script>
 <style>
 
 	.switchSubjectPlug{
@@ -279,3 +326,5 @@
 
 	}
 </style>
+
+</html>

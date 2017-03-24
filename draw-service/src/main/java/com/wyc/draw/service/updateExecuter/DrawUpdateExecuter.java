@@ -81,6 +81,12 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 			T obj = (T)gameService.findOne(id);
 			return obj;
 		}
+		
+		if(clazz.equals(DekornTakepartMember.class)){
+			T obj = (T)dekornTakepartMemberService.findOne(id);
+			return obj;
+		}
+
 		return null;
 	}
 

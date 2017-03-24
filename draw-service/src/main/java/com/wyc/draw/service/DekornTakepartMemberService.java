@@ -27,4 +27,8 @@ public class DekornTakepartMemberService {
 		dekornTakepartMember.setUpdateAt(new DateTime());
 		return dekornTakepartMemberRepository.save(dekornTakepartMember);
 	}
+
+	public DekornTakepartMember findOne(String id) {
+		return dekornTakepartMemberRepository.findOne(id);
+	}
 }
