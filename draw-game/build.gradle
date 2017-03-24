@@ -80,7 +80,7 @@ def loadConfiguration() {
         sourceSets.main.resources.srcDirs 'src/main/resources/local'
 }
 dependencies{
-	
+	compile project(':draw-common');
 	
 }
 
