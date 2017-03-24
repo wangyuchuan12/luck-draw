@@ -170,6 +170,23 @@ public class Constant {
 	public static final int FAIL_TAKEPART_STATUS=4;
 	
 	
+	/***********************挑战参与状态********************/
+	//未参与
+	public static final int DEKORN_NOT_INVOLVED_TAKEPART_STATUS=0;
+	
+	//正在进行
+	public static final int DEKORN_UNDERWAY_TAKEPART_STATUS=1;
+	
+	//参与结数
+	public static final int DEKORN_COMPLETE_TAKEPART_STATUS=2;
+	
+	//中途退出
+	public static final int DEKORN_RENEGINT_TAKEPART_STATUS=3;
+	
+	
+	//领取失败
+	public static final int DEKORN_FAIL_TAKEPART_STATUS=4;
+	
 	
 	
 	

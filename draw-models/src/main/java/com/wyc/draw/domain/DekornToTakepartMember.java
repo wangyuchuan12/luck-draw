@@ -11,17 +11,34 @@ import org.joda.time.DateTime;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
+import com.wyc.annotation.ParamEntityAnnotation;
 
 @Entity
 @Table(name="v_dekorn_to_takepart_member")
+@ParamEntityAnnotation
 public class DekornToTakepartMember {
 	@Id
 	@IdAnnotation
 	private String id;
 	
 	//挑战id
+	@ParamAnnotation
 	@Column(name="dekorn_id")
 	private String dekornId;
+	
+	//用户
+	@ParamAnnotation
+	@Column(name="draw_user_id")
+	private String drawUserId;
+	
+	//adminId
+	@ParamAnnotation
+	@Column(name="admin_id")
+	private String adminId;
+	
+	@ParamAnnotation
+	@Column
+	private String opernid;
 
 	//当前参与
 	@ParamAnnotation
@@ -29,34 +46,42 @@ public class DekornToTakepartMember {
 	private String currentTakepartMemberId;
 	
 	//参与次数
+	@ParamAnnotation
 	@Column(name="takepart_count")
 	private Long takepartCount;
 	
 	//参与成功次数
+	@ParamAnnotation
 	@Column(name="takepart_success_count")
 	private Long takepartSuccessCount;
 	
 	//参与失败次数
+	@ParamAnnotation
 	@Column(name="takepart_fail_count")
 	private Long takepartFailCount;
 	
 	//最高纪录
+	@ParamAnnotation
 	@Column(name="highest_score")
 	private Long highestScore;
 		
 	//平均成绩
+	@ParamAnnotation
 	@Column(name="average_score")
 	private Long averageScore;
 	
 	//剩余爱心个数
+	@ParamAnnotation
 	@Column(name="love_life_count")
 	private Long loveLifeCount;
 	
 	//获取智慧豆个数
+	@ParamAnnotation
 	@Column(name="obtain_wisdom_num")
 	private Long obtainWisdomNum;
 	
 	//获取经验数量
+	@ParamAnnotation
 	@Column(name="obtain_integral_num")
 	private Long obtainIntegralNum;
 	
@@ -71,10 +96,18 @@ public class DekornToTakepartMember {
 	private Integer visitCount;
 	
 	
+	//剩余爱心数量
+	@ParamAnnotation
+	@Column
+	private Integer residueLifeLove;
+	
+	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime createAt;
+	
+	@ParamAnnotation
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -199,6 +232,36 @@ public class DekornToTakepartMember {
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
-	
-	
+
+	public String getDrawUserId() {
+		return drawUserId;
+	}
+
+	public void setDrawUserId(String drawUserId) {
+		this.drawUserId = drawUserId;
+	}
+
+	public String getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
+	}
+
+	public String getOpernid() {
+		return opernid;
+	}
+
+	public void setOpernid(String opernid) {
+		this.opernid = opernid;
+	}
+
+	public Integer getResidueLifeLove() {
+		return residueLifeLove;
+	}
+
+	public void setResidueLifeLove(Integer residueLifeLove) {
+		this.residueLifeLove = residueLifeLove;
+	}
 }

@@ -76,6 +76,13 @@ public class DrawUserFilter extends Filter{
 				account.setAmountBalance(new BigDecimal("0"));
 				account.setCanTakeOutCount(3);
 				account.setWisdomCount(0l);
+				account.setEmpiricalValue(new BigDecimal(0));
+				account.setIntegral(0);
+				account.setLoveLife(0);
+				//最多可以有爱心10颗
+				account.setLoveLifeLimit(10);
+				//最多可以有智慧豆10万颗
+				account.setWisdomLimit(100000l);
 				account = accountService.add(account);
 				drawUser.setAccountId(account.getId());
 				drawUserService.update(drawUser);

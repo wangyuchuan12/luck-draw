@@ -1,0 +1,31 @@
+<!doctype html>
+<head>
+    <link rel="stylesheet" href="css/fakeLoader.css">
+</head>
+<body>
+	<div class="container">
+		<div class="fakeloader"></div>
+		<button id="haha">按下我</button>
+	</div>
+	
+	<script src="http://libs.useso.com/js/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/fakeLoader.min.js"></script>
+    <script>
+	   /* $(document).ready(function(){
+	        $(".container").fakeLoader({
+	            timeToHide:1200,
+	            bgColor:"#e74c3c",
+	            spinner:"spinner2"
+	        });
+	    });*/
+
+		$("#haha").click(function(){
+			 $(".fakeloader").fakeLoader({
+	            timeToHide:1200,
+	            bgColor:"#e74c3c",
+	            spinner:"spinner2"
+	        });
+		});
+	</script>
+</body>
+</html>

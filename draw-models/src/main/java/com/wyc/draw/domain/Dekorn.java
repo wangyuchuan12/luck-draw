@@ -6,9 +6,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.wyc.annotation.IdAnnotation;
+import com.wyc.annotation.ParamAnnotation;
+import com.wyc.annotation.ParamEntityAnnotation;
 
 
 //游戏挑战
+@ParamEntityAnnotation
 @Entity
 @Table(name="v_dekorn")
 public class Dekorn {
@@ -18,91 +21,113 @@ public class Dekorn {
 	
 	
 	//0游戏挑战 1答题挑战
+	@ParamAnnotation
 	@Column
-	private int type;
+	private Integer type;
 	
 	//游戏id
+	@ParamAnnotation
 	@Column(name="game_id")
 	private String gameId;
 	
 	//试卷id
+	@ParamAnnotation
 	@Column(name="test_paper_id")
 	private String testPaperId;
 	
 	//发起人
+	@ParamAnnotation
 	@Column(name="hand_draw_user_id")
 	private String handDrawUserId;
 	
 	//发起人图片
+	@ParamAnnotation
 	@Column(name="hand_draw_user_img")
 	private String handDrawUserImg;
 	
 	//及格分数
+	@ParamAnnotation
 	@Column(name="pass_score")
 	private Long passScore;
 	
 	//主题图片
+	@ParamAnnotation
 	@Column(name="item_img")
 	private String itemImg;
 	
 	//挑战成功获取智慧豆数量
+	@ParamAnnotation
 	@Column(name="fight_success_wisdom_num")
 	private Long fightSuccessWisdomNum;
 	
 	//挑战失败获取智慧豆数量
+	@ParamAnnotation
 	@Column(name="fight_fail_wisdom_num")
 	private Long fightFailWisdomNum;
 	
 	//挑战成功获取积分数
+	@ParamAnnotation
 	@Column(name="fight_success_integral_num")
 	private Long fightSuccessIntegralNum;
 	
 	//挑战失败获取积分数
+	@ParamAnnotation
 	@Column(name="fight_fail_integral_num")
 	private Long fightFailIntegralNum;
 	
 	
 	//接受挑战成功获取智慧豆数量
+	@ParamAnnotation
 	@Column(name="accept_fight_success_wisdom_num")
 	private Long acceptFightSuccessWisdomNum;
 	
 	//接受挑战失败获取智慧豆数量
+	@ParamAnnotation
 	@Column(name="accept_fight_fail_wisdom_num")
 	private Long acceptFightFailWisdomNum;
 	
 	//接受挑战成功获取积分数
+	@ParamAnnotation
 	@Column(name="accept_fight_success_integral_num")
 	private Long acceptFightSuccessIntegralNum;
 	
 	//接受挑战失败获取积分数
+	@ParamAnnotation
 	@Column(name="accept_fight_fail_integral_num")
 	private Long acceptFightFailIntegralNum;
 	
 	//好评获取智慧豆数量
+	@ParamAnnotation
 	@Column(name="praise_wisdom_num")
 	private Long praiseWisdomNum;
 	
 	//好评获取积分数量
+	@ParamAnnotation
 	@Column(name="praise_integral_num")
 	private Long praiseIntegralNum;
 	
 	//总参与数量
+	@ParamAnnotation
 	@Column(name="takepart_count")
 	private Long takepartCount;
 	
 	//挑战成功数量
+	@ParamAnnotation
 	@Column(name="takepart_success_count")
 	private Long takepartSuccessCount;
 	
 	//挑战失败数量
+	@ParamAnnotation
 	@Column(name="takepart_fail_count")
 	private Long takepartFailCount;
 	
 	//最高纪录
+	@ParamAnnotation
 	@Column(name="highest_score")
 	private Long highestScore;
 	
 	//平均成绩
+	@ParamAnnotation
 	@Column(name="average_score")
 	private Long averageScore;
 

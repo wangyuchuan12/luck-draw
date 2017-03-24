@@ -32,6 +32,10 @@ public class DekornTakepartMember {
 	private String openid;
 	
 	@ParamAnnotation
+	@Column(name="dekorn_id")
+	private String dekornId;
+	
+	@ParamAnnotation
 	@Column(name="draw_user_id")
 	private String drawUserId;
 	
@@ -214,6 +218,14 @@ public class DekornTakepartMember {
 
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
+	}
+
+	public String getDekornId() {
+		return dekornId;
+	}
+
+	public void setDekornId(String dekornId) {
+		this.dekornId = dekornId;
 	}
 	
 	

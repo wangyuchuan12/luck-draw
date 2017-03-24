@@ -503,7 +503,9 @@ public class SessionManager {
 			obj = updateExecuter.findOne(type, id);
 		}
 		
-		save(obj);
+		if(obj!=null){
+			save(obj);
+		}
 		return (T)obj;
 	}
 	
