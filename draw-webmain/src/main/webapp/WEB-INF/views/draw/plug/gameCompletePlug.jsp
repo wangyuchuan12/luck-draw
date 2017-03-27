@@ -28,7 +28,7 @@
 				
 			<div class="gameCompletePlugBander">
 				<span>挑战成功，您获得第5名</span>
-				<img src="/imgs/plug/banner.png">
+				<img src="http://7xugu1.com1.z0.glb.clouddn.com/banner.png">
 			</div>
 			
 			<div class="gameCompletePlugContent">

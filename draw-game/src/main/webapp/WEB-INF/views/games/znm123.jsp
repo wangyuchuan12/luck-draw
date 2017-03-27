@@ -56,9 +56,23 @@
     <script src="/games/znm123/launcher/egret_loader.js"></script>
     <script src="/games/znm123/launcher/game-min.js"></script>
     <script>
-	   
+	   function preLoadImg(url){
+		   var img1 = new Image();
+		   img1.src = url;
+		   img1.onload = function(){
+			   
+			   
+		   }
+	   }
+	   preLoadImg();
+    
         setTimeout(function () {
-           egret_h5.startGame();
+        	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/gameCompletePlug.jpg");
+        	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/light.png");
+        	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/banner.png");
+        	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png");
+        	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveHollow.png");
+        	egret_h5.startGame();
         }, 500);
         function submitScore(score){
         	layer.open({

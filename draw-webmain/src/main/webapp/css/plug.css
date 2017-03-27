@@ -31,7 +31,7 @@ body{
 	}
 	
 	.gameCompletePlugLifeLove>ul>li.lifeLoveSolid{
-		background: url("/imgs/plug/lifeLoveSolid.png");
+		background: url("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png");
 		
 		background-size:100px 100px;
 		
@@ -43,7 +43,7 @@ body{
 	
 	.gameCompletePlugLifeLove>ul>li.lifeLoveHollow{
 	
-		background: url("/imgs/plug/lifeLoveHollow.png") no-repeat;
+		background: url("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveHollow.png") no-repeat;
 		
 		background-size:70px 60px;
 		
@@ -55,7 +55,7 @@ body{
 	}
 	
 	.gameCompletePlug{
-		background: url("/imgs/plug/gameCompletePlug.jpg");
+		background: url("http://7xugu1.com1.z0.glb.clouddn.com/gameCompletePlug.jpg");
 		background-size:100% 100%;
 		width:100%;
 		height: 100%;
@@ -67,7 +67,7 @@ body{
 	}
 	
 	.gameCompletePlugLight{
-		background: url("/imgs/plug/light.png");
+		background: url("http://7xugu1.com1.z0.glb.clouddn.com/light.png");
 		background-size:100% 100%;
 		border-radius:1000px;
 		width:150%;
