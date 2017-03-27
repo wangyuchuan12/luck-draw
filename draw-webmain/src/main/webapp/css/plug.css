@@ -16,7 +16,7 @@ body{
 		
 		position: absolute;
 		
-		top: 25%;
+		top: 23%;
 
 	    
 	    text-align: center;
@@ -70,7 +70,9 @@ body{
 		background: url("/imgs/plug/light.png");
 		background-size:100% 100%;
 		border-radius:1000px;
-		width:100%;
+		width:150%;
+		left:-25%;
+		top:-250px;
 		overflow: hidden;
 		position: fixed;
 		
@@ -90,7 +92,7 @@ body{
 		
 	}
 	.gameCompletePlugHeaderImg>img{
-		width:30%;
+		width:70%;
 		border-radius:100px;
 	}
 	
@@ -99,13 +101,13 @@ body{
 		z-index: 1000;
 		position: absolute;
 		text-align: center;
-		top:30%;
+		top:32%;
 		-webkit-filter: grayscale(100%); 
 	}
 	.gameCompletePlugBander>span{
 		position: absolute;
 		color: RGBA(255,239,110,1);
-		font-size: 40px;
+		font-size: 30px;
 
 		left: 50%;
 	    -webkit-transform: translate(-50%, -50%);
@@ -123,7 +125,9 @@ body{
 	.gameCompletePlugContent{
 		width:70%;
 		left: 50%;
-		top:55%;
+		top:65%;
+		
+		height:30%;
 		
 		padding-top:40px;
 		

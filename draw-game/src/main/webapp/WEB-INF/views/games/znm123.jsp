@@ -11,10 +11,7 @@
 <img src='/games/znm123/znm123.jpg' />
 </div>
     <title>找你妹-空中传媒</title><meta name="x-author" content="HW1100">
-    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no,target-densitydpi=device-dpi" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-
-    <meta name="full-screen" content="true" />
     <meta name="screen-orientation" content="portrait" />
     <meta name="x5-fullscreen" content="true" />
     <meta name="360-fullscreen" content="true" />
@@ -59,22 +56,22 @@
     <script src="/games/znm123/launcher/egret_loader.js"></script>
     <script src="/games/znm123/launcher/game-min.js"></script>
     <script>
+	   
         setTimeout(function () {
-            egret_h5.startGame();
+           egret_h5.startGame();
         }, 500);
         function submitScore(score){
         	layer.open({
-        		title:false,
+				title:false,
 				type:2,
 				area:["80%","70%"],
 				shade:false,
 				content:["http://www.chengxihome.com/plug/gameCompltePlug"],
-				skin:"layui-layer-rim",
 				fadeIn:1000,
 				shift:10,
 				closeBtn:0
 			});
-				
+
         }
     </script>
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
