@@ -55,7 +55,7 @@ body{
 	}
 	
 	.gameCompletePlug{
-		
+		background: url("/imgs/plug/gameCompletePlug.jpg");
 		background-size:100% 100%;
 		width:100%;
 		height: 100%;
@@ -92,7 +92,7 @@ body{
 		
 	}
 	.gameCompletePlugHeaderImg>img{
-		width:30%;
+		width:40%;
 		border-radius:100px;
 	}
 	
