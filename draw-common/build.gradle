@@ -61,7 +61,7 @@ dependencies {
     
     compile 'com.qiniu:qiniu-java-sdk:7.0.+'
 
-    
+    compile 'org.springframework.session:spring-session-data-redis:1.0.2.RELEASE'
     
    // testCompile("junit:junit")
 }

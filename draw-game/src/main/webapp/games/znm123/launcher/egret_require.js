@@ -30,6 +30,8 @@ egret_h5 = {};
 egret_h5.prefix = "";
 
 egret_h5.loadScript = function (list, callback) {
+	
+	alert(list[0]);
     var loaded = 0;
     var loadNext = function () {
         egret_h5.loadSingleScript(egret_h5.prefix + list[loaded], function () {

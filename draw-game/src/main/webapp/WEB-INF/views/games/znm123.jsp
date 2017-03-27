@@ -1,9 +1,14 @@
-<!DOCTYPE HTML>
+<%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
+<%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head><meta name="x-key" content="97e624915fc159eb48ad8cdd17dd5d12">
     <meta charset="utf-8">
 	<div id='wx_pic' style='margin:0 auto;display:none;'>
-<img src='znm123.jpg' />
+<img src='/games/znm123/znm123.jpg' />
 </div>
     <title>找你妹-空中传媒</title><meta name="x-author" content="HW1100">
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no,target-densitydpi=device-dpi" />
@@ -13,11 +18,13 @@
     <meta name="screen-orientation" content="portrait" />
     <meta name="x5-fullscreen" content="true" />
     <meta name="360-fullscreen" content="true" />
-<link rel="shortcut icon" href="icon.png">
-<link rel="icon" href="icon.png">
-<link type="text/css" href="common.css" rel="stylesheet" />
-<script type="text/javascript" src="zepto.min.js"></script>
-<script src="common.js"></script>
+<link rel="shortcut icon" href="/games/znm123/icon.png">
+<link rel="icon" href="/games/znm123/icon.png">
+<link type="text/css" href="/games/znm123/common.css" rel="stylesheet" />
+<script type="text/javascript" src="/games/znm123/zepto.min.js"></script>
+<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script> 
+<script type="text/javascript" src="/layer/layer.js"></script>
+<script src="/games/znm123/common.js"></script>
 
     <style>
         body {
@@ -45,27 +52,34 @@
     <div style="width: 500px; height: 700px; background: black; position: relative;" id="gameDiv">
         <canvas id="gameCanvas" width="500" height="700" style="background-color: #000000"></canvas>
     </div>
-<input id="bt-game-id" type="hidden" value="29-znm">
+	<input id="bt-game-id" type="hidden" value="29-znm">
 
     <script>var document_class = "ZhaoNiMei";</script>
-    <!--这部分内容在编译时会被替换，要修改文档类，请到工程目录下的egretProperties.json内编辑。-->
-    <script src="launcher/egret_require.js"></script>
-    <script src="launcher/egret_loader.js"></script>
-    <script src="launcher/game-min.js"></script>
+    <script src="/games/znm123/launcher/egret_require.js"></script>
+    <script src="/games/znm123/launcher/egret_loader.js"></script>
+    <script src="/games/znm123/launcher/game-min.js"></script>
     <script>
         setTimeout(function () {
             egret_h5.startGame();
         }, 500);
-        window.shareData = {
-            title: "好玩的小游戏《找你妹》，快来玩吧。", // 分享标题
-            link:  "http://game.html5youxi.com/201501/zhaonimei/", // 分享链接
-            imgUrl: 'http://game.html5youxi.com/201501/zhaonimei/zhaonimeizia.png', // 分享图标
-            desc : "好玩的小游戏《找你妹》，快来玩吧。"
-        }
         function submitScore(score){
-        	alert("submitScore:"+score);
+        	layer.open({
+        		title:false,
+				type:2,
+				area:["80%","70%"],
+				shade:false,
+				content:["http://www.chengxihome.com/plug/gameCompltePlug"],
+				fadeIn:1000,
+				shift:10,
+				closeBtn:0
+			});
+				
         }
     </script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <div class="" style="display:none;">
+
+    </div>
 </body>
     
 <!--<script src="./loading.min.js"></script>-->

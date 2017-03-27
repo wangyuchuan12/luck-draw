@@ -4,11 +4,9 @@
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html>
-	<head>
-		<script src="/jquery-validation-1.14.0/lib/jquery.js"></script>
-	</head>
-	<body>
+<tiles:insertDefinition name="resourceLayout">
+<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
+<tiles:putAttribute name="body">
 		<div class="gameCompletePlug">
 		
 			<div class="gameCompletePlugLight">
@@ -47,8 +45,8 @@
 				
 			</div>
 		</div>
-	</body>
-</html>
+</tiles:putAttribute>
+</tiles:insertDefinition>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var width = $(".gameCompletePlugHeaderImg>img").width();

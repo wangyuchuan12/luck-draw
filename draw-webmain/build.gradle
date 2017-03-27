@@ -93,8 +93,6 @@ dependencies{
 	
 	compile project(':draw-task');
 	
-	compile project(':draw-game');
-	
 	
 }
 

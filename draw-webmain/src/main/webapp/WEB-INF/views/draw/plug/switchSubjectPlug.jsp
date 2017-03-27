@@ -58,9 +58,9 @@
 			 
 			 <div class="switchSubjectPlugBtns">
 			 	<ul>
-			 		<li>返回</li>
-			 		<li>换一个</li>
-			 		<li>开始挑战</li>
+			 		<li id="backBtn">返回</li>
+			 		<li id="switchBtn">换一个</li>
+			 		<li id="startBtn">开始挑战</li>
 			 	</ul>
 			 </div>
 		</div>
@@ -90,8 +90,24 @@
 		var fightSuccessWisdomNum = $("input[name=fightSuccessWisdomNum]").val();
 		$("#fightSuccessWisdomNum").text(fightSuccessWisdomNum);
 	}
+	
+	function addListener(){
+		$("#startBtn").click(function(){
+			window.location.href = "http://www.chengxihome.com/games/znm123/";
+		});
+		
+		$("#switchBtn").click(function(){
+			alert("switch");
+		});
+		
+		$("#backBtn").click(function(){
+			
+		});
+	}
+	
 	$(document).ready(function(){
 		initView();
+		addListener();
 	});
 </script>
 <style>
@@ -273,7 +289,9 @@
 	.switchSubjectPlugBtns>ul>li:nth-child(3){
 		background:url("/imgs/btn/btn-blue.png") no-repeat;
 		background-size:90% 100%;
-		width:99.5%;
+		
+		background-position:40px 0;
+		width:95%;
 		height: 140px;
 		
 		text-align: center;

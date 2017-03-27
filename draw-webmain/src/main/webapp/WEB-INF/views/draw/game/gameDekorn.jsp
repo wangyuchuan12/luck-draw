@@ -75,7 +75,17 @@
 					$("body").css("background-color","white");
 					
 					$(".gameRedPacketFooter").click(function(){
-						 takepart();
+						layer.open({
+							title:false,
+							type:2,
+							area:["100%","100%"],
+							shade:false,
+							content:["/plug/gameCompltePlug"],
+							fadeIn:1000,
+							shift:10,
+							closeBtn:0
+						});
+						// takepart();
 					});
 				});
 			</script>

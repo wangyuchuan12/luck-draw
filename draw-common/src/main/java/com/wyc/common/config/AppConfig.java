@@ -25,6 +25,7 @@ import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.danga.MemCached.MemCachedClient;
@@ -44,12 +45,13 @@ import com.wyc.common.wx.domain.WxContext;
 @Configuration
 @ComponentScan(basePackages = "com.wyc", excludeFilters = {
         @Filter(type = FilterType.ASSIGNABLE_TYPE, value = WebConfig.class),
-        @Filter(type = FilterType.ASSIGNABLE_TYPE, value = DatabaseConfig.class) })
+        @Filter(type = FilterType.ASSIGNABLE_TYPE, value = DatabaseConfig.class),
+        @Filter(type = FilterType.ASSIGNABLE_TYPE, value = SessionConfig.class),
+        @Filter(type=FilterType.ASSIGNABLE_TYPE,value=GameWebConfig.class)
+})
+@ImportResource("classpath:applicationContext.xml")
 @EnableScheduling
 public class AppConfig {
-	 	@Autowired
-	    private WxContextService wxContextService;
-	 	
 	 
 	 	@Autowired
 	 	private HrefService hrefService;

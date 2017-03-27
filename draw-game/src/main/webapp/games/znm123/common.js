@@ -225,7 +225,7 @@ var btGame;
         if (d > 0x0 && !b) {
             b = $(btGame.getNewDiv());
             b.addClass("bt-game-loading");
-            b.html('<table><tr><td><img class="bt-img" src="logo.png" /><div class="bt-text"></div></td></tr></table>');
+            b.html('<table><tr><td><img class="bt-img" src="/games/znm123/logo.png" /><div class="bt-text"></div></td></tr></table>');
             bt.getDomBody().appendChild(b[0x0]);
             c = b.find(".bt-text")
         };

@@ -24,24 +24,24 @@ import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 				excludeFilters={
 					@Filter(type=FilterType.ASSIGNABLE_TYPE,value=AppConfig.class),
 					@Filter(type=FilterType.ASSIGNABLE_TYPE,value=DatabaseConfig.class),
-					@Filter(type=FilterType.ASSIGNABLE_TYPE,value=GameWebConfig.class)
+					@Filter(type=FilterType.ASSIGNABLE_TYPE,value=WebConfig.class)
 })
 @EnableAspectJAutoProxy(proxyTargetClass=true)
-public class WebConfig extends WebMvcConfigurerAdapter{
+public class GameWebConfig extends WebMvcConfigurerAdapter{
 	
 	
-	@Qualifier(value="drawViewResolver")
+	@Qualifier(value="gameViewResolver")
 	@Primary
     @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/views/draw/");
+        viewResolver.setPrefix("/WEB-INF/views/games/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
 
 	
-	@Qualifier(value="drawTilesConfigurer")
+	@Qualifier(value="gameTilesConfigurer")
 	@Primary
     @Bean
     public TilesConfigurer tilesConfigurer() {
@@ -52,16 +52,16 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     }
 
 	
-	@Qualifier(value="drawDispatcherServlet")
+	@Qualifier(value="gameDispatcherServlet")
 	@Primary
     @Bean
     public DispatcherServlet dispatcherServlet() {
-		System.out.println("................drawDispatcherServlet");
+		System.out.println("................gameDispatcherServlet");
         return new DispatcherServlet();
     }
     
 	
-	@Qualifier(value="drawMultipartResolver")
+	@Qualifier(value="gameMultipartResolver")
 	@Primary
     @Bean
     public MultipartResolver multipartResolver(){
