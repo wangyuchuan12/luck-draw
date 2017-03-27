@@ -65,7 +65,8 @@
 				title:false,
 				type:2,
 				area:["80%","70%"],
-				shade:false,
+				shade:[0.1,"#fff"],
+				
 				content:["http://www.chengxihome.com/plug/gameCompltePlug"],
 				fadeIn:1000,
 				shift:10,
