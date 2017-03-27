@@ -7,3 +7,173 @@ body{
 	width:100%;
 	height: 100%;
 }
+
+.gameCompletePlugLifeLove{
+		width: 100%;
+		height: 100px;
+		
+		z-index: 10000;
+		
+		position: absolute;
+		
+		top: 25%;
+
+	    
+	    text-align: center;
+		
+	}
+	
+	.gameCompletePlugLifeLove>ul>li{
+		display: inline-block;
+		width:100px;
+		
+		height: 100px;
+	}
+	
+	.gameCompletePlugLifeLove>ul>li.lifeLoveSolid{
+		background: url("/imgs/plug/lifeLoveSolid.png");
+		
+		background-size:100px 100px;
+		
+		
+		
+		background-position:-10px 0px;
+	
+	}
+	
+	.gameCompletePlugLifeLove>ul>li.lifeLoveHollow{
+	
+		background: url("/imgs/plug/lifeLoveHollow.png") no-repeat;
+		
+		background-size:70px 60px;
+		
+		background-position:0px 20px;
+		
+		width:100px;
+		
+		height: 100px;
+	}
+	
+	.gameCompletePlug{
+		background: url("/imgs/plug/gameCompletePlug.jpg");
+		background-size:100% 100%;
+		width:100%;
+		height: 100%;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		
+		/*filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); */
+    	
+	}
+	
+	.gameCompletePlugLight{
+		background: url("/imgs/plug/light.png");
+		background-size:100% 100%;
+		border-radius:1000px;
+		width:100%;
+		overflow: hidden;
+		position: fixed;
+		
+		
+		
+	}
+
+	.gameCompletePlugHeaderImg{
+		margin: 0 auto;
+		text-align:center;;
+		position: absolute;
+		top: 20%;
+		z-index:1000;
+		left: 50%;
+	    -webkit-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
+		
+	}
+	.gameCompletePlugHeaderImg>img{
+		width:30%;
+		border-radius:100px;
+	}
+	
+	.gameCompletePlugBander{
+		width:99%;
+		z-index: 1000;
+		position: absolute;
+		text-align: center;
+		top:30%;
+		-webkit-filter: grayscale(100%); 
+	}
+	.gameCompletePlugBander>span{
+		position: absolute;
+		color: RGBA(255,239,110,1);
+		font-size: 40px;
+
+		left: 50%;
+	    -webkit-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
+		top:44%;
+		
+		font-weight: 900;
+		
+		
+	}
+	.gameCompletePlugBander>img{
+		width:85%;
+	}
+	
+	.gameCompletePlugContent{
+		width:70%;
+		left: 50%;
+		top:55%;
+		
+		padding-top:40px;
+		
+		padding-bottom:40px;
+		
+	    -webkit-transform: translate(-50%, -50%);
+	    
+	   	z-index: 1000;
+		position: relative;
+	    background-color: RGBA(108,99,104,0.5);
+	    text-align: center;
+	    
+	    border-radius:20px;
+	}
+	
+	.gameCompletePlugContent>ul:FIRST-CHILD>li{
+		list-style: none;
+		color: white;
+		
+		font-size: 40px;
+	}
+	
+	.gameCompletePlugContent>ul:nth-child(2){
+		text-align: center;
+		
+		padding-top: 30px;
+	}
+	.gameCompletePlugContent>ul:nth-child(2)>li{
+		list-style: none;
+		display: inline-block;
+		
+		width:45%;
+		
+		height: 70px;
+		
+		
+		border-radius:20px;
+		padding-top: 10px;
+		
+		color: white;
+		
+		font-size: 40px;
+		
+		font-weight: bolder;
+	}
+	
+	.gameCompletePlugContent>ul:nth-child(2)>li:nth-child(1){
+		background-color: RGBA(0,189,238,1);
+	}
+	
+	.gameCompletePlugContent>ul:nth-child(2)>li:nth-child(2){
+		background-color: RGBA(231,189,3,1);
+	}
