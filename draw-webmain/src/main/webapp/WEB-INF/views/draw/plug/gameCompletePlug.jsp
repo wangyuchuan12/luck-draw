@@ -14,7 +14,7 @@
 			</div>
 			
 			<div class="gameCompletePlugHeaderImg">
-					<img src="http://wx.qlogo.cn/mmopen/ajNVdqHZLLArTkHWwSHdc883hiaYBibjyLXiaiblmTEVcJzGICx0U3MXbYJsVnvzr4hjtaO2dt8w25vBAJibWbky8wA/0">
+					<img src="http://wx.qlogo.cn/mmopen/xPXrGtX7mxzVLiacuLGmhCugiccm8EcaPiaFYOaQ74EPBGFvkV0U7Mgy35raJRJfHfY3RF5XQwvscTDCzZuicTe5HA/0">
 			</div>
 			
 			<div class="gameCompletePlugLifeLove">
