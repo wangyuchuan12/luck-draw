@@ -69,7 +69,7 @@
         setTimeout(function () {
         	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/gameCompletePlug.jpg");
         	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/light.png");
-        	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/banner.png");
+        	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/banner.gif");
         	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png");
         	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveHollow.png");
         	egret_h5.startGame();
