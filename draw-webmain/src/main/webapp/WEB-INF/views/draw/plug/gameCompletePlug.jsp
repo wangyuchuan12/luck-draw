@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
-<tiles:insertDefinition name="resourceLayout">
+<tiles:insertDefinition name="plugLayout">
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
 		<div class="gameCompletePlug">
@@ -114,7 +114,7 @@
 		
 		width:100px;
 		
-		height: 100px;å
+		height: 100px;
 	}
 	
 	.gameCompletePlug{
@@ -132,15 +132,12 @@
 	.gameCompletePlugLight{
 		background: url("/imgs/plug/light.png");
 		background-size:100% 100%;
-		width:150%;
-		left:-20%;
-		top:-200px;
-		overflow: hidden;
-		background-position: 0 20%;
-		position: fixed;
 		border-radius:1000px;
-		opacity:2;
-		-webkit-filter: grayscale(100%);
+		width:100%;
+		overflow: hidden;
+		position: fixed;
+		
+		
 		
 	}
 

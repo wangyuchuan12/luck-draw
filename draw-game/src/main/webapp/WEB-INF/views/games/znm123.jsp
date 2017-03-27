@@ -69,6 +69,7 @@
 				area:["80%","70%"],
 				shade:false,
 				content:["http://www.chengxihome.com/plug/gameCompltePlug"],
+				skin:"layui-layer-rim",
 				fadeIn:1000,
 				shift:10,
 				closeBtn:0
