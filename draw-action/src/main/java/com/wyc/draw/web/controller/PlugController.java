@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value="/plug")
 public class PlugController {
 	
-	@RequestMapping(value="gameCompltePlug")
+	@RequestMapping(value="dekornSuccessPlug")
 	public String gameCompletePlug(HttpServletRequest httpServletRequest){
 		return "plug/dekornSuccessPlug";
 	}
