@@ -16,7 +16,7 @@ body{
 		
 		position: absolute;
 		
-		top: 23%;
+		top: 25%;
 
 	    
 	    text-align: center;
@@ -66,18 +66,31 @@ body{
     	
 	}
 	
+	.dekornFailPlug{
+		background: url("http://7xugu1.com1.z0.glb.clouddn.com/dekornFailPlug.png")no-repeat;
+		background-size:100% 100%;
+		width:100%;
+		height: 100%;
+		overflow: hidden;
+		text-overflow:ellipsis;
+	}
+	
 	.gameCompletePlugLight{
 		background: url("http://7xugu1.com1.z0.glb.clouddn.com/light.png");
 		background-size:100% 100%;
 		border-radius:1000px;
 		width:150%;
-		left:-25%;
-		top:-250px;
+		left:-22%;
+		top:-550px;
 		overflow: hidden;
 		position: fixed;
-		
-		
-		
+	}
+	
+	.dekornFailPlugThunder{
+		position: fixed;
+		width:100%;
+		height:100%;
+		background-size:100% 100%;
 	}
 
 	.gameCompletePlugHeaderImg{
@@ -102,7 +115,7 @@ body{
 		position: absolute;
 		text-align: center;
 		top:32%;
-		-webkit-filter: grayscale(100%); 
+		
 	}
 	.gameCompletePlugBander>span{
 		position: absolute;

@@ -11,7 +11,12 @@ public class PlugController {
 	
 	@RequestMapping(value="gameCompltePlug")
 	public String gameCompletePlug(HttpServletRequest httpServletRequest){
-		return "plug/gameCompletePlug";
+		return "plug/dekornSuccessPlug";
+	}
+	
+	@RequestMapping(value="dekornFailPlug")
+	public String dekornFailPlug(HttpServletRequest httpServletRequest){
+		return "plug/dekornFailPlug";
 	}
 	
 	@RequestMapping(value="switchSubjectPlug")
