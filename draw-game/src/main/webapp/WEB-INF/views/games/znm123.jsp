@@ -83,11 +83,12 @@
 				area:["80%","70%"],
 				shade:[0.1,'#000',true],
 				skin:"layui-layer-rim",
-				content:["http://www.chengxihome.com/plug/dekornSuccessPlug"],
+				content:["http://www.chengxihome.com/plug/dekornFailPlug"],
 				fadeIn:1000,
 				shift:10,
 				closeBtn:0
 			});
+        	
         	
         	
         //	showSmartAlert();
