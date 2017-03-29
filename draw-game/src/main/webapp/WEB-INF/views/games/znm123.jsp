@@ -4,7 +4,9 @@
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html>
+<tiles:insertDefinition name="gameLayout">
+<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
+<tiles:putAttribute name="body">
 <head><meta name="x-key" content="97e624915fc159eb48ad8cdd17dd5d12">
     <meta charset="utf-8">
 	<div id='wx_pic' style='margin:0 auto;display:none;'>
@@ -45,7 +47,7 @@
         }
     </style>
 </head>
-<body>
+
     <div style="width: 500px; height: 700px; background: black; position: relative;" id="gameDiv">
         <canvas id="gameCanvas" width="500" height="700" style="background-color: #000000"></canvas>
     </div>
@@ -75,17 +77,18 @@
         	egret_h5.startGame();
         }, 500);
         function submitScore(score){
-        	layer.open({
+        	/*layer.open({
 				title:false,
 				type:2,
 				area:["80%","70%"],
 				shade:[0.1,'#000',true],
 				skin:"layui-layer-rim",
-				content:["http://www.chengxihome.com/plug/dekornSuccessPlug"],
+				content:["http://www.chengxihome.com/plug/dekornFailPlug"],
 				fadeIn:1000,
 				shift:10,
 				closeBtn:0
-			});
+			});*/
+        	showSmartAlert();
 
         }
     </script>
@@ -93,8 +96,5 @@
     <div class="" style="display:none;">
 
     </div>
-</body>
-    
-<!--<script src="./loading.min.js"></script>-->
-
-</html>
+</tiles:putAttribute>
+</tiles:insertDefinition>

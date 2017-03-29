@@ -34,5 +34,10 @@
         <put-attribute name="resource" value="/WEB-INF/views/column/resource.jsp"></put-attribute>
         <put-attribute name="baseLayout" value="/WEB-INF/views/column/baseLayout.jsp"></put-attribute>
     </definition>
+    
+    <definition name="gameLayout" template="/WEB-INF/views/column/gameLayout.jsp">
+    	<put-attribute name="resource" value="/WEB-INF/views/column/resource.jsp"></put-attribute>
+        <put-attribute name="basePlug" value="/WEB-INF/views/column/basePlug.jsp"></put-attribute>
+    </definition>
  
 </tiles-definitions>
