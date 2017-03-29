@@ -40,7 +40,7 @@
 				
 				<ul>
 					<li>返回</li>
-					<li>继续挑战</li>
+					<li id="jixu">继续挑战</li>
 				</ul>
 				
 			</div>
@@ -56,6 +56,10 @@
 
 		$(".gameCompletePlugLight").height(width2);
 		roate();
+		
+		$("#jixu").click(function(){
+			alert("jixu");
+		});
 	});
 	
 	

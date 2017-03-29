@@ -36,7 +36,9 @@
     </definition>
     
     <definition name="plugLayout" template="/WEB-INF/views/column/plugLayout.jsp">
+    	<put-attribute name="resource" value="/WEB-INF/views/column/resource.jsp"></put-attribute>
         <put-attribute name="plugResource" value="/WEB-INF/views/column/plugResource.jsp"></put-attribute>
+        <put-attribute name="baseLayout" value="/WEB-INF/views/column/baseLayout.jsp"></put-attribute>
     </definition>
  
 </tiles-definitions>

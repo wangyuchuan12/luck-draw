@@ -52,12 +52,12 @@
 				
 				function thund1(){
 					
-					var time=900;
+					var time=50;
 					var index = 0;
 					var flag = false;
 					var index = setInterval(function(){
 						time++;
-						if(time>800){
+						if(time>70){
 							time=0;
 							index++;
 							flag = true;
@@ -75,10 +75,10 @@
 							}
 						}
 						if(flag){
-							var alpha = time/1200;
+							var alpha = time/70;
 							$(".dekornFailPlugThunder").css("background-color","rgba(247,251,254,"+alpha+")");
 						}
-					},1);
+					},100);
 				}
 			</script>
 		</div>
