@@ -46359,6 +46359,7 @@ Sceen2 = function(a) {
     	this.game.over(),
     	submitScore(this._score);
 
+    	/*
     	var a = document.getElementsByClassName("smartAlertButton");
     	a.touchEnabled = !0,
     	a.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPai, this);
@@ -46418,6 +46419,7 @@ Sceen2 = function(a) {
             title: "我在【找你妹】中得到" + h + "分，获得'" + j + "'的称号。快来挑战我吧！"
         })
     	
+    	*/
         
     },
     b.prototype.onMore = function() {
