@@ -12,7 +12,6 @@
 	 <meta http-equiv="Expires" content="0">
 	 <title>问答红包</title>
 <tiles:insertAttribute name="plugResource"/>
-<tiles:insertAttribute name="resource"/>
 </head>
 <body>
     <div class="plugContainer">
