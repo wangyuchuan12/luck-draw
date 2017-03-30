@@ -9,6 +9,7 @@
 <tiles:putAttribute name="body">
 <head><meta name="x-key" content="97e624915fc159eb48ad8cdd17dd5d12">
     <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no">
 	<div id='wx_pic' style='margin:0 auto;display:none;'>
 <img src='/games/znm123/znm123.jpg' />
 </div>

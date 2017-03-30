@@ -23,4 +23,9 @@ public class PlugController {
 	public String switchSubjectPlug(HttpServletRequest httpServletRequest){
 		return "plug/switchSubjectPlug";
 	}
+	
+	@RequestMapping(value="invitationPlug")
+	public String invitationPlug(HttpServletRequest httpServletRequest){
+		return "plug/invitationPlug";
+	}
 }

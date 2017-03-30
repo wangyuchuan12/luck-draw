@@ -8,61 +8,22 @@
 	<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 		<div class="invitationPlug">
-			<div class="invitationPlugHead">邀请函</div>
-			<div class="invitationPlugScore">29分</div>
-			<div class="invitationPlugContent">是否愿意接受他人挑战</div>
-			<div class="invitationPlugReward">
-				<div class="invitationPlugRewardType">
-					<div class="invitationPlugRewardTypeTitle">立刻领取奖励</div>
-					<ul>
-						<li>
-							<span>智慧豆：</span>
-							<span>200</span>
-						</li>
-						
-						<li>
-							<span>经验值：</span>
-							<span>200</span>
-						</li>
-						
-						<li>
-							<span>爱心：</span>
-							<span>200</span>
-						</li>
-						
-						<li>
-							<span>金币：</span>
-							<span>200</span>
-						</li>
-					</ul>
-				</div>
-				
-				
-				<div class="invitationPlugRewardType">
-					<div class="invitationPlugRewardTypeTitle">他人挑战奖励</div>
-					<ul>
-						<li>
-							<span>智慧豆：</span>
-							<span>0</span>
-						</li>
-						
-						<li>
-							<span>经验值：</span>
-							<span>0</span>
-						</li>
-						
-						<li>
-							<span>爱心：</span>
-							<span>200</span>
-						</li>
-						
-						<li>
-							<span>金币：</span>
-							<span>200</span>
-						</li>
-					</ul>
-				</div>
+			<div class="invitationPlugHead">邀请你摆个擂台</div>
+			<div class="invitationPlugHead2">摆擂台之后，你就能够接受他人的挑战</div>
+			<div class="invitationPlugContent">
+				<ul>
+					<li>
+						<div class="invitationPlugContentImg invitationWisdon">
+						</div>
+						<div class="invitationPlugContentDetail">
+							<div class="invitationPlugContentDetailTitle">智慧豆：50颗</div>
+							<div class="invitationPlugContentDetailInstruction">挑战完成的时候就能获得50颗智慧豆啦</div>
+						</div>
+					</li>
+				</ul>
+			
 			</div>
+			
 			
 			<div class="invitationPlugButtons">
 				<ul>

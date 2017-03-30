@@ -1,6 +1,7 @@
 body{
 	width:100%;
 	height: 100%;
+	margin: 0px;
 }
 
 .plugContainer{
@@ -194,3 +195,149 @@ body{
 	.gameCompletePlugContent>ul:nth-child(2)>li:nth-child(2){
 		background-color: RGBA(231,189,3,1);
 	}
+	
+	.invitationPlug{
+		width:100%;
+		height: 100%;
+		background-color: RGBA(19,214,234,1);
+	}
+	
+	.invitationPlugHead{
+		color: RGBA(235,122,32,1);
+		text-align: center;
+		
+		font-size: 50px;
+		padding-top: 50px;
+		
+		padding-left: 50px;
+		
+		padding-right: 50px;
+	}
+	
+	.invitationPlugHead2{
+		color: RGBA(0,97,141,1);
+		text-align: center;
+		padding-top: 10px;
+		
+		font-size: 30px;
+	}
+	
+	.invitationPlugContent{
+		padding-top: 50px;
+	}
+	
+	.invitationPlugContent>ul>li{
+		list-style: none;
+		
+		background-color: RGBA(126,239,253,1);
+		
+		width:90%;
+		
+		
+		height: 300px;
+		
+		border-radius:10px;
+		
+		border:5px dashed white; 
+	}
+	
+	.invitationPlugContentImg{
+		display: inline-block;
+		width:30%;
+		height: 300px;
+		
+		
+	}
+	
+	.invitationWisdon{
+		background: url("http://onlttr82i.bkt.clouddn.com/wisdon.png")no-repeat;
+		
+		background-size:300px 300px;
+		
+		background-position: -40px 0px;
+	}
+	
+	.invitationPlugContentDetail{
+		display: inline-block;
+		height: 100%;
+		width:60%;
+		vertical-align: top;
+	}
+	
+	.invitationPlugContentDetailTitle{
+		font-size: 50px;
+		
+		padding-top: 10px;
+		
+		padding-left: 10px;
+		
+		color: RGBA(10,91,123,1);
+	}
+	
+	.invitationPlugContentDetailInstruction{
+		color: RGBA(8,73,109,1);
+		
+		padding-left: 10px;
+		
+		font-size: 30px;
+		
+		padding-top: 20px;
+	}
+	
+	.invitationPlugButtons{
+		position: absolute;
+		
+		bottom: 0px;
+		
+		width: 100%;
+	}
+	
+	.invitationPlugButtons>ul{
+		padding-left: 0px;
+		text-align: center;
+	}
+	
+	.invitationPlugButtons>ul>li{
+		list-style: none;
+		
+		display: inline-block;
+	}
+	
+	.invitationPlugButtons>ul>li:FIRST-CHILD {
+		background: url("http://onluguho9.bkt.clouddn.com/btn-violet.png") no-repeat;
+		
+		width:49%;
+		
+		height: 200px;
+		
+		background-size:100% 150px;
+		
+		color: white;
+		
+		font-size: 50px;
+		
+		text-align: center;
+		
+		padding-top: 30px;
+	}
+	
+	.invitationPlugButtons>ul>li:nth-child(2){
+		background: url("http://onluguho9.bkt.clouddn.com/btn-brown.png") no-repeat;
+		
+		width:49%;
+		
+		height: 170px;
+		
+		background-size:117% 550px;
+		
+		background-position:-40px -180px;
+		
+		color: white;
+		
+		font-size: 50px;
+		
+		text-align: center;
+		
+		padding-top: 40px;
+	}
+}
