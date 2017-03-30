@@ -17,7 +17,7 @@ body{
 		
 		position: absolute;
 		
-		top: 25%;
+		top: 23%;
 
 	    
 	    text-align: center;
@@ -106,8 +106,8 @@ body{
 		
 	}
 	.gameCompletePlugHeaderImg>img{
-		width:40%;
-		border-radius:100px;
+		width:57%;
+		border-radius:200px;
 	}
 	
 	.gameCompletePlugBander{
@@ -139,9 +139,7 @@ body{
 	.gameCompletePlugContent{
 		width:70%;
 		left: 50%;
-		top:65%;
-		
-		height:30%;
+		top:59%;
 		
 		padding-top:40px;
 		
@@ -164,37 +162,7 @@ body{
 		font-size: 40px;
 	}
 	
-	.gameCompletePlugContent>ul:nth-child(2){
-		text-align: center;
-		
-		padding-top: 30px;
-	}
-	.gameCompletePlugContent>ul:nth-child(2)>li{
-		list-style: none;
-		display: inline-block;
-		
-		width:45%;
-		
-		height: 70px;
-		
-		
-		border-radius:20px;
-		padding-top: 10px;
-		
-		color: white;
-		
-		font-size: 40px;
-		
-		font-weight: bolder;
-	}
 	
-	.gameCompletePlugContent>ul:nth-child(2)>li:nth-child(1){
-		background-color: RGBA(0,189,238,1);
-	}
-	
-	.gameCompletePlugContent>ul:nth-child(2)>li:nth-child(2){
-		background-color: RGBA(231,189,3,1);
-	}
 	
 	.invitationPlug{
 		width:100%;
@@ -339,5 +307,31 @@ body{
 		text-align: center;
 		
 		padding-top: 40px;
+	}
+	
+	.gameCompletePlugButton{
+		position: absolute;
+		
+		bottom: 0px;
+		
+		width:400px;
+		
+		height: 150px;
+		
+		background: url("http://onluguho9.bkt.clouddn.com/btn-violet.png")no-repeat;
+		
+		background-size:400px 140px;
+		
+		left: 50%;
+		-webkit-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+		
+		text-align: center;
+		
+		color: white;
+		
+		font-size: 50px;
+		
+		padding-top: 25px;
 	}
 }

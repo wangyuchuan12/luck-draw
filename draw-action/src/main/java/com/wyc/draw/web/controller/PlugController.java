@@ -1,21 +1,55 @@
 package com.wyc.draw.web.controller;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.wyc.annotation.HandlerAnnotation;
+import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.filter.BaseDrawActionFilter;
 
 @Controller
 @RequestMapping(value="/plug")
 public class PlugController {
 	
 	@RequestMapping(value="dekornSuccessPlug")
-	public String gameCompletePlug(HttpServletRequest httpServletRequest){
+	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
+	public String dekornSuccessPlug(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
+		
+		String lifeLoveSolid = httpServletRequest.getParameter("lifeLoveSolid");
+		String lifeLoveHollow = httpServletRequest.getParameter("lifeLoveHollow");
+		String prompt = httpServletRequest.getParameter("prompt");
+		String contents = httpServletRequest.getParameter("contents");
+		String[] contentList = contents.split(",");
+		httpServletRequest.setAttribute("drawUser", drawUser);
+		
+		httpServletRequest.setAttribute("lifeLoveSolid", lifeLoveSolid);
+		httpServletRequest.setAttribute("lifeLoveHollow", lifeLoveHollow);
+		httpServletRequest.setAttribute("prompt", prompt);
+		httpServletRequest.setAttribute("contentList", contentList);
 		return "plug/dekornSuccessPlug";
 	}
 	
 	@RequestMapping(value="dekornFailPlug")
-	public String dekornFailPlug(HttpServletRequest httpServletRequest){
+	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
+	public String dekornFailPlug(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
+		
+		String lifeLoveSolid = httpServletRequest.getParameter("lifeLoveSolid");
+		String lifeLoveHollow = httpServletRequest.getParameter("lifeLoveHollow");
+		String prompt = httpServletRequest.getParameter("prompt");
+		String contents = httpServletRequest.getParameter("contents");
+		String[] contentList = contents.split(",");
+		httpServletRequest.setAttribute("drawUser", drawUser);
+		
+		httpServletRequest.setAttribute("lifeLoveSolid", lifeLoveSolid);
+		httpServletRequest.setAttribute("lifeLoveHollow", lifeLoveHollow);
+		httpServletRequest.setAttribute("prompt", prompt);
+		httpServletRequest.setAttribute("contentList", contentList);
 		return "plug/dekornFailPlug";
 	}
 	

@@ -18,13 +18,13 @@
     <meta name="screen-orientation" content="portrait" />
     <meta name="x5-fullscreen" content="true" />
     <meta name="360-fullscreen" content="true" />
-<link rel="shortcut icon" href="/games/znm123/icon.png">
-<link rel="icon" href="/games/znm123/icon.png">
-<link type="text/css" href="/games/znm123/common.css" rel="stylesheet" />
-<script type="text/javascript" src="/games/znm123/zepto.min.js"></script>
-<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script> 
-<script type="text/javascript" src="/layer/layer.js"></script>
-<script src="/games/znm123/common.js"></script>
+	<link rel="shortcut icon" href="/games/znm123/icon.png">
+	<link rel="icon" href="/games/znm123/icon.png">
+	<link type="text/css" href="/games/znm123/common.css" rel="stylesheet" />
+	<script type="text/javascript" src="/games/znm123/zepto.min.js"></script>
+	<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script> 
+	<script type="text/javascript" src="/layer/layer.js"></script>
+	<script src="/games/znm123/common.js"></script>
 
     <style>
         body {
@@ -78,20 +78,19 @@
         	egret_h5.startGame();
         }, 500);
         function submitScore(score){
+        	layer.cornerRadius = 8;
         	layer.open({
 				title:false,
 				type:2,
 				area:["80%","70%"],
 				shade:[0.1,'#000',true],
-				skin:"layui-layer-rim",
-				content:["http://www.chengxihome.com/plug/dekornFailPlug"],
+				skin:"plugclass",
+				content:["http://www.chengxihome.com/dekornHandle/dekornFail"],
 				fadeIn:1000,
 				shift:10,
 				closeBtn:0
 			});
-        	
-        	
-        	
+
         //	showSmartAlert();
 
         }

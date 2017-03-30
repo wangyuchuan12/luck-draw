@@ -14,36 +14,34 @@
 			</div>
 			
 			<div class="gameCompletePlugHeaderImg">
-					<img src="http://wx.qlogo.cn/mmopen/xPXrGtX7mxzVLiacuLGmhCugiccm8EcaPiaFYOaQ74EPBGFvkV0U7Mgy35raJRJfHfY3RF5XQwvscTDCzZuicTe5HA/0">
+					<img src="${drawUser.imgUrl}">
 			</div>
 			
 			<div class="gameCompletePlugLifeLove">
 				<ul>
-					<li class="lifeLoveSolid"></li>
-					<li class="lifeLoveSolid"></li>
-					<li class="lifeLoveSolid"></li>
-					<li class="lifeLoveHollow"></li>
+					<c:forEach begin="1" end="${lifeLoveSolid}">
+						<li class="lifeLoveSolid"></li>
+					</c:forEach>
+					<c:forEach begin="1" end="${lifeLoveHollow}">
+						<li class="lifeLoveHollow"></li>
+					</c:forEach>
 				</ul>
 			</div>
 				
 			<div class="gameCompletePlugBander" style="-webkit-filter: grayscale(100%);">
-				<span>挑战失败</span>
+				<span>${prompt}</span>
 				<img src="http://7xugu1.com1.z0.glb.clouddn.com/banner.gif">
 			</div>
 			
 			<div class="gameCompletePlugContent">
 				<ul>
-					<li>获取得分：50分</li>
-					<li>最高分：100分</li>
-					<li>击败80%</li>
-				</ul>
-				
-				<ul>
-					<li>返回</li>
-					<li>继续挑战</li>
+					<c:forEach items="${contentList}" var="content">
+						<li>${content}</li>
+					</c:forEach>
 				</ul>
 				
 			</div>
+			<div class="gameCompletePlugButton">确定</div>
 			
 			<script type="text/javascript">
 				$(document).ready(function(){
