@@ -12,9 +12,21 @@
 	 
 	 <tiles:insertAttribute name="resource"/>
 	 <tiles:insertAttribute name="basePlug"/>
+	 <input type="hidden" name="status" value="${status}"/>
 </head>
 <body>
     <div class="container">
     	<tiles:insertAttribute name="body" />
     </div>
+    
+    <script type="text/javascript">
+    	function getStatus(){
+    		var status = $("input[name=status]").val();
+    		return parseInt(status);
+    	}
+    	
+    	function getWebpath(){
+    		return "http://www.chengxihome.com";
+    	}
+    </script>
 </body>

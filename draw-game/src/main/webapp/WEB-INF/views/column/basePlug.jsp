@@ -52,6 +52,14 @@
 	
 	border-radius:5px;
 }
+
+body .plugclass{
+	border-radius:50px;
+}
+			
+body .plugclass .layui-layer-title{
+	border-radius:50px;
+}
 </style>
 
 <div class="smartAlert">

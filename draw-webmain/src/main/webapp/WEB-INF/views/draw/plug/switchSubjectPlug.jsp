@@ -8,21 +8,21 @@
 <html>
 	<head>
 		<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+		<meta name="viewport"
+		content="user-scalable=no">
 	</head>
 	<body>
-		<input name ="handDrawUserImg" value="${dekornInfo.handDrawUserImg}"/>
-		<input name ="passScore" value="${dekornInfo.passScore}"/>
-		<input name ="handDrawUserImg" value="${dekornInfo.handDrawUserImg}"/>
-		<input name ="handDrawUserName" value="${dekornInfo.handDrawUserName}"/>
-		<input name ="acceptFightSuccessWisdomNum" value="${dekornInfo.acceptFightSuccessWisdomNum}"/>
+		<input name ="handDrawUserImg" value="${handDrawUserImg}" type="hidden"/>
+		<input name ="passScore" value="${passScore}" type="hidden"/>
+		<input name ="handDrawUserImg" value="${handDrawUserImg}" type="hidden"/>
+		<input name ="handDrawUserName" value="${handDrawUserName}" type="hidden"/>
+		<input name ="acceptFightSuccessWisdomNum" value="${acceptFightSuccessWisdomNum}" type="hidden"/>
+		<input name ="gameName" value="${gameName}" type="hidden"/>
 		
-		<input name ="dekornId" value="${dekornInfo.id}"/>
-		<input name ="gameName" value="${dekornInfo.gameName}"/>
+		<input name="myNickname" value="${myNickname}" type="hidden"/>
+		<input name="myImgUrl" value="${myImgUrl}" type="hidden"/>
 		
-		<input name="myNickname" value="${drawUser.nickname}"/>
-		<input name="myImgUrl" value="${drawUser.imgUrl}"/>
-		
-		<input name="fightSuccessWisdomNum" value="${dekornInfo.fightSuccessWisdomNum}"/>
+		<input name="fightSuccessWisdomNum" value="${fightSuccessWisdomNum}" type="hidden"/>
 			
 		<div class="switchSubjectPlug">
 			 <div class="switchSubjectPlugTitle">挑战分数：100次</div>
@@ -58,7 +58,7 @@
 			 
 			 <div class="switchSubjectPlugBtns">
 			 	<ul>
-			 		<li id="backBtn">返回</li>
+			 		<li id="backBtn">关闭</li>
 			 		<li id="switchBtn">换一个</li>
 			 		<li id="startBtn">开始挑战</li>
 			 	</ul>
@@ -172,16 +172,20 @@
 		
 	}
 	
+	.switchSubjectPlugReward{
+		position: absolute;
+		bottom: 20%;
+		width:100%;
+		left: 50%;
+		text-align:center;
+		-webkit-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+	}
+	
 	.switchSubjectPlugRewardContent{
 		text-align: center;
-		position: absolute;
-		
-		top:900px;
 		display: block;
-		
-		left: 50%;
-	    -webkit-transform: translate(-50%, -50%);
-	    transform: translate(-50%, -50%);
+
 	    
 	    background-color: RGBA(216,178,131,0.99);
 	    width:90%;
@@ -191,16 +195,21 @@
 	    text-align: center;
 	    
 	    border-radius:20px;
+	    
+	    margin: 0 auto;
 	}
 	
 	.switchSubjectPlugRewardContent>ul{
 		background: RGBA(83,61,49,1);
+
+		
+		height: 55%;
 		
 		width:90%;
 		
-		height: 55%;
-
-		left:25px;
+		margin:0 auto;
+		
+		margin-top:5px;
 
 	    position: relative;
 
@@ -237,11 +246,9 @@
 	}
 	
 	.switchSubjectPlugBtns{
-		position: absolute;
-		top:1000px;
-	}
 	
-	.switchSubjectPlugBtns{
+		position: absolute;
+		bottom: 0px;
 		width:98%;
 		margin: 0 auto;
 		
@@ -255,7 +262,7 @@
 		
 		font-weight: bolder;
 		
-		padding-top: 40px;
+		padding-top: 30px;
 	}
 	.switchSubjectPlugBtns>ul>li:FIRST-CHILD{
 		
@@ -265,7 +272,7 @@
 		background-size:100% 100%;
 		
 		width:45%;
-		height: 150px;
+		height: 100px;
 		
 		text-align: center;
 		
@@ -279,7 +286,7 @@
 		background:url("/imgs/btn/btn-violet.png") no-repeat;
 		background-size:100% 100%;
 		width:45%;
-		height: 140px;
+		height: 90px;
 		
 		text-align: center;
 		
@@ -292,14 +299,14 @@
 		
 		background-position:40px 0;
 		width:95%;
-		height: 140px;
+		height: 90px;
 		
 		text-align: center;
 		
 		color: white;
 		
 		margin: 0 auto;
-		padding-top: 90px;
+		padding-top: 40px;
 		
 		margin-top: 20px;
 	}

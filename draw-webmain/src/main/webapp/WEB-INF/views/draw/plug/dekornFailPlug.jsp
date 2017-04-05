@@ -41,7 +41,12 @@
 				</ul>
 				
 			</div>
-			<div class="gameCompletePlugButton">确定</div>
+			<div class="invitationPlugButtons">
+				<ul>
+					<li>返回</li>
+					<li>再次挑战</li>
+				</ul>
+			</div>
 			
 			<script type="text/javascript">
 				$(document).ready(function(){

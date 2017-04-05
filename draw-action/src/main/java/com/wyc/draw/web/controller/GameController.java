@@ -1,9 +1,13 @@
 package com.wyc.draw.web.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.session.SessionManager;
@@ -33,17 +37,4 @@ public class GameController {
 	public String gameCompletePlug(HttpServletRequest httpServletRequest){
 		return "plug/gameCompletePlug";
 	}
-	
-	@HandlerAnnotation(hanlerFilter=SwitchSubjectPlugActionFilter.class)
-	@RequestMapping(value="switchSubjectPlug")
-	public String switchSubjectPlug(HttpServletRequest httpServletRequest)throws Exception{
-		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
-		DekornVo dekornVo = (DekornVo)sessionManager.getObject(DekornVo.class);
-		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
-		httpServletRequest.setAttribute("dekornInfo", dekornVo);
-		httpServletRequest.setAttribute("drawUser", drawUser);
-		return "plug/switchSubjectPlug";
-	}
-	
-	
 }

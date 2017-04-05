@@ -49,6 +49,8 @@
     </style>
 </head>
 
+	
+
     <div style="width: 500px; height: 700px; background: black; position: relative;" id="gameDiv">
         <canvas id="gameCanvas" width="500" height="700" style="background-color: #000000"></canvas>
     </div>
@@ -78,18 +80,42 @@
         	egret_h5.startGame();
         }, 500);
         function submitScore(score){
-        	layer.cornerRadius = 8;
-        	layer.open({
-				title:false,
-				type:2,
-				area:["80%","70%"],
-				shade:[0.1,'#000',true],
-				skin:"plugclass",
-				content:["http://www.chengxihome.com/dekornHandle/dekornFail"],
-				fadeIn:1000,
-				shift:10,
-				closeBtn:0
-			});
+        	
+        	
+        	var status = getStatus();
+        	alert(status);
+        	if(status==0){
+        		var url = "/api/dekorn/create_dekorn";
+        		var callback = new Object();
+        		callback.success = function(resp){
+        			alert("成功");
+        			alert(resp.success);
+        		}
+        		callback.failure = function(){
+        			alert("失败");
+        		}
+        		
+        		var params = new Object();
+        		params.gameId = 1;
+        		params.type=1;
+        		gameType=1;
+        		passScore = score;
+        		request(url,callback,params)
+        	}else if(status==1){
+        		layer.cornerRadius = 8;
+            	layer.open({
+    				title:false,
+    				type:2,
+    				area:["80%","70%"],
+    				shade:[0.1,'#000',true],
+    				skin:"plugclass",
+    				content:["http://www.chengxihome.com/plug/invitationPlug"],
+    				fadeIn:1000,
+    				shift:10,
+    				closeBtn:0
+    			});
+        	}
+        	
 
         //	showSmartAlert();
 

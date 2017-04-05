@@ -79,6 +79,7 @@ def loadConfiguration() {
     else
         sourceSets.main.resources.srcDirs 'src/main/resources/local'
 }
+
 dependencies{
 	compile project(':draw-common');
 	
@@ -92,8 +93,6 @@ dependencies{
 	compile project(':draw-action');
 	
 	compile project(':draw-task');
-	
-	
 }
 
 

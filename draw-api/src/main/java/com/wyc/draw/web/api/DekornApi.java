@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
+import com.wyc.draw.filter.controller.api.CreateDekornApiFilter;
 import com.wyc.draw.filter.controller.api.DekornTakepartApiFilter;
 import com.wyc.draw.filter.controller.api.SubmitScoreApiFilter;
 
@@ -36,6 +37,19 @@ public class DekornApi {
 	@Transactional
 	@ResponseBody
 	public Object submitScore(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.getObject(ResultVo.class)!=null){
+			return sessionManager.getObject(ResultVo.class);
+		}else{
+			return sessionManager.getReturnValue();
+		}
+	}
+	
+	@RequestMapping(value="create_dekorn")
+	@HandlerAnnotation(hanlerFilter=CreateDekornApiFilter.class)
+	@Transactional
+	@ResponseBody
+	public Object createDekorn(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		if(sessionManager.getObject(ResultVo.class)!=null){
 			return sessionManager.getObject(ResultVo.class);

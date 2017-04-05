@@ -54,12 +54,45 @@ public class PlugController {
 	}
 	
 	@RequestMapping(value="switchSubjectPlug")
-	public String switchSubjectPlug(HttpServletRequest httpServletRequest){
+	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
+	public String switchSubjectPlug(HttpServletRequest httpServletRequest)throws Exception{
+		
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		String handDrawUserImg = httpServletRequest.getParameter("handDrawUserImg");
+		String passScore = httpServletRequest.getParameter("passScore");
+		String handDrawUserName = httpServletRequest.getParameter("handDrawUserName");
+		String acceptFightSuccessWisdomNum = httpServletRequest.getParameter("acceptFightSuccessWisdomNum");
+		String gameName = httpServletRequest.getParameter("gameName");
+		
+		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
+		String myImgUrl = drawUser.getImgUrl();
+		String myNickname = drawUser.getNickname();
+		
+		String fightSuccessWisdomNum = httpServletRequest.getParameter("fightSuccessWisdomNum");
+		
+		httpServletRequest.setAttribute("handDrawUserImg", handDrawUserImg);
+		httpServletRequest.setAttribute("passScore", passScore);
+		httpServletRequest.setAttribute("handDrawUserName", handDrawUserName);
+		httpServletRequest.setAttribute("acceptFightSuccessWisdomNum", acceptFightSuccessWisdomNum);
+		httpServletRequest.setAttribute("gameName", gameName);
+		httpServletRequest.setAttribute("myImgUrl", myImgUrl);
+		httpServletRequest.setAttribute("myNickname", myNickname);
+		httpServletRequest.setAttribute("fightSuccessWisdomNum", fightSuccessWisdomNum);
 		return "plug/switchSubjectPlug";
 	}
 	
 	@RequestMapping(value="invitationPlug")
 	public String invitationPlug(HttpServletRequest httpServletRequest){
 		return "plug/invitationPlug";
+	}
+	
+	@RequestMapping(value="confirmPlug")
+	public String confirmPlug(HttpServletRequest httpServletRequest){
+		return "plug/confirmPlug";
+	}
+	
+	@RequestMapping(value="alertPlug")
+	public String alertPlug(HttpServletRequest httpServletRequest){
+		return "plug/alertPlug";
 	}
 }

@@ -9,6 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.wyc.annotation.HandlerAnnotation;
+import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.filter.controller.action.SwitchSubjectPlugActionFilter;
+import com.wyc.draw.vo.DekornVo;
+
 @Controller
 @RequestMapping(value="/dekornHandle")
 public class DekornHandleController {
@@ -39,6 +45,27 @@ public class DekornHandleController {
 		params.put("token", "1");
 		ModelAndView modelAndView = new ModelAndView("redirect:/plug/dekornFailPlug",params);
 		
+		return modelAndView;
+	}
+	
+	@HandlerAnnotation(hanlerFilter=SwitchSubjectPlugActionFilter.class)
+	@RequestMapping(value="switchSubjectPlug")
+	public Object switchSubjectPlug(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		DekornVo dekornVo = (DekornVo)sessionManager.getObject(DekornVo.class);
+		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
+		
+		
+		Map<String, String> params = new HashMap<>();
+		params.put("handDrawUserImg", dekornVo.getHandDrawUserImg());
+		params.put("passScore", dekornVo.getPassScore()+"");
+		params.put("handDrawUserName", dekornVo.getHandDrawUserName());
+		params.put("acceptFightSuccessWisdomNum", dekornVo.getAcceptFightSuccessWisdomNum()+"");
+		params.put("gameName", dekornVo.getGameName());
+		params.put("myImgUrl", drawUser.getImgUrl());
+		params.put("myNickname", drawUser.getNickname());
+		params.put("fightSuccessWisdomNum", dekornVo.getFightSuccessWisdomNum()+"");
+		ModelAndView modelAndView = new ModelAndView("redirect:/plug/switchSubjectPlug",params);
 		return modelAndView;
 	}
 }
