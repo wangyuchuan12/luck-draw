@@ -146,6 +146,20 @@ public class Dekorn {
 	private Long averageScore;
 	
 	
+	//挑战状态
+	@ParamAnnotation
+	@Column
+	private Integer status;
+	
+	
+	/**
+	 * 创建该挑战，创建人可获得的奖励，激活该记录之后才可获取
+	 */
+	@ParamAnnotation
+	@Column(name="reward_id")
+	private String rewardId;
+	
+	
 	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -379,6 +393,20 @@ public class Dekorn {
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
-	
-	
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getRewardId() {
+		return rewardId;
+	}
+
+	public void setRewardId(String rewardId) {
+		this.rewardId = rewardId;
+	}
 }

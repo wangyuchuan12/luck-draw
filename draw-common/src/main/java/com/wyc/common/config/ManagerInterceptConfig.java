@@ -74,8 +74,14 @@ public class ManagerInterceptConfig {
 	public Object aroundController(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
 		return aroundAction(proceedingJoinPoint);
 	}
+	
 	@Around(value="execution (* com.wyc.draw.web.api.*.*(..))")
 	public Object aroundApi(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
+		return aroundAction(proceedingJoinPoint);
+	}
+	
+	@Around(value="execution (* com.wyc.controller.*.*(..))")
+	public Object gameController(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
 		return aroundAction(proceedingJoinPoint);
 	}
 	

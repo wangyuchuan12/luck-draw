@@ -199,4 +199,17 @@ public class Constant {
 	
 	
 	
+	
+	/**************************挑战状态******************************/
+	
+	//游离状态
+	public static final int DEKORN_FREE_STATUS = 0;
+	
+	//进行中状态
+	public static final int DEKORN_PROGRESS_STATUS=1;
+	
+	//结束状态
+	public static final int DEKORN_END_STATUS=2;
+	
+	
 }

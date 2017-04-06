@@ -14,8 +14,7 @@ public class GameController {
 	
 	@RequestMapping(value="znm123")
 	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
-	public String znm123(HttpServletRequest httpServletRequest){
-		
+	public String znm123(HttpServletRequest httpServletRequest)throws Exception{
 		//0表示新游戏状态 1表示挑战状态
 		String status = httpServletRequest.getParameter("status");
 		httpServletRequest.setAttribute("status", status);

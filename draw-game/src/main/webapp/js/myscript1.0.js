@@ -316,8 +316,6 @@ function request(url,callback,params){
 	$.ajax({
 		url:url,
 		method:"POST",
-		dataType: 'jsonp',
-		jsonp: 'jsoncallback',
 		data:params,
 		success:function(resp){
 			if(callback){

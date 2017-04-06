@@ -11,6 +11,7 @@ import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.filter.controller.api.CreateDekornApiFilter;
+import com.wyc.draw.filter.controller.api.DekornActiveApiFilter;
 import com.wyc.draw.filter.controller.api.DekornTakepartApiFilter;
 import com.wyc.draw.filter.controller.api.SubmitScoreApiFilter;
 
@@ -50,6 +51,19 @@ public class DekornApi {
 	@Transactional
 	@ResponseBody
 	public Object createDekorn(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.getObject(ResultVo.class)!=null){
+			return sessionManager.getObject(ResultVo.class);
+		}else{
+			return sessionManager.getReturnValue();
+		}
+	}
+	
+	@RequestMapping(value="active")
+	@HandlerAnnotation(hanlerFilter=DekornActiveApiFilter.class)
+	@Transactional
+	@ResponseBody
+	public Object active(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		if(sessionManager.getObject(ResultVo.class)!=null){
 			return sessionManager.getObject(ResultVo.class);

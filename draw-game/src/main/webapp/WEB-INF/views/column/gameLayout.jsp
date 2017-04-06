@@ -26,7 +26,7 @@
     	}
     	
     	function getWebpath(){
-    		return "http://www.chengxihome.com";
+    		return "";
     	}
     </script>
 </body>

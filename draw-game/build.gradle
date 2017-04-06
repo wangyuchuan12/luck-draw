@@ -81,7 +81,12 @@ def loadConfiguration() {
 }
 dependencies{
 	compile project(':draw-common');
+	
 	compile project(':draw-filter');
+	
+	compile project(':draw-api');
+	
+	compile project(':draw-action');
 	
 }
 

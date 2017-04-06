@@ -13,12 +13,14 @@ import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketAmountDistribution;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.RedPacketToTakepartMember;
+import com.wyc.draw.domain.Reward;
 import com.wyc.draw.service.DekornService;
 import com.wyc.draw.service.DekornTakepartMemberService;
 import com.wyc.draw.service.GameService;
 import com.wyc.draw.service.RedPacketAmountDistributionService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
+import com.wyc.draw.service.RewardService;
 import com.wyc.draw.service.VieRedPacketToTakepartMemberService;
 
 @Service
@@ -44,6 +46,9 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 
 	@Autowired
 	private DekornTakepartMemberService dekornTakepartMemberService;
+	
+	@Autowired
+	private RewardService rewardService;
 	
 	@Override
 	public void update(List<Object> objs) {
@@ -84,6 +89,11 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 		
 		if(clazz.equals(DekornTakepartMember.class)){
 			T obj = (T)dekornTakepartMemberService.findOne(id);
+			return obj;
+		}
+		
+		if(clazz.equals(Reward.class)){
+			T obj = (T)rewardService.findOne(id);
 			return obj;
 		}
 

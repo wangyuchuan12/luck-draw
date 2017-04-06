@@ -22,10 +22,7 @@ public class Account {
 	@Id
 	@IdAnnotation
     private String id;
-	
-	@ParamAnnotation
-	@Column
-	private BigDecimal amount;
+
 	
 	
 	//智慧豆数量
@@ -83,12 +80,6 @@ public class Account {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public BigDecimal getAmount() {
-		return amount;
-	}
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
 	}
 	
 	public Long getWisdomCount() {

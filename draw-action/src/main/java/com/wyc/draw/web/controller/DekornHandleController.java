@@ -13,6 +13,7 @@ import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.filter.controller.action.SwitchSubjectPlugActionFilter;
+import com.wyc.draw.filter.controller.api.CreateDekornApiFilter;
 import com.wyc.draw.vo.DekornVo;
 
 @Controller
@@ -29,7 +30,7 @@ public class DekornHandleController {
 		params.put("prompt", "恭喜您，挑战成功");
 		params.put("contents", "智慧豆：40,经验：20,爱心：22");
 		params.put("token", "1");
-		ModelAndView modelAndView = new ModelAndView("redirect:/plug/dekornSuccessPlug",params);
+		ModelAndView modelAndView = new ModelAndView("redirect:http://www.chengxihome.com/plug/dekornSuccessPlug",params);
 		
 		return modelAndView;
 	}
@@ -43,7 +44,7 @@ public class DekornHandleController {
 		params.put("prompt", "恭喜您，挑战成功");
 		params.put("contents", "智慧豆：40,经验：20,爱心：22");
 		params.put("token", "1");
-		ModelAndView modelAndView = new ModelAndView("redirect:/plug/dekornFailPlug",params);
+		ModelAndView modelAndView = new ModelAndView("redirect:http://www.chengxihome.com/plug/dekornFailPlug",params);
 		
 		return modelAndView;
 	}
@@ -65,7 +66,16 @@ public class DekornHandleController {
 		params.put("myImgUrl", drawUser.getImgUrl());
 		params.put("myNickname", drawUser.getNickname());
 		params.put("fightSuccessWisdomNum", dekornVo.getFightSuccessWisdomNum()+"");
-		ModelAndView modelAndView = new ModelAndView("redirect:/plug/switchSubjectPlug",params);
+		ModelAndView modelAndView = new ModelAndView("redirect:http://www.chengxihome.com/plug/switchSubjectPlug",params);
+		return modelAndView;
+	}
+	
+
+	@HandlerAnnotation(hanlerFilter=CreateDekornApiFilter.class)
+	@RequestMapping(value="invitationPlug")
+	public Object invitationPlug(HttpServletRequest httpServletRequest)throws Exception{
+		Map<String, String> params = new HashMap<>();
+		ModelAndView modelAndView = new ModelAndView("redirect:http://www.chengxihome.com/plug/invitationPlug",params);
 		return modelAndView;
 	}
 }
