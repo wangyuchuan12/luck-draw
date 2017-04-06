@@ -83,7 +83,7 @@
 	    				area:["80%","80%"],
 	    				shade:[0.1,'#000',true],
 	    				skin:"plugclass",
-	    				content:["/dekornHandle/switchSubjectPlug?id="+id],
+	    				content:["/view/dekornHandle/switchSubjectPlug?id="+id],
 	    				fadeIn:1000,
 	    				shift:10,
 	    				closeBtn:0

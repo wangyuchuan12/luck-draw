@@ -14,16 +14,24 @@
 		
 	</bean>
 	
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
+	
 	
 	<context:annotation-config/>
     <bean id="redisHttpSessionConfiguration"  class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration" >
         <property name="maxInactiveIntervalInSeconds" value="120" />
      </bean>
-    <bean
-        class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <!-- redis 配置 -->
         <property name="hostName" value="www.chengxihome.com" />
         <property name="port" value="6379" />
         <property name="password" value="wyc"></property>
+        
+        <property name="poolConfig" ref="jedisPoolConfig" />
+    	<property name="usePool" value="true" />
     </bean>
+    
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+    	<property name="connectionFactory" ref="jedisConnectionFactory" />
+	</bean>
 </beans>
