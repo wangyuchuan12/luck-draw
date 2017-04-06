@@ -34,7 +34,6 @@
             com.wyc.common.config.AppConfig,
             com.wyc.common.config.WebConfig,
             com.wyc.common.config.DatabaseConfig
-            classpath:applicationContext.xml
         </param-value>
     </context-param>
     
