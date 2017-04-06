@@ -6,8 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.wyc.annotation.ParamAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
@@ -157,7 +155,7 @@ public class CreateDekornFilter extends Filter{
 	
 
 	private Long rewardWisdomNum(SessionManager sessionManager){
-		return 0l;
+		return 50l;
 	}
 
 	private Long rewardIntegralNum(SessionManager sessionManager){
@@ -165,7 +163,7 @@ public class CreateDekornFilter extends Filter{
 	}
 
 	private Long rewardLoveLifeNum(SessionManager sessionManager){
-		return 4l;
+		return 0l;
 	}
 	
 	private BigDecimal rewardAmount(SessionManager sessionManager){

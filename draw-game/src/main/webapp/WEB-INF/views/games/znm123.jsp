@@ -80,30 +80,8 @@
         	egret_h5.startGame();
         }, 500);
         function submitScore(score){
-        	
-        	
         	var status = getStatus();
         	if(status==0){
-        		/*var url = "/api/dekorn/create_dekorn";
-        		var callback = new Object();
-        		callback.success = function(resp){
-        			if(resp.success){
-        				alert("成功");
-        			}else{
-        				alert(JSON.stringify(resp));
-        			}
-        		}
-        		callback.failure = function(){
-        			alert("失败");
-        		}
-        		
-        		var params = new Object();
-        		params.gameId = 1;
-        		params.type=1;
-        		params.gameType=1;
-        		params.passScore = score;
-        		request(url,callback,params)*/
-        		
         		layer.open({
     				title:false,
     				type:2,
@@ -116,22 +94,19 @@
     				closeBtn:0
     			});
         	}else if(status==1){
+        		var dekornId = getDekornId();
         		layer.open({
     				title:false,
     				type:2,
     				area:["80%","70%"],
     				shade:[0.1,'#000',true],
     				skin:"plugclass",
-    				content:["/dekornHandle/dekornSuccess"],
+    				content:["/dekornHandle/dekornResult?dekornId="+dekornId+"&score="+score],
     				fadeIn:1000,
     				shift:10,
     				closeBtn:0
     			});
         	}
-        	
-
-        //	showSmartAlert();
-
         }
     </script>
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>

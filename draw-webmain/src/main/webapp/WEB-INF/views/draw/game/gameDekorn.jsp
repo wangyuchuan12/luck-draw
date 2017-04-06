@@ -8,6 +8,8 @@
 <tiles:insertDefinition name="resourceLayout">
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
+			
+			<input name="id" value="${dekornInfo.id}" type="hidden"/>
 			<div class="gameRedPacketImgHeader">
 				<img src="http://wx.qlogo.cn/mmopen/GAhcxvIicouFrv7HICbIPicibmBIwhetmJJibYAaVr0SFhIDIBl9ESo0G1mUJBt6ia1YOZZxEndx7X1NDZLmQC2ELCMcdqvbkevCz/0">
 				<div class="gameRedPacketImgHeaderName">小鸟飞飞</div>
@@ -74,18 +76,17 @@
 					$("body").css("width","100%");
 					$("body").css("background-color","white");
 					
-					$(".gameRedPacketFooter").click(function(){
-						layer.open({
-							title:false,
-							type:2,
-							area:["100%","100%"],
-							shade:false,
-							content:["/plug/gameCompltePlug"],
-							fadeIn:1000,
-							shift:10,
-							closeBtn:0
-						});
-						// takepart();
+					var id = $("input[name=id]").val();
+					layer.open({
+						title:false,
+	    				type:2,
+	    				area:["80%","80%"],
+	    				shade:[0.1,'#000',true],
+	    				skin:"plugclass",
+	    				content:["/plug/switchSubjectPlug?id="+id],
+	    				fadeIn:1000,
+	    				shift:10,
+	    				closeBtn:0
 					});
 				});
 			</script>

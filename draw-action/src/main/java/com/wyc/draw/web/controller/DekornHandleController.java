@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wyc.annotation.HandlerAnnotation;
+import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.Dekorn;
 import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.controller.action.SwitchSubjectPlugActionFilter;
 import com.wyc.draw.filter.controller.api.CreateDekornApiFilter;
 import com.wyc.draw.vo.DekornVo;
@@ -20,10 +23,28 @@ import com.wyc.draw.vo.DekornVo;
 @RequestMapping(value="/dekornHandle")
 public class DekornHandleController {
 	
+	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
+	@RequestMapping(value="dekornResult")
+	public Object dekornResult(HttpServletRequest httpServletRequest)throws Exception{
+		String dekornId = httpServletRequest.getParameter("dekornId");
+		String score = httpServletRequest.getParameter("score");
+		Long scoreInt = Long.parseLong(score);
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		Dekorn dekorn = sessionManager.findOne(Dekorn.class, dekornId);
+		Long passScore = dekorn.getPassScore();
+		if(scoreInt>=passScore){
+			return dekornSuccess(httpServletRequest);
+		}else{
+			return dekornFail(httpServletRequest);
+		}
+	}
 	
 	@RequestMapping(value="dekornSuccess")
-	public Object dekornSuccess(HttpServletRequest httpServletRequest){
-		
+	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
+	public Object dekornSuccess(HttpServletRequest httpServletRequest)throws Exception{
+//		String dekornId = httpServletRequest.getParameter("dekornId");
+//		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+//		Dekorn dekorn = sessionManager.findOne(Dekorn.class, dekornId);
 		Map<String, String> params = new HashMap<>();
 		params.put("lifeLoveSolid", "4");
 		params.put("lifeLoveHollow", "2");
@@ -36,6 +57,7 @@ public class DekornHandleController {
 	}
 	
 	@RequestMapping(value="dekornFail")
+	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	public Object dekornFail(HttpServletRequest httpServletRequest){
 		
 		Map<String, String> params = new HashMap<>();
@@ -74,8 +96,17 @@ public class DekornHandleController {
 	@HandlerAnnotation(hanlerFilter=CreateDekornApiFilter.class)
 	@RequestMapping(value="invitationPlug")
 	public Object invitationPlug(HttpServletRequest httpServletRequest)throws Exception{
-		Map<String, String> params = new HashMap<>();
-		ModelAndView modelAndView = new ModelAndView("redirect:http://www.chengxihome.com/plug/invitationPlug",params);
-		return modelAndView;
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+		if(resultVo!=null&&resultVo.isSuccess()){
+			Map<String, String> params = new HashMap<>();
+			ModelAndView modelAndView = new ModelAndView("redirect:http://www.chengxihome.com/plug/invitationPlug",params);
+			return modelAndView;
+		}else{
+			
+			resultVo = (ResultVo)sessionManager.getReturnValue();
+
+			return null;
+		}
 	}
 }

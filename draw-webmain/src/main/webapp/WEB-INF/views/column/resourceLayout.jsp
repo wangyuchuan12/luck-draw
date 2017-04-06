@@ -5,7 +5,7 @@
 <html lang="en" style="width: 100%;height: 100%;">
 <head>
 	<meta name="viewport"
-		content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		content="width=device-width,user-scalable=no">
 	 <meta name="format-detection" content="telephone=no">
 	 <meta http-equiv="Pragma" content="no-cache">   
 	 <meta http-equiv="Cache-Control" content="no-store">
@@ -18,4 +18,14 @@
     <div class="container">
     	<tiles:insertAttribute name="body" />
     </div>
+    
+     <style type="text/css">
+		body .plugclass{
+			border-radius:50px;
+		}
+		
+		body .plugclass .layui-layer-title{
+			border-radius:50px;
+		}
+	</style>
 </body>

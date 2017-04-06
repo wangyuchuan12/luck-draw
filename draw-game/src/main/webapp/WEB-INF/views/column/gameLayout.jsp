@@ -13,6 +13,8 @@
 	 <tiles:insertAttribute name="resource"/>
 	 <tiles:insertAttribute name="basePlug"/>
 	 <input type="hidden" name="status" value="${status}"/>
+	 <input type="hidden" name="dekornId" value="${dekornId}"/>
+	 <input type="hidden" name="passScore" value="${passScore}"/>
 </head>
 <body>
     <div class="container">
@@ -23,6 +25,17 @@
     	function getStatus(){
     		var status = $("input[name=status]").val();
     		return parseInt(status);
+    	}
+    	
+    	function getDekornId(){
+    		var dekornId = $("input[name=dekornId]").val();
+    		return dekornId;
+    	}
+    	
+    	function getPassScore(){
+    		var passScore = $("input[name=passScore]").val();
+    		
+    		return parseInt(passScore);
     	}
     	
     	function getWebpath(){

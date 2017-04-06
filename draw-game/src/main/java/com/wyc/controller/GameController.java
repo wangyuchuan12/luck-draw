@@ -18,6 +18,12 @@ public class GameController {
 		//0表示新游戏状态 1表示挑战状态
 		String status = httpServletRequest.getParameter("status");
 		httpServletRequest.setAttribute("status", status);
+		
+		String passScore = httpServletRequest.getParameter("passScore");
+		httpServletRequest.setAttribute("passScore", passScore);
+		
+		String dekornId = httpServletRequest.getParameter("dekornId");
+		httpServletRequest.setAttribute("dekornId",dekornId);
 		return "znm123";
 	}
 }
