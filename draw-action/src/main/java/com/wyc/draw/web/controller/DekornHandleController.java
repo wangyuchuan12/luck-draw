@@ -80,6 +80,7 @@ public class DekornHandleController {
 		
 		
 		Map<String, String> params = new HashMap<>();
+		System.out.println(".......................img:"+dekornVo.getHandDrawUserImg());
 		params.put("handDrawUserImg", dekornVo.getHandDrawUserImg());
 		params.put("passScore", dekornVo.getPassScore()+"");
 		params.put("handDrawUserName", dekornVo.getHandDrawUserName());

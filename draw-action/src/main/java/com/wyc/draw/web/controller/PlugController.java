@@ -59,6 +59,8 @@ public class PlugController {
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		String handDrawUserImg = httpServletRequest.getParameter("handDrawUserImg");
+		
+		System.out.println(".....................:"+handDrawUserImg);
 		String passScore = httpServletRequest.getParameter("passScore");
 		String handDrawUserName = httpServletRequest.getParameter("handDrawUserName");
 		String acceptFightSuccessWisdomNum = httpServletRequest.getParameter("acceptFightSuccessWisdomNum");
