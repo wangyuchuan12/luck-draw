@@ -27,6 +27,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.session.data.redis.config.ConfigureRedisAction;
 
 import com.danga.MemCached.MemCachedClient;
 import com.danga.MemCached.SockIOPool;
@@ -136,6 +137,12 @@ public class AppConfig {
 	            logger.error("Load application.properties error: {}", e);
 	        }
 	        return properties;
+	    }
+	    
+	    
+	    @Bean
+	    public ConfigureRedisAction configureRedisAction(){
+	    	return ConfigureRedisAction.NO_OP;
 	    }
 	    
 	    @Bean
