@@ -27,7 +27,8 @@
         <property name="port" value="6379" />
         <property name="password" value="wyc"></property>
         
-
+        <property name="poolConfig" ref="jedisPoolConfig" />
+    	<property name="usePool" value="true" />
     </bean>
     <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
     	<property name="connectionFactory" ref="jedisConnectionFactory" />
