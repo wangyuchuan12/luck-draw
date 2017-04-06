@@ -21,7 +21,6 @@ public class ApplyFormTask {
 	@Autowired
 	private WxContext wxContext;
 	
-	
 	//定时执行转行失败的任务
 	@Scheduled(cron = "0 0 21 * * ?")
 	public void handleTakeOut(){
