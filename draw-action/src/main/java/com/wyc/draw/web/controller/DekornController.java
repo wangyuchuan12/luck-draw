@@ -16,6 +16,8 @@ public class DekornController {
 	@HandlerAnnotation(hanlerFilter=GameDekornInfoActionFilter.class)
 	@RequestMapping(value="info")
 	public String info(HttpServletRequest httpServletRequest)throws Exception{
+		
+		System.out.print(".............sessionid:"+httpServletRequest.getSession().getId());
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		DekornVo dekornVo = (DekornVo)sessionManager.getObject(DekornVo.class);
 		DekornToTakepartMember dekornToTakepartMember = (DekornToTakepartMember)sessionManager.getObject(DekornToTakepartMember.class);
