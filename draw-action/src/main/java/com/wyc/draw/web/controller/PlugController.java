@@ -10,7 +10,7 @@ import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 
 @Controller
-@RequestMapping(value="/plug")
+@RequestMapping(value="/view/plug")
 public class PlugController {
 	
 	@RequestMapping(value="dekornSuccessPlug")
