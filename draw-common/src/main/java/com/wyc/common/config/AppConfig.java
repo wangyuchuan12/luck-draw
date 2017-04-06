@@ -26,6 +26,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
@@ -143,6 +145,11 @@ public class AppConfig {
 	    
 	    
 	    @Bean
+	    public JedisConnectionFactory jedisConnectionFactory(){
+	    	return new JedisConnectionFactory();
+	    }
+	    
+	    @Bean
 	    public ConfigureRedisAction configureRedisAction(){
 	    	return ConfigureRedisAction.NO_OP;
 	    }
@@ -165,6 +172,7 @@ public class AppConfig {
 //	        wxContext = wxContextService.getWxContextBean();
 	        return wxContext;
 	    }
+	    
 	    
 	    
 	    @Bean
