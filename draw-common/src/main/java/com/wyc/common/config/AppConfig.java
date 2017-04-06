@@ -28,6 +28,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 import com.danga.MemCached.MemCachedClient;
 import com.danga.MemCached.SockIOPool;
@@ -52,6 +53,7 @@ import com.wyc.common.wx.domain.WxContext;
 })
 @ImportResource("classpath:applicationContext.xml")
 @EnableScheduling
+@EnableRedisHttpSession
 public class AppConfig {
 	 
 	 	@Autowired
