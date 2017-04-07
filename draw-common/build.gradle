@@ -63,5 +63,9 @@ dependencies {
 
     compile 'org.springframework.session:spring-session-data-redis:1.0.2.RELEASE'
     
+    
+    // https://mvnrepository.com/artifact/redis.clients/jedis
+	compile group: 'redis.clients', name: 'jedis', version: '2.5.2'
+    
    // testCompile("junit:junit")
 }
