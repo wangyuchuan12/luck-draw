@@ -31,7 +31,7 @@
 	
 	
 	<bean id="zcRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-		<property name="connectionFactory" ref="zcJedisConnectionFactory" />
+		<property name="connectionFactory" ref="jedisConnectionFactory" />
 		<property name="keySerializer">
 			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
 		</property>
