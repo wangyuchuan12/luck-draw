@@ -32,7 +32,7 @@ task copylib(type:Copy){
 gretty {
     servletContainer = 'jetty9'
     managedClassReload = true
-    contextPath = "/draw"
+    contextPath = "/"
     fileLogEnabled = false
     loggingLevel = "ALL"
     httpPort = 80
