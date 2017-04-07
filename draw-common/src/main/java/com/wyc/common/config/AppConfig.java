@@ -144,10 +144,6 @@ public class AppConfig {
 	    }
 	    
 	    
-	    @Bean
-	    public JedisConnectionFactory jedisConnectionFactory(){
-	    	return new JedisConnectionFactory();
-	    }
 	    
 	    @Bean
 	    public ConfigureRedisAction configureRedisAction(){
