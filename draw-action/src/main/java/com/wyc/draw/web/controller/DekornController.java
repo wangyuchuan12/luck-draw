@@ -9,7 +9,6 @@ import com.wyc.draw.domain.DekornToTakepartMember;
 import com.wyc.draw.filter.controller.action.GameDekornInfoActionFilter;
 import com.wyc.draw.vo.DekornVo;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping(value="/view/game/game_dekorn")
 public class DekornController {
