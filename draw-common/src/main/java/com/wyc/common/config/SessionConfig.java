@@ -4,6 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -37,5 +38,10 @@ public class SessionConfig {
 		jedisConnectionFactory.setPassword("wyc");
 		return jedisConnectionFactory;
 	}
+	
+	 @Bean
+    public ConfigureRedisAction configureRedisAction(){
+    	return ConfigureRedisAction.NO_OP;
+    }
   
 }

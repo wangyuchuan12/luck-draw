@@ -143,13 +143,6 @@ public class AppConfig {
 	        return properties;
 	    }
 	    
-	    
-	    
-	    @Bean
-	    public ConfigureRedisAction configureRedisAction(){
-	    	return ConfigureRedisAction.NO_OP;
-	    }
-	    
 	    @Bean
 	    @Autowired
 	    public WxContext wxContext(ApplicationProperties myProperties){
