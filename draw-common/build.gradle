@@ -66,6 +66,8 @@ dependencies {
     
     // https://mvnrepository.com/artifact/redis.clients/jedis
 	compile group: 'redis.clients', name: 'jedis', version: '2.5.2'
+	
+	compile group: 'biz.paluch.redis', name: 'lettuce', version: '3.0.3.Final'
     
    // testCompile("junit:junit")
 }

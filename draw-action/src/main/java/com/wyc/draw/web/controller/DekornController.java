@@ -17,6 +17,7 @@ public class DekornController {
 	@RequestMapping(value="info")
 	public String info(HttpServletRequest httpServletRequest)throws Exception{
 		
+		System.out.println("............."+httpServletRequest.getSession());
 		System.out.print(".............sessionid:"+httpServletRequest.getSession().getId());
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		DekornVo dekornVo = (DekornVo)sessionManager.getObject(DekornVo.class);
