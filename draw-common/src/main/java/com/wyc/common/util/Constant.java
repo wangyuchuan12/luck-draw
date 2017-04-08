@@ -170,7 +170,7 @@ public class Constant {
 	public static final int FAIL_TAKEPART_STATUS=4;
 	
 	
-	/***********************挑战参与状态********************/
+	/***********************挑战者参与状态********************/
 	//未参与
 	public static final int DEKORN_NOT_INVOLVED_TAKEPART_STATUS=0;
 	
@@ -200,7 +200,7 @@ public class Constant {
 	
 	
 	
-	/**************************挑战状态******************************/
+	/**************************挑战本身状态******************************/
 	
 	//游离状态
 	public static final int DEKORN_FREE_STATUS = 0;

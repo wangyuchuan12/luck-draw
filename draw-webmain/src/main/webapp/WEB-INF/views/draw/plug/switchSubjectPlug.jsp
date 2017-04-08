@@ -89,7 +89,7 @@
 	
 	function addListener(){
 		$("#startBtn").click(function(){
-			window.location.href = "http://www.chengxihome.com/games/znm123/";
+			window.location.href = "/games/znm123/";
 		});
 		
 		$("#switchBtn").click(function(){

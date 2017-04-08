@@ -27,7 +27,7 @@
 	
 			
 			
-			<div class="gameRedPacketFooter">开始挑战</div>
+			<div class="gameRedPacketFooter" id="startButton">开始挑战</div>
 			
 			<script type="text/javascript">
 				var actionMapper;
@@ -54,8 +54,7 @@
 					var callback = new Object();
 					callback.success = function(resp){
 						if(resp.success){
-							alert("success");
-							actionMapper.show("game");
+							skipToGame("znm123",id,1,20);
 						}else{
 							alert(resp.errorMsg);
 						}
@@ -69,15 +68,13 @@
 				}
 				
 				$(document).ready(function(){
-					actionMapper = new ActionMapper("#gameRedPacketContainer");
-					actionMapper.paraseEntities();
-					initView();
-					$("#game").attr("url",$("input[name=gameUrl]").val());
-					$("body").css("width","100%");
-					$("body").css("background-color","white");
 					
+					
+					$("#startButton").click(function(){
+						takepart();
+					});
 					var id = $("input[name=id]").val();
-					layer.open({
+					/*layer.open({
 						title:false,
 	    				type:2,
 	    				area:["80%","80%"],
@@ -87,7 +84,7 @@
 	    				fadeIn:1000,
 	    				shift:10,
 	    				closeBtn:0
-					});
+					});*/
 				});
 			</script>
 			

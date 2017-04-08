@@ -12,6 +12,16 @@ import com.wyc.draw.filter.BaseDrawActionFilter;
 @RequestMapping(value="/games")
 public class GameController {
 	
+	
+	@RequestMapping(value="skipToGame")
+	public Object skipToGame(HttpServletRequest httpServletRequest)throws Exception{
+		String code = httpServletRequest.getParameter("code");
+		if(code.equals("znm123")){
+			return znm123(httpServletRequest);
+		}
+		
+		return null;
+	}
 	@RequestMapping(value="znm123")
 	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	public String znm123(HttpServletRequest httpServletRequest)throws Exception{

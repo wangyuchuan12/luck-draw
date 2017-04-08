@@ -51,7 +51,7 @@ public class DekornHandleController {
 		params.put("prompt", "恭喜您，挑战成功");
 		params.put("contents", "智慧豆：40,经验：20,爱心：22");
 		params.put("token", "1");
-		ModelAndView modelAndView = new ModelAndView("redirect:http://www.chengxihome.com/view/plug/dekornSuccessPlug",params);
+		ModelAndView modelAndView = new ModelAndView("redirect:/view/plug/dekornSuccessPlug",params);
 		
 		return modelAndView;
 	}
@@ -66,7 +66,7 @@ public class DekornHandleController {
 		params.put("prompt", "恭喜您，挑战成功");
 		params.put("contents", "智慧豆：40,经验：20,爱心：22");
 		params.put("token", "1");
-		ModelAndView modelAndView = new ModelAndView("redirect:http://www.chengxihome.com/view/plug/dekornFailPlug",params);
+		ModelAndView modelAndView = new ModelAndView("redirect:/view/plug/dekornFailPlug",params);
 		
 		return modelAndView;
 	}
@@ -89,7 +89,7 @@ public class DekornHandleController {
 		params.put("myImgUrl", drawUser.getImgUrl());
 		params.put("myNickname", drawUser.getNickname());
 		params.put("fightSuccessWisdomNum", dekornVo.getFightSuccessWisdomNum()+"");
-		ModelAndView modelAndView = new ModelAndView("redirect:http://www.chengxihome.com/view/plug/switchSubjectPlug",params);
+		ModelAndView modelAndView = new ModelAndView("redirect:/view/plug/switchSubjectPlug",params);
 		return modelAndView;
 	}
 	
@@ -101,7 +101,7 @@ public class DekornHandleController {
 		ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
 		if(resultVo!=null&&resultVo.isSuccess()){
 			Map<String, String> params = new HashMap<>();
-			ModelAndView modelAndView = new ModelAndView("redirect:http://www.chengxihome.com/view/plug/invitationPlug",params);
+			ModelAndView modelAndView = new ModelAndView("redirect:/view/plug/invitationPlug",params);
 			return modelAndView;
 		}else{
 			

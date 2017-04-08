@@ -185,6 +185,16 @@ function skipToVieDrawInfo(id,firstVisit){
 }
 
 
+function skipToGame(code,dekornId,status,passScore){
+	var url = "/games/skipToGame";
+	var params = new Object();
+	params.status = status;
+	params.passScore = passScore;
+	params.dekornId = dekornId;
+	skipToUrl(url,params);
+}
+
+
 function skipToAddVieDrawInfo(redPackType,isDisplayRoom,isDisplayType,subjectId,roomId){
 	var url = "/view/vie/draw/vie_draw/add";
 	

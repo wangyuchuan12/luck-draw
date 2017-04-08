@@ -20,7 +20,9 @@ import com.wyc.common.smart.service.UserSmartService;
 import com.wyc.common.wx.domain.Article;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.common.wx.service.SendMessageService;
+import com.wyc.draw.domain.Dekorn;
 import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
+import com.wyc.draw.filter.SelectGameDekornFilter;
 import com.wyc.draw.vo.RedPacketListVo;
 
 @Controller
@@ -62,5 +64,16 @@ public class TestApi {
 		articles.add(article);
 		
 		return sendMessageService.sendImgMessage(openid, articles);
+	}
+	
+	
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=SelectGameDekornFilter.class)
+	@RequestMapping(value="selectGameDekorn")
+	public Object testSelectGameDekorn(HttpServletRequest httpServletRequest)throws Exception{
+		
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		Dekorn dekorn = (Dekorn)sessionManager.getObject(Dekorn.class);
+		return dekorn;
 	}
 }
