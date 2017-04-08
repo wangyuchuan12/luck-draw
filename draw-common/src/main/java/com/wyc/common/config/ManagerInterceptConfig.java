@@ -87,11 +87,18 @@ public class ManagerInterceptConfig {
 	
 	 
 	
+	private void initAttribute(HttpServletRequest httpServletRequest){
+		String modeView = httpServletRequest.getParameter("modeView");
+		httpServletRequest.setAttribute("modeView", modeView);
+	}
+	
 	 public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
 		 Method method = getControllerMethod(proceedingJoinPoint);
 		 Object returnValue = null;
 		
 		 HandlerAnnotation handlerAnnotation2 = method.getAnnotation(HandlerAnnotation.class);
+		 
+		 HttpServletRequest httpServletRequest;
 		 if(handlerAnnotation2!=null){
 			 ParamClassAnnotation paramAnnotation2 = method.getAnnotation(ParamClassAnnotation.class);
 			 Class<?> paramType = null;
@@ -103,7 +110,7 @@ public class ManagerInterceptConfig {
 			 
 			 Class<? extends Filter> filterClass = handlerAnnotation2.hanlerFilter();
 			 
-			 HttpServletRequest httpServletRequest = (HttpServletRequest)proceedingJoinPoint.getArgs()[0];
+			 httpServletRequest = (HttpServletRequest)proceedingJoinPoint.getArgs()[0];
 			 
 			 
 			 
@@ -168,7 +175,7 @@ public class ManagerInterceptConfig {
 				 
 			 }
 		 }else{
-			 HttpServletRequest httpServletRequest = (HttpServletRequest)proceedingJoinPoint.getArgs()[0];
+			 httpServletRequest = (HttpServletRequest)proceedingJoinPoint.getArgs()[0];
 			 SessionManager filterManager = SessionManager.getFilterManager(httpServletRequest, Map.class);
 			 factory.autowireBean(filterManager);
 			 try{
@@ -187,7 +194,7 @@ public class ManagerInterceptConfig {
 		 }
 		 
 		 
-		 
+		 initAttribute(httpServletRequest);
 		 return returnValue;
 	 }
 	 

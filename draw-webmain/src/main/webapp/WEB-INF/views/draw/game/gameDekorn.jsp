@@ -74,17 +74,17 @@
 						takepart();
 					});
 					var id = $("input[name=id]").val();
-					/*layer.open({
+					layer.open({
 						title:false,
 	    				type:2,
 	    				area:["80%","80%"],
 	    				shade:[0.1,'#000',true],
 	    				skin:"plugclass",
-	    				content:["/view/dekornHandle/switchSubjectPlug?id="+id],
+	    				content:["/view/dekornHandle/switchSubjectPlug?id="+id+"&modeView=large"],
 	    				fadeIn:1000,
 	    				shift:10,
 	    				closeBtn:0
-					});*/
+					});
 				});
 			</script>
 			
