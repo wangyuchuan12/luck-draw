@@ -101,7 +101,7 @@
     				area:["80%","70%"],
     				shade:[0.1,'#000',true],
     				skin:"plugclass",
-    				content:["/dekornHandle/dekornResult?dekornId="+dekornId+"&score="+score],
+    				content:["/view/dekornHandle/dekornResult?dekornId="+dekornId+"&score="+score],
     				fadeIn:1000,
     				shift:10,
     				closeBtn:0

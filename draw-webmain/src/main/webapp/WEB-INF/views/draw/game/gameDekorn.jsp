@@ -59,8 +59,8 @@
 							alert(resp.errorMsg);
 						}
 					}
-					callback.failure = function(){
-						alert("failure");
+					callback.failure = function(resp){
+						alert(resp.errorMsg);
 					}
 					var params = new Object();
 					params.id = id;

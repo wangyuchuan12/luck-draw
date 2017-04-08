@@ -188,6 +188,7 @@ function skipToVieDrawInfo(id,firstVisit){
 function skipToGame(code,dekornId,status,passScore){
 	var url = "/games/skipToGame";
 	var params = new Object();
+	params.code = code;
 	params.status = status;
 	params.passScore = passScore;
 	params.dekornId = dekornId;
@@ -235,13 +236,9 @@ function skipVieAnswerResult(redPacketId){
 	skipToUrl(url,params);
 }
 
-function skipToUrl(url,params,flag){
+function skipToUrl(url,params){
 	var temp = document.createElement("form");
-	if(!flag){
-		temp.action = getWebpath()+url;
-	}else{
-		temp.action = url;
-	}
+	temp.action = url;
     temp.method = "GET";        
     temp.style.display = "none";        
     var opt = document.createElement("textarea");
@@ -308,7 +305,6 @@ function fileRequest(url,callback,elementId){
 
 function requestData(url,callback,data){
 	data = JSON.stringify(data);
-	url = getWebpath()+url;
 	$.ajax({
 		url:url,
 		data:data,
@@ -322,7 +318,6 @@ function requestData(url,callback,data){
 
 
 function request(url,callback,params){
-	url = getWebpath()+url;
 	$.ajax({
 		url:url,
 		method:"POST",
