@@ -18,8 +18,10 @@ public class DekornResultHandleParamFilter extends Filter{
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		String score = httpServletRequest.getParameter("score");
 		String takepartId = httpServletRequest.getParameter("takepartId");
+		String dekornId = httpServletRequest.getParameter("dekornId");
 		DekornResultParam dekornResultParam = new DekornResultParam();
 		dekornResultParam.setScore(Long.parseLong(score));
+		dekornResultParam.setDekornId(dekornId);
 		dekornResultParam.setTakepartMemberId(takepartId);
 		return dekornResultParam;
 	}

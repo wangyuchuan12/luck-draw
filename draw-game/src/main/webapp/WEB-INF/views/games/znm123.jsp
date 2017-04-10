@@ -98,6 +98,8 @@
         	}else if(status==1){
         		var dekornId = getDekornId();
         		var takepartId = getTakepartId();
+        		
+        		alert("dekornId:"+dekornId);
         		if(score>=passScore){
         			layer.open({
         				title:false,
