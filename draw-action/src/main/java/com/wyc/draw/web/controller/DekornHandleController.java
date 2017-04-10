@@ -52,6 +52,15 @@ public class DekornHandleController {
 		
 		ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
 		
+		System.out.println(".................isReturn:"+sessionManager.isReturn());
+		
+		System.out.println(".................returnValue:"+sessionManager.getReturnValue());
+		
+		if(sessionManager.getReturnValue()!=null){
+			resultVo = (ResultVo)sessionManager.getReturnValue();
+			System.out.println(".................errorMsg:"+resultVo.getErrorMsg());
+		}
+		
 		System.out.println("....................resultVo:"+resultVo);
 		
 		
