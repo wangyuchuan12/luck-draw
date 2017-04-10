@@ -45,10 +45,17 @@ public class DekornHandleController {
 	@HandlerAnnotation(hanlerFilter=DekornSuccessApiFilter.class)
 	public Object dekornSuccess(HttpServletRequest httpServletRequest)throws Exception{
 //		String dekornId = httpServletRequest.getParameter("dekornId");
-//		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 //		Dekorn dekorn = sessionManager.findOne(Dekorn.class, dekornId);
 		
-		System.out.println("...................dekornSuccess");
+		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
+		
+		ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+		
+		System.out.println("....................resultVo:"+resultVo);
+		
+		
+		System.out.println("*****************drawUser:"+drawUser);
 		Map<String, String> params = new HashMap<>();
 		params.put("lifeLoveSolid", "4");
 		params.put("lifeLoveHollow", "2");

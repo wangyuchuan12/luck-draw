@@ -84,7 +84,7 @@
         	var passScore = getPassScore();
         	
         	if(status==0){
-        		
+        		alert(score);
         		if(score>=passScore){
         			layer.open({
         				title:false,
