@@ -32,6 +32,14 @@ public class RewardFilter extends Filter{
 		Integer loveLife = account.getLoveLife();
 		Long wisdomCount = account.getWisdomCount();
 		BigDecimal amount = account.getAmountBalance();
+		
+		System.out.println("............addAmount:"+rewardVo.getAddAmount());
+		System.out.println("............addIntegral:"+rewardVo.getAddIntegralNum());
+		System.out.println("............addLoveLife:"+rewardVo.getAddLoveLifeNum());
+		System.out.println("............addWisdom:"+rewardVo.getAddWisdomNum());
+		
+		System.out.println("............subLoveLifeNum:"+rewardVo.getSubLoveLifeNum());
+		System.out.println("............subWisdom:"+rewardVo.getSubWisdomNum());
 		if(integral==null){
 			integral = 0;
 		}
@@ -90,7 +98,7 @@ public class RewardFilter extends Filter{
 		if(amount.intValue()<0){
 			amount = new BigDecimal(0);
 		}
-		
+	
 		account.setAmountBalance(amount);
 		account.setIntegral(integral);
 		account.setLoveLife(loveLife);

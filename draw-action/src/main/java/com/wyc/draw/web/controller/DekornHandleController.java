@@ -47,6 +47,8 @@ public class DekornHandleController {
 //		String dekornId = httpServletRequest.getParameter("dekornId");
 //		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 //		Dekorn dekorn = sessionManager.findOne(Dekorn.class, dekornId);
+		
+		System.out.println("...................dekornSuccess");
 		Map<String, String> params = new HashMap<>();
 		params.put("lifeLoveSolid", "4");
 		params.put("lifeLoveHollow", "2");
