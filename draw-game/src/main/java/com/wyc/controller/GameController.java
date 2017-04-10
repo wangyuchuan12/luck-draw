@@ -34,7 +34,7 @@ public class GameController {
 		
 		String dekornId = httpServletRequest.getParameter("dekornId");
 		
-		String takepartId = httpServletRequest.getParameter("getTakepartId");
+		String takepartId = httpServletRequest.getParameter("takepartId");
 		httpServletRequest.setAttribute("takepartId", takepartId);
 		httpServletRequest.setAttribute("dekornId",dekornId);
 		return "znm123";

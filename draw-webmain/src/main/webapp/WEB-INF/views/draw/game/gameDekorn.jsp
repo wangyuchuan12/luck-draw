@@ -58,6 +58,7 @@
 						if(resp.success){
 							
 							var takepartMemberId = resp.data.id;
+							alert(takepartMemberId);
 							skipToGame(gameCode,id,1,7,takepartMemberId);
 						}else{
 							alert(resp.errorMsg);
