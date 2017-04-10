@@ -95,13 +95,14 @@
     			});
         	}else if(status==1){
         		var dekornId = getDekornId();
+        		var takepartId = getTakepartId();
         		layer.open({
     				title:false,
     				type:2,
     				area:["80%","70%"],
     				shade:[0.1,'#000',true],
     				skin:"plugclass",
-    				content:["/view/dekornHandle/dekornResult?dekornId="+dekornId+"&score="+score],
+    				content:["/view/dekornHandle/dekornResult?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId],
     				fadeIn:1000,
     				shift:10,
     				closeBtn:0

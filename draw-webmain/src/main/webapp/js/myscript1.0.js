@@ -185,13 +185,14 @@ function skipToVieDrawInfo(id,firstVisit){
 }
 
 
-function skipToGame(code,dekornId,status,passScore){
+function skipToGame(code,dekornId,status,passScore,takepartId){
 	var url = "/games/skipToGame";
 	var params = new Object();
 	params.code = code;
 	params.status = status;
 	params.passScore = passScore;
 	params.dekornId = dekornId;
+	params.takepartId = takepartId;
 	skipToUrl(url,params);
 }
 

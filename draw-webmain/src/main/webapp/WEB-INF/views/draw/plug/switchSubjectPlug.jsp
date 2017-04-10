@@ -89,15 +89,15 @@
 	
 	function addListener(){
 		$("#startBtn").click(function(){
-			window.location.href = "/games/znm123/";
+			window.parent.s_start();
 		});
 		
 		$("#switchBtn").click(function(){
-			alert("switch");
+			window.parent.s_switch();
 		});
 		
 		$("#backBtn").click(function(){
-			
+			window.parent.s_back();
 		});
 	}
 	

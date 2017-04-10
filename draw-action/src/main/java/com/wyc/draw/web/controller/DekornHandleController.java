@@ -17,6 +17,8 @@ import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.controller.action.SwitchSubjectPlugActionFilter;
 import com.wyc.draw.filter.controller.api.CreateDekornApiFilter;
+import com.wyc.draw.filter.controller.api.DekornFailApiFilter;
+import com.wyc.draw.filter.controller.api.DekornSuccessApiFilter;
 import com.wyc.draw.vo.DekornVo;
 
 @Controller
@@ -40,7 +42,7 @@ public class DekornHandleController {
 	}
 	
 	@RequestMapping(value="dekornSuccess")
-	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
+	@HandlerAnnotation(hanlerFilter=DekornSuccessApiFilter.class)
 	public Object dekornSuccess(HttpServletRequest httpServletRequest)throws Exception{
 //		String dekornId = httpServletRequest.getParameter("dekornId");
 //		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
@@ -57,7 +59,7 @@ public class DekornHandleController {
 	}
 	
 	@RequestMapping(value="dekornFail")
-	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
+	@HandlerAnnotation(hanlerFilter=DekornFailApiFilter.class)
 	public Object dekornFail(HttpServletRequest httpServletRequest){
 		
 		Map<String, String> params = new HashMap<>();
@@ -80,7 +82,7 @@ public class DekornHandleController {
 		
 		
 		Map<String, String> params = new HashMap<>();
-		System.out.println(".......................img:"+dekornVo.getHandDrawUserImg());
+		String modeView = httpServletRequest.getParameter("modeView");
 		params.put("handDrawUserImg", dekornVo.getHandDrawUserImg());
 		params.put("passScore", dekornVo.getPassScore()+"");
 		params.put("handDrawUserName", dekornVo.getHandDrawUserName());
@@ -88,6 +90,7 @@ public class DekornHandleController {
 		params.put("gameName", dekornVo.getGameName());
 		params.put("myImgUrl", drawUser.getImgUrl());
 		params.put("myNickname", drawUser.getNickname());
+		params.put("modeView", modeView);
 		params.put("fightSuccessWisdomNum", dekornVo.getFightSuccessWisdomNum()+"");
 		ModelAndView modelAndView = new ModelAndView("redirect:/view/plug/switchSubjectPlug",params);
 		return modelAndView;

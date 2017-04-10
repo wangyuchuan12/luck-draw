@@ -180,12 +180,20 @@ public class Dekorn {
 		this.id = id;
 	}
 
-	public int getType() {
+	public Integer getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	public Integer getGameType() {
+		return gameType;
+	}
+
+	public void setGameType(Integer gameType) {
+		this.gameType = gameType;
 	}
 
 	public String getGameId() {
@@ -218,6 +226,14 @@ public class Dekorn {
 
 	public void setHandDrawUserImg(String handDrawUserImg) {
 		this.handDrawUserImg = handDrawUserImg;
+	}
+
+	public String getHandDrawUserName() {
+		return handDrawUserName;
+	}
+
+	public void setHandDrawUserName(String handDrawUserName) {
+		this.handDrawUserName = handDrawUserName;
 	}
 
 	public Long getPassScore() {
@@ -268,8 +284,6 @@ public class Dekorn {
 		this.fightFailIntegralNum = fightFailIntegralNum;
 	}
 
-	
-
 	public Long getAcceptFightSuccessWisdomNum() {
 		return acceptFightSuccessWisdomNum;
 	}
@@ -318,14 +332,6 @@ public class Dekorn {
 		this.praiseIntegralNum = praiseIntegralNum;
 	}
 
-	public Integer getGameType() {
-		return gameType;
-	}
-
-	public void setGameType(Integer gameType) {
-		this.gameType = gameType;
-	}
-
 	public Long getTakepartCount() {
 		return takepartCount;
 	}
@@ -366,16 +372,20 @@ public class Dekorn {
 		this.averageScore = averageScore;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public String getHandDrawUserName() {
-		return handDrawUserName;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
-	public void setHandDrawUserName(String handDrawUserName) {
-		this.handDrawUserName = handDrawUserName;
+	public String getRewardId() {
+		return rewardId;
+	}
+
+	public void setRewardId(String rewardId) {
+		this.rewardId = rewardId;
 	}
 
 	public DateTime getCreateAt() {
@@ -394,19 +404,5 @@ public class Dekorn {
 		this.updateAt = updateAt;
 	}
 
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public String getRewardId() {
-		return rewardId;
-	}
-
-	public void setRewardId(String rewardId) {
-		this.rewardId = rewardId;
-	}
+	
 }

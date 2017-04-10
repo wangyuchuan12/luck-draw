@@ -59,12 +59,12 @@ public class PlugController {
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		String handDrawUserImg = httpServletRequest.getParameter("handDrawUserImg");
-		
-		System.out.println(".....................:"+handDrawUserImg);
 		String passScore = httpServletRequest.getParameter("passScore");
 		String handDrawUserName = httpServletRequest.getParameter("handDrawUserName");
 		String acceptFightSuccessWisdomNum = httpServletRequest.getParameter("acceptFightSuccessWisdomNum");
 		String gameName = httpServletRequest.getParameter("gameName");
+		
+		String modeView = httpServletRequest.getParameter("modeView");
 		
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
 		String myImgUrl = drawUser.getImgUrl();
@@ -80,6 +80,8 @@ public class PlugController {
 		httpServletRequest.setAttribute("myImgUrl", myImgUrl);
 		httpServletRequest.setAttribute("myNickname", myNickname);
 		httpServletRequest.setAttribute("fightSuccessWisdomNum", fightSuccessWisdomNum);
+		
+		httpServletRequest.setAttribute("modeView", modeView);
 		return "plug/switchSubjectPlug";
 	}
 	

@@ -15,6 +15,7 @@
 	 <input type="hidden" name="status" value="${status}"/>
 	 <input type="hidden" name="dekornId" value="${dekornId}"/>
 	 <input type="hidden" name="passScore" value="${passScore}"/>
+	 <input type="hidden" name="takepartId" value="${takepartId}"/>
 </head>
 <body>
     <div class="container">
@@ -22,6 +23,12 @@
     </div>
     
     <script type="text/javascript">
+    
+    	function getTakepartId(){
+    		var takepartId = $("input[name=takepartId]").val();
+    		return takepartId;
+    	}
+    
     	function getStatus(){
     		var status = $("input[name=status]").val();
     		return parseInt(status);

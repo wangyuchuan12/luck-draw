@@ -19,13 +19,13 @@ public class DekornController {
 	@RequestMapping(value="info")
 	public String info(HttpServletRequest httpServletRequest)throws Exception{
 		
-		System.out.println("............."+httpServletRequest.getSession());
-		System.out.print(".............sessionid:"+httpServletRequest.getSession().getId());
+		String gameCode = httpServletRequest.getParameter("gameCode");
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		DekornVo dekornVo = (DekornVo)sessionManager.getObject(DekornVo.class);
 		DekornToTakepartMember dekornToTakepartMember = (DekornToTakepartMember)sessionManager.getObject(DekornToTakepartMember.class);
 		httpServletRequest.setAttribute("dekornInfo", dekornVo);
 		httpServletRequest.setAttribute("dekornToTakepartMember", dekornToTakepartMember);
+		httpServletRequest.setAttribute("gameCode", gameCode);
 		return "game/gameDekorn";
 	}
 	

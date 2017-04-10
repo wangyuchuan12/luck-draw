@@ -10,6 +10,7 @@
 <tiles:putAttribute name="body">
 			
 			<input name="id" value="${dekornInfo.id}" type="hidden"/>
+			<input name="gameCode" value="${gameCode}" type="hidden"/>
 			<div class="gameRedPacketImgHeader">
 				<img src="http://wx.qlogo.cn/mmopen/GAhcxvIicouFrv7HICbIPicibmBIwhetmJJibYAaVr0SFhIDIBl9ESo0G1mUJBt6ia1YOZZxEndx7X1NDZLmQC2ELCMcdqvbkevCz/0">
 				<div class="gameRedPacketImgHeaderName">小鸟飞飞</div>
@@ -51,10 +52,13 @@
 				function takepart(){
 					var id = $("input[name=id]").val();
 					var url = "/api/dekorn/takepart";
+					var gameCode = $("input[name=gameCode]").val();
 					var callback = new Object();
 					callback.success = function(resp){
 						if(resp.success){
-							skipToGame("znm123",id,1,20);
+							
+							var takepartMemberId = resp.data.id;
+							skipToGame(gameCode,id,1,20,takepartMemberId);
 						}else{
 							alert(resp.errorMsg);
 						}
@@ -67,6 +71,19 @@
 					request(url,callback,params);
 				}
 				
+				function s_start(){
+					takepart();
+				}
+				
+				function s_switch(){
+					alert("switch");
+				}
+				
+				var switchSubjectPlug;
+				function s_back(){
+					layer.close(switchSubjectPlug);
+				}
+				
 				$(document).ready(function(){
 					
 					
@@ -74,7 +91,7 @@
 						takepart();
 					});
 					var id = $("input[name=id]").val();
-					layer.open({
+					switchSubjectPlug = layer.open({
 						title:false,
 	    				type:2,
 	    				area:["80%","80%"],
