@@ -107,7 +107,8 @@
     	function f_back(){
     		var gameCode = getGameCode();
     		var id = getDekornId();
-    		skipGameDekornInfo(id,gameCode);
+    		alert("skipGameDekornInfo:"+skipGameDekornInfo+"skipVieAnswerResult:"+skipVieAnswerResult);
+    	//	skipGameDekornInfo(id,gameCode);
     	}
     	
     	function takepart(){
