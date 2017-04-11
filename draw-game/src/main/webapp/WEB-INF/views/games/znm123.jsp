@@ -79,56 +79,7 @@
         	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveHollow.png");
         	egret_h5.startGame();
         }, 500);
-        function submitScore(score){
-        	var status = getStatus();
-        	var passScore = getPassScore();
-        	score = parseInt(score);
-        	if(status==0){
-        		layer.open({
-    				title:false,
-    				type:2,
-    				area:["80%","70%"],
-    				shade:[0.1,'#000',true],
-    				skin:"plugclass",
-    				content:["/dekornHandle/invitationPlug?gameId=1&type=1&gameType=1&passScore="+score],
-    				fadeIn:1000,
-    				shift:10,
-    				closeBtn:0
-    			});
-        	}else if(status==1){
-        		var dekornId = getDekornId();
-        		var takepartId = getTakepartId();
-        		
-        		alert("dekornId:"+dekornId);
-        		if(score>=passScore){
-        			layer.open({
-        				title:false,
-        				type:2,
-        				area:["80%","70%"],
-        				shade:[0.1,'#000',true],
-        				skin:"plugclass",
-        				content:["/view/dekornHandle/dekornSuccess?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId],
-        				fadeIn:1000,
-        				shift:10,
-        				closeBtn:0
-        			});
-        			
-        		}else{
-        			layer.open({
-        				title:false,
-        				type:2,
-        				area:["80%","70%"],
-        				shade:[0.1,'#000',true],
-        				skin:"plugclass",
-        				content:["/view/dekornHandle/dekornFail?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId],
-        				fadeIn:1000,
-        				shift:10,
-        				closeBtn:0
-        			});
-        		}
-        		
-        	}
-        }
+        
     </script>
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <div class="" style="display:none;">

@@ -145,6 +145,10 @@ public class Dekorn {
 	@Column(name="average_score")
 	private Long averageScore;
 	
+	//需要智慧豆数量
+	@ParamAnnotation
+	@Column(name="require_wisdom_num")
+	private Long requireWisdomNum;
 	
 	//挑战状态
 	@ParamAnnotation
@@ -404,5 +408,11 @@ public class Dekorn {
 		this.updateAt = updateAt;
 	}
 
-	
+	public Long getRequireWisdomNum() {
+		return requireWisdomNum;
+	}
+
+	public void setRequireWisdomNum(Long requireWisdomNum) {
+		this.requireWisdomNum = requireWisdomNum;
+	}
 }

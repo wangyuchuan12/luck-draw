@@ -8,12 +8,16 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
+import com.wyc.annotation.ParamEntityAnnotation;
 
 @Entity(name="v_dekorn_takepart_member")
+@ParamEntityAnnotation
 public class DekornTakepartMember {
 
 	@Id
+	@IdAnnotation
 	private String id;
 	
 	//adminId
@@ -48,7 +52,7 @@ public class DekornTakepartMember {
 	//是否领取成功
 	@ParamAnnotation
 	@Column(name="is_success")
-	private int isSuccess;
+	private Integer isSuccess;
 	
 	//使用爱心个数，这个爱心指的是参加这个挑战消耗了多少爱心
 	@ParamAnnotation
@@ -141,11 +145,11 @@ public class DekornTakepartMember {
 		this.takepartDateTime = takepartDateTime;
 	}
 
-	public int getIsSuccess() {
+	public Integer getIsSuccess() {
 		return isSuccess;
 	}
 
-	public void setIsSuccess(int isSuccess) {
+	public void setIsSuccess(Integer isSuccess) {
 		this.isSuccess = isSuccess;
 	}
 

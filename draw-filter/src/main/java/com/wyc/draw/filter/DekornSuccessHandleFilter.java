@@ -49,7 +49,7 @@ public class DekornSuccessHandleFilter extends Filter{
 			return null;
 		}
 		
-		Dekorn dekorn = (Dekorn)sessionManager.getObject(Dekorn.class,dekornId);
+		Dekorn dekorn = (Dekorn)sessionManager.findOne(Dekorn.class,dekornId);
 		
 		if(CommonUtil.isEmpty(dekorn)){
 			ResultVo errorResultVo = new ResultVo();

@@ -26,4 +26,11 @@ public class DekornToTakepartMemberService{
 		dekornToTakepartMemberRepository.save(dekornToTakepartMember);
 		
 	}
+
+	public DekornToTakepartMember update(DekornToTakepartMember dekornToTakepartMember) {
+		dekornToTakepartMember.setUpdateAt(new DateTime());
+		
+		return dekornToTakepartMemberRepository.save(dekornToTakepartMember);
+		
+	}
 }

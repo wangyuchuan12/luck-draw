@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.wyc.common.session.DbServiceExecuter;
 import com.wyc.draw.domain.Dekorn;
 import com.wyc.draw.domain.DekornTakepartMember;
+import com.wyc.draw.domain.DekornToTakepartMember;
 import com.wyc.draw.domain.Game;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketAmountDistribution;
@@ -16,6 +17,7 @@ import com.wyc.draw.domain.RedPacketToTakepartMember;
 import com.wyc.draw.domain.Reward;
 import com.wyc.draw.service.DekornService;
 import com.wyc.draw.service.DekornTakepartMemberService;
+import com.wyc.draw.service.DekornToTakepartMemberService;
 import com.wyc.draw.service.GameService;
 import com.wyc.draw.service.RedPacketAmountDistributionService;
 import com.wyc.draw.service.RedPacketService;
@@ -50,6 +52,9 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 	@Autowired
 	private RewardService rewardService;
 	
+	@Autowired
+	private DekornToTakepartMemberService dekornToTakepartMemberService;
+	
 	@Override
 	public void update(List<Object> objs) {
 		if(objs!=null){
@@ -64,6 +69,8 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 					redPacketAmountDistributionService.update((RedPacketAmountDistribution)object);
 				}else if(object.getClass().equals(DekornTakepartMember.class)){
 					dekornTakepartMemberService.update((DekornTakepartMember)object);
+				}else if(object.getClass().equals(DekornToTakepartMember.class)){
+					dekornToTakepartMemberService.update((DekornToTakepartMember)object);
 				}
 			}
 		}

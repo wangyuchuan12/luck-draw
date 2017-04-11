@@ -24,9 +24,64 @@
     
     <script type="text/javascript">
     
+    	var fLayout;
+    
+    
+	    function submitScore(score){
+	    	var status = getStatus();
+	    	var passScore = getPassScore();
+	    	score = parseInt(score);
+	    	if(status==0){
+	    		layer.open({
+					title:false,
+					type:2,
+					area:["80%","70%"],
+					shade:[0.1,'#000',true],
+					skin:"plugclass",
+					content:["/dekornHandle/invitationPlug?gameId=1&type=1&gameType=1&passScore="+score],
+					fadeIn:1000,
+					shift:10,
+					closeBtn:0
+				});
+	    	}else if(status==1){
+	    		var dekornId = getDekornId();
+	    		var takepartId = getTakepartId();
+	    		if(score>=passScore){
+	    			layer.open({
+	    				title:false,
+	    				type:2,
+	    				area:["80%","70%"],
+	    				shade:[0.1,'#000',true],
+	    				skin:"plugclass",
+	    				content:["/view/dekornHandle/dekornSuccess?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId],
+	    				fadeIn:1000,
+	    				shift:10,
+	    				closeBtn:0
+	    			});
+	    			
+	    		}else{
+	    			fLayout = layer.open({
+	    				title:false,
+	    				type:2,
+	    				area:["80%","70%"],
+	    				shade:[0.1,'#000',true],
+	    				skin:"plugclass",
+	    				content:["/view/dekornHandle/dekornFail?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId],
+	    				fadeIn:1000,
+	    				shift:10,
+	    				closeBtn:0
+	    			});
+	    		}
+	    		
+	    	}
+	    }
     	function getTakepartId(){
     		var takepartId = $("input[name=takepartId]").val();
     		return takepartId;
+    	}
+    	
+    	function getGameCode(){
+    		return "znm123";
     	}
     
     	function getStatus(){
@@ -44,6 +99,36 @@
     		
     		return parseInt(passScore);
     	}
+    	
+    	function f_reTakepart(){
+    		alert("f_reTakepart");
+    		takepart();
+    	}
+    	
+    	function f_back(){
+    		layer.close(fLayout);
+    	}
+    	
+    	function takepart(){
+			var id = getDekornId();
+			var url = "/api/dekorn/takepart";
+			var gameCode = getGameCode();
+			var callback = new Object();
+			callback.success = function(resp){
+				if(resp.success){
+					var takepartMemberId = resp.data.id;
+					skipToGame(gameCode,id,1,7,takepartMemberId);
+				}else{
+					alert(resp.errorMsg);
+				}
+			}
+			callback.failure = function(resp){
+				alert(resp.errorMsg);
+			}
+			var params = new Object();
+			params.id = id;
+			request(url,callback,params);
+		}
     	
     	function getWebpath(){
     		return "";

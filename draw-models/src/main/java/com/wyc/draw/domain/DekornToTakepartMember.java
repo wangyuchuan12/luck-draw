@@ -70,7 +70,7 @@ public class DekornToTakepartMember {
 	@Column(name="average_score")
 	private Long averageScore;
 	
-	//剩余爱心个数
+	//总爱心数
 	@ParamAnnotation
 	@Column(name="love_life_count")
 	private Long loveLifeCount;

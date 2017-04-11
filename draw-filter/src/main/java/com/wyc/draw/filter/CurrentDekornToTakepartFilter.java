@@ -20,7 +20,6 @@ public class CurrentDekornToTakepartFilter extends Filter{
 	public Object handlerBefore(SessionManager filterManager) throws Exception {
 		DekornTakepartParam dekornTakepartParam = (DekornTakepartParam)filterManager.getObject(DekornTakepartParam.class);
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
-		
 		DekornToTakepartMember dekornToTakepartMember = dekornToTakepartMemberService.findOneByDekornIdAndDrawUserId(dekornTakepartParam.getDekornId(),drawUser.getId());
 		if(dekornToTakepartMember==null){
 			dekornToTakepartMember = new DekornToTakepartMember();
@@ -39,6 +38,10 @@ public class CurrentDekornToTakepartFilter extends Filter{
 			dekornToTakepartMember.setVisitCount(0);
 			dekornToTakepartMember.setDrawUserId(drawUser.getId());
 			dekornToTakepartMember.setOpernid(drawUser.getOpenid());
+			//初始化爱心数量
+			dekornToTakepartMember.setLoveLifeCount(4l);
+			//剩余爱心数量
+			dekornToTakepartMember.setResidueLifeLove(4);
 			dekornToTakepartMemberService.add(dekornToTakepartMember);
 		}
 		return dekornToTakepartMember;

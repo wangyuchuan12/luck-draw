@@ -43,10 +43,19 @@ public class DekornTakepartFilter extends Filter{
 		}
 		
 		DekornToTakepartMember dekornToTakepartMember = (DekornToTakepartMember)filterManager.getObject(DekornToTakepartMember.class);
+		
+		if(dekornToTakepartMember.getLoveLifeCount()<=0){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("你的爱心树不够了");
+			filterManager.setReturn(true);
+			filterManager.setReturnValue(resultVo);
+			return null;
+		}
 		//设置剩余爱心总数
-		dekornToTakepartMember.setResidueLifeLove(4);
+		dekornToTakepartMember.setResidueLifeLove(dekornToTakepartMember.getResidueLifeLove()-1);
 		dekornToTakepartMember.setTakepartStatus(Constant.DEKORN_UNDERWAY_TAKEPART_STATUS);
-		filterManager.update(dekornToTakepartMember);
+		
 		
 		DekornTakepartMember dekornTakepartMember = new DekornTakepartMember();
 		
@@ -63,6 +72,10 @@ public class DekornTakepartFilter extends Filter{
 		dekornTakepartMember.setTakepartDateTime(new DateTime());
 		dekornTakepartMember.setTakepartStatus(Constant.DEKORN_UNDERWAY_TAKEPART_STATUS);
 		dekornTakepartMemberService.add(dekornTakepartMember);
+		
+		dekornToTakepartMember.setCurrentTakepartMemberId(dekornTakepartMember.getId());
+		
+		filterManager.update(dekornToTakepartMember);
 		Integer deductLoveLife = 4;
 
 		Account account = accountService.fineOneSync(drawUser.getAccountId());

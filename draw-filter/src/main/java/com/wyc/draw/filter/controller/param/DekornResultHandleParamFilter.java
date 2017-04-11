@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.param.DekornResultParam;
+import com.wyc.draw.domain.param.DekornTakepartParam;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 
 public class DekornResultHandleParamFilter extends Filter{
@@ -23,6 +24,14 @@ public class DekornResultHandleParamFilter extends Filter{
 		dekornResultParam.setScore(Long.parseLong(score));
 		dekornResultParam.setDekornId(dekornId);
 		dekornResultParam.setTakepartMemberId(takepartId);
+		
+		filterManager.save(dekornResultParam);
+		
+		DekornTakepartParam dekornTakepartParam = new DekornTakepartParam();
+		dekornTakepartParam.setDekornId(dekornId);
+		
+		filterManager.save(dekornTakepartParam);
+		
 		return dekornResultParam;
 	}
 

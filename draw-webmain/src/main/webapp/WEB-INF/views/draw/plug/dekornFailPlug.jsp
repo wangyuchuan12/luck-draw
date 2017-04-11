@@ -43,14 +43,22 @@
 			</div>
 			<div class="invitationPlugButtons">
 				<ul>
-					<li>返回</li>
-					<li>再次挑战</li>
+					<li id="backButton">返回</li>
+					<li id="reTakepart">再次挑战</li>
 				</ul>
 			</div>
 			
 			<script type="text/javascript">
 				$(document).ready(function(){
 					thund1();
+					
+					$("#reTakepart").click(function(){
+						f_reTakepart();
+					});
+					
+					$("#backButton").click(function(){
+						f_back();
+					});
 				});
 				
 				function thund1(){
