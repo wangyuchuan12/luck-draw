@@ -105,11 +105,11 @@
     	}
     	
     	function f_back(){
-    	//	var gameCode = getGameCode();
-    	//	var id = getDekornId();
+    		var gameCode = getGameCode();
+    		var id = getDekornId();
     		alert(skipGameDekornInfo);
     		alert("skipGameDekornInfo"+skipGameDekornInfo+"skipVieAnswerResult:"+skipVieAnswerResult);
-    	//	skipGameDekornInfo(id,gameCode);
+    		skipGameDekornInfo(id,gameCode);
     	}
     	
     	function takepart(){
