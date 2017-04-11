@@ -61,6 +61,12 @@
     <script src="/games/znm123/launcher/egret_loader.js"></script>
     <script src="/games/znm123/launcher/game-min.js"></script>
     <script>
+    
+    
+       $(document).ready(function(){
+    	  alert();
+    	  alert(skipGameDekornInfo);
+       });
 	   function preLoadImg(url){
 		   var img1 = new Image();
 		   img1.src = url;
@@ -70,6 +76,8 @@
 		   }
 	   }
 	   preLoadImg();
+	   
+	   
     
         setTimeout(function () {
         	preLoadImg("http://7xugu1.com1.z0.glb.clouddn.com/gameCompletePlug.jpg");
