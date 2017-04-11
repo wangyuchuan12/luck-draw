@@ -101,12 +101,13 @@
     	}
     	
     	function f_reTakepart(){
-    		alert("f_reTakepart");
     		takepart();
     	}
     	
     	function f_back(){
-    		layer.close(fLayout);
+    		var gameCode = getGameCode();
+    		var id = getDekornId();
+    		skipGameDekornInfo(id,gameCode);
     	}
     	
     	function takepart(){

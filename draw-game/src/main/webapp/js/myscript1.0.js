@@ -225,6 +225,15 @@ function skipVieAnswerResult(redPacketId){
 	skipToUrl(url,params);
 }
 
+function skipGameDekornInfo(id,gameCode){
+	var params = new Object();
+	params.id = id;
+	params.gameCode = gameCode;
+	var url = "/view/game/game_dekorn/info";
+	
+	skipToUrl(url,params);
+}
+
 function skipToUrl(url,params,flag){
 	var temp = document.createElement("form");
 	if(!flag){

@@ -53,11 +53,11 @@
 					thund1();
 					
 					$("#reTakepart").click(function(){
-						f_reTakepart();
+						window.parent.f_reTakepart();
 					});
 					
 					$("#backButton").click(function(){
-						f_back();
+						window.parent.f_back();
 					});
 				});
 				
