@@ -98,7 +98,7 @@ public class DekornToTakepartMember {
 	
 	//剩余爱心数量
 	@ParamAnnotation
-	@Column
+	@Column(name="residue_life_love")
 	private Integer residueLifeLove;
 	
 	@ParamAnnotation

@@ -21,6 +21,7 @@ public class DekornController {
 		httpServletRequest.setAttribute("dekornInfo", dekornVo);
 		httpServletRequest.setAttribute("dekornToTakepartMember", dekornToTakepartMember);
 		httpServletRequest.setAttribute("gameCode", gameCode);
+		httpServletRequest.setAttribute("passScore", dekornVo.getPassScore());
 		return "game/gameDekorn";
 	}
 	
@@ -28,5 +29,10 @@ public class DekornController {
 	public String gameCompletePlug(HttpServletRequest httpServletRequest){
 		System.out.println(".........sessionid2:"+httpServletRequest.getSession().getId());
 		return "plug/gameCompletePlug";
+	}
+	
+	@RequestMapping(value="gameInfo")
+	public String gameInfo(HttpServletRequest httpServletRequest){
+		return "game/gameInfo";
 	}
 }

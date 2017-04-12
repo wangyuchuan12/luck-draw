@@ -43,7 +43,7 @@
 				
 			</div>
 			
-			<div class="gameCompletePlugButton">确定</div>
+			<div class="gameCompletePlugButton" id="confirmButton">确定</div>
 		</div>
 </tiles:putAttribute>
 </tiles:insertDefinition>
@@ -57,8 +57,8 @@
 		$(".gameCompletePlugLight").height(width2);
 		rotate();
 		
-		$("#jixu").click(function(){
-			alert("jixu");
+		$("#confirmButton").click(function(){
+			window.parent.s_button();
 		});
 	});
 	

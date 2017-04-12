@@ -13,8 +13,7 @@ body{
 		width:100%;
 		height: 100%;
 		background-size:100% 70%;
-		
-		background-position: 0 50px;
+		background-position: 0 30px;
 	}
 	
 	.switchSubjectPlugTitle{
@@ -35,7 +34,11 @@ body{
 		background-size:150px 150px;
 		background-position:45% -40px;
 		width:100%;
-		height: 100px;
+		height: 170px;
+		
+		position: relative;
+		
+		top:-30px;
 
 	}
 	
@@ -141,11 +144,10 @@ body{
 	.switchSubjectPlugBtns{
 	
 		position: absolute;
-		bottom: 0px;
 		width:98%;
 		margin: 0 auto;
 		
-		bottom: -30px;
+		bottom: -70px;
 		
 		left:50%;
 		
@@ -235,6 +237,8 @@ body{
 		width:100%;
 	    -webkit-transform: translate(-50%, -50%);
 	    transform: translate(-50%, -50%);
+	    
+	    z-index: 100000000;
 	}
 	
 	.switchSubjectPlugPlayerDialog{

@@ -7,8 +7,10 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
+import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.Dekorn;
 import com.wyc.draw.domain.DekornTakepartMember;
+import com.wyc.draw.domain.DekornToTakepartMember;
 import com.wyc.draw.domain.param.DekornResultParam;
 import com.wyc.draw.vo.RewardVo;
 
@@ -19,6 +21,9 @@ public class DekornSuccessHandleFilter extends Filter{
 		DekornResultParam dekornResultParam = (DekornResultParam)sessionManager.getObject(DekornResultParam.class);
 		String takepartMemberId = dekornResultParam.getTakepartMemberId();
 		
+		DekornToTakepartMember dekornToTakepartMember = (DekornToTakepartMember)sessionManager.getObject(DekornToTakepartMember.class);
+		dekornToTakepartMember.setTakepartStatus(Constant.DEKORN_COMPLETE_TAKEPART_STATUS);
+		sessionManager.update(dekornToTakepartMember);
 		String dekornId = dekornResultParam.getDekornId();
 		if(CommonUtil.isEmpty(takepartMemberId)){
 			ResultVo errorResultVo = new ResultVo();
@@ -74,6 +79,8 @@ public class DekornSuccessHandleFilter extends Filter{
 		Long fightSuccessWisdomNum = dekorn.getFightSuccessWisdomNum();
 		
 		RewardVo rewardVo = new RewardVo();
+		
+		rewardVo.setAddLoveLifeNum(dekornToTakepartMember.getResidueLifeLove().longValue());
 		
 		rewardVo.setAddIntegralNum(fightSuccessIntegralNum);
 		

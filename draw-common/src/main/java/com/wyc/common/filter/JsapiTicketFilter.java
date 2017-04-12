@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.domain.vo.WxConfigBean;
+import com.wyc.common.filter.service.WxConfigService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.smart.service.WxJsApiTicketSmartService;
 import com.wyc.common.wx.domain.JsapiTicketBean;
@@ -14,30 +15,11 @@ import com.wyc.common.wx.domain.JsapiTicketBean;
 
 public class JsapiTicketFilter extends Filter{
 	@Autowired
-    private WxJsApiTicketSmartService wxJsApiTicketSmartService;
+	private WxConfigService wxConfigService;
 
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		
-		JsapiTicketBean jsapiTicketBean = (JsapiTicketBean)filterManager.getObject(JsapiTicketBean.class);
-		
-		if(jsapiTicketBean==null){
-			jsapiTicketBean = wxJsApiTicketSmartService.getFromDatabase();
-		}
-		
-		if(jsapiTicketBean==null){
-            jsapiTicketBean = wxJsApiTicketSmartService.getFromWx();
-            jsapiTicketBean = wxJsApiTicketSmartService.addToDataBase(jsapiTicketBean);
-            filterManager.remove(WxConfigBean.class);
-        }
-		
-        if(!wxJsApiTicketSmartService.currentIsAvailable()){
-            String id = jsapiTicketBean.getId();
-            jsapiTicketBean = wxJsApiTicketSmartService.getFromWx();
-            jsapiTicketBean.setId(id);
-            jsapiTicketBean = wxJsApiTicketSmartService.saveToDataBase(jsapiTicketBean);
-        }
-		return jsapiTicketBean;
+	public Object handlerBefore(SessionManager sessionManager) throws Exception {
+		return wxConfigService.getJsapiTicketBean(sessionManager);
 	}
 
 	@Override

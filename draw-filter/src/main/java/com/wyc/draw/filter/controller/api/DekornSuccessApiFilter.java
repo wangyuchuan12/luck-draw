@@ -43,10 +43,9 @@ public class DekornSuccessApiFilter extends Filter{
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> classes = new ArrayList<>();
 		classes.add(DekornResultHandleParamFilter.class);
+		classes.add(CurrentDekornToTakepartFilter.class);
 		classes.add(DekornSuccessHandleFilter.class);
 		classes.add(RewardFilter.class);
-		
-		classes.add(CurrentDekornToTakepartFilter.class);
 		return classes;
 	}
 

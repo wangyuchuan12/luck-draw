@@ -107,9 +107,21 @@
     	function f_back(){
     		var gameCode = getGameCode();
     		var id = getDekornId();
-    		alert(skipGameDekornInfo);
-    		alert("skipGameDekornInfo"+skipGameDekornInfo+"skipVieAnswerResult:"+skipVieAnswerResult);
     		skipGameDekornInfo(id,gameCode);
+    	}
+    	
+    	function s_button(){
+    		layer.open({
+				title:false,
+				type:2,
+				area:["80%","70%"],
+				shade:[0.1,'#000',true],
+				skin:"plugclass",
+				content:["/view/dekornHandle/invitationPlug?gameId=1&type=1&gameType=znm123&passScore=5"],
+				fadeIn:1000,
+				shift:10,
+				closeBtn:0
+			});
     	}
     	
     	function takepart(){

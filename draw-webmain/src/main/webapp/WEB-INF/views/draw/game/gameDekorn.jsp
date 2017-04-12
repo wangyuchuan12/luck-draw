@@ -11,6 +11,7 @@
 			
 			<input name="id" value="${dekornInfo.id}" type="hidden"/>
 			<input name="gameCode" value="${gameCode}" type="hidden"/>
+			<input name="passScore" value="${passScore}" type="hidden"/>
 			<div class="gameRedPacketImgHeader">
 				<img src="http://wx.qlogo.cn/mmopen/GAhcxvIicouFrv7HICbIPicibmBIwhetmJJibYAaVr0SFhIDIBl9ESo0G1mUJBt6ia1YOZZxEndx7X1NDZLmQC2ELCMcdqvbkevCz/0">
 				<div class="gameRedPacketImgHeaderName">小鸟飞飞</div>
@@ -54,12 +55,11 @@
 					var url = "/api/dekorn/takepart";
 					var gameCode = $("input[name=gameCode]").val();
 					var callback = new Object();
+					var passScore = $("input[name=passScore]").val();
 					callback.success = function(resp){
 						if(resp.success){
-							
 							var takepartMemberId = resp.data.id;
-							alert(takepartMemberId);
-							skipToGame(gameCode,id,1,7,takepartMemberId);
+							skipToGame(gameCode,id,1,passScore,takepartMemberId);
 						}else{
 							alert(resp.errorMsg);
 						}
@@ -86,8 +86,6 @@
 				}
 				
 				$(document).ready(function(){
-					
-					
 					$("#startButton").click(function(){
 						takepart();
 					});
@@ -95,7 +93,7 @@
 					switchSubjectPlug = layer.open({
 						title:false,
 	    				type:2,
-	    				area:["80%","80%"],
+	    				area:["80%","70%"],
 	    				shade:[0.1,'#000',true],
 	    				skin:"plugclass",
 	    				content:["/view/dekornHandle/switchSubjectPlug?id="+id+"&modeView=large"],

@@ -64,8 +64,6 @@
     
     
        $(document).ready(function(){
-    	  alert();
-    	  alert(skipGameDekornInfo);
        });
 	   function preLoadImg(url){
 		   var img1 = new Image();

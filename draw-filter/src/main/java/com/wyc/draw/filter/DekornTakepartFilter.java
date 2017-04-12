@@ -43,15 +43,30 @@ public class DekornTakepartFilter extends Filter{
 		}
 		
 		DekornToTakepartMember dekornToTakepartMember = (DekornToTakepartMember)filterManager.getObject(DekornToTakepartMember.class);
-		
-		if(dekornToTakepartMember.getLoveLifeCount()<=0){
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("你的爱心树不够了");
-			filterManager.setReturn(true);
-			filterManager.setReturnValue(resultVo);
-			return null;
+
+		if(dekornToTakepartMember.getTakepartStatus()!=Constant.DEKORN_UNDERWAY_TAKEPART_STATUS||dekornToTakepartMember.getResidueLifeLove()<=0){
+			System.out.println("....................这里进来了");
+			Integer deductLoveLife = 4;
+			Account account = accountService.fineOneSync(drawUser.getAccountId());
+			Integer loveLife = account.getLoveLife();
+			if(loveLife >= deductLoveLife){
+				account.setLoveLife(loveLife-deductLoveLife);
+				accountService.update(account);
+				dekornToTakepartMember.setResidueLifeLove(deductLoveLife);
+			}else{
+				ResultVo resultVo = new ResultVo();
+				resultVo.setSuccess(false);
+				resultVo.setErrorMsg("您的爱心数量不足"+deductLoveLife+"颗");
+				filterManager.setReturn(true);
+				filterManager.setReturnValue(resultVo);
+				
+				dekornToTakepartMember.setTakepartStatus(Constant.DEKORN_COMPLETE_TAKEPART_STATUS);
+				return null;
+			}
+		}else{
+			System.out.println("....................这里没有进来");
 		}
+		
 		//设置剩余爱心总数
 		dekornToTakepartMember.setResidueLifeLove(dekornToTakepartMember.getResidueLifeLove()-1);
 		dekornToTakepartMember.setTakepartStatus(Constant.DEKORN_UNDERWAY_TAKEPART_STATUS);
@@ -76,21 +91,7 @@ public class DekornTakepartFilter extends Filter{
 		dekornToTakepartMember.setCurrentTakepartMemberId(dekornTakepartMember.getId());
 		
 		filterManager.update(dekornToTakepartMember);
-		Integer deductLoveLife = 4;
-
-		Account account = accountService.fineOneSync(drawUser.getAccountId());
-		Integer loveLife = account.getLoveLife();
-		if(loveLife >= deductLoveLife){
-			account.setLoveLife(loveLife-deductLoveLife);
-			accountService.update(account);
-		}else{
-			ResultVo resultVo = new ResultVo();
-			resultVo.setSuccess(false);
-			resultVo.setErrorMsg("您的爱心数量不足"+deductLoveLife+"颗");
-			filterManager.setReturn(true);
-			filterManager.setReturnValue(resultVo);
-			return null;
-		}
+		
 		
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);
