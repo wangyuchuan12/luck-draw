@@ -31,8 +31,8 @@ public class Dekorn {
 	
 	//游戏类型
 	@ParamAnnotation
-	@Column(name="game_type")
-	private Integer gameType;
+	@Column(name="game_code")
+	private String gameCode;
 	
 	//游戏id
 	@ParamAnnotation
@@ -192,12 +192,15 @@ public class Dekorn {
 		this.type = type;
 	}
 
-	public Integer getGameType() {
-		return gameType;
+	
+	
+
+	public String getGameCode() {
+		return gameCode;
 	}
 
-	public void setGameType(Integer gameType) {
-		this.gameType = gameType;
+	public void setGameCode(String gameCode) {
+		this.gameCode = gameCode;
 	}
 
 	public String getGameId() {

@@ -157,7 +157,7 @@ public class DekornHandleController {
 	@RequestMapping(value="invitationPlug")
 	public Object invitationPlug(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
-		ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+		ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
 		if(resultVo!=null&&resultVo.isSuccess()){
 			Map<String, String> params = new HashMap<>();
 			ModelAndView modelAndView = new ModelAndView("redirect:/view/plug/invitationPlug",params);
@@ -166,6 +166,7 @@ public class DekornHandleController {
 			
 			resultVo = (ResultVo)sessionManager.getReturnValue();
 
+			System.out.println("......................errorMsg:"+resultVo.getErrorMsg());
 			return null;
 		}
 	}

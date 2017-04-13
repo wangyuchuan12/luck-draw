@@ -32,7 +32,7 @@ public class CreateDekornFilter extends Filter{
 		
 		String type = httpServletRequest.getParameter("type");
 		
-		String gameType = httpServletRequest.getParameter("gameType");
+		String gameCode = httpServletRequest.getParameter("gameCode");
 		
 		String passScore = httpServletRequest.getParameter("passScore");
 		
@@ -54,10 +54,10 @@ public class CreateDekornFilter extends Filter{
 			return null;
 		}
 		
-		if(CommonUtil.isEmpty(gameType)){
+		if(CommonUtil.isEmpty(gameCode)){
 			ResultVo errorResultVo = new ResultVo();
 			errorResultVo.setSuccess(false);
-			errorResultVo.setErrorMsg("gameType参数不能为空");
+			errorResultVo.setErrorMsg("gameCode参数不能为空");
 			sessionManager.setReturn(true);
 			sessionManager.setReturnValue(errorResultVo);
 			return null;
@@ -83,18 +83,16 @@ public class CreateDekornFilter extends Filter{
 			return null;
 		}
 		
-		if(!game.getCode().equals(gameType)){
+		if(!game.getCode().equals(gameCode)){
 			ResultVo errorResultVo = new ResultVo();
 			errorResultVo.setSuccess(false);
-			errorResultVo.setErrorMsg("gameType参数不能为空");
+			errorResultVo.setErrorMsg("所传的gameCode参数有问题");
 			sessionManager.setReturn(true);
 			sessionManager.setReturnValue(errorResultVo);
 			return null;
 		}
 		
 		Long passScoreLong = Long.parseLong(passScore);
-		
-		Integer gameTypeInt = Integer.parseInt(gameType);
 		
 		Integer typeInt = Integer.parseInt(type);
 		
@@ -132,7 +130,7 @@ public class CreateDekornFilter extends Filter{
 		
 		dekorn.setType(typeInt);
 		
-		dekorn.setGameType(gameTypeInt);
+		dekorn.setGameCode(gameCode);
 		
 		dekorn.setHandDrawUserId(drawUser.getId());
 		
