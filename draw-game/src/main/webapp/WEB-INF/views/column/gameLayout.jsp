@@ -164,7 +164,10 @@
     			
     			alert(resp.success);
     			var id = resp.data.id;
+    			alert(id);
     			thisSkipGameDekornInfo(id);
+    			
+    			alert("连这里都进来了");
     		}
     		
     		callback.failure = function(resp){
