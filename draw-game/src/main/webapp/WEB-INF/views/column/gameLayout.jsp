@@ -128,7 +128,7 @@
 				area:["80%","70%"],
 				shade:[0.1,'#000',true],
 				skin:"plugclass",
-				content:["/view/dekornHandle/invitationPlug?gameId=1&type=1&gameCode=znm123&passScore="+score],
+				content:["/view/dekornHandle/invitationPlug?gameId=1&type=1&gameCode=znm123&passScore="+thisScore],
 				fadeIn:1000,
 				shift:10,
 				closeBtn:0
