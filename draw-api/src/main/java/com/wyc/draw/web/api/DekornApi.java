@@ -13,6 +13,7 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.draw.filter.controller.api.CreateDekornApiFilter;
 import com.wyc.draw.filter.controller.api.DekornActiveApiFilter;
 import com.wyc.draw.filter.controller.api.DekornTakepartApiFilter;
+import com.wyc.draw.filter.controller.api.PutUpRingAgreeApiFilter;
 import com.wyc.draw.filter.controller.api.PutUpRingRejectApiFilter;
 import com.wyc.draw.filter.controller.api.SubmitScoreApiFilter;
 
@@ -39,6 +40,19 @@ public class DekornApi {
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=PutUpRingRejectApiFilter.class)
 	public Object rejectPutUpRing(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.getObject(ResultVo.class)!=null){
+			return sessionManager.getObject(ResultVo.class);
+		}else{
+			return sessionManager.getReturnValue();
+		}
+	}
+	
+	@Transactional
+	@RequestMapping(value="agreePutUpRing")
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=PutUpRingAgreeApiFilter.class)
+	public Object agreePutUpRing(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		if(sessionManager.getObject(ResultVo.class)!=null){
 			return sessionManager.getObject(ResultVo.class);

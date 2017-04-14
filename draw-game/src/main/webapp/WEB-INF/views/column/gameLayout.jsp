@@ -105,9 +105,18 @@
     	}
     	
     	function f_back(){
-    		var gameCode = getGameCode();
+    		
     		var id = getDekornId();
+    		
+    		thisSkipGameDekornInfo(id);
+    		
+    	}
+    	
+    	
+    	function thisSkipGameDekornInfo(id){
+    		var gameCode = getGameCode();
     		skipGameDekornInfo(id,gameCode);
+    		
     	}
     	
     	function s_button(){
@@ -132,7 +141,8 @@
     		var callback = new Object();
     		
     		callback.success = function(resp){
-    			f_back();
+    			var id = getDekornId();
+    			thisSkipGameDekornInfo(id);
     		}
     		
     		callback.failure = function(resp){
@@ -146,7 +156,21 @@
     	
     	//邀请摆擂台插件点击接受按钮
     	function i_agreeButton(id){
+			var url = "/api/dekorn/rejectPutUpRing";
     		
+    		var callback = new Object();
+    		
+    		callback.success = function(resp){
+    			var id = resp.data.id;
+    			thisSkipGameDekornInfo(id);
+    		}
+    		
+    		callback.failure = function(resp){
+    			alert("failure");
+    		}
+    		var params = new Object();
+			params.dekornId = id;
+			request(url,callback,params);
     	}
     	
     	
