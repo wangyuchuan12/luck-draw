@@ -12,6 +12,8 @@
 			<input name="id" value="${dekornInfo.id}" type="hidden"/>
 			<input name="gameCode" value="${gameCode}" type="hidden"/>
 			<input name="passScore" value="${passScore}" type="hidden"/>
+			
+			<input name="isOpenSwitch"  type="hidden" value="${isOpenSwitch}"/>
 			<div class="gameRedPacketImgHeader">
 				<img src="http://wx.qlogo.cn/mmopen/GAhcxvIicouFrv7HICbIPicibmBIwhetmJJibYAaVr0SFhIDIBl9ESo0G1mUJBt6ia1YOZZxEndx7X1NDZLmQC2ELCMcdqvbkevCz/0">
 				<div class="gameRedPacketImgHeaderName">小鸟飞飞</div>
@@ -90,17 +92,21 @@
 						takepart();
 					});
 					var id = $("input[name=id]").val();
-					switchSubjectPlug = layer.open({
-						title:false,
-	    				type:2,
-	    				area:["80%","70%"],
-	    				shade:[0.1,'#000',true],
-	    				skin:"plugclass",
-	    				content:["/view/dekornHandle/switchSubjectPlug?id="+id+"&modeView=large"],
-	    				fadeIn:1000,
-	    				shift:10,
-	    				closeBtn:0
-					});
+					var isOpenSwitch = $("input[name=isOpenSwitch]").val();
+					if(isOpenSwitch){
+						switchSubjectPlug = layer.open({
+							title:false,
+		    				type:2,
+		    				area:["80%","70%"],
+		    				shade:[0.1,'#000',true],
+		    				skin:"plugclass",
+		    				content:["/view/dekornHandle/switchSubjectPlug?id="+id+"&modeView=large"],
+		    				fadeIn:1000,
+		    				shift:10,
+		    				closeBtn:0
+						});
+					}
+					
 				});
 			</script>
 			

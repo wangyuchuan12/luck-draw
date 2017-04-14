@@ -15,6 +15,8 @@ public class DekornController {
 	@RequestMapping(value="info")
 	public String info(HttpServletRequest httpServletRequest)throws Exception{
 		String gameCode = httpServletRequest.getParameter("gameCode");
+		
+		String isOpenSwitch = httpServletRequest.getParameter("isOpenSwitch");
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		DekornVo dekornVo = (DekornVo)sessionManager.getObject(DekornVo.class);
 		DekornToTakepartMember dekornToTakepartMember = (DekornToTakepartMember)sessionManager.getObject(DekornToTakepartMember.class);
@@ -22,6 +24,8 @@ public class DekornController {
 		httpServletRequest.setAttribute("dekornToTakepartMember", dekornToTakepartMember);
 		httpServletRequest.setAttribute("gameCode", gameCode);
 		httpServletRequest.setAttribute("passScore", dekornVo.getPassScore());
+		
+		httpServletRequest.setAttribute("isOpenSwitch", isOpenSwitch);
 		return "game/gameDekorn";
 	}
 	
