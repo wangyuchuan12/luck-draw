@@ -126,7 +126,7 @@
     	
     	
     	//邀请摆擂台插件点击拒绝按钮
-    	function i_rejectButton(){
+    	function i_rejectButton(id){
     		var url = "/api/dekorn/rejectPutUpRing";
     		
     		var callback = new Object();
@@ -139,13 +139,13 @@
     			alert("failure");
     		}
     		var params = new Object();
-			params.dekornId = getDekornId();
+			params.dekornId = id;
 			request(url,callback,params);
     		
     	}
     	
     	//邀请摆擂台插件点击接受按钮
-    	function i_agreeButton(){
+    	function i_agreeButton(id){
     		
     	}
     	

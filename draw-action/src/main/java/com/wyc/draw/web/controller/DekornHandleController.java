@@ -165,6 +165,8 @@ public class DekornHandleController {
 			params.put("title2", "恭喜你，你的成绩非常优秀，点击接受，领取奖励，您将成为擂主，接受他人的挑战");
 			Reward reward = (Reward)sessionManager.getObject(Reward.class);
 			params.put("wisdomNum", reward.getAddWisdomNum()+"");
+			Dekorn dekorn = (Dekorn)resultVo.getData();
+			params.put("id", dekorn.getId());
 			ModelAndView modelAndView = new ModelAndView("redirect:/view/plug/invitationPlug",params);
 			return modelAndView;
 		}else{

@@ -12,6 +12,8 @@
 		<input type="hidden" name="title" value="${title}"/>
 		<input type="hidden" name="titl2" value="${title2}"/>
 		
+		<input type="hidden" name="id" value="${id}"/>
+		
 		<script type="text/javascript">
 		
 			 function initView(){
@@ -55,12 +57,13 @@
 		
 		<script type="text/javascript">
 				$(document).ready(function(){
+					var id = $("input[name=id]").val();
 					$("#rejectButton").click(function(){
-						window.parent.i_rejectButton();
+						window.parent.i_rejectButton(id);
 					});
 					
 					$("#argeeButton").click(function(){
-						window.parent.i_agreeButton();
+						window.parent.i_agreeButton(id);
 					});
 				});
 		</script>
