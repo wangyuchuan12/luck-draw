@@ -19,6 +19,8 @@ public class PutUpRingAgreeApiFilter extends Filter{
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		Dekorn dekorn = (Dekorn)sessionManager.getObject(Dekorn.class);
+		
+		System.out.println(".................dekorn:"+dekorn);
 		resultVo.setData(dekorn);
 		return resultVo;
 	}

@@ -156,7 +156,7 @@
     	
     	//邀请摆擂台插件点击接受按钮
     	function i_agreeButton(id){
-			var url = "/api/dekorn/rejectPutUpRing";
+			var url = "/api/dekorn/agreePutUpRing";
     		
     		var callback = new Object();
     		
