@@ -132,7 +132,7 @@
     		var callback = new Object();
     		
     		callback.success = function(resp){
-    			alert(resp.success);
+    			f_back();
     		}
     		
     		callback.failure = function(resp){
@@ -148,6 +148,7 @@
     	function i_agreeButton(id){
     		
     	}
+    	
     	
     	function takepart(){
 			var id = getDekornId();
