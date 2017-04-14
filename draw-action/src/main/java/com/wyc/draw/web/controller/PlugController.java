@@ -87,6 +87,14 @@ public class PlugController {
 	
 	@RequestMapping(value="invitationPlug")
 	public String invitationPlug(HttpServletRequest httpServletRequest){
+		
+		String title = httpServletRequest.getParameter("title");
+		String title2 = httpServletRequest.getParameter("title2");
+		String wisdomNum = httpServletRequest.getParameter("wisdomNum");
+		
+		httpServletRequest.setAttribute("title", title);
+		httpServletRequest.setAttribute("title2", title2);
+		httpServletRequest.setAttribute("wisdomNum", wisdomNum);
 		return "plug/invitationPlug";
 	}
 	

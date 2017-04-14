@@ -124,6 +124,31 @@
 			});
     	}
     	
+    	
+    	//邀请摆擂台插件点击拒绝按钮
+    	function i_rejectButton(){
+    		var url = "/api/dekorn/rejectPutUpRing";
+    		
+    		var callback = new Object();
+    		
+    		callback.success = function(resp){
+    			alert(resp.success);
+    		}
+    		
+    		callback.failure = function(resp){
+    			alert("failure");
+    		}
+    		var params = new Object();
+			params.dekornId = getDekornId();
+			request(url,callback,params);
+    		
+    	}
+    	
+    	//邀请摆擂台插件点击接受按钮
+    	function i_agreeButton(){
+    		
+    	}
+    	
     	function takepart(){
 			var id = getDekornId();
 			var url = "/api/dekorn/takepart";

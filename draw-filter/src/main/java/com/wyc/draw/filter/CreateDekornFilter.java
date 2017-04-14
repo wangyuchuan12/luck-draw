@@ -104,6 +104,8 @@ public class CreateDekornFilter extends Filter{
 		reward.setAddLoveLifeNum(rewardLoveLifeNum(sessionManager));
 		reward.setAddWisdomNum(rewardWisdomNum(sessionManager));
 		
+		sessionManager.save(reward);
+		
 		rewardService.add(reward);
 		
 		Dekorn dekorn = new Dekorn();
@@ -153,7 +155,7 @@ public class CreateDekornFilter extends Filter{
 	
 
 	private Long rewardWisdomNum(SessionManager sessionManager){
-		return 50l;
+		return 10l;
 	}
 
 	private Long rewardIntegralNum(SessionManager sessionManager){

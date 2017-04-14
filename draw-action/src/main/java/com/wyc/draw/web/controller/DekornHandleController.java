@@ -18,6 +18,7 @@ import com.wyc.common.util.CommonUtil;
 import com.wyc.draw.domain.Dekorn;
 import com.wyc.draw.domain.DekornToTakepartMember;
 import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.domain.Reward;
 import com.wyc.draw.domain.param.DekornResultParam;
 import com.wyc.draw.filter.controller.action.SwitchSubjectPlugActionFilter;
 import com.wyc.draw.filter.controller.api.CreateDekornApiFilter;
@@ -157,16 +158,18 @@ public class DekornHandleController {
 	@RequestMapping(value="invitationPlug")
 	public Object invitationPlug(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
-		ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+		ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
 		if(resultVo!=null&&resultVo.isSuccess()){
 			Map<String, String> params = new HashMap<>();
+			params.put("title", "邀请你摆个擂台");
+			params.put("title2", "恭喜你，你的成绩非常优秀，点击接受，领取奖励，您将成为擂主，接受他人的挑战");
+			Reward reward = (Reward)sessionManager.getObject(Reward.class);
+			params.put("wisdomNum", reward.getAddWisdomNum()+"");
 			ModelAndView modelAndView = new ModelAndView("redirect:/view/plug/invitationPlug",params);
 			return modelAndView;
 		}else{
-			
 			resultVo = (ResultVo)sessionManager.getReturnValue();
-
-			System.out.println("......................errorMsg:"+resultVo.getErrorMsg());
+			System.out.println(resultVo.getErrorMsg());
 			return null;
 		}
 	}

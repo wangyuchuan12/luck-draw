@@ -211,5 +211,8 @@ public class Constant {
 	//结束状态
 	public static final int DEKORN_END_STATUS=2;
 	
+	//拒绝状态
+	public static final int DEKORN_PROGRESS_REJECT=3;
+	
 	
 }
