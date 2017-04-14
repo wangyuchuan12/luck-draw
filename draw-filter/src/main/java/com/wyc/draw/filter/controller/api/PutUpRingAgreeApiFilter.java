@@ -9,6 +9,7 @@ import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.Dekorn;
 import com.wyc.draw.filter.PutUpRingAgreeFilter;
+import com.wyc.draw.filter.RewardFilter;
 import com.wyc.draw.filter.controller.param.PutUpRingParamFilter;
 
 public class PutUpRingAgreeApiFilter extends Filter{
@@ -45,6 +46,8 @@ public class PutUpRingAgreeApiFilter extends Filter{
 		List<Class<? extends Filter>> classes = new ArrayList<>();
 		classes.add(PutUpRingParamFilter.class);
 		classes.add(PutUpRingAgreeFilter.class);
+		
+		classes.add(RewardFilter.class);
 		return classes;
 	}
 

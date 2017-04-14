@@ -161,6 +161,8 @@
     		var callback = new Object();
     		
     		callback.success = function(resp){
+    			
+    			alert(resp.success);
     			var id = resp.data.id;
     			thisSkipGameDekornInfo(id);
     		}

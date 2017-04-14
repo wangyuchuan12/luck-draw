@@ -46,8 +46,6 @@ public class PutUpRingRejectApiFilter extends Filter{
 		List<Class<? extends Filter>> classes = new ArrayList<>();
 		classes.add(PutUpRingParamFilter.class);
 		classes.add(PutUpRingRejectFilter.class);
-		
-		classes.add(RewardFilter.class);
 		return classes;
 	}
 
