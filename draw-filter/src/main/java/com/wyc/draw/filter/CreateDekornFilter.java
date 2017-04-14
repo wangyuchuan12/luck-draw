@@ -34,7 +34,7 @@ public class CreateDekornFilter extends Filter{
 		
 		String gameCode = httpServletRequest.getParameter("gameCode");
 		
-		String passScore = httpServletRequest.getParameter("score");
+		String passScore = httpServletRequest.getParameter("passScore");
 		
 		if(CommonUtil.isEmpty(gameId)){
 			ResultVo errorResultVo = new ResultVo();

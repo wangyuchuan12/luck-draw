@@ -26,9 +26,12 @@
     
     	var fLayout;
     
-    
+    	var thisScore;
 	    function submitScore(score){
+	    	
+	    	thisScore = score;
 	    	var status = getStatus();
+	    	var passScore = getPassScore();
 	    	score = parseInt(score);
 	    	if(status==0){
 	    		layer.open({
@@ -125,7 +128,7 @@
 				area:["80%","70%"],
 				shade:[0.1,'#000',true],
 				skin:"plugclass",
-				content:["/view/dekornHandle/invitationPlug?gameId=1&type=1&gameCode=znm123&passScore=5"],
+				content:["/view/dekornHandle/invitationPlug?gameId=1&type=1&gameCode=znm123&passScore="+score],
 				fadeIn:1000,
 				shift:10,
 				closeBtn:0
