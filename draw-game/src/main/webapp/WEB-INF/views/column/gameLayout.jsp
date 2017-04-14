@@ -29,7 +29,6 @@
     
 	    function submitScore(score){
 	    	var status = getStatus();
-	    	var passScore = getPassScore();
 	    	score = parseInt(score);
 	    	if(status==0){
 	    		layer.open({
