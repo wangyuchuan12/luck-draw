@@ -22,8 +22,6 @@
 	<link rel="icon" href="/games/znm123/icon.png">
 	<link type="text/css" href="/games/znm123/common.css" rel="stylesheet" />
 	<script type="text/javascript" src="/games/znm123/zepto.min.js"></script>
-	<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script> 
-	<script type="text/javascript" src="/layer/layer.js"></script>
 	<script src="/games/znm123/common.js"></script>
 
     <style>

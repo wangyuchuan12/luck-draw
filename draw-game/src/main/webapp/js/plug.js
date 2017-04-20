@@ -10,15 +10,18 @@ function LayerPlug(url,w,h){
 	
 	width = width*w;
 	var url = url;
+	
+	alert(width);
+	alert(height);
 	plugLayer = layer.open({
 		title:false,
 		type:1,
 		
 		content:"<iframe id='"+frameId+"' src="+url+" style='border:0px solid white;width:"+width+"px;height:"+(height-5)+"px;'s</iframe>",
 		
-		skin:"plugclass",
+	//	skin:"plugclass",
 		
-			style: 'background-color:RGBA(0,0,0,0);border-radius:20px;width:'+width+'px; height:'+height+'px; border: none;',
+		style: 'background-color:RGBA(0,0,0,0);border-radius:20px;width:'+width+'px; height:'+height+'px; border: none;',
 			
 		anim:true,
 		fadeIn:1000,
