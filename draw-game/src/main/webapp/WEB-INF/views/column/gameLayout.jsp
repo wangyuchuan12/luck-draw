@@ -46,7 +46,7 @@
 					closeBtn:0
 				});*/
 				
-				var layerPlug = new LayerPlug("/dekornHandle/invitationPlug?gameId=1&type=1&gameType=1&passScore="+score,0.8,0.7);
+				var layerPlug = new LayerPlug("/dekornHandle/invitationPlug?gameId=1&type=1&gameType=1&passScore="+score,1,1);
 	    		
 	    		
 	    	}else if(status==1){
@@ -65,7 +65,7 @@
 	    				closeBtn:0
 	    			});*/
 	    			
-	    			var layerPlug = new LayerPlug("/view/dekornHandle/dekornSuccess?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId,0.8,0.7);
+	    			var layerPlug = new LayerPlug("/view/dekornHandle/dekornSuccess?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId,1,1);
 	    			
 	    		}else{
 	    			/*fLayout = layer.open({
@@ -80,7 +80,7 @@
 	    				closeBtn:0
 	    			});*/
 	    			
-	    			var layerPlug = new LayerPlug("/view/dekornHandle/dekornFail?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId,1,0.7);
+	    			var layerPlug = new LayerPlug("/view/dekornHandle/dekornFail?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId,1,1);
 	    		}
 	    		
 	    	}
