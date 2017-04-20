@@ -80,7 +80,7 @@
 	    				closeBtn:0
 	    			});*/
 	    			
-	    			var layerPlug = new LayerPlug("/view/dekornHandle/dekornFail?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId,0.8,0.7);
+	    			var layerPlug = new LayerPlug("/view/dekornHandle/dekornFail?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId,1,0.7);
 	    		}
 	    		
 	    	}
