@@ -49,16 +49,16 @@ public class UserInfo {
     @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String headimgurl;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String[] privilege;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String unionid;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String language;
     @Column
-    @ParamAnnotation
+    @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     private String remark;
     @Column
     @ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)

@@ -5,18 +5,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.DekornToTakepartMember;
+import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.controller.action.GameDekornInfoActionFilter;
 import com.wyc.draw.vo.DekornVo;
 
 @Controller
 @RequestMapping(value="/view/game/game_dekorn")
 public class DekornController {
-	@HandlerAnnotation(hanlerFilter=GameDekornInfoActionFilter.class)
+	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	@RequestMapping(value="info")
 	public String info(HttpServletRequest httpServletRequest)throws Exception{
 		String gameCode = httpServletRequest.getParameter("gameCode");
 		
 		String isOpenSwitch = httpServletRequest.getParameter("isOpenSwitch");
+		
+		String id = httpServletRequest.getParameter("id");
+		/*
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		DekornVo dekornVo = (DekornVo)sessionManager.getObject(DekornVo.class);
 		DekornToTakepartMember dekornToTakepartMember = (DekornToTakepartMember)sessionManager.getObject(DekornToTakepartMember.class);
@@ -25,7 +29,11 @@ public class DekornController {
 		httpServletRequest.setAttribute("gameCode", gameCode);
 		httpServletRequest.setAttribute("passScore", dekornVo.getPassScore());
 		
+		httpServletRequest.setAttribute("isOpenSwitch", isOpenSwitch);*/
+		
+		httpServletRequest.setAttribute("gameCode", gameCode);
 		httpServletRequest.setAttribute("isOpenSwitch", isOpenSwitch);
+		httpServletRequest.setAttribute("id", id);
 		return "game/gameDekorn";
 	}
 	

@@ -70,21 +70,26 @@ public class DekornTakepartMember {
 	private String headImg;
 	
 	//分数
+	@ParamAnnotation
 	@Column
 	private Long score;
 	
 	//所用时间
+	@ParamAnnotation
 	@Column(name="time_long")
 	private Long timeLong;
 	
 	//获取智慧豆个数
+	@ParamAnnotation
 	@Column(name="obtain_wisdom_num")
 	private Long obtainWisdomNum;
 	
 	//获取经验数量
+	@ParamAnnotation
 	@Column(name="obtain_integral_num")
 	private Long obtainIntegralNum;
 	
+	@ParamAnnotation
 	@Column(name="takepart_status")
 	private Integer takepartStatus;
 	

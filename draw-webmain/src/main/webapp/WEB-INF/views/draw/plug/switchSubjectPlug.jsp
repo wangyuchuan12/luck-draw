@@ -81,7 +81,7 @@
 		
 		var gameName= $("input[name=gameName]").val();
 		
-		$(".switchSubjectPlugName").text("挑战项目："+gameName);
+		$(".switchSubjectPlugName").text(gameName);
 		
 		var fightSuccessWisdomNum = $("input[name=fightSuccessWisdomNum]").val();
 		$("#fightSuccessWisdomNum").text(fightSuccessWisdomNum);

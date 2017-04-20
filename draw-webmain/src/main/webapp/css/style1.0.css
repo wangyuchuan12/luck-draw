@@ -3069,18 +3069,18 @@ li::before{
 	border: 1px solid RGBA(204,204,204,1);
 }
 
-.gameRedPacketImgHeader{
-	background: url("/imgs/bean2.png") no-repeat;
-	background-size:70% 80%;
+.gameRedPacketImgHeader_znm123{
+	background: url("http://ooe8ianrr.bkt.clouddn.com/znm123.png") no-repeat;
+	background-size:70% 100%;
 	
-	background-position:40px 0px;
+	background-position:100px 0px;
 	width: 100%;
 	height: 200px;
 	
 	background-color: RGBA(116,33,7,0.7);
 }
 
-.gameRedPacketImgHeader>img{
+.gameRedPacketImgHeader_znm123>img{
 	width:70px;
 	height: 70px;
 	position: absolute;
@@ -3127,6 +3127,10 @@ li::before{
 	color: white;
 	
 	text-align: center;
+	
+	display: block;
+	
+	height: 50px;
 }
 
 .gameRedPacketTab>ul>li{
@@ -3288,4 +3292,150 @@ li::before{
 	padding-top: 20px;
 	
 	padding-bottom: 20px;
+}
+
+.gameRedPacketContent{
+	display: block;
+	position: relative;
+	background: white;
+	
+	margin-bottom: 70px;
+}
+
+.gameRedPacketContentTitle{
+	padding-left: 20px;
+	
+	background: RGBA(239,239,244,1);
+	height: 20px;
+	
+}
+
+.gameRedPacketContentDetailsAttr{
+	padding-left: 20px;
+	color:black;
+	
+	padding-top: 10px;
+	
+	padding-bottom: 10px;
+}
+
+.gameRedPacketContentRank{
+	
+	height:60px;
+	
+	display: block;
+	
+	background-color: white;
+	
+	overflow-y: hidden;
+	
+	
+}
+
+.gameRedPacketContentRank>ul{
+	height: 100%;	
+}
+
+.gameRedPacketContentRank>ul>li{
+	padding-top:10px;
+	padding-bottom:10px;
+	
+	vertical-align: middle;
+	
+	padding-left: 20px;
+}
+
+.gameRedPacketContentRankImg{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	
+	margin-left: 20px;
+}
+
+.gameRedPacketContentRankImg>img{
+	width: 40px;
+	height: 40px;
+	
+	border-radius:20px;
+}
+
+.gameRedPacketContentRankHeader{
+	vertical-align: middle;
+	height: 100%;
+	
+	display: inline-block;
+	
+	position: relative;
+	
+	top:-20px;
+}
+
+.gameRedPacketContentRankNickname{
+	display: inline-block;
+	
+	position: relative;
+	
+	top:-20px;
+}
+
+.gameRedPacketContentRankTime{
+	display: inline-block;
+	
+	position: relative;
+	
+	top:-20px;
+}
+
+.gameRedPacketContentRankScore{
+	display: inline-block;
+	
+	position: relative;
+	
+	top:-20px;
+	
+	padding-left: 40px;
+}
+
+.gameRedPacketContentDetail{
+	padding-left: 20px;
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+
+.preload{
+	width:100%;
+	height: 110%;
+	
+	top:0px;
+	padding-top:0px;
+	
+	overflow:hidden;
+	
+	padding-bottom:0px;
+	margin:0px;
+	position: fixed;
+	background: url("http://on3s1z2us.bkt.clouddn.com/universe.jpg");
+	
+	background-size:100% 130%;
+	
+	background-position:0 40%;
+	
+	margin-top:0px;
+	
+	z-index:1000000000;
+}
+
+.preloadTheBrain{
+	background: url("http://on3s1z2us.bkt.clouddn.com/theBrain.gif");
+	width:300px;
+	height: 200px;
+	background-size:100% 100%;
+	margin: 0 auto;
+	
+	margin-top: 100px;
+}
+
+.dekornRank{
+	padding-left: 20px;
 }

@@ -68,12 +68,9 @@
 	   function preLoadImg(url){
 		   var img1 = new Image();
 		   img1.src = url;
-		   img1.onload = function(){
-			   
-			   
+		   img1.onload = function(){	   
 		   }
 	   }
-	   preLoadImg();
 	   
 	   
     

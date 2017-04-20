@@ -20,6 +20,10 @@
 			body .plugclass .layui-layer-title{
 				border-radius:50px;
 			}
+			
+			body .plugclass{
+				background:red;
+			}
 	</style>
 <tiles:insertAttribute name="plugResource"/>
 </head>

@@ -31,7 +31,10 @@ public class UserInfoFilter extends Filter{
 		
 			try{
 				
-				UserInfo userInfo = null;
+				UserInfo userInfo = (UserInfo)filterManager.getObject(UserInfo.class);
+				if(userInfo!=null){
+					return userInfo;
+				}
 				
 				HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 				

@@ -34,7 +34,7 @@
 	    	var passScore = getPassScore();
 	    	score = parseInt(score);
 	    	if(status==0){
-	    		layer.open({
+	    		/*layer.open({
 					title:false,
 					type:2,
 					area:["80%","70%"],
@@ -44,12 +44,16 @@
 					fadeIn:1000,
 					shift:10,
 					closeBtn:0
-				});
+				});*/
+				
+				var layerPlug = new LayerPlug("/dekornHandle/invitationPlug?gameId=1&type=1&gameType=1&passScore="+score,0.8,0.7);
+	    		
+	    		
 	    	}else if(status==1){
 	    		var dekornId = getDekornId();
 	    		var takepartId = getTakepartId();
 	    		if(score>=passScore){
-	    			layer.open({
+	    			/*layer.open({
 	    				title:false,
 	    				type:2,
 	    				area:["80%","70%"],
@@ -59,10 +63,12 @@
 	    				fadeIn:1000,
 	    				shift:10,
 	    				closeBtn:0
-	    			});
+	    			});*/
+	    			
+	    			var layerPlug = new LayerPlug("/view/dekornHandle/dekornSuccess?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId,0.8,0.7);
 	    			
 	    		}else{
-	    			fLayout = layer.open({
+	    			/*fLayout = layer.open({
 	    				title:false,
 	    				type:2,
 	    				area:["80%","70%"],
@@ -72,7 +78,9 @@
 	    				fadeIn:1000,
 	    				shift:10,
 	    				closeBtn:0
-	    			});
+	    			});*/
+	    			
+	    			var layerPlug = new LayerPlug("/view/dekornHandle/dekornFail?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId,0.8,0.7);
 	    		}
 	    		
 	    	}
@@ -122,7 +130,7 @@
     	}
     	
     	function s_button(){
-    		layer.open({
+    		/*layer.open({
 				title:false,
 				type:2,
 				area:["80%","70%"],
@@ -132,7 +140,9 @@
 				fadeIn:1000,
 				shift:10,
 				closeBtn:0
-			});
+			});*/
+			
+			var plug = new LayerPlug("/view/dekornHandle/invitationPlug?gameId=1&type=1&gameCode=znm123&passScore="+thisScore,0.8,0.7);
     	}
     	
     	
