@@ -17,13 +17,13 @@ function LayerPlug(url,w,h){
 		title:false,
 		type:1,
 		
-		content:"<iframe id='"+frameId+"' src="+url+" style='border:0px solid white;width:"+width+"px;height:"+(height-5)+"px;'s</iframe>",
+		content:"<iframe id='"+frameId+"' src="+url+" style='border-radius:20px;border:0px solid white;width:"+width+"px;height:"+(height-5)+"px;'s</iframe>",
 		
 	//	skin:"plugclass",
 		
 		style: 'background-color:RGBA(0,0,0,0);border-radius:20px;width:'+width+'px; height:'+height+'px; border: none;',
 			
-		anim:true,
+		anim:"up",
 		fadeIn:1000,
 		shift:10,
 		closeBtn:1,

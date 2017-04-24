@@ -27,6 +27,9 @@ public class GameController {
 	public String znm123(HttpServletRequest httpServletRequest)throws Exception{
 		//0表示新游戏状态 1表示挑战状态
 		String status = httpServletRequest.getParameter("status");
+		String isRich = httpServletRequest.getParameter("isRich");
+		
+		httpServletRequest.setAttribute("isRich", isRich);
 		httpServletRequest.setAttribute("status", status);
 		
 		String passScore = httpServletRequest.getParameter("passScore");

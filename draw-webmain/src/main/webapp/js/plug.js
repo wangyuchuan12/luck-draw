@@ -1,38 +1,45 @@
-function LayerPlug(url,w,h){
-	
-	var frameId = uuid();
-	
-	var height = $("html").height();
-	
-	height = height*h;
-	
-	var width = $("html").width();
-	
-	width = width*w;
-	var url = url;
-	plugLayer = layer.open({
-		title:false,
-		type:1,
+function LayerPlug(url,w,h,loadContent){
+	this. frameId = uuid();
+	var outThis = this;
+	this.height = $(document).height();
+	this.height = this.height*h;
+	this.width = $(document).width();
+	this.width = this.width*w;
+	this.url = url;
+	this.loadContent = loadContent;
+	this.load = function(url,width,height,loadContent){
+		plugLayer = layer.open({
+			title:false,
+			type:1,	
+			content:"<iframe scrolling='no' noresize='noresize' id='"+outThis.frameId+"' src="+url+" style='border-radius:20px;border:0px solid white;width:"+0+"px;height:"+0+"px;'></iframe>",	
+		///	skin:"plugclass",	
+			style: 'background-color:RGBA(0,0,0,0);border-radius:20px;border: none;',
+			anim:"up",
+			fadeIn:1000,
+			shift:10,
+			closeBtn:1,
+			shadeClose:false
+		});
+		var wait = layer.open({
+			type:2,
+			content:loadContent
+		});
 		
-		content:"<iframe id='"+frameId+"' src="+url+" style='border:0px solid white;width:"+width+"px;height:"+(height-5)+"px;'s</iframe>",
-		
-		skin:"plugclass",
-		
-			style: 'background-color:RGBA(0,0,0,0);border-radius:20px;width:'+width+'px; height:'+height+'px; border: none;',
+		$("#"+this.frameId).load(function(){
+			layer.close(wait);
+			var thisWidth = 0;
+			var thisHeight = 0;
+			$("#"+outThis.frameId).width(outThis.width);
+			$("#"+outThis.frameId).height(outThis.height);
 			
-		anim:true,
-		fadeIn:1000,
-		shift:10,
-		closeBtn:1,
-		shadeClose:false
-	});
+		});
+	}
+	this.reload = function(){
+		this.load(outThis.url,outThis.width,outThis.height,outThis.loadContent);
+	}
+	this.load(this.url,this.width,this.height,this.loadContent);
+	this.close = function(){
 	
-	var wait = layer.open({
-		type:2,
-		content:"加载中..."
-	});
-	
-	$("#"+frameId).load(function(){
-		layer.close(wait);
-	});
+		layer.close(plugLayer);
+	}
 }

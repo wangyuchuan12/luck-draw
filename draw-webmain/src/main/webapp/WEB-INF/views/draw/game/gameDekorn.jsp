@@ -28,7 +28,7 @@
 				</ul>
 			</div>
 			
-			<div class="gameRedPacketContent" style="display: none;">
+			<div class="gameRedPacketContent" style="display: none;" id="dekornInfo">
 				<div class="gameRedPacketContentDetails">
 					<div class="gameRedPacketContentDetailsAttr">
 						<ul>
@@ -185,8 +185,10 @@
 			<script type="text/javascript">
 				
 				
-				var switchSubjectPlug;
+				var switchPlug;
 				var initFunction;
+				
+				var flowJs;
 				
 				function s_start(){
 					takepart();
@@ -203,7 +205,7 @@
 				
 				
 				function s_back(){
-					layer.close(switchSubjectPlug);
+					switchPlug.close();
 				}
 				var index = 0;
 				function preLoadImg(url){
@@ -241,6 +243,53 @@
 					initFunction.next();
 				}
 				
+				function initGame(dekornId,passScore,status,gameCode,takepartId){
+					
+					flowJs = flowJS({
+						init:function(){
+							var url = "/games/skipToGame?code="+gameCode;
+							var gamePlug = new LayerPlug(url,1,1);
+							this.flowData({
+								"dekornId":dekornId,
+								"passScore":passScore,
+								"status":status,
+								"gameCode":gameCode,
+								"takepartId":takepartId,
+								"gamePlug":gamePlug
+							});
+						},
+						
+						submitScore:function(){
+							var score = this.flowData("score");
+							if(status==0){
+								this.setNext("invitationPlug");
+								this.next();
+					    	}else if(status==1){
+					    		if(score>=passScore){
+					    			this.setNext("dekornSuccess");
+					    			this.next();
+					    		}else{
+					    			this.setNext("dekornFail");
+					    			this.next();
+					    		}
+					    	}
+						},
+						
+						dekornSuccess:function(){
+			    			var layerPlug = new LayerPlug("/view/dekornHandle/dekornSuccess?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId,1,1);
+						},
+						
+						dekornFail:function(){
+			    			var layerPlug = new LayerPlug("/view/dekornHandle/dekornFail?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId,1,1);
+						},
+						
+						invitationPlug:function(){
+							var layerPlug = new LayerPlug("/dekornHandle/invitationPlug?gameId=1&type=1&gameType=1&passScore="+score,1,1);
+						}
+					});
+					
+				}
+				
 				$(document).ready(function(){
 					
 			
@@ -250,8 +299,8 @@
 							var outThis = this;
 							var progressCallback = new Object();
 							progressCallback.complete = function(){
-							//	outThis.setNext("barrager");
-							//	outThis.next();
+								//outThis.setNext("barrager");
+								//outThis.next();
 								
 								outThis.setNext("initSwitchSubjectPlug");
 								outThis.next();
@@ -267,7 +316,26 @@
 							this.flowData({"id":id,"gameCode":gameCode,"isOpenSwitch":isOpenSwitch});
 					
 							progress(30,100);
+							
+							this.setNext("infoAction");
+							
+							this.next();
+							
+							this.setNext("rankAction");
+							this.next();
+							
+							
+							
+							this.setNext("addEventListener");
+							this.next();
+							
+
+						},
+						
+						infoAction:function(){
 							this.setNext("requestInfo",function(data){
+								
+								$("#dekornInfo").css("display","block");
 								this.flowData(data);
 								this.setNext("initView",function(){
 									
@@ -279,28 +347,16 @@
 									
 								});
 								this.next();
-								
-								
-								
+
 							},function(data){
 								alert("fail");
 							});
 							
 							this.next();
 							
-						//	this.setNext("rankAction");
-						//	this.next();
 							
 							this.setNext("initContentDetailView");
 							this.next();
-							
-							this.setNext("addEventListener");
-							this.next();
-							
-							
-							
-							
-
 						},
 						
 						
@@ -311,7 +367,7 @@
 							var url = "/view/dekornHandle/switchSubjectPlug?id="+id+"&modeView=large";
 							
 							if(isOpenSwitch){
-								var plug = new LayerPlug(url,0.8,0.67);
+								switchPlug = new LayerPlug(url,0.8,0.67);
 
 							}
 						},
@@ -333,7 +389,11 @@
 								var id = this.flowData("id");
 								var gameCode = this.flowData("gameCode");
 								var passScore = this.flowData("passScore");
-								skipToGame(gameCode,id,1,passScore,takepartMemberId)
+																
+								var params = new Object();
+
+								initGame(id,passScore,1,gameCode,data.id)
+							//	skipToGame(gameCode,id,1,passScore,takepartMemberId)
 							},function(){
 								alert("失败");
 							});
@@ -517,6 +577,8 @@
 										array.push(record);
 									}
 									
+									
+									console.log("arrayLength:"+array.length);
 									outThis.flowData({"rankRecords":array});
 									outThis.success();
 									

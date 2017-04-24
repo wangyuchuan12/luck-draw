@@ -21,8 +21,9 @@
 		<input name="fightSuccessWisdomNum" value="${fightSuccessWisdomNum}" type="hidden"/>
 			
 		<div class="switchSubjectPlug">
-			 <div class="switchSubjectPlugTitle">挑战分数：100次</div>
+		
 			 <div class="switchSubjectPlugName">挑战项目：小鸟飞飞</div>
+			 <div class="switchSubjectPlugTitle">挑战分数：100次</div>
 			 
 			 <div class="switchSubjectPlugPlayers" >
 			 	<div class="switchSubjectPlugPlayer" style="left:5%;" id="handDrawUser">

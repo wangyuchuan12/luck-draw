@@ -16,6 +16,8 @@
 	 <input type="hidden" name="dekornId" value="${dekornId}"/>
 	 <input type="hidden" name="passScore" value="${passScore}"/>
 	 <input type="hidden" name="takepartId" value="${takepartId}"/>
+	 
+	 <input type="hidden" name="isRich" value="${isRich}"/>
 </head>
 <body>
     <div class="container">
@@ -29,10 +31,19 @@
     	var thisScore;
 	    function submitScore(score){
 	    	
+	    	//是否是富客户端
+	    	var isRich = getIsRich();
+	    	
+	    	//如果是富客户端，直接返回
+	    	if(isRich){
+	    		window.parent.submitScore(score);
+	    		return;
+	    	}
 	    	thisScore = score;
 	    	var status = getStatus();
 	    	var passScore = getPassScore();
 	    	score = parseInt(score);
+	    	
 	    	if(status==0){
 	    		/*layer.open({
 					title:false,
@@ -114,12 +125,18 @@
     		takepart();
     	}
     	
+    	
     	function f_back(){
     		
     		var id = getDekornId();
     		
     		thisSkipGameDekornInfo(id);
     		
+    	}
+    	
+    	function getIsRich(){
+    		var isRich = $("input[name=isRich]").val();
+    		return isRich;
     	}
     	
     	
