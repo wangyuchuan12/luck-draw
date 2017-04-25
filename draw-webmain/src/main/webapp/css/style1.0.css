@@ -3438,3 +3438,77 @@ li::before{
 .dekornRank{
 	padding-left: 20px;
 }
+
+.subjectContainer{
+	background: RGBA(48,48,56,1);
+	width:100%;
+	height: 100%;
+}
+
+.subjectHeader{
+	width:95%;
+	height: 50%;
+	margin: 0 auto;
+	padding-top: 10px;
+	text-align: center;
+	font-size: 30px;
+	color: window;
+	
+	padding-left: 20px;
+	
+	padding-right: 20px;
+}
+
+.subjectTool{
+	height: 50px;
+	
+	width:100%;
+	
+	background-color: RGBA(30,31,36,1);
+	
+	color: white;
+	
+	padding-top:15px;
+	padding-left:20px;
+}
+
+.subjectOption{
+	width:100%;
+}
+
+.subjectHeaderImg{
+	width:90%;
+	height: 90%;
+	margin: 0 auto;
+}
+
+.subjectHeaderImg>img{
+	width:100%;
+	height: 90%;
+}
+
+.subjectOption>ul>li{
+	background-color: white;
+	
+	width:90%;
+	height: 40px;
+	
+	border-radius:10px;
+	
+	margin: 0px auto;
+	
+	text-align: center;
+	padding-top: 10px;
+	color: black;
+	margin-top: 10px;
+	
+	font-size: 15px;
+}
+
+.subjectHeaderImgQuestion{
+	font-size: 15px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	
+	height:10%;
+}

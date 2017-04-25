@@ -1,3 +1,15 @@
+function WaitPlug(loadContent){
+	var wait = layer.open({
+		type:2,
+		content:loadContent
+	});
+	
+	
+	this.close = function(){
+		layer.close(wait);
+	}
+}
+
 function LayerPlug(url,w,h,loadContent){
 	this. frameId = uuid();
 	var outThis = this;
@@ -7,13 +19,17 @@ function LayerPlug(url,w,h,loadContent){
 	this.width = this.width*w;
 	this.url = url;
 	this.loadContent = loadContent;
+	
+	var style;
+	
+	style='background-color:RGBA(0,0,0,0);border-radius:20px;border: none;';
 	this.load = function(url,width,height,loadContent){
 		plugLayer = layer.open({
 			title:false,
 			type:1,	
-			content:"<iframe scrolling='no' noresize='noresize' id='"+outThis.frameId+"' src="+url+" style='border-radius:20px;border:0px solid white;width:"+0+"px;height:"+0+"px;'></iframe>",	
-		///	skin:"plugclass",	
-			style: 'background-color:RGBA(0,0,0,0);border-radius:20px;border: none;',
+			content:"<iframe scrolling='no' noresize='noresize' id='"+outThis.frameId+"' src="+url+" style='border-radius:20px;border:0px solid white;width:"+0+"px;height:"+0+"px;'></iframe>",
+			style:style,
+		//	style: 'position:fixed; left:0; top:0; width:100%; height:100%; border: none; -webkit-animation-duration: .5s; animation-duration: .5s;'
 			anim:"up",
 			fadeIn:1000,
 			shift:10,

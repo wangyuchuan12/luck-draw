@@ -50,11 +50,17 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var width = $(".gameCompletePlugHeaderImg>img").width();
+
 		$(".gameCompletePlugHeaderImg>img").height(width);
 		
-		var width2 = $(".gameCompletePlugLight").width();
+		var lightWidth = window.screen.width;
+		$(".gameCompletePlugLight").width(lightWidth);
 
-		$(".gameCompletePlugLight").height(width2);
+
+		$(".gameCompletePlugLight").height(lightWidth);
+		
+		$(".gameCompletePlugLight").css("top","-100px");
+		
 		rotate();
 		
 		$("#confirmButton").click(function(){

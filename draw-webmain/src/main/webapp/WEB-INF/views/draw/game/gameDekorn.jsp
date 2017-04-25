@@ -23,7 +23,7 @@
 				<ul>
 					<li style="border-bottom: 1px solid RGBA(157,99,80,1);color:RGBA(157,99,80,1);">详情</li>
 					<li>排行榜</li>
-					<li>评论</li>
+					<li>总排行</li>
 					<li>帮助</li>
 				</ul>
 			</div>
@@ -188,9 +188,93 @@
 				var switchPlug;
 				var initFunction;
 				
+				var initGameFunction;
+				
 				var flowJs;
 				
+				var gamePlug;
+				
+				var invitationPlug;
+				
+				function s_button(){
+
+				    gamePlug.close();
+				    
+					initGameFunction.setNext("invitationPlug");
+					
+					initGameFunction.next();
+					
+				
+				}
+		    	
+		    	
+		    	//邀请摆擂台插件点击拒绝按钮
+		    	function i_rejectButton(id){
+		    		
+		    		var wait = layer.open({
+						type:2
+					});
+		    		var url = "/api/dekorn/rejectPutUpRing";
+		    		
+		    		var callback = new Object();
+		    		
+		    		callback.success = function(resp){
+		    			layer.close(wait);
+		    			
+		    			invitationPlug.close();
+		    		}
+		    		
+		    		callback.failure = function(resp){
+		    			alert("failure");
+		    		}
+		    		var params = new Object();
+					params.dekornId = id;
+					request(url,callback,params);
+		    		
+		    	}
+		    	
+		    	//邀请摆擂台插件点击接受按钮
+		    	function i_agreeButton(id){
+		    		
+		    		var wait = layer.open({
+						type:2
+					});
+					var url = "/api/dekorn/agreePutUpRing";
+		    		
+		    		var callback = new Object();
+		    		
+		    		callback.success = function(resp){
+		    			
+		 
+		    			layer.close(wait);
+		    			
+		    			invitationPlug.close();
+		    			
+		    			layer.open({
+		    				btn:["确定"],
+		    				content:"获得2颗智慧豆"
+		    			});
+
+		    			
+		    		}
+		    		
+		    		callback.failure = function(resp){
+		    			alert("failure");
+		    		}
+		    		var params = new Object();
+					params.dekornId = id;
+					request(url,callback,params);
+		    	}
+				
+				
+				
+				
+				
 				function s_start(){
+					switchPlug.close();
+					var wait = layer.open({
+						type:2
+					});
 					takepart();
 				}
 				
@@ -200,6 +284,12 @@
 				
 				function barragerItem(item){
 					$('.container').barrager(item);
+				}
+				
+				function submitScore(score){
+					initGameFunction.setNext("submitScore");
+					initGameFunction.nextData({"score":score});
+					initGameFunction.next();
 				}
 				
 				
@@ -228,9 +318,6 @@
 				    				shift:10,
 				    				closeBtn:0
 								});
-								
-								
-								
 							}
 				    	}
 				    }
@@ -245,22 +332,37 @@
 				
 				function initGame(dekornId,passScore,status,gameCode,takepartId){
 					
-					flowJs = flowJS({
+					var flowJs = flowJS({
 						init:function(){
-							var url = "/games/skipToGame?code="+gameCode;
-							var gamePlug = new LayerPlug(url,1,1);
+							initGameFunction = this;
+							var url = "/games/skipToGame?code="+gameCode+"&isRich=1";
+							gamePlug = new LayerPlug(url,1,1);
 							this.flowData({
 								"dekornId":dekornId,
 								"passScore":passScore,
 								"status":status,
 								"gameCode":gameCode,
-								"takepartId":takepartId,
-								"gamePlug":gamePlug
+								"takepartId":takepartId
 							});
+							
+							
+						},
+						
+						invitationPlug:function(){
+							var passScore = this.flowData("passScore");
+							
+							invitationPlug = new LayerPlug("/view/dekornHandle/invitationPlug?gameId=1&type=1&gameCode=znm123&passScore="+33,0.8,0.7);
+
 						},
 						
 						submitScore:function(){
-							var score = this.flowData("score");
+							
+						
+							gamePlug.close();
+
+							var score = this.stepData("score");
+
+							this.nextData({"score":score});
 							if(status==0){
 								this.setNext("invitationPlug");
 								this.next();
@@ -276,15 +378,13 @@
 						},
 						
 						dekornSuccess:function(){
+							var score = this.stepData("score");
 			    			var layerPlug = new LayerPlug("/view/dekornHandle/dekornSuccess?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId,1,1);
 						},
 						
 						dekornFail:function(){
+							var score = this.stepData("score");
 			    			var layerPlug = new LayerPlug("/view/dekornHandle/dekornFail?dekornId="+dekornId+"&score="+score+"&takepartId="+takepartId,1,1);
-						},
-						
-						invitationPlug:function(){
-							var layerPlug = new LayerPlug("/dekornHandle/invitationPlug?gameId=1&type=1&gameType=1&passScore="+score,1,1);
 						}
 					});
 					
@@ -295,6 +395,9 @@
 			
 					flowJs = flowJS({
 						init:function(){
+							
+							
+
 							initFunction = this;
 							var outThis = this;
 							var progressCallback = new Object();
@@ -328,6 +431,8 @@
 							
 							this.setNext("addEventListener");
 							this.next();
+							
+							
 							
 
 						},
@@ -392,7 +497,8 @@
 																
 								var params = new Object();
 
-								initGame(id,passScore,1,gameCode,data.id)
+								initGame(id,passScore,1,gameCode,data.id);
+								
 							//	skipToGame(gameCode,id,1,passScore,takepartMemberId)
 							},function(){
 								alert("失败");

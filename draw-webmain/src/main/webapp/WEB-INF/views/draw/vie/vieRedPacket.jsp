@@ -521,6 +521,8 @@
 			
 			
 			$(document).ready(function(){
+				
+				progress(100,10);
 				setPayType(0);
 				addVieTakepartButtonListener();
 				

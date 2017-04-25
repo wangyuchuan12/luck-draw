@@ -26,19 +26,19 @@ body{
 	
 	.gameCompletePlugLifeLove>ul>li{
 		display: inline-block;
-		width:100px;
+		width:50px;
 		
-		height: 100px;
+		height: 50px;
 	}
 	
 	.gameCompletePlugLifeLove>ul>li.lifeLoveSolid{
 		background: url("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png");
 		
-		background-size:100px 100px;
+		background-size:50px 50px;
 		
 		
 		
-		background-position:-10px 0px;
+		background-position:0px 0px;
 	
 	}
 	
@@ -46,17 +46,13 @@ body{
 	
 		background: url("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveHollow.png") no-repeat;
 		
-		background-size:70px 60px;
+		background-size:35px 30px;
 		
-		background-position:0px 20px;
-		
-		width:100px;
-		
-		height: 100px;
+		background-position:0px 10px;
 	}
 	
 	.gameCompletePlug{
-		background: url("http://7xugu1.com1.z0.glb.clouddn.com/gameCompletePlug.jpg");
+	/*	background: url("http://7xugu1.com1.z0.glb.clouddn.com/gameCompletePlug.jpg");*/
 		background-size:100% 100%;
 		width:100%;
 		height: 100%;
@@ -68,7 +64,7 @@ body{
 	}
 	
 	.dekornFailPlug{
-		background: url("http://7xugu1.com1.z0.glb.clouddn.com/dekornFailPlug.png")no-repeat;
+	/*	background: url("http://7xugu1.com1.z0.glb.clouddn.com/dekornFailPlug.png")no-repeat;*/
 		background-size:100% 100%;
 		width:100%;
 		height: 100%;
@@ -80,9 +76,6 @@ body{
 		background: url("http://7xugu1.com1.z0.glb.clouddn.com/light.png");
 		background-size:100% 100%;
 		border-radius:1000px;
-		width:150%;
-		left:-22%;
-		top:-550px;
 		overflow: hidden;
 		position: fixed;
 	}
@@ -100,6 +93,8 @@ body{
 		position: absolute;
 		top: 20%;
 		z-index:1000222;
+		width:100px;
+		height:100px;
 		left: 50%;
 	    -webkit-transform: translate(-50%, -50%);
 	    transform: translate(-50%, -50%);
@@ -121,7 +116,7 @@ body{
 	.gameCompletePlugBander>span{
 		position: absolute;
 		color: RGBA(255,239,110,1);
-		font-size: 30px;
+		font-size: 20px;
 
 		left: 50%;
 	    -webkit-transform: translate(-50%, -50%);
@@ -141,9 +136,9 @@ body{
 		left: 50%;
 		top:59%;
 		
-		padding-top:40px;
+		padding-top:20px;
 		
-		padding-bottom:40px;
+		padding-bottom:20px;
 		
 	    -webkit-transform: translate(-50%, -50%);
 	    
@@ -155,11 +150,17 @@ body{
 	    border-radius:20px;
 	}
 	
+	.gameCompletePlugContent>ul:FIRST-CHILD{
+		padding-left: 0px;
+	}
+	
 	.gameCompletePlugContent>ul:FIRST-CHILD>li{
 		list-style: none;
 		color: white;
 		
-		font-size: 40px;
+		font-size: 20px;
+		
+		width:100%;
 	}
 	
 	
@@ -174,12 +175,12 @@ body{
 		color: RGBA(235,122,32,1);
 		text-align: center;
 		
-		font-size: 50px;
-		padding-top: 50px;
+		font-size: 30px;
+		padding-top: 20px;
 		
-		padding-left: 50px;
+		padding-left: 20px;
 		
-		padding-right: 50px;
+		padding-right: 20px;
 	}
 	
 	.invitationPlugHead2{
@@ -191,11 +192,15 @@ body{
 		
 		padding-right:20px;
 		
-		font-size: 30px;
+		font-size: 15px;
 	}
 	
 	.invitationPlugContent{
-		padding-top: 50px;
+		padding-top: 20px;
+	}
+	
+	.invitationPlugContent>ul{
+		padding-left: 0px;
 	}
 	
 	.invitationPlugContent>ul>li{
@@ -203,10 +208,11 @@ body{
 		
 		background-color: RGBA(126,239,253,1);
 		
+		margin:0 auto;
+		
 		width:90%;
 		
-		
-		height: 300px;
+		height: 100px;
 		
 		border-radius:10px;
 		
@@ -224,9 +230,9 @@ body{
 	.invitationWisdon{
 		background: url("http://onlttr82i.bkt.clouddn.com/wisdon.png")no-repeat;
 		
-		background-size:300px 300px;
+		background-size:100px 100px;
 		
-		background-position: -40px 0px;
+		background-position: 0px 0px;
 	}
 	
 	.invitationPlugContentDetail{
@@ -237,7 +243,7 @@ body{
 	}
 	
 	.invitationPlugContentDetailTitle{
-		font-size: 50px;
+		font-size: 20px;
 		
 		padding-top: 10px;
 		
@@ -251,7 +257,7 @@ body{
 		
 		padding-left: 10px;
 		
-		font-size: 30px;
+		font-size: 10px;
 		
 		padding-top: 20px;
 	}
@@ -280,17 +286,19 @@ body{
 		
 		width:49%;
 		
-		height: 200px;
+		height: 80px;
 		
-		background-size:100% 150px;
+		background-size:100% 90px;
 		
 		color: white;
 		
-		font-size: 50px;
+		font-size: 30px;
 		
 		text-align: center;
 		
 		padding-top: 30px;
+		
+		background-position:0px 10px;
 	}
 	
 	.invitationPlugButtons>ul>li:nth-child(2){
@@ -298,15 +306,15 @@ body{
 		
 		width:49%;
 		
-		height: 170px;
+		height: 80px;
 		
-		background-size:117% 550px;
+		background-size:115% 320px;
 		
-		background-position:-40px -180px;
+		background-position:-15px -90px;
 		
 		color: white;
 		
-		font-size: 50px;
+		font-size: 30px;
 		
 		text-align: center;
 		
@@ -316,15 +324,15 @@ body{
 	.gameCompletePlugButton{
 		position: absolute;
 		
-		bottom: 0px;
+		bottom: -50px;
 		
-		width:400px;
+		width:200px;
 		
-		height: 150px;
+		height: 100px;
 		
 		background: url("http://onluguho9.bkt.clouddn.com/btn-violet.png")no-repeat;
 		
-		background-size:400px 140px;
+		background-size:200px 100px;
 		
 		left: 50%;
 		-webkit-transform: translate(-50%, -50%);
@@ -334,9 +342,9 @@ body{
 		
 		color: white;
 		
-		font-size: 50px;
+		font-size: 40px;
 		
-		padding-top: 25px;
+		padding-top: 17px;
 	}
 	
 	.confirmPlug{

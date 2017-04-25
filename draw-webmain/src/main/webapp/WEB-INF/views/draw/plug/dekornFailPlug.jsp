@@ -87,6 +87,7 @@
 						}
 						if(flag){
 							var alpha = time/70;
+							alpha = 1- alpha;
 							$(".dekornFailPlugThunder").css("background-color","rgba(247,251,254,"+alpha+")");
 						}
 					},100);

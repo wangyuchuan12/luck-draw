@@ -46456,8 +46456,8 @@ Sceen2 = function(a) {
     },
     b.prototype.tipSmall = function() {
         this.removeChild(this.tip),
-        this.timeBar.addTime(1),
-        ButtonControl.showMsg("时间增加1秒", this.stage, this.timeBar.time.x, this.timeBar.time.y),
+        this.timeBar.addTime(2),
+        ButtonControl.showMsg("时间增加2秒", this.stage, this.timeBar.time.x, this.timeBar.time.y),
         this.upDateOne(),
         this.upDateTwo(),
         this.upDateThree()

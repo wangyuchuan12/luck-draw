@@ -3,15 +3,17 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.wyc.annotation.HandlerAnnotation;
-import com.wyc.common.session.SessionManager;
-import com.wyc.draw.domain.DekornToTakepartMember;
 import com.wyc.draw.filter.BaseDrawActionFilter;
-import com.wyc.draw.filter.controller.action.GameDekornInfoActionFilter;
-import com.wyc.draw.vo.DekornVo;
 
 @Controller
 @RequestMapping(value="/view/game/game_dekorn")
 public class DekornController {
+	
+	@RequestMapping(value="subject")
+	public String subject(HttpServletRequest httpServletRequest)throws Exception{
+		return "paper/subject";
+	}
+	
 	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	@RequestMapping(value="info")
 	public String info(HttpServletRequest httpServletRequest)throws Exception{
