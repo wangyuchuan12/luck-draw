@@ -1,6 +1,4 @@
 package com.wyc.draw.filter.controller.action;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ public class VieAnswerProblemActionFilter extends Filter{
 	@Autowired
 	private VieRedPacketToTakepartMemberService vieRedPacketToTakepartMemberService;
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
+	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		RedPacketToTakepartMember vieRedPacketToTakepartMember = (RedPacketToTakepartMember)filterManager.getObject(RedPacketToTakepartMember.class);
 		
 		if(vieRedPacketToTakepartMember.getIsPay()==1){
@@ -41,23 +39,6 @@ public class VieAnswerProblemActionFilter extends Filter{
 		
 	}
 
-	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
@@ -66,6 +47,20 @@ public class VieAnswerProblemActionFilter extends Filter{
 		filterClasses.add(GetRedPacketProblemListFilter.class);
 		filterClasses.add(CurrentVieRedPacketToTakepartMemberFilter.class);
 		return filterClasses;
+	}
+
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

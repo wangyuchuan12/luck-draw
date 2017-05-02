@@ -1,6 +1,4 @@
 package com.wyc.common.filter;
-
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,7 @@ public class AddResourceFilter extends Filter{
 	@Autowired
 	private UploadToQNService uploadToQNService;
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
+	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		MultipartHttpServletRequest httpServletRequest = (MultipartHttpServletRequest)filterManager.getHttpServletRequest();
 		CommonsMultipartFile commonsMultipartFile = (CommonsMultipartFile) httpServletRequest.getFile("file");
 		MyResource myResource = new MyResource();
@@ -46,28 +44,31 @@ public class AddResourceFilter extends Filter{
 		return myResource;
 	}
 
-	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 
 }

@@ -330,6 +330,16 @@
 					initFunction.next();
 				}
 				
+				function initQuestion(dekornId,passScore,status,gameCode,takepartId){
+					var flowJs = flowJS({
+						init:function(){
+							var url = "";
+							questionPlug = new LayerPlug(url,1,1);
+							
+						}
+					});
+				}
+				
 				function initGame(dekornId,passScore,status,gameCode,takepartId){
 					
 					var flowJs = flowJS({
@@ -344,8 +354,6 @@
 								"gameCode":gameCode,
 								"takepartId":takepartId
 							});
-							
-							
 						},
 						
 						invitationPlug:function(){
@@ -391,13 +399,8 @@
 				}
 				
 				$(document).ready(function(){
-					
-			
 					flowJs = flowJS({
 						init:function(){
-							
-							
-
 							initFunction = this;
 							var outThis = this;
 							var progressCallback = new Object();
@@ -431,10 +434,6 @@
 							
 							this.setNext("addEventListener");
 							this.next();
-							
-							
-							
-
 						},
 						
 						infoAction:function(){
@@ -473,7 +472,6 @@
 							
 							if(isOpenSwitch){
 								switchPlug = new LayerPlug(url,0.8,0.67);
-
 							}
 						},
 						
@@ -481,7 +479,6 @@
 						addEventListener:function(){
 							var outThis = this;
 							$("#startButton").click(function(){
-								alert("start");
 								outThis.setNext("takepart");
 								outThis.next();
 							});
@@ -753,7 +750,6 @@
 						resourceCache:function(){
 
 							progress(10,100);
-							console.log("步骤1");
 							preLoadImg("http://7xlw44.com1.z0.glb.clouddn.com/background-limit.png");
 							preLoadImg("/imgs/plug/leafTitle.png");
 							preLoadImg("/imgs/plug/vs.png");

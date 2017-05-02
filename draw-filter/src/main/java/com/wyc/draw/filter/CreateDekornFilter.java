@@ -1,6 +1,4 @@
 package com.wyc.draw.filter;
-
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +23,7 @@ public class CreateDekornFilter extends Filter{
 	@Autowired
 	private RewardService rewardService;
 	@Override
-	public Object handlerBefore(SessionManager sessionManager) throws Exception {
+	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		HttpServletRequest httpServletRequest = sessionManager.getHttpServletRequest();
 		
 		String gameId  = httpServletRequest.getParameter("gameId");
@@ -224,26 +222,23 @@ public class CreateDekornFilter extends Filter{
 		return 0l;
 	}
 
-	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
+		return null;
+	}
+
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

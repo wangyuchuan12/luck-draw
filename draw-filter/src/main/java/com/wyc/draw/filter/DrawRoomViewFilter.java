@@ -1,6 +1,4 @@
 package com.wyc.draw.filter;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class DrawRoomViewFilter extends Filter{
 	@Autowired
 	private DrawRoomMemberService drawRoomMemberService;
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
+	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		DrawRoomInfoVo drawRoomInfoVo = (DrawRoomInfoVo)filterManager.getObject(DrawRoomInfoVo.class);
 		
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
@@ -36,23 +34,7 @@ public class DrawRoomViewFilter extends Filter{
 		return drawRoomInfoVo;
 	}
 
-	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
@@ -64,6 +46,22 @@ public class DrawRoomViewFilter extends Filter{
 		
 		filters.add(SyncUserInfoFilter.class);
 		return filters;
+	}
+
+
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

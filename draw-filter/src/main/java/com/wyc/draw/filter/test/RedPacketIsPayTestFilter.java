@@ -1,6 +1,4 @@
 package com.wyc.draw.filter.test;
-
-import java.lang.reflect.Method;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ public class RedPacketIsPayTestFilter extends Filter{
 	@Autowired
 	private PaySuccessService paySuccessService;
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
+	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		
 		RedPacket redPacket = (RedPacket)filterManager.getObject(RedPacket.class);
 
@@ -34,25 +32,19 @@ public class RedPacketIsPayTestFilter extends Filter{
 	}
 
 	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Class<? extends Filter>> dependClasses() {
+		return null;
+	}
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

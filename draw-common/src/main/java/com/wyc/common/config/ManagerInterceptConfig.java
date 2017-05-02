@@ -1,13 +1,10 @@
 package com.wyc.common.config;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,16 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-
-import com.alibaba.druid.filter.FilterManager;
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.annotation.ParamClassAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
+import com.wyc.common.filter.manager.FilterEntrySession;
 import com.wyc.common.session.SessionManager;
-
-
-
 
 @Aspect
 @Component
@@ -87,7 +80,7 @@ public class ManagerInterceptConfig {
 	
 	 
 	
-	 public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
+	public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
 		 Method method = getControllerMethod(proceedingJoinPoint);
 		 Object returnValue = null;
 		 HttpServletRequest httpServletRequest = (HttpServletRequest)proceedingJoinPoint.getArgs()[0];		 
@@ -103,24 +96,31 @@ public class ManagerInterceptConfig {
 			 
 			 Class<? extends Filter> filterClass = handlerAnnotation2.hanlerFilter();
 			 
-			 
-			 
-			 
-			 
-			 
-			 
 			 SessionManager filterManager = SessionManager.getFilterManager(httpServletRequest, paramType);
 			 factory.autowireBean(filterManager);
+			 
+			
+			 
+			
 			 if(proceedingJoinPoint.getArgs().length>1){
 				 HttpServletResponse httpServletResponse = (HttpServletResponse)proceedingJoinPoint.getArgs()[1];
 				 
 				 filterManager.setHttpServletResponse(httpServletResponse);
 			 }
 			 
-			 Filter filter = null;
+			FilterEntrySession filterEntrySession = new FilterEntrySession(filterManager, filterClass, factory);
+			
+			filterEntrySession.pointInit();
+			
+			filterEntrySession.exectePreHandler();
+			
+			filterEntrySession.pointInit();
+			filterEntrySession.pointLeafFilterStep();
+			
+			filterEntrySession.executeHandler();
+			 
 			 try{
-				
-				 filter  = handleBeforeFilter(filterClass,filterManager);
+
 				 if(filterManager.isEnd()){
 					 Map<String, Object> attributes = filterManager.getReturnAttribute();
 					 if(attributes!=null){
@@ -135,10 +135,12 @@ public class ManagerInterceptConfig {
 				 
 				 returnValue = proceedingJoinPoint.proceed();
 				 
+				 filterEntrySession.pointInit();
+				 filterEntrySession.executeAfterHandler();
+				 
 				 /**
 				  * 现在先不要后置处理，等以后框架成熟再加此功能，目前bug还很多
 				  */
-			//	 handleAfterFilter(filter,filterManager);
 				 ResultVo resultVo = (ResultVo)filterManager.getObject(ResultVo.class);
 				 
 				 if(filterManager.getReturnValue()!=null){
@@ -182,141 +184,9 @@ public class ManagerInterceptConfig {
 				 }
 				 
 			 }
-			 
-			 
 		 }
-		 
-		 
-		 
 		 return returnValue;
 	 }
-	 
-	 private void handleExceptionFilter(Filter filter,SessionManager filterManager,Method filerMethod,Exception e)throws Exception{
-		 List<Method> exeptionMethods = getExceptionHandlerMethods(filter.getClass());
-		 
-		 for(Method method:exeptionMethods){
-			 method.invoke(filter, filterManager,filerMethod,e);
-		 }
-	 }
-	 
-	 private Filter handleBeforeFilter(Class<? extends Filter> filterClass,SessionManager filterManager)throws Exception{
-		 
-		 Filter filter = filterClass.newInstance();
-		
-		 
-		List<Filter> dependFilters = new ArrayList<>();
-		factory.autowireBean(filter);
-		List<Class<? extends Filter>> dependClassFilters = filter.dependClasses();
-		if(dependClassFilters!=null){
-			for(Class<? extends Filter> dependFilterClass:dependClassFilters){
-
-				Filter dependFilter = handleBeforeFilter(dependFilterClass, filterManager);
-				dependFilters.add(dependFilter);
-				
-				
-			}
-		}
-		if(filterManager.isEnd()||filterManager.isReturn()){
-			return  null;
-		}
-		
-		filter.setDepends(dependFilters);
-		List<Method> filtersMethods = getBeforeFilterHandlerMethods((Class<Filter>) filterClass);
-		for(Method method:filtersMethods){
-			method.setAccessible(true);
-			try{
-				Object obj = method.invoke(filter, filterManager);
-				
-				if(obj!=null){
-					filterManager.save(obj);
-				}
-				
-				
-			}catch(Exception e){
-				handleExceptionFilter(filter, filterManager, method,e);
-				throw e;
-			}
-		}
-	
-		return filter;
-	 }
-	 
-	 
-	 private void handleAfterFilter(Filter filter,SessionManager filterManager)throws Exception{
-			factory.autowireBean(filter);
-			
-			List<Filter> filters = filter.getDepends();
-			
-			for(Filter dependFilter:filters){
-				handleAfterFilter(dependFilter,filterManager);
-			}
-			 
-			List<Method> filtersMethods = getAfterFilterHandlerMethods((Class<Filter>) filter.getClass());
-			for(Method method:filtersMethods){
-				method.setAccessible(true);
-				try{
-					Object obj = method.invoke(filter, filterManager);
-					if(obj!=null){
-						filterManager.save(obj);
-					}
-				}catch(Exception e){
-					handleExceptionFilter(filter, filterManager, method,e);
-					throw e;
-				}
-				
-			}
-	}
-	 
-	
-	 
-	 private List<Method> getExceptionHandlerMethods(Class<? extends Filter> filterClass){
-		 List<Method> handlerMethods = new ArrayList<>();
-		 for(Method method:filterClass.getDeclaredMethods()){
-			 if(method.getName().startsWith("handlerPrivateException")){
-				 if(method.getParameterTypes().length==3){
-					 if(method.getParameterTypes()[0].equals(SessionManager.class)&&
-							 method.getParameterTypes()[1].equals(Method.class)&&
-							 method.getParameterTypes()[2].equals(Exception.class)){
-						 	handlerMethods.add(method);
-					 }
-				 }
-				
-			 }
-		 }
-		 return handlerMethods;
-	 }
-	 
-	 //获取过滤器的所有后置方法
-	 private List<Method> getAfterFilterHandlerMethods(Class<Filter> filterClass){
-		 List<Method> handlerMethods = new ArrayList<>();
-		 for(Method method:filterClass.getDeclaredMethods()){
-			 if(method.getName().startsWith("handlerAfter")){
-				 if(method.getParameterTypes().length==1){
-					 if(method.getParameterTypes()[0].equals(SessionManager.class)){
-						 handlerMethods.add(method);
-					 }
-				 }
-				
-			 }
-		 }
-		 return handlerMethods;
-	 }
-	 //获取过滤器的所有前置方法
-	 private List<Method> getBeforeFilterHandlerMethods(Class<Filter> filterClass){
-		 List<Method> handlerMethods = new ArrayList<>();
-		 for(Method method:filterClass.getDeclaredMethods()){
-			 if(method.getName().startsWith("handlerBefore")){
-				 if(method.getParameterTypes().length==1){
-					 if(method.getParameterTypes()[0].equals(SessionManager.class)){
-						 handlerMethods.add(method);
-					 }
-				 }
-				
-			 }
-		 }
-		 return handlerMethods;
-	 }
-	 
 	 
 	 //获取控制器方法
 	 private Method getControllerMethod(ProceedingJoinPoint proceedingJoinPoint){

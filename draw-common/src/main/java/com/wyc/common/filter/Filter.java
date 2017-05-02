@@ -1,6 +1,4 @@
 package com.wyc.common.filter;
-
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +24,10 @@ public abstract class Filter {
 
 	
 
-	abstract public Object handlerBefore(SessionManager filterManager)throws Exception;
+	abstract public Object handlerFilter(SessionManager sessionManager)throws Exception;
 	
-	abstract public Object handlerAfter(SessionManager filterManager)throws Exception;
+	abstract public Object handlerPre(SessionManager sessionManager)throws Exception;
 	
-	
-	abstract public Object handlerPrivateException(SessionManager filterManager,Method method,Exception e);
-	
-	abstract public Object handlerPublicException(SessionManager filterManager,Exception e);
 	public String toUrl(String url,Map<String, Object> attribute){
 		this.filterManager.setEnd(true);
 		this.filterManager.setReturnValue(url);
@@ -45,4 +39,6 @@ public abstract class Filter {
 	
 	
 	abstract public List<Class<? extends Filter>> dependClasses();
+
+	public abstract Object handlerAfter(SessionManager sessionManager);
 }

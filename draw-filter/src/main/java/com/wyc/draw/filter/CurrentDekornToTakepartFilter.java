@@ -1,6 +1,5 @@
 package com.wyc.draw.filter;
-
-import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.filter.Filter;
@@ -17,7 +16,7 @@ public class CurrentDekornToTakepartFilter extends Filter{
 	@Autowired
 	private DekornToTakepartMemberService dekornToTakepartMemberService;
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
+	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		DekornTakepartParam dekornTakepartParam = (DekornTakepartParam)filterManager.getObject(DekornTakepartParam.class);
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		DekornToTakepartMember dekornToTakepartMember = dekornToTakepartMemberService.findOneByDekornIdAndDrawUserId(dekornTakepartParam.getDekornId(),drawUser.getId());
@@ -48,25 +47,21 @@ public class CurrentDekornToTakepartFilter extends Filter{
 	}
 
 	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Class<? extends Filter>> dependClasses() {
+		List<Class<? extends Filter>> classes = new ArrayList<>();
+		
+		classes.add(BaseDrawActionFilter.class);
+		return classes;
+	}
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,6 +1,4 @@
 package com.wyc.draw.filter;
-
-import java.lang.reflect.Method;
 import java.util.List;
 
 import com.wyc.common.domain.vo.ResultVo;
@@ -16,7 +14,7 @@ import com.wyc.draw.vo.RewardVo;
 public class PutUpRingAgreeFilter extends Filter{
 
 	@Override
-	public Object handlerBefore(SessionManager sessionManager) throws Exception {
+	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		PutUpRingParam putUpRingParam = (PutUpRingParam)sessionManager.getObject(PutUpRingParam.class);
 		String dekornId = putUpRingParam.getDekornId();
 		if(CommonUtil.isEmpty(dekornId)){
@@ -43,25 +41,19 @@ public class PutUpRingAgreeFilter extends Filter{
 	}
 
 	@Override
-	public Object handlerAfter(SessionManager sessionManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager sessionManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager sessionManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Class<? extends Filter>> dependClasses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
 		// TODO Auto-generated method stub
 		return null;
 	}

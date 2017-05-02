@@ -1,8 +1,5 @@
 package com.wyc.draw.web.api;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
-import com.wyc.draw.domain.DekornTakepartMember;
 import com.wyc.draw.domain.DekornToTakepartMember;
 import com.wyc.draw.filter.controller.action.GameDekornInfoActionFilter;
 import com.wyc.draw.filter.controller.api.CreateDekornApiFilter;
@@ -24,8 +20,6 @@ import com.wyc.draw.filter.controller.api.DekornTakepartMemberListApiFilter;
 import com.wyc.draw.filter.controller.api.PutUpRingAgreeApiFilter;
 import com.wyc.draw.filter.controller.api.PutUpRingRejectApiFilter;
 import com.wyc.draw.filter.controller.api.SubmitScoreApiFilter;
-import com.wyc.draw.vo.DekornTakepartMemberListVo;
-import com.wyc.draw.vo.DekornTakepartMemberVo;
 import com.wyc.draw.vo.DekornVo;
 
 @Controller

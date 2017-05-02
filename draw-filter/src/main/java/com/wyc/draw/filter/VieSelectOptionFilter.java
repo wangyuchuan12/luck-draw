@@ -1,6 +1,4 @@
 package com.wyc.draw.filter;
-
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Comparator;
@@ -57,7 +55,7 @@ public class VieSelectOptionFilter extends Filter{
 	private AccountService accountService;
 
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
+	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		
 		VieSelectOptionParam vieSelectOptionParam = (VieSelectOptionParam)filterManager.getObject(VieSelectOptionParam.class);
 		
@@ -497,26 +495,23 @@ public class VieSelectOptionFilter extends Filter{
 		return resultVo;
 	}
 
-	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
+		return null;
+	}
+
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

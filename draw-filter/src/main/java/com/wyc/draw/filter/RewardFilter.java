@@ -1,6 +1,4 @@
 package com.wyc.draw.filter;
-
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class RewardFilter extends Filter{
 	@Autowired
 	private AccountService accountService;
 	@Override
-	public Object handlerBefore(SessionManager sessionManager) throws Exception {
+	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		RewardVo rewardVo = (RewardVo)sessionManager.getObject(RewardVo.class);
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
 		Account account = accountService.fineOneSync(drawUser.getAccountId());
@@ -103,25 +101,19 @@ public class RewardFilter extends Filter{
 	}
 
 	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Class<? extends Filter>> dependClasses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
 		// TODO Auto-generated method stub
 		return null;
 	}

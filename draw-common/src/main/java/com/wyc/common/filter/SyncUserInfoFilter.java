@@ -1,6 +1,4 @@
 package com.wyc.common.filter;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class SyncUserInfoFilter extends Filter{
 	private WxUserInfoService userService;
 	final static Logger logger = LoggerFactory.getLogger(SyncUserInfoFilter.class);
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
+	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		UserInfo userInfo = (UserInfo)filterManager.getObject(UserInfo.class);
 		try{
 			String id = userInfo.getId();
@@ -59,29 +57,29 @@ public class SyncUserInfoFilter extends Filter{
 		return userInfo;
 	}
 
-	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
 		filterClasses.add(UserInfoFilter.class);
 		return filterClasses;
+	}
+
+
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

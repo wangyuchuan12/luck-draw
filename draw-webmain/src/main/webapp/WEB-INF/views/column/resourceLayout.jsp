@@ -49,49 +49,48 @@
 	</style>
 	
 	<script type="text/javascript">
-
-			var progressbar = $("#progressbar");
-			var progressLabel = $("#progressLabel");
-			progressbar.progressbar({
-				value:false,
-				change:function(){
-					progressLabel.text(progressbar.progressbar("value")+"%");
-				},
-				complete:function(){
-					$(".preload").css("display",'none');
-				}
-			})
+		var progressbar = $("#progressbar");
+		var progressLabel = $("#progressLabel");
+		progressbar.progressbar({
+			value:false,
+			change:function(){
+				progressLabel.text(progressbar.progressbar("value")+"%");
+			},
+			complete:function(){
+				$(".preload").css("display",'none');
+			}
+		});
 			
-			function progress(value,time,callback,luck){
-				if(!luck&&!progressbar.luck){
-					luck = uuid();
-					progressbar.luck = luck;
-				}
-				if(progressbar.luck == luck){
-					var val = progressbar.progressbar("value") || 0;
-					if(val<value){
-						if(val<101){
-							progressbar.progressbar("value",val+1);
-							setTimeout(function(){
-								progress(value,time,callback,luck);
-							},time);
-							if(callback&&callback.progress){
-								callback.progress(val+1);
-							}
-						}
-					}else{
-						progressbar.luck = null;
-						if(callback&&callback.complete){
-							callback.complete(value);
+			
+		function progress(value,time,callback,luck){
+			if(!luck&&!progressbar.luck){
+				luck = uuid();
+				progressbar.luck = luck;
+			}
+			if(progressbar.luck == luck){
+				var val = progressbar.progressbar("value") || 0;
+				if(val<value){
+					if(val<101){
+						progressbar.progressbar("value",val+1);
+						setTimeout(function(){
+							progress(value,time,callback,luck);
+						},time);
+						if(callback&&callback.progress){
+							callback.progress(val+1);
 						}
 					}
 				}else{
-					setTimeout(function(){
-						progress(value,time,callback);
-					},time);
+					progressbar.luck = null;
+					if(callback&&callback.complete){
+						callback.complete(value);
+					}
 				}
+			}else{
+				setTimeout(function(){
+					progress(value,time,callback);
+				},time);
 			}
-		
-		
+		}
+
 	</script>
 </body>

@@ -1,6 +1,4 @@
 package com.wyc.draw.filter.update;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,25 +11,7 @@ import com.wyc.draw.filter.update.handler.VieRedPacketToTakepartMemberUpdateHand
 public class VieTakepartUpdateFilter extends Filter{
 
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
+	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -43,6 +23,18 @@ public class VieTakepartUpdateFilter extends Filter{
 		filterClasses.add(RedPacketTakepartMemberUpdateHandlerFilter.class);
 		filterClasses.add(RedPacketUpdateHandlerFilter.class);
 		return filterClasses;
+	}
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

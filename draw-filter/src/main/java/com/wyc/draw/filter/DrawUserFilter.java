@@ -1,6 +1,4 @@
 package com.wyc.draw.filter;
-
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,7 @@ public class DrawUserFilter extends Filter{
 	@Autowired
 	private AccountService accountService;
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
+	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		
 		if(drawUser!=null){
@@ -93,29 +91,31 @@ public class DrawUserFilter extends Filter{
 		return drawUser;
 	}
 
-	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
 		filterClasses.add(WxShareFilter.class);
 		return filterClasses;
+	}
+
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
+		
+		if(drawUser!=null){
+			sessionManager.addNotExecuteFilterClass(DrawUserFilter.class);
+		}
+		
+		return null;
+	}
+
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -164,6 +164,11 @@ public class Dekorn {
 	private String rewardId;
 	
 	
+	//试卷id,只有答题挑战才有这个字段
+	@Column(name="paper_id")
+	private String paperId;
+	
+	
 	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -191,9 +196,6 @@ public class Dekorn {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-
-	
-	
 
 	public String getGameCode() {
 		return gameCode;
@@ -417,5 +419,13 @@ public class Dekorn {
 
 	public void setRequireWisdomNum(Long requireWisdomNum) {
 		this.requireWisdomNum = requireWisdomNum;
+	}
+
+	public String getPaperId() {
+		return paperId;
+	}
+
+	public void setPaperId(String paperId) {
+		this.paperId = paperId;
 	}
 }

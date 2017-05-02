@@ -1,6 +1,4 @@
 package com.wyc.draw.filter.controller.param;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,7 @@ import com.wyc.draw.filter.BaseDrawActionFilter;
 public class GameDekornInfoParamFilter extends Filter{
 
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
+	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		GameDekornInfoParam gameDekornInfoParam = new GameDekornInfoParam();
@@ -32,28 +30,22 @@ public class GameDekornInfoParamFilter extends Filter{
 	}
 
 	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
 		filterClasses.add(BaseDrawActionFilter.class);
 		return filterClasses;
+	}
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

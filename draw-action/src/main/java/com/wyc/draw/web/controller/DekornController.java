@@ -6,13 +6,15 @@ import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 
 @Controller
-@RequestMapping(value="/view/game/game_dekorn")
+@RequestMapping(value="/view/dekorn")
 public class DekornController {
 	
 	@RequestMapping(value="subject")
 	public String subject(HttpServletRequest httpServletRequest)throws Exception{
 		return "paper/subject";
 	}
+	
+	
 	
 	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	@RequestMapping(value="info")
@@ -36,7 +38,7 @@ public class DekornController {
 		httpServletRequest.setAttribute("gameCode", gameCode);
 		httpServletRequest.setAttribute("isOpenSwitch", isOpenSwitch);
 		httpServletRequest.setAttribute("id", id);
-		return "game/gameDekorn";
+		return "dekorn/dekornInfo";
 	}
 	
 	@RequestMapping(value="gameCompltePlug")

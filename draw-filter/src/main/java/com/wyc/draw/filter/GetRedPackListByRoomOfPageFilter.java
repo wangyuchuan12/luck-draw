@@ -1,6 +1,4 @@
 package com.wyc.draw.filter;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,6 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.MyLongDateFormat;
 import com.wyc.draw.domain.RedPacket;
-import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketVo;
@@ -27,14 +24,12 @@ public class GetRedPackListByRoomOfPageFilter extends Filter{
 	@Autowired
 	private RedPacketService redPacketService;
 	
-	@Autowired
-	private DrawRoomMemberService drawRoomMemberService;
 	
 	@Autowired
 	private MyLongDateFormat dateFormat;
 	
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
+	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		String roomId = httpServletRequest.getParameter("id");
@@ -99,23 +94,6 @@ public class GetRedPackListByRoomOfPageFilter extends Filter{
 		return redPacketListVo;
 	}
 
-	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
@@ -123,6 +101,20 @@ public class GetRedPackListByRoomOfPageFilter extends Filter{
 		filterClasses.add(BaseDrawActionFilter.class);
 		
 		return filterClasses;
+	}
+
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

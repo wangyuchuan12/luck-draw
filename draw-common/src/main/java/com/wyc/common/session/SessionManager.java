@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
+import com.wyc.common.filter.Filter;
 import com.wyc.common.util.CommonUtil;
 class Param{
 	private String type;
@@ -30,7 +31,6 @@ class Param{
 	private Field field;
 	private boolean isId;
 	private boolean isMap;
-
 	public boolean isMap() {
 		return isMap;
 	}
@@ -104,19 +104,43 @@ public class SessionManager {
 	
 	public static final String contextId = UUID.randomUUID().toString();
 	
+
+	private Map<String, Object> attributes = new HashMap<>();
+	
 	@Autowired
 	private DbServiceExecuter updateExecuter;
 
 //	private static final ThreadLocal<SessionManager> filterManagerThreadLocal = new ThreadLocal<>();
 	
+	private List<Class<? extends Filter>> notExecuteFilterClasses = new ArrayList<>();
+	
 	final static Logger logger = LoggerFactory.getLogger(SessionManager.class);
 	
 	
-
+	public void addNotExecuteFilterClass(Class<? extends Filter> filterClass){
+		notExecuteFilterClasses.add(filterClass);
+	}
 	
+	public boolean containNotExecuteFilter(Class<? extends Filter> filterClass){
+		for(Class<? extends Filter> entryClass:notExecuteFilterClasses){
+			if(filterClass.equals(entryClass)){
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	public HttpServletResponse getHttpServletResponse() {
 		return httpServletResponse;
+	}
+	
+	public void setAttribute(String name , Object value){
+		attributes.put(name, value);
+	}
+	
+	public Object getAttribute(String name){
+		return attributes.get(name);
 	}
 
 
@@ -540,6 +564,9 @@ public class SessionManager {
 	
 	public void save(Object obj)throws Exception{
 		
+		if(obj==null){
+			return;
+		}
 		Class<?> clazz = obj.getClass();
 	//	remove(clazz);
 		Object idValue = null;

@@ -1,6 +1,4 @@
 package com.wyc.draw.filter.controller.api;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +26,7 @@ public class RedPacketComentFilter extends Filter{
 	@Autowired
 	private RedPacketService redPacketService;
 	@Override
-	public Object handlerBefore(SessionManager filterManager) throws Exception {
+	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		RedPacketComentParam redPacketComentParam = (RedPacketComentParam)filterManager.getObject(RedPacketComentParam.class);
 		RedPacketComent redPacketComent = new RedPacketComent();
 		
@@ -73,23 +71,6 @@ public class RedPacketComentFilter extends Filter{
 		return resultVo;
 	}
 
-	@Override
-	public Object handlerAfter(SessionManager filterManager) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPrivateException(SessionManager filterManager, Method method, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object handlerPublicException(SessionManager filterManager, Exception e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
@@ -98,6 +79,20 @@ public class RedPacketComentFilter extends Filter{
 		filterClasses.add(RedPacketComentParamFilter.class);
 		
 		return filterClasses;
+	}
+
+
+	@Override
+	public Object handlerPre(SessionManager sessionManager) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Object handlerAfter(SessionManager sessionManager) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
