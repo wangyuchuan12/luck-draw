@@ -21,10 +21,6 @@ public class DekornVo {
 	@ParamAnnotation
 	private String gameName;
 	
-	//试卷id
-	@ParamAnnotation
-	private String testPaperId;
-	
 	//发起人
 	@ParamAnnotation
 	private String handDrawUserId;
@@ -102,6 +98,9 @@ public class DekornVo {
 	@ParamAnnotation
 	private Long highestScore;
 	
+	@ParamAnnotation
+	private String paperId;
+	
 	//平均成绩
 	@ParamAnnotation
 	private Long averageScore;
@@ -115,6 +114,16 @@ public class DekornVo {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	
+
+	public String getPaperId() {
+		return paperId;
+	}
+
+	public void setPaperId(String paperId) {
+		this.paperId = paperId;
 	}
 
 	public int getType() {
@@ -133,13 +142,6 @@ public class DekornVo {
 		this.gameId = gameId;
 	}
 
-	public String getTestPaperId() {
-		return testPaperId;
-	}
-
-	public void setTestPaperId(String testPaperId) {
-		this.testPaperId = testPaperId;
-	}
 
 	public String getHandDrawUserId() {
 		return handDrawUserId;

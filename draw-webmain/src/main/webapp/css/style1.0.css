@@ -3304,6 +3304,10 @@ li::before{
 
 .gameRedPacketContentTitle{
 	padding-left: 20px;
+
+	padding-top:5px;
+	
+	padding-bottom:20px;
 	
 	background: RGBA(239,239,244,1);
 	height: 20px;
@@ -3363,6 +3367,8 @@ li::before{
 .gameRedPacketContentRankHeader{
 	vertical-align: middle;
 	height: 100%;
+	
+	width:50px;
 	
 	display: inline-block;
 	
@@ -3437,6 +3443,7 @@ li::before{
 
 .dekornRank{
 	padding-left: 20px;
+	padding-top: 10px;
 }
 
 .subjectContainer{

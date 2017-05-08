@@ -122,10 +122,11 @@ body{
 	.switchSubjectPlugRewardContent>ul>li>span{
 		color: RGBA(255,233,110,1);
 		font-size: 15px;
-		top:-10px;
 		display: inline-block;
 		position: relative;
 		font-weight: bolder;
+		
+		top:-5px;
 	}
 	
 	.switchSubjectPlugRewardContentTitle{
@@ -258,4 +259,13 @@ body{
 		
 		right: -57px;
 
+	}
+	
+	.plugBeanIcon{
+		width:25px;
+		height: 25px;
+		background: url("/imgs/plug/bean.png") no-repeat;
+		display: inline-block;
+		background-size:20px 20px;
+		background-position: 0 5px;
 	}

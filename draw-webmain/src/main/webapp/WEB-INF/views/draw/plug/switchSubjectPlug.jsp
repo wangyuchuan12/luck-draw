@@ -43,10 +43,10 @@
 			 		<div class="switchSubjectPlugRewardContentTitle">胜利奖励</div>
 			 		<ul>
 			 			<li>
-			 				<img src="/imgs/plug/bean.png">
-			 				<span id="fightSuccessWisdomNum">200</span>
+			 			<!--  	<img src="/imgs/plug/bean.png"> -->
+			 				<div class="plugBeanIcon"></div><span id="fightSuccessWisdomNum">200</span>
 			 			</li>
-			 			
+			
 			 			<li>
 			 			</li>
 			 		</ul>

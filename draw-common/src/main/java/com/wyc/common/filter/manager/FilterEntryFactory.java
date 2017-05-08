@@ -72,7 +72,6 @@ public class FilterEntryFactory {
 		
 		
 		List<Class<? extends Filter>> dependClasses = filter.dependClasses();
-		
 		if(dependClasses==null||dependClasses.size()==0){
 			filterStep.setLeaf(true);
 		}else{

@@ -265,7 +265,7 @@ body{
 	.invitationPlugButtons{
 		position: absolute;
 		
-		bottom: 0px;
+		bottom: 70px;
 		
 		width: 100%;
 	}
@@ -324,7 +324,7 @@ body{
 	.gameCompletePlugButton{
 		position: absolute;
 		
-		bottom: -50px;
+		bottom:0px;
 		
 		width:200px;
 		
@@ -644,5 +644,5 @@ body{
 		padding-top: 50px;
 		
 		right: -57px;
-
 	}
+	

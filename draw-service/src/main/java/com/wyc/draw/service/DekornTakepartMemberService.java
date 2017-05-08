@@ -25,6 +25,10 @@ public class DekornTakepartMemberService {
 		
 		dekornTakepartMemberRepository.save(dekornTakepartMember);
 	}
+	
+	public Long rankOfTakepartMember(String id){
+		return dekornTakepartMemberRepository.rankOfTakepartMember(id);
+	}
 
 	public DekornTakepartMember update(DekornTakepartMember dekornTakepartMember) {
 		dekornTakepartMember.setUpdateAt(new DateTime());

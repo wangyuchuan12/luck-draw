@@ -18,6 +18,8 @@ public class FilterEntryManager {
 		
 		FilterEntry outFilterEntry = currentFilterEntry();
 		
+		
+		
 		if(currentFilterStep.isEnd()){
 			return outFilterEntry;
 		}
@@ -26,7 +28,9 @@ public class FilterEntryManager {
 		}else if(!currentFilterStep.isLeaf()&&currentFilterStep.getNextFilterStep()!=null){
 			branchFilterStep = currentFilterStep;
 			intoFilterEntry();
-		}else if(currentFilterStep.isLeaf()){
+		}else if(currentFilterStep.isLeaf()&&currentFilterStep.getNextFilterStep()!=null){
+			nextFilterEntry();
+		}else{
 			currentFilterStep = branchFilterStep;
 			nextFilterEntry();
 		}

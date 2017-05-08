@@ -72,6 +72,8 @@ public class DekornSuccessHandleFilter extends Filter{
 			return null;
 		}
 		
+		sessionManager.save(dekornTakepartMember);
+		
 		Long fightSuccessIntegralNum = dekorn.getFightSuccessIntegralNum();
 		
 		Long fightSuccessWisdomNum = dekorn.getFightSuccessWisdomNum();

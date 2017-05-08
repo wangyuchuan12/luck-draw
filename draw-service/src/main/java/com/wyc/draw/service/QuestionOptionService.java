@@ -20,4 +20,8 @@ public class QuestionOptionService {
 	public List<QuestionOption> findAllByQuestionId(String id) {
 		return questionOptionRepository.findAllByQuestionId(id);
 	}
+
+	public QuestionOption findOne(String optinId) {
+		return questionOptionRepository.findOne(optinId);
+	}
 }

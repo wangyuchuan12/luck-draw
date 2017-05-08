@@ -58,8 +58,17 @@ public class Question {
 	private String fillWords;
 	
 	//试卷id
+	@ParamAnnotation
 	@Column(name="paper_id")
 	private String paperId;
+	
+	@ParamAnnotation
+	@Column
+	private Integer score;
+	
+	@ParamAnnotation
+	@Column(name="is_del")
+	private Integer isDel;
 	
 	@Column(name = "create_at")
 	@ParamAnnotation
@@ -161,5 +170,21 @@ public class Question {
 
 	public void setPaperId(String paperId) {
 		this.paperId = paperId;
+	}
+
+	public Integer getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
+	}
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
 	}
 }

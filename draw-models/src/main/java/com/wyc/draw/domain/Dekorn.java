@@ -39,11 +39,6 @@ public class Dekorn {
 	@Column(name="game_id")
 	private String gameId;
 	
-	//试卷id
-	@ParamAnnotation
-	@Column(name="test_paper_id")
-	private String testPaperId;
-	
 	//发起人
 	@ParamAnnotation
 	@Column(name="hand_draw_user_id")
@@ -168,7 +163,6 @@ public class Dekorn {
 	@Column(name="paper_id")
 	private String paperId;
 	
-	
 	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -211,14 +205,6 @@ public class Dekorn {
 
 	public void setGameId(String gameId) {
 		this.gameId = gameId;
-	}
-
-	public String getTestPaperId() {
-		return testPaperId;
-	}
-
-	public void setTestPaperId(String testPaperId) {
-		this.testPaperId = testPaperId;
 	}
 
 	public String getHandDrawUserId() {

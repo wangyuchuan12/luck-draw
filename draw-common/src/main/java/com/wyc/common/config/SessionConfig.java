@@ -30,6 +30,7 @@ public class SessionConfig {
 	public RedisHttpSessionConfiguration redisHttpSessionConfiguration(){
 		RedisHttpSessionConfiguration redisHttpSessionConfiguration = new RedisHttpSessionConfiguration();
 		redisHttpSessionConfiguration.setMaxInactiveIntervalInSeconds(120);
+		
 		return redisHttpSessionConfiguration;
 	}
 	

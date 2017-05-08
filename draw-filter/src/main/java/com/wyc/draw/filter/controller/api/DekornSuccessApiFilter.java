@@ -2,20 +2,45 @@ package com.wyc.draw.filter.controller.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.DekornTakepartMember;
+import com.wyc.draw.domain.DekornToTakepartMember;
 import com.wyc.draw.filter.CurrentDekornToTakepartFilter;
 import com.wyc.draw.filter.DekornSuccessHandleFilter;
 import com.wyc.draw.filter.RewardFilter;
 import com.wyc.draw.filter.controller.param.DekornResultHandleParamFilter;
+import com.wyc.draw.service.DekornTakepartMemberService;
+import com.wyc.draw.service.DekornToTakepartMemberService;
 
 public class DekornSuccessApiFilter extends Filter{
 
+	@Autowired
+	private DekornToTakepartMemberService dekornToTakepartMemberService;
+	
+	@Autowired
+	private DekornTakepartMemberService dekornTakepartMemberService;
+	
 	@Override
 	public Object handlerFilter(SessionManager filterManager) throws Exception {
+		Integer score = (Integer)filterManager.getAttribute("score");
+		DekornToTakepartMember dekornToTakepartMember = (DekornToTakepartMember)filterManager.getObject(DekornToTakepartMember.class);
+		if(dekornToTakepartMember.getHighestScore()==null||dekornToTakepartMember.getHighestScore()<score){
+			dekornToTakepartMember.setHighestScore(score.longValue());
+	//		dekornToTakepartMemberService.update(dekornToTakepartMember);
+		}
+		
+		DekornTakepartMember dekornTakepartMember = (DekornTakepartMember)filterManager.getObject(DekornTakepartMember.class);
+		
+		dekornTakepartMember.setScore(score.longValue());
+		
+		dekornTakepartMemberService.update(dekornTakepartMember);
 		
 		
-		System.out.println("....................successHandle");
 		return null;
 	}
 
@@ -33,7 +58,14 @@ public class DekornSuccessApiFilter extends Filter{
 
 	@Override
 	public Object handlerPre(SessionManager sessionManager) throws Exception {
-		// TODO Auto-generated method stub
+		HttpServletRequest httpServletRequest = sessionManager.getHttpServletRequest();
+		
+		String score = httpServletRequest.getParameter("score");
+		String dekornId = httpServletRequest.getParameter("dekornId");
+		String takepartId = httpServletRequest.getParameter("takepartId");
+		sessionManager.setAttribute("score", Integer.parseInt(score));
+		sessionManager.setAttribute("dekornId", dekornId);
+		sessionManager.setAttribute("takepartId", takepartId);
 		return null;
 	}
 

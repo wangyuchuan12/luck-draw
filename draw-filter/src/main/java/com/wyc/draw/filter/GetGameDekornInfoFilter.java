@@ -21,7 +21,6 @@ public class GetGameDekornInfoFilter extends Filter{
 		dekornVo.setId(dekorn.getId());
 		dekornVo.setType(dekorn.getType());
 		dekornVo.setGameId(dekorn.getGameId());
-		dekornVo.setTestPaperId(dekorn.getTestPaperId());
 		dekornVo.setHandDrawUserId(dekorn.getHandDrawUserId());
 		dekornVo.setHandDrawUserImg(dekorn.getHandDrawUserImg());
 		dekornVo.setHandDrawUserName(dekorn.getHandDrawUserName());
@@ -44,6 +43,8 @@ public class GetGameDekornInfoFilter extends Filter{
 		dekornVo.setAverageScore(dekorn.getAverageScore());
 		dekornVo.setGameUrl(game.getUrl());
 		dekornVo.setGameName(game.getName());
+		
+		dekornVo.setPaperId(dekorn.getPaperId());
 		return dekornVo;
 	}
 

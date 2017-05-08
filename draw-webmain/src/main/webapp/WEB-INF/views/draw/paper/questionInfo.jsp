@@ -61,6 +61,8 @@
 
 <input name="rightOptionId"  type="hidden" value="${question.rightOptionId}"/>
 
+<input name="timeLong"  type="hidden" value="20"/>
+
 <input name="id"  type="hidden" value="${question.id}"/>
 
 		<div class="subjectContainer" id="subjectContainer">
@@ -71,6 +73,10 @@
 					<img src="${question.imgUrl}">
 					
 					<div class="subjectHeaderImgQuestion">${question.question}</div>
+					
+					<div id="progressbar" style="width:90%;height:10px;margin:0 auto;position: relative;">
+						<div class="progress-label" id="progressLabel">加载...</div>
+					</div>
 				</div>
 				
 			</div>
@@ -80,17 +86,44 @@
 			<div class="subjectOption" id="subjectOption">
 				<ul>
 					<c:forEach items="${questionOptions}" var="option">
-						<li id="${option.id}" onclick="checkOption('${option.id}')">${option.content}</li>
+						<li id="${option.id}" onclick="checkOption('${option.id}',0)">${option.content}</li>
 					</c:forEach>
 				</ul>
 			</div>
 		</div>
+		
+		
+		 <style type="text/css">
+	     	.ui-progressbar{
+	     		position:relative;
+	     		
+	     		top:5px;
+	     	}
+	     	
+	     	.progress-label{
+	     		position: absolute;
+	     		left:47%;
+	     		font-weight: bold;
+	     		/*text-shadow: 1px 1px 0 #fff;*/
+	     		height: 10px;
+	     		font-size: 10px;
+	     		top:-3px;
+	     	}
+	     	
+	     	#progressbar .ui-corner-left{
+	     		background: green;
+	     		height: 15px;
+	     	}
+		</style>
 		<script type="text/javascript">
 		
 		
 			var flag = false;
-			function checkOption(checkOptionId){
+			var interval;
+			var overTimeLong = 0;
+			function checkOption(checkOptionId,isTimeout){
 
+					clearInterval(interval);
 					if(!flag){
 						var rightOptionId = $("input[name=rightOptionId]").val();
 						var isRight = 0;
@@ -104,7 +137,7 @@
 						}
 						
 						var id = $("input[name=id]").val();
-						window.parent.checkOption(id,checkOptionId,isRight);
+						window.parent.checkOption(id,checkOptionId,isRight,overTimeLong,isTimeout);
 						
 						flag = true;
 					}
@@ -113,12 +146,50 @@
 			
 			$(document).ready(function(){
 				
-				var callback = new Object();
-				callback.complete = function(){
+				
+				var progressbar = $("#progressbar");
+				var progressLabel = $("#progressLabel");
+				
+				var beginDate = new Date();
+				
+				var flag = 0;
+				
+				interval = setInterval(function(){
+					progress();
+				},10);
+				
+				progressbar.progressbar({
+					value:false,
+					change:function(){
+						var timeLong = $("input[name=timeLong]").val();
+						progressLabel.text(timeLong-parseInt(overTimeLong)+"s");
+					},
+					complete:function(){
+						clearInterval(interval);
+						if(flag == 0){
+							checkOption(null,1);
+						}
+						flag = 1;
+					}
+				});
+				
+				function progress(){
+					var nowDate = new Date();
+					var timeDiff = nowDate.getTime()-beginDate.getTime();
+					overTimeLong = timeDiff/1000;
+					var timeLong = $("input[name=timeLong]").val();
+					
+					var percent = (overTimeLong/timeLong)*100;
+					
+					progressbar.progressbar("value",percent);
 				}
 				
 				
 				
+				
+				var callback = new Object();
+				callback.complete = function(){
+				}
 			});
 		</script>
 

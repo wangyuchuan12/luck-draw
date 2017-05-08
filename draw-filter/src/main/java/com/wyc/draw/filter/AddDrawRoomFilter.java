@@ -1,16 +1,11 @@
 package com.wyc.draw.filter;
-
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.wyc.common.domain.vo.ResultVo;
-import com.wyc.common.filter.BaseActionFilter;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
@@ -21,6 +16,7 @@ import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawRoomService;
+
 
 public class AddDrawRoomFilter extends Filter{
 	

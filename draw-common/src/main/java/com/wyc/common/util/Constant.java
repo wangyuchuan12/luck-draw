@@ -188,6 +188,17 @@ public class Constant {
 	public static final int DEKORN_FAIL_TAKEPART_STATUS=4;
 	
 	
+	/*********************问答参与者状态************************/
+	//正在进行
+	public static final int PAPER_ANSWER_UNDERWAY_TAKEPART_STATUS=1;
+		
+	//参与结数
+	public static final int PAPER_ANSWER_COMPLETE_TAKEPART_STATUS=2;
+		
+	//中途退出
+	public static final int PAPER_ANSWER_RENEGINT_TAKEPART_STATUS=3;
+	
+	
 	
 	
 	/************************ 竞答红包分配状态 *********************/

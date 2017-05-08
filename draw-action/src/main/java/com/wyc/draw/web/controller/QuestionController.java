@@ -5,13 +5,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.wyc.annotation.HandlerAnnotation;
+import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.Paper;
 import com.wyc.draw.domain.Question;
 import com.wyc.draw.domain.QuestionOption;
+import com.wyc.draw.filter.controller.api.RandomQuestionApiFilter;
+import com.wyc.draw.service.PaperService;
 import com.wyc.draw.service.QuestionOptionService;
 import com.wyc.draw.service.QuestionService;
 
@@ -25,17 +28,25 @@ public class QuestionController {
 	@Autowired
 	private QuestionOptionService questionOptionService;
 	
+	@Autowired
+	private PaperService paperService;
 	
 	@RequestMapping(value="paperInfo")
+	@HandlerAnnotation(hanlerFilter=RandomQuestionApiFilter.class)
 	public String paperInfo(HttpServletRequest httpServletRequest)throws Exception{
-		String paperId = httpServletRequest.getParameter("paperId");
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		String paperId = httpServletRequest.getParameter("id");
+		String keyId = httpServletRequest.getParameter("keyId");
+		
+		System.out.println("..............keyId:"+keyId);
+		Question question = (Question)sessionManager.getObject(Question.class);
 		httpServletRequest.setAttribute("paperId", paperId);
+		httpServletRequest.setAttribute("question", question);
 		
+		Paper paper = paperService.findOne(paperId);
 		
-		
-		List<Question> questions = questionService.findAllByPaperId(paperId);
-		
-		httpServletRequest.setAttribute("questions", questions);
+		httpServletRequest.setAttribute("paper", paper);
+		httpServletRequest.setAttribute("keyId", keyId);
 		return "paper/paper";
 	}
 	

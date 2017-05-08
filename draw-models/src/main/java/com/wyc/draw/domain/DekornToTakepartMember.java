@@ -1,5 +1,7 @@
 package com.wyc.draw.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,7 +18,12 @@ import com.wyc.annotation.ParamEntityAnnotation;
 @Entity
 @Table(name="v_dekorn_to_takepart_member")
 @ParamEntityAnnotation
-public class DekornToTakepartMember {
+public class DekornToTakepartMember implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@IdAnnotation
 	private String id;

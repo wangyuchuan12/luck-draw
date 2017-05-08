@@ -12,6 +12,7 @@
 			<input name="id" type="hidden" value="${id}"/>
 			<input name="gameCode" type="hidden" value="${gameCode}"/>
 			<input name="isOpenSwitch"  type="hidden" value="${isOpenSwitch}"/>		
+			<input name="keyId" type="hidden" value="${keyId}"/>
 			<div class="gameRedPacketImgHeader_znm123">
 				<img id="userImg" src="">
 				<div class="gameRedPacketImgHeaderName" id="gameName"></div>
@@ -21,10 +22,9 @@
 			
 			<div class="gameRedPacketTab">
 				<ul>
-					<li style="border-bottom: 1px solid RGBA(157,99,80,1);color:RGBA(157,99,80,1);">详情</li>
-					<li>排行榜</li>
-					<li>总排行</li>
-					<li>帮助</li>
+					<li style="border-bottom: 1px solid RGBA(157,99,80,1);color:RGBA(157,99,80,1);" id="infoButton">详情</li>
+					<li id="rankButton">排行榜</li>
+					<li id="helpButton">帮助</li>
 				</ul>
 			</div>
 			
@@ -35,13 +35,6 @@
 							<li>
 								<span>游戏名称：</span>
 								<span id="detailGameName"></span>
-							</li>
-							
-							<li>
-								<span>游戏评分：</span>
-								
-								<span id="detailGrade"></span>
-								
 							</li>
 							
 							<li>
@@ -127,19 +120,19 @@
 			
 			
 			
-			<div class="gameRedPacketContent" style="display: none;">
+			<div class="gameRedPacketContent" style="display: none;" id="dekornRank">
 			
 				
 				<div class="">
 				
-					<div style="padding-left: 20px;">
-						<span class="gameRedPacketContentRankHeader">第一名</span>
-						<div class="gameRedPacketContentRankImg"><img src="http://on3s1z2us.bkt.clouddn.com/theBrain.gif"></div>
-						<span class="gameRedPacketContentRankNickname">川川</span>
-						<span class="gameRedPacketContentRankScore">20分</span>
+					<div style="padding-left: 20px;" id="thisMember">
+						<span class="gameRedPacketContentRankHeader" >第<span id="thisRank"></span>名</span>
+						<div class="gameRedPacketContentRankImg"><img id="thisImg" src="http://on3s1z2us.bkt.clouddn.com/theBrain.gif"></div>
+						<span class="gameRedPacketContentRankNickname" id="thisNickname">川川</span>
+						<span class="gameRedPacketContentRankScore"><span id="thisScore"></span>分</span>
 					</div>
 					<div class="gameRedPacketContentTitle">排行榜，总参与：200人</div>
-					<div  class="dekornRank">
+					<div  class="dekornRank" id="dekornRankContent">
 						<ul>
 							<li>
 								<span class="gameRedPacketContentRankHeader">第一名</span>
@@ -344,8 +337,19 @@
 					
 					var flowJs = flowJS({
 						init:function(){
+							
+							
 							initGameFunction = this;
-							var url = "/games/skipToGame?code="+gameCode+"&isRich=1";
+							
+							var paperId = initFunction.flowData("paperId");
+							var keyId = takepartId;
+							var type = initFunction.flowData("type");
+							var url;
+							if(type==0){
+								url = "/games/skipToGame?code="+gameCode+"&isRich=1";
+							}else{
+								url = "/view/question/paperInfo?id="+paperId+"&keyId="+keyId;
+							}
 							gamePlug = new LayerPlug(url,1,1);
 							this.flowData({
 								"dekornId":dekornId,
@@ -354,6 +358,8 @@
 								"gameCode":gameCode,
 								"takepartId":takepartId
 							});
+							
+							
 						},
 						
 						invitationPlug:function(){
@@ -407,9 +413,12 @@
 							progressCallback.complete = function(){
 								//outThis.setNext("barrager");
 								//outThis.next();
-								
 								outThis.setNext("initSwitchSubjectPlug");
 								outThis.next();
+								
+								outThis.flowData({
+									isProgress:1
+								});
 							}
 							
 							this.flowData({"progressCallback":progressCallback});
@@ -418,10 +427,12 @@
 							var gameCode = $("input[name=gameCode]").val();
 							
 							var isOpenSwitch = $("input[name=isOpenSwitch]").val();
+							
+							var keyId = $("input[name=keyId]").val();
 
 							this.flowData({"id":id,"gameCode":gameCode,"isOpenSwitch":isOpenSwitch});
 					
-							progress(30,100);
+							progress(30,20);
 							
 							this.setNext("infoAction");
 							
@@ -434,6 +445,24 @@
 							
 							this.setNext("addEventListener");
 							this.next();
+
+						},
+						
+						tabStyle:function(){
+							var activeTab = this.flowData("activeTab");
+							if(activeTab=="info"){
+								$("#infoButton").attr("style","border-bottom: 1px solid RGBA(157,99,80,1);color:RGBA(157,99,80,1)");
+								$("#rankButton").attr("style","");
+								
+								$("#dekornInfo").css("display","block");
+								$("#dekornRank").css("display","none");
+								
+							}else if(activeTab=="rank"){
+								$("#infoButton").attr("style","");
+								$("#rankButton").attr("style","border-bottom: 1px solid RGBA(157,99,80,1);color:RGBA(157,99,80,1)");
+								$("#dekornInfo").css("display","none");
+								$("#dekornRank").css("display","block");
+							}
 						},
 						
 						infoAction:function(){
@@ -461,6 +490,13 @@
 							
 							this.setNext("initContentDetailView");
 							this.next();
+							
+							this.flowData({
+								activeTab:"info"
+							});
+							
+							this.setNext("tabStyle");
+							this.next();
 						},
 						
 						
@@ -480,6 +516,16 @@
 							var outThis = this;
 							$("#startButton").click(function(){
 								outThis.setNext("takepart");
+								outThis.next();
+							});
+							
+							$("#rankButton").click(function(){
+								outThis.setNext("dekornRankAction");
+								outThis.next();
+							});
+							
+							$("#infoButton").click(function(){
+								outThis.setNext("infoAction");
 								outThis.next();
 							});
 						},
@@ -634,8 +680,12 @@
 							
 							$("#nickname").text(handDrawUserName);
 							
-							var progressCallback = this.flowData("progressCallback");
-							progress(100,10,progressCallback);
+							var isProgress = this.flowData("isProgress");
+							if(!isProgress){
+								var progressCallback = this.flowData("progressCallback");
+								progress(100,10,progressCallback);
+							}
+							
 						},
 						
 						//初始化详情信息
@@ -645,7 +695,7 @@
 				
 							$("#detailPassScore").text(this.flowData("passScore"));
 							$("#detailReward").text(this.flowData("fightSuccessWisdomNum"));
-							$("#detailLoseLoveLife").text("1");
+							$("#detailLoseLoveLife").text("4");
 							
 							$("#detailTakepartSuccessCount").text(this.flowData("takepartSuccessCount"));
 							$("#detailTakepartFailCount").text(this.flowData("takepartFailCount"));
@@ -656,39 +706,51 @@
 							
 							var outThis = this;
 							
-							var url = "/api/dekorn/takepartMembers";
-							var params = new Object();
-							params.dekornId = 1;
-							
-							var callback = new Object();
-							
-							callback.success = function(resp){
+							var isInitRankData = this.flowData("isInitRankData");
+							if(!isInitRankData){
+								var url = "/api/dekorn/takepartMembers";
+								var params = new Object();
+								params.dekornId = 1;
 								
-								console.log("success:"+resp.success);
+								var callback = new Object();
 								
-								if(resp.success){
-									var array = new Array();
-									var members = resp.data;
-									for(var i = 0;i<members.length;i++){
-										var member = members[i];
+								callback.success = function(resp){
+									
+									console.log("success:"+resp.success);
+									
+									if(resp.success){
+										var thisMember = resp.data.thisMember;
+										outThis.flowData({
+											isInitRankData:1,
+											thisMember:thisMember
+										});
+										var array = new Array();
+										var members = resp.data.members;
+										for(var i = 0;i<members.length;i++){
+											var member = members[i];
+											
+											var record = new Object();
+											record.rank = i+1;
+											record.imgUrl = member.headImg;
+											record.nickname=member.nickname;
+											record.score = member.score;
+											array.push(record);
+										}
 										
-										var record = new Object();
-										record.rank = i+1;
-										record.imgUrl = member.headImg;
-										record.nickname=member.nickname;
-										record.score = member.score;
-										array.push(record);
+										
+										console.log("arrayLength:"+array.length);
+										outThis.flowData({"rankRecords":array});
+										outThis.success();
+										
 									}
-									
-									
-									console.log("arrayLength:"+array.length);
-									outThis.flowData({"rankRecords":array});
-									outThis.success();
-									
 								}
+								
+								request(url,callback,params);
+							}else{
+								outThis.success();
 							}
 							
-							request(url,callback,params);						
+													
 							
 						},
 						
@@ -700,7 +762,7 @@
 						},
 						
 						
-						//初始化排名页面
+						//初始化排名页面，在详情当中的
 						initRankView:function(){
 							/*
 							"<li>"+
@@ -712,6 +774,8 @@
 							+"<span class='gameRedPacketContentRankScore'>20分</span>"+
 							+"</li>"
 							*/
+							
+							var outThis = this;
 							
 							var rankRecords = this.flowData("rankRecords");
 							
@@ -741,6 +805,11 @@
 								
 								rankLi.append(rankScoreSpan);
 								$("#rank>ul").append(rankLi);
+								
+								rankLi.click(function(){
+									outThis.setNext("dekornRankAction");
+									outThis.next();
+								});
 							}
 							
 							
@@ -762,6 +831,88 @@
 							this.next();
 						},
 						
+						dekornRankAction:function(){
+							
+							var outThis = this;
+							this.flowData({
+								activeTab:"rank"
+							});
+							
+							
+							this.setNext("tabStyle");
+							this.next();
+							
+							$("#dekornRank").css("display","block");
+							$("#dekornInfo").css("display","none");
+							
+							
+							
+							this.setNext("initRankData",function(){
+								outThis.setNext("initDekornRankView");
+								outThis.next();
+							});
+							
+							this.next();
+							
+							
+						},
+						
+						initDekornRankView:function(){
+							/*<li>
+							<span class="gameRedPacketContentRankHeader">第一名</span>
+							<div class="gameRedPacketContentRankImg"><img src="http://on3s1z2us.bkt.clouddn.com/theBrain.gif"></div>
+							<span class="gameRedPacketContentRankNickname">川川</span>
+							<span class="gameRedPacketContentRankScore">20分</span>
+							</li>*/
+						
+							
+							var thisMember = this.flowData("thisMember");
+							
+							if(thisMember){
+								$("#thisMember").css("display","");
+								$("#thisRank").text(thisMember.rank);
+								$("#thisImg").attr("src",thisMember.headImg)
+								$("#thisNickname").text(thisMember.nickname);
+								$("#thisScore").text(thisMember.score);
+							}else{
+								$("#thisMember").css("display","none");
+							}
+							
+							
+							
+							var rankRecords = this.flowData("rankRecords");
+							
+							$("#dekornRankContent>ul").empty();
+							
+							for(var i = 0;i<rankRecords.length;i++){
+								
+								var rankRecord = rankRecords[i];
+								var rankLi = $("<li></li>");
+								
+								var rankHeaderSpan = $("<span class='gameRedPacketContentRankHeader'>第"+rankRecord.rank+"名</span>");
+								
+								
+								var rankImgDiv = $("<div class='gameRedPacketContentRankImg'></div>");
+								
+								var rankImg = $("<img src='"+rankRecord.imgUrl+"'>");
+								
+								rankImgDiv.append(rankImg);
+								
+								var rankNicknameSpan = $("<span class='gameRedPacketContentRankNickname'>"+rankRecord.nickname+"</span>");
+								
+								var rankScoreSpan = $("<span class='gameRedPacketContentRankScore'>"+rankRecord.score+"分</span>");
+								
+								rankLi.append(rankHeaderSpan);
+								
+								rankLi.append(rankImgDiv);
+								
+								rankLi.append(rankNicknameSpan);
+								
+								rankLi.append(rankScoreSpan);
+								$("#dekornRankContent>ul").append(rankLi);
+							}
+						},
+						
 						//让排名滚动起来
 						rankAction:function(){
 							var outThis = this;
@@ -779,32 +930,45 @@
 						
 						//详情信息数据请求
 						requestInfo:function(){
-							var url = "/api/dekorn/info";
 							
+							var isInitInfo = this.flowData("isInitInfo");
 							var outThis = this;
-							
-							var id = this.flowData("id");
-							
-							var gameCode = this.flowData("gameCode");
-							
-							var params = new Object();
-							params.id = id
-							params.gameCode = gameCode;
-							var callback = new Object();
-							callback.success = function(resp){
-								if(resp.success){
-									outThis.success(resp.data);
-								}else{
-									outThis.fail();
+							if(!isInitInfo){
+								var url = "/api/dekorn/info";
+								
+								
+								
+								var id = this.flowData("id");
+								
+								var gameCode = this.flowData("gameCode");
+								
+								var params = new Object();
+								params.id = id
+								params.gameCode = gameCode;
+								var callback = new Object();
+								callback.success = function(resp){
+									
+									if(resp.success){
+										outThis.flowData({
+											infoData:resp.data,
+											isInitInfo:1
+										});
+										outThis.success(resp.data);
+									}else{
+										outThis.fail();
+									}
+									
 								}
 								
+								callback.failure = function(){
+									this.fail();
+								}
+								
+								request(url,callback,params);
+							}else{
+								outThis.success(outThis.flowData("infoData"));
 							}
 							
-							callback.failure = function(){
-								this.fail();
-							}
-							
-							request(url,callback,params);
 						}
 					});
 				});

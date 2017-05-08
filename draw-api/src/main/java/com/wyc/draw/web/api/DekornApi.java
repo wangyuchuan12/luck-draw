@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -76,7 +77,6 @@ public class DekornApi {
 		data.put("handDrawUserName", dekornVo.getHandDrawUserName());
 		data.put("id", dekornVo.getId());
 		data.put("itemImg", dekornVo.getItemImg());
-		data.put("testPaperId", dekornVo.getTestPaperId());
 		data.put("acceptFightFailIntegralNum", dekornVo.getAcceptFightFailIntegralNum());
 		data.put("acceptFightFailWisdomNum", dekornVo.getAcceptFightFailWisdomNum());
 		data.put("acceptFightSuccessIntegralNum", dekornVo.getAcceptFightSuccessIntegralNum());
@@ -103,6 +103,8 @@ public class DekornApi {
 
 		
 		data.put("type", dekornVo.getType());
+		
+		data.put("paperId", dekornVo.getPaperId());
 		
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);

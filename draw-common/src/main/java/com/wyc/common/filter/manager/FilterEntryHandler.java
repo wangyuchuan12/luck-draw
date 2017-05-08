@@ -1,4 +1,5 @@
 package com.wyc.common.filter.manager;
+import java.lang.reflect.Method;
 
 import com.wyc.common.session.SessionManager;
 
@@ -13,7 +14,17 @@ public class FilterEntryHandler {
 	}
 	
 	public Object executePre()throws Exception{
-		return filterEntry.getFilter().handlerPre(sessionManager);
+		Object  handlePreReturnValue = null;
+		Method[] methods = filterEntry.getFilter().getClass().getDeclaredMethods();
+		for(Method method:methods){
+			if(method.getName().startsWith("handlerPre")){
+				Object returnValue = method.invoke(filterEntry.getFilter(), sessionManager);
+				if(method.getName().equals("handlerPre")){
+					handlePreReturnValue = returnValue;
+				}
+			}
+		}
+		return handlePreReturnValue;
 	}
 	
 	public Object executeHandler()throws Exception{
@@ -25,7 +36,17 @@ public class FilterEntryHandler {
 	}
 
 	public Object executeAfter() throws Exception{
-		Object returnValue = filterEntry.getFilter().handlerAfter(sessionManager);
-		return returnValue;
+		
+		Object handlerAfterReturnValue = null;
+		Method[] methods = filterEntry.getFilter().getClass().getDeclaredMethods();
+		for(Method method:methods){
+			if(method.getName().startsWith("handlerAfter")){
+				Object returnValue = method.invoke(filterEntry.getFilter(), sessionManager);
+				if(method.getName().equals("handlerAfter")){
+					handlerAfterReturnValue = returnValue;
+				}
+			}
+		}
+		return handlerAfterReturnValue;
 	}
 }
