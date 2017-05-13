@@ -42,4 +42,8 @@ public class DekornTakepartMemberService {
 	public List<DekornTakepartMember> findAllByDekornId(String dekornId,Pageable pageable){
 		return dekornTakepartMemberRepository.findAllByDekornId(dekornId,pageable);
 	}
+
+	public Long countByDekornId(String dekornId) {
+		return dekornTakepartMemberRepository.countByDekornId(dekornId);
+	}
 }

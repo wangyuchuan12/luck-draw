@@ -21,8 +21,6 @@ public class CurrentDekornToTakepartFilter extends Filter{
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		DekornToTakepartMember dekornToTakepartMember = dekornToTakepartMemberService.findOneByDekornIdAndDrawUserId(dekornTakepartParam.getDekornId(),drawUser.getId());
 		if(dekornToTakepartMember==null){
-			
-			System.out.println("...................................这里进来几次");
 			dekornToTakepartMember = new DekornToTakepartMember();
 			dekornToTakepartMember.setDekornId(dekornTakepartParam.getDekornId());
 			dekornToTakepartMember.setAdminId(drawUser.getAdminId());

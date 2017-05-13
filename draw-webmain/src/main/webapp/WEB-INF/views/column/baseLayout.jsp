@@ -308,7 +308,7 @@
 		});
 	}
 	
-	$(document).ready(function(){
+	loadScript(function(){
 		hideLoading();
 		
 		$(".pay_check_detail").animate({

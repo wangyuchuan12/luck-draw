@@ -3519,3 +3519,274 @@ li::before{
 	
 	height:10%;
 }
+
+.mainView{
+	width:100%;
+	height: 100%;
+	background: url("http://7xugu1.com1.z0.glb.clouddn.com/modelBackground.jpg") no-repeat;
+	background-size:100% 100%;
+}
+
+.personalAttr{
+	position: absolute;
+	width:100%;
+}
+
+.personalAttrUserInfo{
+	padding-left: 10px;
+	padding-top: 10px;
+	display: inline-block;
+}
+
+.personalAttrUserInfoImg{
+	width:50px;
+	height:50px;
+	border-radius:100px;
+}
+
+.personalAttrUserInfoImg>img{
+	width:100%;
+	height: 100%;
+	border-radius:10px;
+}
+
+.personalAttrUserInfoName{
+	text-align: center;
+	position:relative;
+	top:-7px;
+	background: RGBA(249,223,176,1);
+	color: RGBA(103,41,22,1);
+}
+
+.personalAttrData{
+	display: inline-block;
+	width:82%;
+	vertical-align: top;
+}
+
+.personalAttrDataHeader{
+	width:30px;
+	height:30px;
+	display: inline-block;
+	color: black;
+	font-size: 8px;
+	overflow: hidden;
+	padding-top: 0px;
+	vertical-align: middle;
+	padding-left: 8px;
+	padding-top: 2px;
+	font-weight: bolder;
+}
+
+.personalAttrDataHeaderLove{
+	background: url("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png")no-repeat;
+	background-size:30px 30px;
+	background-position:0px -5px;
+}
+
+.personalAttrDataHeaderBean{
+	background: url("/imgs/plug/bean.png")no-repeat;
+	background-size:30px 30px;
+	background-position:0px -5px;
+}
+
+.personalAttrDataHeaderStar{
+	background: url("http://7xugu1.com1.z0.glb.clouddn.com/star.png")no-repeat;
+	background-size:40px 40px;
+	background-position:-5px -5px;
+	width:10px;
+	height: 10px;
+}
+
+.personalAttrDataHeaderMoney{
+	background: url("http://7xugu1.com1.z0.glb.clouddn.com/money(2).png")no-repeat;
+	background-size:30px 30px;
+	background-position:0px -5px;
+}
+
+.personalAttrDataHeaderMasonry{
+	background: url("http://on3s1z2us.bkt.clouddn.com/masonry3.png")no-repeat;
+	background-size:20px 20px;
+	background-position:5px 2px;
+}
+
+
+.personalAttrDataHeaderPlus{
+	background: url("http://7xugu1.com1.z0.glb.clouddn.com/plus.png")no-repeat;
+	background-size:20px 20px;
+	background-position:0px 0px;
+	left:-3px;
+	position: relative;
+}
+
+
+
+
+.personalAttrData>ul{
+	vertical-align: top;
+	width:100%;
+	padding-top: 10px;
+	
+}
+
+.personalAttrData>ul>li{
+	width:48%;
+	height:20px;
+	display: inline-block;
+}
+
+.personalAttrData>ul>li>span{
+	font-size: 20px;
+	color:RGBA(139,76,32,1);
+}
+
+.personalAttrDataFooter{
+	font-size: 20px;
+}
+
+.mainViewDekorn{
+	
+}
+
+.models{
+	text-align: center;
+	
+	padding-top: 100px;
+}
+
+.models>ul>li{
+	display: inline-block;
+	
+	/*width:23%;*/
+	
+	text-align: center;
+}
+
+.mainViewButtons{
+	text-align: center;
+	width:100%;
+}
+.mainViewDekornButton{
+	background: url("http://onluguho9.bkt.clouddn.com/btn-blue2.png") no-repeat;
+	width:40%;
+	height: 60px;
+	background-size:100% 60px;
+	display: block;
+	color: white;
+	
+	text-align: center;
+	padding-top: 20px;
+	
+	font-weight: bolder;
+	
+	margin: 0 auto;
+	
+	font-size: 15px;
+}
+
+.mainViewDekornButton2{
+	background: url("http://onluguho9.bkt.clouddn.com/btn-brown2.png") no-repeat;
+	width:45%;
+	height: 70px;
+	background-size:100% 70px;
+	display: block;
+	color: white;
+	
+	text-align: center;
+	padding-top: 20px;
+	
+	font-weight: bolder;
+	
+	margin: 0 auto;
+	
+	font-size: 20px;
+}
+
+.mainViewDekornButton3{
+	background: url("http://onluguho9.bkt.clouddn.com/btn-red2.png") no-repeat;
+	width:45%;
+	height: 70px;
+	background-size:100% 70px;
+	display: block;
+	color: white;
+	
+	text-align: center;
+	padding-top: 20px;
+	
+	font-weight: bolder;
+	
+	margin: 0 auto;
+	font-size: 20px;
+}
+
+.mainViewDekornButton5{
+	background: url("http://onluguho9.bkt.clouddn.com/btn-yellow2.png") no-repeat;
+	width:45%;
+	height: 70px;
+	background-size:100% 70px;
+	display: block;
+	color: white;
+	
+	text-align: center;
+	padding-top: 20px;
+	
+	font-weight: bolder;
+	
+	margin: 0 auto;
+	font-size: 20px;
+}
+
+.mainViewDekornButton4{
+/*	background: url("http://onluguho9.bkt.clouddn.com/btn-brown.png");*/
+
+	background-color:RGBA(81,220,72,1);
+	padding-top:3px;
+	border-radius:20px;
+	width:30px;
+	height: 20px;
+	display: inline-block;
+	color: white;
+	padding-top:2px;
+	left:-5px;
+	position:relative;
+	text-align: center;
+	font-size:10px;
+	font-weight: bolder;
+	vertical-align: top;
+}
+
+.mainViewDekornImg{
+	width:120px;
+	height: 120px;
+	display: inline-block;
+}
+
+.mainViewDekornImg>img{
+	width:120px;
+	height: 120px;
+}
+
+.mainViewDekornInfo{
+	padding-left: 10px;
+}
+
+.mainViewDekornInfoDetail{
+	display: inline-block;
+	vertical-align: top;
+	color: white;
+	font-weight: bolder;
+	
+	padding-top: 10px;
+}
+
+.gray { 
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    
+    filter: grayscale(100%);
+	
+    filter: gray;
+  
+}

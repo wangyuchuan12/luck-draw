@@ -57,6 +57,11 @@ public class DekornTakepartMemberListApiFilter extends Filter{
 			data.put("thisMember", dekornTakepartMemberMap);
 		}
 		
+		DekornTakepartParam dekornTakepartParam = (DekornTakepartParam)filterManager.getObject(DekornTakepartParam.class);
+		
+		Long count = dekornTakepartMemberService.countByDekornId(dekornTakepartParam.getDekornId());
+		
+		data.put("count", count);
 		data.put("members", dekornTakepartMemberListVo.getDekornTakepartMembers());
 		
 		resultVo.setData(data);

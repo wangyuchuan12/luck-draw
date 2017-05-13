@@ -44,31 +44,31 @@ public class DekornHandleController {
 		sb.append("挑战分数："+passScore+",");
 		sb.append("我的得分："+score+",");
 		if(addAmount!=null&&addAmount.intValue()>0){
-			sb.append("金额 +"+addAmount+",");
+			sb.append("获取<div class='personalAttrDataHeader personalAttrDataHeaderMoney'></div>* "+addAmount+",");
 		}
 		
 		if(subAmount!=null&&subAmount.intValue()>0){
-			sb.append("金额 -"+subAmount+",");
+			sb.append("-<div class='personalAttrDataHeader personalAttrDataHeaderMoney'></div>* "+subAmount+",");
 		}
 		
 		if(addIntegralNum!=null&&addIntegralNum>0){
-			sb.append("经验 +"+addIntegralNum+",");
+			sb.append("<div class='personalAttrDataHeader personalAttrDataHeaderStar'></div>* "+addIntegralNum+",");
 		}
 		
 		if(addLoveLifeNum!=null&&addLoveLifeNum>0){
-			sb.append("爱心 +"+addLoveLifeNum+",");
+			sb.append("<div class='personalAttrDataHeader personalAttrDataHeaderLove'></div>* "+addLoveLifeNum+",");
 		}
 		
 		if(subLoveLifeNum!=null&&subLoveLifeNum>0){
-			sb.append("爱心 -"+subLoveLifeNum+",");
+			sb.append("-<div class='personalAttrDataHeader personalAttrDataHeaderLove'></div>* "+subLoveLifeNum+",");
 		}
 		
 		if(addWisdomNum!=null&&addWisdomNum>0){
-			sb.append("智慧豆 +"+addWisdomNum+",");
+			sb.append("<div class='personalAttrDataHeader personalAttrDataHeaderBean'></div>* "+addWisdomNum+",");
 		}
 		
 		if(subWisdomNum!=null&&subWisdomNum>0){
-			sb.append("智慧豆 -"+subWisdomNum+",");
+			sb.append("-<div class='personalAttrDataHeader personalAttrDataHeaderBean'></div>* "+subWisdomNum+",");
 		}
 		
 		

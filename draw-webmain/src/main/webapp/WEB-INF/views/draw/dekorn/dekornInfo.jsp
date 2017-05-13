@@ -131,7 +131,7 @@
 						<span class="gameRedPacketContentRankNickname" id="thisNickname">川川</span>
 						<span class="gameRedPacketContentRankScore"><span id="thisScore"></span>分</span>
 					</div>
-					<div class="gameRedPacketContentTitle">排行榜，总参与：200人</div>
+					<div class="gameRedPacketContentTitle">排行榜，总参与：<span id="takepartMemberCount"></span>人</div>
 					<div  class="dekornRank" id="dekornRankContent">
 						<ul>
 							<li>
@@ -204,15 +204,13 @@
 		    	//邀请摆擂台插件点击拒绝按钮
 		    	function i_rejectButton(id){
 		    		
-		    		var wait = layer.open({
-						type:2
-					});
+		    		var wait = new WaitPlug();
 		    		var url = "/api/dekorn/rejectPutUpRing";
 		    		
 		    		var callback = new Object();
 		    		
 		    		callback.success = function(resp){
-		    			layer.close(wait);
+		    			wait.close();
 		    			
 		    			invitationPlug.close();
 		    		}
@@ -229,9 +227,7 @@
 		    	//邀请摆擂台插件点击接受按钮
 		    	function i_agreeButton(id){
 		    		
-		    		var wait = layer.open({
-						type:2
-					});
+		    		var wait = new WaitPlug();
 					var url = "/api/dekorn/agreePutUpRing";
 		    		
 		    		var callback = new Object();
@@ -239,14 +235,11 @@
 		    		callback.success = function(resp){
 		    			
 		 
-		    			layer.close(wait);
+		    			wait.close();
 		    			
 		    			invitationPlug.close();
 		    			
-		    			layer.open({
-		    				btn:["确定"],
-		    				content:"获得2颗智慧豆"
-		    			});
+		    			var alertPlug = new AlertPlug("获得2颗智慧豆",["确定","返回新增擂台"]);
 
 		    			
 		    		}
@@ -515,6 +508,7 @@
 						addEventListener:function(){
 							var outThis = this;
 							$("#startButton").click(function(){
+								var waitPlug = new WaitPlug();
 								outThis.setNext("takepart");
 								outThis.next();
 							});
@@ -563,7 +557,7 @@
 									skipToGame(gameCode,id,1,passScore,takepartMemberId);*/
 									outThis.success(resp.data);
 								}else{
-									alert(resp.errorMsg);
+									
 									outThis.fail();
 								}
 							}
@@ -720,9 +714,11 @@
 									
 									if(resp.success){
 										var thisMember = resp.data.thisMember;
+										var count = resp.data.count;
 										outThis.flowData({
 											isInitRankData:1,
-											thisMember:thisMember
+											thisMember:thisMember,
+											takepartMemberCount:count
 										});
 										var array = new Array();
 										var members = resp.data.members;
@@ -866,6 +862,8 @@
 							</li>*/
 						
 							
+							var takepartMemberCount = this.flowData("takepartMemberCount");
+							$("#takepartMemberCount").text(takepartMemberCount);
 							var thisMember = this.flowData("thisMember");
 							
 							if(thisMember){

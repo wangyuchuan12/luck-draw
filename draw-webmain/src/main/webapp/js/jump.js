@@ -1,3 +1,32 @@
+function Waterbubble(selector,params){
+	var el = $(selector);
+	el.waterbubble(params);
+
+	var careInterval;
+	this.care = function(time){
+		if(!time){
+			time=1000;
+		}
+		var flag=0;
+		var oldColor = params.waterColor;
+		careInterval = setInterval(function(){
+			var bankParam = params;
+			bankParam.animation=false;
+			
+			bankParam.waterColor="RGBA(225,0,34,0.3)";
+			if(flag==0){
+				bankParam.waterColor=oldColor;
+				el.waterbubble(params);
+				flag=1;
+			}else{
+				el.waterbubble(bankParam);
+				flag=0;
+			}
+			
+		},time);
+	}
+}
+
 function JumpObj(elem, range, startFunc, endFunc) {
 	var curMax = range = range || 6;
    	startFunc = startFunc || function(){};

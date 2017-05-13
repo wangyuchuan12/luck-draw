@@ -18,4 +18,8 @@ public interface DekornTakepartMemberRepository extends CrudRepository<DekornTak
 	@Query(nativeQuery=true,value="select count(*)+1 from v_dekorn_takepart_member m where m.score>(select score from v_dekorn_takepart_member m2 where m2.id=:id)")
 	Long rankOfTakepartMember(@Param("id")String id);
 
+
+	@Query(nativeQuery=true,value="select count(*) from v_dekorn_takepart_member m where m.dekorn_id=:dekornId")
+	Long countByDekornId(@Param("dekornId")String dekornId);
+
 }

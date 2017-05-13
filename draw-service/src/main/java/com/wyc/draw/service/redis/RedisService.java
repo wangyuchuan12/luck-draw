@@ -93,12 +93,24 @@ public class RedisService {
 	}
 	
 	public void set(byte[] key,byte[] value){
-		this.getJedis().set(key, value);
+		try{
+			this.getJedis().set(key, value);
+		}catch(Exception e){
+			
+		}
+		
 	}
 	
 	public String get(String key){
-		String value = this.getJedis().get(key);
-		return value;
+		try{
+			String value = this.getJedis().get(key);
+			return value;
+		}catch(Exception e){
+			
+		}
+		
+		return null;
+		
 	}
 	
 	public byte[] get(byte[]key){

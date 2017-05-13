@@ -44,11 +44,10 @@
 			 		<ul>
 			 			<li>
 			 			<!--  	<img src="/imgs/plug/bean.png"> -->
-			 				<div class="plugBeanIcon"></div><span id="fightSuccessWisdomNum">200</span>
+			 				<div class="personalAttrDataHeader personalAttrDataHeaderBean"></div><span id="fightSuccessWisdomNum">200</span>
 			 			</li>
 			
-			 			<li>
-			 			</li>
+						
 			 		</ul>
 			 	</div>
 			 </div>
