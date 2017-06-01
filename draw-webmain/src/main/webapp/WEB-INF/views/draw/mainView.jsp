@@ -11,104 +11,160 @@
 	<tiles:putAttribute name="body">
 	
 		<div class="mainView">
-			
-			
-			<div class="models">
-				<ul>
-					<li>
-						<canvas style="background: url('http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png');background-size:100% 100%;" id="modelPhy"></canvas>
-						<div  style="color: white;position: relative;top:-5px">爱心 </div>
-						
-						
-						<div id="receiveLoveButton" style="background: RGBA(21,185,254,1);width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position: relative;top:-5px;">升级</div>
-					</li>
-					
-					<li>
-						<canvas id="modelPhy2" style="background: url('/imgs/plug/bean.png');background-size:95% 90%;background-position: 5px 0px;"></canvas>
-						<div  style="color: white;position: relative;top:-5px">智慧豆</div>
-						
-						<div id="receiveBeanButton" style="background: RGBA(61,212,11,1);width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position:relative;top:-5px;">领取</div>
-					</li>
-					
-					
-					<li>
-						<canvas id="modelPhy3" style="background: url('http://on3s1z2us.bkt.clouddn.com/strength.png')no-repeat;background-size:95% 85%;"></canvas>
-						<div  style="color: white;position: relative;top:-5px">体力</div>
-						
-						<div style="background: RGBA(21,185,254,0.1);width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position: relative;top:-5px;">2200000</div>
-					</li>
-					
-					<li>
-						<canvas id="modelPhy4" style="background: url('http://on3s1z2us.bkt.clouddn.com/dice3.png')no-repeat;background-size:100% 80%;background-position:0 5px;"></canvas>
-						<div  style="color: white;position: relative;top:-5px;">随机</div>
-						
-						<div id="receiveCoinButton" style="background: RGBA(21,185,254,0.1);width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position: relative;top:-5px;">00:06:02</div>
-					</li>
-					
-				</ul>
-			</div>
-			
 			<div class="mainViewDekorn">
 				<ul>
 					<li>
-						<div class="mainViewDekornInfo">
+						<div class='mainViewCover'>
+							<img src='http://oqcfht5ij.bkt.clouddn.com/baby.jpg'/>
+						</div>
+					
+						<div class="mainViewButtons">
+							<div class="mainViewDekornButton" style="display: inline-block;" id="mainViewDekornButton">挑战</div>
+						</div>
+					
+						<div class="redPacketBar">
+							<ul>
+								
+								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;">
+									<div class="redPacketImg">
+										<div class="redPacketHeadImg">
+											<img src="/imgs/happy.jpg">
+										</div>
+										<div class="redPacketBarType">竞答</div>
+									</div>
+								</li>
+								
+								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;">
+									<div class="arenaImg">
+										<div class="redPacketHeadImg">
+											<img src="/imgs/happy.jpg">
+										</div>
+										<div class="redPacketBarType">挑战</div>
+									</div>
+								</li>
+								
+								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;">
+									<div class="addImg">
+						
+						
+									</div>
+								</li>
+								
+								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
+								
+								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
+								
+								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
+								
+								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
+								
+								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
+								
+								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
+								
+								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
+											
+							</ul>
+						</div>
+						<!--  <div class="mainViewDekornInfo">
 							<div class="mainViewDekornImg">
 								<img src="http://ooe8ianrr.bkt.clouddn.com/znm123.png">
 							</div>
-							
 							<div class="mainViewDekornInfoDetail">
 								<div><span>名称：</span><span>小鸟飞飞</span></div>
-								
 								<div><span>类型：</span><span>游戏</span><span style="padding-left: 20px;">擂台分数：</span><span>300分</span></div>
 								<div><span>积分：</span><span>300分 </span><span style="padding-left:20px;">级别：</span><span>3段</span></div>
 								<div><span>挑战数：</span><span>5</span><span style="padding-left: 20px;">胜：</span><span>2</span> <span>负：</span><span>5</span></div>								
 								<div><span>被挑战：</span><span>5</span><span style="padding-left: 20px;">胜：</span><span>2</span> <span>负：</span><span>5</span></div>
 																
 							</div>
-
 						</div>
-						<div class="mainViewButtons">
-								<div class="mainViewDekornButton" style="display: inline-block;" id="mainViewDekornButton">挑战</div>
-								<div class="mainViewDekornButton" style="display: inline-block;">刷新擂台</div>
-								<div class="mainViewDekornButton" style="display: inline-block;">查看擂台</div>
-								<div class="mainViewDekornButton" style="display: inline-block;">挑战记录</div>
-						</div>
+						
+						-->
 						
 					</li>
 				</ul>
 			</div>
 			
-			
-			
-			
+			<div class="mainViewFooterButtons">
+				<ul>
+					<li class="">
+					
+						<div class="mainViewFooterButton">
+							<div class="mainViewFooterButtonIcon_topic"></div>
+						</div>
+						<div class="mainViewFooterButtonTitle">出题</div>
+					</li>
+					
+					<li>
+						<div class="mainViewFooterButton">
+							<div class="mainViewFooterButtonIcon_rank"></div>
+						</div>
+						<div class="mainViewFooterButtonTitle">排行</div>
+					
+					</li>
+					
+					<li>
+						<div class="mainViewFooterButton">
+							<div class="mainViewFooterButtonIcon_news"></div>
+						</div>
+						<div class="mainViewFooterButtonTitle">消息</div>
+					</li>
+					
+					<li>
+						<div class="mainViewFooterButton">
+							<div class="mainViewFooterButtonIcon_back"></div>
+						</div>
+						<div class="mainViewFooterButtonTitle">返回</div>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
+
+<style type="text/css">
+<!--
+.progress-label3{
+	position: absolute;
+	left:40%;
+	font-weight: bold;
+	color:RGBA(77,209,255,1);
+	height: 20px;
+	font-size: 5px;
+}
+	     	
+#progressbarLove_tool .ui-corner-left{
+	background: RGBA(225,0,34,1);
+	height: 20px;
+	border-radius:10px;
+	font-size: 5px;
+}
+-->
+</style>
+
 
 <script type="text/javascript">
 
 
 	function initEventListener(){
-		$("#receiveLoveButton").click(function(){
-			addLoveAnnim();
-		});
-		
-		$("#receiveBeanButton").click(function(){
-			addBeanAnnim();
-		});
-		
-		$("#receiveCoinButton").click(function(){
-			addCoinAnnim();
-		});
-		
 		$("#mainViewDekornButton").click(function(){
-			dekornAction();
+			//dekornAction();
+			var num = numTransform(30300);
+			console.log("num:"+num);
 		});
 	}
+	
 	$(document).ready(function(){
+		
+		
+		var loveProgressPlug = new ProgressPlug("#progressbarLove_tool","#progress-label3",{type:3});
+		
+	//	loveProgressPlug.addValueAction(20);
+		
+		
 		initEventListener();
 		
-		addLoveAnnim();
 		
 		var progressCallback = new Object();
 		progressCallback.complete = function(){
@@ -116,60 +172,17 @@
 		//	var guide = new Guide("#modelPhy",10,-40);
 			
 		//	guide.annimate();
-			showRoating("#modelPhy",5000);
-			
-			showAttr();
+		
+		//	showRoating("#modelPhy",5000);
+			attrPlug.show();
+			modelPlug.show();
+		//	addLoveAnnim();
 		}
+		
 		progress(100,10,progressCallback);
-		
-		
-		
-		var width = $(document).width();
-		
-		var waterbuble = new Waterbubble("#modelPhy",{
-			radius:width*0.08,
-			waterColor:"RGBA(225,0,34,0.5)",
-			textColor:"white",
-			txt:"50.324%",
-			data:0.3,
-			animation:false
-		});
-		
-		//waterbuble.care(1000);
-		
-		
-		$("#modelPhy2").waterbubble({
-			waterColor:"RGBA(245,192,0,0.5)",
-			radius:width*0.08,
-			textColor:"white",
-			txt:"50%",
-			animation:false
-		});
-		
-		$("#modelPhy3").waterbubble({
-			radius:width*0.08,
-			animation:false,
-			textColor:"white",
-			txt:"50%",
-			waterColor:"RGBA(244,239,4,0.5)"
-		});
-		
-		$("#modelPhy4").waterbubble({
-			radius:width*0.08,
-			animation:false,
-			textColor:"white",
-			txt:"50%",
-			waterColor:"RGBA(168,134,51,0.5)"
-		});
-	
 		
 		$(".mainView").height($(document).height());
 		
-		
-		
-		
-		
-		initAttr();
 		
 	//	progressbarMoney.progressbar("value",60);
 		

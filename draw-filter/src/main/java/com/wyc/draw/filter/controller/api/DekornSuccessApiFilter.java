@@ -15,12 +15,9 @@ import com.wyc.draw.filter.DekornSuccessHandleFilter;
 import com.wyc.draw.filter.RewardFilter;
 import com.wyc.draw.filter.controller.param.DekornResultHandleParamFilter;
 import com.wyc.draw.service.DekornTakepartMemberService;
-import com.wyc.draw.service.DekornToTakepartMemberService;
 
 public class DekornSuccessApiFilter extends Filter{
 
-	@Autowired
-	private DekornToTakepartMemberService dekornToTakepartMemberService;
 	
 	@Autowired
 	private DekornTakepartMemberService dekornTakepartMemberService;

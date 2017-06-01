@@ -3528,7 +3528,7 @@ li::before{
 }
 
 .personalAttr{
-	position: absolute;
+	position: fixed;
 	width:100%;
 }
 
@@ -3576,6 +3576,31 @@ li::before{
 	padding-left: 8px;
 	padding-top: 2px;
 	font-weight: bolder;
+}
+
+.personalAttrDataHeaderBig{
+	width:50px;
+	height:50px;
+	display: inline-block;
+	color: black;
+	font-size: 8px;
+	overflow: hidden;
+	padding-top: 0px;
+	vertical-align: middle;
+	padding-left: 8px;
+	padding-top: 2px;
+	font-weight: bolder;
+}
+.personalAttrDataHeaderLoveBig{
+	background: url("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png")no-repeat;
+	background-size:50px 50px;
+	background-position:0px -5px;
+}
+
+.personalAttrDataHeaderLoveHollowBig{
+	background: url("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveHollow.png")no-repeat;
+	background-size:33px 27px;
+	background-position:7px 5px;
 }
 
 .personalAttrDataHeaderLove{
@@ -3650,8 +3675,11 @@ li::before{
 
 .models{
 	text-align: center;
-	
-	padding-top: 100px;
+	position:fixed;
+	top: 100px;
+	margin: 0 auto;
+	text-align: center;
+	width:100%;
 }
 
 .models>ul>li{
@@ -3789,4 +3817,387 @@ li::before{
 	
     filter: gray;
   
+}
+
+.battleInfo{
+	background: url("http://on3s1z2us.bkt.clouddn.com/battle_background.jpg") no-repeat;
+	width: 100%;
+	background-size:100% 100%;
+}
+
+.battleInfoContent{
+	width:90%;
+	margin: 0 auto;
+	background: RGBA(159,132,120,0.4);
+	position:relative;
+	top: 240px;
+	border-radius:20px;
+	
+	padding-top: 10px;
+	
+	padding-bottom: 20px;
+}
+
+.battleInfoContent>ul>li{
+	margin: 0 auto;
+	padding-left: 15px;
+	
+	margin-top: 10px;
+	
+}
+
+.battleInfoContentTitle{
+	color: RGBA(199,159,142,1);
+	font-size: 15px;
+	padding-left: 10px;
+}
+
+.battleInfoContentInput{
+	width:90%;
+	height: 40px;
+	background-color: RGBA(93,78,83,0.5);
+	border-radius:15px;
+	color: RGBA(254,235,157,1);
+	font-size: 20px;
+	
+	padding-left: 10px;
+}
+
+.battleInfoContentInputRankIcon{
+	width:30px;
+	height: 40px;
+	background: url("http://on3s1z2us.bkt.clouddn.com/rank.png")no-repeat;
+	background-size:80% 90%;
+	display: inline-block;
+}
+
+.battleInfoContentInputSportsIcon{
+	width:30px;
+	height: 30px;
+	background: url("http://on3s1z2us.bkt.clouddn.com/sports.png")no-repeat;
+	background-size:80% 90%;
+	display: inline-block;
+	background-position: 0 10px;
+}
+
+.battleInfoContentInputText{
+	vertical-align:top;
+}
+
+.progressScore{
+	width: 100%;
+	height:100%;
+	margin: 0px;
+}
+
+.progressScoreBar{
+	overflow: auto;
+	width: 100%;
+	height: 2000px;
+	background: url("http://onluguho9.bkt.clouddn.com/progressScoreBackground.png");
+	background-size:104% 104%;
+	background-position:-5px -70px;
+}
+
+.flagImg{
+	position: absolute;
+	color:RGBA(20,103,170,1);
+	padding-top:7px;
+	padding-left:13px;
+	font-weight:bolder;
+	font-size:8px;
+	width:65px;
+	height:40px;
+	background: url('http://onluguho9.bkt.clouddn.com/flag.png');
+	background-size:60px 60px;
+	background-position: -5px -5px;
+}
+
+.redPacketBar{
+	width: 100%;
+	height: 180px;
+	overflow:scroll;
+	margin-top: 20px;
+	text-align: center;
+}
+
+.redPacketBar>ul{
+	margin: 0 auto;
+}
+
+.redPacketBar>ul>li{
+	width:18%;
+	height: 80px;
+	background-size:100% 100%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.redPacketImg{
+	background: url("http://oq4mi1sbl.bkt.clouddn.com/redPacket.png");
+	width:90%;
+	height: 90%;
+	background-size:100% 100%;
+	background-position:0 3px;
+	margin: 0 auto;
+}
+
+.redPacketBarType{
+	background: RGBA(56,206,253,1);
+	color: white;
+	font-weight: bolder;
+	width:40px;
+	display:block;
+	border-radius:10px;
+	margin: 0 auto;
+	font-size: 10px;
+	position: relative;
+	top:20px;
+}
+
+.redPacketHeadImg{
+	width:30px;
+	height: 30px;
+	border-radius:30px;
+	margin: 0 auto;
+	position: relative;
+	top:15px;
+}
+
+.redPacketHeadImg>Img{
+	width:20px;
+	height:20px;
+	border-radius:30px;
+}
+
+.arenaImg{
+	background: url("http://onluguho9.bkt.clouddn.com/arena.png");
+	width:90%;
+	height: 90%;
+	background-size:100% 100%;
+	background-position:0px 5px;
+	margin: 0 auto;
+	position:relative;
+}
+
+.addImg{
+	background: url("http://onluguho9.bkt.clouddn.com/add2.gif");
+	width:70%;
+	height: 70%;
+	background-size:80% 80%;
+	background-position:5px 5px;
+	margin: 0 auto;
+	top:11px;
+	position:relative;
+}
+
+.mainViewFooterButtons{
+	position: fixed;
+	bottom: 10px;
+	width: 100%;
+	text-align: center;
+}
+
+.mainViewFooterButton{
+	width:50px;
+	height: 50px;
+	
+	border-radius:50px;
+	
+	display: inline-block;
+	
+	background: url("http://onluguho9.bkt.clouddn.com/bubble.png");
+	
+	background-size:100% 100%;
+}
+
+.mainViewFooterButtons>ul>li{
+	display: inline-block;
+}
+
+.mainViewFooterButtonTitle{
+	vertical-align: top;
+	width:100%;
+	color: white;
+	font-weight: bolder;
+	font-size: 15px;
+	text-align: center;
+}
+
+.mainViewFooterButtonIcon_topic{
+	background: url("http://onluguho9.bkt.clouddn.com/topic2.png");
+	width:50px;
+	height: 50px;
+	background-size:100% 100%;
+}
+
+.mainViewFooterButtonIcon_rank{
+	background: url("http://onluguho9.bkt.clouddn.com/member.png")no-repeat;
+	width:50px;
+	height: 50px;
+	background-size:70% 70%;
+	
+	background-position: 7px 5px;
+}
+
+.mainViewFooterButtonIcon_news{
+	background: url("http://onluguho9.bkt.clouddn.com/news.png")no-repeat;
+	width:50px;
+	height: 50px;
+	background-size:70% 70%;
+	
+	background-position: 7px 5px;
+}
+
+.mainViewFooterButtonIcon_back{
+	background: url("http://onluguho9.bkt.clouddn.com/back.png")no-repeat;
+	width:50px;
+	height: 50px;
+	background-size:70% 70%;
+	
+	background-position: 7px 5px;
+}
+
+.mainSubjectCheck{
+	
+}
+
+
+.mainSubjectCheckContent{
+	width:100%;
+	height:100%;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 20px;
+}
+
+.mainSubjectCheckContent>ul>li{
+	width:100px;
+	height: 150px;
+	margin-left: 20px;
+	display: inline-block;
+}
+
+.mainSubjectCheckContent>ul>li>img{
+	width:100%;
+	height:100px;
+}
+
+.mainSubjectCheckName{
+	padding-top:2px;
+	padding-bottom:2px;
+	width:100%;
+	background: green;
+	text-align: center;
+	color: white;
+	position: relative;
+	top:-5px;
+}
+
+.mainThemeCheck{
+
+}
+
+.mainThemeCheckItem{
+	width:100%;
+	height: 70px;
+	
+	padding-left: 10px;
+	
+	background: white;
+	
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	
+	border-radius:5px 5px 0px 0px;
+}
+
+.mainThemeCheckItem>img{
+	width:50px;
+	height: 50px;
+	border-radius:5px;
+}
+
+.mainThemeCheckItemContent{
+	display: inline-block;
+	vertical-align: top;
+	padding-left: 20px;
+}
+
+.mainThemeCheckItemContentName{
+	color: black;
+	font-size: 15px;
+	font-weight: bolder;
+}
+
+.mainThemeCheckContent>ul>li{
+	margin-bottom: 20px;
+}
+
+.mainThemeCheckMember{
+	width: 100%;
+	padding-left: 10px;
+	padding-top:10px;
+	padding-bottom: 10px;
+	background: white;
+	margin-top: 2px;
+	
+	border-radius:0px 0px 5px 5px;
+}
+
+.mainThemeCheckMemberUser{
+	display: inline-block;
+}
+
+.mainThemeCheckMemberUser>ul>li{
+	width:30px;
+	height: 30px;
+	display: inline-block;
+}
+
+.mainThemeCheckMemberUser>ul>li>img{
+	width:30px;
+	height: 30px;
+	border-radius:20px;
+	vertical-align: middle;
+}
+
+.mainThemeCheckButton{
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: black;
+	background: RGBA(245,245,245,1);
+	display: inline-block;
+	vertical-align: top;
+	float: right;
+	right: 20px;
+	position: relative;
+	border-radius:5px;
+	top:10px;
+}
+
+.mainViewCover{
+	width:250px;
+	height: 250px;
+	margin:0 auto;
+	border-radius:200px;
+}
+
+.mainViewCover>img{
+	width:250px;
+	height: 250px;
+	margin:0 auto;
+	border-radius:200px;
+}
+
+
+.trajectory>ul>li{
+	color: white;
+	font-weight: bolder;
+	text-align: center;
+	font-size: 10px;
+	position: absolute;
 }

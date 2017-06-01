@@ -380,7 +380,7 @@ public class SessionManager {
 		 return map;
 	}
 	
-	public Object getObject(Class<?> type)throws Exception{
+	public <T>T getObject(Class<T> type)throws Exception{
 		
 		Object id = null;
 		
@@ -398,7 +398,7 @@ public class SessionManager {
 		if(id!=null){
 			Object obj = getObject(type, id+"");
 
-			return obj;
+			return (T)obj;
 		}
 		
 		return null;

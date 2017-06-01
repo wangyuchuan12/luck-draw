@@ -1,3 +1,17 @@
+function numTransform(num){
+	if(!num){
+		return 0;
+	}else if(num<1000){
+		return num;
+	}else if(num>=1000&&num<10000){
+		var count = num/1000;
+		return count+"千";
+	}else if(num>=10000){
+		var count = num/10000;
+		return count+"万";
+	}
+}
+
 function uuid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);

@@ -1,29 +1,196 @@
+function WaterbubblePlug(selector,params){
+	var outThis = this;
+	this.data = params.data;
+	this.unit = params.unit;
+	this.params = params;
+	this.count = params.count;
+	this.precision = params.precision;
+	this.unit = params.unit;
+	this.time = params.time;
+	
+	this.num;
+	this.funProgress;
+	this.funCompile;
+	
+	this.stop = false;
+	
+	this.isComplete = 0;
+	
+	this.interval;
+	
+	if(!this.unit){
+		this.unit = 0.01;
+	}
+	if(!this.data){
+		this.data = 0;
+	}
+	if(!this.time){
+		this.time = 1000;
+	}
+	
+	this.getData = function(){
+		return outThis.data.toFixed(0);
+	}
+	
+	this.isComplete = function(){
+		return outThis.isComplete;
+	}
+	
+	this.setData = function(data){
+		outThis.data = data;
+		outThis.show();
+	}
+	
+	this.show = function(){
+		var params = outThis.params;
+		params.data = outThis.data/outThis.count;
+		params.txt = (outThis.data/outThis.count*100).toFixed(outThis.precision)+"%";
+		if((outThis.data/outThis.count*100).toFixed(outThis.precision)>=100){
+			params.txt = "完成";
+			outThis.isComplete = 1;
+		}
+		var waterbuble = new Waterbubble(selector,params);
+	}
+	
+	this.stop = function(){
+		outThis.stop = true;
+	}
+	
+	this.dataInit = function(){
+		console.log("dataInit");
+		outThis.data = 0;
+		outThis.show();
+		clearInterval(this.interval);
+		outThis.growthWater(outThis.num,outThis.funProgress,outThis.funCompile);
+	}
+	
+	this.show();
+	
+	this.growthWater = function(num,funProgress,funCompile){
+		this.num = num;
+		this.funProgress = funProgress;
+		this.funCompile = funCompile;
+		var index = 0;
+		this.interval = setInterval(function(){
+			if(outThis.stop==true){
+				clearInterval(outThis.interval);
+			}
+			if(outThis.data<=num){
+				outThis.show();
+				if(funProgress){
+					funProgress.call({},outThis.data.toFixed(0));
+				}
+			}else{
+				if(funCompile){
+					funCompile.call({},outThis.data.toFixed(0));
+				}
+				clearInterval(outThis.interval);
+			}
+			outThis.data = outThis.data+outThis.unit;
+			index+=outThis.unit;
+			
+		},outThis.time);
+	}
+}
+
+
 function ProgressPlug(selectorProgress,selectorLabel,params){
 	var progressbar = $(selectorProgress);
 	var progressLabel = $(selectorLabel);
 	var growthSpeed = 100;
 	
+	var isShowProgress = 0;
+	
+	var unit="";
+	
+	//0表示百分比，1表示具体值,2表示分数值,3不改变值
+	var type = 0;
+	
 	this.value = 0;
+	
+	this.count = 100;
+	
+	var decimal = 0;
 	var outThis = this;
 	
 	if(params){
 		if(params.growthSpeed){
 			growthSpeed = params.growthSpeed;
 		}
+		
+		if(params.type){
+			type = params.type;
+		}
+		
+		if(params.isShowProgress){
+			isShowProgress = params.isShowProgress;
+		}
+		
+		if(params.unit){
+			unit = params.unit;
+		}
+		
+		if(params.count){
+			outThis.count = params.count;
+		}
+		
+		if(params.decimal){
+			decimal = params.decimal;
+		}
+	}
+	
+	
+	this.isFull = function(){
+		if(outThis.getValue<outThis.getCount){
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	
+	this.getCount = function(){
+		return outThis.count;
+	}
+	
+	this.setCount = function(count){
+		outThis.count = count;
 	}
 	
 	this.getValue = function(){
-		return progressbar.progressbar("value");
+		return outThis.value;
 	}
 	
 	this.setValue = function(value){
-		progressbar.progressbar("value",value);
+		outThis.value = value;
+		outThis.showValue();
+	}
+	
+	this.showValue = function(){
+		if(isShowProgress==1){
+			progressbar.progressbar("value",(outThis.getValue()/outThis.getCount())*100);
+		}
+		
+		if(type==0){
+			progressLabel.text((outThis.getValue()/outThis.getCount())*100+"%");
+		}else if(type==1){
+
+			progressLabel.text(numTransform(outThis.getValue().toFixed(decimal))+unit);
+		}else if(type==2){
+
+			var thisValue = numTransform(outThis.getValue());
+			var thisCount = numTransform(outThis.getCount());
+			progressLabel.text(thisValue+"/"+thisCount);
+		}else if(type==3){
+			
+		}
 	}
 	
 	progressbar.progressbar({
 		value:true,
 		change:function(){
-			progressLabel.text(outThis.getValue()+"%");
+			
+			
 		},
 		complete:function(){
 		}
@@ -36,27 +203,21 @@ function ProgressPlug(selectorProgress,selectorLabel,params){
 	this.status = 0;
 	this.addValue = 0;
 	this.addValueAction = function(addValue){
-		if(outThis.status==1){
-			outThis.addValue = outThis.addValue+addValue;
-			return;
+		
+		var addNum;
+		if(!decimal||decimal==0){
+			addNum = 1;
 		}else{
-			
-			console.log("....................................看看进来几次");
-			outThis.addValue = addValue;
-			outThis.status=1;
-			
-			var index = 0;
-			var interval = setInterval(function(){
-				index++;
-				console.log("index:"+index+",addValue:"+outThis.addValue);
-				if(index<=outThis.addValue){
-					outThis.setValue(outThis.getValue()+1);
-				}else{
-					outThis.status=0;
-					clearInterval(interval);
-					outThis.addValue = 0;
-				}
-			},growthSpeed);
+			addNum = 1/Math.pow(10,decimal);
+		}
+		
+		var count = addValue/addNum;
+		if(count&&count>0){
+			for(var i = 0;i<count;i++){
+				setTimeout(function(){
+					outThis.setValue(addNum+outThis.getValue());
+				},growthSpeed);
+			}
 		}
 		
 	}
@@ -147,6 +308,37 @@ function showRoating(selector,time){
 		
 	},10);
 	$("body").append(div);
+}
+
+function moveAnimateTrajectory(dom,toDoms,index){
+	if(!index){
+		index = 0;
+	}
+	
+	if(index<toDoms.length){
+		moveAnimate(dom,toDoms[index],function(){
+			index++;
+			moveAnimateTrajectory(dom,toDoms,index);
+		});
+	}
+}
+
+function moveAnimate(dom,toDom,fun){
+	var fromLeft = dom.offset().left;
+	
+	var fromTop = dom.offset().top;
+	
+	var toLeft = toDom.offset().left;
+	
+	var toTop = toDom.offset().top;
+	
+	dom.stop(true,true).animate({
+		top:toTop-dom.width()/2,
+		left:toLeft-dom.height()/2
+	},500,function(){
+		console.log("success");
+		fun.call();
+	});
 }
 
 function targetAnimate(fromDom,toDom,params,preAnnimParam,fun){
@@ -286,8 +478,13 @@ function targetAnimate(fromDom,toDom,params,preAnnimParam,fun){
 	}
 }
 
-function showMsg(msg,fromLeft,fromTop){
+function showMsg(msg,fromLeft,fromTop,params){
 	var fontSize = 30;
+	if(params){
+		if(params.fontSize){
+			fontSize = params.fontSize;
+		}
+	}
 	var msgDiv = $("<div>"+msg+"</div>");
 	msgDiv.css("color","RGBA(255,255,21,1)");
 	msgDiv.css("font-size",fontSize+"px");
@@ -412,7 +609,6 @@ function FlowPlug(funs){
 		this.call = function(params){
 			
 			var fun = outThis.name;
-			console.log(".....fun:"+fun)
 			initFun.setNext(fun);
 			if(params){
 				initFun.nextData(params);
@@ -451,7 +647,7 @@ function LayerPlug(url,w,h,loadContent){
 		plugLayer = layer.open({
 			title:false,
 			type:1,	
-			content:"<iframe scrolling='no' noresize='noresize' id='"+outThis.frameId+"' src="+url+" style='border-radius:"+borderRadius+"px;border:0px solid white;width:"+0+"px;height:"+0+"px;'></iframe>",
+			content:"<iframe scrolling='no' noresize='noresize' id='"+outThis.frameId+"' src="+url+" style='border-radius:"+borderRadius+"px;border:0px solid white;width:"+0+"px;height:"+0+"px;-webkit-animation-duration: .5s; animation-duration: .5s;'></iframe>",
 			style:style,
 		//	style: 'position:fixed; left:0; top:0; width:100%; height:100%; border: none; -webkit-animation-duration: .5s; animation-duration: .5s;'
 			anim:"up",

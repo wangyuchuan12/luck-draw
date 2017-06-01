@@ -15,6 +15,16 @@ public class DekornController {
 	}
 	
 	
+	@RequestMapping(value="battleInfo")
+	public String battleInfo(HttpServletRequest httpServletRequest)throws Exception{
+		return "battleInfo";
+	}
+	
+	@RequestMapping(value="progressScore")
+	public String progressScore(HttpServletRequest httpServletRequest)throws Exception{
+		return "progressScore";
+	}
+	
 	
 	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	@RequestMapping(value="info")

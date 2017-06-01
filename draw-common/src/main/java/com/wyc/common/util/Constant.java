@@ -226,4 +226,10 @@ public class Constant {
 	public static final int DEKORN_PROGRESS_REJECT=3;
 	
 	
+	/**************************prop状态******************************/
+	//冷却中状态
+	public static final int PROP_COOLING_STATUS = 0;
+	
+	//完成状态
+	public static final int PROP_COMPLETE_STATUS=1;
 }

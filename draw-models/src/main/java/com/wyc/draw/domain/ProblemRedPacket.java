@@ -18,6 +18,7 @@ public class ProblemRedPacket {
 	private String id;
 	
 	@Column(name="red_packet_id")
+	@ParamAnnotation
 	private String redPacketId;
 	//问题
 	@ParamAnnotation

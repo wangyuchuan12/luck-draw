@@ -23,8 +23,6 @@ public class Account {
 	@IdAnnotation
     private String id;
 
-	
-	
 	//智慧豆数量
 	@ParamAnnotation
 	@Column(name="wisdom_count")
@@ -65,8 +63,7 @@ public class Account {
 	@ParamAnnotation
 	@Column(name="amount_balance")
 	private BigDecimal amountBalance;
-	
-	
+
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -142,6 +139,4 @@ public class Account {
 	public void setIntegral(Integer integral) {
 		this.integral = integral;
 	}
-	
-	
 }

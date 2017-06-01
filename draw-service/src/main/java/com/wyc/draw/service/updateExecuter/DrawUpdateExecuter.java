@@ -10,6 +10,10 @@ import com.wyc.draw.domain.Dekorn;
 import com.wyc.draw.domain.DekornTakepartMember;
 import com.wyc.draw.domain.DekornToTakepartMember;
 import com.wyc.draw.domain.Game;
+import com.wyc.draw.domain.Prop;
+import com.wyc.draw.domain.PropBean;
+import com.wyc.draw.domain.PropLove;
+import com.wyc.draw.domain.PropRandom;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketAmountDistribution;
 import com.wyc.draw.domain.RedPacketTakepartMember;
@@ -19,6 +23,10 @@ import com.wyc.draw.service.DekornService;
 import com.wyc.draw.service.DekornTakepartMemberService;
 import com.wyc.draw.service.DekornToTakepartMemberService;
 import com.wyc.draw.service.GameService;
+import com.wyc.draw.service.PropBeanService;
+import com.wyc.draw.service.PropLoveService;
+import com.wyc.draw.service.PropRandomService;
+import com.wyc.draw.service.PropService;
 import com.wyc.draw.service.RedPacketAmountDistributionService;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
@@ -55,6 +63,19 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 	@Autowired
 	private DekornToTakepartMemberService dekornToTakepartMemberService;
 	
+	@Autowired
+	private PropService propService;
+	
+	@Autowired
+	private PropLoveService propLoveService;
+	
+	@Autowired
+	private PropBeanService propBeanService;
+	
+	@Autowired
+	private PropRandomService propRandomService;
+	
+	
 	@Override
 	public void update(List<Object> objs) {
 		if(objs!=null){
@@ -71,6 +92,14 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 					dekornTakepartMemberService.update((DekornTakepartMember)object);
 				}else if(object.getClass().equals(DekornToTakepartMember.class)){
 					dekornToTakepartMemberService.update((DekornToTakepartMember)object);
+				}else if(object.getClass().equals(Prop.class)){
+					propService.update((Prop)object);
+				}else if(object.getClass().equals(PropLove.class)){
+					propLoveService.update((PropLove)object);
+				}else if(object.getClass().equals(PropBean.class)){
+					propBeanService.update((PropBean)object);
+				}else if(object.getClass().equals(PropRandom.class)){
+					propRandomService.update((PropRandom)object);
 				}
 			}
 		}
