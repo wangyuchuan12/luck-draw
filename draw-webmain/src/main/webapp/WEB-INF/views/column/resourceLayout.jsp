@@ -16,8 +16,9 @@
 </head>
 <body>
     
-    	<div style="">
+    	<div style="width:100%;height:100%;">
     	<div class="personalAttr" id="personalAttr">
+				<!--  
 				<div class="personalAttrUserInfo">
 					<div class="personalAttrUserInfoImg">
 						<img src="/imgs/sadAlert.jpg">
@@ -27,6 +28,7 @@
 						</div>
 					</div>
 				</div>
+				-->
 				
 				<div class="personalAttrData" id="personalAttrData">
 					<ul>

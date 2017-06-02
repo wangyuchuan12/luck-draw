@@ -38,6 +38,11 @@
 					</li>
 				</ul>
 			</div>
+			
+			
+			<div class="mainViewButtons" style="margin-top: 50px;">
+				<div class="mainViewDekornButton" style="display: inline-block;" id="dekornButton">挑战</div>
+			</div>
 		</div>
 		<script type="text/javascript">
 			$(document).ready(function(){
@@ -51,7 +56,10 @@
 				
 				
 				progress(100,10,progressCallback);
-				$(".battleInfo").height($(document).height());
+				
+				$("#dekornButton").click(function(){
+					window.parent.startDekorn();
+				});
 				
 				
 			});

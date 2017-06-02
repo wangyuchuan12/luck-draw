@@ -149,10 +149,12 @@
 
 	function initEventListener(){
 		$("#mainViewDekornButton").click(function(){
-			//dekornAction();
-			var num = numTransform(30300);
-			console.log("num:"+num);
+			skipToBattleInfo();
 		});
+	}
+	
+	function startDekorn(){
+		skipToProgressScore();
 	}
 	
 	$(document).ready(function(){

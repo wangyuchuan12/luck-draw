@@ -9,6 +9,7 @@
 <tiles:insertDefinition name="resourceLayout">
 	<tiles:putAttribute name="title">进度</tiles:putAttribute>
 	<tiles:putAttribute name="body">
+		<div id = "test" style="overflow: auto;position: relative;">
 		<div class="progressScore">
 			<div class="progressScoreBar">
 				<ul>
@@ -288,7 +289,7 @@
 					
 					<li style="background: red;width:20px; height: 20px;left:25%;top:310px;position: absolute;" id="toDom120"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:32%;top:280px;position: absolute;" id="toDom121"></li>
+					<li style="background: red;width:20px; height: 20px;left:32%;top:280px;position: absolute;" id="toDom121">121</li>
 					
 					
 					
@@ -296,9 +297,14 @@
 				</ul>
 			</div>
 		</div>
-
-	<div style="background: black;width:40px; height: 40px;left:15%;top:1900px;position: absolute;" id="fromDom"></div>
 		
+		
+		
+		</div>
+
+		<div style="background: black;width:40px; height: 40px;left:15%;top:1900px;position: absolute;" id="fromDom"></div>
+		
+
 
 	</tiles:putAttribute>
 	
@@ -317,13 +323,31 @@
 			for(var i=0;i<110;i++){
 				toDoms.push($("#toDom"+(i+2)));
 			}
-			moveAnimateTrajectory($("#fromDom"),toDoms,0);
+			document.addEventListener("touchmove",function(e){
+				e.preventDefault();
+				e.stopProgagation();
+			});
+			moveAnimateTrajectory($("#fromDom"),toDoms,0,function(index,toDom,fromDom,next){
+				
+				fromDom.css("top",toDom.offset().top-fromDom.height()/2);
+				
+				fromDom.css("left",toDom.offset().left-fromDom.width()/2);
+				
+				next.next();
+				
+			});
+	
+			
+
 		}
 		progress(100,10,callback);
 		
-		$(".progressScore").height($(window).height());
 		
 		
+		$("#test").height(window.screen.availHeight-50);
+		
+		$("#test").scrollTop($("#toDom").offset().top);
+	
 	});
 
 

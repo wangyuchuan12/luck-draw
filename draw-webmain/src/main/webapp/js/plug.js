@@ -310,15 +310,22 @@ function showRoating(selector,time){
 	$("body").append(div);
 }
 
-function moveAnimateTrajectory(dom,toDoms,index){
+function moveAnimateTrajectory(dom,toDoms,index,fun){
 	if(!index){
 		index = 0;
 	}
 	
 	if(index<toDoms.length){
 		moveAnimate(dom,toDoms[index],function(){
-			index++;
-			moveAnimateTrajectory(dom,toDoms,index);
+			if(fun){
+				var next = new Object();
+				next.next = function(){
+					index++;
+					moveAnimateTrajectory(dom,toDoms,index,fun);
+				}
+				fun.call({},index,toDoms[index],dom,next);
+			}
+			
 		});
 	}
 }
@@ -655,8 +662,12 @@ function LayerPlug(url,w,h,loadContent){
 			shift:10,
 			closeBtn:1,
 			shadeClose:false,
-			shade:true
+			shade:true,
+			success:function(){
+				
+			}
 		});
+		
 		var wait = layer.open({
 			type:2,
 			content:loadContent,

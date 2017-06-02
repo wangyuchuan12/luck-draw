@@ -33,6 +33,14 @@ function skipToTakeout(){
 	skipToUrl("/view/draw/personal_center/takeOut");
 }
 
+function skipToBattleInfo(){
+	skipToUrl("/view/dekorn/battleInfo");
+}
+
+function skipToProgressScore(){
+	skipToUrl("/view/dekorn/progressScore");
+}
+
 function doJoinRoom(type,question,roomId,callback){
 	var url = "";
 	if(type==0){
@@ -263,7 +271,7 @@ function skipVieAnswerResult(redPacketId){
 
 function skipToUrl(url,params){
 	var temp = document.createElement("form");
-	temp.action = url;
+	temp.action = "javascript:new LayerPlug('"+url+"',1,1)";
     temp.method = "GET";        
     temp.style.display = "none";        
     var opt = document.createElement("textarea");
