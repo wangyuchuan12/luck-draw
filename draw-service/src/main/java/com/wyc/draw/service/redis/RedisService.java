@@ -37,10 +37,8 @@ public class RedisService {
 		this.getJedis().expire(key, liveTime);
 	}
 	
-	public void setObject(String key,Object obj){
+	public void setObject(String key,Object obj)throws Exception{
 		 String value = ObjectsTranscoder.serializationObject(obj);
-		 
-		 System.out.println(value);
 		 this.set(key, value);
 	}
 	

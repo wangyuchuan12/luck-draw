@@ -62,6 +62,18 @@ public class BattleMember {
 	@Column(name="stage_index")
 	private Integer stageIndex;
 	
+	//剩余爱心数量
+	@ParamAnnotation
+	@Column(name="love_life")
+	private Integer loveLife;
+	
+	
+	//爱心总数
+	@ParamAnnotation
+	@Column(name="love_life_limit")
+	private Integer loveLifeLimit;
+
+	
 	@ParamAnnotation
 	@Column(name="takepart_time")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -127,6 +139,14 @@ public class BattleMember {
 
 	
 	
+	public Integer getLoveLife() {
+		return loveLife;
+	}
+
+	public void setLoveLife(Integer loveLife) {
+		this.loveLife = loveLife;
+	}
+
 	public String getImgs() {
 		return imgs;
 	}
@@ -175,6 +195,16 @@ public class BattleMember {
 
 	public void setStageIndex(Integer stageIndex) {
 		this.stageIndex = stageIndex;
+	}
+	
+	
+
+	public Integer getLoveLifeLimit() {
+		return loveLifeLimit;
+	}
+
+	public void setLoveLifeLimit(Integer loveLifeLimit) {
+		this.loveLifeLimit = loveLifeLimit;
 	}
 
 	public DateTime getCreateAt() {

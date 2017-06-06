@@ -23,6 +23,7 @@ import com.wyc.common.wx.service.SendMessageService;
 import com.wyc.draw.domain.Dekorn;
 import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
 import com.wyc.draw.filter.SelectGameDekornFilter;
+import com.wyc.draw.filter.controller.api.BattleMemberInfoApiFilter;
 import com.wyc.draw.vo.RedPacketListVo;
 
 @Controller
@@ -75,5 +76,12 @@ public class TestApi {
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		Dekorn dekorn = (Dekorn)sessionManager.getObject(Dekorn.class);
 		return dekorn;
+	}
+	
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=BattleMemberInfoApiFilter.class)
+	@RequestMapping(value="battleMemberInfo")
+	public Object testBattleMemberInfoApiFilter(HttpServletRequest httpServletRequest){
+		return null;
 	}
 }

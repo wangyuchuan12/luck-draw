@@ -3525,6 +3525,8 @@ li::before{
 	height: 100%;
 	background: url("http://7xugu1.com1.z0.glb.clouddn.com/modelBackground.jpg") no-repeat;
 	background-size:100% 100%;
+	
+	padding-bottom: 70px;
 }
 
 .personalAttr{
@@ -3676,7 +3678,7 @@ li::before{
 .models{
 	text-align: center;
 	position:fixed;
-	top: 100px;
+	top: 55px;
 	margin: 0 auto;
 	text-align: center;
 	width:100%;
@@ -3693,6 +3695,7 @@ li::before{
 .mainViewButtons{
 	text-align: center;
 	width:100%;
+	padding-top: 50px;
 }
 .mainViewDekornButton{
 	background: url("http://onluguho9.bkt.clouddn.com/btn-blue2.png") no-repeat;
@@ -4191,6 +4194,7 @@ li::before{
 	height: 250px;
 	margin:0 auto;
 	border-radius:200px;
+	padding-top: 50px;
 }
 
 .mainViewCover>img{

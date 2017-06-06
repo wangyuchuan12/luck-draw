@@ -24,6 +24,9 @@
 			<script type="text/javascript">
 				var initFun;
 			
+				function haha(param1,param2,param3){
+					console.log("haha,param1:"+param1+",param2"+param2+",param3"+param3);
+				}
 				function checkOption(questionId,optionId,isRight,overTimeLong,isTimeout){
 					var content;
 					if(isRight){

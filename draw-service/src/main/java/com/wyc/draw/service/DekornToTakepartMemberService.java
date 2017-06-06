@@ -20,7 +20,7 @@ public class DekornToTakepartMemberService{
 	
 
 	public DekornToTakepartMember findOneByDekornIdAndDrawUserId(String dekornId, String drawUserId) {
-		String key = "dekornToTakepartMember_findOneByDekornIdAndDrawUserId_"+dekornId+"_"+drawUserId;
+		String key = "dekornToTakepartMemberService:findOneByDekornIdAndDrawUserId_"+dekornId+"_"+drawUserId;
 		DekornToTakepartMember dekornToTakepartMember = redisService.getObject(key, DekornToTakepartMember.class);
 		
 		if(dekornToTakepartMember==null){
@@ -28,7 +28,12 @@ public class DekornToTakepartMemberService{
 		}
 		
 		if(dekornToTakepartMember!=null){
-			redisService.setObject(key, dekornToTakepartMember);
+			try{
+				redisService.setObject(key, dekornToTakepartMember);
+			}catch(Exception e){
+				
+			}
+			
 		}
 		
 		return dekornToTakepartMember;
@@ -46,9 +51,14 @@ public class DekornToTakepartMemberService{
 			dekornToTakepartMember.setCreateAt(new DateTime());
 			dekornToTakepartMember.setId(UUID.randomUUID().toString());
 			dekornToTakepartMemberRepository.save(dekornToTakepartMember);
-			String key = "dekornToTakepartMember_findOneByDekornIdAndDrawUserId_"+dekornToTakepartMember.getDekornId()+"_"+dekornToTakepartMember.getDrawUserId();
+			String key = "dekornToTakepartMemberService:findOneByDekornIdAndDrawUserId_"+dekornToTakepartMember.getDekornId()+"_"+dekornToTakepartMember.getDrawUserId();
 
-			redisService.setObject(key, dekornToTakepartMember);
+			try{
+				redisService.setObject(key, dekornToTakepartMember);
+			}catch(Exception e){
+				
+			}
+			
 		}
 		
 		
@@ -58,9 +68,13 @@ public class DekornToTakepartMemberService{
 		dekornToTakepartMember.setUpdateAt(new DateTime());
 		dekornToTakepartMember =  dekornToTakepartMemberRepository.save(dekornToTakepartMember);
 		
-		String key = "dekornToTakepartMember_findOneByDekornIdAndDrawUserId_"+dekornToTakepartMember.getDekornId()+"_"+dekornToTakepartMember.getDrawUserId();
+		String key = "dekornToTakepartMemberService:findOneByDekornIdAndDrawUserId_"+dekornToTakepartMember.getDekornId()+"_"+dekornToTakepartMember.getDrawUserId();
 
-		redisService.setObject(key, dekornToTakepartMember);
+		try{
+			redisService.setObject(key, dekornToTakepartMember);
+		}catch(Exception e){
+			
+		}
 		
 		return dekornToTakepartMember;
 		

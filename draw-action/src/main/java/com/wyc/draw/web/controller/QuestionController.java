@@ -37,8 +37,6 @@ public class QuestionController {
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		String paperId = httpServletRequest.getParameter("id");
 		String keyId = httpServletRequest.getParameter("keyId");
-		
-		System.out.println("..............keyId:"+keyId);
 		Question question = (Question)sessionManager.getObject(Question.class);
 		httpServletRequest.setAttribute("paperId", paperId);
 		httpServletRequest.setAttribute("question", question);
@@ -48,6 +46,11 @@ public class QuestionController {
 		httpServletRequest.setAttribute("paper", paper);
 		httpServletRequest.setAttribute("keyId", keyId);
 		return "paper/paper";
+	}
+	
+	@RequestMapping(value="papers")
+	public String paperList(HttpServletRequest httpServletRequest)throws Exception{
+		return "mainPaper";
 	}
 	
 	@RequestMapping(value="info")

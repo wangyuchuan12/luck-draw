@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wyc.common.session.DbServiceExecuter;
+import com.wyc.draw.domain.Battle;
+import com.wyc.draw.domain.BattleMember;
+import com.wyc.draw.domain.BattleToMember;
 import com.wyc.draw.domain.Dekorn;
 import com.wyc.draw.domain.DekornTakepartMember;
 import com.wyc.draw.domain.DekornToTakepartMember;
@@ -19,6 +22,9 @@ import com.wyc.draw.domain.RedPacketAmountDistribution;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.RedPacketToTakepartMember;
 import com.wyc.draw.domain.Reward;
+import com.wyc.draw.service.BattleMemberService;
+import com.wyc.draw.service.BattleService;
+import com.wyc.draw.service.BattleToMemberService;
 import com.wyc.draw.service.DekornService;
 import com.wyc.draw.service.DekornTakepartMemberService;
 import com.wyc.draw.service.DekornToTakepartMemberService;
@@ -75,6 +81,15 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 	@Autowired
 	private PropRandomService propRandomService;
 	
+	@Autowired
+	private BattleMemberService battleMemberService;
+	
+	@Autowired
+	private BattleToMemberService battleToMemberService;
+	
+	@Autowired
+	private BattleService battleService;
+	
 	
 	@Override
 	public void update(List<Object> objs) {
@@ -100,6 +115,10 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 					propBeanService.update((PropBean)object);
 				}else if(object.getClass().equals(PropRandom.class)){
 					propRandomService.update((PropRandom)object);
+				}else if(object.getClass().equals(BattleMember.class)){
+					battleMemberService.update((BattleMember)object);
+				}else if(object.getClass().equals(BattleToMember.class)){
+					battleToMemberService.update((BattleToMember)object);
 				}
 			}
 		}
@@ -130,6 +149,11 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 		
 		if(clazz.equals(Reward.class)){
 			T obj = (T)rewardService.findOne(id);
+			return obj;
+		}
+		
+		if(clazz.equals(Battle.class)){
+			T obj = (T)battleService.findOne(id);
 			return obj;
 		}
 

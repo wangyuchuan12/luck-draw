@@ -24,8 +24,8 @@ public class BattleMemberStage {
 	
 	//阶段序号 从0开始到13
 	@ParamAnnotation
-	@Column
-	private Integer index;
+	@Column(name="stage_index")
+	private Integer stageIndex;
 	
 	//分数
 	@ParamAnnotation
@@ -73,12 +73,14 @@ public class BattleMemberStage {
 		this.id = id;
 	}
 
-	public Integer getIndex() {
-		return index;
+	
+
+	public Integer getStageIndex() {
+		return stageIndex;
 	}
 
-	public void setIndex(Integer index) {
-		this.index = index;
+	public void setStageIndex(Integer stageIndex) {
+		this.stageIndex = stageIndex;
 	}
 
 	public Integer getScore() {

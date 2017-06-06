@@ -12,6 +12,8 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.filter.controller.api.BattleInfoApiFilter;
 import com.wyc.draw.filter.controller.api.BattleListApiFilter;
+import com.wyc.draw.filter.controller.api.BattleMemberInfoApiFilter;
+import com.wyc.draw.filter.controller.api.BattleTakepartApiFilter;
 import com.wyc.draw.filter.controller.api.CurrentPropApiFilter;
 import com.wyc.draw.filter.controller.api.CurrentPropBeanApiFilter;
 import com.wyc.draw.filter.controller.api.CurrentPropLoveApiFilter;
@@ -112,6 +114,25 @@ public class MainApi {
 	@Transactional
 	@RequestMapping(value="battleList")
 	public Object battleList(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
+		return resultVo;
+	}
+	
+	@HandlerAnnotation(hanlerFilter=BattleTakepartApiFilter.class)
+	@ResponseBody
+	@Transactional
+	@RequestMapping(value="battleTakepart")
+	public Object battleTakepart(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
+		return resultVo;
+	}
+	
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=BattleMemberInfoApiFilter.class)
+	@RequestMapping(value="battleMemberInfo")
+	public Object testBattleMemberInfoApiFilter(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
 		return resultVo;

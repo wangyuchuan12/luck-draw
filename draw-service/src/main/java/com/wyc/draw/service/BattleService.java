@@ -21,4 +21,8 @@ public class BattleService {
 	public List<Battle> findAllBySubjectId(String subjectId) {
 		return battleRepository.findAllBySubjectId(subjectId);
 	}
+
+	public Battle findOne(String id) {
+		return battleRepository.findOne(id);
+	}
 }

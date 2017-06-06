@@ -13,31 +13,33 @@ import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
 
-
-/**
- * 比赛的阶段，一般分为13个阶段
- * @author root
- *
- */
 @ParamEntityAnnotation
 @Entity
-@Table(name="b_battle_stage")
-public class BattleStage {
+@Table(name="b_battle_to_member")
+public class BattleToMember {
 	@Id
 	@IdAnnotation
 	private String id;
 	
 	@ParamAnnotation
-	@Column(name="stage_index")
-	private Integer stageIndex;
+	@Column(name="battle_id")
+	private String battleId;
+	
+	@ParamAnnotation
+	@Column(name="current_member_id")
+	private String currentMemberId;
+	
+	@ParamAnnotation
+	@Column(name="draw_user_Id")
+	private String drawUserId;
 	
 	@ParamAnnotation
 	@Column
-	private Integer score;
+	private Integer status;
 	
 	@ParamAnnotation
-	@Column(name="battle_id")
-	private String battleId;
+	@Column
+	private Integer rank;
 	
 	@ParamAnnotation
 	@Column(name = "create_at")
@@ -59,28 +61,46 @@ public class BattleStage {
 		this.id = id;
 	}
 
-	public Integer getStageIndex() {
-		return stageIndex;
-	}
-
-	public void setStageIndex(Integer stageIndex) {
-		this.stageIndex = stageIndex;
-	}
-
-	public Integer getScore() {
-		return score;
-	}
-
-	public void setScore(Integer score) {
-		this.score = score;
-	}
-
 	public String getBattleId() {
 		return battleId;
 	}
 
 	public void setBattleId(String battleId) {
 		this.battleId = battleId;
+	}
+
+	public String getCurrentMemberId() {
+		return currentMemberId;
+	}
+
+	public void setCurrentMemberId(String currentMemberId) {
+		this.currentMemberId = currentMemberId;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	
+	public Integer getRank() {
+		return rank;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
+	}
+
+	
+	
+	public String getDrawUserId() {
+		return drawUserId;
+	}
+
+	public void setDrawUserId(String drawUserId) {
+		this.drawUserId = drawUserId;
 	}
 
 	public DateTime getCreateAt() {

@@ -1,14 +1,22 @@
 package com.wyc.draw.web.controller;
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.wyc.annotation.HandlerAnnotation;
+import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.BattleMember;
 import com.wyc.draw.filter.BaseDrawActionFilter;
+import com.wyc.draw.filter.controller.api.BattleMemberInfoApiFilter;
+import com.wyc.draw.service.BattleMemberService;
 
 @Controller
 @RequestMapping(value="/view/dekorn")
 public class DekornController {
 	
+	@Autowired
+	private BattleMemberService battleMemberService;
 	@RequestMapping(value="subject")
 	public String subject(HttpServletRequest httpServletRequest)throws Exception{
 		return "paper/subject";
@@ -16,7 +24,16 @@ public class DekornController {
 	
 	
 	@RequestMapping(value="battleInfo")
+	@HandlerAnnotation(hanlerFilter=BattleMemberInfoApiFilter.class)
 	public String battleInfo(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		BattleMember battleMember = sessionManager.getObject(BattleMember.class);
+		
+		httpServletRequest.setAttribute("battleMember", battleMember);
+		
+		Long rank = battleMemberService.rank(battleMember);
+		
+		httpServletRequest.setAttribute("rank", rank);
 		return "battleInfo";
 	}
 	

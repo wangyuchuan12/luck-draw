@@ -232,4 +232,16 @@ public class Constant {
 	
 	//完成状态
 	public static final int PROP_COMPLETE_STATUS=1;
+	
+	
+	/***************************battleToMember状态********************/
+	//游离状态
+	public static final int BM_STATUS_FREE = 0;
+	
+	//进行中
+	public static final int BM_STATUS_IN = 1;
+	
+	//结束
+	public static final int BM_STATUS_END = 2;
+	
 }

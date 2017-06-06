@@ -632,13 +632,12 @@ function FlowPlug(funs){
 	}
 }
 
-
 function LayerPlug(url,w,h,loadContent){
 	var borderRadius = 20;
 	if(w==1){
 		borderRadius = 0;
 	}
-	this. frameId = uuid();
+	this.frameId = uuid();
 	var outThis = this;
 	this.height = $(document).height();
 	this.height = this.height*h;
@@ -657,32 +656,62 @@ function LayerPlug(url,w,h,loadContent){
 			content:"<iframe scrolling='no' noresize='noresize' id='"+outThis.frameId+"' src="+url+" style='border-radius:"+borderRadius+"px;border:0px solid white;width:"+0+"px;height:"+0+"px;-webkit-animation-duration: .5s; animation-duration: .5s;'></iframe>",
 			style:style,
 		//	style: 'position:fixed; left:0; top:0; width:100%; height:100%; border: none; -webkit-animation-duration: .5s; animation-duration: .5s;'
-			anim:"up",
+		//	anim:"up",
 			fadeIn:1000,
 			shift:10,
 			closeBtn:1,
 			shadeClose:false,
 			shade:true,
+			zIndex:30,
 			success:function(){
 				
 			}
 		});
 		
-		var wait = layer.open({
-			type:2,
-			content:loadContent,
-			shadeClose:true
-		});
+		
+	
+		
+		var waitPlug = new WaitPlug(loadContent);
 		
 		$("#"+this.frameId).load(function(){
-			layer.close(wait);
+			waitPlug.close();
 			var thisWidth = 0;
 			var thisHeight = 0;
 			$("#"+outThis.frameId).width(outThis.width);
 			$("#"+outThis.frameId).height(outThis.height);
 			
 		});
+		
+		
+		
+		outThis.hide = function(){
+			if(waitPlug){
+				waitPlug.close();
+			}
+			
+			$("#layui-m-layer"+plugLayer).css("display","none");
+			
+			if($("#"+outThis.frameId)[0].contentWindow.hide){
+				$("#"+outThis.frameId)[0].contentWindow.hide();
+			}
+		}
+		
+		outThis.show = function(){
+			$("#layui-m-layer"+plugLayer).css("display","");
+			
+			if($("#"+outThis.frameId)[0].contentWindow.show){
+				$("#"+outThis.frameId)[0].contentWindow.show();
+			}
+		}
 	}
+	
+	this.call = function(fun,param1,param2,param3){
+		var contentWindow = $("#"+outThis.frameId)[0].contentWindow;
+		var func = eval("contentWindow."+fun);
+		new func(param1,param2,param3);
+		
+	}
+	
 	this.reload = function(){
 		this.load(outThis.url,outThis.width,outThis.height,outThis.loadContent);
 	}

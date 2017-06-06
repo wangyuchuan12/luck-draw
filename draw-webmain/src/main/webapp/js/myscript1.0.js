@@ -33,12 +33,12 @@ function skipToTakeout(){
 	skipToUrl("/view/draw/personal_center/takeOut");
 }
 
-function skipToBattleInfo(){
-	skipToUrl("/view/dekorn/battleInfo");
+function skipToBattleInfo(battleId){
+	skipToUrl("/view/dekorn/battleInfo?battleId="+battleId);
 }
 
 function skipToProgressScore(){
-	skipToUrl("/view/dekorn/progressScore");
+	return skipToUrl("/view/dekorn/progressScore");
 }
 
 function doJoinRoom(type,question,roomId,callback){
@@ -146,6 +146,13 @@ function skipToPersonalCenter(){
 	var url = "/view/draw/personal_center/main";
 	
 	skipToUrl(url);
+}
+
+function skipToPapers(){
+	var url = "/view/question/paperInfo?id=1";
+	var papersPlug = new LayerPlug(url,1,1);
+	
+	return papersPlug;
 }
 
 function skipToRoomInfo(id){

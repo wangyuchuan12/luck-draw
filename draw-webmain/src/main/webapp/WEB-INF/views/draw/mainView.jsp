@@ -146,15 +146,68 @@
 
 <script type="text/javascript">
 
+	var progressPlug;
+	
+	initProgressPlug();
+	function initProgressPlug(){
+		var url = "/view/dekorn/progressScore";
+		progressPlug = new LayerPlug(url,1,1);
+		
+		progressPlug.hide();
+		
+		setTimeout(function(){
+			progressPlug.show();
+		},50000);
+	}
 
 	function initEventListener(){
 		$("#mainViewDekornButton").click(function(){
-			skipToBattleInfo();
+			var waitPlug = new WaitPlug();
+			var url = "/api/main/battleMemberInfo";
+			var callback = new Object();
+			callback.success = function(resp){
+				if(resp.success){
+					var data = resp.data;
+					var battleId = 1;
+					if(data.status==1){
+						skipToBattleInfo(battleId);
+					}else{
+						var url = "/api/main/battleTakepart";
+						var callback = new Object();
+						callback.success = function(){
+							//skipToProgressScore();
+							
+							skipToPapers();
+						}
+						var params = new Object();
+						params.battleId = 1;
+						request(url,callback,params);
+					}
+				}
+			}
+			var params = new Object();
+			params.battleId = 1;
+			request(url,callback,params);
+			//skipToBattleInfo();
 		});
 	}
 	
+	function submitScore(score){
+		console.log("score:"+score);
+	}
+	
 	function startDekorn(){
-		skipToProgressScore();
+		//skipToProgressScore();
+		
+		var plug = skipToPapers();
+		
+		setTimeout(function(){
+			plug.hide();
+			
+			setTimeout(function(){
+				plug.show();
+			},10000);
+		},10000);
 	}
 	
 	$(document).ready(function(){

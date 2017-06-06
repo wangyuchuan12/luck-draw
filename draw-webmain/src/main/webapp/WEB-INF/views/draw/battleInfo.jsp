@@ -16,7 +16,7 @@
 						<div class="battleInfoContentTitle">排名</div>
 						<div class="battleInfoContentInput">
 							<span class="battleInfoContentInputRankIcon"></span>
-							<span class="battleInfoContentInputText">22名</span>
+							<span class="battleInfoContentInputText">${rank}名</span>
 						</div>
 					</li>
 					
@@ -24,16 +24,21 @@
 						<div class="battleInfoContentTitle">积分</div>
 						<div class="battleInfoContentInput">
 							<span class="battleInfoContentInputSportsIcon"></span>
-							<span class="battleInfoContentInputText">520分</span>
+							<span class="battleInfoContentInputText">${battleMember.score}分</span>
 						</div>
 					</li>
 					
 					<li>
 						<div class="battleInfoContentTitle">剩余爱心</div>
 						<div class="battleInfoContentInput">
-							<div class="personalAttrDataHeaderBig personalAttrDataHeaderLoveBig"></div>
-							<div class="personalAttrDataHeaderBig personalAttrDataHeaderLoveBig"></div>
-							<div class="personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig"></div>
+							<c:forEach begin="1" end="${battleMember.loveLife}">
+								<div class="personalAttrDataHeaderBig personalAttrDataHeaderLoveBig"></div>
+							</c:forEach>
+							
+							<c:forEach begin="1" end="${battleMember.loveLifeLimit - battleMember.loveLife}">
+								<div class="personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig"></div>
+							</c:forEach>
+
 						</div>
 					</li>
 				</ul>
@@ -49,9 +54,7 @@
 				
 				var progressCallback = new Object();
 				progressCallback.complete = function(){
-					var left = $("#modelPhy").offset().left;
-					var top = $("#modelPhy").offset().top;
-					showMsg("确定",left-70,top-60);
+					
 				}
 				
 				

@@ -598,9 +598,9 @@
 					var beanLimit = this.flowData("beanLimit");
 					var masonryNum = this.flowData("masonryNum");
 					var moneyNum = this.flowData("moneyNum");
-					loveProgressPlug = new ProgressPlug("#progressbarLove","#progressbarLove .progress-label2",{type:2,isShowProgress:1});
+					loveProgressPlug = new ProgressPlug("#progressbarLove","#progressbarLove .progress-label2",{type:1,isShowProgress:1});
 					loveProgressPlug.setCount(loveLimit);
-					beanProgressPlug = new ProgressPlug("#progressbarBean","#progressbarBean .progress-label2",{type:2,isShowProgress:1});
+					beanProgressPlug = new ProgressPlug("#progressbarBean","#progressbarBean .progress-label2",{type:1,isShowProgress:1});
 					beanProgressPlug.setCount(beanLimit);
 					masonryProgressPlug = new ProgressPlug("#progressbarMasonry","#progressbarMasonry .progress-label2",{type:1,decimal:0,isShowProgress:0,count:100});
 					moneyProgressPlug = new ProgressPlug("#progressbarMoney","#progressbarMoney .progress-label2",{type:1,unit:"元",decimal:2,isShowProgress:0,count:100000000});

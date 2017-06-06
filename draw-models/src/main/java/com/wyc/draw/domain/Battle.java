@@ -27,30 +27,53 @@ public class Battle {
 	@IdAnnotation
 	private String id;
 	
+	@ParamAnnotation
 	@Column(name="paper_id")
 	private String paperId;
 	
+	@ParamAnnotation
 	@Column
 	private Integer type;
 	
+	@ParamAnnotation
 	@Column
 	private String name;
 	
+	@ParamAnnotation
 	@Column(name="img_url")
 	private String imgUrl;
 	
+	@ParamAnnotation
 	@Column
 	private String title;
 	
-	@Column
+	@ParamAnnotation
+	@Column(name="user_imgs")
 	private String userImgs;
 	
 	//总参与人数
+	@ParamAnnotation
 	@Column(name="takepart_count")
 	private Integer takepartCount;
 	
+	@ParamAnnotation
 	@Column(name="subject_id")
 	private String subjectId;
+	
+	//消耗爱心数量
+	@ParamAnnotation
+	@Column(name="love_life_consume")
+	private Integer loveLifeConsume;
+	
+	//赋予爱心数量
+	@ParamAnnotation
+	@Column(name="love_life_give")
+	private Integer loveLifeGive;
+	
+	//消耗豆子数量
+	@ParamAnnotation
+	@Column(name="bean_consume")
+	private Integer beanConsume;
 	
 	
 	@ParamAnnotation
@@ -139,6 +162,32 @@ public class Battle {
 
 	public void setUserImgs(String userImgs) {
 		this.userImgs = userImgs;
+	}
+	
+	public Integer getLoveLifeConsume() {
+		return loveLifeConsume;
+	}
+
+	public void setLoveLifeConsume(Integer loveLifeConsume) {
+		this.loveLifeConsume = loveLifeConsume;
+	}
+
+	public Integer getBeanConsume() {
+		return beanConsume;
+	}
+
+	public void setBeanConsume(Integer beanConsume) {
+		this.beanConsume = beanConsume;
+	}
+	
+	
+
+	public Integer getLoveLifeGive() {
+		return loveLifeGive;
+	}
+
+	public void setLoveLifeGive(Integer loveLifeGive) {
+		this.loveLifeGive = loveLifeGive;
 	}
 
 	public DateTime getCreateAt() {
