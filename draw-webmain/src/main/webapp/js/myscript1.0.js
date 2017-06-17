@@ -1,7 +1,7 @@
 function numTransform(num){
 	if(!num){
 		return 0;
-	}else if(num<1000){
+	}else if(num<10000){
 		return num;
 	}else if(num>=1000&&num<10000){
 		var count = num/1000;
@@ -34,7 +34,7 @@ function skipToTakeout(){
 }
 
 function skipToBattleInfo(battleId){
-	skipToUrl("/view/dekorn/battleInfo?battleId="+battleId);
+	return skipToUrl("/view/dekorn/battleInfo?battleId="+battleId);
 }
 
 function skipToProgressScore(){
@@ -148,9 +148,9 @@ function skipToPersonalCenter(){
 	skipToUrl(url);
 }
 
-function skipToPapers(){
+function skipToPapers(content){
 	var url = "/view/question/paperInfo?id=1";
-	var papersPlug = new LayerPlug(url,1,1);
+	var papersPlug = new LayerPlug(url,1,1,content);
 	
 	return papersPlug;
 }

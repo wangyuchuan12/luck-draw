@@ -45,26 +45,21 @@
 			</div>
 			
 			
-			<div class="mainViewButtons" style="margin-top: 50px;">
+			<div class="mainViewButtons" style="margin-top:0px;">
 				<div class="mainViewDekornButton" style="display: inline-block;" id="dekornButton">挑战</div>
 			</div>
 		</div>
 		<script type="text/javascript">
 			$(document).ready(function(){
-				
 				var progressCallback = new Object();
 				progressCallback.complete = function(){
 					
 				}
-				
-				
 				progress(100,10,progressCallback);
 				
 				$("#dekornButton").click(function(){
 					window.parent.startDekorn();
 				});
-				
-				
 			});
 			
 			

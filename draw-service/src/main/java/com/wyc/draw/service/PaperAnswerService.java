@@ -15,8 +15,8 @@ public class PaperAnswerService {
 	@Autowired
 	private PaperAnswerRepository paperAnswerRepository;
 
-	public PaperAnswer findOneByKeyIdAndPaperId(String keyId, String paperId) {
-		return paperAnswerRepository.findOneByKeyIdAndPaperId(keyId,paperId);
+	public PaperAnswer findOneByKeyIdAndPaperIdAndType(String keyId, String paperId,Integer type) {
+		return paperAnswerRepository.findOneByKeyIdAndPaperIdAndType(keyId,paperId,type);
 	}
 
 	public PaperAnswer add(PaperAnswer paperAnswer) {

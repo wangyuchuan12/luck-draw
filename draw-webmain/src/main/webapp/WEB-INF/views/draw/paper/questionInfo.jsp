@@ -19,7 +19,13 @@
 
 <link rel="stylesheet" href="/layer/mobile/need/layer.css"></link>
 
+<link rel="stylesheet" href="/ystep/css/ystep.css"></link>
+
+
+
 <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+
+<script type="text/javascript" src="/ystep/js/ystep.js"></script>
 
 <!--  <script src="/jquery-validation-1.14.0/lib/jquery.js"></script> -->
 
@@ -63,7 +69,11 @@
 
 <input name="timeLong"  type="hidden" value="20"/>
 
+<input name="index"  type="hidden" value="${index}"/>
+
 <input name="id"  type="hidden" value="${question.id}"/>
+
+<input name="count" type="hidden" value="${count}"/>
 
 		<div class="subjectContainer" id="subjectContainer">
 			<div class="subjectHeader" id="subjectHeader">
@@ -81,7 +91,10 @@
 				
 			</div>
 			
-			<div class="subjectTool" id="subjectTool">4选1</div>
+			<div class="subjectTool" id="subjectTool">
+				<div class="ystep1"></div>
+				
+			</div>
 			
 			<div class="subjectOption" id="subjectOption">
 				<ul>
@@ -146,6 +159,31 @@
 			
 			$(document).ready(function(){
 				
+				var steps = new Array();
+				var count = $("input[name=count]").val();
+				for(var i = 0;i<count;i++){
+					var object = new Object();
+					object.title = "第"+(i+1)+"题";
+					object.content = "";
+					steps.push(object);
+				}
+				$(".ystep1").loadStep({
+					size:"large",
+					color:"green",
+					steps:steps
+				});
+				
+				
+				var index = $("input[name=index]").val();
+				
+				index = parseInt(index);
+				
+				index=index+1;
+				
+				$(".ystep1").setStep(index);
+				
+				
+				$(".subjectTool").scrollLeft($(".ystep1 li").eq(index-1).position().left-$(".subjectTool").width()/1.7);
 				
 				var progressbar = $("#progressbar");
 				var progressLabel = $("#progressLabel");

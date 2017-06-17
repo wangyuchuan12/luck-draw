@@ -17,7 +17,7 @@
 <body>
     
     	<div style="width:100%;height:100%;">
-    	<div class="personalAttr" id="personalAttr">
+    	<div class="personalAttr" id="personalAttr" style="display: none;">
 				<!--  
 				<div class="personalAttrUserInfo">
 					<div class="personalAttrUserInfoImg">
@@ -84,7 +84,7 @@
 			
 			
 			
-			<div class="models" id="models">
+			<div class="models" id="models" style="display: none;">
 				<ul>
 					<li>
 						<canvas style="background: url('http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png');background-size:100% 100%;" id="modelPhy"></canvas>
@@ -502,15 +502,7 @@
 					$("#models").css("display","block");
 				},
 				
-				begin:function(){
-					var show = this.stepData("show");
-					if(!show){
-						this.setNext("hide");
-						this.next();
-					}else{
-						this.setNext("show");
-						this.next();
-					}
+				showView:function(){
 					
 					var outThis = this;
 					this.setNext("initData",function(){
@@ -525,26 +517,38 @@
 						
 						outThis.setNext("randomRecovery");
 						outThis.next();
+						
+						outThis.setNext("show");
+						outThis.next();
 					});
 					this.next();
-					
-					
-					
 					this.setNext("initEventListener");
+					this.next();
+				},
+				
+				
+				begin:function(){
+					this.setNext("hide");
 					this.next();
 				}
 			});
+			
 			attrPlug = new FlowPlug({
 
-				//初始化
-				begin:function(){
+				showView:function(){
 					var outThis = this;
-					outThis.setNext("hide");
-					outThis.next();
 					this.setNext("initData",function(){
 						outThis.setNext("initProgress");
 						outThis.next();
+						
+						outThis.setNext("show");
+						outThis.next();
 					});
+					this.next();
+				},
+				//初始化
+				begin:function(){
+					this.setNext("hide");
 					this.next();
 				},
 				//初始化属性栏
@@ -642,7 +646,8 @@
 				
 				//显示
 				show:function(){
-					$("#personalAttr").css("display","");
+					console.log("...........ssss");
+					$("#personalAttr").css("display","block");
 				},
 				
 				//增加爱心动画
@@ -664,6 +669,8 @@
 							clearInterval(interval);
 						}
 					},50);
+					
+					showIncreaseNum(num,"/imgs/plug/lifeLoveSolid.png",1,-80,0);
 				},
 				
 				//增加智慧豆动画
@@ -685,6 +692,8 @@
 							clearInterval(interval);
 						}
 					},50);
+					
+					showIncreaseNum(num,"/imgs/plug/bean.png",1,50,0);
 				},
 				
 				//增加隐蔽动画
@@ -711,11 +720,25 @@
 				addLoveAction:function(){
 					var num = this.stepData("num");
 					loveProgressPlug.addValueAction(num);
+
+				},
+				
+				subLoveAction:function(){
+					var num = this.stepData("num");
+					loveProgressPlug.subValueAction(num);
+					showIncreaseNum(num,"/imgs/plug/lifeLoveSolid.png");
 				},
 				
 				addBeanAction:function(){
 					var num = this.stepData("num");
 					beanProgressPlug.addValueAction(num);
+					
+				},
+				
+				subBeanAction:function(){
+					var num = this.stepData("num");
+					beanProgressPlug.subValueAction(num);
+					showIncreaseNum(num,"/imgs/plug/bean.png");
 				},
 				
 				addMasonryAction:function(){
@@ -723,9 +746,19 @@
 					masonryProgressPlug.addValueAction(num);
 				},
 				
+				subMasonryAction:function(){
+					var num = this.stepData("num");
+					masonryProgressPlug.subValueAction(num);
+				},
+				
 				addMoneyAction:function(){
 					var num = this.stepData("num");
 					moneyProgressPlug.addValueAction(num);
+				},
+				
+				subMoneyAction:function(){
+					var num = this.stepData("num");
+					moneyProgressPlug.subValueAction(num);
 				},
 				
 				//增加动画
@@ -757,9 +790,6 @@
 			});
 		});
 	
-		
-		
-			
 		var flag = false;
 		function progress(value,time,callback,luck){
 			

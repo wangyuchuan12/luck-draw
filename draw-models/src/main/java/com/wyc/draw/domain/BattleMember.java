@@ -59,8 +59,23 @@ public class BattleMember {
 	
 	//阶段序号，表示第几阶段
 	@ParamAnnotation
-	@Column(name="stage_index")
-	private Integer stageIndex;
+	@Column(name="current_stage_index")
+	private Integer currentStageIndex;
+	
+	//当前题目序号
+	@ParamAnnotation
+	@Column(name="current_index")
+	private Integer currentIndex;
+	
+	//总阶段数量
+	@ParamAnnotation
+	@Column(name="stage_index_count")
+	private Integer stageIndexCount;
+	
+	//总题目数量
+	@ParamAnnotation
+	@Column(name="index_count")
+	private Integer indexCount;
 	
 	//剩余爱心数量
 	@ParamAnnotation
@@ -189,15 +204,37 @@ public class BattleMember {
 		this.score = score;
 	}
 
-	public Integer getStageIndex() {
-		return stageIndex;
+	public Integer getCurrentStageIndex() {
+		return currentStageIndex;
 	}
 
-	public void setStageIndex(Integer stageIndex) {
-		this.stageIndex = stageIndex;
+	public void setCurrentStageIndex(Integer currentStageIndex) {
+		this.currentStageIndex = currentStageIndex;
 	}
-	
-	
+
+	public Integer getCurrentIndex() {
+		return currentIndex;
+	}
+
+	public void setCurrentIndex(Integer currentIndex) {
+		this.currentIndex = currentIndex;
+	}
+
+	public Integer getStageIndexCount() {
+		return stageIndexCount;
+	}
+
+	public void setStageIndexCount(Integer stageIndexCount) {
+		this.stageIndexCount = stageIndexCount;
+	}
+
+	public Integer getIndexCount() {
+		return indexCount;
+	}
+
+	public void setIndexCount(Integer indexCount) {
+		this.indexCount = indexCount;
+	}
 
 	public Integer getLoveLifeLimit() {
 		return loveLifeLimit;

@@ -41,6 +41,8 @@ public class AnswerQuestionApiFilter extends Filter{
 		
 		String keyId = httpServletRequest.getParameter("keyId");
 		
+		String type = httpServletRequest.getParameter("type");
+		
 		sessionManager.setAttribute("paperId", paperId);
 		
 		sessionManager.setAttribute("questionId", questionId);
@@ -52,6 +54,8 @@ public class AnswerQuestionApiFilter extends Filter{
 		sessionManager.setAttribute("optionId", optionId);
 		
 		sessionManager.setAttribute("keyId", keyId);
+		
+		sessionManager.setAttribute("type", Integer.parseInt(type));
 		return null;
 	}
 

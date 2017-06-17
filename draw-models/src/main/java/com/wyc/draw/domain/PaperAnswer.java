@@ -48,6 +48,11 @@ public class PaperAnswer {
 	@Column
 	private Integer status;
 	
+	//答题类型 0表示竞答红包答题  1表示闯关答题
+	@Column
+	@ParamAnnotation
+	private Integer type;
+	
 	@Column(name = "create_at")
 	@ParamAnnotation
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -139,6 +144,12 @@ public class PaperAnswer {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
-	
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
 }

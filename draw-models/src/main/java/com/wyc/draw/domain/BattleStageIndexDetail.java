@@ -34,6 +34,10 @@ public class BattleStageIndexDetail {
 	private Integer rewardBeanNum;
 	
 	@ParamAnnotation
+	@Column(name="icon_url")
+	private String iconUrl;
+	
+	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -51,6 +55,14 @@ public class BattleStageIndexDetail {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getIconUrl() {
+		return iconUrl;
+	}
+
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
 	}
 
 	public Integer getStageIndex() {

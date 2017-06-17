@@ -35,7 +35,8 @@ public class CurrentBattleMemberFilter extends Filter{
 			battleMember.setDrawUserId(drawUser.getId());
 			battleMember.setNickname(drawUser.getNickname());
 			battleMember.setScore(0);
-			battleMember.setStageIndex(0);
+			battleMember.setCurrentIndex(0);
+			battleMember.setCurrentStageIndex(0);
 			battleMember = battleMemberService.add(battleMember);
 			
 			battleToMember = new BattleToMember();
@@ -48,9 +49,7 @@ public class CurrentBattleMemberFilter extends Filter{
 		}else {
 			battleMember = battleMemberService.findOne(battleToMember.getCurrentMemberId());
 		}
-		
-		System.out.println(".............battleMember:"+battleMember.getBattleId());
-		
+	
 		sessionManager.save(battleMember);
 		return battleToMember;
 	}

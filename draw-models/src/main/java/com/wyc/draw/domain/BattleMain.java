@@ -14,38 +14,28 @@ import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
 
 
-/**
- * 比赛的阶段，一般分为13个阶段
- * @author root
- *
- */
 @ParamEntityAnnotation
 @Entity
-@Table(name="b_battle_stage")
-public class BattleStage {
+@Table(name="b_battle_model")
+public class BattleMain {
 	@Id
 	@IdAnnotation
 	private String id;
 	
-	//阶段序号
-	@ParamAnnotation
-	@Column(name="stage_index")
-	private Integer stageIndex;
-	
-	//该阶段总分
 	@ParamAnnotation
 	@Column
-	private Integer score;
+	private String name;
 	
-	//比赛id
 	@ParamAnnotation
+	@Column
+	private String instruction;
+	
+	@ParamAnnotation
+	@Column(name="img_url")
+	private String imgUrl;
+	
 	@Column(name="battle_id")
 	private String battleId;
-	
-	//该阶段试卷
-	@ParamAnnotation
-	@Column(name="paper_id")
-	private String paperId;
 	
 	@ParamAnnotation
 	@Column(name = "create_at")
@@ -67,20 +57,28 @@ public class BattleStage {
 		this.id = id;
 	}
 
-	public Integer getStageIndex() {
-		return stageIndex;
+	public String getName() {
+		return name;
 	}
 
-	public void setStageIndex(Integer stageIndex) {
-		this.stageIndex = stageIndex;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Integer getScore() {
-		return score;
+	public String getInstruction() {
+		return instruction;
 	}
 
-	public void setScore(Integer score) {
-		this.score = score;
+	public void setInstruction(String instruction) {
+		this.instruction = instruction;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 
 	public String getBattleId() {
@@ -89,14 +87,6 @@ public class BattleStage {
 
 	public void setBattleId(String battleId) {
 		this.battleId = battleId;
-	}
-	
-	public String getPaperId() {
-		return paperId;
-	}
-
-	public void setPaperId(String paperId) {
-		this.paperId = paperId;
 	}
 
 	public DateTime getCreateAt() {

@@ -30,6 +30,7 @@ public class AnswerQuestionFilter extends Filter{
 		Float timelong = (Float)sessionManager.getAttribute("timelong");
 		String optinId = sessionManager.getAttribute("optionId").toString();
 		String keyId = sessionManager.getAttribute("keyId").toString();
+		Integer type = (Integer)sessionManager.getAttribute("type");
 		
 		Question question = questionService.findOne(questionId);
 		
@@ -59,6 +60,7 @@ public class AnswerQuestionFilter extends Filter{
 		questionAnswer.setTimeLong(timelong);
 		questionAnswer.setIsTimeout(isTimeout);
 		questionAnswer.setKeyId(keyId);
+		questionAnswer.setType(type);
 		if(isRight==1){
 			questionAnswer.setScore(question.getScore());
 		}else{

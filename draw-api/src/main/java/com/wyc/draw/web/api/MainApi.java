@@ -18,6 +18,7 @@ import com.wyc.draw.filter.controller.api.CurrentPropApiFilter;
 import com.wyc.draw.filter.controller.api.CurrentPropBeanApiFilter;
 import com.wyc.draw.filter.controller.api.CurrentPropLoveApiFilter;
 import com.wyc.draw.filter.controller.api.PaperSubjectApiFilter;
+import com.wyc.draw.filter.controller.api.ProgressApiFilter;
 import com.wyc.draw.filter.controller.api.PropReceiveBeanApiFilter;
 import com.wyc.draw.filter.controller.api.PropReceiveLoveApiFilter;
 import com.wyc.draw.filter.controller.api.PropReceiveRandomApiFilter;
@@ -133,6 +134,15 @@ public class MainApi {
 	@HandlerAnnotation(hanlerFilter=BattleMemberInfoApiFilter.class)
 	@RequestMapping(value="battleMemberInfo")
 	public Object testBattleMemberInfoApiFilter(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
+		return resultVo;
+	}
+	
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=ProgressApiFilter.class)
+	@RequestMapping(value="progressInfo")
+	public Object progressInfo(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
 		return resultVo;

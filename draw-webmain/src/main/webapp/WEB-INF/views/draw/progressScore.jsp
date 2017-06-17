@@ -9,302 +9,341 @@
 <tiles:insertDefinition name="resourceLayout">
 	<tiles:putAttribute name="title">进度</tiles:putAttribute>
 	<tiles:putAttribute name="body">
-		<div id = "test" style="overflow: auto;position: relative;">
+		<div class="progressScoreContainerHeader">
+			<div class="progressScoreContainerHeaderScore">
+				<div class="progressScoreContainerHeaderAllScore">
+						<div class="progressScoreContainerHeaderAllScoreTag">总分</div>
+						<div class="progressScoreContainerHeaderAllScoreContent"><span id="allScore"></span>分</div>
+				</div>
+				
+				<div class="progressScoreContainerHeaderAllScore" style="margin-left: 10px;">
+						<div class="progressScoreContainerHeaderAllScoreTag">第<span id="round"></span>轮</div>
+						<div class="progressScoreContainerHeaderAllScoreContent" id="thisScoreDiv"><span id="thisScore"></span>分</div>
+				</div>
+			</div>
+			
+			<!--  
+			<div class="progressScoreContainerHeaderAllScore" style="margin-top: 10px;">
+				<div class="personalAttrDataHeader personalAttrDataHeaderBean" style="float: left;position: relative;top:4px;"></div>
+				<div class="progressScoreContainerHeaderAllScoreContent" style="position: relative;left:-20px;top:1px;">330000</div>	
+			</div>
+			-->
+			<div class="progressScoreContainerHeaderLoveLife">
+				<ul>
+					<li><div class="personalAttrDataHeaderBig personalAttrDataHeaderLoveBig" id="love1"></div></li>
+					<li><div class="personalAttrDataHeaderBig personalAttrDataHeaderLoveBig" id="love2"></div></li>
+					<li><div class="personalAttrDataHeaderBig personalAttrDataHeaderLoveBig" id="love3"></div></li>
+					<li><div class="personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig" id="love4"></div></li>
+				</ul>
+			</div>
+			
+			<div class="progressScoreContainerHeader2">
+				<div class="progressScoreContainerHeaderRank">当前名次第<span id="rank"></span>名</div>	
+			</div>
+		</div>
+		<div id = "progressScoreContainer" style="overflow: auto;position: relative;">
 		<div class="progressScore">
 			<div class="progressScoreBar">
+				<!-- 
 				<ul>
-					<li class="flagImg" style="left:20%;top:1870px;">开始</li>
+					<li class="flagImg" style="left:22%;top:1885px;">
+						<img src='http://on3s1z2us.bkt.clouddn.com/target.png'/>
+					</li>
 					
-					<li class="flagImg" style="left:80%;top:1800px;">10分</li> 
+					<li class="flagImg" style="left:75%;top:1800px;">
+						<img src='http://on3s1z2us.bkt.clouddn.com/dice.png'/>
+					</li> 
 					
-					<li class="flagImg" style="left:20%;top:1650px;">20分</li>
+					<li class="flagImg" style="left:20%;top:1650px;"></li>
 					
-					<li class="flagImg" style="left:50%;top:1580px;">30分</li>
+					<li class="flagImg" style="left:70%;top:1600px;"></li>
 					
-					<li class="flagImg" style="left:60%;top:1450px;">40分</li>
+					<li class="flagImg" style="left:60%;top:1450px;"></li>
 					
-					<li class="flagImg" style="left:69%;top:1140px;">50分</li>
+					<li class="flagImg" style="left:69%;top:1140px;"></li>
 
-					<li class="flagImg" style="left:75%;top:890px;">60分</li>
+					<li class="flagImg" style="left:75%;top:890px;"></li>
 					
-					<li class="flagImg" style="left:75%;top:890px;">70分</li>
+					<li class="flagImg" style="left:75%;top:890px;"></li>
 					
 					
 					
-					<li class="flagImg" style="left:3%;top:810px;">80分</li>
+					<li class="flagImg" style="left:3%;top:810px;"></li>
 					
-					<li class="flagImg" style="left:70%;top:705px;">90分</li>
+					<li class="flagImg" style="left:70%;top:705px;"></li>
 					
-					<li class="flagImg" style="left:80%;top:550px;">100分</li>
+					<li class="flagImg" style="left:80%;top:550px;"></li>
 					
-					<li class="flagImg" style="left:30%;top:460px;">110分</li>
+					<li class="flagImg" style="left:30%;top:460px;"></li>
 				
-					<li class="flagImg" style="left:80%;top:380px;">120分</li>
+					<li class="flagImg" style="left:80%;top:380px;"></li>
 					
-					<li class="flagImg" style="left:40%;top:270px;">130分</li>
+					<li class="flagImg" style="left:40%;top:270px;"></li>
 				</ul>
+				 -->
 			</div>
 			
 			<div class="trajectory">
 				<ul>
-					<li style="left:14%;top:1900px;" id="toDom" >1</li>
+					<li style="left:12.5%;top:1900px;background: url('')" id="toDom0" ></li>
 					
-					<li style="left:21%;top:1870px;" id="toDom2">2</li>
+					<li style="left:21%;top:1870px;" id="toDom1"></li>
 					
-					<li style="left:30%;top:1865px;" id="toDom3">3</li>
+					<li style="left:30%;top:1865px;" id="toDom2"></li>
 					
-					<li style="left:38%;top:1865px;" id="toDom4">4</li>
+					<li style="left:38%;top:1865px;" id="toDom3"></li>
 					
-					<li style="left:46%;top:1867px;" id="toDom5">5</li>
+					<li style="left:46%;top:1867px;" id="toDom4"></li>
 					
-					<li style="left:53%;top:1874px;" id="toDom6">6</li>
+					<li style="left:53%;top:1874px;" id="toDom5"></li>
 					
-					<li style="left:60%;top:1879px;" id="toDom7">7</li>
+					<li style="left:60%;top:1879px;" id="toDom6"></li>
 					
-					<li style="left:68%;top:1880px;" id="toDom8">8</li>
+					<li style="left:68%;top:1880px;" id="toDom7"></li>
 					
-					<li style="left:75%;top:1875px;" id="toDom9">9</li>
+					<li style="left:75%;top:1875px;" id="toDom8"></li>
 					
-					<li style="left:83%;top:1860px;" id="toDom10">10</li>
+					<li style="left:83%;top:1860px;" id="toDom9"></li>
 					
-					<li style="left:88%;top:1834px;" id="toDom11">11</li>
+					<li style="left:88%;top:1834px;" id="toDom10"></li>
 					
 					
-					<li style="left:89%;top:1805px;" id="toDom12">12</li>
+					<li style="left:89%;top:1805px;" id="toDom11"></li>
 					
-					<li style="left:84%;top:1787px;" id="toDom13">13</li>
+					<li style="left:84%;top:1787px;" id="toDom12"></li>
 					
-					<li style="left:77%;top:1780px;" id="toDom14">14</li>
+					<li style="left:77%;top:1780px;" id="toDom13"></li>
 					
-					<li style="left:69%;top:1780px;" id="toDom15">15</li>
+					<li style="left:69%;top:1780px;" id="toDom14"></li>
 					
-					<li style="left:60%;top:1775px;" id="toDom16">16</li>
+					<li style="left:60%;top:1775px;" id="toDom15"></li>
 					
-					<li style="left:50%;top:1775px;" id="toDom17">17</li>
+					<li style="left:50%;top:1775px;" id="toDom16"></li>
 					
-					<li style="left:40%;top:1770px;" id="toDom18">18</li>
+					<li style="left:40%;top:1770px;" id="toDom17"></li>
 					
-					<li style="left:33%;top:1760px;" id="toDom19">19</li>
+					<li style="left:33%;top:1760px;" id="toDom18"></li>
 					
-					<li style="left:25%;top:1730px;" id="toDom20">20</li>
+					<li style="left:25%;top:1730px;" id="toDom19"></li>
 					
-					<li style="left:26%;top:1695px;" id="toDom21">21</li>
+					<li style="left:26%;top:1695px;" id="toDom20"></li>
 					
-					<li style="left:35%;top:1663px;" id="toDom22">22</li>
+					<li style="left:35%;top:1663px;" id="toDom21"></li>
 					
-					<li style="left:43.5%;top:1655px;" id="toDom23">23</li>
+					<li style="left:43.5%;top:1655px;" id="toDom22"></li>
 					
-					<li style="left:54%;top:1670px;" id="toDom24">24</li>
+					<li style="left:54%;top:1670px;" id="toDom23"></li>
 					
-					<li style="left:67%;top:1670px;" id="toDom25">25</li>
+					<li style="left:67%;top:1670px;" id="toDom24"></li>
 					
-					<li style="left:79.5%;top:1670px;" id="toDom26">26</li>
+					<li style="left:79.5%;top:1670px;" id="toDom25"></li>
 					
-					<li style="left:83%;top:1630px;" id="toDom27">27</li>
+					<li style="left:82%;top:1620px;" id="toDom26"></li>
 					
-					<li style="left:80%;top:1590px;" id="toDom28">28</li>
+					<li style="left:80%;top:1590px;" id="toDom27"></li>
 					
-					<li style="left:70%;top:1578px;" id="toDom29">29</li>
+					<li style="left:70%;top:1578px;" id="toDom28"></li>
 					
-					<li style="left:60%;top:1573px;" id="toDom30">30</li>
+					<li style="left:60%;top:1573px;" id="toDom29"></li>
 					
-					<li style="left:53%;top:1567px;" id="toDom31">31</li>
+					<li style="left:53%;top:1567px;" id="toDom30"></li>
 					
-					<li style="left:45%;top:1570px;" id="toDom32">32</li>
+					<li style="left:45%;top:1570px;" id="toDom31"></li>
 					
-					<li style="left:35%;top:1560px;" id="toDom33">33</li>
+					<li style="left:35%;top:1560px;" id="toDom32"></li>
 					
-					<li style="left:28%;top:1555px;" id="toDom34">34</li>
+					<li style="left:28%;top:1555px;" id="toDom33"></li>
 					
-					<li style="left:22%;top:1530px;" id="toDom35">35</li>
+					<li style="left:22%;top:1530px;" id="toDom34"></li>
 					
-					<li style="left:27%;top:1500px;" id="toDom36">36</li>
+					<li style="left:27%;top:1500px;" id="toDom35"></li>
 					
-					<li style="left:36%;top:1500px;" id="toDom37">37</li>
+					<li style="left:36%;top:1500px;" id="toDom36"></li>
 					
-					<li style="left:45%;top:1500px;" id="toDom38">38</li>
+					<li style="left:45%;top:1500px;" id="toDom37"></li>
 					
-					<li style="left:53%;top:1510px;" id="toDom39">39</li>
+					<li style="left:53%;top:1510px;" id="toDom38"></li>
 					
-					<li style="left:61%;top:1510px;" id="toDom40">40</li>
+					<li style="left:61%;top:1510px;" id="toDom39"></li>
 					
-					<li style="left:70%;top:1490px;" id="toDom41">41</li>
+					<li style="left:70%;top:1490px;" id="toDom40"></li>
 					
-					<li style="left:70%;top:1460px;" id="toDom42">42</li>
+					<li style="left:70%;top:1460px;" id="toDom41"></li>
 					
-					<li style="left:70%;top:1430px;" id="toDom43">43</li>
+					<li style="left:70%;top:1430px;" id="toDom42"></li>
 					
-					<li style="left:70%;top:1400px;" id="toDom44">44</li>
+					<li style="left:70%;top:1400px;" id="toDom43"></li>
 					
-					<li style="left:70%;top:1370px;" id="toDom45">45</li>
+					<li style="left:70%;top:1370px;" id="toDom44"></li>
 					
-					<li style="left:70%;top:1340px;" id="toDom46">46</li>
+					<li style="left:70%;top:1340px;" id="toDom45"></li>
 					
-					<li style="left:70%;top:1310px;" id="toDom47">47</li>
+					<li style="left:70%;top:1310px;" id="toDom46"></li>
 					
-					<li style="left:70%;top:1280px;" id="toDom48">48</li>
+					<li style="left:70%;top:1280px;" id="toDom47"></li>
 					
-					<li style="left:70%;top:1250px;" id="toDom49">49</li>
+					<li style="left:70%;top:1250px;" id="toDom48">48</li>
 					
-					<li style="left:70%;top:1220px;" id="toDom50">50</li>
+					<li style="left:70%;top:1220px;" id="toDom49">49</li>
 					
-					<li style="left:73%;top:1160px;" id="toDom51">51</li>
+					<li style="left:73%;top:1160px;" id="toDom50">50</li>
 					
-					<li style="left:77%;top:1080px;" id="toDom52">52</li>
+					<li style="left:77%;top:1080px;" id="toDom51"></li>
 					
-					<li style="left:69%;top:1070px;" id="toDom53">53</li>
+					<li style="left:69%;top:1070px;" id="toDom52"></li>
 					
-					<li style="left:62%;top:1060px;" id="toDom54">54</li>
+					<li style="left:62%;top:1060px;" id="toDom53"></li>
 					
-					<li style="left:55%;top:1050px;" id="toDom55">55</li>
+					<li style="left:55%;top:1050px;" id="toDom54"></li>
 					
-					<li style="left:50%;top:1030px;" id="toDom56">56</li>
+					<li style="left:50%;top:1030px;" id="toDom55"></li>
 					
-					<li style="left:60%;top:1010px;" id="toDom57">57</li>
+					<li style="left:60%;top:1010px;" id="toDom56"></li>
 					
-					<li style="left:68%;top:993px;" id="toDom58">58</li>
+					<li style="left:68%;top:993px;" id="toDom57"></li>
 					
-					<li style="left:77%;top:980px;" id="toDom59">59</li>
+					<li style="left:77%;top:980px;" id="toDom58"></li>
 					
-					<li style="left:85%;top:950px;" id="toDom60">60</li>
+					<li style="left:85%;top:950px;" id="toDom59"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:87%;top:900px;position: absolute;" id="toDom61"></li>
+					<li style="left:87%;top:900px;" id="toDom60"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:80%;top:870px;position: absolute;" id="toDom62"></li>
+					<li style="left:80%;top:870px;" id="toDom61"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:70%;top:880px;position: absolute;" id="toDom63"></li>
+					<li style="left:70%;top:880px;" id="toDom62"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:63%;top:885px;position: absolute;" id="toDom64"></li>
+					<li style="left:63%;top:885px;" id="toDom63"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:54%;top:895px;position: absolute;" id="toDom65"></li>
+					<li style="left:54%;top:895px;" id="toDom64"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:45%;top:911px;position: absolute;" id="toDom66"></li>
+					<li style="left:45%;top:911px;" id="toDom65"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:35%;top:912px;position: absolute;" id="toDom67"></li>
+					<li style="left:35%;top:912px;" id="toDom66"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:25%;top:905px;position: absolute;" id="toDom68"></li>
+					<li style="left:25%;top:905px;" id="toDom67"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:17%;top:890px;position: absolute;" id="toDom69"></li>
+					<li style="left:17%;top:890px;" id="toDom68"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:12%;top:865px;position: absolute;" id="toDom70"></li>
+					<li style="left:12%;top:865px;" id="toDom69"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:12%;top:830px;position: absolute;" id="toDom71"></li>
+					<li style="left:12%;top:830px;" id="toDom70"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:14%;top:800px;position: absolute;" id="toDom72"></li>
+					<li style="left:14%;top:800px;" id="toDom71"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:18%;top:770px;position: absolute;" id="toDom73"></li>
+					<li style="left:18%;top:770px;" id="toDom72"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:25%;top:760px;position: absolute;" id="toDom74"></li>
+					<li style="left:25%;top:760px;" id="toDom73"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:33%;top:747px;position: absolute;" id="toDom75"></li>
+					<li style="left:33%;top:747px;" id="toDom74"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:41%;top:743px;position: absolute;" id="toDom76"></li>
+					<li style="left:41%;top:743px;" id="toDom75"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:50%;top:743px;position: absolute;" id="toDom77"></li>
+					<li style="left:50%;top:743px;" id="toDom76"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:58%;top:744px;position: absolute;" id="toDom78"></li>
+					<li style="left:58%;top:744px;" id="toDom77"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:66%;top:747px;position: absolute;" id="toDom79"></li>
+					<li style="left:66%;top:747px;" id="toDom78"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:75%;top:747px;position: absolute;" id="toDom80"></li>
+					<li style="left:75%;top:747px;" id="toDom79"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:75%;top:720px;position: absolute;" id="toDom81"></li>
+					<li style="left:75%;top:720px;" id="toDom80"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:65%;top:710px;position: absolute;" id="toDom82"></li>
+					<li style="left:65%;top:710px;" id="toDom81"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:55%;top:703px;position: absolute;" id="toDom83"></li>
+					<li style="left:55%;top:703px;" id="toDom82"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:45%;top:694px;position: absolute;" id="toDom84"></li>
+					<li style="left:45%;top:694px;" id="toDom83"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:38%;top:670px;position: absolute;" id="toDom85"></li>
+					<li style="left:38%;top:670px;" id="toDom84"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:45%;top:647px;position: absolute;" id="toDom86"></li>
+					<li style="left:45%;top:647px;" id="toDom85"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:55%;top:642px;position: absolute;" id="toDom87"></li>
+					<li style="left:55%;top:642px;" id="toDom86"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:65%;top:638px;position: absolute;" id="toDom88"></li>
+					<li style="left:65%;top:638px;" id="toDom87"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:75%;top:632px;position: absolute;" id="toDom89"></li>
+					<li style="left:75%;top:632px;" id="toDom88"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:85%;top:615px;position: absolute;" id="toDom90"></li>
+					<li style="left:85%;top:615px;" id="toDom89"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:92%;top:580px;position: absolute;" id="toDom91"></li>
+					<li style="left:92%;top:580px;" id="toDom90"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:85%;top:540px;position: absolute;" id="toDom92"></li>
+					<li style="left:85%;top:540px;" id="toDom91"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:77%;top:520px;position: absolute;" id="toDom93"></li>
+					<li style="left:77%;top:520px;" id="toDom92"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:67%;top:513px;position: absolute;" id="toDom94"></li>
+					<li style="left:67%;top:513px;" id="toDom93"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:57%;top:513px;position: absolute;" id="toDom95"></li>
+					<li style="left:57%;top:513px;" id="toDom94"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:47%;top:519px;position: absolute;" id="toDom96"></li>
+					<li style="left:47%;top:519px;" id="toDom95"></li>
 					
 					
-					<li style="background: red;width:20px; height: 20px;left:37%;top:530px;position: absolute;" id="toDom97"></li>
+					<li style="left:37%;top:530px;" id="toDom96"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:27%;top:539px;position: absolute;" id="toDom98"></li>
+					<li style="left:27%;top:539px;" id="toDom97"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:18%;top:519px;position: absolute;" id="toDom99"></li>
+					<li style="left:18%;top:519px;" id="toDom98"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:14%;top:495px;position: absolute;" id="toDom100"></li>
+					<li style="left:14%;top:495px;" id="toDom99"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:20%;top:465px;position: absolute;" id="toDom101"></li>
+					<li style="left:20%;top:465px;" id="toDom100"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:30%;top:452px;position: absolute;" id="toDom102"></li>
+					<li style="left:30%;top:452px;" id="toDom101"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:40%;top:450px;position: absolute;" id="toDom103"></li>
+					<li style="left:40%;top:450px;" id="toDom102"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:50%;top:450px;position: absolute;" id="toDom104"></li>
+					<li style="left:50%;top:450px;" id="toDom103"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:60%;top:450px;position: absolute;" id="toDom105"></li>
+					<li style="left:60%;top:450px;" id="toDom104"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:68%;top:450px;position: absolute;" id="toDom106"></li>
+					<li style="left:68%;top:450px;" id="toDom105"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:77%;top:450px;position: absolute;" id="toDom107"></li>
+					<li style="left:77%;top:450px;" id="toDom106"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:87%;top:438px;position: absolute;" id="toDom108"></li>
+					<li style="left:87%;top:438px;" id="toDom107"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:91%;top:410px;position: absolute;" id="toDom109"></li>
+					<li style="left:91%;top:410px;" id="toDom108"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:88%;top:380px;position: absolute;" id="toDom110"></li>
+					<li style="left:88%;top:380px;" id="toDom109"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:80%;top:374px;position: absolute;" id="toDom111"></li>
+					<li style="left:80%;top:374px;" id="toDom110"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:73%;top:364px;position: absolute;" id="toDom112"></li>
+					<li style="left:73%;top:364px;" id="toDom111"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:67%;top:360px;position: absolute;" id="toDom113"></li>
+					<li style="left:67%;top:360px;" id="toDom112"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:60%;top:360px;position: absolute;" id="toDom114"></li>
+					<li style="left:60%;top:360px;" id="toDom113"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:53%;top:360px;position: absolute;" id="toDom115"></li>
+					<li style="left:53%;top:360px;" id="toDom114"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:47%;top:358px;position: absolute;" id="toDom116"></li>
+					<li style="left:47%;top:358px;" id="toDom115"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:40%;top:358px;position: absolute;" id="toDom117"></li>
+					<li style="left:40%;top:358px;" id="toDom116"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:33%;top:352px;position: absolute;" id="toDom118"></li>
+					<li style="left:33%;top:352px;" id="toDom117"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:25%;top:340px;position: absolute;" id="toDom119"></li>
+					<li style="left:25%;top:340px;" id="toDom118"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:25%;top:310px;position: absolute;" id="toDom120"></li>
+					<li style="left:25%;top:310px;" id="toDom119"></li>
 					
-					<li style="background: red;width:20px; height: 20px;left:32%;top:280px;position: absolute;" id="toDom121">121</li>
-					
-					
-					
+					<li style="left:32%;top:280px;" id="toDom120"></li>
 					
 				</ul>
 			</div>
-		</div>
-		
-		
-		
+			
+			<div class="fromDom" id="fromDom" style="background: url('http://on3s1z2us.bkt.clouddn.com/target.png');background-size:100% 100%;position: absolute;z-index: 100" ></div>
+					
+			<div class="fromDom" id="rightPoint" style="background: url('http://on3s1z2us.bkt.clouddn.com/judge.png');width:50px;height:50px;background-size:250% 250%;background-position:1px 0px;position:absolute;top:100px;left:150px;opacity:0.7" ></div>
+			
+			<div class="fromDom" id="wrongPoint" style="background: url('http://on3s1z2us.bkt.clouddn.com/judge.png');width:50px;height:50px;background-size:250% 250%;background-position:50px 0px;position:absolute;top:100px;left:150px;opacity:0.5" ></div>
+			
 		</div>
 
-		<div style="background: black;width:40px; height: 40px;left:15%;top:1900px;position: absolute;" id="fromDom"></div>
-		
+		</div>
 
+		
+		
 
 	</tiles:putAttribute>
 	
@@ -312,42 +351,351 @@
 </tiles:insertDefinition>
 
 <script type="text/javascript">
-	$(document).ready(function(){
+
+
+	function startPaper(){
+		var showAlert = new ShowAlert("第五轮");
 		
+		
+		setTimeout(function(){
+			/*url = "/view/question/paperInfo?id="+1+"&keyId="+112233;
+			var gamePlug = new LayerPlug(url,1,1);*/
+			showAlert.close();
+			console.log("timeout");
+		},6000);
+		
+	}
+	
+	function addScore(){
+		var thisScore = $("#thisScore");
+		var score = 50;
+		showIncreaseNumFromEl(50,$("#thisScoreDiv"),1,0,40,null,20);
+	}
+	
+	function scrollToButtom(callback){
+		var top = $("#toDom0").position().top;
+		$("#progressScoreContainer").animate({
+			scrollTop:top+$("#progressScoreContainer").scrollTop()-window.screen.availHeight/2
+			
+		},400,function(){
+			callback.call({});
+		});
+	}
+	
+	function pointWrong(index,fun){
+		staking($("#wrongPoint"),$("#toDom"+index),$(".progressScore"),-14,-10,fun);
+	}
+	
+	function pointRight(index,fun){
+		staking($("#rightPoint"),$("#toDom"+index),$(".progressScore"),-14,-16,fun);
+	}
+	
+	var mainCallback;
+	
+	var nowIndex;
+	
+	function init(cb){
+		mainCallback = cb;
+		var progressPlug = new FlowPlug({
+			begin:function(){
+				mainCallback.setProgressFlowPlug(this);
+				
+				this.setNext("initStageIndex");
+				
+				this.nextData({
+					stageIndexs:1,
+					battleId:1
+				});
+				this.next();
+				
+				this.setNext("showData",function(){
+					
+				});
+				this.next();
+				
+			},
+			
+			showIndexStyle:function(){
+				var index = this.stepData("index");
+				
+				var obj = this.flowData("index"+index);
+				
+				var iconUrl = obj.iconUrl;
+				console.log("iconUrl:"+iconUrl);
+				if(iconUrl){
+					$("#toDom"+index).css("background","url('"+iconUrl+"')");
+					$("#toDom"+index).css("background-size","100% 100%");
+				}
+				
+			},
+			
+			//显示爱心
+			showLove:function(){
+				var loveCount = this.flowData("loveCount");
+				if(loveCount == 0){
+					$("#love1").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig");
+					$("#love2").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig");
+					$("#love3").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig");
+					$("#love4").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig");
+				}else if(loveCount == 1){
+					$("#love1").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveBig");
+					$("#love2").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig");
+					$("#love3").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig");
+					$("#love4").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig");
+				}else if(loveCount == 2){
+					$("#love1").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveBig");
+					$("#love2").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveBig");
+					$("#love3").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig");
+					$("#love4").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig");
+				}else if(loveCount == 3){
+					$("#love1").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveBig");
+					$("#love2").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveBig");
+					$("#love3").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveBig");
+					$("#love4").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig");
+				}else if(loveCount == 4){
+					$("#love1").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveBig");
+					$("#love2").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveBig");
+					$("#love3").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveBig");
+					$("#love4").attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveBig");
+				}
+				
+				$("#love1").css("background-size","");
+				$("#love2").css("background-size","");
+				$("#love3").css("background-size","");
+				$("#love4").css("background-size","");
+				
+				var array = [{w:50,h:50},{w:51,h:51},{w:52,h:52},
+				             {w:53,h:53},{w:54,h:54},{w:55,h:55},
+				             {w:56,h:56},{w:57,h:57},{w:58,h:58},
+				         //  {w:59,h:59},{w:60,h:60},{w:61,h:61},
+				         //  {w:60,h:60},{w:59,h:59},{w:58,h:58},
+				             {w:57,h:57},{w:56,h:56},{w:55,h:55},
+				             {w:54,h:54},{w:53,h:53},{w:52,h:52},
+				             {w:51,h:51},{w:50,h:50}];
+				
+				this.setNext("loveAnimate");
+				this.nextData({
+					"selector":".personalAttrDataHeaderLoveBig",
+					"array":array
+				});
+				this.next();
+			},
+			
+			loveAnimate:function(){
+				var selector = this.stepData("selector");
+				var flag = this.flowData("flag"+selector);
+				if(flag==1){
+					return;
+				}else{
+					var flagObject = new Object();
+					flagObject["flag"+selector] =1;
+					this.flowData(flagObject);
+					var outThis = this;
+					
+					var array = this.stepData("array");
+					
+					loveAnimate();
+					function loveAnimate(){
+						
+						var index = 0;
+						var interval = setInterval(function(){
+							var backgroundSizeStr = array[index].w+"px "+array[index].h+"px";
+							var el = $(selector);
+							el.css("background-size",backgroundSizeStr);
+							index++;
+							if(index>=array.length){
+								clearInterval(interval);
+								loveAnimate();
+							}
+						},100);
+					}
+				}
+				
+				
+				
+			},
+			
+			//初始化数据
+			initData:function(){
+				this.flowData({
+					allScore:50,
+					round:5,
+					thisScore:20,
+					rank:5,
+					loveLimit:4,
+					loveCount:2
+				});
+				this.success();
+			},
+			
+			
+			//显示数据
+			showData:function(){
+				var outThis = this;
+				this.setNext("initData",function(){
+					var allScore = outThis.flowData("allScore");
+					var thisScore = outThis.flowData("thisScore");
+					var round = outThis.flowData("round");
+					var rank = outThis.flowData("rank");
+					$("#allScore").html(allScore);
+					$("#thisScore").html(thisScore);
+					$("#round").text(round);
+					$("#rank").text(rank);
+					
+					//显示爱心数量
+					outThis.setNext("showLove");
+					outThis.next();
+					
+					//显示成功返回
+					outThis.success();
+				});
+				this.next();
+				
+			},
+			
+			
+			//请求阶段数据
+			initStageIndex:function(){
+				var stageIndexs = this.stepData("stageIndexs");
+				var battleId = this.stepData("battleId");
+				var outThis = this;
+				var url = "/api/main/progressInfo";
+				var callback = new Object();
+				callback.success = function(resp){
+					if(resp.success){
+						var data = resp.data;
+						for(var i in data){
+							//把所有阶段放入缓存
+							var key = "stage"+i;
+							var battleIndex = new Object();
+							battleIndex[key] = data[i].battleIndexs;
+							outThis.flowData(battleIndex);
+							
+							//把所有步骤都放进缓存
+							for(var k=0;k<data[i].battleIndexs.length;k++){
+								var indexData = data[i].battleIndexs[k];
+								var indexKey = "index"+indexData.index;
+								var indexObject = new Object();
+								indexObject[indexKey] = indexData;
+								outThis.flowData(indexObject);
+								
+								outThis.setNext("showIndexStyle");
+								outThis.nextData({
+									index:indexData.index
+								});
+								outThis.next();
+							}
+						}
+						outThis.setNext("startStageIndex");
+						outThis.nextData({
+							stageIndex:stageIndexs
+						});
+						outThis.next();
+					}
+				}
+				var params = new Object();
+				//数组，用逗号分割开来
+				params.stageIndexs = stageIndexs;
+				params.battleId = battleId;
+				request(url,callback,params);
+			},
+			
+			
+			//阶段轨迹
+			startStageIndex:function(){
+				var stageIndex = this.stepData("stageIndex");
+				var battleIndexs = this.flowData("stage"+stageIndex);
+				var array = new Array();				
+				for(var i = 0;i<battleIndexs.length;i++){
+					var battleIndex = battleIndexs[i];
+					array.push(battleIndex.index);
+				}
+				array.sort();
+				
+				var begin = array[0];
+				var end = array[array.length-1];
+				
+				this.setNext("trendBetween");
+				this.nextData({
+					beginIndex:begin,
+					endIndex:end
+				});
+				this.next();
+			},
+			
+			//运行
+			trendBetween:function(){
+				var outThis = this;
+				var beginIndex = this.stepData("beginIndex");
+				var endIndex = this.stepData("endIndex");
+				var toDoms = new Array();
+				for(var i = beginIndex;i<=endIndex;i++){
+					toDoms.push($("#toDom"+i));
+				}
+				
+			//	$("#progressScoreContainer").animate({scrollTop:top},"slow");
+				
+				moveAnimateTrajectory($("#fromDom"),toDoms,0,function(index,toDom,fromDom,next){
+					var top = fromDom.position().top;
+					
+					$("#progressScoreContainer").animate({
+						scrollTop:top+$("#progressScoreContainer").scrollTop()-window.screen.availHeight/2
+					},400,function(){
+						var indexObject = outThis.flowData("index"+(index+1));
+						
+					/*	if(indexObject.rewardBeanNum&&indexObject.rewardBeanNum>0){
+							attrPlug.addBeanAnnim({
+								num:indexObject.rewardBeanNum
+							});
+						}
+					
+					*/
+
+						if(indexObject.isRight==1){
+							pointRight(index+1,function(){
+								next.next();
+								addScore();
+								
+								console.log("addScore")
+							});
+						}else if(indexObject.isRight==0){
+							pointWrong(index+1,function(){
+								next.next();
+								var loveCount = outThis.flowData("loveCount");
+								loveCount = loveCount-1;
+								
+								outThis.flowData({
+									loveCount:loveCount
+								});
+								
+								outThis.setNext("showLove");
+								outThis.next();
+								
+							});
+						}else{
+							next.next();
+						}
+						
+					});
+					
+				},-5,-5);
+			}
+		});
+	}
+	
+	
+	$(document).ready(function(){
+		attrPlug.showView();
 		var callback = new Object();
 		callback.complete = function(){
-			
 			var toDoms = new Array();
-			
-			toDoms.push($("#toDom"));
-			for(var i=0;i<110;i++){
-				toDoms.push($("#toDom"+(i+2)));
-			}
 			document.addEventListener("touchmove",function(e){
 				e.preventDefault();
-				e.stopProgagation();
-			});
-			moveAnimateTrajectory($("#fromDom"),toDoms,0,function(index,toDom,fromDom,next){
-				
-				fromDom.css("top",toDom.offset().top-fromDom.height()/2);
-				
-				fromDom.css("left",toDom.offset().left-fromDom.width()/2);
-				
-				next.next();
-				
-			});
-	
-			
-
+			},false);
 		}
 		progress(100,10,callback);
-		
-		
-		
-		$("#test").height(window.screen.availHeight-50);
-		
-		$("#test").scrollTop($("#toDom").offset().top);
 	
+		$("#progressScoreContainer").height(window.screen.availHeight);
 	});
 
 

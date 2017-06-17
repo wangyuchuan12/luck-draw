@@ -17,16 +17,15 @@
 
 <input name="keyId" type="hidden" value="${keyId}"/>
 
+<input name="type" type='hidden' value="${type}"/>
+
 
 
 			
 			<div style="width:100%;height:100%;background-color:white;"></div>
 			<script type="text/javascript">
 				var initFun;
-			
-				function haha(param1,param2,param3){
-					console.log("haha,param1:"+param1+",param2"+param2+",param3"+param3);
-				}
+				
 				function checkOption(questionId,optionId,isRight,overTimeLong,isTimeout){
 					var content;
 					if(isRight){
@@ -56,6 +55,10 @@
 							var outThis = this;
 							var progressCallback = new Object();
 							var keyId = $("input[name=keyId]").val();
+							var type = $("input[name=type]").val();
+							if(!type){
+								type = 0;
+							}
 							progressCallback.complete = function(){
 								var questionId = $("input[name=questionId]").val();
 								var questionCount = $("input[name=questionCount]").val();
@@ -63,7 +66,8 @@
 									questionId:questionId,
 									questionCount:questionCount,
 									answerCount:0,
-									keyId:keyId
+									keyId:keyId,
+									type:type
 								});
 								outThis.setNext("openLayerPlug");
 								outThis.next();
@@ -73,6 +77,7 @@
 						},
 						
 						nextSubjectRequest:function(){
+							
 							var paperId = $("input[name=paperId]").val();
 							var url = "/api/draw/question/randomQuestion?id="+paperId;
 							var outThis = this;
@@ -144,6 +149,8 @@
 							var paperId = $("input[name=paperId]").val();
 							var keyId = this.flowData("keyId");
 							
+							var type = this.flowData("type");
+							
 							params.paperId = paperId;
 							params.questionId = questionId;
 							params.isTimeout = isTimeout;
@@ -151,6 +158,7 @@
 							params.optionId = optionId;
 							params.paperId = paperId;
 							params.keyId = keyId;
+							params.type = type;
 						
 							var outThis = this;
 							request(url,{
@@ -189,9 +197,13 @@
 							if(layerPlug){
 								layerPlug.close();
 							}
+							
+							var answerCount = this.flowData("answerCount");
+							var questionCount = this.flowData("questionCount");
 							var id = this.flowData("questionId");
 							var content = this.flowData("content");
-							layerPlug = new LayerPlug("/view/question/info?id="+id,1,1,content);
+							
+							layerPlug = new LayerPlug("/view/question/info?id="+id+"&index="+answerCount+"&count="+questionCount,1,1,content);
 						
 						}
 					});

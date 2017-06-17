@@ -13,55 +13,55 @@ import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
 
-
 @ParamEntityAnnotation
 @Entity
-@Table(name="b_battle_member_stage")
-public class BattleMemberStage {
+@Table(name="b_battle_member_index")
+public class BattleMemberIndex {
 	@Id
 	@IdAnnotation
 	private String id;
 	
-	//阶段序号 从0开始到13
-	@ParamAnnotation
-	@Column(name="stage_index")
-	private Integer stageIndex;
-	
-	//当前题目序号
-	@ParamAnnotation
-	@Column(name="current_index")
-	private String currentIndex;
-	
-	//状态 0表示未开始，1表示进行中 2表示已完成
 	@ParamAnnotation
 	@Column
-	private Integer status;
+	private Integer stageIndex;
 	
-	//分数
+	@ParamAnnotation
+	@Column(name="z_index")
+	private Integer index;
+	
+	@ParamAnnotation
+	@Column(name="icon_url")
+	private String iconUrl;
+	
 	@ParamAnnotation
 	@Column
 	private Integer score;
+	
+	@ParamAnnotation
+	@Column(name="reward_bean_num")
+	private Integer rewardBeanNum;
+	
+	@ParamAnnotation
+	@Column(name="battle_id")
+	private String battleId;
 	
 	//battleMemberId
 	@ParamAnnotation
 	@Column(name="member_id")
 	private String memberId;
 	
-	//开始时间
 	@ParamAnnotation
-	@Column(name="start_time")
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	private DateTime startTime;
+	@Column(name="is_right")
+	private Integer isRight;
 	
-	@ParamAnnotation
-	@Column(name="is_win")
-	private Integer isWin;
 	
-	//结束时间
+	@Column
 	@ParamAnnotation
-	@Column(name="end_time")
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	private DateTime endTime;
+	private Integer status;
+	
+	@Column(name="to_hide")
+	@ParamAnnotation
+	private Integer toHide;;
 	
 	@ParamAnnotation
 	@Column(name = "create_at")
@@ -82,14 +82,6 @@ public class BattleMemberStage {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	public String getCurrentIndex() {
-		return currentIndex;
-	}
-
-	public void setCurrentIndex(String currentIndex) {
-		this.currentIndex = currentIndex;
-	}
 
 	public Integer getStageIndex() {
 		return stageIndex;
@@ -107,6 +99,22 @@ public class BattleMemberStage {
 		this.score = score;
 	}
 
+	public Integer getRewardBeanNum() {
+		return rewardBeanNum;
+	}
+
+	public void setRewardBeanNum(Integer rewardBeanNum) {
+		this.rewardBeanNum = rewardBeanNum;
+	}
+
+	public String getBattleId() {
+		return battleId;
+	}
+
+	public void setBattleId(String battleId) {
+		this.battleId = battleId;
+	}
+
 	public String getMemberId() {
 		return memberId;
 	}
@@ -115,30 +123,20 @@ public class BattleMemberStage {
 		this.memberId = memberId;
 	}
 
-	public DateTime getStartTime() {
-		return startTime;
+	public Integer getIndex() {
+		return index;
 	}
 
-	public void setStartTime(DateTime startTime) {
-		this.startTime = startTime;
+	public void setIndex(Integer index) {
+		this.index = index;
 	}
 
-	public DateTime getEndTime() {
-		return endTime;
+	public Integer getIsRight() {
+		return isRight;
 	}
 
-	public void setEndTime(DateTime endTime) {
-		this.endTime = endTime;
-	}
-	
-	
-
-	public Integer getIsWin() {
-		return isWin;
-	}
-
-	public void setIsWin(Integer isWin) {
-		this.isWin = isWin;
+	public void setIsRight(Integer isRight) {
+		this.isRight = isRight;
 	}
 
 	public Integer getStatus() {
@@ -147,6 +145,16 @@ public class BattleMemberStage {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	
+	
+
+	public String getIconUrl() {
+		return iconUrl;
+	}
+
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
 	}
 
 	public DateTime getCreateAt() {
@@ -164,6 +172,12 @@ public class BattleMemberStage {
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
-	
-	
+
+	public Integer getToHide() {
+		return toHide;
+	}
+
+	public void setToHide(Integer toHide) {
+		this.toHide = toHide;
+	}
 }

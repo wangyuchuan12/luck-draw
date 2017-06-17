@@ -7,6 +7,7 @@
 	position:absolute;
 	display:block;
 	border-radius:0px 0px 100px 100px;
+	
 }
 
 
@@ -3454,7 +3455,7 @@ li::before{
 
 .subjectHeader{
 	width:95%;
-	height: 50%;
+	height: 40%;
 	margin: 0 auto;
 	padding-top: 10px;
 	text-align: center;
@@ -3471,12 +3472,15 @@ li::before{
 	
 	width:100%;
 	
-	background-color: RGBA(30,31,36,1);
+	overflow-x:scroll;
+	
+	overflow-y:hidden;
+	
+	padding-top:5px;
+	
+	background-color: RGBA(55,64,68,1);
 	
 	color: white;
-	
-	padding-top:15px;
-	padding-left:20px;
 }
 
 .subjectOption{
@@ -3532,6 +3536,8 @@ li::before{
 .personalAttr{
 	position: fixed;
 	width:100%;
+	
+	z-index: 2;
 }
 
 .personalAttrUserInfo{
@@ -3601,7 +3607,7 @@ li::before{
 
 .personalAttrDataHeaderLoveHollowBig{
 	background: url("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveHollow.png")no-repeat;
-	background-size:33px 27px;
+	background-size:38px 33px;
 	background-position:7px 5px;
 }
 
@@ -3912,8 +3918,8 @@ li::before{
 .flagImg{
 	position: absolute;
 	color:RGBA(20,103,170,1);
-	padding-top:7px;
-	padding-left:13px;
+	padding-top:5px;
+	padding-left:17px;
 	font-weight:bolder;
 	font-size:8px;
 	width:65px;
@@ -3921,6 +3927,12 @@ li::before{
 	background: url('http://onluguho9.bkt.clouddn.com/flag.png');
 	background-size:60px 60px;
 	background-position: -5px -5px;
+	z-index: 101;
+}
+
+.flagImg>img{
+	width:20px;
+	height: 20px;
 }
 
 .redPacketBar{
@@ -3956,7 +3968,7 @@ li::before{
 	background: RGBA(56,206,253,1);
 	color: white;
 	font-weight: bolder;
-	width:40px;
+	width:45px;
 	display:block;
 	border-radius:10px;
 	margin: 0 auto;
@@ -4211,4 +4223,146 @@ li::before{
 	text-align: center;
 	font-size: 10px;
 	position: absolute;
+	
+	width:20px;
+	height:20px;
+	
+	background:url('http://onluguho9.bkt.clouddn.com/paper.png');
+	background-size:100% 100%;
+}
+
+.subjectToolScore{
+	display: inline-block;
+	
+	background-color: RGBA(55,64,68,1);
+	
+	position:relative;
+	
+	
+	width: 130px;
+	
+	height:20px;
+	
+	color: white;
+}
+
+.subjectToolSeparate{
+	height:40px;
+	background: RGBA(89,88,94,1);
+	display: inline-block;
+	width:2px;
+	vertical-align: top;
+	
+	top:-10px;
+	
+	position: relative;
+	
+	margin-left: 5px;
+	
+	margin-right: 5px;
+	
+}
+
+.fromDom{
+	width:30px;
+	height: 30px;
+	left:15%;
+	top:1900px;
+	position:absolute;
+	border-radius:50px;
+}
+
+.progressScoreContainerHeader{
+	position: absolute;
+	
+	width: 100%;
+	
+	height: 50px;
+	
+	z-index: 1000000;
+	
+	text-align: center;
+	
+	top:60px;
+}
+
+.progressScoreContainerHeaderLoveLife{
+	margin: 0 auto;
+}
+
+.progressScoreContainerHeaderLoveLife>ul{
+	display: inline-block;
+	
+	
+}
+
+.progressScoreContainerHeaderLoveLife>ul>li{
+	display: inline-block;
+}
+
+.progressScoreContainerHeaderAllScore{
+	display: inline-block;
+	
+	background-color: RGBA(81,60,50,1);
+	
+	border-radius:25px;
+	
+	position: relative;
+}
+
+.progressScoreContainerHeaderAllScoreTag{
+	background: RGBA(174,41,28,1);
+	color: white;
+	font-size: 15px;
+	
+	width:50px;
+	
+	height: 25px;
+	
+	text-align: center;
+	border-radius:20px;
+	
+	display: inline-block;
+	
+	vertical-align: top;
+	
+	padding-top: 2px;
+	
+	position:relative;
+}
+
+.progressScoreContainerHeaderAllScoreContent{
+	display: inline-block;
+	
+	height: 25px;
+	
+	color: RGBA(245,224,151,1);
+	
+	font-size: 20px;
+	
+	position: relative;
+	
+	vertical-align: top;
+	
+	width:60px;
+	top:-2px;
+}
+
+.progressScoreContainerHeader2{
+	text-align: center;
+	width:100%;
+	
+	position: relative;
+	top:-10px;
+}
+
+.progressScoreContainerHeaderRank{
+	font-size: 30px;
+	color:black;
+	
+	font-weight: bolder;
+}
+
+.circular{
+	border-radius:10000px;
 }

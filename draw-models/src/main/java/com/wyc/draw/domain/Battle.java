@@ -28,6 +28,10 @@ public class Battle {
 	private String id;
 	
 	@ParamAnnotation
+	@Column(name="model_id")
+	private String modelId;
+	
+	@ParamAnnotation
 	@Column(name="paper_id")
 	private String paperId;
 	
@@ -74,8 +78,7 @@ public class Battle {
 	@ParamAnnotation
 	@Column(name="bean_consume")
 	private Integer beanConsume;
-	
-	
+
 	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -94,6 +97,14 @@ public class Battle {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getModelId() {
+		return modelId;
+	}
+
+	public void setModelId(String modelId) {
+		this.modelId = modelId;
 	}
 
 	public String getPaperId() {
@@ -205,7 +216,4 @@ public class Battle {
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
-	
-	
-	
 }

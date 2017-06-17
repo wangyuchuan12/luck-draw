@@ -6,6 +6,6 @@ import com.wyc.draw.domain.PaperAnswer;
 
 public interface PaperAnswerRepository extends CrudRepository<PaperAnswer, String>{
 
-	PaperAnswer findOneByKeyIdAndPaperId(String keyId, String paperId);
+	PaperAnswer findOneByKeyIdAndPaperIdAndType(String keyId, String paperId, Integer type);
 
 }

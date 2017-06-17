@@ -17,8 +17,9 @@ public class CurrentPaperAnswerFilter extends Filter{
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		String paperId = (String)sessionManager.getAttribute("paperId");
 		String keyId = (String)sessionManager.getAttribute("keyId");
+		Integer type = (Integer)sessionManager.getAttribute("type");
 		
-		PaperAnswer paperAnswer = paperAnswerService.findOneByKeyIdAndPaperId(keyId,paperId);
+		PaperAnswer paperAnswer = paperAnswerService.findOneByKeyIdAndPaperIdAndType(keyId,paperId,type);
 		
 		if(paperAnswer==null){
 			paperAnswer = new PaperAnswer();
@@ -29,6 +30,7 @@ public class CurrentPaperAnswerFilter extends Filter{
 			paperAnswer.setTimeLong(0);
 			paperAnswer.setWrongCount(0);
 			paperAnswer.setStatus(Constant.PAPER_ANSWER_UNDERWAY_TAKEPART_STATUS);
+			paperAnswer.setType(type);
 			paperAnswer = paperAnswerService.add(paperAnswer);
 		}
 		return paperAnswer;

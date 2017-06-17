@@ -13,7 +13,16 @@
 
 <link rel="stylesheet" href="/layer/mobile/need/layer.css"></link>
 
+
+
+
 <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/jquery.easing.1.3.js"></script>
+
+
 
 <!--  <script src="/jquery-validation-1.14.0/lib/jquery.js"></script> -->
 

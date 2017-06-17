@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.CommonUtil;
 import com.wyc.draw.domain.Paper;
 import com.wyc.draw.domain.Question;
 import com.wyc.draw.domain.QuestionOption;
@@ -64,6 +65,15 @@ public class QuestionController {
 		httpServletRequest.setAttribute("question", question);
 		
 		httpServletRequest.setAttribute("questionOptions", questionOptions);
+		String index = httpServletRequest.getParameter("index");
+		
+		String count = httpServletRequest.getParameter("count");
+		if(CommonUtil.isEmpty(index)){
+			index = "0";
+		}
+		
+		httpServletRequest.setAttribute("index", index);
+		httpServletRequest.setAttribute("count", count);
 		
 		return "paper/questionInfo";
 	}

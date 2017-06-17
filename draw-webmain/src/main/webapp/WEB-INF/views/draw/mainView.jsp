@@ -30,7 +30,7 @@
 										<div class="redPacketHeadImg">
 											<img src="/imgs/happy.jpg">
 										</div>
-										<div class="redPacketBarType">竞答</div>
+										<div class="redPacketBarType">竞答红包</div>
 									</div>
 								</li>
 								
@@ -86,6 +86,8 @@
 				</ul>
 			</div>
 			
+			
+			
 			<div class="mainViewFooterButtons">
 				<ul>
 					<li class="">
@@ -122,7 +124,6 @@
 		</div>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
-
 <style type="text/css">
 <!--
 .progress-label3{
@@ -148,16 +149,38 @@
 
 	var progressPlug;
 	
+	var paperPlug;
+	
+	var battlePlug;
+	
+	var progressFlowPlug;
+	
 	initProgressPlug();
 	function initProgressPlug(){
 		var url = "/view/dekorn/progressScore";
 		progressPlug = new LayerPlug(url,1,1);
-		
 		progressPlug.hide();
 		
-		setTimeout(function(){
-			progressPlug.show();
-		},50000);
+		
+	}
+	
+	function initBattle(battleId){
+		battlePlug = new LayerPlug("/view/dekorn/battleInfo?battleId="+battleId,1,1);
+	}
+	
+	function showProgressPlug(){
+		progressPlug.show();
+		
+		var callback = new Object();
+		callback.setProgressFlowPlug = function(plug){
+			progressFlowPlug = plug
+		}
+		progressPlug.call("init",callback);
+	
+	}
+	
+	function hideProgressPlug(){
+		progressPlug.hide();
 	}
 
 	function initEventListener(){
@@ -170,14 +193,14 @@
 					var data = resp.data;
 					var battleId = 1;
 					if(data.status==1){
-						skipToBattleInfo(battleId);
+						initBattle(battleId);
 					}else{
 						var url = "/api/main/battleTakepart";
 						var callback = new Object();
 						callback.success = function(){
 							//skipToProgressScore();
-							
-							skipToPapers();
+
+							battlePlug.show();
 						}
 						var params = new Object();
 						params.battleId = 1;
@@ -192,25 +215,27 @@
 		});
 	}
 	
+	
+	var index = 1;
 	function submitScore(score){
-		console.log("score:"+score);
+		paperPlug.close();
+		paperPlug = skipToPapers("第"+index+"轮");
+		index++;
 	}
 	
 	function startDekorn(){
-		//skipToProgressScore();
+		battlePlug.hide();
+		progressPlug.call("scrollToButtom",function(){
+
+		});
+		showProgressPlug();
+	//	progressPlug.call("startPaper");
+	//	index++;
 		
-		var plug = skipToPapers();
-		
-		setTimeout(function(){
-			plug.hide();
-			
-			setTimeout(function(){
-				plug.show();
-			},10000);
-		},10000);
 	}
 	
 	$(document).ready(function(){
+		
 		
 		
 		var loveProgressPlug = new ProgressPlug("#progressbarLove_tool","#progress-label3",{type:3});
@@ -219,6 +244,10 @@
 		
 		
 		initEventListener();
+
+		modelPlug.showView();
+		
+		attrPlug.showView();
 		
 		
 		var progressCallback = new Object();
@@ -229,9 +258,11 @@
 		//	guide.annimate();
 		
 		//	showRoating("#modelPhy",5000);
-			attrPlug.show();
-			modelPlug.show();
 		//	addLoveAnnim();
+		
+			showIncreaseNumFromEl(10,$("#progressbarBean"),1,20,40);
+
+		
 		}
 		
 		progress(100,10,progressCallback);
