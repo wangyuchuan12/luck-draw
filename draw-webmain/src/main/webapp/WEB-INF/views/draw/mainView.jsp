@@ -155,18 +155,27 @@
 	
 	var progressFlowPlug;
 	
+	var battleFlowPlug;
+	
+	var mainViewPlug;
+	
 	initProgressPlug();
 	function initProgressPlug(){
 		var url = "/view/dekorn/progressScore";
 		progressPlug = new LayerPlug(url,1,1);
 		progressPlug.hide();
-		
-		
 	}
 	
 	function initBattle(battleId){
-		battlePlug = new LayerPlug("/view/dekorn/battleInfo?battleId="+battleId,1,1);
+		
 	}
+	
+	function showBattlePlug(){
+		
+		battlePlug.show();
+
+	}
+	
 	
 	function showProgressPlug(){
 		progressPlug.show();
@@ -193,8 +202,13 @@
 					var data = resp.data;
 					var battleId = 1;
 					if(data.status==1){
-						initBattle(battleId);
+						
+						console.log("showBattle");
+						
+						mainViewPlug.showBattle();
 					}else{
+						
+						console.log("....else");
 						var url = "/api/main/battleTakepart";
 						var callback = new Object();
 						callback.success = function(){
@@ -229,50 +243,104 @@
 
 		});
 		showProgressPlug();
-	//	progressPlug.call("startPaper");
+		
+//		progressPlug.call("startPaper");
 	//	index++;
 		
 	}
 	
+	function init(){
+		mainViewPlug = new FlowPlug({
+			
+			showBattle:function(){
+				battlePlug.show();
+				battleFlowPlug.setNext("showView");
+				battleFlowPlug.next();
+			},
+			
+			initEventListener:function(){
+				var outThis = this;
+				$("#mainViewDekornButton").click(function(){
+					var waitPlug = new WaitPlug();
+					var interval = setInterval(function(){
+						var battleReady = outThis.flowData("battleReady");
+						console.log("battleReady:"+battleReady);
+						if(battleReady==1){
+							outThis.setNext("showBattle");
+							outThis.next();
+							waitPlug.close();
+							
+							clearInterval(interval);
+						}
+					},100);
+				});
+			},
+			
+			begin:function(){
+				
+				modelPlug.showView();
+				
+				attrPlug.showView();
+				
+				var outThis = this;
+				
+				this.setNext("initEventListener");
+				this.next();
+				
+				this.setNext("initBattle",function(){
+					outThis.setNext("setBattleData");
+					outThis.next();
+				
+				});
+				this.next();
+			},
+			
+			initBattle:function(){
+				var outThis = this;
+				var battleId = 1;
+				battlePlug = new LayerPlug("/view/dekorn/battleInfo?battleId="+battleId,1,1,"",function(){
+					var callback = new Object();
+					callback.setBattleFlowPlug = function(plug){
+						battleFlowPlug = plug;
+						outThis.success();
+						
+						//这个属性是为了告诉系统改插件已经准备好了
+						outThis.flowData({battleReady:1});
+					}
+					
+					battlePlug.call("init",callback);
+				});
+				battlePlug.hide();
+			},
+			
+			setBattleData:function(){
+				battleFlowPlug.setNext("initData");
+				
+				battleFlowPlug.nextData({
+					round:5,
+					thisScore:2,
+					allScore:30,
+					beanNum:10,
+					loveCount:2,
+					loveLimit:3,
+					rank:2
+				});
+				
+				battleFlowPlug.next();
+			}
+		});
+	}
+	
 	$(document).ready(function(){
-		
-		
-		
-		var loveProgressPlug = new ProgressPlug("#progressbarLove_tool","#progress-label3",{type:3});
-		
-	//	loveProgressPlug.addValueAction(20);
-		
-		
-		initEventListener();
-
-		modelPlug.showView();
-		
-		attrPlug.showView();
-		
-		
+	//	var loveProgressPlug = new ProgressPlug("#progressbarLove_tool","#progress-label3",{type:3});
 		var progressCallback = new Object();
 		progressCallback.complete = function(){
-			
-		//	var guide = new Guide("#modelPhy",10,-40);
-			
-		//	guide.annimate();
-		
-		//	showRoating("#modelPhy",5000);
-		//	addLoveAnnim();
-		
-			showIncreaseNumFromEl(10,$("#progressbarBean"),1,20,40);
-
-		
+			init();
 		}
 		
 		progress(100,10,progressCallback);
 		
 		$(".mainView").height($(document).height());
-		
-		
-	//	progressbarMoney.progressbar("value",60);
-		
-		
 	});
 
 

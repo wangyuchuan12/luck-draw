@@ -3834,7 +3834,7 @@ li::before{
 	height:100%;
 	background-size:100% 100%;
 	
-	padding-top: 100px;
+	padding-top: 20px;
 }
 
 .battleInfoContent{
@@ -3879,6 +3879,14 @@ li::before{
 	width:30px;
 	height: 40px;
 	background: url("http://on3s1z2us.bkt.clouddn.com/rank.png")no-repeat;
+	background-size:80% 90%;
+	display: inline-block;
+}
+
+.battleInfoContentInputBeanIcon{
+	width:30px;
+	height: 40px;
+	background: url("/imgs/plug/bean.png")no-repeat;
 	background-size:80% 90%;
 	display: inline-block;
 }

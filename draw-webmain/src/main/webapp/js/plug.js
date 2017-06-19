@@ -938,7 +938,7 @@ function FlowPlug(funs){
 	}
 }
 
-function LayerPlug(url,w,h,loadContent){
+function LayerPlug(url,w,h,loadContent,fun){
 	var borderRadius = 20;
 	if(w==1){
 		borderRadius = 0;
@@ -986,6 +986,10 @@ function LayerPlug(url,w,h,loadContent){
 			var thisHeight = 0;
 			$("#"+outThis.frameId).width(outThis.width);
 			$("#"+outThis.frameId).height(outThis.height);
+			if(fun){
+				
+				fun.call({});
+			}
 			
 		});
 		

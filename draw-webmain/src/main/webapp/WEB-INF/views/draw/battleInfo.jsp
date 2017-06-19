@@ -13,32 +13,43 @@
 			<div class="battleInfoContent">
 				<ul>
 					<li>
+						<div class="battleInfoContentTitle" id="round"></div>
+						<div class="battleInfoContentInput">
+							<span class="battleInfoContentInputSportsIcon"></span>
+							<span class="battleInfoContentInputText" id="thisScore"></span>
+						</div>
+					</li>
+					
+					<li>
+						<div class="battleInfoContentTitle">总得分</div>
+						<div class="battleInfoContentInput">
+							<span class="battleInfoContentInputSportsIcon"></span>
+							<span class="battleInfoContentInputText" id="allScore"></span>
+						</div>
+					</li>
+					
+					<li>
+						<div class="battleInfoContentTitle">智慧豆</div>
+						<div class="battleInfoContentInput">
+							<span class="battleInfoContentInputBeanIcon"></span>
+							<span class="battleInfoContentInputText" id="beanNum"></span>
+						</div>
+					</li>
+				
+					<li>
 						<div class="battleInfoContentTitle">排名</div>
 						<div class="battleInfoContentInput">
 							<span class="battleInfoContentInputRankIcon"></span>
-							<span class="battleInfoContentInputText">${rank}名</span>
+							<span class="battleInfoContentInputText" id="rank"></span>
 						</div>
 					</li>
 					
-					<li>
-						<div class="battleInfoContentTitle">积分</div>
-						<div class="battleInfoContentInput">
-							<span class="battleInfoContentInputSportsIcon"></span>
-							<span class="battleInfoContentInputText">${battleMember.score}分</span>
-						</div>
-					</li>
+					
 					
 					<li>
 						<div class="battleInfoContentTitle">剩余爱心</div>
-						<div class="battleInfoContentInput">
-							<c:forEach begin="1" end="${battleMember.loveLife}">
-								<div class="personalAttrDataHeaderBig personalAttrDataHeaderLoveBig"></div>
-							</c:forEach>
+						<div class="battleInfoContentInput" id="loves">
 							
-							<c:forEach begin="1" end="${battleMember.loveLifeLimit - battleMember.loveLife}">
-								<div class="personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig"></div>
-							</c:forEach>
-
 						</div>
 					</li>
 				</ul>
@@ -46,20 +57,75 @@
 			
 			
 			<div class="mainViewButtons" style="margin-top:0px;">
+				<div class="mainViewDekornButton" style="display: inline-block;" id="dekornButton">查看答题</div>
 				<div class="mainViewDekornButton" style="display: inline-block;" id="dekornButton">挑战</div>
 			</div>
 		</div>
 		<script type="text/javascript">
-			$(document).ready(function(){
-				var progressCallback = new Object();
-				progressCallback.complete = function(){
-					
-				}
-				progress(100,10,progressCallback);
+		
+			var mainCallback;
+			function init(cb){
+				console.log("..............init");
+				mainCallback = cb;
+				var battlePlug = new FlowPlug({
+					begin:function(){
+						mainCallback.setBattleFlowPlug(this);
+					},
+					initData:function(){
+						var outThis = this;
+						this.flowData({
+							round:outThis.stepData("round"),
+							thisScore:outThis.stepData("thisScore"),
+							allScore:outThis.stepData("allScore"),
+							beanNum:outThis.stepData("beanNum"),
+							loveCount:outThis.stepData("loveCount"),
+							loveLimit:outThis.stepData("loveLimit"),
+							rank:outThis.stepData("rank")
+						});
+						this.success();
+						
+					},
+					showView:function(){
+						var round = this.flowData("round");
+						var thisScore = this.flowData("thisScore");
+						var allScore = this.flowData("allScore");
+						var beanNum = this.flowData("beanNum");
+						var loveCount = this.flowData("loveCount");
+						var loveLimit = this.flowData("loveLimit");
+						var rank = this.flowData("rank");
+						
+						$("#round").text("第"+round+"轮");
+						$("#thisScore").text(thisScore+"分");
+						$("#allScore").text(allScore+"分");
+						$("#beanNum").text("+"+beanNum+"颗");
+						$("#rank").text(rank+"名");
+						
+						for(var i = 0;i<loveCount;i++){
+							var loveDiv = $("<div></div>");
+							loveDiv.attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveBig");
+							$("#loves").append(loveDiv);
+						}
+						for(var i = 0;i<loveLimit-loveCount;i++){
+							var loveHollowDiv = $("<div></div>");
+							loveHollowDiv.attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveHollowBig");
+							$("#loves").append(loveHollowDiv);
+						}
+						
+					}
+				});
+				
 				
 				$("#dekornButton").click(function(){
 					window.parent.startDekorn();
 				});
+			}
+			$(document).ready(function(){
+				
+				var progressCallback = new Object();
+				progressCallback.complete = function(){
+				}
+				progress(100,10,progressCallback);
+				
 			});
 			
 			

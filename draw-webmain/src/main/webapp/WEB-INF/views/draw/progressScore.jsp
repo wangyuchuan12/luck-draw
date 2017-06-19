@@ -13,7 +13,7 @@
 			<div class="progressScoreContainerHeaderScore">
 				<div class="progressScoreContainerHeaderAllScore">
 						<div class="progressScoreContainerHeaderAllScoreTag">总分</div>
-						<div class="progressScoreContainerHeaderAllScoreContent"><span id="allScore"></span>分</div>
+						<div class="progressScoreContainerHeaderAllScoreContent" id="allScoreDiv"><span id="allScore"></span>分</div>
 				</div>
 				
 				<div class="progressScoreContainerHeaderAllScore" style="margin-left: 10px;">
@@ -360,16 +360,15 @@
 		setTimeout(function(){
 			/*url = "/view/question/paperInfo?id="+1+"&keyId="+112233;
 			var gamePlug = new LayerPlug(url,1,1);*/
-			showAlert.close();
+		//	showAlert.close();
 			console.log("timeout");
 		},6000);
 		
 	}
 	
-	function addScore(){
+	function addScore(score){
 		var thisScore = $("#thisScore");
-		var score = 50;
-		showIncreaseNumFromEl(50,$("#thisScoreDiv"),1,0,40,null,20);
+		showIncreaseNumFromEl(score,$("#thisScoreDiv"),1,0,40,null,20);
 	}
 	
 	function scrollToButtom(callback){
@@ -407,14 +406,16 @@
 					battleId:1
 				});
 				this.next();
-				
-				this.setNext("showData",function(){
-					
-				});
-				this.next();
+			},
+			nextStage:function(){
 				
 			},
-			
+			toStage:function(){
+				
+			},
+			startStage:function(){
+				var stage = this.stepData("stage");
+			},
 			showIndexStyle:function(){
 				var index = this.stepData("index");
 				
@@ -427,6 +428,38 @@
 					$("#toDom"+index).css("background-size","100% 100%");
 				}
 				
+			},
+			
+			addScore:function(){
+				var outThis = this;
+				var score = this.stepData("score");
+				showIncreaseNumFromEl(score,$("#thisScoreDiv"),1,0,40,null,20);
+				showIncreaseNumFromEl(score,$("#allScoreDiv"),1,0,40,null,20);
+				
+				var thisScore = this.flowData("thisScore");
+				
+				var allScore = this.flowData("allScore");
+				
+				function addScore(num){
+					num--;
+					if(num>=0){
+						thisScore++;
+						allScore++;
+						outThis.flowData({
+							thisScore:thisScore
+						});
+						
+						$("#thisScore").text(thisScore);
+						$("#allScore").text(allScore);
+						setTimeout(function(){
+							addScore(num);
+						},50);
+					}
+				}
+				
+				setTimeout(function(){
+					addScore(score);
+				},2000);
 			},
 			
 			//显示爱心
@@ -517,13 +550,14 @@
 			
 			//初始化数据
 			initData:function(){
+				var outThis = this;
 				this.flowData({
-					allScore:50,
-					round:5,
-					thisScore:20,
-					rank:5,
-					loveLimit:4,
-					loveCount:2
+					allScore:outThis.stepData("allScore"),
+					round:outThis.stepData("round"),
+					thisScore:outThis.stepData("thisScore"),
+					rank:outThis.stepData("rank"),
+					loveLimit:outThis.stepData("loveLimit"),
+					loveCount:outThis.stepData("loveCount"),
 				});
 				this.success();
 			},
@@ -531,28 +565,23 @@
 			
 			//显示数据
 			showData:function(){
-				var outThis = this;
-				this.setNext("initData",function(){
-					var allScore = outThis.flowData("allScore");
-					var thisScore = outThis.flowData("thisScore");
-					var round = outThis.flowData("round");
-					var rank = outThis.flowData("rank");
-					$("#allScore").html(allScore);
-					$("#thisScore").html(thisScore);
-					$("#round").text(round);
-					$("#rank").text(rank);
-					
-					//显示爱心数量
-					outThis.setNext("showLove");
-					outThis.next();
-					
-					//显示成功返回
-					outThis.success();
-				});
-				this.next();
+				var allScore = outThis.flowData("allScore");
+				var thisScore = outThis.flowData("thisScore");
+				var round = outThis.flowData("round");
+				var rank = outThis.flowData("rank");
+				$("#allScore").html(allScore);
+				$("#thisScore").html(thisScore);
+				$("#round").text(round);
+				$("#rank").text(rank);
 				
-			},
-			
+				//显示爱心数量
+				outThis.setNext("showLove");
+				outThis.next();
+				
+				//显示成功返回
+				outThis.success();
+				
+			},	
 			
 			//请求阶段数据
 			initStageIndex:function(){
@@ -654,9 +683,13 @@
 						if(indexObject.isRight==1){
 							pointRight(index+1,function(){
 								next.next();
-								addScore();
 								
-								console.log("addScore")
+								outThis.setNext("addScore");
+								outThis.nextData({
+									score:indexObject.score
+								});
+								outThis.next();
+								
 							});
 						}else if(indexObject.isRight==0){
 							pointWrong(index+1,function(){
