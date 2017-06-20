@@ -54,7 +54,6 @@ public class BattleMemberIndex {
 	@Column(name="is_right")
 	private Integer isRight;
 	
-	
 	@Column
 	@ParamAnnotation
 	private Integer status;
@@ -62,6 +61,11 @@ public class BattleMemberIndex {
 	@Column(name="to_hide")
 	@ParamAnnotation
 	private Integer toHide;;
+	
+	//是否是引导
+	@Column(name="is_guide")
+	@ParamAnnotation
+	private Integer isGuide;
 	
 	@ParamAnnotation
 	@Column(name = "create_at")
@@ -179,5 +183,13 @@ public class BattleMemberIndex {
 
 	public void setToHide(Integer toHide) {
 		this.toHide = toHide;
+	}
+
+	public Integer getIsGuide() {
+		return isGuide;
+	}
+
+	public void setIsGuide(Integer isGuide) {
+		this.isGuide = isGuide;
 	}
 }

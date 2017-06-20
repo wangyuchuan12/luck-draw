@@ -361,7 +361,6 @@
 			/*url = "/view/question/paperInfo?id="+1+"&keyId="+112233;
 			var gamePlug = new LayerPlug(url,1,1);*/
 		//	showAlert.close();
-			console.log("timeout");
 		},6000);
 		
 	}
@@ -406,27 +405,156 @@
 					battleId:1
 				});
 				this.next();
+				
+				this.flowData({
+					thisIndex:0
+				});
 			},
 			nextStage:function(){
 				
 			},
 			toStage:function(){
+				var outThis = this;
+				var stage = this.stepData("stage");
+				this.setNext("getStageIndex",function(data){
+					var guideIndex;
+					for(var i = 0;i<data.length;i++){
+						var indexObject = data[i];
+						
+						if(indexObject.isGuide==1){
+							guideIndex = indexObject;
+						}
+					}
+
+					outThis.setNext("trendBetween");
+					
+					var callback = new Object();
+					callback.call = function(index,next){
+						next.next();
+					}
+					
+					outThis.nextData({
+						beginIndex:outThis.flowData("thisIndex"),
+						endIndex:guideIndex.index,
+						callback:callback
+					});
+					outThis.next();
+					
+				});
+				this.nextData({
+					stage:stage
+				});
+				this.next();
 				
+				
+				this.setNext("showStageStyle");
+				this.nextData({
+					stage:stage
+				});
+				this.next();
 			},
 			startStage:function(){
+				var outThis = this;
 				var stage = this.stepData("stage");
+				this.setNext("getStageIndex",function(data){
+					var guideIndex;
+					for(var i = 0;i<data.length;i++){
+						var indexObject = data[i];
+						
+						if(indexObject.isGuide==1){
+							guideIndex = indexObject;
+						}
+					}
+					
+					var endIndex = guideIndex.index+data.length-1;
+					
+					var callback = new Object();
+					callback.call = function(index,next){
+						var indexObject = outThis.flowData("index"+(index+1));
+						
+						if(indexObject.rewardBeanNum&&indexObject.rewardBeanNum>0){
+							attrPlug.addBeanAnnim({
+								num:indexObject.rewardBeanNum
+							});
+						}
+						
+						if(indexObject.isRight==1){
+							pointRight(index+1,function(){
+								next.next();
+								
+								outThis.setNext("addScore");
+								outThis.nextData({
+									score:indexObject.score
+								});
+								outThis.next();
+							});
+						}else if(indexObject.isRight==0){
+							pointWrong(index+1,function(){
+								next.next();
+								var loveCount = outThis.flowData("loveCount");
+								loveCount = loveCount-1;
+								
+								outThis.flowData({
+									loveCount:loveCount
+								});
+								
+								outThis.setNext("showLove");
+								outThis.next();
+								
+							});
+						}else{
+							next.next();
+						}
+						
+						
+					}
+					
+					outThis.setNext("trendBetween");
+					outThis.nextData({
+						beginIndex:guideIndex.index,
+						endIndex:endIndex,
+						callback:callback
+					});
+					outThis.next();
+				});
+				
+				this.nextData({
+					stage:stage
+				});
+				this.next();
+				
 			},
+			
+			showStageStyle:function(){
+				var outThis = this;
+				var stage = this.stepData("stage");
+				this.setNext("getStageIndex",function(data){
+					for(var i = 0;i<data.length;i++){
+						var index = data[i].index;
+						outThis.setNext("showIndexStyle");
+						outThis.nextData({
+							index:index
+						});
+						outThis.next();
+					}
+				});
+				this.nextData({
+					stage:stage
+				});
+				this.next();
+			},
+			
 			showIndexStyle:function(){
 				var index = this.stepData("index");
 				
 				var obj = this.flowData("index"+index);
 				
 				var iconUrl = obj.iconUrl;
-				console.log("iconUrl:"+iconUrl);
 				if(iconUrl){
 					$("#toDom"+index).css("background","url('"+iconUrl+"')");
 					$("#toDom"+index).css("background-size","100% 100%");
 				}
+				$("#toDom"+index).css("display","block");
 				
 			},
 			
@@ -542,10 +670,7 @@
 							}
 						},100);
 					}
-				}
-				
-				
-				
+				}	
 			},
 			
 			//初始化数据
@@ -557,7 +682,7 @@
 					thisScore:outThis.stepData("thisScore"),
 					rank:outThis.stepData("rank"),
 					loveLimit:outThis.stepData("loveLimit"),
-					loveCount:outThis.stepData("loveCount"),
+					loveCount:outThis.stepData("loveCount")
 				});
 				this.success();
 			},
@@ -565,23 +690,45 @@
 			
 			//显示数据
 			showData:function(){
-				var allScore = outThis.flowData("allScore");
-				var thisScore = outThis.flowData("thisScore");
-				var round = outThis.flowData("round");
-				var rank = outThis.flowData("rank");
+				var allScore = this.flowData("allScore");
+				var thisScore = this.flowData("thisScore");
+				var round = this.flowData("round");
+				var rank = this.flowData("rank");
 				$("#allScore").html(allScore);
 				$("#thisScore").html(thisScore);
 				$("#round").text(round);
 				$("#rank").text(rank);
 				
 				//显示爱心数量
-				outThis.setNext("showLove");
-				outThis.next();
+				this.setNext("showLove");
+				this.next();
 				
 				//显示成功返回
-				outThis.success();
+				this.success();
 				
-			},	
+			},
+			
+			getStageIndex:function(){
+				var outThis = this;
+				var stage = this.stepData("stage");
+				var key = "stage"+stage;
+				
+				var indexs = this.flowData(key);
+				if(!indexs){
+					
+					outThis.setNext("initStageIndex",function(){
+						indexs = this.flowData(key);
+						outThis.success(indexs);
+					});
+					outThis.nextData({
+						stageIndexs:stage,
+						battleId:1
+					});
+					outThis.next();
+				}else{
+					this.success(indexs);
+				}
+			},
 			
 			//请求阶段数据
 			initStageIndex:function(){
@@ -608,18 +755,19 @@
 								indexObject[indexKey] = indexData;
 								outThis.flowData(indexObject);
 								
-								outThis.setNext("showIndexStyle");
+								/*outThis.setNext("showIndexStyle");
 								outThis.nextData({
 									index:indexData.index
 								});
-								outThis.next();
+								outThis.next();*/
 							}
 						}
-						outThis.setNext("startStageIndex");
+						/*outThis.setNext("startStageIndex");
 						outThis.nextData({
 							stageIndex:stageIndexs
 						});
-						outThis.next();
+						outThis.next();*/
+						outThis.success();
 					}
 				}
 				var params = new Object();
@@ -633,23 +781,31 @@
 			//阶段轨迹
 			startStageIndex:function(){
 				var stageIndex = this.stepData("stageIndex");
-				var battleIndexs = this.flowData("stage"+stageIndex);
-				var array = new Array();				
-				for(var i = 0;i<battleIndexs.length;i++){
-					var battleIndex = battleIndexs[i];
-					array.push(battleIndex.index);
-				}
-				array.sort();
-				
-				var begin = array[0];
-				var end = array[array.length-1];
-				
-				this.setNext("trendBetween");
+				var outThis = this;
+				this.setNext("getStageIndex",function(battleIndexs){
+					var array = new Array();				
+					for(var i = 0;i<battleIndexs.length;i++){
+						var battleIndex = battleIndexs[i];
+						array.push(battleIndex.index);
+					}
+					array.sort();
+					
+					var begin = array[1];
+					var end = array[array.length-1];
+										
+					outThis.setNext("trendBetween");
+					
+					outThis.nextData({
+						beginIndex:begin,
+						endIndex:end
+					});
+					outThis.next();
+				});
 				this.nextData({
-					beginIndex:begin,
-					endIndex:end
+					stage:stageIndex
 				});
 				this.next();
+				
 			},
 			
 			//运行
@@ -657,6 +813,7 @@
 				var outThis = this;
 				var beginIndex = this.stepData("beginIndex");
 				var endIndex = this.stepData("endIndex");
+				var callback = this.stepData("callback");
 				var toDoms = new Array();
 				for(var i = beginIndex;i<=endIndex;i++){
 					toDoms.push($("#toDom"+i));
@@ -664,12 +821,15 @@
 				
 			//	$("#progressScoreContainer").animate({scrollTop:top},"slow");
 				
-				moveAnimateTrajectory($("#fromDom"),toDoms,0,function(index,toDom,fromDom,next){
+			
+				moveAnimateTrajectory($("#fromDom"),toDoms,beginIndex,function(index,toDom,fromDom,next){
 					var top = fromDom.position().top;
+					
 					
 					$("#progressScoreContainer").animate({
 						scrollTop:top+$("#progressScoreContainer").scrollTop()-window.screen.availHeight/2
 					},400,function(){
+						
 						var indexObject = outThis.flowData("index"+(index+1));
 						
 					/*	if(indexObject.rewardBeanNum&&indexObject.rewardBeanNum>0){
@@ -679,7 +839,16 @@
 						}
 					
 					*/
-
+	
+						outThis.flowData({
+							thisIndex:index
+						});
+					
+						if(callback){
+							callback.call(index,next);
+						}
+					
+						/*
 						if(indexObject.isRight==1){
 							pointRight(index+1,function(){
 								next.next();
@@ -707,7 +876,7 @@
 							});
 						}else{
 							next.next();
-						}
+						}*/
 						
 					});
 					

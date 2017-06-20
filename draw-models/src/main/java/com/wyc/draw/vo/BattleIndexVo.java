@@ -22,6 +22,8 @@ public class BattleIndexVo {
 	private String iconUrl;
 	@ParamAnnotation
 	private Integer toHide;
+	@ParamAnnotation
+	private Integer isGuide;
 	public String getId() {
 		return id;
 	}
@@ -69,5 +71,11 @@ public class BattleIndexVo {
 	}
 	public void setToHide(Integer toHide) {
 		this.toHide = toHide;
+	}
+	public Integer getIsGuide() {
+		return isGuide;
+	}
+	public void setIsGuide(Integer isGuide) {
+		this.isGuide = isGuide;
 	}
 }

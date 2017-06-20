@@ -287,7 +287,6 @@
 							if(resp.success){
 								
 								var data = resp.data;
-								console.log("num:"+data.num);
 								addLoveAnnim(data.num);
 								waitPlug.close();
 								loveWaterbublePlug.dataInit();
@@ -354,13 +353,9 @@
 						precision:2,
 						unit:unit
 					});
-					
-					console.log("total:"+total);
-					
+										
 					loveWaterbublePlug.growthWater(total,function(){
-					//	console.log("progress");
 					},function(){
-						console.log("complete");
 					});
 				},
 				
@@ -370,7 +365,6 @@
 					var data = this.flowData("beanPassPart");
 					var interval = this.flowData("beanInterval");
 					var beanUnit = this.flowData("beanUnit");
-					console.log("beanUnit:"+beanUnit);
 					beanWaterbublePlug = new WaterbubblePlug("#modelPhy2",{
 						radius:width*0.08,
 						waterColor:"RGBA(245,180,0,0.5)",
@@ -410,7 +404,6 @@
 							$("#phyButton").text(num);
 						},
 						function(){
-							console.log("success physical")
 						}
 					);
 				},
@@ -646,7 +639,6 @@
 				
 				//显示
 				show:function(){
-					console.log("...........ssss");
 					$("#personalAttr").css("display","block");
 				},
 				

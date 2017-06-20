@@ -52,6 +52,7 @@ public class ProgressFilter extends Filter{
 				battleIndexVo.setStatus(battleMemberIndex.getStatus());
 				battleIndexVo.setIconUrl(battleMemberIndex.getIconUrl());
 				battleIndexVo.setToHide(battleMemberIndex.getToHide());
+				battleIndexVo.setIsGuide(battleMemberIndex.getIsGuide());
 				battleIndexVos.add(battleIndexVo);
 			}
 		}

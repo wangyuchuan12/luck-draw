@@ -202,13 +202,8 @@
 					var data = resp.data;
 					var battleId = 1;
 					if(data.status==1){
-						
-						console.log("showBattle");
-						
 						mainViewPlug.showBattle();
 					}else{
-						
-						console.log("....else");
 						var url = "/api/main/battleTakepart";
 						var callback = new Object();
 						callback.success = function(){
@@ -240,12 +235,57 @@
 	function startDekorn(){
 		battlePlug.hide();
 		progressPlug.call("scrollToButtom",function(){
-
+			
+			progressFlowPlug.setNext("initData",function(){
+				
+			});
+			
+			progressFlowPlug.nextData({
+				allScore:1,
+				round:2,
+				thisScore:5,
+				rank:3,
+				loveLimit:5,
+				loveCount:2
+			});
+			
+			progressFlowPlug.next();
+			
+			progressFlowPlug.setNext("showData");
+			progressFlowPlug.next();
+			
+			var stage = 1;
+			progressFlowPlug.setNext("toStage");
+			progressFlowPlug.nextData({
+				stage:stage
+			});
+			progressFlowPlug.next();
+			
+			setTimeout(function(){
+				progressFlowPlug.setNext("startStage");
+				progressFlowPlug.nextData({
+					stage:1
+				});
+				progressFlowPlug.next();
+			},5000);
+			
 		});
 		showProgressPlug();
 		
-//		progressPlug.call("startPaper");
-	//	index++;
+		/*progressFlowPlug.setNext("initData",function(){
+			console.log("initData");
+			progressFlowPlug.setNext("showData");
+			progressFlowPlug.next();
+		});*/
+		
+		
+		
+		
+		/*progressFlowPlug.setNext("startStageIndex");
+		progressFlowPlug.nextData({
+			stageIndex:1
+		});
+		progressFlowPlug.next();*/
 		
 	}
 	
@@ -264,7 +304,6 @@
 					var waitPlug = new WaitPlug();
 					var interval = setInterval(function(){
 						var battleReady = outThis.flowData("battleReady");
-						console.log("battleReady:"+battleReady);
 						if(battleReady==1){
 							outThis.setNext("showBattle");
 							outThis.next();

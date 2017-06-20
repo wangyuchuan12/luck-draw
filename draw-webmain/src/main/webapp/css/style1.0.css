@@ -4237,6 +4237,8 @@ li::before{
 	
 	background:url('http://onluguho9.bkt.clouddn.com/paper.png');
 	background-size:100% 100%;
+	
+	display: none;
 }
 
 .subjectToolScore{

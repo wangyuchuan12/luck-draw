@@ -134,7 +134,7 @@
 		}
 		flag = true;
 		var length = array.length;
-		console.log("length:"+length);
+
 		var index = 0;
 		for(var i = 0;i<length;i++){
 		
@@ -143,9 +143,7 @@
 				index++;
 				if(callbackArray&&callbackArray.length>0){
 					if(index==length){
-						console.log("script:"+array);
-						console.log("index:"+index);
-						console.log("file:"+array[index-1]);
+
 						for(var k=0;k<callbackArray.length;k++){
 							var callback = callbackArray[k];
 							$(document).ready(function(){
