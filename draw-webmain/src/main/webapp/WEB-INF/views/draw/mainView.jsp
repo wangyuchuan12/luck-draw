@@ -21,6 +21,23 @@
 						<div class="mainViewButtons">
 							<div class="mainViewDekornButton" style="display: inline-block;" id="mainViewDekornButton">挑战</div>
 						</div>
+						
+						
+						<!--  
+						<div class="mainViewDekornInfo">
+							<div class="mainViewDekornImg">
+								<img src="http://ooe8ianrr.bkt.clouddn.com/znm123.png">
+							</div>
+							<div class="mainViewDekornInfoDetail">
+								<div><span>名称：</span><span>小鸟飞飞</span></div>
+								<div><span>类型：</span><span>游戏</span><span style="padding-left: 20px;">擂台分数：</span><span>300分</span></div>
+								<div><span>积分：</span><span>300分 </span><span style="padding-left:20px;">级别：</span><span>3段</span></div>
+								<div><span>挑战数：</span><span>5</span><span style="padding-left: 20px;">胜：</span><span>2</span> <span>负：</span><span>5</span></div>								
+								<div><span>被挑战：</span><span>5</span><span style="padding-left: 20px;">胜：</span><span>2</span> <span>负：</span><span>5</span></div>
+																
+							</div>
+						</div>
+						-->
 					
 						<div class="redPacketBar">
 							<ul>
@@ -66,22 +83,6 @@
 											
 							</ul>
 						</div>
-						<!--  <div class="mainViewDekornInfo">
-							<div class="mainViewDekornImg">
-								<img src="http://ooe8ianrr.bkt.clouddn.com/znm123.png">
-							</div>
-							<div class="mainViewDekornInfoDetail">
-								<div><span>名称：</span><span>小鸟飞飞</span></div>
-								<div><span>类型：</span><span>游戏</span><span style="padding-left: 20px;">擂台分数：</span><span>300分</span></div>
-								<div><span>积分：</span><span>300分 </span><span style="padding-left:20px;">级别：</span><span>3段</span></div>
-								<div><span>挑战数：</span><span>5</span><span style="padding-left: 20px;">胜：</span><span>2</span> <span>负：</span><span>5</span></div>								
-								<div><span>被挑战：</span><span>5</span><span style="padding-left: 20px;">胜：</span><span>2</span> <span>负：</span><span>5</span></div>
-																
-							</div>
-						</div>
-						
-						-->
-						
 					</li>
 				</ul>
 			</div>
@@ -159,6 +160,8 @@
 	
 	var mainViewPlug;
 	
+	var mainViewFlowPlug;
+	
 	initProgressPlug();
 	function initProgressPlug(){
 		var url = "/view/dekorn/progressScore";
@@ -204,16 +207,11 @@
 					if(data.status==1){
 						mainViewPlug.showBattle();
 					}else{
-						var url = "/api/main/battleTakepart";
-						var callback = new Object();
-						callback.success = function(){
-							//skipToProgressScore();
-
-							battlePlug.show();
-						}
-						var params = new Object();
-						params.battleId = 1;
-						request(url,callback,params);
+						battleFlowPlug.setNext("battleTakepart");
+						battleFlowPlug.nextData({
+							battleId:1
+						});
+						battleFlowPlug.next();
 					}
 				}
 			}
@@ -232,6 +230,7 @@
 		index++;
 	}
 	
+	//由详情页面回调
 	function startDekorn(){
 		battlePlug.hide();
 		progressPlug.call("scrollToButtom",function(){
@@ -255,19 +254,18 @@
 			progressFlowPlug.next();
 			
 			var stage = 1;
+			var callback = new Object();
+			callback.call = function(){
+				progressPlug.close();
+				mainViewFlowPlug.setNext("startPaper");
+				mainViewFlowPlug.next();
+			}
 			progressFlowPlug.setNext("toStage");
 			progressFlowPlug.nextData({
-				stage:stage
+				stage:stage,
+				callback:callback
 			});
 			progressFlowPlug.next();
-			
-			setTimeout(function(){
-				progressFlowPlug.setNext("startStage");
-				progressFlowPlug.nextData({
-					stage:1
-				});
-				progressFlowPlug.next();
-			},5000);
 			
 		});
 		showProgressPlug();
@@ -293,29 +291,74 @@
 		mainViewPlug = new FlowPlug({
 			
 			showBattle:function(){
-				battlePlug.show();
-				battleFlowPlug.setNext("showView");
-				battleFlowPlug.next();
+				var outThis = this;
+				
+				var interval = setInterval(function(){
+					var battleReady = outThis.flowData("battleReady");
+					if(battleReady==1){
+						battlePlug.show();
+						battleFlowPlug.setNext("showView");
+						battleFlowPlug.next();
+						clearInterval(interval);
+						outThis.success();
+					}
+				},100);
+			},
+			
+			startPaper:function(){
+				console.log("startPaper");
+				paperPlug = skipToPapers("");
+				paperPlug.show();
+			},
+			
+			requestBattleMemberInfo:function(){
+				var outThis = this;
+				var url = "/api/main/battleMemberInfo";
+				var callback = new Object();
+				callback.success = function(resp){
+					if(resp.success){
+						var data = resp.data;
+						outThis.success(data);
+					}else{
+						outThis.failure();
+					}
+				}
+				var params = new Object();
+				params.battleId = 1;
+				request(url,callback,params);
 			},
 			
 			initEventListener:function(){
 				var outThis = this;
 				$("#mainViewDekornButton").click(function(){
 					var waitPlug = new WaitPlug();
-					var interval = setInterval(function(){
-						var battleReady = outThis.flowData("battleReady");
-						if(battleReady==1){
-							outThis.setNext("showBattle");
+					outThis.setNext("requestBattleMemberInfo",function(data){
+						if(data.status==1){
+							outThis.setNext("showBattle",function(){
+								waitPlug.close();
+							});
 							outThis.next();
-							waitPlug.close();
-							
-							clearInterval(interval);
+						}else{
+							outThis.setNext("battleTakepart",function(){
+								console.log("battleTakepart");
+								outThis.setNext("showBattle");
+								outThis.next();
+								
+								waitPlug.close();
+							});
+							outThis.nextData({
+								battleId:1
+							});
+							outThis.next();
 						}
-					},100);
+						
+					});
+					outThis.next();
 				});
 			},
 			
 			begin:function(){
+				mainViewFlowPlug = this;
 				
 				modelPlug.showView();
 				
@@ -332,6 +375,24 @@
 				
 				});
 				this.next();
+			},
+			
+			battleTakepart:function(){
+				var outThis = this;
+				var battleId = this.stepData("battleId");
+				var url = "/api/main/battleTakepart";
+				var callback = new Object();
+				callback.success = function(resp){
+					if(resp.success){
+						outThis.success();
+					}else{
+						outThis.failure();
+					}
+					
+				}
+				var params = new Object();
+				params.battleId = battleId;
+				request(url,callback,params);
 			},
 			
 			initBattle:function(){

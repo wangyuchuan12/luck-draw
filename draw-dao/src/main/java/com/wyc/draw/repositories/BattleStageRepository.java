@@ -6,4 +6,6 @@ import com.wyc.draw.domain.BattleStage;
 
 public interface BattleStageRepository extends CrudRepository<BattleStage, String>{
 
+	BattleStage findOneByBattleIdAndStageIndex(String battleId, Integer stageIndex);
+
 }

@@ -85,7 +85,7 @@
 			
 			<div class="trajectory">
 				<ul>
-					<li style="left:12.5%;top:1900px;background: url('')" id="toDom0" ></li>
+					<li style="left:12.5%;top:1900px;" id="toDom0" ></li>
 					
 					<li style="left:21%;top:1870px;" id="toDom1"></li>
 					
@@ -352,18 +352,6 @@
 
 <script type="text/javascript">
 
-
-	function startPaper(){
-		var showAlert = new ShowAlert("第五轮");
-		
-		
-		setTimeout(function(){
-			/*url = "/view/question/paperInfo?id="+1+"&keyId="+112233;
-			var gamePlug = new LayerPlug(url,1,1);*/
-		//	showAlert.close();
-		},6000);
-		
-	}
 	
 	function addScore(score){
 		var thisScore = $("#thisScore");
@@ -376,7 +364,9 @@
 			scrollTop:top+$("#progressScoreContainer").scrollTop()-window.screen.availHeight/2
 			
 		},400,function(){
-			callback.call({});
+			if(callback){
+				callback.call({});
+			}
 		});
 	}
 	
@@ -409,49 +399,69 @@
 				this.flowData({
 					thisIndex:0
 				});
+				
+				$("#toDom0").css("display","block");
+				$("#toDom0").css("background","url('')");
+
 			},
 			nextStage:function(){
 				
 			},
 			toStage:function(){
+				var toStageCallback = this.stepData("callback");
 				var outThis = this;
 				var stage = this.stepData("stage");
-				this.setNext("getStageIndex",function(data){
-					var guideIndex;
-					for(var i = 0;i<data.length;i++){
-						var indexObject = data[i];
-						
-						if(indexObject.isGuide==1){
-							guideIndex = indexObject;
+				
+				setTimeout(function(){
+		
+					outThis.setNext("getStageIndex",function(data){
+						var guideIndex;
+						for(var i = 0;i<data.length;i++){
+							var indexObject = data[i];
+							
+							if(indexObject.isGuide==1){
+								guideIndex = indexObject;
+							}
 						}
-					}
 
-					outThis.setNext("trendBetween");
-					
-					var callback = new Object();
-					callback.call = function(index,next){
-						next.next();
-					}
-					
+						outThis.setNext("trendBetween");
+						
+						var callback = new Object();
+						callback.call = function(index,next){
+							next.next();
+							setTimeout(function(){
+								var showAlert = new ShowAlert("第"+stage+"轮");
+								setTimeout(function(){
+									showAlert.close();
+									if(toStageCallback){
+										toStageCallback.call({});
+									}
+								},5000);
+							},1000);
+						}
+						
+						outThis.nextData({
+							beginIndex:outThis.flowData("thisIndex"),
+							endIndex:guideIndex.index,
+							callback:callback
+						});
+						outThis.next();
+						
+					});
 					outThis.nextData({
-						beginIndex:outThis.flowData("thisIndex"),
-						endIndex:guideIndex.index,
-						callback:callback
+						stage:stage
 					});
 					outThis.next();
 					
-				});
-				this.nextData({
-					stage:stage
-				});
-				this.next();
+					
+					outThis.setNext("showStageStyle");
+					outThis.nextData({
+						stage:stage
+					});
+					outThis.next();
+				},10);
 				
 				
-				this.setNext("showStageStyle");
-				this.nextData({
-					stage:stage
-				});
-				this.next();
 			},
 			startStage:function(){
 				var outThis = this;

@@ -73,9 +73,6 @@ public class BaseActionFilter extends Filter{
 	            
 	            filterManager.setEnd(true);
 	            filterManager.setReturnValue(wxRequestUrl);
-	            
-	            
-	            System.out.println("。。。。。。。。。。。。。。。。。。这里是不是进来了");
 	            return null;
 			}else if(requestUri.startsWith("/api")){
 				filterManager.setEnd(true);
