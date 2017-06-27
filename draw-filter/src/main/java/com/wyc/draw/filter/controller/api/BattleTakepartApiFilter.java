@@ -20,8 +20,10 @@ import com.wyc.draw.domain.BattleMember;
 import com.wyc.draw.domain.BattleToMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.filter.BaseDrawActionFilter;
+import com.wyc.draw.filter.BattleMemberStageCreateFilter;
 import com.wyc.draw.filter.CurrentBattleMemberFilter;
 import com.wyc.draw.service.other.AccountHandleService;
+import com.wyc.draw.vo.BattleMemberStageListVo;
 
 public class BattleTakepartApiFilter extends Filter{
 	
@@ -70,6 +72,10 @@ public class BattleTakepartApiFilter extends Filter{
 		map.put("beanConsume", beanConsume);
 		map.put("loveLifeConsume", loveLifeConsume);
 		
+		BattleMemberStageListVo battleMemberStageListVo = sessionManager.getObject(BattleMemberStageListVo.class);
+		map.put("stages", battleMemberStageListVo.getBattleMemberStages());
+		
+		
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setMsg("保存成功");
@@ -82,6 +88,9 @@ public class BattleTakepartApiFilter extends Filter{
 		HttpServletRequest httpServletRequest = sessionManager.getHttpServletRequest();
 		String battleId = httpServletRequest.getParameter("battleId");
 		sessionManager.setAttribute("battleId", battleId);
+		
+		String stageIndexes = httpServletRequest.getParameter("stageIndexes");
+		sessionManager.setAttribute("stageIndexes", stageIndexes);
 		return null;
 	}
 
@@ -90,6 +99,8 @@ public class BattleTakepartApiFilter extends Filter{
 		List<Class<? extends Filter>> classes = new ArrayList<>();
 		classes.add(BaseDrawActionFilter.class);
 		classes.add(CurrentBattleMemberFilter.class);
+		
+		classes.add(BattleMemberStageCreateFilter.class);
 		return classes;
 	}
 

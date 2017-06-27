@@ -13,6 +13,7 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.draw.filter.controller.api.BattleInfoApiFilter;
 import com.wyc.draw.filter.controller.api.BattleListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleMemberInfoApiFilter;
+import com.wyc.draw.filter.controller.api.BattleMemberStageListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleTakepartApiFilter;
 import com.wyc.draw.filter.controller.api.CurrentPropApiFilter;
 import com.wyc.draw.filter.controller.api.CurrentPropBeanApiFilter;
@@ -143,6 +144,16 @@ public class MainApi {
 	@HandlerAnnotation(hanlerFilter=ProgressApiFilter.class)
 	@RequestMapping(value="progressInfo")
 	public Object progressInfo(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
+		return resultVo;
+	}
+	
+	
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=BattleMemberStageListApiFilter.class)
+	@RequestMapping(value="battleMemberStages")
+	public Object battleMemberStages(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
 		return resultVo;

@@ -62,6 +62,10 @@ public class BattleMember {
 	@Column(name="current_stage_index")
 	private Integer currentStageIndex;
 	
+	@ParamAnnotation
+	@Column(name="current_stage_score")
+	private Integer currentStageScore;
+	
 	//当前题目序号
 	@ParamAnnotation
 	@Column(name="current_index")
@@ -87,6 +91,11 @@ public class BattleMember {
 	@ParamAnnotation
 	@Column(name="love_life_limit")
 	private Integer loveLifeLimit;
+	
+	
+	@ParamAnnotation
+	@Column(name="reward_bean_num")
+	private Integer rewardBeanNum;
 
 	
 	@ParamAnnotation
@@ -152,8 +161,14 @@ public class BattleMember {
 		this.drawUserId = drawUserId;
 	}
 
-	
-	
+	public Integer getRewardBeanNum() {
+		return rewardBeanNum;
+	}
+
+	public void setRewardBeanNum(Integer rewardBeanNum) {
+		this.rewardBeanNum = rewardBeanNum;
+	}
+
 	public Integer getLoveLife() {
 		return loveLife;
 	}
@@ -258,5 +273,13 @@ public class BattleMember {
 
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
+	}
+
+	public Integer getCurrentStageScore() {
+		return currentStageScore;
+	}
+
+	public void setCurrentStageScore(Integer currentStageScore) {
+		this.currentStageScore = currentStageScore;
 	}
 }

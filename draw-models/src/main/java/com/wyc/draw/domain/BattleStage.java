@@ -48,6 +48,10 @@ public class BattleStage {
 	private String paperId;
 	
 	@ParamAnnotation
+	@Column(name="is_del")
+	private Integer isDel;
+	
+	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -65,6 +69,14 @@ public class BattleStage {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public Integer getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
 	}
 
 	public Integer getStageIndex() {

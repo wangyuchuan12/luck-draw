@@ -67,6 +67,12 @@ public class BattleMemberIndex {
 	@ParamAnnotation
 	private Integer isGuide;
 	
+	
+	//是否删除
+	@Column(name="is_del")
+	@ParamAnnotation
+	private Integer isDel;
+	
 	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -191,5 +197,13 @@ public class BattleMemberIndex {
 
 	public void setIsGuide(Integer isGuide) {
 		this.isGuide = isGuide;
+	}
+
+	public Integer getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
 	}
 }

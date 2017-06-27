@@ -27,10 +27,19 @@ public class BattleMemberStage {
 	@Column(name="stage_index")
 	private Integer stageIndex;
 	
+	
+	@ParamAnnotation
+	@Column(name="battle_id")
+	private String battleId;
+	
 	//当前题目序号
 	@ParamAnnotation
 	@Column(name="current_index")
-	private String currentIndex;
+	private Integer currentIndex;
+	
+	@ParamAnnotation
+	@Column(name="reward_bean_num")
+	private Integer rewardBeanNum;
 	
 	//状态 0表示未开始，1表示进行中 2表示已完成
 	@ParamAnnotation
@@ -47,6 +56,16 @@ public class BattleMemberStage {
 	@Column(name="member_id")
 	private String memberId;
 	
+	//表示该阶段所在的序号
+	@ParamAnnotation
+	@Column(name="z_index")
+	private Integer index;
+	
+	//该节点的图标
+	@ParamAnnotation
+	@Column(name="icon_url")
+	private String iconUrl;
+	
 	//开始时间
 	@ParamAnnotation
 	@Column(name="start_time")
@@ -62,6 +81,11 @@ public class BattleMemberStage {
 	@Column(name="end_time")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime endTime;
+	
+	//是否删除
+	@ParamAnnotation
+	@Column(name="is_del")
+	private Integer isDel;
 	
 	@ParamAnnotation
 	@Column(name = "create_at")
@@ -83,12 +107,20 @@ public class BattleMemberStage {
 		this.id = id;
 	}
 	
-	public String getCurrentIndex() {
+	public Integer getCurrentIndex() {
 		return currentIndex;
 	}
 
-	public void setCurrentIndex(String currentIndex) {
+	public void setCurrentIndex(Integer currentIndex) {
 		this.currentIndex = currentIndex;
+	}
+	
+	public String getBattleId() {
+		return battleId;
+	}
+
+	public void setBattleId(String battleId) {
+		this.battleId = battleId;
 	}
 
 	public Integer getStageIndex() {
@@ -131,7 +163,13 @@ public class BattleMemberStage {
 		this.endTime = endTime;
 	}
 	
-	
+	public Integer getRewardBeanNum() {
+		return rewardBeanNum;
+	}
+
+	public void setRewardBeanNum(Integer rewardBeanNum) {
+		this.rewardBeanNum = rewardBeanNum;
+	}
 
 	public Integer getIsWin() {
 		return isWin;
@@ -147,6 +185,30 @@ public class BattleMemberStage {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	
+	public Integer getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
+	}
+
+	public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
+	
+	public String getIconUrl() {
+		return iconUrl;
+	}
+
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
 	}
 
 	public DateTime getCreateAt() {
@@ -164,6 +226,4 @@ public class BattleMemberStage {
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
 	}
-	
-	
 }
