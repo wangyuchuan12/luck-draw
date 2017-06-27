@@ -161,134 +161,117 @@
 	var mainViewPlug;
 	
 	var mainViewFlowPlug;
-	
-	initProgressPlug();
-	function initProgressPlug(){
-		var url = "/view/dekorn/progressScore";
-		progressPlug = new LayerPlug(url,1,1);
-		progressPlug.hide();
-	}
-	
-	function initBattle(battleId){
-		
-	}
-	
-	function showBattlePlug(){
-		
-		battlePlug.show();
 
-	}
-	
-	
-	function showProgressPlug(){
-		progressPlug.show();
-		
-		var callback = new Object();
-		callback.setProgressFlowPlug = function(plug){
-			progressFlowPlug = plug
-		}
-		progressPlug.call("init",callback);
-	
-	}
 	
 	function hideProgressPlug(){
 		progressPlug.hide();
 	}
-
-	function initEventListener(){
-		$("#mainViewDekornButton").click(function(){
-			var waitPlug = new WaitPlug();
-			var url = "/api/main/battleMemberInfo";
-			var callback = new Object();
-			callback.success = function(resp){
-				if(resp.success){
-					var data = resp.data;
-					var battleId = 1;
-					if(data.status==1){
-						mainViewPlug.showBattle();
-					}else{
-						battleFlowPlug.setNext("battleTakepart");
-						battleFlowPlug.nextData({
-							battleId:1
-						});
-						battleFlowPlug.next();
-					}
-				}
-			}
-			var params = new Object();
-			params.battleId = 1;
-			request(url,callback,params);
-			//skipToBattleInfo();
-		});
+	
+	function stageEnd(){
+		mainViewFlowPlug.setNext("stageEnd");
+		mainViewFlowPlug.next();
 	}
 	
 	
-	var index = 1;
 	function submitScore(score){
-		paperPlug.close();
-		paperPlug = skipToPapers("第"+index+"轮");
-		index++;
+		
+		mainViewFlowPlug.setNext("submitScore");
+		
+		mainViewFlowPlug.next();
+	
 	}
+	
+	var index=0;
 	
 	//由详情页面回调
-	function startDekorn(){
-		battlePlug.hide();
-		progressPlug.call("scrollToButtom",function(){
-			
-			progressFlowPlug.setNext("initData",function(){
-				
-			});
-			
-			progressFlowPlug.nextData({
-				allScore:1,
-				round:2,
-				thisScore:5,
-				rank:3,
-				loveLimit:5,
-				loveCount:2
-			});
-			
-			progressFlowPlug.next();
-			
-			progressFlowPlug.setNext("showData");
-			progressFlowPlug.next();
-			
-			var stage = 1;
-			var callback = new Object();
-			callback.call = function(){
-				progressPlug.close();
-				mainViewFlowPlug.setNext("startPaper");
-				mainViewFlowPlug.next();
-			}
-			progressFlowPlug.setNext("toStage");
-			progressFlowPlug.nextData({
-				stage:stage,
-				callback:callback
-			});
-			progressFlowPlug.next();
-			
+	function startDekorn(battleId){
+		
+		mainViewPlug.flowPlug.setNext("startDekorn");
+		mainViewPlug.flowPlug.nextData({
+			battleId:battleId
 		});
-		showProgressPlug();
+		mainViewPlug.flowPlug.next();
 		
-		/*progressFlowPlug.setNext("initData",function(){
-			console.log("initData");
-			progressFlowPlug.setNext("showData");
-			progressFlowPlug.next();
-		});*/
-		
-		
-		
-		
-		/*progressFlowPlug.setNext("startStageIndex");
-		progressFlowPlug.nextData({
-			stageIndex:1
-		});
-		progressFlowPlug.next();*/
 		
 	}
 	
 	function init(){
 		mainViewPlug = new FlowPlug({
+			
+			//初始化
+			begin:function(){
+				
+				mainViewFlowPlug = this;
+				
+				modelPlug.showView();
+				
+				attrPlug.showView();
+				
+				var outThis = this;
+				
+				this.setNext("createProgressPlug");
+				this.next();
+				
+				this.setNext("initEventListener");
+				this.next();
+				
+				this.setNext("initBattleInfo");
+				this.next();
+				
+				this.flowData({
+					
+				});
+					
+			},
+			
+			submitScore:function(){
+				progressPlug.show();
+
+				paperPlug.close();
+				var battleId = this.flowData("currentBattleId");
+				
+				var stage = mainViewFlowPlug.flowData("round_"+battleId);
+				if(!stage||stage==0){
+					stage = 1;
+				}
+				
+				progressFlowPlug.setNext("startStage");
+				progressFlowPlug.nextData({
+					stage:stage
+				});
+				
+				progressFlowPlug.next();
+			},
+			
+			createProgressPlug:function(){
+				var url = "/view/dekorn/progressScore";
+				progressPlug = new LayerPlug(url,1,1);
+				progressPlug.hide();
+			},
+			
+			showProgressPlug:function(){
+				progressPlug.show();
+				
+				this.setNext("initProgressPlug");
+				this.next();
+			},
+			
+			initProgressPlug:function(){
+				
+				var flag = this.flowData("initProgressPlugFlag");
+				if(!flag){
+					var callback = new Object();
+					callback.setProgressFlowPlug = function(plug){
+						progressFlowPlug = plug
+					}
+					progressPlug.call("init",callback);
+					
+					this.flowData({
+						initProgressPlugFlag:true
+					});
+				}
+				
+			},
 			
 			showBattle:function(){
 				var outThis = this;
@@ -305,13 +288,88 @@
 				},100);
 			},
 			
+			//开始挑战
+			startDekorn:function(){
+				
+				var outThis = this;
+				
+				var battleId = this.flowData("currentBattleId");
+				
+				var stage = this.flowData("round_"+battleId);
+				
+				if(!stage||stage==0){
+					stage = 1;
+				}
+				
+				this.setNext("showProgressPlug");
+				this.next();
+				
+				progressFlowPlug.setNext("setBattleId");
+				progressFlowPlug.nextData({
+					battleId:battleId
+				});
+				progressFlowPlug.next();
+				
+				
+				progressFlowPlug.setNext("initStageIndex");
+				
+				progressFlowPlug.nextData({
+					stageIndexs:stage
+				});
+				progressFlowPlug.next();
+
+				
+				battlePlug.hide();
+				
+				
+				progressFlowPlug.setNext("initData",function(){
+					
+				});
+				
+				progressFlowPlug.nextData({
+					allScore:outThis.flowData("allScore_"+battleId),
+					round:outThis.flowData("round_"+battleId),
+					thisScore:outThis.flowData("thisScore_"+battleId),
+					rank:outThis.flowData("rank_"+battleId),
+					loveLimit:outThis.flowData("loveLimit_"+battleId),
+					loveCount:outThis.flowData("loveCount_"+battleId),
+				});
+				
+				
+				
+				progressFlowPlug.next();
+				
+				progressFlowPlug.setNext("showData");
+				progressFlowPlug.next();
+				
+				var callback = new Object();
+
+				callback.call = function(){
+
+					progressPlug.hide();
+					mainViewFlowPlug.setNext("startPaper");
+					mainViewFlowPlug.next();
+				}
+				
+				progressFlowPlug.setNext("toStage");
+				progressFlowPlug.nextData({
+					stage:stage,
+					callback:callback
+				});
+				progressFlowPlug.next();
+			},
+			
+			//开始答题
 			startPaper:function(){
-				console.log("startPaper");
-				paperPlug = skipToPapers("");
+				var url = "/view/question/paperInfo?id=1";
+				paperPlug = new LayerPlug(url,1,1,"");
+				
 				paperPlug.show();
 			},
 			
+			//请求用户信息
 			requestBattleMemberInfo:function(){
+				var battleId = this.flowData("currentBattleId");
 				var outThis = this;
 				var url = "/api/main/battleMemberInfo";
 				var callback = new Object();
@@ -324,67 +382,214 @@
 					}
 				}
 				var params = new Object();
-				params.battleId = 1;
+				params.battleId = battleId;
 				request(url,callback,params);
 			},
 			
+			stageEnd:function(){
+				var outThis = this;
+				var battleId = this.flowData("currentBattleId");
+			/*	var stageIndex = this.flowData("round_"+battleId);
+				stageIndex++;
+				//设置变量
+				this.setNext("setParam");
+				this.nextData({
+					name:"round_"+battleId,
+					value:stageIndex
+				});
+				this.next();*/
+				
+				
+				this.setNext("startBattle");
+				this.nextData({
+					battleId:battleId
+				});
+				this.next();
+			},
+			
+			initBattleMemberInfo:function(){
+				var outThis = this;
+				var battleId = this.flowData("currentBattleId");
+				this.setNext("requestBattleMemberInfo",function(data){
+					var object = new Object();
+					object["round_"+battleId] = data.currentStageIndex;
+					object["thisScore_"+battleId] = data.currentStageScore;
+					object["allScore_"+battleId] = data.allScore;
+					object["beanNum_"+battleId] = data.rewardBeanNum;
+					object["loveCount_"+battleId] = data.loveLife;
+					object["loveLimit_"+battleId] = data.loveLifeLimit;
+					object["rank_"+battleId] = data.rank;
+					object["status_"+battleId] = data.status;
+					object["currentStageIndex_"+battleId] = data.currentStageIndex;
+					object["index_"+battleId] = data.index;
+					outThis.flowData(object);
+					outThis.success();
+				});
+				
+				this.nextData({
+					battleId:battleId
+				});
+				this.next();
+				
+				battleFlowPlug.setNext("setBattleId");
+				battleFlowPlug.nextData({
+					battleId:battleId
+				})
+				battleFlowPlug.next();
+			},
+			
+			getBattleMemberStages:function(){
+				var outThis = this;
+				var battleId = this.flowData("currentBattleId");
+				if(!this.flowData("stageInitFlag")){
+					outThis.setNext("requestBattleMemberStages",function(){
+						outThis.success(outThis.flowData("stageInfos"));
+					});
+					outThis.nextData({
+						battleId:battleId
+					});
+					outThis.next();
+				}else{
+					outThis.success(outThis.flowData("stageInfos"));
+				}
+				
+			},
+			
+			requestBattleMemberStages:function(){
+				var outThis = this;
+				var battleId = this.flowData("currentBattleId");
+				var url = "/api/main/battleMemberStages";
+				
+				var params = new Object();
+				params.battleId = battleId;
+				var callback = new Object();
+				callback.success = function(resp){
+					if(resp.success){
+						var battleMemberStages = resp.data;
+						for(var i = 0;i<battleMemberStages.length;i++){
+							outThis.flowData({
+								"stageInfos":battleMemberStages
+							});
+						}
+						outThis.success();
+					}
+				}
+				request(url,callback,params);
+			},
+			
+			startBattle:function(){
+				progressPlug.hide();
+				var outThis = this;
+				var battleId = this.flowData("currentBattleId");
+				var waitPlug = new WaitPlug();
+				outThis.setNext("initBattleMemberInfo",function(data){
+					outThis.setNext("setBattleData");
+					outThis.nextData({
+						battleId:battleId
+					});
+					outThis.next();
+					
+					if(outThis.flowData("status_"+battleId)==1){
+						outThis.setNext("showBattle",function(){
+							waitPlug.close();
+						});
+						outThis.next();
+					}else{
+						outThis.setNext("battleTakepart",function(data){
+							waitPlug.close();
+							var attrFlowPlug = attrPlug.flowPlug;
+							attrFlowPlug.setNext("subLoveAction",function(){
+								outThis.setNext("showBattle",function(){});
+								outThis.next();
+								waitPlug.close();
+							});
+							
+							attrFlowPlug.nextData({
+								num:data.loveLifeConsume
+							});
+							attrFlowPlug.next();
+							
+							
+							attrFlowPlug.setNext("subBeanAction",function(){
+								outThis.setNext("showBattle",function(){});
+								outThis.next();
+								waitPlug.close();
+							});
+							
+							attrFlowPlug.nextData({
+								num:data.beanConsume
+							});
+							attrFlowPlug.next();
+							
+						});
+						outThis.nextData({
+							battleId:battleId
+						});
+						outThis.next();
+					}
+					
+				});
+				outThis.nextData({
+					battleId:battleId
+				});
+				outThis.next();
+			},
+			
+			//用用户互动的监听器
 			initEventListener:function(){
 				var outThis = this;
+				var battleId = 1;
+				
+				 this.flowData({
+					 currentBattleId:battleId
+				 })
+					
 				$("#mainViewDekornButton").click(function(){
-					var waitPlug = new WaitPlug();
-					outThis.setNext("requestBattleMemberInfo",function(data){
-						if(data.status==1){
-							outThis.setNext("showBattle",function(){
-								waitPlug.close();
-							});
-							outThis.next();
-						}else{
-							outThis.setNext("battleTakepart",function(){
-								console.log("battleTakepart");
-								outThis.setNext("showBattle");
-								outThis.next();
-								
-								waitPlug.close();
-							});
-							outThis.nextData({
-								battleId:1
-							});
-							outThis.next();
-						}
-						
+					outThis.setNext("startBattle");
+					outThis.nextData({
+						battleId:battleId
 					});
 					outThis.next();
 				});
 			},
 			
-			begin:function(){
-				mainViewFlowPlug = this;
-				
-				modelPlug.showView();
-				
-				attrPlug.showView();
-				
+			initBattleInfo:function(){
 				var outThis = this;
-				
-				this.setNext("initEventListener");
-				this.next();
-				
+				var battleId = this.flowData("currentBattleId");
 				this.setNext("initBattle",function(){
+					
 					outThis.setNext("setBattleData");
 					outThis.next();
+					
+					this.setNext("getBattleMemberStages",function(data){
+						outThis.setNext("initProgressPlug");
+						outThis.next();
+						
+						progressFlowPlug.setNext("initStages");
+						progressFlowPlug.nextData({
+							array:data
+						});
+						progressFlowPlug.next();
+					});
+					this.nextData({
+						battleId:battleId
+					});
+					this.next();
 				
 				});
+				
 				this.next();
 			},
 			
+			//参与比赛
 			battleTakepart:function(){
 				var outThis = this;
-				var battleId = this.stepData("battleId");
+				var battleId = this.flowData("currentBattleId");
 				var url = "/api/main/battleTakepart";
 				var callback = new Object();
 				callback.success = function(resp){
 					if(resp.success){
-						outThis.success();
+						outThis.success(resp.data);
 					}else{
 						outThis.failure();
 					}
@@ -392,16 +597,36 @@
 				}
 				var params = new Object();
 				params.battleId = battleId;
+				params.stageIndexes="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15";
 				request(url,callback,params);
 			},
 			
+			setBattleId:function(){
+				var battleId = this.stepData("battleId");
+				 this.flowData({
+					 currentBattleId:battleId
+				 })
+			},
+			
+			nextStage:function(){
+				var battleId = this.stepData("battleId");
+				
+				this.setNext("getBattleMemberStages",function(data){
+					for(var i=0;i<data.length;i++){
+						
+					}
+				});
+				this.next();
+			},
+			
+			//初始化比赛界面
 			initBattle:function(){
 				var outThis = this;
-				var battleId = 1;
-				battlePlug = new LayerPlug("/view/dekorn/battleInfo?battleId="+battleId,1,1,"",function(){
+				battlePlug = new LayerPlug("/view/dekorn/battleInfo",1,1,"",function(){
 					var callback = new Object();
 					callback.setBattleFlowPlug = function(plug){
 						battleFlowPlug = plug;
+
 						outThis.success();
 						
 						//这个属性是为了告诉系统改插件已经准备好了
@@ -413,17 +638,26 @@
 				battlePlug.hide();
 			},
 			
+			//初始化比赛数据
 			setBattleData:function(){
+				var battleId = this.flowData("currentBattleId");
+				var round = this.flowData("round_"+battleId);
+				var thisScore = this.flowData("thisScore_"+battleId);
+				var allScore = this.flowData("allScore_"+battleId);
+				var beanNum = this.flowData("beanNum_"+battleId);
+				var loveCount = this.flowData("loveCount_"+battleId);
+				var loveLimit = this.flowData("loveLimit_"+battleId);
+				var rank = this.flowData("rank_"+battleId);
 				battleFlowPlug.setNext("initData");
 				
 				battleFlowPlug.nextData({
-					round:5,
-					thisScore:2,
-					allScore:30,
-					beanNum:10,
-					loveCount:2,
-					loveLimit:3,
-					rank:2
+					round:round,
+					thisScore:thisScore,
+					allScore:allScore,
+					beanNum:beanNum,
+					loveCount:loveCount,
+					loveLimit:loveLimit,
+					rank:rank
 				});
 				
 				battleFlowPlug.next();
@@ -432,7 +666,7 @@
 	}
 	
 	$(document).ready(function(){
-	//	var loveProgressPlug = new ProgressPlug("#progressbarLove_tool","#progress-label3",{type:3});
+
 		var progressCallback = new Object();
 		progressCallback.complete = function(){
 			init();

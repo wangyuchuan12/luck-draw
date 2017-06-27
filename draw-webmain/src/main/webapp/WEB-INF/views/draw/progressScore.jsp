@@ -388,13 +388,7 @@
 			begin:function(){
 				mainCallback.setProgressFlowPlug(this);
 				
-				this.setNext("initStageIndex");
 				
-				this.nextData({
-					stageIndexs:1,
-					battleId:1
-				});
-				this.next();
 				
 				this.flowData({
 					thisIndex:0
@@ -404,6 +398,27 @@
 				$("#toDom0").css("background","url('')");
 
 			},
+			
+			initStages:function(){
+				var array = this.stepData("array");
+				var outThis = this;
+				for(var i = 0;i<array.length;i++){
+					var object = array[i];
+					outThis.setNext("showIndexStyleHandle");
+					outThis.nextData({
+						index:object.index,
+						iconUrl:object.iconUrl
+					});
+					outThis.next();
+				}
+			},
+			
+			setBattleId:function(){
+				var battleId = this.stepData("battleId");
+				this.flowData({
+					battleId:battleId
+				});
+			},
 			nextStage:function(){
 				
 			},
@@ -411,9 +426,8 @@
 				var toStageCallback = this.stepData("callback");
 				var outThis = this;
 				var stage = this.stepData("stage");
-				
+				console.log("toStage:"+stage);
 				setTimeout(function(){
-		
 					outThis.setNext("getStageIndex",function(data){
 						var guideIndex;
 						for(var i = 0;i<data.length;i++){
@@ -429,6 +443,10 @@
 						var callback = new Object();
 						callback.call = function(index,next){
 							next.next();
+						}
+						
+						callback.end = function(){
+							console.log("callback.end");
 							setTimeout(function(){
 								var showAlert = new ShowAlert("第"+stage+"轮");
 								setTimeout(function(){
@@ -466,6 +484,7 @@
 			startStage:function(){
 				var outThis = this;
 				var stage = this.stepData("stage");
+			
 				this.setNext("getStageIndex",function(data){
 					var guideIndex;
 					for(var i = 0;i<data.length;i++){
@@ -474,13 +493,14 @@
 						if(indexObject.isGuide==1){
 							guideIndex = indexObject;
 						}
+						
 					}
 					
 					var endIndex = guideIndex.index+data.length-1;
 					
 					var callback = new Object();
 					callback.call = function(index,next){
-						var indexObject = outThis.flowData("index"+(index+1));
+						var indexObject = outThis.flowData("index"+(index));
 						
 						if(indexObject.rewardBeanNum&&indexObject.rewardBeanNum>0){
 							attrPlug.addBeanAnnim({
@@ -488,9 +508,17 @@
 							});
 						}
 						
+						if(index+1==endIndex){
+							setTimeout(function(){
+								window.parent.stageEnd();
+							},3000);
+						}
+						
 						if(indexObject.isRight==1){
 							pointRight(index+1,function(){
-								next.next();
+								setTimeout(function(){
+									next.next();
+								},2000);
 								
 								outThis.setNext("addScore");
 								outThis.nextData({
@@ -500,7 +528,11 @@
 							});
 						}else if(indexObject.isRight==0){
 							pointWrong(index+1,function(){
-								next.next();
+								
+								setTimeout(function(){
+									next.next();
+								},2000);
+								
 								var loveCount = outThis.flowData("loveCount");
 								loveCount = loveCount-1;
 								
@@ -513,13 +545,16 @@
 								
 							});
 						}else{
-							next.next();
+							setTimeout(function(){
+								next.next();
+							},2000);
 						}
 						
 						
 					}
 					
 					outThis.setNext("trendBetween");
+					
 					outThis.nextData({
 						beginIndex:guideIndex.index,
 						endIndex:endIndex,
@@ -560,12 +595,25 @@
 				var obj = this.flowData("index"+index);
 				
 				var iconUrl = obj.iconUrl;
+				
+				this.setNext("showIndexStyleHandle");
+				this.nextData({
+					iconUrl:iconUrl,
+					index:index
+				});
+				this.next();
+				
+			},
+			
+			showIndexStyleHandle:function(){
+				var iconUrl = this.stepData("iconUrl");
+				var index = this.stepData("index");
+				
 				if(iconUrl){
 					$("#toDom"+index).css("background","url('"+iconUrl+"')");
 					$("#toDom"+index).css("background-size","100% 100%");
 				}
 				$("#toDom"+index).css("display","block");
-				
 			},
 			
 			addScore:function(){
@@ -732,7 +780,7 @@
 					});
 					outThis.nextData({
 						stageIndexs:stage,
-						battleId:1
+						battleId:outThis.flowData("battleId")
 					});
 					outThis.next();
 				}else{
@@ -743,7 +791,7 @@
 			//请求阶段数据
 			initStageIndex:function(){
 				var stageIndexs = this.stepData("stageIndexs");
-				var battleId = this.stepData("battleId");
+				var battleId = this.flowData("battleId");
 				var outThis = this;
 				var url = "/api/main/progressInfo";
 				var callback = new Object();
@@ -787,110 +835,50 @@
 				request(url,callback,params);
 			},
 			
-			
-			//阶段轨迹
-			startStageIndex:function(){
-				var stageIndex = this.stepData("stageIndex");
-				var outThis = this;
-				this.setNext("getStageIndex",function(battleIndexs){
-					var array = new Array();				
-					for(var i = 0;i<battleIndexs.length;i++){
-						var battleIndex = battleIndexs[i];
-						array.push(battleIndex.index);
-					}
-					array.sort();
-					
-					var begin = array[1];
-					var end = array[array.length-1];
-										
-					outThis.setNext("trendBetween");
-					
-					outThis.nextData({
-						beginIndex:begin,
-						endIndex:end
-					});
-					outThis.next();
-				});
-				this.nextData({
-					stage:stageIndex
-				});
-				this.next();
-				
-			},
-			
 			//运行
 			trendBetween:function(){
 				var outThis = this;
 				var beginIndex = this.stepData("beginIndex");
 				var endIndex = this.stepData("endIndex");
+	
 				var callback = this.stepData("callback");
 				var toDoms = new Array();
 				for(var i = beginIndex;i<=endIndex;i++){
 					toDoms.push($("#toDom"+i));
 				}
 				
-			//	$("#progressScoreContainer").animate({scrollTop:top},"slow");
-				
-			
 				moveAnimateTrajectory($("#fromDom"),toDoms,beginIndex,function(index,toDom,fromDom,next){
+					
 					var top = fromDom.position().top;
-					
-					
+			
 					$("#progressScoreContainer").animate({
 						scrollTop:top+$("#progressScoreContainer").scrollTop()-window.screen.availHeight/2
 					},400,function(){
 						
 						var indexObject = outThis.flowData("index"+(index+1));
 						
-					/*	if(indexObject.rewardBeanNum&&indexObject.rewardBeanNum>0){
-							attrPlug.addBeanAnnim({
-								num:indexObject.rewardBeanNum
-							});
-						}
-					
-					*/
-	
 						outThis.flowData({
 							thisIndex:index
 						});
-					
+
+						outThis.flowData({
+							thisIndex:index
+						});
+						
 						if(callback){
 							callback.call(index,next);
+							if(callback.end&&index+1>=toDoms.length){
+							//	callback.end();
+							}
 						}
-					
-						/*
-						if(indexObject.isRight==1){
-							pointRight(index+1,function(){
-								next.next();
-								
-								outThis.setNext("addScore");
-								outThis.nextData({
-									score:indexObject.score
-								});
-								outThis.next();
-								
-							});
-						}else if(indexObject.isRight==0){
-							pointWrong(index+1,function(){
-								next.next();
-								var loveCount = outThis.flowData("loveCount");
-								loveCount = loveCount-1;
-								
-								outThis.flowData({
-									loveCount:loveCount
-								});
-								
-								outThis.setNext("showLove");
-								outThis.next();
-								
-							});
-						}else{
-							next.next();
-						}*/
-						
 					});
 					
-				},-5,-5);
+				},-5,-5,0,function(){
+					if(callback&&callback.end){
+						console.log("callback.end");
+						callback.end();
+					}
+				});
 			}
 		});
 	}

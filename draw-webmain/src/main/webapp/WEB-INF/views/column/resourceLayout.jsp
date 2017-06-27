@@ -162,15 +162,15 @@
 		</div>
 		
 		
-		<div id="lifeLoveSolidAnnim" style="width:100px;height:100px;display: none;">
+		<div id="lifeLoveSolidAnnim" style="width:100px;height:100px;display: none;z-index:10;">
 			<img src="http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png"/>
 		</div>
 		
-		<div id="beanAnnim" style="width:100px;height:100px;display: none;">
+		<div id="beanAnnim" style="width:100px;height:100px;display: none;z-index: 10;">
 			<img src="/imgs/plug/bean.png"/>
 		</div>
 		
-		<div id="coinAnnim" style="width:100px;height:100px;display: none;">
+		<div id="coinAnnim" style="width:100px;height:100px;display: none;z-index:10;">
 			<img src="http://on3s1z2us.bkt.clouddn.com/coin.png"/>
 		</div>
     	<tiles:insertAttribute name="body" />
@@ -716,9 +716,14 @@
 				},
 				
 				subLoveAction:function(){
+					var outThis = this;
 					var num = this.stepData("num");
 					loveProgressPlug.subValueAction(num);
-					showIncreaseNum(num,"/imgs/plug/lifeLoveSolid.png");
+					showIncreaseNum(num,"/imgs/plug/lifeLoveSolid.png",0,-80);
+					
+					setTimeout(function(){
+						outThis.success();
+					},5000);
 				},
 				
 				addBeanAction:function(){
@@ -728,9 +733,13 @@
 				},
 				
 				subBeanAction:function(){
+					var outThis = this;
 					var num = this.stepData("num");
 					beanProgressPlug.subValueAction(num);
-					showIncreaseNum(num,"/imgs/plug/bean.png");
+					showIncreaseNum(num,"/imgs/plug/bean.png",0,50);
+					setTimeout(function(){
+						outThis.success();
+					},5000);
 				},
 				
 				addMasonryAction:function(){

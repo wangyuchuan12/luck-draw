@@ -65,7 +65,6 @@
 		
 			var mainCallback;
 			function init(cb){
-				console.log("..............init");
 				mainCallback = cb;
 				var battlePlug = new FlowPlug({
 					begin:function(){
@@ -85,6 +84,14 @@
 						this.success();
 						
 					},
+					
+					setBattleId:function(){
+						var outThis = this;
+						this.flowData({
+							battleId:outThis.stepData("battleId")
+						});
+					},
+					
 					showView:function(){
 						var round = this.flowData("round");
 						var thisScore = this.flowData("thisScore");
@@ -100,6 +107,7 @@
 						$("#beanNum").text("+"+beanNum+"颗");
 						$("#rank").text(rank+"名");
 						
+						$("#loves").empty();
 						for(var i = 0;i<loveCount;i++){
 							var loveDiv = $("<div></div>");
 							loveDiv.attr("class","personalAttrDataHeaderBig personalAttrDataHeaderLoveBig");
@@ -116,7 +124,9 @@
 				
 				
 				$("#dekornButton").click(function(){
-					window.parent.startDekorn();
+					var battleId = battlePlug.flowPlug.flowData("battleId");
+					var round = battlePlug.flowPlug.flowData("round");
+					window.parent.startDekorn(battleId);
 				});
 			}
 			$(document).ready(function(){

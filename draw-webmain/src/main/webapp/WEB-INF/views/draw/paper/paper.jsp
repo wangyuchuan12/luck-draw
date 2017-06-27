@@ -25,6 +25,11 @@
 			<div style="width:100%;height:100%;background-color:white;"></div>
 			<script type="text/javascript">
 				var initFun;
+				var layerPlug;
+				
+				function z_close(){
+					//layerPlug.close();
+				}
 				
 				function checkOption(questionId,optionId,isRight,overTimeLong,isTimeout){
 					var content;
@@ -48,7 +53,7 @@
 				
 			
 				$(document).ready(function(){
-					var layerPlug;
+					
 					
 					var flowJs = flowJS({
 						init:function(){
@@ -202,9 +207,8 @@
 							var questionCount = this.flowData("questionCount");
 							var id = this.flowData("questionId");
 							var content = this.flowData("content");
-							
 							layerPlug = new LayerPlug("/view/question/info?id="+id+"&index="+answerCount+"&count="+questionCount,1,1,content);
-						
+							
 						}
 					});
 				});

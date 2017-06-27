@@ -508,12 +508,17 @@ function ProgressPlug(selectorProgress,selectorLabel,params){
 		
 		var count = subValue/subNum;
 		if(count&&count>0){
-			for(var i = 0;i<count;i++){
-				setTimeout(function(){
-					outThis.setValue(outThis.getValue()-subNum);
-				},growthSpeed);
-			}
+			setTimeout(function(){
+				for(var i = 0;i<count;i++){
+					setTimeout(function(){
+						outThis.setValue(outThis.getValue()-subNum);
+					},growthSpeed);
+				}
+			},1500);
+			
 		}
+		
+		showIncreaseNumFromEl(subValue,progressLabel,1,20,40,null,20);
 	}
 	
 	
@@ -604,27 +609,35 @@ function showRoating(selector,time){
 	$("body").append(div);
 }
 
-function moveAnimateTrajectory(dom,toDoms,index,fun,offsetLeft,offsetTop){
+function moveAnimateTrajectory(dom,toDoms,index,fun,offsetLeft,offsetTop,num,endFun){
 	if(!index){
 		index = 0;
 	}
-	
-	if(index<toDoms.length){
-		moveAnimate(dom,toDoms[index],function(){
+	if(!num){
+		num = 0;
+	}
+	if(num<toDoms.length){
+		moveAnimate(dom,toDoms[num],function(){
 			if(fun){
 				var next = new Object();
 				next.next = function(){
 					index++;
-					moveAnimateTrajectory(dom,toDoms,index,fun,offsetLeft,offsetTop);
+					num++;
+					moveAnimateTrajectory(dom,toDoms,index,fun,offsetLeft,offsetTop,num,endFun);
 				}
 				fun.call({},index,toDoms[index],dom,next);
 			}
 			
 		},offsetLeft,offsetTop);
+	}else{
+		if(endFun){
+			endFun.call({});
+		}
 	}
 }
 
 function moveAnimate(dom,toDom,fun,offsetLeft,offsetTop){
+	
 	if(!offsetLeft){
 		offsetLeft = 0;
 	}
@@ -633,18 +646,28 @@ function moveAnimate(dom,toDom,fun,offsetLeft,offsetTop){
 		
 		offsetTop = 0;
 	}
-
+	
 	
 	var toLeft = parseInt(toDom.css("left"));
 	
 	var toTop = parseInt(toDom.css("top"));
 	
+	var flag = false;
+
 	dom.animate({
 		top:[toTop+offsetLeft,"linear"],
 		left:[toLeft+offsetTop,"linear"]
 	},500,function(){
 		fun.call();
+
+		flag = true;
 	});
+
+	setTimeout(function(){
+		if(!flag){
+			fun.call();
+		}
+	},700);
 	
 	
 	
@@ -657,6 +680,7 @@ function targetAnimate(fromDom,toDom,params,preAnnimParam,fun){
 	var fromLeft = $(window).width()/2;
 	var fromTop = $(window).height()/2;
 	
+	
 	var offsetLeft = 0;
 	var offsetTop = 0;
 	var time = 1000;
@@ -668,10 +692,16 @@ function targetAnimate(fromDom,toDom,params,preAnnimParam,fun){
 	
 	var msg;
 	
+	var zIndex = 1000;
+	
+	if(fromDom.css("zIndex")&&fromDom.css("zIndex")!="auto"){
+//		zIndex=fromDom.css("zIndex");
+	}
+
 	if(params){
-		
 		if(params.isClone){
 			fromDom = fromDom.clone();
+			
 			
 			$("body").append(fromDom);
 		}
@@ -720,6 +750,8 @@ function targetAnimate(fromDom,toDom,params,preAnnimParam,fun){
 	fromDom.css("top",fromTop-fromDom.height()/2);
 	
 	fromDom.css("display","block");
+	
+	fromDom.css("z-index",zIndex);
 	
 	var width = toDom.width();
 	var height = toDom.height();
@@ -910,10 +942,21 @@ function AlertPlug(content,btns){
 
 function FlowPlug(funs){
 	var initFun;
+	var ouThis = this;
 	funs.init = function(){
+		ouThis.flowPlug = this;
 		this.setNext("begin");
 		this.next();
 		initFun = this;
+		
+	}
+	
+	funs.setParam = function(){
+		var name = this.stepData("name");
+		var value = this.stepData("value");
+		var object = new Object();
+		object[name] = value;
+		this.flowData(object);
 	}
 	var flowJs = flowJS(funs);
 	
@@ -1028,7 +1071,12 @@ function LayerPlug(url,w,h,loadContent,fun){
 	}
 	this.load(this.url,this.width,this.height,this.loadContent);
 	this.close = function(){
-	
+
+		try{
+			$("#"+outThis.frameId)[0].contentWindow.z_close();
+		}catch(e){
+			
+		}
 		layer.close(outThis.plugLayer);
 	}
 }
