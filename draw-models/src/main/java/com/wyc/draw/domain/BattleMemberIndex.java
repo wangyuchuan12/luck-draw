@@ -73,6 +73,11 @@ public class BattleMemberIndex {
 	@ParamAnnotation
 	private Integer isDel;
 	
+	//该阶段所对应的问题
+	@Column(name="question_id")
+	@ParamAnnotation
+	private String questionId;
+	
 	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -158,6 +163,14 @@ public class BattleMemberIndex {
 	}
 	
 	
+
+	public String getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(String questionId) {
+		this.questionId = questionId;
+	}
 
 	public String getIconUrl() {
 		return iconUrl;

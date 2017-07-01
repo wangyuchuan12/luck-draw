@@ -1,5 +1,6 @@
 package com.wyc.draw.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -25,5 +26,9 @@ public class QuestionAnswerService {
 		
 		questionAnswerRepository.save(questionAnswer);
 		return questionAnswer;
+	}
+
+	public List<QuestionAnswer> findAllByKeyIdAndPaperIdAndType(String keyId, String paperId, int type) {
+		return questionAnswerRepository.findAllByKeyIdAndPaperIdAndType(keyId,paperId,type);
 	}
 }

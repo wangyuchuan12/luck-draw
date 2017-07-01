@@ -396,7 +396,14 @@
 				
 				$("#toDom0").css("display","block");
 				$("#toDom0").css("background","url('')");
-
+				
+			},
+			
+			setThisIndex:function(){
+				var thisIndex = this.stepData("thisIndex");
+				this.flowData({
+					thisIndex:thisIndex
+				})
 			},
 			
 			initStages:function(){
@@ -423,61 +430,91 @@
 				
 			},
 			toStage:function(){
-				var toStageCallback = this.stepData("callback");
 				var outThis = this;
 				var stage = this.stepData("stage");
-				console.log("toStage:"+stage);
-				setTimeout(function(){
-					outThis.setNext("getStageIndex",function(data){
-						var guideIndex;
-						for(var i = 0;i<data.length;i++){
-							var indexObject = data[i];
-							
-							if(indexObject.isGuide==1){
-								guideIndex = indexObject;
-							}
-						}
-
-						outThis.setNext("trendBetween");
-						
-						var callback = new Object();
-						callback.call = function(index,next){
-							next.next();
-						}
-						
-						callback.end = function(){
-							console.log("callback.end");
-							setTimeout(function(){
-								var showAlert = new ShowAlert("第"+stage+"轮");
-								setTimeout(function(){
-									showAlert.close();
-									if(toStageCallback){
-										toStageCallback.call({});
-									}
-								},5000);
-							},1000);
-						}
-						
+				
+				this.setNext("putToStageLast",function(index){
+					outThis.flowData({
+						thisIndex:index
+					});
+					var stageIndexsStr="";
+					for(var i =1;i<=stage;i++){
+						stageIndexsStr=stageIndexsStr+i+",";
+					}
+					
+					if(stageIndexsStr){
+						stageIndexsStr = stageIndexsStr.substring(0,stageIndexsStr.length-1);
+					}
+					if(stageIndexsStr){
+						outThis.setNext("initStagesStyle");
 						outThis.nextData({
-							beginIndex:outThis.flowData("thisIndex"),
-							endIndex:guideIndex.index,
-							callback:callback
+							stageIndexs:stageIndexsStr,
+							isPrint:1
+							
+						})
+						outThis.next();
+					}
+					
+					
+					var toStageCallback = outThis.stepData("callback");
+					setTimeout(function(){
+						outThis.setNext("getStageIndex",function(data){
+							var guideIndex;
+							for(var i = 0;i<data.length;i++){
+								var indexObject = data[i];
+								
+								if(indexObject.isGuide==1){
+									guideIndex = indexObject;
+								}
+							}
+
+							outThis.setNext("trendBetween");
+							
+							var callback = new Object();
+							callback.call = function(index,next){
+								next.next();
+							}
+							
+							callback.end = function(){
+								setTimeout(function(){
+									var showAlert = new ShowAlert("第"+stage+"轮");
+									setTimeout(function(){
+										showAlert.close();
+										if(toStageCallback){
+											toStageCallback.call({});
+										}
+									},5000);
+								},1000);
+							}
+							
+							var thisIndex = outThis.flowData("thisIndex");
+							
+							outThis.nextData({
+								beginIndex:thisIndex,
+								endIndex:guideIndex.index,
+								callback:callback
+							});
+							outThis.next();
+							
+						});
+						outThis.nextData({
+							stage:stage
 						});
 						outThis.next();
 						
-					});
-					outThis.nextData({
-						stage:stage
-					});
-					outThis.next();
-					
-					
-					outThis.setNext("showStageStyle");
-					outThis.nextData({
-						stage:stage
-					});
-					outThis.next();
-				},10);
+						
+						outThis.setNext("showStageStyle");
+						outThis.nextData({
+							stage:stage
+						});
+						outThis.next();
+					},10);
+				});
+				this.nextData({
+					stage:stage-1
+				});
+				this.next();
+				
 				
 				
 			},
@@ -508,17 +545,17 @@
 							});
 						}
 						
-						if(index+1==endIndex){
+						if(index==endIndex){
 							setTimeout(function(){
 								window.parent.stageEnd();
-							},3000);
+							},8000);
 						}
 						
 						if(indexObject.isRight==1){
-							pointRight(index+1,function(){
+							pointRight(index,function(){
 								setTimeout(function(){
 									next.next();
-								},2000);
+								},1000);
 								
 								outThis.setNext("addScore");
 								outThis.nextData({
@@ -527,11 +564,11 @@
 								outThis.next();
 							});
 						}else if(indexObject.isRight==0){
-							pointWrong(index+1,function(){
+							pointWrong(index,function(){
 								
 								setTimeout(function(){
 									next.next();
-								},2000);
+								},1000);
 								
 								var loveCount = outThis.flowData("loveCount");
 								loveCount = loveCount-1;
@@ -547,7 +584,7 @@
 						}else{
 							setTimeout(function(){
 								next.next();
-							},2000);
+							},1000);
 						}
 						
 						
@@ -564,24 +601,113 @@
 				});
 				
 				this.nextData({
-					stage:stage
+					stage:stage,
+					flag:true
 				});
 				this.next();
 				
 			},
 			
+			//多阶段显现
+			initStagesStyle:function(){
+				var stageIndexs = this.stepData("stageIndexs");
+				var isPrint = this.stepData("isPrint");
+				var outThis = this;
+				this.setNext("initStageIndex",function(){
+					var stages = stageIndexs.split(",");
+					
+					for(var i = 0;i<stages.length;i++){
+						
+						
+						outThis.setNext("showStageStyle");
+						outThis.nextData({
+							stage:stages[i],
+							isPrint:1
+						});
+						outThis.next();
+					
+					}
+				});
+				
+				this.nextData({
+					stageIndexs:stageIndexs
+				});
+				
+				this.next();
+			},
+			
+			putToStageLast:function(){
+				
+				var outThis = this;
+				var stage = this.stepData("stage");
+				if(stage&&stage>0){
+					this.setNext("getStageIndex",function(indexs){
+						var lastIndex = indexs[indexs.length-1];
+						
+						var left = $("#toDom"+lastIndex.index).css("left");
+						var top = $("#toDom"+lastIndex.index).css("top");
+						
+						
+						$("#fromDom").css("left",left);
+						$("#fromDom").css("top",top);
+						
+						
+						var top = $("#fromDom").position().top;
+						
+						$("#progressScoreContainer").animate({
+							scrollTop:top+$("#progressScoreContainer").scrollTop()-window.screen.availHeight/2
+						},function(){
+							outThis.success(lastIndex.index);
+						});
+						
+					});
+					this.nextData({
+						stage:stage
+					});
+					this.next();
+					
+					
+				}else{
+					var left = $("#toDom0").css("left");
+					var top = $("#toDom0").css("top");
+					$("#fromDom").css("left",left);
+					$("#fromDom").css("top",top);
+					
+					var top = $("#fromDom").position().top;
+					
+					$("#progressScoreContainer").animate({
+						scrollTop:top+$("#progressScoreContainer").scrollTop()-window.screen.availHeight/2
+					},function(){
+						outThis.success(0);
+					});
+				}
+			},
+			
 			showStageStyle:function(){
 				var outThis = this;
 				var stage = this.stepData("stage");
+				var isPrint = this.stepData("isPrint");
 				this.setNext("getStageIndex",function(data){
-					for(var i = 0;i<data.length;i++){
-						var index = data[i].index;
-						outThis.setNext("showIndexStyle");
-						outThis.nextData({
-							index:index
-						});
-						outThis.next();
+					if(data){
+						for(var i = 0;i<data.length;i++){
+							var index = data[i].index;
+							
+							outThis.setNext("showIndexStyle");
+							outThis.nextData({
+								index:index
+							});
+							outThis.next();
+							
+							if(data[i]&&data[i].status==2){
+								if(data[i].isRight==0&&isPrint){
+									pointWrong(data[i].index,function(){});
+								}else if(data[i].isRight==1&&isPrint){
+									pointRight(data[i].index,function(){});
+								}
+							}
+						}
 					}
+					
 				});
 				this.nextData({
 					stage:stage
@@ -770,9 +896,10 @@
 				var outThis = this;
 				var stage = this.stepData("stage");
 				var key = "stage"+stage;
+				var flag = this.stepData("flag");
 				
 				var indexs = this.flowData(key);
-				if(!indexs){
+				if(!indexs||flag){
 					
 					outThis.setNext("initStageIndex",function(){
 						indexs = this.flowData(key);
@@ -875,7 +1002,6 @@
 					
 				},-5,-5,0,function(){
 					if(callback&&callback.end){
-						console.log("callback.end");
 						callback.end();
 					}
 				});

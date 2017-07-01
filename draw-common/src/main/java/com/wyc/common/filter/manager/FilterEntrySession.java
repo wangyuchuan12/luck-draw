@@ -70,12 +70,12 @@ public class FilterEntrySession {
 	}
 	
 	private void executeAfter(FilterEntry filterEntry)throws Exception {
-		FilterEntryHandler filterEntryHandler = new FilterEntryHandler(filterEntry, sessionManager);
-		filterEntryHandler.executeAfter();
+			FilterEntryHandler filterEntryHandler = new FilterEntryHandler(filterEntry, sessionManager);
+			filterEntryHandler.executeAfter();
 	}
 
 	private void executePre(FilterEntry filterEntry)throws Exception{
-		if(!sessionManager.isEnd()&&!sessionManager.containNotExecuteFilter(filterEntry.getFilter().getClass())){
+		if(isExecuteAble(filterEntry)){
 			FilterEntryHandler filterEntryHandler = new FilterEntryHandler(filterEntry, sessionManager);
 			filterEntryHandler.executePre();
 		}
@@ -83,9 +83,17 @@ public class FilterEntrySession {
 	
 	
 	private void executeHandle(FilterEntry filterEntry)throws Exception{
-		if(!sessionManager.isEnd()&&!sessionManager.containNotExecuteFilter(filterEntry.getFilter().getClass())){
+		if(isExecuteAble(filterEntry)){
 			FilterEntryHandler filterEntryHandler = new FilterEntryHandler(filterEntry, sessionManager);
 			filterEntryHandler.executeHandler();
+		}
+	}
+	
+	private boolean isExecuteAble(FilterEntry filterEntry){
+		if(!sessionManager.isEnd()&&!sessionManager.containNotExecuteFilter(filterEntry.getFilter().getClass())&&!sessionManager.isReturn()){
+			return true;
+		}else{
+			return false;
 		}
 	}
 }

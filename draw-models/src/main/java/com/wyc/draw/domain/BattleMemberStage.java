@@ -66,6 +66,11 @@ public class BattleMemberStage {
 	@Column(name="icon_url")
 	private String iconUrl;
 	
+	//试卷id
+	@ParamAnnotation
+	@Column(name="paper_id")
+	private String paperId;
+	
 	//开始时间
 	@ParamAnnotation
 	@Column(name="start_time")
@@ -209,6 +214,14 @@ public class BattleMemberStage {
 
 	public void setIconUrl(String iconUrl) {
 		this.iconUrl = iconUrl;
+	}
+
+	public String getPaperId() {
+		return paperId;
+	}
+
+	public void setPaperId(String paperId) {
+		this.paperId = paperId;
 	}
 
 	public DateTime getCreateAt() {

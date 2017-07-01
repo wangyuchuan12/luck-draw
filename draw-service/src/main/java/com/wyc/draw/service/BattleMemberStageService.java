@@ -16,11 +16,11 @@ public class BattleMemberStageService {
 	@Autowired
 	private BattleMemberStageRepository battleMemberStageRepository;
 
-	public BattleMemberStage findOneByBattleIdAndStageIndexAndStatus(String battleId, Integer stageIndex,
+	public BattleMemberStage findOneByMemberIdAndBattleIdAndStageIndexAndStatus(String memberId,String battleId, Integer stageIndex,
 			int status) {
-		return battleMemberStageRepository.findOneByBattleIdAndStageIndexAndStatus(battleId,stageIndex,status);
+		return battleMemberStageRepository.findOneByMemberIdAndBattleIdAndStageIndexAndStatus(memberId,battleId,stageIndex,status);
 	}
-
+	
 	public List<BattleMemberStage> findAllByBattleIdAndStageIndexIn(String battleId, String[] stageIndexArray) {
 		return battleMemberStageRepository.findAllByBattleIdAndStageIndexIn(battleId,stageIndexArray);
 	}
@@ -50,5 +50,9 @@ public class BattleMemberStageService {
 
 	public List<BattleMemberStage> findAllByMemberIdOrderByStageIndexAsc(String memberId) {
 		return battleMemberStageRepository.findAllByMemberIdOrderByStageIndexAsc(memberId);
+	}
+
+	public BattleMemberStage findOneByMemberIdAndBattleIdAndStageIndex(String memberId, String battleId, Integer stage) {
+		return battleMemberStageRepository.findOneByMemberIdAndBattleIdAndStageIndex(memberId,battleId,stage);
 	}
 }

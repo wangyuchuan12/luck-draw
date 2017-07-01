@@ -14,6 +14,9 @@ import com.wyc.draw.filter.controller.api.BattleInfoApiFilter;
 import com.wyc.draw.filter.controller.api.BattleListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleMemberInfoApiFilter;
 import com.wyc.draw.filter.controller.api.BattleMemberStageListApiFilter;
+import com.wyc.draw.filter.controller.api.BattleSetCurrentStageApiFilter;
+import com.wyc.draw.filter.controller.api.BattleStageTakepartApiFilter;
+import com.wyc.draw.filter.controller.api.BattleSubmitResultApiFilter;
 import com.wyc.draw.filter.controller.api.BattleTakepartApiFilter;
 import com.wyc.draw.filter.controller.api.CurrentPropApiFilter;
 import com.wyc.draw.filter.controller.api.CurrentPropBeanApiFilter;
@@ -131,6 +134,38 @@ public class MainApi {
 		return resultVo;
 	}
 	
+	
+	@HandlerAnnotation(hanlerFilter=BattleStageTakepartApiFilter.class)
+	@ResponseBody
+	@Transactional
+	@RequestMapping(value="stageTakepart")
+	public Object stageTakepart(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.isReturn()){
+			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+			return resultVo;
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			return resultVo;
+		}
+	}
+	
+	
+	@HandlerAnnotation(hanlerFilter=BattleSetCurrentStageApiFilter.class)
+	@ResponseBody
+	@Transactional
+	@RequestMapping(value="setCurrentStage")
+	public Object setCurrentStage(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.isReturn()){
+			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+			return resultVo;
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			return resultVo;
+		}
+	}
+	
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=BattleMemberInfoApiFilter.class)
 	@RequestMapping(value="battleMemberInfo")
@@ -157,6 +192,21 @@ public class MainApi {
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
 		return resultVo;
+	}
+	
+	@ResponseBody
+	@Transactional
+	@HandlerAnnotation(hanlerFilter=BattleSubmitResultApiFilter.class)
+	@RequestMapping(value="submitResult")
+	public Object submitResult(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.isReturn()){
+			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+			return resultVo;
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			return resultVo;
+		}
 	}
 	
 }

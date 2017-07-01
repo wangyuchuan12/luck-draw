@@ -16,7 +16,7 @@
 </head>
 <body>
     
-    	<div style="width:100%;height:100%;">
+    	<div style="width:100%;height:100%;overflow: scroll;">
     	<div class="personalAttr" id="personalAttr" style="display: none;">
 				<!--  
 				<div class="personalAttrUserInfo">

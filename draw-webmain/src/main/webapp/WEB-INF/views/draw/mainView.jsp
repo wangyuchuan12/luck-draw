@@ -14,35 +14,36 @@
 			<div class="mainViewDekorn">
 				<ul>
 					<li>
-						<div class='mainViewCover'>
+						<!--  <div class='mainViewCover'>
 							<img src='http://oqcfht5ij.bkt.clouddn.com/baby.jpg'/>
 						</div>
 					
 						<div class="mainViewButtons">
 							<div class="mainViewDekornButton" style="display: inline-block;" id="mainViewDekornButton">挑战</div>
 						</div>
+						-->
 						
-						
-						<!--  
+						 
 						<div class="mainViewDekornInfo">
 							<div class="mainViewDekornImg">
 								<img src="http://ooe8ianrr.bkt.clouddn.com/znm123.png">
 							</div>
 							<div class="mainViewDekornInfoDetail">
 								<div><span>名称：</span><span>小鸟飞飞</span></div>
-								<div><span>类型：</span><span>游戏</span><span style="padding-left: 20px;">擂台分数：</span><span>300分</span></div>
-								<div><span>积分：</span><span>300分 </span><span style="padding-left:20px;">级别：</span><span>3段</span></div>
-								<div><span>挑战数：</span><span>5</span><span style="padding-left: 20px;">胜：</span><span>2</span> <span>负：</span><span>5</span></div>								
-								<div><span>被挑战：</span><span>5</span><span style="padding-left: 20px;">胜：</span><span>2</span> <span>负：</span><span>5</span></div>
-																
+								<div>
+									<span>简介：</span>
+									<span>
+										这是最强的大脑，大脑的极限是什么，大脑有什么租用谁说的东方闪电水电费水电费是的第三方斯蒂芬斯蒂芬水电费水电费水电费是的放水电费水电费水电费水电费
+									</span>
+								</div>						
 							</div>
 						</div>
-						-->
+						
 					
 						<div class="redPacketBar">
 							<ul>
 								
-								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;">
+								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;" id="redPacketButton">
 									<div class="redPacketImg">
 										<div class="redPacketHeadImg">
 											<img src="/imgs/happy.jpg">
@@ -162,6 +163,27 @@
 	
 	var mainViewFlowPlug;
 
+	function startBattle(stage){
+		
+		var battleId = mainViewFlowPlug.flowData("currentBattleId");
+		
+		var url = "/api/main/setCurrentStage";
+		var callback = new Object();
+		callback.success = function(resp){
+			if(resp.success){
+				mainViewFlowPlug.setNext("startBattle");
+				mainViewFlowPlug.nextData({
+					battleId:battleId
+				});
+				mainViewFlowPlug.next();
+			}
+		}
+		var params = new Object();
+		params.stage = stage;
+		params.battleId = battleId;
+		request(url,callback,params);
+		
+	}
 	
 	function hideProgressPlug(){
 		progressPlug.hide();
@@ -184,8 +206,11 @@
 	var index=0;
 	
 	//由详情页面回调
-	function startDekorn(battleId){
+	function startDekorn(battleId,stage){
 		
+		var object = new Object();
+		object["round_"+battleId] = stage;
+		mainViewPlug.flowPlug.flowData(object);
 		mainViewPlug.flowPlug.setNext("startDekorn");
 		mainViewPlug.flowPlug.nextData({
 			battleId:battleId
@@ -216,31 +241,29 @@
 				this.next();
 				
 				this.setNext("initBattleInfo");
-				this.next();
-				
-				this.flowData({
-					
-				});
-					
+				this.next();	
 			},
 			
 			submitScore:function(){
-				progressPlug.show();
+				this.setNext("submitResult",function(){
+					progressPlug.show();
 
-				paperPlug.close();
-				var battleId = this.flowData("currentBattleId");
-				
-				var stage = mainViewFlowPlug.flowData("round_"+battleId);
-				if(!stage||stage==0){
-					stage = 1;
-				}
-				
-				progressFlowPlug.setNext("startStage");
-				progressFlowPlug.nextData({
-					stage:stage
+					paperPlug.close();
+					var battleId = this.flowData("currentBattleId");
+					
+					var stage = mainViewFlowPlug.flowData("round_"+battleId);
+					if(!stage||stage==0){
+						stage = 1;
+					}
+					
+					progressFlowPlug.setNext("startStage");
+					progressFlowPlug.nextData({
+						stage:stage
+					});
+					
+					progressFlowPlug.next();
 				});
-				
-				progressFlowPlug.next();
+				this.next();
 			},
 			
 			createProgressPlug:function(){
@@ -288,21 +311,34 @@
 				},100);
 			},
 			
-			//开始挑战
-			startDekorn:function(){
-				
+			stageTakepart:function(){
 				var outThis = this;
-				
 				var battleId = this.flowData("currentBattleId");
+				var stage = this.stepData("stage");
 				
-				var stage = this.flowData("round_"+battleId);
-				
-				if(!stage||stage==0){
-					stage = 1;
+				var url = "/api/main/stageTakepart";
+				var callback = new Object();
+				callback.success = function(resp){
+					if(resp.success){
+						outThis.success();
+					}else{
+						outThis.success();
+					}
 				}
 				
-				this.setNext("showProgressPlug");
-				this.next();
+				var params = new Object();
+				params.stage = stage;
+				params.battleId = battleId;
+				
+				request(url,callback,params)
+			},
+			
+			dekornHandle:function(){
+				var outThis = this;
+				var battleId = this.flowData("currentBattleId");
+				var stage = this.flowData("round_"+battleId);
+				outThis.setNext("showProgressPlug");
+				outThis.next();
 				
 				progressFlowPlug.setNext("setBattleId");
 				progressFlowPlug.nextData({
@@ -311,8 +347,11 @@
 				progressFlowPlug.next();
 				
 				
-				progressFlowPlug.setNext("initStageIndex");
+				progressFlowPlug.setNext("initStageIndex",function(){
+					
+				});
 				
+
 				progressFlowPlug.nextData({
 					stageIndexs:stage
 				});
@@ -321,23 +360,27 @@
 				
 				battlePlug.hide();
 				
-				
-				progressFlowPlug.setNext("initData",function(){
+				//过程只需要一次就搞定了
+				var progressInitDataFlow  = outThis.flowData("progressInitDataFlow");
+				if(!progressInitDataFlow){
+					progressFlowPlug.setNext("initData",function(){
+						
+					});
 					
-				});
+					progressFlowPlug.nextData({
+						allScore:outThis.flowData("allScore_"+battleId),
+						round:outThis.flowData("round_"+battleId),
+						thisScore:outThis.flowData("thisScore_"+battleId),
+						rank:outThis.flowData("rank_"+battleId),
+						loveLimit:outThis.flowData("loveLimit_"+battleId),
+						loveCount:outThis.flowData("loveCount_"+battleId),
+					});
+					progressFlowPlug.next();
+					
+					outThis.flowData({progressInitDataFlow:true});
+				}
 				
-				progressFlowPlug.nextData({
-					allScore:outThis.flowData("allScore_"+battleId),
-					round:outThis.flowData("round_"+battleId),
-					thisScore:outThis.flowData("thisScore_"+battleId),
-					rank:outThis.flowData("rank_"+battleId),
-					loveLimit:outThis.flowData("loveLimit_"+battleId),
-					loveCount:outThis.flowData("loveCount_"+battleId),
-				});
 				
-				
-				
-				progressFlowPlug.next();
 				
 				progressFlowPlug.setNext("showData");
 				progressFlowPlug.next();
@@ -345,7 +388,6 @@
 				var callback = new Object();
 
 				callback.call = function(){
-
 					progressPlug.hide();
 					mainViewFlowPlug.setNext("startPaper");
 					mainViewFlowPlug.next();
@@ -359,11 +401,62 @@
 				progressFlowPlug.next();
 			},
 			
+			//开始挑战
+			startDekorn:function(){
+				
+				var startDekornFlag = this.flowData("startDekornFlag");
+				var waitPlug = new WaitPlug();
+				
+				var outThis = this;
+				
+				var battleId = this.flowData("currentBattleId");
+
+				var stage = this.flowData("round_"+battleId);
+				
+				var index = this.flowData("index_"+battleId);
+				
+				if(!startDekornFlag){
+					progressFlowPlug.setNext("setThisIndex");
+					progressFlowPlug.nextData({
+						thisIndex:index
+					});
+					progressFlowPlug.next();
+				}
+				
+				
+				if(!stage||stage==0){
+					stage = 1;
+				}
+				
+				this.setNext("stageTakepart",function(){
+					
+					waitPlug.close();
+					
+					outThis.setNext("dekornHandle");
+					outThis.next();
+					
+				});
+				this.nextData({
+					stage:stage
+				});
+				this.next();
+				
+				this.flowData({startDekornFlag:true});
+	
+			},
+			
 			//开始答题
 			startPaper:function(){
-				var url = "/view/question/paperInfo?id=1";
-				paperPlug = new LayerPlug(url,1,1,"");
+				var battleId = this.flowData("currentBattleId");
 				
+				var paperId = this.flowData("paperId_"+battleId);
+				var round = this.flowData("round_"+battleId);
+				var memberId = this.flowData("memberId_"+battleId);
+				
+				var paperKey = memberId+"_"+round;
+				
+				var url = "/view/question/paperInfo?id="+paperId+"&keyId="+paperKey;
+				paperPlug = new LayerPlug(url,1,1,"");
 				paperPlug.show();
 			},
 			
@@ -405,6 +498,10 @@
 					battleId:battleId
 				});
 				this.next();
+				
+				battleFlowPlug.setNext("passAnimate");
+				battleFlowPlug.next();
+				
 			},
 			
 			initBattleMemberInfo:function(){
@@ -422,6 +519,10 @@
 					object["status_"+battleId] = data.status;
 					object["currentStageIndex_"+battleId] = data.currentStageIndex;
 					object["index_"+battleId] = data.index;
+					object["stageStatus_"+battleId] = data.stageStatus;
+					object["paperKey_"+battleId] = data.paperKey;
+					object["paperId_"+battleId] = data.paperId;
+					object["memberId_"+battleId] = data.memberId;
 					outThis.flowData(object);
 					outThis.success();
 				});
@@ -535,6 +636,26 @@
 				outThis.next();
 			},
 			
+			submitResult:function(){
+				var outThis = this;
+				var url = "/api/main/submitResult";
+				var callback = new Object();
+				callback.success = function(resp){
+					if(resp.success){
+						outThis.success();
+					}else{
+						console.log(resp.errorMsg);
+					}
+				}
+				var battleId = this.flowData("currentBattleId");
+				var stage = this.flowData("round_"+battleId);
+				var params = new Object();
+				params.battleId = battleId;
+				params.stage = stage;
+				
+				request(url,callback,params);
+			},
+			
 			//用用户互动的监听器
 			initEventListener:function(){
 				var outThis = this;
@@ -544,7 +665,7 @@
 					 currentBattleId:battleId
 				 })
 					
-				$("#mainViewDekornButton").click(function(){
+				$("#redPacketButton").click(function(){
 					outThis.setNext("startBattle");
 					outThis.nextData({
 						battleId:battleId
@@ -570,6 +691,11 @@
 							array:data
 						});
 						progressFlowPlug.next();
+						
+						//这里设置最大的stage
+						var object = new Object();
+						object["maxStage_"+battleId] = data[data.length-1].stageIndex;
+						outThis.flowData(object);
 					});
 					this.nextData({
 						battleId:battleId
@@ -593,7 +719,6 @@
 					}else{
 						outThis.failure();
 					}
-					
 				}
 				var params = new Object();
 				params.battleId = battleId;
@@ -648,6 +773,9 @@
 				var loveCount = this.flowData("loveCount_"+battleId);
 				var loveLimit = this.flowData("loveLimit_"+battleId);
 				var rank = this.flowData("rank_"+battleId);
+				var maxStage = this.flowData("maxStage_"+battleId);
+				var stageStatus = this.flowData("stageStatus_"+battleId);
+	
 				battleFlowPlug.setNext("initData");
 				
 				battleFlowPlug.nextData({
@@ -657,7 +785,9 @@
 					beanNum:beanNum,
 					loveCount:loveCount,
 					loveLimit:loveLimit,
-					rank:rank
+					rank:rank,
+					maxStage:maxStage,
+					stageStatus:stageStatus
 				});
 				
 				battleFlowPlug.next();

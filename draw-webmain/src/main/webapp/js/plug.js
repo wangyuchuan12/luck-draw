@@ -1093,7 +1093,7 @@ function staking(div_o,toDiv,parentDiv,offsetLeft,offsetTop,fun){
 	if(!offsetTop){
 		offsetTop = 0;
 	}
-	div = div_o.clone();
+	var div = div_o.clone();
 	div.css("display","");
 	div.css("width",100);
 	div.css("height",100);

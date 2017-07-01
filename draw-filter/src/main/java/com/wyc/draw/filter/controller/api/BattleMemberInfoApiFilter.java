@@ -35,6 +35,7 @@ public class BattleMemberInfoApiFilter extends Filter{
 	
 	@Autowired
 	private BattleMemberStageService battleMemberStageService;
+	
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		BattleToMember battleToMember = sessionManager.getObject(BattleToMember.class);
@@ -59,17 +60,24 @@ public class BattleMemberInfoApiFilter extends Filter{
 		
 		data.put("currentStageScore", battleMember.getCurrentStageScore());
 		
+		data.put("memberId", battleMember.getId());
+		
 		Long rank = battleMemberService.rank(battleMember);
 		
 		data.put("rank", rank);
+			
+		BattleMemberStage battleMemberStage = battleMemberStageService.findOneByMemberIdAndBattleIdAndStageIndex(battleMember.getId(),battleMember.getBattleId(),battleMember.getCurrentStageIndex());
 		
-		BattleMemberStage battleMemberStage = battleMemberStageService.findOneByBattleIdAndStageIndexAndStatus(battleMember.getBattleId(),battleMember.getCurrentStageIndex(),Constant.BM_STATUS_END);
 		
 		if(battleMemberStage!=null){
 			data.put("rewardBeanNum", battleMemberStage.getRewardBeanNum());
 			data.put("thisScore", battleMemberStage.getScore());
+			data.put("stageStatus", battleMemberStage.getStatus());
+			data.put("paperId", battleMemberStage.getPaperId());
+			
+			System.out.println("battleMemberStage.getId():"+battleMemberStage.getId());
 		}else{
-			BattleStageIndexDetail battleStageIndexDetail = battleStageIndexDetailService.findOneByBattleIdAndStageIndex(battleMember.getBattleId(),battleMember.getCurrentStageIndex());
+			/*BattleStageIndexDetail battleStageIndexDetail = battleStageIndexDetailService.findOneByBattleIdAndStageIndex(battleMember.getBattleId(),battleMember.getCurrentStageIndex());
 			if(battleStageIndexDetail!=null){
 				data.put("rewardBeanNum", battleStageIndexDetail.getRewardBeanNum());
 				data.put("thisScore", 0);
@@ -77,6 +85,9 @@ public class BattleMemberInfoApiFilter extends Filter{
 				data.put("rewardBeanNum", 0);
 				data.put("thisScore", 0);
 			}
+			
+			data.put("stageStatus", Constant.BM_STATUS_FREE);*/
+			throw new RuntimeException("发生错误");
 			
 		}
 		

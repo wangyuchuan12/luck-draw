@@ -76,32 +76,34 @@
 <input name="count" type="hidden" value="${count}"/>
 
 		<div class="subjectContainer" id="subjectContainer">
-			<div class="subjectHeader" id="subjectHeader">
-				<!--  	<div class="subjectHeaderContent" id="subjectHeaderContent">射雕英雄传是什么时候拍的</div> -->
-					
-			  	<div class="subjectHeaderImg" id="subjectHeaderImg">
-					<img src="${question.imgUrl}">
-					
-					<div class="subjectHeaderImgQuestion">${question.question}</div>
-					
-					<div id="progressbar" style="width:90%;height:10px;margin:0 auto;position: relative;">
-						<div class="progress-label" id="progressLabel">加载...</div>
+			<div>
+				<div class="subjectHeader" id="subjectHeader">
+					<!--  	<div class="subjectHeaderContent" id="subjectHeaderContent">射雕英雄传是什么时候拍的</div> -->
+						
+				  	<div class="subjectHeaderImg" id="subjectHeaderImg">
+						<img src="${question.imgUrl}">
+						
+						<div class="subjectHeaderImgQuestion">${question.question}</div>
+						
+						<div id="progressbar" style="width:90%;height:10px;margin:0 auto;position: relative;">
+							<div class="progress-label" id="progressLabel">加载...</div>
+						</div>
 					</div>
+					
 				</div>
-				
-			</div>
 			
-			<div class="subjectTool" id="subjectTool">
-				<div class="ystep1"></div>
-				
-			</div>
+				<div class="subjectTool" id="subjectTool">
+					<div class="ystep1"></div>
+					
+				</div>
 			
-			<div class="subjectOption" id="subjectOption">
-				<ul>
-					<c:forEach items="${questionOptions}" var="option">
-						<li id="${option.id}" onclick="checkOption('${option.id}',0)">${option.content}</li>
-					</c:forEach>
-				</ul>
+				<div class="subjectOption" id="subjectOption">
+					<ul>
+						<c:forEach items="${questionOptions}" var="option">
+							<li id="${option.id}" onclick="checkOption('${option.id}',0)">${option.content}</li>
+						</c:forEach>
+					</ul>
+				</div>
 			</div>
 		</div>
 		
