@@ -34,10 +34,8 @@ public class ProgressFilter extends Filter{
 		List<BattleStageVo> battleStageVos = new ArrayList<>();
 		battleProgressInfoVo.setBattleStageVos(battleStageVos);
 		
-		System.out.println("stageIndexs:"+stageIndexs);
 		for(Integer stageIndex:stageIndexs){
 			
-			System.out.println("battleMember.getBattleId():"+battleMember.getBattleId()+",battleMember.getId():"+battleMember.getId()+",stageIndex:"+stageIndex);
 			List<BattleMemberIndex> battleMemberIndexs = battleMemberStageIndexService.findAllByBattleIdAndMemberIdAndStageIndexOrderByIndexAsc(battleMember.getBattleId(),battleMember.getId(),stageIndex);
 			List<BattleIndexVo> battleIndexVos = new ArrayList<>();
 			BattleStageVo battleStageVo = new BattleStageVo();
@@ -59,7 +57,6 @@ public class ProgressFilter extends Filter{
 				battleIndexVos.add(battleIndexVo);
 			}
 			
-			System.out.println("battleIndexVos:"+battleIndexVos);
 		}
 		
 		return battleProgressInfoVo;

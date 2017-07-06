@@ -18,13 +18,17 @@ public class BattleStageService {
 		return battleStageRepository.findOneByBattleIdAndStageIndex(battleId,stageIndex);
 	}
 
-	public List<BattleStage> findAllByBattleIdAndAndIsDelAndStageIndexIn(String battleId, Integer isDel , List<Integer> stageIndexArray) {
-		return battleStageRepository.findAllByBattleIdAndAndIsDelAndStageIndexIn(battleId,isDel,stageIndexArray);
+	public List<BattleStage> findAllByBattleIdAndIsDelAndStageIndexIn(String battleId, Integer isDel , List<Integer> stageIndexArray) {
+		return battleStageRepository.findAllByBattleIdAndIsDelAndStageIndexIn(battleId,isDel,stageIndexArray);
 	}
 	
 	public Long countByBattleId(String battleId){
 		
 		return battleStageRepository.countByBattleId(battleId);
+	}
+
+	public List<BattleStage> findAllByBattleIdAndIsDel(String battleId, int isDel) {
+		return battleStageRepository.findAllByBattleIdAndIsDel(battleId,isDel);
 	}
 	
 	

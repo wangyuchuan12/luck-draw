@@ -9,6 +9,7 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.filter.BaseDrawActionFilter;
+import com.wyc.draw.filter.BattleMmeberIndexCreateFilter;
 import com.wyc.draw.filter.BattleStageTakepartFilter;
 import com.wyc.draw.filter.CurrentBattleMemberFilter;
 
@@ -19,7 +20,6 @@ public class BattleStageTakepartApiFilter extends Filter{
 		
 		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
 		
-		System.out.println("haahaha");
 		return resultVo;
 	}
 
@@ -30,6 +30,11 @@ public class BattleStageTakepartApiFilter extends Filter{
 		String stage = httpServletRequest.getParameter("stage");
 		sessionManager.setAttribute("battleId", battleId);
 		sessionManager.setAttribute("stage", Integer.parseInt(stage));
+		
+		//给BattleMmeberIndexCreateFilter提供参数
+		List<Integer> stageIndexes = new ArrayList<>();
+		stageIndexes.add(Integer.parseInt(stage));
+		sessionManager.setAttribute("stageIndexes", stageIndexes);
 		return null;
 	}
 
@@ -39,6 +44,7 @@ public class BattleStageTakepartApiFilter extends Filter{
 		classes.add(BaseDrawActionFilter.class);
 		classes.add(CurrentBattleMemberFilter.class);
 		classes.add(BattleStageTakepartFilter.class);
+		classes.add(BattleMmeberIndexCreateFilter.class);
 		return classes;
 	}
 

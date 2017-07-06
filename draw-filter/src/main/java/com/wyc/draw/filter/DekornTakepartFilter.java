@@ -43,7 +43,6 @@ public class DekornTakepartFilter extends Filter{
 		DekornToTakepartMember dekornToTakepartMember = (DekornToTakepartMember)filterManager.getObject(DekornToTakepartMember.class);
 
 		if(dekornToTakepartMember.getTakepartStatus()!=Constant.DEKORN_UNDERWAY_TAKEPART_STATUS||dekornToTakepartMember.getResidueLifeLove()<=0){
-			System.out.println("....................这里进来了");
 			Integer deductLoveLife = 4;
 			Account account = accountService.fineOneSync(drawUser.getAccountId());
 			Integer loveLife = account.getLoveLife();

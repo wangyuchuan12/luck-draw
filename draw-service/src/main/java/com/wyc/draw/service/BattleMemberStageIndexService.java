@@ -1,6 +1,7 @@
 package com.wyc.draw.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,12 @@ public class BattleMemberStageIndexService {
 		battleMemberIndex.setUpdateAt(new DateTime());
 		battleMemberStageIndexRepository.save(battleMemberIndex);
 		
+	}
+
+	public void add(BattleMemberIndex battleMemberIndex) {
+		battleMemberIndex.setId(UUID.randomUUID().toString());
+		battleMemberIndex.setCreateAt(new DateTime());
+		battleMemberIndex.setUpdateAt(new DateTime());
+		battleMemberStageIndexRepository.save(battleMemberIndex);
 	}
 }

@@ -37,8 +37,8 @@ public class BattleMemberStageCreateFilter extends Filter{
 			stageIndexArrayList.add(Integer.parseInt(stageIndex));
 		}
 		
-		List<BattleStage> battleStages = battleStageService.findAllByBattleIdAndAndIsDelAndStageIndexIn(battleId,0,stageIndexArrayList);
-		List<BattleMemberStage> battleMemberStages = battleMemberStageService.findAllByBattleIdAndAndIsDelAndStageIndexIn(battleId,0,stageIndexArrayList);
+		List<BattleStage> battleStages = battleStageService.findAllByBattleIdAndIsDelAndStageIndexIn(battleId,0,stageIndexArrayList);
+		List<BattleMemberStage> battleMemberStages = battleMemberStageService.findAllByBattleIdAndIsDelAndStageIndexIn(battleId,0,stageIndexArrayList);
 		
 		for(BattleMemberStage battleMemberStage:battleMemberStages){
 			battleMemberStage.setIsDel(1);
@@ -56,9 +56,8 @@ public class BattleMemberStageCreateFilter extends Filter{
 			battleMemberStage.setStatus(Constant.BM_STATUS_FREE);
 			battleMemberStage.setScore(0);
 			battleMemberStage.setStageIndex(battleStage.getStageIndex());
-			
+			battleMemberStage.setPaperId(battleStage.getPaperId());
 			battleMemberStageService.add(battleMemberStage);
-			
 			returnBattleMemberStages.add(battleMemberStage);
 			
 		}

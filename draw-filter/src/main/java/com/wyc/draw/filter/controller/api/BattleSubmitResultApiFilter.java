@@ -25,7 +25,6 @@ public class BattleSubmitResultApiFilter extends Filter{
 		resultVo.setSuccess(true);
 		resultVo.setData(battleMemberStage);
 		
-		System.out.println("hulala");
 		return resultVo;
 	}
 

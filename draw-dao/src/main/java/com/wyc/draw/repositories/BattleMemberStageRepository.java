@@ -16,7 +16,7 @@ public interface BattleMemberStageRepository extends CrudRepository<BattleMember
 	List<BattleMemberStage> findAllByBattleIdAndStageIndexIn(@Param("battleId")String battleId,@Param("stageIndexs")String[] stageIndexArray);
 
 	@Query(value="from com.wyc.draw.domain.BattleMemberStage bmg where bmg.battleId=:battleId and bmg.isDel=:isDel and bmg.stageIndex in (:stageIndexs)")
-	List<BattleMemberStage> findAllByBattleIdAndAndIsDelAndStageIndexIn(@Param("battleId")String battleId, @Param("isDel")int isDel,
+	List<BattleMemberStage> findAllByBattleIdAndIsDelAndStageIndexIn(@Param("battleId")String battleId, @Param("isDel")int isDel,
 			@Param("stageIndexs")List<Integer> stageIndexArray);
 
 	@Query(value="select count(*) from com.wyc.draw.domain.BattleMemberStage bmg where bmg.battleId=:battleId and bmg.isDel=0")

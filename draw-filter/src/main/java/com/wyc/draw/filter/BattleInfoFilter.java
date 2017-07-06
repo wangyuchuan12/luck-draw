@@ -15,8 +15,10 @@ public class BattleInfoFilter extends Filter{
 	private BattleService battleService;
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
-		String paperId = sessionManager.getAttribute("paperId").toString();
-		Battle battle = battleService.findOneByPaperId(paperId);
+		String battleId = (String)sessionManager.getAttribute("battleId");
+		
+		Battle battle = battleService.findOne(battleId);
+		
 		return battle;
 	}
 

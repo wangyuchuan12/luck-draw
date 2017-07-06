@@ -13,8 +13,10 @@ public interface BattleStageRepository extends CrudRepository<BattleStage, Strin
 	BattleStage findOneByBattleIdAndStageIndex(String battleId, Integer stageIndex);
 
 	@Query(value="from com.wyc.draw.domain.BattleStage bs where bs.battleId=:battleId and bs.isDel=:isDel and bs.stageIndex in (:stageIndexs)")
-	List<BattleStage> findAllByBattleIdAndAndIsDelAndStageIndexIn(@Param("battleId")String battleId,@Param("isDel")Integer isDel ,@Param("stageIndexs")List<Integer> stageIndexArray);
+	List<BattleStage> findAllByBattleIdAndIsDelAndStageIndexIn(@Param("battleId")String battleId,@Param("isDel")Integer isDel ,@Param("stageIndexs")List<Integer> stageIndexArray);
 
 	@Query(value="select count(*) from com.wyc.draw.domain.BattleStage bs where bs.battleId=:battleId and bs.isDel=0")
 	Long countByBattleId(@Param("battleId")String battleId);
+
+	List<BattleStage> findAllByBattleIdAndIsDel(String battleId, int isDel);
 }

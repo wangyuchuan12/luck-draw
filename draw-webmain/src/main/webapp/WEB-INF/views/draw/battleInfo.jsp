@@ -44,7 +44,7 @@
 					</li>
 				-->
 				
-					<li>
+					<li id="battleInfoRound">
 						<div class="battleInfoContentTitle" id="round"></div>
 						<div class="battleInfoContentInput">
 							<span class="battleInfoContentInputSportsIcon"></span>
@@ -70,7 +70,7 @@
 					
 					
 					
-					<li>
+					<li id="battleInfoLove">
 						<div class="battleInfoContentTitle">剩余爱心</div>
 						<div class="battleInfoContentInput" id="loves">
 							
@@ -134,6 +134,19 @@
 					begin:function(){
 						mainCallback.setBattleFlowPlug(this);
 						initStar();
+						
+						$("#dekornButton").click(function(){
+							console.log("13");
+							var battleId = battlePlug.flowPlug.flowData("battleId");
+							var round = battlePlug.flowPlug.flowData("round");
+							var stageStatus = battlePlug.flowPlug.flowData("stageStatus");
+							if(stageStatus==2){
+								//window.parent.startDekorn(battleId,parseInt(round)+1);
+							}else{
+								window.parent.startDekorn(battleId,parseInt(round));
+							}
+							
+						});
 					},
 					initData:function(){
 						var outThis = this;
@@ -191,22 +204,27 @@
 						$("#rank").text(rank+"名");
 						$("#battleInfoBannerRound").text(round);
 						
+						if(stageStatus==0){
+							$("#battleInfoLove").css("display","none");
+						}else{
+							$("#battleInfoLove").css("display","block");
+						}
+						
+						if(stageStatus==2){
+							$("#battleInfoRound").css("display","block");
+						}else{
+							$("#battleInfoRound").css("display","none");
+						}
+						
 						$("#loves").empty();
+	
+						
+						console.log("14");
 						
 						if(stageStatus==1||stageStatus==0){
 							$("#dekornButton").removeClass("gray");
 							$("#dekornButton").bind("click");
-							$("#dekornButton").click(function(){
-								var battleId = battlePlug.flowPlug.flowData("battleId");
-								var round = battlePlug.flowPlug.flowData("round");
-								var stageStatus = battlePlug.flowPlug.flowData("stageStatus");
-								if(stageStatus==2){
-									//window.parent.startDekorn(battleId,parseInt(round)+1);
-								}else{
-									window.parent.startDekorn(battleId,parseInt(round));
-								}
-								
-							});
+							
 						}else {
 						//	$("#dekornButton").text("下一题");
 							console.log("maxStage:"+maxStage);

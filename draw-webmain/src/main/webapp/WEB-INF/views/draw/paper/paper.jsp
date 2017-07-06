@@ -74,6 +74,11 @@
 									keyId:keyId,
 									type:type
 								});
+								
+								console.log("questionId:"+questionId);
+								console.log("questionCount:"+questionCount);
+								console.log("keyId:"+keyId);
+								console.log("type:"+type);
 								outThis.setNext("openLayerPlug");
 								outThis.next();
 							};

@@ -171,7 +171,6 @@ public class DekornHandleController {
 			return modelAndView;
 		}else{
 			resultVo = (ResultVo)sessionManager.getReturnValue();
-			System.out.println(resultVo.getErrorMsg());
 			return null;
 		}
 	}

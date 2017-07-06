@@ -22,8 +22,8 @@ public class BattleStageIndexDetail {
 	private String id;
 	
 	@ParamAnnotation
-	@Column
-	private Integer stageIndex;
+	@Column(name="stage_index")
+	private Integer stageindex;
 	
 	@ParamAnnotation
 	@Column
@@ -40,6 +40,26 @@ public class BattleStageIndexDetail {
 	@ParamAnnotation
 	@Column(name="battle_id")
 	private String battleId;
+	
+	@ParamAnnotation
+	@Column(name="z_index")
+	private Integer index;
+	
+	@ParamAnnotation
+	@Column(name="is_del")
+	private Integer isDel;
+	
+	@ParamAnnotation
+	@Column(name="is_guide")
+	private Integer isGuide;
+	
+	@ParamAnnotation
+	@Column(name="question_id")
+	private String questionId;
+	
+	@ParamAnnotation
+	@Column(name="to_hide")
+	private Integer toHide;
 	
 	@ParamAnnotation
 	@Column(name = "create_at")
@@ -64,6 +84,22 @@ public class BattleStageIndexDetail {
 	public String getBattleId() {
 		return battleId;
 	}
+	
+	public Integer getToHide() {
+		return toHide;
+	}
+
+	public void setToHide(Integer toHide) {
+		this.toHide = toHide;
+	}
+
+	public String getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(String questionId) {
+		this.questionId = questionId;
+	}
 
 	public void setBattleId(String battleId) {
 		this.battleId = battleId;
@@ -77,12 +113,14 @@ public class BattleStageIndexDetail {
 		this.iconUrl = iconUrl;
 	}
 
-	public Integer getStageIndex() {
-		return stageIndex;
+	
+
+	public Integer getStageindex() {
+		return stageindex;
 	}
 
-	public void setStageIndex(Integer stageIndex) {
-		this.stageIndex = stageIndex;
+	public void setStageindex(Integer stageindex) {
+		this.stageindex = stageindex;
 	}
 
 	public Integer getScore() {
@@ -99,6 +137,36 @@ public class BattleStageIndexDetail {
 
 	public void setRewardBeanNum(Integer rewardBeanNum) {
 		this.rewardBeanNum = rewardBeanNum;
+	}
+	
+	
+
+	public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
+	
+	
+
+	public Integer getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
+	}
+	
+	
+
+	public Integer getIsGuide() {
+		return isGuide;
+	}
+
+	public void setIsGuide(Integer isGuide) {
+		this.isGuide = isGuide;
 	}
 
 	public DateTime getCreateAt() {

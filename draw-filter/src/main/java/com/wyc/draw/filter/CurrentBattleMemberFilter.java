@@ -39,8 +39,8 @@ public class CurrentBattleMemberFilter extends Filter{
 			battleMember.setDrawUserId(drawUser.getId());
 			battleMember.setNickname(drawUser.getNickname());
 			battleMember.setScore(0);
-			battleMember.setCurrentIndex(0);
-			battleMember.setCurrentStageIndex(0);
+			battleMember.setCurrentIndex(1);
+			battleMember.setCurrentStageIndex(1);
 			
 			
 			Long count = battleStageService.countByBattleId(battleId);

@@ -44,6 +44,10 @@ public class Battle {
 	private String name;
 	
 	@ParamAnnotation
+	@Column
+	private String instruction;
+	
+	@ParamAnnotation
 	@Column(name="img_url")
 	private String imgUrl;
 	
@@ -78,6 +82,7 @@ public class Battle {
 	@ParamAnnotation
 	@Column(name="bean_consume")
 	private Integer beanConsume;
+	
 
 	@ParamAnnotation
 	@Column(name = "create_at")
@@ -199,6 +204,14 @@ public class Battle {
 
 	public void setLoveLifeGive(Integer loveLifeGive) {
 		this.loveLifeGive = loveLifeGive;
+	}
+	
+	public String getInstruction() {
+		return instruction;
+	}
+
+	public void setInstruction(String instruction) {
+		this.instruction = instruction;
 	}
 
 	public DateTime getCreateAt() {

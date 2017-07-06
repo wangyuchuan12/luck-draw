@@ -93,6 +93,10 @@ public class BattleMemberStage {
 	private Integer isDel;
 	
 	@ParamAnnotation
+	@Column(name="is_sync_index")
+	private Integer isSyncIndex;
+	
+	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -111,7 +115,15 @@ public class BattleMemberStage {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
+	public Integer getIsSyncIndex() {
+		return isSyncIndex;
+	}
+
+	public void setIsSyncIndex(Integer isSyncIndex) {
+		this.isSyncIndex = isSyncIndex;
+	}
+
 	public Integer getCurrentIndex() {
 		return currentIndex;
 	}

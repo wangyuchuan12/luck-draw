@@ -20,7 +20,6 @@ public class CreateDekornApiFilter extends Filter{
 		resultVo.setData(dekorn);
 		
 		
-		System.out.println("...................resultVo:"+resultVo);
 		return resultVo;
 	}
 

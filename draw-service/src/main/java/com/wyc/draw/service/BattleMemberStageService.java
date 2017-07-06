@@ -25,9 +25,9 @@ public class BattleMemberStageService {
 		return battleMemberStageRepository.findAllByBattleIdAndStageIndexIn(battleId,stageIndexArray);
 	}
 
-	public List<BattleMemberStage> findAllByBattleIdAndAndIsDelAndStageIndexIn(String battleId, int isDel,
+	public List<BattleMemberStage> findAllByBattleIdAndIsDelAndStageIndexIn(String battleId, int isDel,
 			List<Integer> stageIndexArray) {
-		return battleMemberStageRepository.findAllByBattleIdAndAndIsDelAndStageIndexIn(battleId,isDel,stageIndexArray);
+		return battleMemberStageRepository.findAllByBattleIdAndIsDelAndStageIndexIn(battleId,isDel,stageIndexArray);
 	}
 
 	public void update(BattleMemberStage battleMemberStage) {
@@ -54,5 +54,11 @@ public class BattleMemberStageService {
 
 	public BattleMemberStage findOneByMemberIdAndBattleIdAndStageIndex(String memberId, String battleId, Integer stage) {
 		return battleMemberStageRepository.findOneByMemberIdAndBattleIdAndStageIndex(memberId,battleId,stage);
+	}
+
+	public void save(BattleMemberStage battleMemberStage) {
+		battleMemberStage.setUpdateAt(new DateTime());
+		battleMemberStageRepository.save(battleMemberStage);
+		
 	}
 }

@@ -11,7 +11,6 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.BattleStage;
 import com.wyc.draw.filter.BaseDrawActionFilter;
-import com.wyc.draw.service.BattleMemberStageService;
 import com.wyc.draw.service.BattleStageService;
 
 @Controller

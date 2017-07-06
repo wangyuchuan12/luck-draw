@@ -15,6 +15,7 @@ import com.wyc.draw.filter.controller.api.BattleListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleMemberInfoApiFilter;
 import com.wyc.draw.filter.controller.api.BattleMemberStageListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleSetCurrentStageApiFilter;
+import com.wyc.draw.filter.controller.api.BattleStageListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleStageTakepartApiFilter;
 import com.wyc.draw.filter.controller.api.BattleSubmitResultApiFilter;
 import com.wyc.draw.filter.controller.api.BattleTakepartApiFilter;
@@ -31,7 +32,7 @@ import com.wyc.draw.filter.controller.api.PropReceiveRandomApiFilter;
 @RequestMapping(value="/api/main/")
 public class MainApi {
 
-	
+	@Transactional
 	@HandlerAnnotation(hanlerFilter=CurrentPropLoveApiFilter.class)
 	@ResponseBody
 	@RequestMapping(value="propLoveInfo")
@@ -43,6 +44,7 @@ public class MainApi {
 		return resultVo;
 	}
 	
+	@Transactional
 	@HandlerAnnotation(hanlerFilter=CurrentPropBeanApiFilter.class)
 	@ResponseBody
 	@RequestMapping(value="propBeanInfo")
@@ -54,6 +56,7 @@ public class MainApi {
 		return resultVo;
 	}
 	
+	@Transactional
 	@HandlerAnnotation(hanlerFilter=PaperSubjectApiFilter.class)
 	@ResponseBody
 	@RequestMapping(value="paperSubject")
@@ -63,6 +66,7 @@ public class MainApi {
 		return resultVo;
 	}
 	
+	@Transactional
 	@HandlerAnnotation(hanlerFilter=CurrentPropApiFilter.class)
 	@ResponseBody
 	@RequestMapping(value="propInfo")
@@ -166,6 +170,7 @@ public class MainApi {
 		}
 	}
 	
+	@Transactional
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=BattleMemberInfoApiFilter.class)
 	@RequestMapping(value="battleMemberInfo")
@@ -175,6 +180,7 @@ public class MainApi {
 		return resultVo;
 	}
 	
+	@Transactional
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=ProgressApiFilter.class)
 	@RequestMapping(value="progressInfo")
@@ -184,7 +190,17 @@ public class MainApi {
 		return resultVo;
 	}
 	
+	@Transactional
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=BattleStageListApiFilter.class)
+	@RequestMapping(value="battleStages")
+	public Object battleStages(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
+		return resultVo;
+	}
 	
+	@Transactional
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=BattleMemberStageListApiFilter.class)
 	@RequestMapping(value="battleMemberStages")

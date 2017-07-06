@@ -461,8 +461,7 @@
 						outThis.setNext("getStageIndex",function(data){
 							var guideIndex;
 							for(var i = 0;i<data.length;i++){
-								var indexObject = data[i];
-								
+								var indexObject = data[i];								
 								if(indexObject.isGuide==1){
 									guideIndex = indexObject;
 								}
@@ -475,6 +474,7 @@
 								next.next();
 							}
 							
+							
 							callback.end = function(){
 								setTimeout(function(){
 									var showAlert = new ShowAlert("第"+stage+"轮");
@@ -482,6 +482,7 @@
 										showAlert.close();
 										if(toStageCallback){
 											toStageCallback.call({});
+											
 										}
 									},5000);
 								},1000);
@@ -497,6 +498,8 @@
 							outThis.next();
 							
 						});
+						
+						
 						outThis.nextData({
 							stage:stage
 						});
@@ -538,7 +541,6 @@
 					var callback = new Object();
 					callback.call = function(index,next){
 						var indexObject = outThis.flowData("index"+(index));
-						
 						if(indexObject.rewardBeanNum&&indexObject.rewardBeanNum>0){
 							attrPlug.addBeanAnnim({
 								num:indexObject.rewardBeanNum
@@ -725,7 +727,8 @@
 				this.setNext("showIndexStyleHandle");
 				this.nextData({
 					iconUrl:iconUrl,
-					index:index
+					index:index,
+					isGuide:obj.isGuide
 				});
 				this.next();
 				
@@ -734,11 +737,19 @@
 			showIndexStyleHandle:function(){
 				var iconUrl = this.stepData("iconUrl");
 				var index = this.stepData("index");
+				var isGuide = this.stepData("isGuide");
 				
 				if(iconUrl){
 					$("#toDom"+index).css("background","url('"+iconUrl+"')");
 					$("#toDom"+index).css("background-size","100% 100%");
 				}
+				
+				if(isGuide){
+					$("#toDom"+index).css("width","30px");
+					$("#toDom"+index).css("height","30px");
+				
+				}
+				
 				$("#toDom"+index).css("display","block");
 			},
 			

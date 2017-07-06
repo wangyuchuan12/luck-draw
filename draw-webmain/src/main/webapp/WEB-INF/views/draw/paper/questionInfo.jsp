@@ -184,8 +184,9 @@
 				
 				$(".ystep1").setStep(index);
 				
-				
 				$(".subjectTool").scrollLeft($(".ystep1 li").eq(index-1).position().left-$(".subjectTool").width()/1.7);
+				
+				
 				
 				var progressbar = $("#progressbar");
 				var progressLabel = $("#progressLabel");

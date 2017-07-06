@@ -16,22 +16,22 @@ import com.wyc.common.util.CommonUtil;
 import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.BattleMember;
 import com.wyc.draw.domain.BattleMemberStage;
-import com.wyc.draw.domain.BattleStageIndexDetail;
+import com.wyc.draw.domain.BattleStage;
 import com.wyc.draw.domain.BattleToMember;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.CurrentBattleMemberFilter;
 import com.wyc.draw.service.BattleMemberService;
-import com.wyc.draw.service.BattleMemberStageIndexService;
 import com.wyc.draw.service.BattleMemberStageService;
-import com.wyc.draw.service.BattleStageIndexDetailService;
+import com.wyc.draw.service.BattleStageService;
 
 public class BattleMemberInfoApiFilter extends Filter{
 
 	@Autowired
 	private BattleMemberService battleMemberService;
 	
+	
 	@Autowired
-	private BattleStageIndexDetailService battleStageIndexDetailService;
+	private BattleStageService battleStageService;
 	
 	@Autowired
 	private BattleMemberStageService battleMemberStageService;
@@ -62,6 +62,8 @@ public class BattleMemberInfoApiFilter extends Filter{
 		
 		data.put("memberId", battleMember.getId());
 		
+		
+		
 		Long rank = battleMemberService.rank(battleMember);
 		
 		data.put("rank", rank);
@@ -74,20 +76,19 @@ public class BattleMemberInfoApiFilter extends Filter{
 			data.put("thisScore", battleMemberStage.getScore());
 			data.put("stageStatus", battleMemberStage.getStatus());
 			data.put("paperId", battleMemberStage.getPaperId());
-			
-			System.out.println("battleMemberStage.getId():"+battleMemberStage.getId());
 		}else{
-			/*BattleStageIndexDetail battleStageIndexDetail = battleStageIndexDetailService.findOneByBattleIdAndStageIndex(battleMember.getBattleId(),battleMember.getCurrentStageIndex());
-			if(battleStageIndexDetail!=null){
-				data.put("rewardBeanNum", battleStageIndexDetail.getRewardBeanNum());
+			BattleStage battleStage = battleStageService.findOneByBattleIdAndStageIndex(battleMember.getBattleId(), battleMember.getCurrentStageIndex());
+			if(battleStage!=null){
+				data.put("rewardBeanNum", 0);
 				data.put("thisScore", 0);
 			}else{
 				data.put("rewardBeanNum", 0);
 				data.put("thisScore", 0);
 			}
 			
-			data.put("stageStatus", Constant.BM_STATUS_FREE);*/
-			throw new RuntimeException("发生错误");
+			data.put("stageStatus", Constant.BM_STATUS_FREE);
+			
+			data.put("paperId", battleStage.getPaperId());
 			
 		}
 		

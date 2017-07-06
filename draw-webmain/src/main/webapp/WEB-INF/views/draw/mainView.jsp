@@ -26,20 +26,34 @@
 						 
 						<div class="mainViewDekornInfo">
 							<div class="mainViewDekornImg">
-								<img src="http://ooe8ianrr.bkt.clouddn.com/znm123.png">
+								<img id="battleInfoImg" src="http://ooe8ianrr.bkt.clouddn.com/znm123.png">
 							</div>
 							<div class="mainViewDekornInfoDetail">
-								<div><span>名称：</span><span>小鸟飞飞</span></div>
+								<div><span>名称：</span><span id="battleInfoName">小鸟飞飞</span></div>
 								<div>
 									<span>简介：</span>
-									<span>
+									<span id="battleInfoInstruction">
 										这是最强的大脑，大脑的极限是什么，大脑有什么租用谁说的东方闪电水电费水电费是的第三方斯蒂芬斯蒂芬水电费水电费水电费是的放水电费水电费水电费水电费
 									</span>
 								</div>						
 							</div>
 						</div>
-						
 					
+					
+					
+					<div class="mainViewMembersPk">
+						<div class="mainViewMembersPkMember flipx">
+							<img src="http://on3s1z2us.bkt.clouddn.com/6ad30a4b5ef267024789846e8d766e02.png"/>
+							<div class="mainViewMemberPkImg"></div>
+						</div>
+						<div class="mainViewMembersPkIcon"><img src="/imgs/plug/vs.png"></div>
+						<div class="mainViewMembersPkMember">
+							<img src="http://on3s1z2us.bkt.clouddn.com/6ad30a4b5ef267024789846e8d766e02.png"/>
+							<div class="mainViewMemberPkImg"></div>
+						</div>
+					</div>	
+					
+					<!--  
 						<div class="redPacketBar">
 							<ul>
 								
@@ -88,10 +102,12 @@
 				</ul>
 			</div>
 			
+			-->
 			
-			
+			 
 			<div class="mainViewFooterButtons">
 				<ul>
+					<!--  
 					<li class="">
 					
 						<div class="mainViewFooterButton">
@@ -121,8 +137,38 @@
 						</div>
 						<div class="mainViewFooterButtonTitle">返回</div>
 					</li>
+					-->
+					
+					<li id="mainViewQrcodeButton">
+						<div class="mainViewFooterButton">
+							<div class="mainViewFooterButtonIcon_follow"></div>
+						</div>
+						<div class="mainViewFooterButtonTitle">关注</div>
+					</li>
+					
+					<li>
+						<div class="mainViewFooterButton">
+							<div class="mainViewFooterButtonIcon_add"></div>
+						</div>
+						<div class="mainViewFooterButtonTitle">新建</div>
+					</li>
+					
+					<li>
+						<div class="mainViewFooterButton">
+							<div class="mainViewFooterButtonIcon_ready"></div>
+						</div>
+						<div class="mainViewFooterButtonTitle">准备</div>
+					</li>
+					
+					<li id="mainViewStartButton">
+						<div class="mainViewFooterButton">
+							<div class="mainViewFooterButtonIcon_start"></div>
+						</div>
+						<div class="mainViewFooterButtonTitle">开始</div>
+					</li>
 				</ul>
 			</div>
+			
 		</div>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
@@ -207,7 +253,6 @@
 	
 	//由详情页面回调
 	function startDekorn(battleId,stage){
-		
 		var object = new Object();
 		object["round_"+battleId] = stage;
 		mainViewPlug.flowPlug.flowData(object);
@@ -241,7 +286,36 @@
 				this.next();
 				
 				this.setNext("initBattleInfo");
-				this.next();	
+				this.next();
+				
+				this.flowData({
+					currentBattleId:1
+				});
+				this.setNext("battleInfo");
+				this.next();
+			},
+			
+			battleInfo:function(){
+				var url = "/api/main/battleInfo";
+				var callback = new Object();
+				callback.success = function(resp){
+					if(resp.success){
+						var data = resp.data;
+						var name = data.name;
+						var imgUrl = data.imgUrl;
+						var instruction = data.instruction;
+						
+						$("#battleInfoName").text(name);
+						$("#battleInfoImg").attr("src",imgUrl);
+						$("#battleInfoInstruction").text(instruction);
+						addProgress(40,100);
+					
+					}
+				}
+				
+				var params = new Object();
+				params.battleId = this.flowData("currentBattleId");
+				request(url,callback,params);
 			},
 			
 			submitScore:function(){
@@ -435,6 +509,7 @@
 					outThis.setNext("dekornHandle");
 					outThis.next();
 					
+					
 				});
 				this.nextData({
 					stage:stage
@@ -454,7 +529,7 @@
 				var memberId = this.flowData("memberId_"+battleId);
 				
 				var paperKey = memberId+"_"+round;
-				
+								
 				var url = "/view/question/paperInfo?id="+paperId+"&keyId="+paperKey;
 				paperPlug = new LayerPlug(url,1,1,"");
 				paperPlug.show();
@@ -537,6 +612,41 @@
 					battleId:battleId
 				})
 				battleFlowPlug.next();
+			},
+			
+			getBattleStages:function(){
+				var outThis = this;
+				var battleId = this.flowData("currentBattleId");
+
+				outThis.setNext("requestBattleStages",function(){
+					outThis.success(outThis.flowData("stageInfos"));
+				});
+				outThis.nextData({
+					battleId:battleId
+				});
+				outThis.next();
+			},
+			
+			requestBattleStages:function(){
+				var outThis = this;
+				var battleId = this.flowData("currentBattleId");
+				var url = "/api/main/battleStages";
+				
+				var params = new Object();
+				params.battleId = battleId;
+				var callback = new Object();
+				callback.success = function(resp){
+					if(resp.success){
+						var battleMemberStages = resp.data;
+						for(var i = 0;i<battleMemberStages.length;i++){
+							outThis.flowData({
+								"stageInfos":battleMemberStages
+							});
+						}
+						outThis.success();
+					}
+				}
+				request(url,callback,params);
 			},
 			
 			getBattleMemberStages:function(){
@@ -665,13 +775,26 @@
 					 currentBattleId:battleId
 				 })
 					
-				$("#redPacketButton").click(function(){
+				$("#mainViewStartButton").click(function(){
 					outThis.setNext("startBattle");
 					outThis.nextData({
 						battleId:battleId
 					});
 					outThis.next();
 				});
+				 
+				 $("#mainViewQrcodeButton").click(function(e){
+					 var qrcodeFlag = outThis.flowData("qrcodeFlag");
+					 if(!qrcodeFlag){
+						 showQrcode();
+						 outThis.flowData({"qrcodeFlag":true});
+					 }else{
+						 hideQrcode();
+						 outThis.flowData({"qrcodeFlag":false});
+					 }
+					 
+					 return false;
+				 });
 			},
 			
 			initBattleInfo:function(){
@@ -681,8 +804,8 @@
 					
 					outThis.setNext("setBattleData");
 					outThis.next();
-					
-					this.setNext("getBattleMemberStages",function(data){
+					addProgress(10,10);
+					this.setNext("getBattleStages",function(data){
 						outThis.setNext("initProgressPlug");
 						outThis.next();
 						
@@ -696,6 +819,8 @@
 						var object = new Object();
 						object["maxStage_"+battleId] = data[data.length-1].stageIndex;
 						outThis.flowData(object);
+						
+						addProgress(20,10);
 					});
 					this.nextData({
 						battleId:battleId
@@ -775,6 +900,7 @@
 				var rank = this.flowData("rank_"+battleId);
 				var maxStage = this.flowData("maxStage_"+battleId);
 				var stageStatus = this.flowData("stageStatus_"+battleId);
+				var status = this.flowData("status"+battleId);
 	
 				battleFlowPlug.setNext("initData");
 				
@@ -787,7 +913,8 @@
 					loveLimit:loveLimit,
 					rank:rank,
 					maxStage:maxStage,
-					stageStatus:stageStatus
+					stageStatus:stageStatus,
+					status:status
 				});
 				
 				battleFlowPlug.next();
@@ -797,12 +924,18 @@
 	
 	$(document).ready(function(){
 
-		var progressCallback = new Object();
+		document.body.addEventListener("touchstart",function(){
+			
+		});
+		
+		/*var progressCallback = new Object();
 		progressCallback.complete = function(){
-			init();
+			
 		}
 		
-		progress(100,10,progressCallback);
+		//progress(100,10,progressCallback);*/
+		
+		init();
 		
 		$(".mainView").height($(document).height());
 	});

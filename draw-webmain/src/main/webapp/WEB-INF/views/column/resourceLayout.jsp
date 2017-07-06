@@ -162,6 +162,12 @@
 		</div>
 		
 		
+		<div class="qrcode" style="display: none;">
+			<img src="/imgs/qrcode.jpg">
+			<div style="color:red;text-align:center;font-size:15px;position: relative;top:-10px;">你还未关注该公众号，扫描二维码关注</div>
+		</div>
+		
+		
 		<div id="lifeLoveSolidAnnim" style="width:100px;height:100px;display: none;z-index:10;">
 			<img src="http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png"/>
 		</div>
@@ -271,8 +277,27 @@
 			//loveAttrFunction.setNext("show");
 			//loveAttrFunction.next();
 		}
+		
+		function showQrcode(){
+			var screenWidth = $(document).width();
+			var screenHeight = $(document).height();
+			var div = $(".qrcode");
+			div.css("display","");
+			div.css("top",screenHeight/2-div.height());
+			div.css("left",screenWidth/2-div.width()/2);
+		}
+		
+		function hideQrcode(){
+			var div = $(".qrcode");
+			div.css("display","none");
+		}
 	
 		$(document).ready(function(){
+			
+			addProgress(10,100);
+			$(document).click(function(){
+				hideQrcode();
+			});
 			
 			var width = $(document).width();
 			
@@ -513,6 +538,9 @@
 						
 						outThis.setNext("show");
 						outThis.next();
+						
+						addProgress(10,100);
+						
 					});
 					this.next();
 					this.setNext("initEventListener");
@@ -536,6 +564,8 @@
 						
 						outThis.setNext("show");
 						outThis.next();
+						
+						addProgress(10,100);
 					});
 					this.next();
 				},
@@ -792,8 +822,17 @@
 		});
 	
 		var flag = false;
+		var progressValue = 0;
+		function addProgress(value,time,callback,luck){
+			progressValue = progressValue+value;
+			progress(progressValue,time,callback,luck)
+		}
+		
+		function getProgressValue(){
+			return progressValue;
+		}
 		function progress(value,time,callback,luck){
-			
+			thisValue = value;
 			progressbar = $("#progressbar");
 			progressLabel = $("#progressLabel");
 			

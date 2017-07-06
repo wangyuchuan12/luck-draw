@@ -70,7 +70,6 @@ public class DekornController {
 	
 	@RequestMapping(value="gameCompltePlug")
 	public String gameCompletePlug(HttpServletRequest httpServletRequest){
-		System.out.println(".........sessionid2:"+httpServletRequest.getSession().getId());
 		return "plug/gameCompletePlug";
 	}
 	
