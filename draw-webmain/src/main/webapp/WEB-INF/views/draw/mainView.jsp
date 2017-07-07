@@ -503,6 +503,9 @@
 				var url = "/view/dekorn/progressScore";
 				progressPlug = new LayerPlug(url,1,1,"",function(){
 					outThis.flowData({progressReady:1});
+					
+					outThis.setNext("initProgressPlug");
+					outThis.next();
 				});
 				progressPlug.hide();
 			},
@@ -518,22 +521,15 @@
 				var outThis = this;
 				var flag = this.flowData("initProgressPlugFlag");
 				if(!flag){
-					var interval = setInterval(function(){
-						if(outThis.flowData("progressReady")){
-							var callback = new Object();
-							callback.setProgressFlowPlug = function(plug){
-								progressFlowPlug = plug
-							}
-							progressPlug.call("init",callback);
-							
-							this.flowData({
-								initProgressPlugFlag:true
-							});
-							clearInterval(interval);
-						}
-						
-					},100);
+					var callback = new Object();
+					callback.setProgressFlowPlug = function(plug){
+						progressFlowPlug = plug
+					}
+					progressPlug.call("init",callback);
 					
+					outThis.flowData({
+						initProgressPlugFlag:1
+					});
 				}
 				
 			},
@@ -980,21 +976,27 @@
 					outThis.next();
 					addProgress(10,10);
 					this.setNext("getBattleStages",function(data){
-						outThis.setNext("initProgressPlug");
-						outThis.next();
+						var interval = setInterval(function(){
+							if(outThis.flowData("progressReady")){
+								
+								outThis.setNext("initProgressPlug");
+								outThis.next();
+								
+								progressFlowPlug.setNext("initStages");
+								progressFlowPlug.nextData({
+									array:data
+								});
+								progressFlowPlug.next();
+								
+								//这里设置最大的stage
+								var object = new Object();
+								object["maxStage_"+battleId] = data[data.length-1].stageIndex;
+								outThis.flowData(object);
+								addProgress(20,10);
+								clearInterval(interval);
+							}
+						},10);
 						
-						progressFlowPlug.setNext("initStages");
-						progressFlowPlug.nextData({
-							array:data
-						});
-						progressFlowPlug.next();
-						
-						//这里设置最大的stage
-						var object = new Object();
-						object["maxStage_"+battleId] = data[data.length-1].stageIndex;
-						outThis.flowData(object);
-						
-						addProgress(20,10);
 					});
 					this.nextData({
 						battleId:battleId
