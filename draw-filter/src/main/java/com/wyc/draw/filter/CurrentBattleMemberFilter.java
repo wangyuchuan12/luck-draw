@@ -41,6 +41,7 @@ public class CurrentBattleMemberFilter extends Filter{
 			battleMember.setScore(0);
 			battleMember.setCurrentIndex(1);
 			battleMember.setCurrentStageIndex(1);
+			battleMember.setHeadImg(drawUser.getImgUrl());
 			
 			
 			Long count = battleStageService.countByBattleId(battleId);
@@ -59,6 +60,8 @@ public class CurrentBattleMemberFilter extends Filter{
 			battleMember = battleMemberService.findOne(battleToMember.getCurrentMemberId());
 		}
 	
+		System.out.println("....................battleMember:"+battleMember+",battleToMember:"+battleToMember);
+		
 		sessionManager.save(battleMember);
 		return battleToMember;
 	}

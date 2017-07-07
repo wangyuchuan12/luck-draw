@@ -159,7 +159,8 @@
 							loveLimit:outThis.stepData("loveLimit"),
 							rank:outThis.stepData("rank"),
 							maxStage:outThis.stepData("maxStage"),
-							stageStatus:outThis.stepData("stageStatus")
+							stageStatus:outThis.stepData("stageStatus"),
+							status:outThis.stepData("status")
 						});
 						this.success();
 						
@@ -196,6 +197,7 @@
 						var rank = this.flowData("rank");
 						var maxStage = this.flowData("maxStage");
 						var stageStatus = this.flowData("stageStatus");
+						var status = this.flowData("status");
 						
 						$("#round").text("第"+round+"关");
 						$("#thisScore").text(thisScore+"分");
@@ -204,7 +206,8 @@
 						$("#rank").text(rank+"名");
 						$("#battleInfoBannerRound").text(round);
 						
-						if(stageStatus==0){
+						console.log("status:"+status)
+						if(status==0){
 							$("#battleInfoLove").css("display","none");
 						}else{
 							$("#battleInfoLove").css("display","block");

@@ -252,4 +252,27 @@ public class Constant {
 	//闯关类型
 	public static final int PAPER_ANSWER_TYPE_BATTLE=0;
 	
+	
+	/**************************BattleRank状态**************************/
+	
+	//正在组队
+	public static final int BATTLE_RANK_IN=1;
+	
+	//组队完成
+	public static final int BATTLE_RANK_COMPLETE=2;
+	
+	//结束
+	public static final int BATTLE_RANK_END=3;
+	
+	/*************************BattleRankMember状态************************/
+	
+	//游离状态
+	public static final int BATTLE_RANK_MEMBER_STATUS_FREE=0;
+	
+	//进行中状态
+	public static final int BATTLE_RANK_MEMBER_STATUS_IN=1;
+	
+	//结束状态
+	public static final int BATTLE_RANK_MEMBER_STATUS_END=2;
+	
 }

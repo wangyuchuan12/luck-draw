@@ -40,7 +40,7 @@
 						</div>
 					
 					
-					
+					<!--  
 					<div class="mainViewMembersPk">
 						<div class="mainViewMembersPkMember flipx">
 							<img src="http://on3s1z2us.bkt.clouddn.com/6ad30a4b5ef267024789846e8d766e02.png"/>
@@ -52,6 +52,25 @@
 							<div class="mainViewMemberPkImg"></div>
 						</div>
 					</div>	
+					-->
+					
+					<div class="mainViewMembers">
+						<ul>
+							<!--  
+							<li style="text-align: center;">
+								<div class="mainViewMembersPkMember flipx">
+									<div class="mainViewMemberPkImg"></div>
+								</div>
+
+								<div id="mainViewMemberProgress" style="width:70%;height:10px;margin:0 auto;position:relative;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
+									<div class="mainViewMemberProgressLabel" id="progressLabel2" style="color:RGBA(255,237,109,1);padding-top: 0px;font-size: 10px;">0</div>
+								</div>
+								
+								<div class="mainViewMembersPkMemberRank">第100名 200分</div>
+							</li>
+							-->
+						</ul>
+					</div>
 					
 					<!--  
 						<div class="redPacketBar">
@@ -153,7 +172,7 @@
 						<div class="mainViewFooterButtonTitle">新建</div>
 					</li>
 					
-					<li>
+					<li id="mainViewReadyButton">
 						<div class="mainViewFooterButton">
 							<div class="mainViewFooterButtonIcon_ready"></div>
 						</div>
@@ -289,13 +308,135 @@
 				this.next();
 				
 				this.flowData({
-					currentBattleId:1
+					currentBattleId:1,
+					indexCount:1000
 				});
 				this.setNext("battleInfo");
 				this.next();
+			
+			},
+			
+			addMember:function(){
+				var rank = this.stepData("rank");
+				var score = this.stepData("score");
+				var imgUrl = this.stepData("imgUrl");
+				var indexCount = this.flowData("indexCount");
+				var index = this.stepData("index");
+				var type = this.stepData("type");
+				var id = this.stepData("id");
+				var elStr="<li style='text-align: center;'>"+
+				"<div class='mainViewMembersPkMember flipx' id='m_"+id+"'>"+
+					"<div class='mainViewMemberPkImg' id='d_"+id+"'></div>"+
+				"</div>"+
+
+				"<div id='mainViewMemberProgress_'"+id+" style='width:70%;height:10px;margin:0 auto;position:relative;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)'>"+
+					"<div class='mainViewMemberProgressLabel' id='mainViewMemberProgressLabel_'"+id+" style='color:RGBA(255,237,109,1);padding-top: 0px;font-size: 10px;'>0</div>"+
+				"</div>"+
+				"<div class='mainViewMembersPkMemberRank' id='i_"+id+"'>第"+rank+"名 "+score+"分</div>"+
+				"</li>";
+				var el = $(elStr);
+				
+				
+				$(".mainViewMembers>ul").append(el);
+				
+				if(type==1){
+					var inImg = "http://on3s1z2us.bkt.clouddn.com/fc49d5d420a2e378e6d3f9ca23d7cd54.png";
+					var mainViewMembersPkMemberEl = $("#m_"+id);
+					mainViewMembersPkMemberEl.css("background","url('"+inImg+"')");
+					mainViewMembersPkMemberEl.css("background-size","100% 100%");
+				}else{
+					var mainViewMembersPkMemberRankEl = $("#i_"+id);
+					var suffix = "....";
+					
+					
+					mainViewMembersPkMemberRankEl.text("等待中"+suffix);
+					
+					mainViewMembersPkMemberRankEl.css("text-align","left");
+					
+					mainViewMembersPkMemberRankEl.css("padding-left","20px");
+					
+					var i = 0;
+					/*setInterval(function(){
+						i++;
+						if(i%5==0){
+							suffix = "";
+						}else if(i%5==1){
+							suffix = ".";
+						}else if(i%5==2){
+							suffix = "..";
+						}else if(i%5==3){
+							suffix = "...";
+						}else if(i%5==4){
+							suffix = "....";
+						}
+						mainViewMembersPkMemberRankEl.text("等待中"+suffix);
+						
+						mainViewMembersPkMemberRankEl.css("text-align","left");
+						
+						mainViewMembersPkMemberRankEl.css("padding-left","20px");
+						
+					},5000);*/
+					
+				}
+				
+				
+				var mainViewMemberPkImgEl = $("#d_"+id);
+				mainViewMemberPkImgEl.css("background","url('"+imgUrl+"')");
+				
+				var testProgress = new ProgressPlug("#mainViewMemberProgress_"+id,"mainViewMemberProgressLabel_"+id,{type:0,isShowProgress:1,count:indexCount,decimal:2});
+				testProgress.addValueAction(index);
+			},
+			
+			initMembers:function(){
+				var members = this.stepData("members");
+				var rankInfo = this.stepData("rankInfo");
+				var memberMin = rankInfo.memberMin;
+				var memberMax = rankInfo.memberMax;
+				for(var i = 0;i<members.length;i++){
+					var member = members[i];
+					this.setNext("addMember");
+					this.nextData({
+						rank:1,
+						score:member.score,
+						imgUrl:member.memberImg,
+						index:member.index,
+						id:member.memberId,
+						type:1
+						
+					});
+					this.next();
+				}
+				
+				for(var i = 0;i<memberMax-members.length;i++){
+					this.setNext("addMember");
+					this.nextData({
+						rank:1,
+						score:100,
+						imgUrl:"",
+						index:0,
+						id:"free_"+i,
+						type:0
+						
+					});
+					this.next();
+				}
+			},
+			
+			showFooterButtons:function(){
+				var readyButton = $("#mainViewReadyButton");
+				var startButton = $("#mainViewStartButton");
+				var thisRankMember = this.flowData("thisRankMember");
+				if(thisRankMember){
+					startButton.css("display","inline-block");
+					readyButton.css("display","none");
+				}else{
+					startButton.css("display","none");
+					readyButton.css("display","inline-block");
+				}
 			},
 			
 			battleInfo:function(){
+				var outThis = this;
 				var url = "/api/main/battleInfo";
 				var callback = new Object();
 				callback.success = function(resp){
@@ -304,11 +445,28 @@
 						var name = data.name;
 						var imgUrl = data.imgUrl;
 						var instruction = data.instruction;
+						var rankMembers = data.rankMembers;
+						var thisMember = data.thisMember;
+						
+						outThis.flowData({
+							thisRankMember:thisMember
+						});
+						if(rankMembers){
+							outThis.setNext("initMembers");
+							outThis.nextData({
+								members:rankMembers,
+								rankInfo:data.battleRank
+							});
+							outThis.next();
+						}
 						
 						$("#battleInfoName").text(name);
 						$("#battleInfoImg").attr("src",imgUrl);
 						$("#battleInfoInstruction").text(instruction);
-						addProgress(40,100);
+						addProgress(40,10);
+						
+						outThis.setNext("showFooterButtons");
+						outThis.next();
 					
 					}
 				}
@@ -595,6 +753,7 @@
 					object["currentStageIndex_"+battleId] = data.currentStageIndex;
 					object["index_"+battleId] = data.index;
 					object["stageStatus_"+battleId] = data.stageStatus;
+					object["status"+battleId] = data.status;
 					object["paperKey_"+battleId] = data.paperKey;
 					object["paperId_"+battleId] = data.paperId;
 					object["memberId_"+battleId] = data.memberId;
@@ -774,6 +933,11 @@
 				 this.flowData({
 					 currentBattleId:battleId
 				 })
+				 
+				$("#mainViewReadyButton").click(function(){
+					outThis.setNext("battleReady");
+					outThis.next();
+				});
 					
 				$("#mainViewStartButton").click(function(){
 					outThis.setNext("startBattle");
@@ -830,6 +994,62 @@
 				});
 				
 				this.next();
+			},
+			
+			battleReady:function(){
+				var waitPlug = new WaitPlug();
+				var outThis = this;
+				this.setNext("battleTakepart",function(){
+					outThis.setNext("requestBattleRankMemberList",function(data){
+						$(".mainViewMembers>ul").children().remove();
+						
+						var members = data.members;
+						var rankInfo = data.rankInfo;
+						var thisMember = data.thisMember;
+						
+						console.log(JSON.stringify(rankInfo));
+						outThis.setNext("initMembers");
+						outThis.nextData({
+							members:members,
+							rankInfo:rankInfo
+						});
+						outThis.next();
+						waitPlug.close();
+						
+						
+						outThis.flowData({
+							thisRankMember:thisMember
+						});
+						outThis.setNext("showFooterButtons");
+						outThis.next();
+					},function(){waitPlug.close();});
+					outThis.next();
+				},function(){
+					waitPlug.close();
+				});
+				
+				this.next();
+			},
+			
+			requestBattleRankMemberList:function(){
+				var outThis=this;
+				var url = "/api/main/battleRankMemberList";
+				var battleId = this.flowData("currentBattleId");
+				var params = new Object();
+				params.battleId = battleId;
+				var callback = new Object();
+				callback.success = function(resp){
+					if(resp.success){
+						var data = resp.data;
+						outThis.success(data);
+					}else{
+						outThis.failure();
+					}
+				}
+				callback.failure = function(){
+					outThis.failure();
+				}
+				request(url,callback,params);
 			},
 			
 			//参与比赛
@@ -938,8 +1158,23 @@
 		init();
 		
 		$(".mainView").height($(document).height());
+		
+		
+		
 	});
 
 
 </script>
+
+<style>
+	.mainViewMemberProgressLabel{
+ 		position: absolute;
+ 		text-align:center;
+ 		width:100%;
+ 		font-weight: bold;
+ 		color:RGBA(77,209,255,1);
+ 		font-size: 5px;
+ 		top:-3px;
+	}
+</style>
 

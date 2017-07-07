@@ -13,29 +13,37 @@ import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
 
-
 @ParamEntityAnnotation
 @Entity
-@Table(name="b_battle_model")
-public class BattleMain {
+@Table(name="b_battle_model_stage")
+public class BattleModelStage {
 	@Id
 	@IdAnnotation
 	private String id;
 	
+	//阶段序号
+	@ParamAnnotation
+	@Column(name="stage_index")
+	private Integer stageIndex;
+	
+	//该阶段总分
 	@ParamAnnotation
 	@Column
-	private String name;
+	private Integer score;
+	
+	//比赛id
+	@ParamAnnotation
+	@Column(name="battle_model_id")
+	private String battleModelId;
+	
+	//该阶段试卷
+	@ParamAnnotation
+	@Column(name="paper_id")
+	private String paperId;
 	
 	@ParamAnnotation
-	@Column
-	private String instruction;
-	
-	@ParamAnnotation
-	@Column(name="img_url")
-	private String imgUrl;
-	
-	@Column(name="battle_id")
-	private String battleId;
+	@Column(name="is_del")
+	private Integer isDel;
 	
 	@ParamAnnotation
 	@Column(name = "create_at")
@@ -57,36 +65,44 @@ public class BattleMain {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Integer getStageIndex() {
+		return stageIndex;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setStageIndex(Integer stageIndex) {
+		this.stageIndex = stageIndex;
 	}
 
-	public String getInstruction() {
-		return instruction;
+	public Integer getScore() {
+		return score;
 	}
 
-	public void setInstruction(String instruction) {
-		this.instruction = instruction;
+	public void setScore(Integer score) {
+		this.score = score;
 	}
 
-	public String getImgUrl() {
-		return imgUrl;
+	public String getBattleModelId() {
+		return battleModelId;
 	}
 
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
+	public void setBattleModelId(String battleModelId) {
+		this.battleModelId = battleModelId;
 	}
 
-	public String getBattleId() {
-		return battleId;
+	public String getPaperId() {
+		return paperId;
 	}
 
-	public void setBattleId(String battleId) {
-		this.battleId = battleId;
+	public void setPaperId(String paperId) {
+		this.paperId = paperId;
+	}
+
+	public Integer getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
 	}
 
 	public DateTime getCreateAt() {

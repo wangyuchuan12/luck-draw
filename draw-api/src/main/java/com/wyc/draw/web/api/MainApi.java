@@ -14,6 +14,7 @@ import com.wyc.draw.filter.controller.api.BattleInfoApiFilter;
 import com.wyc.draw.filter.controller.api.BattleListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleMemberInfoApiFilter;
 import com.wyc.draw.filter.controller.api.BattleMemberStageListApiFilter;
+import com.wyc.draw.filter.controller.api.BattleRankMemberListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleSetCurrentStageApiFilter;
 import com.wyc.draw.filter.controller.api.BattleStageListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleStageTakepartApiFilter;
@@ -195,6 +196,16 @@ public class MainApi {
 	@HandlerAnnotation(hanlerFilter=BattleStageListApiFilter.class)
 	@RequestMapping(value="battleStages")
 	public Object battleStages(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
+		return resultVo;
+	}
+	
+	@Transactional
+	@ResponseBody
+	@HandlerAnnotation(hanlerFilter=BattleRankMemberListApiFilter.class)
+	@RequestMapping(value="battleRankMemberList")
+	public Object battleRankMemberList(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
 		return resultVo;

@@ -21,6 +21,7 @@ import com.wyc.draw.domain.BattleToMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.BattleMemberStageCreateFilter;
+import com.wyc.draw.filter.BattleRankMemberTakepartFilter;
 import com.wyc.draw.filter.CurrentBattleMemberFilter;
 import com.wyc.draw.service.other.AccountHandleService;
 import com.wyc.draw.vo.BattleMemberStageListVo;
@@ -101,6 +102,9 @@ public class BattleTakepartApiFilter extends Filter{
 		classes.add(CurrentBattleMemberFilter.class);
 		
 		classes.add(BattleMemberStageCreateFilter.class);
+		
+		
+		classes.add(BattleRankMemberTakepartFilter.class);
 		return classes;
 	}
 

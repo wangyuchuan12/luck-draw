@@ -448,7 +448,7 @@ function ProgressPlug(selectorProgress,selectorLabel,params){
 		}
 		
 		if(type==0){
-			progressLabel.text((outThis.getValue()/outThis.getCount())*100+"%");
+			progressLabel.text(((outThis.getValue()/outThis.getCount())*100).toFixed(decimal)+"%");
 		}else if(type==1){
 
 			progressLabel.text(numTransform(outThis.getValue().toFixed(decimal))+unit);

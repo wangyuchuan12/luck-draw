@@ -11,10 +11,15 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.Battle;
+import com.wyc.draw.domain.BattleMember;
+import com.wyc.draw.domain.BattleRank;
+import com.wyc.draw.domain.BattleRankMember;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.BattleInfoFilter;
-import com.wyc.draw.filter.BattleMemberOfNumFilter;
-import com.wyc.draw.vo.BattleMemberListVo;
+import com.wyc.draw.filter.BattleRankInfoFilter;
+import com.wyc.draw.filter.BattleRankMemberListFilter;
+import com.wyc.draw.filter.CurrentBattleMemberFilter;
+import com.wyc.draw.vo.BattleRankMemberListVo;
 
 public class BattleInfoApiFilter extends Filter{
 
@@ -23,6 +28,10 @@ public class BattleInfoApiFilter extends Filter{
 		
 		Battle battle = sessionManager.getObject(Battle.class);
 		
+		BattleRank battleRank = sessionManager.getObject(BattleRank.class);
+		
+		BattleMember battleMember = sessionManager.getObject(BattleMember.class);
+		
 		/*BattleMemberListVo battleMemberListVo = sessionManager.getObject(BattleMemberListVo.class);
 		
 		ResultVo resultVo = new ResultVo();
@@ -30,8 +39,37 @@ public class BattleInfoApiFilter extends Filter{
 		data.put("info", battle);
 		data.put("member", battleMemberListVo.getBattleMembers());*/
 		ResultVo resultVo = new ResultVo();
+		Map<String, Object> data = new HashMap<>();
 		resultVo.setSuccess(true);
-		resultVo.setData(battle);
+		data.put("beanConsume", battle.getBeanConsume());
+		data.put("id", battle.getId());
+		data.put("imgUrl", battle.getImgUrl());
+		data.put("instruction", battle.getInstruction());
+		data.put("loveLifeConsume", battle.getLoveLifeConsume());
+		data.put("loveLifeGive", battle.getLoveLifeGive());
+		data.put("modelId", battle.getModelId());
+		data.put("name", battle.getName());
+		data.put("paperId", battle.getPaperId());
+		data.put("subjectId", battle.getSubjectId());
+		data.put("takepartCount", battle.getTakepartCount());
+		data.put("title", battle.getTitle());
+		data.put("type", battle.getType());
+		
+		BattleRankMemberListVo battleRankMemberListVo = sessionManager.getObject(BattleRankMemberListVo.class);
+		data.put("rankMembers", battleRankMemberListVo.getBattleRankMembers());
+		
+		data.put("battleRank", battleRank);
+		
+		if(battleRankMemberListVo.getBattleRankMembers()!=null&&battleRankMemberListVo.getBattleRankMembers().size()>0){
+			for(int i = 0;i<battleRankMemberListVo.getBattleRankMembers().size();i++){
+				BattleRankMember battleRankMember = battleRankMemberListVo.getBattleRankMembers().get(i);
+				if(battleRankMember.getMemberId().equals(battleMember.getId())){
+					data.put("thisMember",battleMember);
+					break;
+				}
+			}
+		}
+		resultVo.setData(data);
 		return resultVo;
 	}
 
@@ -48,7 +86,10 @@ public class BattleInfoApiFilter extends Filter{
 		
 		List<Class<? extends Filter>> classes = new ArrayList<>();
 		classes.add(BaseDrawActionFilter.class);
+		classes.add(CurrentBattleMemberFilter.class);
 		classes.add(BattleInfoFilter.class);
+		classes.add(BattleRankMemberListFilter.class);
+		classes.add(BattleRankInfoFilter.class);
 		//classes.add(BattleMemberOfNumFilter.class);
 		return classes;
 	}
