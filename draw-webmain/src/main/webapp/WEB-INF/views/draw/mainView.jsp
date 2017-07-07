@@ -499,8 +499,11 @@
 			},
 			
 			createProgressPlug:function(){
+				var outThis = this;
 				var url = "/view/dekorn/progressScore";
-				progressPlug = new LayerPlug(url,1,1);
+				progressPlug = new LayerPlug(url,1,1,"",function(){
+					outThis.flowData({progressReady:1});
+				});
 				progressPlug.hide();
 			},
 			
@@ -512,18 +515,25 @@
 			},
 			
 			initProgressPlug:function(){
-				
+				var outThis = this;
 				var flag = this.flowData("initProgressPlugFlag");
 				if(!flag){
-					var callback = new Object();
-					callback.setProgressFlowPlug = function(plug){
-						progressFlowPlug = plug
-					}
-					progressPlug.call("init",callback);
+					var interval = setInterval(function(){
+						if(outThis.flowData("progressReady")){
+							var callback = new Object();
+							callback.setProgressFlowPlug = function(plug){
+								progressFlowPlug = plug
+							}
+							progressPlug.call("init",callback);
+							
+							this.flowData({
+								initProgressPlugFlag:true
+							});
+							clearInterval(interval);
+						}
+						
+					},100);
 					
-					this.flowData({
-						initProgressPlugFlag:true
-					});
 				}
 				
 			},
