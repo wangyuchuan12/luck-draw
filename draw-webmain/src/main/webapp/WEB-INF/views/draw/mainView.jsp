@@ -325,7 +325,7 @@
 				var type = this.stepData("type");
 				var id = this.stepData("id");
 				var elStr="<li style='text-align: center;'>"+
-				"<div class='mainViewMembersPkMember flipx' id='m_"+id+"'>"+
+				"<div class='mainViewMembersPkMember flipx' id='m_"+id+"' style='background-size:100% 100%'>"+
 					"<div class='mainViewMemberPkImg' id='d_"+id+"'></div>"+
 				"</div>"+
 
@@ -347,8 +347,7 @@
 				}else{
 					var mainViewMembersPkMemberRankEl = $("#i_"+id);
 					var suffix = "....";
-					
-					
+
 					mainViewMembersPkMemberRankEl.text("等待中"+suffix);
 					
 					mainViewMembersPkMemberRankEl.css("text-align","left");
@@ -382,6 +381,7 @@
 				
 				var mainViewMemberPkImgEl = $("#d_"+id);
 				mainViewMemberPkImgEl.css("background","url('"+imgUrl+"')");
+				mainViewMemberPkImgEl.css("background-size","100% 100%");
 				
 				var testProgress = new ProgressPlug("#mainViewMemberProgress_"+id,"mainViewMemberProgressLabel_"+id,{type:0,isShowProgress:1,count:indexCount,decimal:2});
 				testProgress.addValueAction(index);
