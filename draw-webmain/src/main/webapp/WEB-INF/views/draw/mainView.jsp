@@ -10,6 +10,7 @@
 	<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 	
+		<input type="hidden" name="battleId" value="${battleId}"/>
 		<div class="mainView">
 			<div class="mainViewDekorn">
 				<ul>
@@ -307,13 +308,46 @@
 				this.setNext("initBattleInfo");
 				this.next();
 				
+				var battleId = $("input[name=battleId]").val();
+				
 				this.flowData({
-					currentBattleId:1,
+					currentBattleId:battleId,
 					indexCount:1000
 				});
 				this.setNext("battleInfo");
 				this.next();
+				
 			
+			},
+			
+			//初始化整个地图的样式
+			initAllIndexStyle:function(){
+				var outThis = this;
+				var url = "/api/main/battleIndexes";
+				var params = new Object();
+				var battleId = this.flowData("currentBattleId");
+				params.battleId = battleId;
+				var callback  = new Object();
+				callback.success = function(resp){
+					if(resp.success){
+						var data = resp.data;
+						for(var i = 0;i<data.length;i++){
+							var object = data[i];
+							progressFlowPlug.setNext("showIndexStyleHandle");
+							progressFlowPlug.nextData({
+								iconUrl:object.iconUrl,
+								index:object.index,
+								isGuide:object.isGuide
+							});
+							progressFlowPlug.next();
+						}
+					}
+				}
+				callback.failure = function(){
+					
+				}
+				
+				request(url,callback,params);
 			},
 			
 			addMember:function(){
@@ -338,21 +372,27 @@
 				
 				
 				$(".mainViewMembers>ul").append(el);
+				var mainViewMembersPkMemberEl = $("#m_"+id);
+				var width = $(document).width();
+				mainViewMembersPkMemberEl.width(width/4-10);
+				mainViewMembersPkMemberEl.css("margin-left","2px");
+				mainViewMembersPkMemberEl.height(mainViewMembersPkMemberEl.width());
 				
 				if(type==1){
 					var inImg = "http://on3s1z2us.bkt.clouddn.com/fc49d5d420a2e378e6d3f9ca23d7cd54.png";
-					var mainViewMembersPkMemberEl = $("#m_"+id);
+					
 					mainViewMembersPkMemberEl.css("background","url('"+inImg+"')");
-					mainViewMembersPkMemberEl.css("background-size","100% 100%");
+					
+					
+					
+					
 				}else{
 					var mainViewMembersPkMemberRankEl = $("#i_"+id);
 					var suffix = "....";
 
 					mainViewMembersPkMemberRankEl.text("等待中"+suffix);
-					
-					mainViewMembersPkMemberRankEl.css("text-align","left");
-					
-					mainViewMembersPkMemberRankEl.css("padding-left","20px");
+				
+					mainViewMembersPkMemberRankEl.css("padding-left","0px");
 					
 					var i = 0;
 					/*setInterval(function(){
@@ -380,9 +420,13 @@
 				
 				
 				var mainViewMemberPkImgEl = $("#d_"+id);
+				mainViewMembersPkMemberEl.css("background-size","100% 100%");
 				mainViewMemberPkImgEl.css("background","url('"+imgUrl+"')");
 				mainViewMemberPkImgEl.css("background-size","100% 100%");
-				
+				mainViewMemberPkImgEl.css("top","60%");
+				mainViewMemberPkImgEl.css("left","-15%");
+				mainViewMemberPkImgEl.css("width","30%");
+				mainViewMemberPkImgEl.css("height","30%");
 				var testProgress = new ProgressPlug("#mainViewMemberProgress_"+id,"mainViewMemberProgressLabel_"+id,{type:0,isShowProgress:1,count:indexCount,decimal:2});
 				testProgress.addValueAction(index);
 			},
@@ -530,6 +574,10 @@
 					outThis.flowData({
 						initProgressPlugFlag:1
 					});
+					
+					
+					outThis.setNext("initAllIndexStyle");
+					outThis.next();
 				}
 				
 			},
@@ -934,11 +982,11 @@
 			//用用户互动的监听器
 			initEventListener:function(){
 				var outThis = this;
-				var battleId = 1;
+				/*var battleId = 1;
 				
 				 this.flowData({
 					 currentBattleId:battleId
-				 })
+				 })*/
 				 
 				$("#mainViewReadyButton").click(function(){
 					outThis.setNext("battleReady");
@@ -947,9 +995,9 @@
 					
 				$("#mainViewStartButton").click(function(){
 					outThis.setNext("startBattle");
-					outThis.nextData({
+					/*outThis.nextData({
 						battleId:battleId
-					});
+					});*/
 					outThis.next();
 				});
 				 
@@ -974,8 +1022,8 @@
 					
 					outThis.setNext("setBattleData");
 					outThis.next();
-					addProgress(10,10);
-					this.setNext("getBattleStages",function(data){
+					addProgress(30,10);
+					/*this.setNext("getBattleStages",function(data){
 						var interval = setInterval(function(){
 							if(outThis.flowData("progressReady")){
 								
@@ -1001,7 +1049,7 @@
 					this.nextData({
 						battleId:battleId
 					});
-					this.next();
+					this.next();*/
 				
 				});
 				

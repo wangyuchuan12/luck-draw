@@ -4565,6 +4565,10 @@ li::before{
 	left:-15px;
 }
 
+.mainViewMembers{
+	text-align: center;
+}
+
 .mainViewMembers>uL>li{
 	display: inline-block;
 }
@@ -4573,7 +4577,11 @@ li::before{
 	text-align: center;
 	font-weight: bolder;
 	color: black;
-	width:100%;
+	width:95%;
 	height: 20px;
 	font-size: 15px;
+	
+	background: white;
+	
+	border-radius:5px;
 }

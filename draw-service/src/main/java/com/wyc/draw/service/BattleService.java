@@ -1,7 +1,9 @@
 package com.wyc.draw.service;
 
 import java.util.List;
+import java.util.UUID;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,13 @@ public class BattleService {
 
 	public Battle findOne(String id) {
 		return battleRepository.findOne(id);
+	}
+
+	public void add(Battle battle) {
+		battle.setId(UUID.randomUUID().toString());
+		battle.setUpdateAt(new DateTime());
+		battle.setCreateAt(new DateTime());
+		
+		battleRepository.save(battle);
 	}
 }

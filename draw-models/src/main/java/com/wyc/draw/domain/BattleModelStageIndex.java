@@ -62,6 +62,15 @@ public class BattleModelStageIndex {
 	private Integer toHide;
 	
 	@ParamAnnotation
+	@Column(name="is_img")
+	private Integer isImg;
+	
+	
+	@ParamAnnotation
+	@Column(name="img_url")
+	private String imgUrl;
+	
+	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -159,6 +168,22 @@ public class BattleModelStageIndex {
 
 	public void setToHide(Integer toHide) {
 		this.toHide = toHide;
+	}
+
+	public Integer getIsImg() {
+		return isImg;
+	}
+
+	public void setIsImg(Integer isImg) {
+		this.isImg = isImg;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 
 	public DateTime getCreateAt() {

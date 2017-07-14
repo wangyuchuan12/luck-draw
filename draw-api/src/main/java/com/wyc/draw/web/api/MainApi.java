@@ -1,8 +1,14 @@
 package com.wyc.draw.web.api;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -10,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.BattleStageIndexDetail;
 import com.wyc.draw.filter.controller.api.BattleInfoApiFilter;
 import com.wyc.draw.filter.controller.api.BattleListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleMemberInfoApiFilter;
@@ -28,11 +35,38 @@ import com.wyc.draw.filter.controller.api.ProgressApiFilter;
 import com.wyc.draw.filter.controller.api.PropReceiveBeanApiFilter;
 import com.wyc.draw.filter.controller.api.PropReceiveLoveApiFilter;
 import com.wyc.draw.filter.controller.api.PropReceiveRandomApiFilter;
+import com.wyc.draw.service.BattleStageIndexDetailService;
 
 @Controller
 @RequestMapping(value="/api/main/")
 public class MainApi {
 
+	@Autowired
+	private BattleStageIndexDetailService battleStageIndexDetailService;
+
+	@ResponseBody
+	@RequestMapping(value="battleIndexes")
+	public Object battleIndexes(HttpServletRequest httpServletRequest)throws Exception{
+		String battleId = httpServletRequest.getParameter("battleId");
+		
+		List<BattleStageIndexDetail> battleStageIndexDetails = battleStageIndexDetailService.findAllByBattleIdOrderByIndexAsc(battleId);
+		
+		List<Map<String, Object>> responseData = new ArrayList<>();
+		
+		for(BattleStageIndexDetail battleStageIndexDetail:battleStageIndexDetails){
+			Map<String, Object> data = new HashMap<>();
+			data.put("index", battleStageIndexDetail.getIndex());
+			data.put("iconUrl", battleStageIndexDetail.getIconUrl());
+			data.put("isGuide", battleStageIndexDetail.getIsGuide());
+			responseData.add(data);
+		}
+		
+		ResultVo resultVo = new ResultVo();
+		resultVo.setData(responseData);
+		resultVo.setSuccess(true);
+		return resultVo;
+	}
+	
 	@Transactional
 	@HandlerAnnotation(hanlerFilter=CurrentPropLoveApiFilter.class)
 	@ResponseBody

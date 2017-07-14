@@ -31,4 +31,8 @@ public class BattleStageIndexDetailService {
 		battleStageIndexDetailRepository.save(battleStageIndexDetail);
 		
 	}
+
+	public List<BattleStageIndexDetail> findAllByBattleIdOrderByIndexAsc(String battleId) {
+		return battleStageIndexDetailRepository.findAllByBattleIdOrderByIndexAsc(battleId);
+	}
 }

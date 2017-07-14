@@ -132,18 +132,31 @@
 				mainCallback = cb;
 				var battlePlug = new FlowPlug({
 					begin:function(){
+						var outThis = this;
 						mainCallback.setBattleFlowPlug(this);
 						initStar();
 						
 						$("#dekornButton").click(function(){
-							console.log("13");
-							var battleId = battlePlug.flowPlug.flowData("battleId");
-							var round = battlePlug.flowPlug.flowData("round");
-							var stageStatus = battlePlug.flowPlug.flowData("stageStatus");
-							if(stageStatus==2){
-								//window.parent.startDekorn(battleId,parseInt(round)+1);
-							}else{
-								window.parent.startDekorn(battleId,parseInt(round));
+							var dekornEnable = outThis.flowData("dekornEnable");
+							
+							if(dekornEnable==1){
+								var battleId = battlePlug.flowPlug.flowData("battleId");
+								var round = battlePlug.flowPlug.flowData("round");
+								var stageStatus = battlePlug.flowPlug.flowData("stageStatus");
+								if(stageStatus==2){
+									//window.parent.startDekorn(battleId,parseInt(round)+1);
+								}else{
+									window.parent.startDekorn(battleId,parseInt(round));
+								}
+							}
+						});
+						
+						$("#nextButton").click(function(){
+							var nextEnable = outThis.flowData("nextEnable");
+							if(nextEnable==1){
+								var battleId = battlePlug.flowPlug.flowData("battleId");
+								var round = battlePlug.flowPlug.flowData("round");
+								window.parent.startBattle(parseInt(round)+1);
 							}
 							
 						});
@@ -188,6 +201,7 @@
 					},
 					
 					showView:function(){
+						var outThis = this;
 						var round = this.flowData("round");
 						var thisScore = this.flowData("thisScore");
 						var allScore = this.flowData("allScore");
@@ -226,10 +240,11 @@
 						
 						if(stageStatus==1||stageStatus==0){
 							$("#dekornButton").removeClass("gray");
-							$("#dekornButton").bind("click");
+							outThis.flowData({
+								dekornEnable:1
+							});
 							
 						}else {
-						//	$("#dekornButton").text("下一题");
 							console.log("maxStage:"+maxStage);
 							if(round>=maxStage){
 								
@@ -237,23 +252,24 @@
 								$("#dekornButton").removeClass("gray");
 							}
 							
-							$("#dekornButton").unbind("click");
 							$("#dekornButton").addClass("gray");
+							
+							outThis.flowData({
+								dekornEnable:0
+							});
 							
 						}
 						
 						if(round>=maxStage||stageStatus!=2){
 							$("#nextButton").addClass("gray");
-							$("#nextButton").unbind("click");
+							outThis.flowData({
+								nextEnable:0
+							});
 						}else{
 							$("#nextButton").removeClass("gray");
-							$("#nextButton").bind("click");
-							
-							$("#nextButton").click(function(){
-								var battleId = battlePlug.flowPlug.flowData("battleId");
-								var round = battlePlug.flowPlug.flowData("round");
-								window.parent.startBattle(parseInt(round)+1);
-							});
+							outThis.flowData({
+								nextEnable:1
+							});						
 						}
 						for(var i = 0;i<loveCount;i++){
 							var loveDiv = $("<div></div>");

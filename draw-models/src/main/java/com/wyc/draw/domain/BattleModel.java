@@ -80,6 +80,10 @@ public class BattleModel {
 	private Integer isEnable;
 	
 	@ParamAnnotation
+	@Column
+	private String code;
+	
+	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -202,7 +206,15 @@ public class BattleModel {
 	public void setIsEnable(Integer isEnable) {
 		this.isEnable = isEnable;
 	}
-	
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	public DateTime getCreateAt() {
 		return createAt;
 	}

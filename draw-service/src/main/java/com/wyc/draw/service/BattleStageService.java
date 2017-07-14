@@ -1,7 +1,9 @@
 package com.wyc.draw.service;
 
 import java.util.List;
+import java.util.UUID;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,15 @@ public class BattleStageService {
 
 	public List<BattleStage> findAllByBattleIdAndIsDel(String battleId, int isDel) {
 		return battleStageRepository.findAllByBattleIdAndIsDel(battleId,isDel);
+	}
+
+	public void add(BattleStage battleStage) {
+		battleStage.setId(UUID.randomUUID().toString());
+		battleStage.setUpdateAt(new DateTime());
+		battleStage.setCreateAt(new DateTime());
+		
+		battleStageRepository.save(battleStage);
+		
 	}
 	
 	

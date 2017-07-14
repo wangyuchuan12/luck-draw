@@ -1,14 +1,10 @@
 package com.wyc.draw.web.controller;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
-import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.BattleStage;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.service.BattleStageService;
@@ -22,7 +18,8 @@ public class MainController {
 	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	@RequestMapping(value="home")
 	public String drawRooms(HttpServletRequest httpServletRequest)throws Exception{
-		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		String battleId = httpServletRequest.getParameter("battleId");
+		httpServletRequest.setAttribute("battleId", battleId);
 		return "mainView";
 	}
 	

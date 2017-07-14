@@ -31,6 +31,10 @@ public class BattleModelStage {
 	@Column
 	private Integer score;
 	
+	@ParamAnnotation
+	@Column(name="pass_score")
+	private Integer passScore;
+	
 	//比赛id
 	@ParamAnnotation
 	@Column(name="battle_model_id")
@@ -103,6 +107,14 @@ public class BattleModelStage {
 
 	public void setIsDel(Integer isDel) {
 		this.isDel = isDel;
+	}
+	
+	public Integer getPassScore() {
+		return passScore;
+	}
+
+	public void setPassScore(Integer passScore) {
+		this.passScore = passScore;
 	}
 
 	public DateTime getCreateAt() {

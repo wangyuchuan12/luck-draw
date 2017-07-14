@@ -12,4 +12,6 @@ public interface BattleStageIndexDetailRepository extends CrudRepository<BattleS
 	List<BattleStageIndexDetail> findAllByBattleIdAndIsDelAndStageindexIn(String battleId, int isDel,
 			List<Integer> stageIndexes);
 
+	List<BattleStageIndexDetail> findAllByBattleIdOrderByIndexAsc(String battleId);
+
 }
