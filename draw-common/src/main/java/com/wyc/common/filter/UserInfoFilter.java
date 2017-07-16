@@ -52,7 +52,6 @@ public class UserInfoFilter extends Filter{
 		            logger.debug("get userInfo from database by key {} , return object is {}",key , userInfo);
 		        }
 		        
-		        System.out.println("..........................code:"+code);
 	            if(userInfo==null&&code!=null){
 	                try {
 	                    userInfo = userSmartService.getFromWx();

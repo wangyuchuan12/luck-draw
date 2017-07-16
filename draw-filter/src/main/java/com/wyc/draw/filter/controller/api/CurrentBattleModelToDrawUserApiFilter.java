@@ -49,7 +49,7 @@ public class CurrentBattleModelToDrawUserApiFilter extends Filter{
 	@Override
 	public Object handlerPre(SessionManager sessionManager) throws Exception {
 		HttpServletRequest httpServletRequest = sessionManager.getHttpServletRequest();
-		String code = httpServletRequest.getParameter("code");
+		String code = httpServletRequest.getParameter("battleCode");
 		BattleModel battleModel = battleModelService.findOneByCode(code);
 		sessionManager.setAttribute("modelId", battleModel.getId());
 		return null;
