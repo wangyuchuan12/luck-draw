@@ -8,9 +8,22 @@ public class FilterEntryHandler {
 	private FilterEntry filterEntry;
 	
 	private SessionManager sessionManager;
-	public FilterEntryHandler(FilterEntry filterEntry,SessionManager sessionManager){
+	
+	private FilterEntryManager filterEntryManager;
+	public FilterEntryHandler(FilterEntry filterEntry,SessionManager sessionManager,FilterEntryManager filterEntryManager){
 		this.filterEntry = filterEntry;
 		this.sessionManager = sessionManager;
+		this.filterEntryManager = filterEntryManager;
+	}
+	
+	public void executeListenerCallback(Method method)throws Exception{
+		FilterBroadcastAnnotation broadcastAnnotation = method.getAnnotation(FilterBroadcastAnnotation.class);
+		if(broadcastAnnotation!=null){
+			String listenerName = broadcastAnnotation.name();
+			
+			filterEntryManager.callback(listenerName, sessionManager);
+		}
+		
 	}
 	
 	public Object executePre()throws Exception{
@@ -19,6 +32,7 @@ public class FilterEntryHandler {
 		for(Method method:methods){
 			if(method.getName().startsWith("handlerPre")){
 				Object returnValue = method.invoke(filterEntry.getFilter(), sessionManager);
+				executeListenerCallback(method);
 				if(method.getName().equals("handlerPre")){
 					handlePreReturnValue = returnValue;
 				}
@@ -32,6 +46,8 @@ public class FilterEntryHandler {
 		
 		sessionManager.save(returnValue);
 		
+		executeListenerCallback(filterEntry.getFilter().getClass().getMethod("handlerFilter", SessionManager.class));
+		
 		return returnValue;
 	}
 
@@ -42,6 +58,7 @@ public class FilterEntryHandler {
 		for(Method method:methods){
 			if(method.getName().startsWith("handlerAfter")){
 				Object returnValue = method.invoke(filterEntry.getFilter(), sessionManager);
+				executeListenerCallback(method);
 				if(method.getName().equals("handlerAfter")){
 					handlerAfterReturnValue = returnValue;
 				}

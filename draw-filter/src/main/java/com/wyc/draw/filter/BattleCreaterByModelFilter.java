@@ -11,6 +11,7 @@ import com.wyc.draw.domain.BattleModelStage;
 import com.wyc.draw.domain.BattleModelStageIndex;
 import com.wyc.draw.domain.BattleStage;
 import com.wyc.draw.domain.BattleStageIndexDetail;
+import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.service.BattleModelService;
 import com.wyc.draw.service.BattleModelStageIndexService;
 import com.wyc.draw.service.BattleModelStageService;
@@ -40,6 +41,8 @@ public class BattleCreaterByModelFilter extends Filter{
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		String modelId = (String)sessionManager.getAttribute("modelId");
+		
+		DrawUser drawUser = sessionManager.getObject(DrawUser.class);
 		BattleModel battleModel = battleModelService.findOne(modelId);
 		
 		List<BattleModelStage> battleModelStages = battleModelStageService.findAllByBattleModelId(battleModel.getId());
@@ -70,6 +73,9 @@ public class BattleCreaterByModelFilter extends Filter{
 		battle.setType(battleModel.getType());
 		battle.setSubjectId(battleModel.getSubjectId());
 		battle.setLoveLifeGive(battleModel.getLoveLifeGive());
+		battle.setCode(battleModel.getCode());
+		battle.setCreaterDrawUserId(drawUser.getId());
+		battle.setStageCount(battleModel.getStageCount());
 		
 		battleService.add(battle);
 		for(BattleModelStage battleModelStage:battleModelStages){

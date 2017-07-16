@@ -83,6 +83,19 @@ public class Battle {
 	@Column(name="bean_consume")
 	private Integer beanConsume;
 	
+	@ParamAnnotation
+	@Column
+	private String code;
+	
+	//阶段数量
+	@ParamAnnotation
+	@Column(name="stage_count")
+	private Integer stageCount;
+	
+	//创建人，引用drawUserId
+	@ParamAnnotation
+	@Column(name="creater_draw_user_id")
+	private String createrDrawUserId;
 
 	@ParamAnnotation
 	@Column(name = "create_at")
@@ -102,6 +115,22 @@ public class Battle {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Integer getStageCount() {
+		return stageCount;
+	}
+
+	public void setStageCount(Integer stageCount) {
+		this.stageCount = stageCount;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getModelId() {
@@ -212,6 +241,14 @@ public class Battle {
 
 	public void setInstruction(String instruction) {
 		this.instruction = instruction;
+	}
+
+	public String getCreaterDrawUserId() {
+		return createrDrawUserId;
+	}
+
+	public void setCreaterDrawUserId(String createrDrawUserId) {
+		this.createrDrawUserId = createrDrawUserId;
 	}
 
 	public DateTime getCreateAt() {

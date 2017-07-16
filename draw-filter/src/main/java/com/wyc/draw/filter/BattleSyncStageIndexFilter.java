@@ -12,12 +12,9 @@ import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.BattleMember;
 import com.wyc.draw.domain.BattleMemberIndex;
 import com.wyc.draw.domain.BattleMemberStage;
-import com.wyc.draw.domain.PaperAnswer;
 import com.wyc.draw.domain.QuestionAnswer;
-import com.wyc.draw.service.BattleMemberService;
 import com.wyc.draw.service.BattleMemberStageIndexService;
 import com.wyc.draw.service.BattleMemberStageService;
-import com.wyc.draw.service.PaperAnswerService;
 import com.wyc.draw.service.QuestionAnswerService;
 import com.wyc.draw.vo.BattleMemberStageIndexListVo;
 
@@ -31,6 +28,9 @@ public class BattleSyncStageIndexFilter extends Filter{
 	
 	@Autowired
 	private BattleMemberStageService battleMemberStageService;
+	
+	/*@Autowired
+	private BattleMemberService battleMemberService;*/
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		
@@ -54,10 +54,35 @@ public class BattleSyncStageIndexFilter extends Filter{
 					battleMemberIndex.setIsRight(questionAnswer.getIsRight());
 				}
 				battleMemberIndex.setStatus(Constant.BM_STATUS_END);
+				
+				if(battleMemberIndex.getIsRight()!=1){
+					/*battleMemberIndex.setRewardBeanNum(0);
+					
+					Integer loveLifeCount = battleMember.getLoveLife();
+					if(loveLifeCount==null){
+						loveLifeCount = 0; 
+					}
+					loveLifeCount--;
+					if(loveLifeCount<0){
+						loveLifeCount = 0;
+					}
+					battleMember.setLoveLife(loveLifeCount);*/
+				}else{
+//					Integer stageScore = battleMemberStage.getScore();
+//					if(stageScore==null){
+//						stageScore = 0;
+//					}
+//					stageScore = stageScore+battleMemberIndex.getScore();
+//					battleMemberStage.setScore(stageScore);
+//					
+//					System.out.println("..................stageScore:"+stageScore);
+				}
 				battleMemberStageIndexService.update(battleMemberIndex);
 			}
 			BattleMemberStageIndexListVo battleMemberStageIndexListVo = new BattleMemberStageIndexListVo();
 			battleMemberStageIndexListVo.setBattleMemberIndexs(battleMemberIndexs);
+		//	battleMemberStageService.update(battleMemberStage);
+		//	battleMemberService.update(battleMember);
 			return battleMemberStageIndexListVo;
 		}else{
 			

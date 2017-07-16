@@ -57,19 +57,28 @@
 					
 					<div class="mainViewMembers">
 						<ul>
-							<!--  
+							<!-- 
 							<li style="text-align: center;">
 								<div class="mainViewMembersPkMember flipx">
 									<div class="mainViewMemberPkImg"></div>
 								</div>
 
-								<div id="mainViewMemberProgress" style="width:70%;height:10px;margin:0 auto;position:relative;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
-									<div class="mainViewMemberProgressLabel" id="progressLabel2" style="color:RGBA(255,237,109,1);padding-top: 0px;font-size: 10px;">0</div>
+								<div style="width:100%;">
+									<div style="display: inline-block;width:20px;height: 15px;background: red;color:white;width:25%;vertical-align: top;border-radius:5px;">得分</div>
+									<div id="mainViewMemberProgress" style="width:60%;height:15px;margin:0 auto;position:relative;border-radius:20px;display:inline-block;top: 0px;vertical-align:middle;background-color:RGBA(139,76,32,1)">
+										<div class="mainViewMemberProgressLabel" id="progressLabel2" style="color:RGBA(255,237,109,1);padding-top: 0px;font-size: 10px;">0</div>
+									</div>
 								</div>
 								
-								<div class="mainViewMembersPkMemberRank">第100名 200分</div>
+								<div style="width:100%;position: relative;padding-top:5px;">
+									<div style="display: inline-block;width:20px;height: 15px;background: red;color:white;width:25%;vertical-align: top;border-radius:5px;">进度</div>
+									<div id="mainViewMemberProgress2" style="width:60%;height:15px;margin:0 auto;position:relative;border-radius:20px;display:inline-block;top: 0px;vertical-align:middle;background-color:RGBA(139,76,32,1)">
+										<div class="mainViewMemberProgressLabel" id="progressLabel2" style="color:RGBA(255,237,109,1);padding-top: 0px;font-size: 10px;">0</div>
+									</div>
+								</div>
 							</li>
-							-->
+							 -->
+							
 						</ul>
 					</div>
 					
@@ -312,7 +321,7 @@
 				
 				this.flowData({
 					currentBattleId:battleId,
-					indexCount:1000
+					indexCount:120
 				});
 				this.setNext("battleInfo");
 				this.next();
@@ -358,15 +367,24 @@
 				var index = this.stepData("index");
 				var type = this.stepData("type");
 				var id = this.stepData("id");
+				
+
+			
+			
 				var elStr="<li style='text-align: center;'>"+
 				"<div class='mainViewMembersPkMember flipx' id='m_"+id+"' style='background-size:100% 100%'>"+
 					"<div class='mainViewMemberPkImg' id='d_"+id+"'></div>"+
 				"</div>"+
 
-				"<div id='mainViewMemberProgress_'"+id+" style='width:70%;height:10px;margin:0 auto;position:relative;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)'>"+
-					"<div class='mainViewMemberProgressLabel' id='mainViewMemberProgressLabel_'"+id+" style='color:RGBA(255,237,109,1);padding-top: 0px;font-size: 10px;'>0</div>"+
-				"</div>"+
-				"<div class='mainViewMembersPkMemberRank' id='i_"+id+"'>第"+rank+"名 "+score+"分</div>"+
+				"<ul>"+
+					"<li style='width:100%'>"+
+					"<div style='display: inline-block;width:20px;height: 15px;background: RGBA(61,212,11,1);color:white;width:35%;vertical-align: top;border-radius:5px;'>进程</div>"+
+					"<div id='p_"+id+"' style='width:50%;height:15px;margin:0 auto;position:relative;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)'>"+
+						"<div class='mainViewMemberProgressLabel' id='l_"+id+"' style='color:RGBA(255,237,109,1);padding-top: 0px;font-size: 10px;'>0</div>"+
+					"</div>"+
+					"</li>"+
+				"</ul>"+
+				"<div class='mainViewMembersPkMemberRank'  style='background:RGBA(139,76,32,0.5);color:white' id='i_"+id+"'>第"+rank+"名 "+score+"分</div>"+
 				"</li>";
 				var el = $(elStr);
 				
@@ -427,8 +445,16 @@
 				mainViewMemberPkImgEl.css("left","-15%");
 				mainViewMemberPkImgEl.css("width","30%");
 				mainViewMemberPkImgEl.css("height","30%");
-				var testProgress = new ProgressPlug("#mainViewMemberProgress_"+id,"mainViewMemberProgressLabel_"+id,{type:0,isShowProgress:1,count:indexCount,decimal:2});
-				testProgress.addValueAction(index);
+				var testProgress = new ProgressPlug("#p_"+id,"#l_"+id,{type:2,isShowProgress:1,count:indexCount,decimal:2});
+
+				testProgress.setValue(60);
+				
+				testProgress.showValue();
+				
+				testProgress.setValueBg("red");
+				console.log("timeout2");
+				
+				
 			},
 			
 			initMembers:function(){
@@ -797,7 +823,7 @@
 				this.setNext("requestBattleMemberInfo",function(data){
 					var object = new Object();
 					object["round_"+battleId] = data.currentStageIndex;
-					object["thisScore_"+battleId] = data.currentStageScore;
+					object["thisScore_"+battleId] = data.thisScore;
 					object["allScore_"+battleId] = data.allScore;
 					object["beanNum_"+battleId] = data.rewardBeanNum;
 					object["loveCount_"+battleId] = data.loveLife;
@@ -1196,7 +1222,8 @@
 					stageStatus:stageStatus,
 					status:status
 				});
-				
+		
+				console.log("thisScore:"+thisScore);
 				battleFlowPlug.next();
 			}
 		});
@@ -1234,7 +1261,13 @@
  		font-weight: bold;
  		color:RGBA(77,209,255,1);
  		font-size: 5px;
- 		top:-3px;
+ 		top:0px;
+	}
+	
+	.mainViewMemberProgressLabel .ui-corner-left{
+   		background: RGBA(225,0,34,1);
+   		height: 20px;
+   		border-radius:20px;
 	}
 </style>
 

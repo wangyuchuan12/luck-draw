@@ -1,6 +1,7 @@
 package com.wyc.common.filter.manager;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class FilterEntryFactory {
 	public FilterStep instance()throws Exception{
 		this.filterEntry = instanceFilterEntry(filterClass);
 		
-		
+		initCallback(filterClass);
 		
 		this.filterStep = instanceFilterStep(filterEntryManager,filterEntry);
 		
@@ -48,6 +49,18 @@ public class FilterEntryFactory {
 		
 		
 		return this.filterStep;
+	}
+	
+	private void initCallback(Class<? extends Filter> filterClass)throws Exception{
+		Method[] methods = filterClass.getDeclaredMethods();
+		for(Method method:methods){
+			FilterListenerAnnotation filterListenerAnnotation = method.getAnnotation(FilterListenerAnnotation.class);
+			if(filterListenerAnnotation!=null){
+				String listenerName = filterListenerAnnotation.name();
+				FilterListenerCallback filterListenerCallback = new FilterListenerCallback(this.filterEntry.getFilter(), method);
+				filterEntryManager.addListenerCallback(listenerName, filterListenerCallback);
+			}
+		}
 	}
 	
 	private FilterEntry instanceFilterEntry(Class<? extends Filter> filterClass)throws Exception{

@@ -387,7 +387,10 @@ function ProgressPlug(selectorProgress,selectorLabel,params){
 	this.count = 100;
 	
 	var decimal = 0;
+
 	var outThis = this;
+	
+	
 	
 	if(params){
 		if(params.growthSpeed){
@@ -414,7 +417,16 @@ function ProgressPlug(selectorProgress,selectorLabel,params){
 			decimal = params.decimal;
 		}
 	}
+
+	this.setValueBg= function(background){
+		var progressbarValue = $(selectorProgress).find(".ui-progressbar-value");
+		progressbarValue.css("background",background);
+		
+	}
 	
+	this.getProgressbar = function(){
+		return outThis.progressbar;
+	}
 	
 	this.isFull = function(){
 		if(outThis.getValue<outThis.getCount){
@@ -460,6 +472,9 @@ function ProgressPlug(selectorProgress,selectorLabel,params){
 		}else if(type==3){
 			
 		}
+		
+		var progressbarValue = $(selectorProgress).find(".ui-progressbar-value");
+		progressbarValue.css("border","0px solid");
 	}
 	
 	progressbar.progressbar({

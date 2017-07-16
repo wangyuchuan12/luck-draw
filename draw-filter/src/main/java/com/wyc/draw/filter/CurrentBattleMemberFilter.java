@@ -1,9 +1,7 @@
 package com.wyc.draw.filter;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
@@ -29,6 +27,7 @@ public class CurrentBattleMemberFilter extends Filter{
 	
 	@Autowired
 	private BattleService battleService;
+	
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		DrawUser drawUser = sessionManager.getObject(DrawUser.class);
@@ -66,8 +65,6 @@ public class CurrentBattleMemberFilter extends Filter{
 		}else {
 			battleMember = battleMemberService.findOne(battleToMember.getCurrentMemberId());
 		}
-	
-		System.out.println("....................battleMember:"+battleMember+",battleToMember:"+battleToMember);
 		
 		sessionManager.save(battleMember);
 		return battleToMember;

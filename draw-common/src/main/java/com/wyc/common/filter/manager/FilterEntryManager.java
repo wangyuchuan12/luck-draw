@@ -1,6 +1,11 @@
 package com.wyc.common.filter.manager;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.wyc.common.session.SessionManager;
 
 public class FilterEntryManager {
 
@@ -12,6 +17,29 @@ public class FilterEntryManager {
 
 	
 	private FilterStep branchFilterStep;
+	
+	
+	private Map<String, List<FilterListenerCallback>> callbacks = new HashMap<>();
+	
+	public void addListenerCallback(String name , FilterListenerCallback filterListenerCallback){
+		List<FilterListenerCallback> filterListenerCallbacks = callbacks.get(name);
+		if(filterListenerCallbacks==null){
+			filterListenerCallbacks = new ArrayList<>();
+			filterListenerCallbacks.add(filterListenerCallback);
+			callbacks.put(name, filterListenerCallbacks);
+		}else{
+			filterListenerCallbacks.add(filterListenerCallback);
+		}
+	}
+	
+	public void callback(String name,SessionManager sessionManager)throws Exception{
+		List<FilterListenerCallback> filterListenerCallbacks = callbacks.get(name);
+		if(filterListenerCallbacks!=null&&filterListenerCallbacks.size()>0){
+			for(FilterListenerCallback filterListenerCallback:filterListenerCallbacks){
+				filterListenerCallback.callback(sessionManager);
+			}
+		}
+	}
 	
 	//正序seq出第一个，指针指向下一个
 	public FilterEntry posSeqOut(){

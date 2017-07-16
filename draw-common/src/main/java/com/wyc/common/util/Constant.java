@@ -275,4 +275,16 @@ public class Constant {
 	//结束状态
 	public static final int BATTLE_RANK_MEMBER_STATUS_END=2;
 	
+	
+	/*************************BattleModelToDraw************************/
+	
+	
+	//游离状态
+	public static final int BATTLE_MODEL_TO_DRAWUSER_FREE=0;
+	
+	//进行中状态
+	public static final int BATTLE_MODEL_TO_DRAWUSER_IN=1;
+	
+	//结束状态
+	public static final int BATTLE_MODEL_TO_DRAWUSER_END=2;
 }

@@ -27,6 +27,7 @@ import com.wyc.draw.filter.controller.api.BattleStageListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleStageTakepartApiFilter;
 import com.wyc.draw.filter.controller.api.BattleSubmitResultApiFilter;
 import com.wyc.draw.filter.controller.api.BattleTakepartApiFilter;
+import com.wyc.draw.filter.controller.api.CurrentBattleModelToDrawUserApiFilter;
 import com.wyc.draw.filter.controller.api.CurrentPropApiFilter;
 import com.wyc.draw.filter.controller.api.CurrentPropBeanApiFilter;
 import com.wyc.draw.filter.controller.api.CurrentPropLoveApiFilter;
@@ -260,6 +261,21 @@ public class MainApi {
 	@HandlerAnnotation(hanlerFilter=BattleSubmitResultApiFilter.class)
 	@RequestMapping(value="submitResult")
 	public Object submitResult(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.isReturn()){
+			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+			return resultVo;
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			return resultVo;
+		}
+	}
+	
+	@ResponseBody
+	@Transactional
+	@HandlerAnnotation(hanlerFilter=CurrentBattleModelToDrawUserApiFilter.class)
+	@RequestMapping(value="currentBattleModel")
+	public Object currentBattleModel(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		if(sessionManager.isReturn()){
 			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();

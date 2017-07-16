@@ -73,7 +73,7 @@ public class BattleMmeberIndexCreateFilter extends Filter{
 					}
 				}
 				battleMemberStage.setIsSyncIndex(1);
-				battleMemberStageService.save(battleMemberStage);
+				battleMemberStageService.update(battleMemberStage);
 				
 			}else{
 				

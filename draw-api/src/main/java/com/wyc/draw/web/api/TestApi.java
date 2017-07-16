@@ -11,20 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wyc.annotation.HandlerAnnotation;
-import com.wyc.annotation.ParamAnnotation;
-import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.BaseActionFilter;
-import com.wyc.common.filter.UserInfoFilter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.smart.service.UserSmartService;
 import com.wyc.common.wx.domain.Article;
 import com.wyc.common.wx.domain.UserInfo;
 import com.wyc.common.wx.service.SendMessageService;
 import com.wyc.draw.domain.Dekorn;
-import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
 import com.wyc.draw.filter.SelectGameDekornFilter;
 import com.wyc.draw.filter.controller.api.BattleMemberInfoApiFilter;
-import com.wyc.draw.vo.RedPacketListVo;
 
 @Controller
 @RequestMapping(value="/view/test")

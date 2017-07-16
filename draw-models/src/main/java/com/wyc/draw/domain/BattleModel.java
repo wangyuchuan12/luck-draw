@@ -79,6 +79,11 @@ public class BattleModel {
 	@Column(name="is_enable")
 	private Integer isEnable;
 	
+	//阶段数量
+	@ParamAnnotation
+	@Column(name="stage_count")
+	private Integer stageCount;
+	
 	@ParamAnnotation
 	@Column
 	private String code;
@@ -213,6 +218,14 @@ public class BattleModel {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+	
+	public Integer getStageCount() {
+		return stageCount;
+	}
+
+	public void setStageCount(Integer stageCount) {
+		this.stageCount = stageCount;
 	}
 
 	public DateTime getCreateAt() {

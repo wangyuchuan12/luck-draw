@@ -55,10 +55,4 @@ public class BattleMemberStageService {
 	public BattleMemberStage findOneByMemberIdAndBattleIdAndStageIndex(String memberId, String battleId, Integer stage) {
 		return battleMemberStageRepository.findOneByMemberIdAndBattleIdAndStageIndex(memberId,battleId,stage);
 	}
-
-	public void save(BattleMemberStage battleMemberStage) {
-		battleMemberStage.setUpdateAt(new DateTime());
-		battleMemberStageRepository.save(battleMemberStage);
-		
-	}
 }

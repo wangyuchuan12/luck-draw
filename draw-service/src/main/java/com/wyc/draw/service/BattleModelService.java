@@ -15,4 +15,8 @@ public class BattleModelService {
 	public BattleModel findOne(String id) {
 		return battleModelRepository.findOne(id);
 	}
+
+	public BattleModel findOneByCode(String code) {
+		return battleModelRepository.findOneByCode(code);
+	}
 }

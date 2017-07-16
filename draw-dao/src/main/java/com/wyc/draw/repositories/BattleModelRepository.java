@@ -6,4 +6,6 @@ import com.wyc.draw.domain.BattleModel;
 
 public interface BattleModelRepository extends CrudRepository<BattleModel, String>{
 
+	BattleModel findOneByCode(String code);
+
 }
