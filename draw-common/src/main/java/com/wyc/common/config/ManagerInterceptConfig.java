@@ -131,6 +131,9 @@ public class ManagerInterceptConfig {
 							 httpServletRequest.setAttribute(key, value);
 						 }
 					 }
+					 
+					 
+					 System.out.println("。。。。。。。。。。。。。。。。。。。。。。。这里进来了");
 					 return filterManager.getReturnValue();
 				 }
 				 

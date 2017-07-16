@@ -39,6 +39,9 @@ public class BaseActionFilter extends Filter{
 		UserInfo userInfo = (UserInfo)filterManager.getObject(UserInfo.class);
 		
 		
+		
+		
+		
 		if(userInfo==null){
 			if(requestUri.startsWith("/view")){
 				StringBuffer urlBuffer = new StringBuffer();
