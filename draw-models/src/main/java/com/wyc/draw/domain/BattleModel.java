@@ -85,6 +85,10 @@ public class BattleModel {
 	private Integer stageCount;
 	
 	@ParamAnnotation
+	@Column(name="stage_index_count")
+	private Integer stageIndexCount;
+	
+	@ParamAnnotation
 	@Column
 	private String code;
 	
@@ -226,6 +230,14 @@ public class BattleModel {
 
 	public void setStageCount(Integer stageCount) {
 		this.stageCount = stageCount;
+	}
+
+	public Integer getStageIndexCount() {
+		return stageIndexCount;
+	}
+
+	public void setStageIndexCount(Integer stageIndexCount) {
+		this.stageIndexCount = stageIndexCount;
 	}
 
 	public DateTime getCreateAt() {

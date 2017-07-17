@@ -62,6 +62,7 @@ public class BattleMemberInfoApiFilter extends Filter{
 		
 		data.put("memberId", battleMember.getId());
 		
+		data.put("stageIndexCount", battleMember.getStageIndexCount());
 		
 		
 		Long rank = battleMemberService.rank(battleMember);
@@ -69,22 +70,23 @@ public class BattleMemberInfoApiFilter extends Filter{
 		data.put("rank", rank);
 			
 		BattleMemberStage battleMemberStage = battleMemberStageService.findOneByMemberIdAndBattleIdAndStageIndex(battleMember.getId(),battleMember.getBattleId(),battleMember.getCurrentStageIndex());
+		BattleStage battleStage = battleStageService.findOneByBattleIdAndStageIndex(battleMember.getBattleId(), battleMember.getCurrentStageIndex());
+
 		
-		
+		System.out.println("...........passScore:"+battleStage.getPassScore());
+		data.put("passScore", battleStage.getPassScore());
+		data.put("passScore2", battleStage.getPassScore2());
+		data.put("passScore3", battleStage.getPassScore3());
+		data.put("passScore4", battleStage.getPassScore4());
 		if(battleMemberStage!=null){
 			data.put("rewardBeanNum", battleMemberStage.getRewardBeanNum());
 			data.put("thisScore", battleMemberStage.getScore());
 			data.put("stageStatus", battleMemberStage.getStatus());
 			data.put("paperId", battleMemberStage.getPaperId());
+			data.put("isPass", battleMemberStage.getIsPass());
 		}else{
-			BattleStage battleStage = battleStageService.findOneByBattleIdAndStageIndex(battleMember.getBattleId(), battleMember.getCurrentStageIndex());
-			if(battleStage!=null){
-				data.put("rewardBeanNum", 0);
-				data.put("thisScore", 0);
-			}else{
-				data.put("rewardBeanNum", 0);
-				data.put("thisScore", 0);
-			}
+			data.put("rewardBeanNum", 0);
+			data.put("thisScore", 0);
 			
 			data.put("stageStatus", Constant.BM_STATUS_FREE);
 			

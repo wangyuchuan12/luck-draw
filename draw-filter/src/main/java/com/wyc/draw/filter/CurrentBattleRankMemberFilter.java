@@ -29,8 +29,6 @@ public class CurrentBattleRankMemberFilter extends Filter{
 			battleRankMember.setBattleRankId(battleRank.getId());
 			battleRankMember.setIndex(0);
 			battleRankMember.setMemberId(battleMember.getId());
-			
-			System.out.println(".........headImg:"+battleMember.getHeadImg());
 			battleRankMember.setMemberImg(battleMember.getHeadImg());
 			battleRankMember.setMemberNickname(battleMember.getNickname());
 			battleRankMember.setScore(0);

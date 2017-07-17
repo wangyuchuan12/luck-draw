@@ -96,7 +96,6 @@ public class BattleMember {
 	@ParamAnnotation
 	@Column(name="reward_bean_num")
 	private Integer rewardBeanNum;
-
 	
 	@ParamAnnotation
 	@Column(name="takepart_time")

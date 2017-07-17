@@ -24,7 +24,7 @@ public class BattleRankMemberTakepartFilter extends Filter{
 		battleRankMember.setStatus(Constant.BATTLE_RANK_MEMBER_STATUS_IN);
 		battleRankMember.setMemberImg(battleMember.getHeadImg());
 		battleRankMember.setScore(0);
-		battleRankMemberService.save(battleRankMember);
+		battleRankMemberService.update(battleRankMember);
 		return battleRankMember;
 	}
 

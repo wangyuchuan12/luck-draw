@@ -92,6 +92,11 @@ public class Battle {
 	@Column(name="stage_count")
 	private Integer stageCount;
 	
+	//节点数量
+	@ParamAnnotation
+	@Column(name="stage_index_count")
+	private Integer stageIndexCount;
+	
 	//创建人，引用drawUserId
 	@ParamAnnotation
 	@Column(name="creater_draw_user_id")
@@ -249,6 +254,14 @@ public class Battle {
 
 	public void setCreaterDrawUserId(String createrDrawUserId) {
 		this.createrDrawUserId = createrDrawUserId;
+	}
+
+	public Integer getStageIndexCount() {
+		return stageIndexCount;
+	}
+
+	public void setStageIndexCount(Integer stageIndexCount) {
+		this.stageIndexCount = stageIndexCount;
 	}
 
 	public DateTime getCreateAt() {

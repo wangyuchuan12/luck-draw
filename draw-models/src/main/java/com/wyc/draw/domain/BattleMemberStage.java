@@ -97,6 +97,31 @@ public class BattleMemberStage {
 	private Integer isSyncIndex;
 	
 	@ParamAnnotation
+	@Column(name="is_pass")
+	private Integer isPass;
+	
+	
+	//一颗星分数
+	@ParamAnnotation
+	@Column(name="pass_score")
+	private Integer passScore;
+	
+	//二颗星分数
+	@ParamAnnotation
+	@Column(name="pass_score2")
+	private Integer passScore2;
+	
+	//三颗星分数
+	@ParamAnnotation
+	@Column(name="pass_score3")
+	private Integer passScore3;
+	
+	//四颗星分数
+	@ParamAnnotation
+	@Column(name="pass_score4")
+	private Integer passScore4;
+	
+	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -234,6 +259,46 @@ public class BattleMemberStage {
 
 	public void setPaperId(String paperId) {
 		this.paperId = paperId;
+	}
+
+	public Integer getIsPass() {
+		return isPass;
+	}
+
+	public void setIsPass(Integer isPass) {
+		this.isPass = isPass;
+	}
+
+	public Integer getPassScore() {
+		return passScore;
+	}
+
+	public void setPassScore(Integer passScore) {
+		this.passScore = passScore;
+	}
+
+	public Integer getPassScore2() {
+		return passScore2;
+	}
+
+	public void setPassScore2(Integer passScore2) {
+		this.passScore2 = passScore2;
+	}
+
+	public Integer getPassScore3() {
+		return passScore3;
+	}
+
+	public void setPassScore3(Integer passScore3) {
+		this.passScore3 = passScore3;
+	}
+
+	public Integer getPassScore4() {
+		return passScore4;
+	}
+
+	public void setPassScore4(Integer passScore4) {
+		this.passScore4 = passScore4;
 	}
 
 	public DateTime getCreateAt() {

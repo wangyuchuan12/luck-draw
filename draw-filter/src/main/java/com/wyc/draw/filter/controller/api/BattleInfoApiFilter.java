@@ -59,6 +59,7 @@ public class BattleInfoApiFilter extends Filter{
 		data.put("rankMembers", battleRankMemberListVo.getBattleRankMembers());
 		
 		data.put("battleRank", battleRank);
+		data.put("stageIndexCount", battle.getStageIndexCount());
 		
 		if(battleRankMemberListVo.getBattleRankMembers()!=null&&battleRankMemberListVo.getBattleRankMembers().size()>0){
 			for(int i = 0;i<battleRankMemberListVo.getBattleRankMembers().size();i++){

@@ -76,6 +76,7 @@ public class BattleCreaterByModelFilter extends Filter{
 		battle.setCode(battleModel.getCode());
 		battle.setCreaterDrawUserId(drawUser.getId());
 		battle.setStageCount(battleModel.getStageCount());
+		battle.setStageIndexCount(battleModel.getStageIndexCount());
 		
 		battleService.add(battle);
 		for(BattleModelStage battleModelStage:battleModelStages){
@@ -85,6 +86,10 @@ public class BattleCreaterByModelFilter extends Filter{
 			battleStage.setPaperId(battleModelStage.getPaperId());
 			battleStage.setScore(battleModelStage.getScore());
 			battleStage.setStageIndex(battleModelStage.getStageIndex());
+			battleStage.setPassScore(battleModelStage.getPassScore());
+			battleStage.setPassScore2(battleModelStage.getPassScore2());
+			battleStage.setPassScore3(battleModelStage.getPassScore3());
+			battleStage.setPassScore4(battleModelStage.getPassScore4());
 			battleStageService.add(battleStage);
 		}
 		

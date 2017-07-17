@@ -762,14 +762,15 @@
 				var thisScore = this.flowData("thisScore");
 				
 				var allScore = this.flowData("allScore");
-				
+								
 				function addScore(num){
 					num--;
 					if(num>=0){
 						thisScore++;
 						allScore++;
 						outThis.flowData({
-							thisScore:thisScore
+							thisScore:thisScore,
+							allScore:allScore
 						});
 						
 						$("#thisScore").text(thisScore);

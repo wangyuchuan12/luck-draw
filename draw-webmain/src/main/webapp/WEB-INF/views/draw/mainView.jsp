@@ -237,6 +237,7 @@
 	var mainViewPlug;
 	
 	var mainViewFlowPlug;
+	
 
 	function startBattle(stage){
 		
@@ -445,15 +446,13 @@
 				mainViewMemberPkImgEl.css("left","-15%");
 				mainViewMemberPkImgEl.css("width","30%");
 				mainViewMemberPkImgEl.css("height","30%");
-				var testProgress = new ProgressPlug("#p_"+id,"#l_"+id,{type:2,isShowProgress:1,count:indexCount,decimal:2});
+				var progress = new ProgressPlug("#p_"+id,"#l_"+id,{type:2,isShowProgress:1,count:indexCount,decimal:2});
 
-				testProgress.setValue(60);
+				progress.setValue(index);
 				
-				testProgress.showValue();
+				progress.showValue();
 				
-				testProgress.setValueBg("red");
-				console.log("timeout2");
-				
+				progress.setValueBg("red");
 				
 			},
 			
@@ -517,6 +516,12 @@
 						var instruction = data.instruction;
 						var rankMembers = data.rankMembers;
 						var thisMember = data.thisMember;
+						
+						var indexCount = data.stageIndexCount;
+						
+						outThis.flowData({
+							indexCount:indexCount
+						});
 						
 						outThis.flowData({
 							thisRankMember:thisMember
@@ -610,12 +615,15 @@
 			
 			showBattle:function(){
 				var outThis = this;
-				
+				var isPassAnimate = this.stepData("isPassAnimate");
 				var interval = setInterval(function(){
 					var battleReady = outThis.flowData("battleReady");
 					if(battleReady==1){
 						battlePlug.show();
 						battleFlowPlug.setNext("showView");
+						battleFlowPlug.nextData({
+							isPassAnimate:isPassAnimate
+						});
 						battleFlowPlug.next();
 						clearInterval(interval);
 						outThis.success();
@@ -687,15 +695,18 @@
 						loveLimit:outThis.flowData("loveLimit_"+battleId),
 						loveCount:outThis.flowData("loveCount_"+battleId),
 					});
+
 					progressFlowPlug.next();
 					
 					outThis.flowData({progressInitDataFlow:true});
+					
+					progressFlowPlug.setNext("showData");
+					progressFlowPlug.next();
 				}
 				
 				
 				
-				progressFlowPlug.setNext("showData");
-				progressFlowPlug.next();
+				
 				
 				var callback = new Object();
 
@@ -812,8 +823,8 @@
 				});
 				this.next();
 				
-				battleFlowPlug.setNext("passAnimate");
-				battleFlowPlug.next();
+				/*battleFlowPlug.setNext("passAnimate");
+				battleFlowPlug.next();*/
 				
 			},
 			
@@ -837,9 +848,16 @@
 					object["paperKey_"+battleId] = data.paperKey;
 					object["paperId_"+battleId] = data.paperId;
 					object["memberId_"+battleId] = data.memberId;
+					object["stageIndexCount_"+battleId] = data.stageIndexCount;
+					object["isPass_"+battleId] = data.isPass;
+					object["passScore_"+battleId] = data.passScore;
+					object["passScore2_"+battleId] = data.passScore2;
+					object["passScore3_"+battleId] = data.passScore3;
+					object["passScore4_"+battleId] = data.passScore4;
 					outThis.flowData(object);
 					outThis.success();
 				});
+				
 				
 				this.nextData({
 					battleId:battleId
@@ -928,11 +946,20 @@
 			},
 			
 			startBattle:function(){
+				var isPassAnimate = this.stepData("isPassAnimate");
 				progressPlug.hide();
 				var outThis = this;
 				var battleId = this.flowData("currentBattleId");
 				var waitPlug = new WaitPlug();
 				outThis.setNext("initBattleMemberInfo",function(data){
+					var isPass = this.flowData("isPass_"+battleId);
+					var isPassAnimate;
+					if(isPass){
+						isPassAnimate = 1;
+					}else{
+						isPassAnimate = 0;
+					}
+					
 					outThis.setNext("setBattleData");
 					outThis.nextData({
 						battleId:battleId
@@ -943,6 +970,9 @@
 						outThis.setNext("showBattle",function(){
 							waitPlug.close();
 						});
+						outThis.nextData({
+							isPassAnimate:isPassAnimate
+						});
 						outThis.next();
 					}else{
 						outThis.setNext("battleTakepart",function(data){
@@ -950,6 +980,9 @@
 							var attrFlowPlug = attrPlug.flowPlug;
 							attrFlowPlug.setNext("subLoveAction",function(){
 								outThis.setNext("showBattle",function(){});
+								outThis.nextData({
+									isPassAnimate:isPassAnimate
+								});
 								outThis.next();
 								waitPlug.close();
 							});
@@ -962,6 +995,9 @@
 							
 							attrFlowPlug.setNext("subBeanAction",function(){
 								outThis.setNext("showBattle",function(){});
+								outThis.nextData({
+									isPassAnimate:isPassAnimate
+								});
 								outThis.next();
 								waitPlug.close();
 							});
@@ -1085,7 +1121,29 @@
 			battleReady:function(){
 				var waitPlug = new WaitPlug();
 				var outThis = this;
-				this.setNext("battleTakepart",function(){
+				this.setNext("battleTakepart",function(data){
+					var attrFlowPlug = attrPlug.flowPlug;
+					attrFlowPlug.setNext("subLoveAction",function(){
+						
+					});
+					
+					attrFlowPlug.nextData({
+						num:data.loveLifeConsume
+					});
+					attrFlowPlug.next();
+					
+					
+					attrFlowPlug.setNext("subBeanAction",function(){
+						
+					});
+					
+					attrFlowPlug.nextData({
+						num:data.beanConsume
+					});
+					attrFlowPlug.next();
+					
+					
+					
 					outThis.setNext("requestBattleRankMemberList",function(data){
 						$(".mainViewMembers>ul").children().remove();
 						
@@ -1093,7 +1151,6 @@
 						var rankInfo = data.rankInfo;
 						var thisMember = data.thisMember;
 						
-						console.log(JSON.stringify(rankInfo));
 						outThis.setNext("initMembers");
 						outThis.nextData({
 							members:members,
@@ -1108,6 +1165,7 @@
 						});
 						outThis.setNext("showFooterButtons");
 						outThis.next();
+		
 					},function(){waitPlug.close();});
 					outThis.next();
 				},function(){
@@ -1206,7 +1264,11 @@
 				var rank = this.flowData("rank_"+battleId);
 				var maxStage = this.flowData("maxStage_"+battleId);
 				var stageStatus = this.flowData("stageStatus_"+battleId);
-				var status = this.flowData("status"+battleId);
+				var status = this.flowData("status_"+battleId);
+				var passScore = this.flowData("passScore_"+battleId);
+				var passScore2 = this.flowData("passScore2_"+battleId);
+				var passScore3 = this.flowData("passScore3_"+battleId);
+				var passScore4 = this.flowData("passScore4_"+battleId);
 	
 				battleFlowPlug.setNext("initData");
 				
@@ -1220,10 +1282,13 @@
 					rank:rank,
 					maxStage:maxStage,
 					stageStatus:stageStatus,
-					status:status
+					status:status,
+					passScore:passScore,
+					passScore2:passScore2,
+					passScore3:passScore3,
+					passScore4:passScore4
 				});
 		
-				console.log("thisScore:"+thisScore);
 				battleFlowPlug.next();
 			}
 		});

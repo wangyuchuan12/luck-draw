@@ -33,15 +33,15 @@ public class BattleRankMemberService {
 		battleRankMemberRepository.save(battleRankMember);
 	}
 
-	public void save(BattleRankMember battleRankMember) {
+	public List<BattleRankMember> findAllByBattleIdAndStatusIn(String battleId, List<Integer> statuses,
+			Pageable pageable) {
+		return battleRankMemberRepository.findAllByBattleIdAndStatusIn(battleId,statuses,pageable);
+	}
+
+	public void update(BattleRankMember battleRankMember) {
 		
 		battleRankMember.setUpdateAt(new DateTime());
 		battleRankMemberRepository.save(battleRankMember);
 		
-	}
-
-	public List<BattleRankMember> findAllByBattleIdAndStatusIn(String battleId, List<Integer> statuses,
-			Pageable pageable) {
-		return battleRankMemberRepository.findAllByBattleIdAndStatusIn(battleId,statuses,pageable);
 	}
 }

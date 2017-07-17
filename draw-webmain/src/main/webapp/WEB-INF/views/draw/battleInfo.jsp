@@ -10,7 +10,7 @@
 	<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 		<div class="battleInfo">
-			<div class="passFlag">
+			<div class="passFlag" style="display: none;">
 				<img src="http://on3s1z2us.bkt.clouddn.com/pass.png">
 			</div>
 			<div class="battleInfoTitle">第<span id="battleInfoBannerRound">五</span>关</div>
@@ -117,24 +117,12 @@
 		<script type="text/javascript">
 		
 			var mainCallback;
-			
-			function initStar(){
-				$.fn.raty.defaults.path="/raty/img";
-				$("#accordStar").raty({
-					score:$("input[name=accordStar]").val(),
-					size:50,
-					click:function(num){
-						//$("input[name=accordStar]").val(num);
-					}
-				});
-			}
 			function init(cb){
 				mainCallback = cb;
 				var battlePlug = new FlowPlug({
 					begin:function(){
 						var outThis = this;
 						mainCallback.setBattleFlowPlug(this);
-						initStar();
 						
 						$("#dekornButton").click(function(){
 							var dekornEnable = outThis.flowData("dekornEnable");
@@ -161,6 +149,21 @@
 							
 						});
 					},
+					
+					initStar:function(){
+						var score = this.stepData("score");
+						$.fn.raty.defaults.path="/raty/img";
+						$("#accordStar").raty({
+							score:score,
+							size:50,
+							readOnly:true,
+							number:4,
+							click:function(num){
+								//$("input[name=accordStar]").val(num);
+							}
+						});
+					},
+					
 					initData:function(){
 						var outThis = this;
 						this.flowData({
@@ -173,7 +176,11 @@
 							rank:outThis.stepData("rank"),
 							maxStage:outThis.stepData("maxStage"),
 							stageStatus:outThis.stepData("stageStatus"),
-							status:outThis.stepData("status")
+							status:outThis.stepData("status"),
+							passScore:outThis.stepData("passScore"),
+							passScore2:outThis.stepData("passScore2"),
+							passScore3:outThis.stepData("passScore3"),
+							passScore4:outThis.stepData("passScore4")
 						});
 						this.success();
 						
@@ -189,6 +196,7 @@
 					passAnimate:function(){
 						$(".passFlag").css("width","800px");
 						$(".passFlag").css("height","800px");
+						$(".passFlag").css("display","block");
 						$(".passFlag").animate({
 							width:"500px",
 							height:"500px"
@@ -201,6 +209,14 @@
 					},
 					
 					showView:function(){
+						
+						var isPassAnimate = this.stepData("isPassAnimate");
+						$(".passFlag").css("display","none");
+						
+						if(isPassAnimate){
+							this.setNext("passAnimate");
+							this.next();
+						}
 						var outThis = this;
 						var round = this.flowData("round");
 						var thisScore = this.flowData("thisScore");
@@ -212,6 +228,42 @@
 						var maxStage = this.flowData("maxStage");
 						var stageStatus = this.flowData("stageStatus");
 						var status = this.flowData("status");
+						var passScore = this.flowData("passScore");
+						var passScore2 = this.flowData("passScore2");
+						var passScore3 = this.flowData("passScore3");
+						var passScore4 = this.flowData("passScore4");
+						
+						if(thisScore>=passScore&&thisScore<passScore2){
+							this.setNext("initStar");
+							this.nextData({
+								score:1
+							});
+							this.next();
+						}else if(thisScore>=passScore2&&thisScore<passScore3){
+							this.setNext("initStar");
+							this.nextData({
+								score:2
+							});
+							this.next();
+						}else if(thisScore>=passScore3&&thisScore<passScore4){
+							this.setNext("initStar");
+							this.nextData({
+								score:3
+							});
+							this.next();
+						}else if(thisScore>=passScore4){
+							this.setNext("initStar");
+							this.nextData({
+								score:4
+							});
+							this.next();
+						}else{
+							this.setNext("initStar");
+							this.nextData({
+								score:0
+							});
+							this.next();
+						}
 						
 						$("#round").text("第"+round+"关");
 						$("#thisScore").text(thisScore+"分");
@@ -219,8 +271,6 @@
 						$("#beanNum").text("+"+beanNum+"颗");
 						$("#rank").text(rank+"名");
 						$("#battleInfoBannerRound").text(round);
-						
-						console.log("status:"+status)
 						if(status==0){
 							$("#battleInfoLove").css("display","none");
 						}else{
@@ -236,8 +286,6 @@
 						$("#loves").empty();
 	
 						
-						console.log("14");
-						
 						if(stageStatus==1||stageStatus==0){
 							$("#dekornButton").removeClass("gray");
 							outThis.flowData({
@@ -245,7 +293,6 @@
 							});
 							
 						}else {
-							console.log("maxStage:"+maxStage);
 							if(round>=maxStage){
 								
 							}else{

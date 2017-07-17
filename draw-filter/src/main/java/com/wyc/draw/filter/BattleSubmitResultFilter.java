@@ -11,8 +11,10 @@ import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.BattleMember;
 import com.wyc.draw.domain.BattleMemberIndex;
 import com.wyc.draw.domain.BattleMemberStage;
+import com.wyc.draw.domain.BattleRankMember;
 import com.wyc.draw.service.BattleMemberService;
 import com.wyc.draw.service.BattleMemberStageService;
+import com.wyc.draw.service.BattleRankMemberService;
 import com.wyc.draw.vo.BattleMemberStageIndexListVo;
 
 public class BattleSubmitResultFilter extends Filter{
@@ -22,10 +24,15 @@ public class BattleSubmitResultFilter extends Filter{
 	
 	@Autowired
 	private BattleMemberService battleMemberService;
+	
+	@Autowired
+	private BattleRankMemberService battleRankMemberService;
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		BattleMemberStage battleMemberStage = sessionManager.getObject(BattleMemberStage.class);
 		BattleMember battleMember = sessionManager.getObject(BattleMember.class);
+		
+		
 		if(battleMemberStage.getStatus()==Constant.BM_STATUS_IN){
 			battleMemberStage.setStatus(Constant.BM_STATUS_END);
 			
@@ -33,7 +40,7 @@ public class BattleSubmitResultFilter extends Filter{
 			BattleMemberStageIndexListVo battleMemberStageIndexListVo = sessionManager.getObject(BattleMemberStageIndexListVo.class);
 			
 			List<BattleMemberIndex> battleMemberIndexs = battleMemberStageIndexListVo.getBattleMemberIndexs();
-			
+			BattleRankMember battleRankMember = sessionManager.getObject(BattleRankMember.class);
 			for(BattleMemberIndex battleMemberIndex:battleMemberIndexs){
 				if(battleMemberIndex.getIsRight()==1){
 					Integer score = battleMemberStage.getScore();
@@ -60,9 +67,22 @@ public class BattleSubmitResultFilter extends Filter{
 					}
 					battleMember.setLoveLife(loveScore);
 				}
+				
+				battleRankMember.setIndex(battleMemberIndex.getIndex());
 			}
+			
+			Integer score = battleMemberStage.getScore();
+			if(score>=battleMemberStage.getPassScore()){
+				battleMemberStage.setIsPass(1);
+			}else{
+				battleMemberStage.setIsPass(0);
+			}
+			
 			battleMemberStageService.update(battleMemberStage);
 			battleMemberService.update(battleMember);
+			
+			battleRankMemberService.update(battleRankMember);
+			
 			return battleMemberStage;
 		}else{
 			ResultVo resultVo = new ResultVo();
@@ -82,7 +102,6 @@ public class BattleSubmitResultFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
