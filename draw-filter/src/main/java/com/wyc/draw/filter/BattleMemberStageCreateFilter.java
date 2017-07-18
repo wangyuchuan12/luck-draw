@@ -61,6 +61,8 @@ public class BattleMemberStageCreateFilter extends Filter{
 			battleMemberStage.setPassScore2(battleStage.getPassScore2());
 			battleMemberStage.setPassScore3(battleStage.getPassScore3());
 			battleMemberStage.setPassScore4(battleStage.getPassScore4());
+			battleMemberStage.setImgUrl(battleStage.getImgUrl());
+			battleMemberStage.setName(battleStage.getName());
 			battleMemberStageService.add(battleMemberStage);
 			returnBattleMemberStages.add(battleMemberStage);
 			

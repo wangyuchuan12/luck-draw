@@ -387,9 +387,7 @@
 		var progressPlug = new FlowPlug({
 			begin:function(){
 				mainCallback.setProgressFlowPlug(this);
-				
-				
-				
+
 				this.flowData({
 					thisIndex:0
 				});
@@ -397,13 +395,17 @@
 				$("#toDom0").css("display","block");
 				$("#toDom0").css("background","url('')");
 				
+				this.flowData({
+					isInit:1
+				});
+				
 			},
 			
 			setThisIndex:function(){
 				var thisIndex = this.stepData("thisIndex");
 				this.flowData({
 					thisIndex:thisIndex
-				})
+				});
 			},
 			
 			initStages:function(){
@@ -445,11 +447,11 @@
 					if(stageIndexsStr){
 						stageIndexsStr = stageIndexsStr.substring(0,stageIndexsStr.length-1);
 					}
+					
 					if(stageIndexsStr){
 						outThis.setNext("initStagesStyle");
 						outThis.nextData({
-							stageIndexs:stageIndexsStr,
-							isPrint:1
+							stageIndexs:stageIndexsStr
 							
 						})
 						outThis.next();
@@ -517,8 +519,6 @@
 					stage:stage-1
 				});
 				this.next();
-				
-				
 				
 			},
 			startStage:function(){
@@ -613,8 +613,8 @@
 			//多阶段显现
 			initStagesStyle:function(){
 				var stageIndexs = this.stepData("stageIndexs");
-				var isPrint = this.stepData("isPrint");
 				var outThis = this;
+				var isInit = this.flowData("isInit");
 				this.setNext("initStageIndex",function(){
 					var stages = stageIndexs.split(",");
 					
@@ -624,7 +624,7 @@
 						outThis.setNext("showStageStyle");
 						outThis.nextData({
 							stage:stages[i],
-							isPrint:1
+							isPrint:isInit
 						});
 						outThis.next();
 					
@@ -636,6 +636,8 @@
 				});
 				
 				this.next();
+				
+				this.flowData({isInit:0});
 			},
 			
 			putToStageLast:function(){

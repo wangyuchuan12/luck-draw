@@ -38,6 +38,7 @@ public class BattleRankMember {
 	private String memberNickname;
 	
 	@Column(name="member_img")
+	@ParamAnnotation
 	private String memberImg;
 	
 	@Column(name="stage_index")

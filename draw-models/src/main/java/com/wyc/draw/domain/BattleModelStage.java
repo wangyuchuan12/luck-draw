@@ -61,6 +61,16 @@ public class BattleModelStage {
 	@Column(name="paper_id")
 	private String paperId;
 	
+	//阶段显示图片
+	@ParamAnnotation
+	@Column(name="img_url")
+	private String imgUrl;
+	
+	//阶段名称
+	@ParamAnnotation
+	@Column
+	private String name;
+	
 	@ParamAnnotation
 	@Column(name="is_del")
 	private Integer isDel;
@@ -155,6 +165,22 @@ public class BattleModelStage {
 
 	public void setPassScore4(Integer passScore4) {
 		this.passScore4 = passScore4;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public DateTime getCreateAt() {

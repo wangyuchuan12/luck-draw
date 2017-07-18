@@ -106,6 +106,16 @@ public class BattleMemberStage {
 	@Column(name="pass_score")
 	private Integer passScore;
 	
+	//阶段显示图片
+	@ParamAnnotation
+	@Column(name="img_url")
+	private String imgUrl;
+	
+	//阶段名称
+	@ParamAnnotation
+	@Column
+	private String name;
+	
 	//二颗星分数
 	@ParamAnnotation
 	@Column(name="pass_score2")
@@ -299,6 +309,22 @@ public class BattleMemberStage {
 
 	public void setPassScore4(Integer passScore4) {
 		this.passScore4 = passScore4;
+	}
+	
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public DateTime getCreateAt() {

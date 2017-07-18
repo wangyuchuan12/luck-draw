@@ -128,10 +128,11 @@
 							</ul>
 						</div>
 					</li>
+					-->
 				</ul>
 			</div>
 			
-			-->
+			
 			
 			 
 			<div class="mainViewFooterButtons">
@@ -277,6 +278,13 @@
 		
 		mainViewFlowPlug.next();
 	
+	}
+	
+	function battlePop(){
+		battlePlug.hide();
+		battleFlowPlug.flowData({
+			popFlag:0
+		});
 	}
 	
 	var index=0;
@@ -819,7 +827,8 @@
 				
 				this.setNext("startBattle");
 				this.nextData({
-					battleId:battleId
+					battleId:battleId,
+					isPassAnimate:1
 				});
 				this.next();
 				
@@ -850,6 +859,8 @@
 					object["memberId_"+battleId] = data.memberId;
 					object["stageIndexCount_"+battleId] = data.stageIndexCount;
 					object["isPass_"+battleId] = data.isPass;
+					object["imgUrl_"+battleId] = data.imgUrl;
+					object["name_"+battleId] = data.name;
 					object["passScore_"+battleId] = data.passScore;
 					object["passScore2_"+battleId] = data.passScore2;
 					object["passScore3_"+battleId] = data.passScore3;
@@ -953,13 +964,19 @@
 				var waitPlug = new WaitPlug();
 				outThis.setNext("initBattleMemberInfo",function(data){
 					var isPass = this.flowData("isPass_"+battleId);
-					var isPassAnimate;
-					if(isPass){
-						isPassAnimate = 1;
+					if(isPassAnimate){
+						if(isPass){
+							isPassAnimate = 1;
+						}else{
+							isPassAnimate = 0;
+						}
 					}else{
 						isPassAnimate = 0;
+						if(isPass){
+							battleFlowPlug.setNext("showPass");
+							battleFlowPlug.next();
+						}
 					}
-					
 					outThis.setNext("setBattleData");
 					outThis.nextData({
 						battleId:battleId
@@ -1265,6 +1282,9 @@
 				var maxStage = this.flowData("maxStage_"+battleId);
 				var stageStatus = this.flowData("stageStatus_"+battleId);
 				var status = this.flowData("status_"+battleId);
+				var isPass = this.flowData("isPass_"+battleId);
+				var imgUrl = this.flowData("imgUrl_"+battleId);
+				var name = this.flowData("name_"+battleId);
 				var passScore = this.flowData("passScore_"+battleId);
 				var passScore2 = this.flowData("passScore2_"+battleId);
 				var passScore3 = this.flowData("passScore3_"+battleId);
@@ -1283,7 +1303,10 @@
 					maxStage:maxStage,
 					stageStatus:stageStatus,
 					status:status,
+					isPass:isPass,
 					passScore:passScore,
+					imgUrl:imgUrl,
+					name:name,
 					passScore2:passScore2,
 					passScore3:passScore3,
 					passScore4:passScore4
@@ -1312,7 +1335,13 @@
 		$(".mainView").height($(document).height());
 		
 		
-		
+
+        
+       /* document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        	alert("微信浏览器");
+            WeixinJSBridge.call('hideToolbar');
+            WeixinJSBridge.call('hideOptionMenu');
+        });*/
 	});
 
 

@@ -71,6 +71,16 @@ public class BattleStage {
 	@Column(name="pass_score4")
 	private Integer passScore4;
 	
+	//阶段显示图片
+	@ParamAnnotation
+	@Column(name="img_url")
+	private String imgUrl;
+	
+	//阶段名称
+	@ParamAnnotation
+	@Column
+	private String name;
+	
 	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -161,6 +171,22 @@ public class BattleStage {
 
 	public void setPassScore4(Integer passScore4) {
 		this.passScore4 = passScore4;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public DateTime getCreateAt() {

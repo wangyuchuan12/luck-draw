@@ -15,8 +15,12 @@
 			</div>
 			<div class="battleInfoTitle">第<span id="battleInfoBannerRound">五</span>关</div>
 			<div class="battleInfoBanner">
-				目标：20分
+				目标：<span id="battleInfoBannerScore">0</span>分
 			</div>
+			
+			<img src="" class="battleInfoDetailImg" id="battleInfoDetailImg">
+			<div class="battleInfoDetailName" id="battleInfoDetailName"></div>
+			
 			
 			<div class="red_packet_comment_star_img" id="accordStar"></div>
 		
@@ -87,6 +91,7 @@
 				<div class="mainViewDekornButton" style="display: inline-block;" id="nextButton">下一关</div>
 			</div>
 			
+			<!--  
 			<div class="battleInfoReward">
 				<div class="battleInfoRewardContent">
 					<ul>
@@ -113,6 +118,7 @@
 					</ul>
 				</div>
 			</div>
+			-->
 		</div>
 		<script type="text/javascript">
 		
@@ -148,6 +154,9 @@
 							}
 							
 						});
+						
+						this.setNext("popHandle");
+						this.next();
 					},
 					
 					initStar:function(){
@@ -177,6 +186,9 @@
 							maxStage:outThis.stepData("maxStage"),
 							stageStatus:outThis.stepData("stageStatus"),
 							status:outThis.stepData("status"),
+							isPass:outThis.stepData("isPass"),
+							name:outThis.stepData("name"),
+							imgUrl:outThis.stepData("imgUrl"),
 							passScore:outThis.stepData("passScore"),
 							passScore2:outThis.stepData("passScore2"),
 							passScore3:outThis.stepData("passScore3"),
@@ -193,6 +205,34 @@
 						});
 					},
 					
+					//回退键监听
+					popHandle:function(){
+						var outThis = this;
+						$(function(){  
+						    pushHistory();  
+						    window.addEventListener("popstate", function(e) {
+						    	var popFlag = outThis.flowData("popFlag");
+						    	window.parent.battlePop();
+						        pushHistory();
+						        if(popFlag==1){
+						        	outThis.flowData({
+						        		popFlag:0
+						        	});
+						        }
+							}, false);    
+						});
+						
+						function pushHistory() {  
+					        var state = {  
+					             title: "title",  
+					             url: "#"  
+					        };  
+					        window.history.pushState(state, "title", "#");  
+						}
+						
+						
+					},
+					
 					passAnimate:function(){
 						$(".passFlag").css("width","800px");
 						$(".passFlag").css("height","800px");
@@ -207,15 +247,23 @@
 							},500);
 						});
 					},
-					
+					showPass:function(){
+						$(".passFlag").css("display","block");
+					},
 					showView:function(){
 						
+						this.flowData({popFlag:1});
 						var isPassAnimate = this.stepData("isPassAnimate");
-						$(".passFlag").css("display","none");
 						
 						if(isPassAnimate){
 							this.setNext("passAnimate");
 							this.next();
+						}
+						var isPass = this.flowData("isPass");
+						if(isPass){
+							$(".passFlag").css("display","block");
+						}else{
+							$(".passFlag").css("display","none");
 						}
 						var outThis = this;
 						var round = this.flowData("round");
@@ -228,11 +276,23 @@
 						var maxStage = this.flowData("maxStage");
 						var stageStatus = this.flowData("stageStatus");
 						var status = this.flowData("status");
+						var name = this.flowData("name");
+						var imgUrl = this.flowData("imgUrl");
+						if(imgUrl){
+							$("#battleInfoDetailImg").attr("src",imgUrl);
+						}
+						
+						if(name){
+							$("#battleInfoDetailName").text(name);
+						}
+						
 						var passScore = this.flowData("passScore");
 						var passScore2 = this.flowData("passScore2");
 						var passScore3 = this.flowData("passScore3");
 						var passScore4 = this.flowData("passScore4");
 						
+						$("#battleInfoBannerScore").text(passScore);
+							
 						if(thisScore>=passScore&&thisScore<passScore2){
 							this.setNext("initStar");
 							this.nextData({

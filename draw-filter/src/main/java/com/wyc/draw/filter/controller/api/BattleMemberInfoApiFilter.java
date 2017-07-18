@@ -72,8 +72,6 @@ public class BattleMemberInfoApiFilter extends Filter{
 		BattleMemberStage battleMemberStage = battleMemberStageService.findOneByMemberIdAndBattleIdAndStageIndex(battleMember.getId(),battleMember.getBattleId(),battleMember.getCurrentStageIndex());
 		BattleStage battleStage = battleStageService.findOneByBattleIdAndStageIndex(battleMember.getBattleId(), battleMember.getCurrentStageIndex());
 
-		
-		System.out.println("...........passScore:"+battleStage.getPassScore());
 		data.put("passScore", battleStage.getPassScore());
 		data.put("passScore2", battleStage.getPassScore2());
 		data.put("passScore3", battleStage.getPassScore3());
@@ -84,13 +82,15 @@ public class BattleMemberInfoApiFilter extends Filter{
 			data.put("stageStatus", battleMemberStage.getStatus());
 			data.put("paperId", battleMemberStage.getPaperId());
 			data.put("isPass", battleMemberStage.getIsPass());
+			data.put("imgUrl", battleMemberStage.getImgUrl());
+			data.put("name", battleMemberStage.getName());
 		}else{
 			data.put("rewardBeanNum", 0);
 			data.put("thisScore", 0);
-			
 			data.put("stageStatus", Constant.BM_STATUS_FREE);
-			
 			data.put("paperId", battleStage.getPaperId());
+			data.put("imgUrl", battleStage.getImgUrl());
+			data.put("name", battleStage.getName());
 			
 		}
 		

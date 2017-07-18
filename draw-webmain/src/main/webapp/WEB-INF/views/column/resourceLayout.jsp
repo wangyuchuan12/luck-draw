@@ -88,7 +88,7 @@
 				<ul>
 					<li>
 						<canvas style="background: url('http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png');background-size:100% 100%;" id="modelPhy"></canvas>
-						<div  style="color: white;position: relative;top:-5px">爱心 </div>
+						<div  style="color: black;position: relative;top:-5px">爱心 </div>
 						<!--  <div id="receiveLoveButton" style="background: RGBA(21,185,254,1);width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position: relative;top:-5px;">升级</div> -->
 						
 						<div id="receiveLoveButton" style="background: RGBA(61,212,11,1);width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position:relative;top:-5px;">领取</div>
@@ -104,7 +104,7 @@
 					
 					<li>
 						<canvas id="modelPhy2" style="background: url('/imgs/plug/bean.png');background-size:95% 90%;background-position: 5px 0px;"></canvas>
-						<div  style="color: white;position: relative;top:-5px">智慧豆</div>
+						<div  style="color: black;position: relative;top:-5px">智慧豆</div>
 						
 						<div id="receiveBeanButton" style="background: RGBA(61,212,11,1);width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position:relative;top:-5px;">领取</div>
 						
@@ -120,7 +120,7 @@
 					
 					<li>
 						<canvas id="modelPhy3" style="background: url('http://on3s1z2us.bkt.clouddn.com/strength.png')no-repeat;background-size:95% 85%;"></canvas>
-						<div  style="color: white;position: relative;top:-5px">体力</div>
+						<div  style="color: black;position: relative;top:-5px">体力</div>
 						
 						<div style="background: red;width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position: relative;top:-5px;" id="phyButton">2200000</div>
 					
@@ -136,7 +136,7 @@
 					
 					<li>
 						<canvas id="modelPhy4" style="background: url('http://on3s1z2us.bkt.clouddn.com/dice3.png')no-repeat;background-size:100% 80%;background-position:0 5px;"></canvas>
-						<div  style="color: white;position: relative;top:-5px;">随机</div>
+						<div  style="color: black;position: relative;top:-5px;">随机</div>
 						
 						<div id="receiveCoinButton" style="background: RGBA(61,212,11,1);width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position:relative;top:-5px;">领取</div>
 						

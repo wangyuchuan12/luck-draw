@@ -90,6 +90,8 @@ public class BattleCreaterByModelFilter extends Filter{
 			battleStage.setPassScore2(battleModelStage.getPassScore2());
 			battleStage.setPassScore3(battleModelStage.getPassScore3());
 			battleStage.setPassScore4(battleModelStage.getPassScore4());
+			battleStage.setImgUrl(battleModelStage.getImgUrl());
+			battleStage.setName(battleModelStage.getName());
 			battleStageService.add(battleStage);
 		}
 		
