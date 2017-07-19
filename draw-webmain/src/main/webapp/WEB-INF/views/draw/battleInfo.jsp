@@ -396,6 +396,17 @@
 				
 				var progressCallback = new Object();
 				progressCallback.complete = function(){
+					attrPlug.flowPlug.setNext("showView");
+					attrPlug.flowPlug.next();
+					
+					attrPlug.flowPlug.setNext("hideBean");
+					attrPlug.flowPlug.next();
+					
+					attrPlug.flowPlug.setNext("hideMoney");
+					attrPlug.flowPlug.next();
+					
+					attrPlug.flowPlug.setNext("hideMasonry");
+					attrPlug.flowPlug.next();
 				}
 				progress(100,10,progressCallback);
 				

@@ -32,7 +32,7 @@
 				
 				<div class="personalAttrData" id="personalAttrData">
 					<ul>
-						<li>
+						<li id="personalAttrDataLove">
 							
 							<div class="personalAttrDataHeader personalAttrDataHeaderLove"></div>
 							
@@ -44,7 +44,7 @@
 							
 						</li>
 
-						<li>
+						<li id="personalAttrDataBean">
 							<div class="personalAttrDataHeader personalAttrDataHeaderBean"></div>
 							
 							<div id="progressbarBean" style="width:50%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
@@ -55,7 +55,7 @@
 							
 						</li>
 						
-						<li>
+						<li id="personalAttrDataMasonry">
 							<div class="personalAttrDataHeader personalAttrDataHeaderMasonry"></div>
 							
 							<div id="progressbarMasonry" style="width:50%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1);">
@@ -66,7 +66,7 @@
 							
 						</li>
 						
-						<li>
+						<li id="personalAttrDataMoney">
 							<div class="personalAttrDataHeader personalAttrDataHeaderMoney"></div>
 							
 							<div id="progressbarMoney" style="width:50%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
@@ -556,6 +556,18 @@
 			
 			attrPlug = new FlowPlug({
 
+				hideLove:function(){
+					$("#personalAttrDataLove").css("display","none");
+				},
+				hideBean:function(){
+					$("#personalAttrDataBean").css("display","none");
+				},
+				hideMoney:function(){
+					$("#personalAttrDataMoney").css("display","none");
+				},
+				hideMasonry:function(){
+					$("#personalAttrDataMasonry").css("display","none");
+				},
 				showView:function(){
 					var outThis = this;
 					this.setNext("initData",function(){

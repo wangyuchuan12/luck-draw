@@ -133,7 +133,7 @@
 			</div>
 			
 			
-			
+			<div style="display: none;position: absolute;bottom: 100px;width:40%;height: 50px;background: url('http://onluguho9.bkt.clouddn.com/btn-red2.png');background-size:100% 100%;margin: 0 auto;text-align: center;font-size: 20px;color: white;padding-top: 10px;left:30%;" id="startButton">开始</div>
 			 
 			<div class="mainViewFooterButtons">
 				<ul>
@@ -1078,6 +1078,16 @@
 						battleId:battleId
 					});*/
 					outThis.next();
+					$("#startButton").css("display","none");
+				});
+				
+				$("#startButton").click(function(){
+					outThis.setNext("startBattle");
+					/*outThis.nextData({
+						battleId:battleId
+					});*/
+					outThis.next();
+					$("#startButton").css("display","none");
 				});
 				 
 				 $("#mainViewQrcodeButton").click(function(e){
@@ -1182,6 +1192,8 @@
 						});
 						outThis.setNext("showFooterButtons");
 						outThis.next();
+						
+						$("#startButton").css("display","block");
 		
 					},function(){waitPlug.close();});
 					outThis.next();
