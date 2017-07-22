@@ -10,4 +10,10 @@ public interface QuestionAnswerRepository extends CrudRepository<QuestionAnswer,
 
 	List<QuestionAnswer> findAllByKeyIdAndPaperIdAndType(String keyId, String paperId, int type);
 
+	List<QuestionAnswer> findAllByKeyIdAndPaperId(String keyId,String paperId);
+
+	List<QuestionAnswer> findAllByPaperIdAndKeyIdAndIsDel(String paperId,String keyId, int isDel);
+
+	List<QuestionAnswer> findAllByPaperIdAndDrawUserId(String paperId,String drawUserId);
+
 }

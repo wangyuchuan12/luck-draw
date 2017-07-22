@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<tiles:insertDefinition name="resourceLayout">
+<tiles:insertDefinition name="paperLayout">
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
 
@@ -26,7 +26,7 @@
 			<script type="text/javascript">
 				var initFun;
 				var layerPlug;
-				
+				var questionInfoFlowPlug;
 				function z_close(){
 					//layerPlug.close();
 				}
@@ -34,9 +34,9 @@
 				function checkOption(questionId,optionId,isRight,overTimeLong,isTimeout){
 					var content;
 					if(isRight){
-						var wait = new WaitPlug("回答正确");
+						new MsgPlug("回答正确",2);
 					}else{
-						var wait = new WaitPlug("回答错误");
+						new MsgPlug("回答错误",2);
 					}
 					setTimeout(function(){
 						initFun.setNext("submitSubjectAction");
@@ -57,61 +57,130 @@
 					
 					var flowJs = flowJS({
 						init:function(){
+							
+							init();
 							var outThis = this;
-							var progressCallback = new Object();
+
+							initFun = this;
+							
+							this.setNext("setData");
+							
+							this.next();
+							
+							var paperId = $("input[name=paperId]").val();
+							
+							paperFlowPlug.setNext("initPaper",function(){
+								var interval = setInterval(function(){
+									if(outThis.flowData("questionPLugReady")==1){
+										outThis.setNext("nextSubjectAction");
+										outThis.next();
+										clearInterval(interval);
+									}
+								},10);
+								
+								setTimeout(function(){
+									outThis.setNext("initLayPlug");
+									outThis.next();
+								},1000);
+							});
+							paperFlowPlug.nextData({
+								paperId:paperId
+							});
+							paperFlowPlug.next();
+							
+							
+						},
+						
+						setData:function(){
+							var questionId = $("input[name=questionId]").val();
+							var questionCount = $("input[name=questionCount]").val();
 							var keyId = $("input[name=keyId]").val();
 							var type = $("input[name=type]").val();
 							if(!type){
 								type = 0;
 							}
-							progressCallback.complete = function(){
-								var questionId = $("input[name=questionId]").val();
-								var questionCount = $("input[name=questionCount]").val();
-								outThis.flowData({
-									questionId:questionId,
-									questionCount:questionCount,
-									answerCount:0,
-									keyId:keyId,
-									type:type
+							this.flowData({
+								questionId:questionId,
+								questionCount:questionCount,
+								answerCount:0,
+								keyId:keyId,
+								type:type
+							});
+						},
+									
+						nextSubjectAction:function(){
+							this.setNext("nextQuestionData",function(question){
+								questionInfoFlowPlug.setNext("setData");
+								var options = new Array();
+								
+								for(var i = 0;i<question.options.length;i++){
+									options.push({
+										id:question.options[i].id,
+										content:question.options[i].content
+									});
+								}
+								
+								console.log(JSON.stringify(question));
+								
+								questionInfoFlowPlug.nextData({
+									count:5,
+									timeLong:20,
+									index:question.index,
+									imgUrl:question.imgUrl,
+									options:options,
+									question:"这是一个设呢问题呢？",
+									id:question.id,
+									rightOptionId:question.rightOptionId
 								});
 								
-								console.log("questionId:"+questionId);
-								console.log("questionCount:"+questionCount);
-								console.log("keyId:"+keyId);
-								console.log("type:"+type);
-								outThis.setNext("openLayerPlug");
-								outThis.next();
-							};
-							progress(100,10,progressCallback);
-							initFun = this;
+								questionInfoFlowPlug.next();
+								
+								questionInfoFlowPlug.setNext("clearData");
+								questionInfoFlowPlug.next();
+								
+								questionInfoFlowPlug.setNext("showView");
+								questionInfoFlowPlug.next();
+								
+								layerPlug.show();
+							});
+							
+							this.next();
 						},
 						
-						nextSubjectRequest:function(){
-							
-							var paperId = $("input[name=paperId]").val();
-							var url = "/api/draw/question/randomQuestion?id="+paperId;
+						initLayPlug:function(){
 							var outThis = this;
-							var callback = new Object();
-							callback.success = function(resp){
-								if(resp.success){
-									if(resp.data){
-										outThis.success(resp.data.id);
-									}else{
-										var score = outThis.flowData("score");
-										
-										window.parent.submitScore(score);
-									}
+							layerPlug = new LayerPlug("/view/question/info",1,1,"",function(){
+								var callback = new Object();
+								callback.setQuestionInfoCallback = function(plug){
+									questionInfoFlowPlug = plug;
+									outThis.success();
+									//这个属性是为了告诉系统改插件已经准备好了
+									outThis.flowData({questionPLugReady:1});
 									
-								}else{
-									outThis.fail();
+									
+									/*questionInfoFlowPlug.setNext("showView");
+									questionInfoFlowPlug.next();*/
+									
 								}
-							}
+								layerPlug.call("init",callback);
+							});
 							
-							callback.failure = function(resp){
+							layerPlug.show();
+						},
+						
+						nextQuestionData:function(){
+							var outThis = this;
+							paperFlowPlug.setNext("nextQuestion",function(question){
+								
+								outThis.success(question);
+								
+							},function(){
 								outThis.fail();
-							}
+							});
 							
-							request(url,callback);
+							paperFlowPlug.next();
+							
+							
 						},
 						
 						submitSubjectAction:function(){
@@ -186,34 +255,6 @@
 									outThis.fail();
 								}
 							},params);
-						},
-						
-						nextSubjectAction:function(){
-							var outThis = this;
-							var answerCount = this.flowData("answerCount");
-							this.setNext("nextSubjectRequest",function(questionId){
-								outThis.setNext("openLayerPlug");
-								outThis.flowData({
-									questionId:questionId,
-									content:"第"+(answerCount+1)+"题"
-								});
-								outThis.next();
-							});
-							
-							this.next();
-						},
-						
-						openLayerPlug:function(){
-							if(layerPlug){
-								layerPlug.close();
-							}
-							
-							var answerCount = this.flowData("answerCount");
-							var questionCount = this.flowData("questionCount");
-							var id = this.flowData("questionId");
-							var content = this.flowData("content");
-							layerPlug = new LayerPlug("/view/question/info?id="+id+"&index="+answerCount+"&count="+questionCount,1,1,content);
-							
 						}
 					});
 				});

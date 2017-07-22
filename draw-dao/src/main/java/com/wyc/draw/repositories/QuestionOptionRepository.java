@@ -10,4 +10,6 @@ public interface QuestionOptionRepository extends CrudRepository<QuestionOption,
 
 	List<QuestionOption> findAllByQuestionId(String id);
 
+	List<QuestionOption> findAllByPaperIdOrderBySeqAsc(String paperId);
+
 }

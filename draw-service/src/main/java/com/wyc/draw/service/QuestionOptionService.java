@@ -24,4 +24,8 @@ public class QuestionOptionService {
 	public QuestionOption findOne(String optinId) {
 		return questionOptionRepository.findOne(optinId);
 	}
+
+	public List<QuestionOption> findAllByPaperIdOrderBySeqAsc(String paperId) {
+		return questionOptionRepository.findAllByPaperIdOrderBySeqAsc(paperId);
+	}
 }

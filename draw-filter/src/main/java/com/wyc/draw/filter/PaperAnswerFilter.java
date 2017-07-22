@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.PaperAnswer;
 import com.wyc.draw.domain.Question;
 import com.wyc.draw.domain.QuestionAnswer;
@@ -18,6 +19,8 @@ public class PaperAnswerFilter extends Filter{
 	private PaperAnswerService paperAnswerService;
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
+
+		DrawUser drawUser = sessionManager.getObject(DrawUser.class);
 		String paperId = sessionManager.getAttribute("paperId").toString();
 		Question question = (Question)sessionManager.getObject(Question.class);
 		if(!question.getPaperId().equals(paperId)){

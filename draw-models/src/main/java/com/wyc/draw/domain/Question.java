@@ -70,6 +70,10 @@ public class Question {
 	@Column(name="is_del")
 	private Integer isDel;
 	
+	@ParamAnnotation
+	@Column(name="z_index")
+	private Integer index;
+	
 	@Column(name = "create_at")
 	@ParamAnnotation
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -186,5 +190,13 @@ public class Question {
 
 	public void setScore(Integer score) {
 		this.score = score;
+	}
+
+	public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
 	}
 }

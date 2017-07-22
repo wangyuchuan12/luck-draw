@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.Question;
 import com.wyc.draw.domain.QuestionAnswer;
 import com.wyc.draw.domain.QuestionOption;
@@ -25,6 +26,8 @@ public class AnswerQuestionFilter extends Filter{
 	private QuestionOptionService questionOptionService;
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
+		
+		DrawUser drawUser = sessionManager.getObject(DrawUser.class);
 		String questionId = sessionManager.getAttribute("questionId").toString();
 		Integer isTimeout = (Integer)sessionManager.getAttribute("isTimeout");
 		Float timelong = (Float)sessionManager.getAttribute("timelong");
@@ -61,6 +64,8 @@ public class AnswerQuestionFilter extends Filter{
 		questionAnswer.setIsTimeout(isTimeout);
 		questionAnswer.setKeyId(keyId);
 		questionAnswer.setType(type);
+		questionAnswer.setIsDel(0);
+		questionAnswer.setDrawUserId(drawUser.getId());
 		if(isRight==1){
 			questionAnswer.setScore(question.getScore());
 		}else{

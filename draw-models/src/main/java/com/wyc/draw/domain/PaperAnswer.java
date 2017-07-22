@@ -53,6 +53,10 @@ public class PaperAnswer {
 	@ParamAnnotation
 	private Integer type;
 	
+	@Column(name="draw_user_id")
+	@ParamAnnotation
+	private String drawUserId;
+	
 	@Column(name = "create_at")
 	@ParamAnnotation
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -151,5 +155,13 @@ public class PaperAnswer {
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	public String getDrawUserId() {
+		return drawUserId;
+	}
+
+	public void setDrawUserId(String drawUserId) {
+		this.drawUserId = drawUserId;
 	}
 }

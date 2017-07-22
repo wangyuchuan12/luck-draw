@@ -65,15 +65,6 @@
 
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
-<input name="rightOptionId"  type="hidden" value="${question.rightOptionId}"/>
-
-<input name="timeLong"  type="hidden" value="20"/>
-
-<input name="index"  type="hidden" value="${index}"/>
-
-<input name="id"  type="hidden" value="${question.id}"/>
-
-<input name="count" type="hidden" value="${count}"/>
 
 		<div class="subjectContainer" id="subjectContainer">
 			<div>
@@ -81,9 +72,9 @@
 					<!--  	<div class="subjectHeaderContent" id="subjectHeaderContent">射雕英雄传是什么时候拍的</div> -->
 						
 				  	<div class="subjectHeaderImg" id="subjectHeaderImg">
-						<img src="${question.imgUrl}">
+						<img src="" id="questionImg">
 						
-						<div class="subjectHeaderImgQuestion">${question.question}</div>
+						<div class="subjectHeaderImgQuestion" id="questionContent"></div>
 						
 						<div id="progressbar" style="width:90%;height:10px;margin:0 auto;position: relative;">
 							<div class="progress-label" id="progressLabel">加载...</div>
@@ -99,9 +90,7 @@
 			
 				<div class="subjectOption" id="subjectOption">
 					<ul>
-						<c:forEach items="${questionOptions}" var="option">
-							<li id="${option.id}" onclick="checkOption('${option.id}',0)">${option.content}</li>
-						</c:forEach>
+							
 					</ul>
 				</div>
 			</div>
@@ -136,101 +125,167 @@
 			var flag = false;
 			var interval;
 			var overTimeLong = 0;
-			function checkOption(checkOptionId,isTimeout){
-
-					clearInterval(interval);
-					if(!flag){
-						var rightOptionId = $("input[name=rightOptionId]").val();
-						var isRight = 0;
-						if(rightOptionId==checkOptionId){
-							$("#"+checkOptionId).css("background","green");
-							isRight = 1;
-						}else{
-							$("#"+checkOptionId).css("background","red");
-							$("#"+rightOptionId).css("background","green");
-							isRight = 0;
-						}
-						
-						var id = $("input[name=id]").val();
-						window.parent.checkOption(id,checkOptionId,isRight,overTimeLong,isTimeout);
-						
-						flag = true;
-					}
-					
-			}
 			
-			$(document).ready(function(){
-				
-				var steps = new Array();
-				var count = $("input[name=count]").val();
-				for(var i = 0;i<count;i++){
-					var object = new Object();
-					object.title = "第"+(i+1)+"题";
-					object.content = "";
-					steps.push(object);
-				}
-				$(".ystep1").loadStep({
-					size:"large",
-					color:"green",
-					steps:steps
-				});
-				
-				
-				var index = $("input[name=index]").val();
-				
-				index = parseInt(index);
-				
-				index=index+1;
-				
-				$(".ystep1").setStep(index);
-				
-				$(".subjectTool").scrollLeft($(".ystep1 li").eq(index-1).position().left-$(".subjectTool").width()/1.7);
-				
-				
-				
-				var progressbar = $("#progressbar");
-				var progressLabel = $("#progressLabel");
-				
-				var beginDate = new Date();
-				
-				var flag = 0;
-				
-				interval = setInterval(function(){
-					progress();
-				},10);
-				
-				progressbar.progressbar({
-					value:false,
-					change:function(){
-						var timeLong = $("input[name=timeLong]").val();
-						progressLabel.text(timeLong-parseInt(overTimeLong)+"s");
+			function init(callback){
+				var questioninfoFlowPlug = new FlowPlug({
+					begin:function(){
+						callback.setQuestionInfoCallback(this);
 					},
-					complete:function(){
+					
+					clearData:function(){
+						$("#subjectOption>ul>li").remove();
+						
 						clearInterval(interval);
-						if(flag == 0){
-							checkOption(null,1);
+						
+						flag = false;
+					},
+					
+					checkOption:function(){
+						var outThis = this;
+						var checkOptionId = this.stepData("checkOptionId");
+						var isTimeout = this.stepData("isTimeout");
+						clearInterval(interval);
+						if(!flag){
+							var rightOptionId = outThis.flowData("rightOptionId");
+							var isRight = 0;
+							if(rightOptionId==checkOptionId){
+								$("#"+checkOptionId).css("background","green");
+								isRight = 1;
+							}else{
+								$("#"+checkOptionId).css("background","red");
+								$("#"+rightOptionId).css("background","green");
+								isRight = 0;
+							}
+							
+							var id = outThis.flowData("id");
+							window.parent.checkOption(id,checkOptionId,isRight,overTimeLong,isTimeout);
+							
+							flag = true;
 						}
-						flag = 1;
+					},
+					initSteps:function(){
+						var steps = new Array();
+						var timeLong = this.flowData("count");
+						for(var i = 0;i<count;i++){
+							var object = new Object();
+							object.title = "第"+(i+1)+"题";
+							object.content = "";
+							steps.push(object);
+						}
+						$(".ystep1").loadStep({
+							size:"large",
+							color:"green",
+							steps:steps
+						});
+					},
+					initProgress:function(){
+						var outThis = this;
+						var progressbar = $("#progressbar");
+						var progressLabel = $("#progressLabel");
+						var beginDate = new Date();
+						var flag = 0;
+						interval = setInterval(function(){
+							progress();
+						},10);
+						progressbar.progressbar({
+							value:false,
+							change:function(){
+								var timeLong = outThis.flowData("timeLong");
+								progressLabel.text(timeLong-parseInt(overTimeLong)+"s");
+							},
+							complete:function(){
+								clearInterval(interval);
+								if(flag == 0){
+									outThis.setNext("checkOption");
+									outThis.nextData({
+										checkOptionId:null,
+										isTimeout:1
+									});
+									outThis.next();
+								}
+								flag = 1;
+							}
+						});
+						
+						function progress(){
+							var nowDate = new Date();
+							var timeDiff = nowDate.getTime()-beginDate.getTime();
+							overTimeLong = timeDiff/1000;
+							var timeLong = outThis.flowData("timeLong");
+							var percent = (overTimeLong/timeLong)*100;
+							progressbar.progressbar("value",percent);
+						}
+					},
+					setData:function(){
+						var count = this.stepData("count");
+						var timeLong = this.stepData("timeLong");
+						var index = this.stepData("index");
+						var imgUrl = this.stepData("imgUrl");
+						var options = this.stepData("options");
+						var question = this.stepData("question");
+						var id = this.stepData("id");
+						var rightOptionId = this.stepData("rightOptionId");
+						this.flowData({
+							count:1,
+							timeLong:20,
+							index:1,
+							imgUrl:imgUrl,
+							options:options,
+							question:question,
+							id:id,
+							rightOptionId:rightOptionId
+						});
+					},
+					showView:function(){
+						
+						this.setNext("setStep");
+						this.next();
+						
+						this.setNext("initProgress");
+						this.next();
+						
+						this.setNext("initOptions");
+						this.next();
+						
+						$("#questionContent").text(this.flowData("question"));
+						console.log("imgUrl:"+this.flowData("imgUrl"));
+						
+						$("#questionImg").attr("src",this.flowData("imgUrl"));
+					},
+					
+					initOptions:function(){
+						
+						var outThis = this;
+						var options = this.flowData("options");
+						
+						for(var i = 0;i<options.length;i++){
+							var option = options[i];
+							var liDiv = $("<li></li>");
+							liDiv.attr("id",option.id);
+							liDiv.text(option.content);
+							$("#subjectOption>ul").append(liDiv);
+							
+							liDiv.click(function(obj){
+								outThis.setNext("checkOption");
+								outThis.nextData({
+									checkOptionId:obj.currentTarget.id,
+									isTimeout:0
+								});
+								outThis.next();
+							});
+						}
+					},
+					
+					setStep:function(){
+						var index  = this.flowData("index");
+						$(".ystep1").setStep(index);
+						
+						index = parseInt(index);
+						
+						index=index+1;
+					//	$(".subjectTool").scrollLeft($(".ystep1 li").eq(index-1).position().left-$(".subjectTool").width()/1.7);
 					}
 				});
-				
-				function progress(){
-					var nowDate = new Date();
-					var timeDiff = nowDate.getTime()-beginDate.getTime();
-					overTimeLong = timeDiff/1000;
-					var timeLong = $("input[name=timeLong]").val();
-					
-					var percent = (overTimeLong/timeLong)*100;
-					
-					progressbar.progressbar("value",percent);
-				}
-				
-				
-				
-				
-				var callback = new Object();
-				callback.complete = function(){
-				}
-			});
+			}
 		</script>
 

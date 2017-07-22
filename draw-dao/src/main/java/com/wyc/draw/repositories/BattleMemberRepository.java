@@ -15,4 +15,6 @@ public interface BattleMemberRepository extends CrudRepository<BattleMember, Str
 	@Query(value="select count(*)+1 from com.wyc.draw.domain.BattleMember bm where bm.score>:score")
 	Long rank(@Param("score")Integer score);
 
+	BattleMember findOneByDrawUserId(String drawUserId);
+
 }

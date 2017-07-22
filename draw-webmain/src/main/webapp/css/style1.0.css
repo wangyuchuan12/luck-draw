@@ -3618,6 +3618,12 @@ li::before{
 	background-position:0px -5px;
 }
 
+.personalAttrDataHeaderLoveHollow{
+	background: url("http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveHollow.png")no-repeat;
+	background-size:20px 17px;
+	background-position:5px 2px;
+}
+
 .personalAttrDataHeaderBean{
 	background: url("/imgs/plug/bean.png")no-repeat;
 	background-size:30px 30px;
@@ -4614,4 +4620,107 @@ li::before{
 	position: relative;
 	display: block;
 	text-align: center;
+}
+
+.questionresultContent{
+	color: white;
+	padding-left: 20px;
+}
+
+.questionResultTitle{
+	padding-left: 20px;
+	padding-top: 10px;
+	font-size: 15px;
+	font-weight: bolder;
+	color: white;
+}
+
+.questionResultContent{
+	background: white;
+	
+	width: 90%;
+	
+	margin: 0 auto;
+	
+	min-height: 100px;
+	
+	max-height:300px;
+	
+	color: black;
+	
+	border-radius:10px;
+	
+	font-size: 20px;
+	
+	font-weight: bolder;
+	
+	margin-top: 5px;
+}
+
+.questionresultTool{
+	text-align: center;
+	padding-top:10px;
+	padding-bottom:10px;
+	background: RGBA(174,38,3,1);
+	
+	position: fixed;
+	width: 100%;
+	
+	
+}
+
+.questionresultToolLast{
+	display: inline-block;
+	float: left;
+	background: RGBA(140,21,10,1);
+	color: white;
+	width: 80px;
+	left:5px;
+	position: relative;
+	border-radius:20px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.questionresultToolLast:ACTIVE{
+	background-color: red;
+}
+
+.questionresultToolClose:ACTIVE{
+	background-color: red;
+}
+
+.questionresultToolNext:ACTIVE{
+	background-color: red;
+}
+
+.questionresultToolClose{
+	display: inline-block;
+	background: RGBA(140,21,10,1);
+	width: 80px;
+	
+	margin: 0 auto;
+	position: relative;
+	color: white;
+	border-radius:20px;
+	
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.questionresultToolNext{
+	display: inline-block;
+	float: right;
+	background: RGBA(140,21,10,1);
+	color: white;
+	width: 80px;
+	right:5px;
+	position: relative;
+	border-radius:20px;
+	
+	padding-bottom: 5px;
+	padding-top: 5px;
+	
+	padding-bottom: 5px;
+	padding-top: 5px;
 }

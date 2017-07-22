@@ -41,6 +41,10 @@ public class QuestionOption {
 	@ParamAnnotation
 	private Integer isDel;
 	
+	@Column(name="paper_id")
+	@ParamAnnotation
+	private String paperId;
+	
 	
 	@Column(name = "create_at")
 	@ParamAnnotation
@@ -92,6 +96,14 @@ public class QuestionOption {
 
 	public void setIsDel(Integer isDel) {
 		this.isDel = isDel;
+	}
+	
+	public String getPaperId() {
+		return paperId;
+	}
+
+	public void setPaperId(String paperId) {
+		this.paperId = paperId;
 	}
 
 	public DateTime getCreateAt() {

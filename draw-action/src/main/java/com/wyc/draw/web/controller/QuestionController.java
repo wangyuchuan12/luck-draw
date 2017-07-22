@@ -1,7 +1,4 @@
 package com.wyc.draw.web.controller;
-
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,24 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.session.SessionManager;
-import com.wyc.common.util.CommonUtil;
 import com.wyc.draw.domain.Paper;
 import com.wyc.draw.domain.Question;
-import com.wyc.draw.domain.QuestionOption;
 import com.wyc.draw.filter.controller.api.RandomQuestionApiFilter;
 import com.wyc.draw.service.PaperService;
-import com.wyc.draw.service.QuestionOptionService;
-import com.wyc.draw.service.QuestionService;
 
 @Controller
 @RequestMapping(value="/view/question/")
 public class QuestionController {
 
-	@Autowired
-	private QuestionService questionService;
-	
-	@Autowired
-	private QuestionOptionService questionOptionService;
 	
 	@Autowired
 	private PaperService paperService;
@@ -56,25 +44,20 @@ public class QuestionController {
 	
 	@RequestMapping(value="info")
 	public String info(HttpServletRequest httpServletRequest){
-		String id = httpServletRequest.getParameter("id");
-		
-		Question question = questionService.findOne(id);
-		
-		List<QuestionOption> questionOptions = questionOptionService.findAllByQuestionId(id);
-		
-		httpServletRequest.setAttribute("question", question);
-		
-		httpServletRequest.setAttribute("questionOptions", questionOptions);
-		String index = httpServletRequest.getParameter("index");
-		
-		String count = httpServletRequest.getParameter("count");
-		if(CommonUtil.isEmpty(index)){
-			index = "0";
-		}
-		
-		httpServletRequest.setAttribute("index", index);
-		httpServletRequest.setAttribute("count", count);
 		
 		return "paper/questionInfo";
+	}
+	
+	@RequestMapping(value="questionresult")
+	public String questionResult(HttpServletRequest httpServletRequest)throws Exception{
+		
+		String paperId = httpServletRequest.getParameter("paperId");
+		
+		String keyId = httpServletRequest.getParameter("keyId");
+		
+		httpServletRequest.setAttribute("paperId", paperId);
+		
+		httpServletRequest.setAttribute("keyId", keyId);
+		return "paper/questionresult";
 	}
 }

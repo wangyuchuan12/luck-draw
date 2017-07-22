@@ -31,4 +31,13 @@ public class QuestionAnswerService {
 	public List<QuestionAnswer> findAllByKeyIdAndPaperIdAndType(String keyId, String paperId, int type) {
 		return questionAnswerRepository.findAllByKeyIdAndPaperIdAndType(keyId,paperId,type);
 	}
+
+
+	public List<QuestionAnswer> findAllByPaperIdAndKeyIdAndIsDel(String paperId, String keyId,int isDel) {
+		return questionAnswerRepository.findAllByPaperIdAndKeyIdAndIsDel(paperId,keyId,isDel);
+	}
+
+	public List<QuestionAnswer> findAllByPaperIdAndDrawUserId(String paperId,String drawUserId) {
+		return questionAnswerRepository.findAllByPaperIdAndDrawUserId(paperId,drawUserId);
+	}
 }

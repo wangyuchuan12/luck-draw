@@ -77,7 +77,6 @@
 					<li id="battleInfoLove">
 						<div class="battleInfoContentTitle">剩余爱心</div>
 						<div class="battleInfoContentInput" id="loves">
-							
 						</div>
 					</li>
 				</ul>
@@ -122,7 +121,14 @@
 		</div>
 		<script type="text/javascript">
 		
+			var resultPlug
 			var mainCallback;
+			
+			function closeResult(){
+				if(resultPlug){
+					resultPlug.close();
+				}
+			}
 			function init(cb){
 				mainCallback = cb;
 				var battlePlug = new FlowPlug({
@@ -155,8 +161,33 @@
 							
 						});
 						
+						$("#lastButton").click(function(){
+							var lastEnable = outThis.flowData("lastEnable");
+							lastEnable= 1;
+							if(lastEnable==1){
+								var battleId = battlePlug.flowPlug.flowData("battleId");
+								var round = battlePlug.flowPlug.flowData("round");
+								window.parent.startBattle(parseInt(round)-1);
+							}
+							
+						});
+						
+						$("#showResult").click(function(){
+							outThis.setNext("showResult");
+							outThis.next();
+						});
+						
 						this.setNext("popHandle");
 						this.next();
+					},
+					showResult:function(){
+						var url = "/view/question/questionresult?paperId="+this.flowData("paperId")+"&keyId="+this.flowData("memberId");
+						
+						resultPlug = new LayerPlug(url,1,1,"",function(){
+							
+						});
+						
+						resultPlug.show();
 					},
 					
 					initStar:function(){
@@ -189,6 +220,8 @@
 							isPass:outThis.stepData("isPass"),
 							name:outThis.stepData("name"),
 							imgUrl:outThis.stepData("imgUrl"),
+							paperId:outThis.stepData("paperId"),
+							memberId:outThis.stepData("memberId"),
 							passScore:outThis.stepData("passScore"),
 							passScore2:outThis.stepData("passScore2"),
 							passScore3:outThis.stepData("passScore3"),
@@ -367,6 +400,7 @@
 							
 						}
 						
+						console.log("maxStage:"+maxStage);
 						if(round>=maxStage||stageStatus!=2){
 							$("#nextButton").addClass("gray");
 							outThis.flowData({
@@ -378,11 +412,25 @@
 								nextEnable:1
 							});						
 						}
+						
+						if(round<=1){
+							$("#lastButton").addClass("gray");
+							outThis.flowData({
+								lastEnable:0
+							});
+						}else{
+							$("#lastButton").removeClass("gray");
+							outThis.flowData({
+								lastEnable:1
+							});			
+						}
 						for(var i = 0;i<loveCount;i++){
 							var loveDiv = $("<div></div>");
 							loveDiv.attr("class","personalAttrDataHeader personalAttrDataHeaderLove");
 							$("#loves").append(loveDiv);
 						}
+						
+						console.log("loveLimit:"+loveLimit+",loveCount:"+loveCount);
 						for(var i = 0;i<loveLimit-loveCount;i++){
 							var loveHollowDiv = $("<div></div>");
 							loveHollowDiv.attr("class","personalAttrDataHeader personalAttrDataHeaderLoveHollow");

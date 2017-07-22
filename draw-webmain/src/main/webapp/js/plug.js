@@ -1131,3 +1131,14 @@ function staking(div_o,toDiv,parentDiv,offsetLeft,offsetTop,fun){
 	
 	$("body").append(div);
 }
+
+function MsgPlug(msg,time){
+	if(!time){
+		time = 2;
+	}
+	layer.open({
+		content:msg,
+		time:time,
+		skin:'msg'
+	});
+}

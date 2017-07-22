@@ -238,7 +238,6 @@
 	var mainViewPlug;
 	
 	var mainViewFlowPlug;
-	
 
 	function startBattle(stage){
 		
@@ -1291,12 +1290,14 @@
 				var loveCount = this.flowData("loveCount_"+battleId);
 				var loveLimit = this.flowData("loveLimit_"+battleId);
 				var rank = this.flowData("rank_"+battleId);
-				var maxStage = this.flowData("maxStage_"+battleId);
+				var maxStage = this.flowData("stageIndexCount_"+battleId);
 				var stageStatus = this.flowData("stageStatus_"+battleId);
 				var status = this.flowData("status_"+battleId);
 				var isPass = this.flowData("isPass_"+battleId);
 				var imgUrl = this.flowData("imgUrl_"+battleId);
 				var name = this.flowData("name_"+battleId);
+				var paperId = this.flowData("paperId_"+battleId);
+				var memberId = this.flowData("memberId_"+battleId);
 				var passScore = this.flowData("passScore_"+battleId);
 				var passScore2 = this.flowData("passScore2_"+battleId);
 				var passScore3 = this.flowData("passScore3_"+battleId);
@@ -1316,9 +1317,11 @@
 					stageStatus:stageStatus,
 					status:status,
 					isPass:isPass,
-					passScore:passScore,
 					imgUrl:imgUrl,
 					name:name,
+					paperId:paperId,
+					memberId:memberId,
+					passScore:passScore,
 					passScore2:passScore2,
 					passScore3:passScore3,
 					passScore4:passScore4

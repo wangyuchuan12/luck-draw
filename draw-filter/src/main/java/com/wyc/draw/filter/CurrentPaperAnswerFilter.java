@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
+import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.PaperAnswer;
 import com.wyc.draw.service.PaperAnswerService;
 
@@ -19,6 +20,7 @@ public class CurrentPaperAnswerFilter extends Filter{
 		String keyId = (String)sessionManager.getAttribute("keyId");
 		Integer type = (Integer)sessionManager.getAttribute("type");
 		
+		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
 		PaperAnswer paperAnswer = paperAnswerService.findOneByKeyIdAndPaperIdAndType(keyId,paperId,type);
 		
 		if(paperAnswer==null){
@@ -31,6 +33,7 @@ public class CurrentPaperAnswerFilter extends Filter{
 			paperAnswer.setWrongCount(0);
 			paperAnswer.setStatus(Constant.PAPER_ANSWER_UNDERWAY_TAKEPART_STATUS);
 			paperAnswer.setType(type);
+			paperAnswer.setDrawUserId(drawUser.getId());
 			paperAnswer = paperAnswerService.add(paperAnswer);
 		}
 		return paperAnswer;

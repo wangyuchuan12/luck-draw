@@ -43,4 +43,8 @@ public class BattleMemberService {
 	public Long rank(BattleMember battleMember) {
 		return battleMemberRepository.rank(battleMember.getScore());
 	}
+
+	public BattleMember findOneByDrawUserId(String drawUserId) {
+		return battleMemberRepository.findOneByDrawUserId(drawUserId);
+	}
 }
