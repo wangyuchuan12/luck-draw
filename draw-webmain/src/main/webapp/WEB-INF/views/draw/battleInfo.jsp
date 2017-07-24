@@ -10,8 +10,12 @@
 	<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 		<div class="battleInfo">
-			<div class="passFlag" style="display: none;">
+			<div id="passFlag" class="passFlag" style="display: none;">
 				<img src="http://on3s1z2us.bkt.clouddn.com/pass.png">
+			</div>
+			
+			<div id="unpassFlag" class="passFlag" style="display: none;">
+				<img src="http://on3s1z2us.bkt.clouddn.com/unpass.png">
 			</div>
 			<div class="battleInfoTitle">第<span id="battleInfoBannerRound">五</span>关</div>
 			<div class="battleInfoBanner">
@@ -267,36 +271,66 @@
 					},
 					
 					passAnimate:function(){
-						$(".passFlag").css("width","800px");
-						$(".passFlag").css("height","800px");
-						$(".passFlag").css("display","block");
-						$(".passFlag").animate({
+						
+						var passFlag = null;
+						var isPass = this.flowData("isPass");
+						console.log("isPass:"+isPass);
+						if(isPass == 1){
+							console.log("进到这里1");
+							passFlag = $("#passFlag");
+							passFlag.css("display","block");
+						}else if(isPass==0){
+							console.log("进到这里2");
+							passFlag = $("#unpassFlag");
+							passFlag.css("display","block");
+						}
+						
+						console.log("upass:"+passFlag.html());
+						
+						console.log("passAnimate:"+passFlag.attr("id"));
+						
+						passFlag.css("width","800px");
+						passFlag.css("height","800px");
+						passFlag.css("display","block");
+						passFlag.animate({
 							width:"500px",
 							height:"500px"
 						},2000,function(){
-							$(".passFlag").animate({
+							passFlag.animate({
 								width:"100px",
 								height:"100px"
 							},500);
 						});
-					},
-					showPass:function(){
-						$(".passFlag").css("display","block");
 					},
 					showView:function(){
 						
 						this.flowData({popFlag:1});
 						var isPassAnimate = this.stepData("isPassAnimate");
 						
-						if(isPassAnimate){
+						console.log("isPassAnimate:"+isPassAnimate);
+						
+						if(isPassAnimate==1){
 							this.setNext("passAnimate");
 							this.next();
 						}
 						var isPass = this.flowData("isPass");
-						if(isPass){
-							$(".passFlag").css("display","block");
+						
+						console.log("..............isPass:"+isPass);
+						
+						console.log("div:"+$("div[dd=haha]").html());
+						
+						console.log("div:"+$("#passFlag").html());
+						var passFlag = $("#passFlag");
+						console.log("class:"+passFlag.attr("class"));
+						if(isPass==1){
+							$("#passFlag").css("display","block");
+							$("#unpassFlag").css("display","none");
+						}else if(isPass==0){
+							$("#unpassFlag").css("display","block");
+							$("#passFlag").css("display","none");
 						}else{
-							$(".passFlag").css("display","none");
+							$("#unpassFlag").css("display","none");
+							$("#passFlag").css("display","none");
 						}
 						var outThis = this;
 						var round = this.flowData("round");
@@ -400,7 +434,6 @@
 							
 						}
 						
-						console.log("maxStage:"+maxStage);
 						if(round>=maxStage||stageStatus!=2){
 							$("#nextButton").addClass("gray");
 							outThis.flowData({
@@ -430,7 +463,6 @@
 							$("#loves").append(loveDiv);
 						}
 						
-						console.log("loveLimit:"+loveLimit+",loveCount:"+loveCount);
 						for(var i = 0;i<loveLimit-loveCount;i++){
 							var loveHollowDiv = $("<div></div>");
 							loveHollowDiv.attr("class","personalAttrDataHeader personalAttrDataHeaderLoveHollow");
@@ -444,7 +476,7 @@
 				
 				var progressCallback = new Object();
 				progressCallback.complete = function(){
-					attrPlug.flowPlug.setNext("showView");
+					/*attrPlug.flowPlug.setNext("showView");
 					attrPlug.flowPlug.next();
 					
 					attrPlug.flowPlug.setNext("hideBean");
@@ -454,7 +486,7 @@
 					attrPlug.flowPlug.next();
 					
 					attrPlug.flowPlug.setNext("hideMasonry");
-					attrPlug.flowPlug.next();
+					attrPlug.flowPlug.next();*/
 				}
 				progress(100,10,progressCallback);
 				

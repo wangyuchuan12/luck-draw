@@ -120,8 +120,6 @@
 									});
 								}
 								
-								console.log(JSON.stringify(question));
-								
 								questionInfoFlowPlug.nextData({
 									count:5,
 									timeLong:20,

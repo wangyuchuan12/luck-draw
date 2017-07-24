@@ -12,6 +12,7 @@ import com.wyc.draw.domain.BattleMember;
 import com.wyc.draw.domain.BattleMemberStage;
 import com.wyc.draw.service.BattleMemberService;
 import com.wyc.draw.service.BattleMemberStageService;
+import com.wyc.draw.vo.RewardVo;
 
 public class BattleStageTakepartFilter extends Filter{
 
@@ -40,9 +41,20 @@ public class BattleStageTakepartFilter extends Filter{
 			battleMember.setCurrentStageIndex(stage);
 			battleMemberService.update(battleMember);
 			
+			RewardVo rewardVo = new RewardVo();
+			if(battleMemberStage.getConsumeBean()!=null&&battleMemberStage.getConsumeBean()!=0){
+				
+				rewardVo.setSubWisdomNum(battleMemberStage.getConsumeBean().longValue());
+				sessionManager.save(rewardVo);
+			}else{
+				sessionManager.addNotExecuteFilterClass(RewardFilter.class);
+			}
+			
+			
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(true);
 			resultVo.setMsg("参加成功");
+			resultVo.setData(rewardVo);
 			return resultVo;
 			
 		}

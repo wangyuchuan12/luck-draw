@@ -71,6 +71,11 @@ public class BattleMemberStage {
 	@Column(name="paper_id")
 	private String paperId;
 	
+	//消耗智慧豆数量
+	@ParamAnnotation
+	@Column(name="consume_bean")
+	private Integer consumeBean;
+	
 	//开始时间
 	@ParamAnnotation
 	@Column(name="start_time")
@@ -325,6 +330,14 @@ public class BattleMemberStage {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getConsumeBean() {
+		return consumeBean;
+	}
+
+	public void setConsumeBean(Integer consumeBean) {
+		this.consumeBean = consumeBean;
 	}
 
 	public DateTime getCreateAt() {

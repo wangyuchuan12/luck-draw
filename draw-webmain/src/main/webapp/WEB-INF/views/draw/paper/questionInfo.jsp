@@ -248,7 +248,6 @@
 						this.next();
 						
 						$("#questionContent").text(this.flowData("question"));
-						console.log("imgUrl:"+this.flowData("imgUrl"));
 						
 						$("#questionImg").attr("src",this.flowData("imgUrl"));
 					},

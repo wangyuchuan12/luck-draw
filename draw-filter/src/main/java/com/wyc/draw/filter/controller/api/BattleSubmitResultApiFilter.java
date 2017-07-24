@@ -11,11 +11,11 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.BattleMemberStage;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.BattleRankInfoFilter;
-import com.wyc.draw.filter.BattleRankMemberListFilter;
 import com.wyc.draw.filter.BattleSubmitResultFilter;
 import com.wyc.draw.filter.BattleSyncStageIndexFilter;
 import com.wyc.draw.filter.CurrentBattleMemberFilter;
 import com.wyc.draw.filter.CurrentBattleRankMemberFilter;
+import com.wyc.draw.filter.RewardFilter;
 
 public class BattleSubmitResultApiFilter extends Filter{
 
@@ -51,6 +51,7 @@ public class BattleSubmitResultApiFilter extends Filter{
 		classes.add(CurrentBattleRankMemberFilter.class);
 		classes.add(BattleSyncStageIndexFilter.class);
 		classes.add(BattleSubmitResultFilter.class);
+		classes.add(RewardFilter.class);
 		return classes;
 	}
 

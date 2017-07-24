@@ -550,6 +550,10 @@
 						if(index==endIndex){
 							setTimeout(function(){
 								window.parent.stageEnd();
+								
+								var attrFlowPlug = attrPlug.flowPlug;
+								attrFlowPlug.setNext("pushData");
+								attrFlowPlug.next();
 							},8000);
 						}
 						
@@ -904,6 +908,22 @@
 				//显示成功返回
 				this.success();
 				
+				this.setNext("pullAttrData");
+				this.next();
+				
+			},
+			
+			pullAttrData:function(){
+				
+				var attrFlowPlug = attrPlug.flowPlug;
+				attrFlowPlug.setNext("pullData");
+				attrFlowPlug.next();
+			},
+			
+			pushAttrData:function(){
+				var attrFlowPlug = attrPlug.flowPlug;
+				attrFlowPlug.setNext("pushData");
+				attrFlowPlug.next();
 			},
 			
 			getStageIndex:function(){
@@ -1017,6 +1037,9 @@
 				},-5,-5,0,function(){
 					if(callback&&callback.end){
 						callback.end();
+						
+						outThis.setNext("pushAttrData");
+						outThis.next();
 					}
 				});
 			}

@@ -13,9 +13,11 @@ import com.wyc.draw.domain.BattleMemberIndex;
 import com.wyc.draw.domain.BattleMemberStage;
 import com.wyc.draw.domain.BattleRankMember;
 import com.wyc.draw.service.BattleMemberService;
+import com.wyc.draw.service.BattleMemberStageIndexService;
 import com.wyc.draw.service.BattleMemberStageService;
 import com.wyc.draw.service.BattleRankMemberService;
 import com.wyc.draw.vo.BattleMemberStageIndexListVo;
+import com.wyc.draw.vo.RewardVo;
 
 public class BattleSubmitResultFilter extends Filter{
 
@@ -27,6 +29,9 @@ public class BattleSubmitResultFilter extends Filter{
 	
 	@Autowired
 	private BattleRankMemberService battleRankMemberService;
+	
+	@Autowired
+	private BattleMemberStageIndexService battleMemberStageIndexService;
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		BattleMemberStage battleMemberStage = sessionManager.getObject(BattleMemberStage.class);
@@ -41,6 +46,7 @@ public class BattleSubmitResultFilter extends Filter{
 			
 			List<BattleMemberIndex> battleMemberIndexs = battleMemberStageIndexListVo.getBattleMemberIndexs();
 			BattleRankMember battleRankMember = sessionManager.getObject(BattleRankMember.class);
+			RewardVo rewardVo = new RewardVo();
 			for(BattleMemberIndex battleMemberIndex:battleMemberIndexs){
 				if(battleMemberIndex.getIsRight()==1){
 					Integer score = battleMemberStage.getScore();
@@ -56,6 +62,13 @@ public class BattleSubmitResultFilter extends Filter{
 					}
 					allScore = allScore+battleMemberIndex.getScore();
 					battleMember.setScore(allScore);
+					
+					Long addWisdomNum = rewardVo.getAddWisdomNum();
+					if(addWisdomNum==null){
+						addWisdomNum = 0l;
+					}
+					addWisdomNum = battleMemberIndex.getRewardBeanNum()+addWisdomNum;
+					rewardVo.setAddWisdomNum(addWisdomNum);;
 				}else{
 					Integer loveScore = battleMember.getLoveLife();
 					if(loveScore==null){
@@ -66,11 +79,15 @@ public class BattleSubmitResultFilter extends Filter{
 						loveScore = 0;
 					}
 					battleMember.setLoveLife(loveScore);
+					
+					battleMemberIndex.setRewardBeanNum(0);
+					battleMemberStageIndexService.update(battleMemberIndex);
 				}
 				
 				battleRankMember.setIndex(battleMemberIndex.getIndex());
 			}
 			
+			sessionManager.save(rewardVo);
 			Integer score = battleMemberStage.getScore();
 			if(score>=battleMemberStage.getPassScore()){
 				battleMemberStage.setIsPass(1);

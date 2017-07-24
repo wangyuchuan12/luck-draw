@@ -12,6 +12,7 @@ import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.BattleMmeberIndexCreateFilter;
 import com.wyc.draw.filter.BattleStageTakepartFilter;
 import com.wyc.draw.filter.CurrentBattleMemberFilter;
+import com.wyc.draw.filter.RewardFilter;
 
 public class BattleStageTakepartApiFilter extends Filter{
 
@@ -45,6 +46,7 @@ public class BattleStageTakepartApiFilter extends Filter{
 		classes.add(CurrentBattleMemberFilter.class);
 		classes.add(BattleStageTakepartFilter.class);
 		classes.add(BattleMmeberIndexCreateFilter.class);
+		classes.add(RewardFilter.class);
 		return classes;
 	}
 

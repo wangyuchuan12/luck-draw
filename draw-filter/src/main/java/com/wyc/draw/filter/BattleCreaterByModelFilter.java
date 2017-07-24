@@ -92,6 +92,7 @@ public class BattleCreaterByModelFilter extends Filter{
 			battleStage.setPassScore4(battleModelStage.getPassScore4());
 			battleStage.setImgUrl(battleModelStage.getImgUrl());
 			battleStage.setName(battleModelStage.getName());
+			battleStage.setConsumeBean(battleModelStage.getConsumeBean());
 			battleStageService.add(battleStage);
 		}
 		

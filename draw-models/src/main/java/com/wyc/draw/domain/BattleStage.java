@@ -81,6 +81,11 @@ public class BattleStage {
 	@Column
 	private String name;
 	
+	//消耗智慧豆数量
+	@ParamAnnotation
+	@Column(name="consume_bean")
+	private Integer consumeBean;
+	
 	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -187,6 +192,14 @@ public class BattleStage {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getConsumeBean() {
+		return consumeBean;
+	}
+
+	public void setConsumeBean(Integer consumeBean) {
+		this.consumeBean = consumeBean;
 	}
 
 	public DateTime getCreateAt() {

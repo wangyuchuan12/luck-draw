@@ -260,6 +260,28 @@
 		var beanWaterbublePlug;
 		var physicalWaterbublePlug;
 		var randomWaterbublePlug;
+		
+		function getAttrData(){
+			var love = loveProgressPlug.getValue();
+			var bean = beanProgressPlug.getValue();
+			var masonry = masonryProgressPlug.getValue();
+			var money = moneyProgressPlug.getValue();
+			
+			var object = new Object();
+			object.love = love;
+			object.bean = bean;
+			object.masonry = masonry;
+			object.money = money;
+			
+			return object;
+		}
+		
+		function setAttrData(object){
+			loveProgressPlug.setValue(object.love);
+			beanProgressPlug.setValue(object.bean);
+			masonryProgressPlug.setValue(object.masonry);
+			moneyProgressPlug.setValue(object.money);
+		}
 
 		function addLoveAnnim(num){
 			attrPlug.addLoveAnnim({num:num});
@@ -556,6 +578,22 @@
 			
 			attrPlug = new FlowPlug({
 
+				pullData:function(){
+					var object = window.parent.getAttrData();
+					
+					setAttrData(object);
+					
+					console.log("pullData:"+JSON.stringify(object));
+				},
+				
+				pushData:function(){
+					var object = getAttrData();
+					
+					window.parent.setAttrData(object);
+					
+					console.log("pushData:"+JSON.stringify(object));
+				},
+				
 				hideLove:function(){
 					$("#personalAttrDataLove").css("display","none");
 				},

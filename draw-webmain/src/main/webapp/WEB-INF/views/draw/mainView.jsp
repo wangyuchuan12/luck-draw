@@ -290,6 +290,7 @@
 	
 	//由详情页面回调
 	function startDekorn(battleId,stage){
+		
 		var object = new Object();
 		object["round_"+battleId] = stage;
 		mainViewPlug.flowPlug.flowData(object);
@@ -562,6 +563,9 @@
 				this.setNext("submitResult",function(){
 					progressPlug.show();
 
+					progressFlowPlug.setNext("pullAttrData");
+					progressFlowPlug.next();
+					
 					paperPlug.close();
 					var battleId = this.flowData("currentBattleId");
 					
@@ -605,7 +609,7 @@
 				if(!flag){
 					var callback = new Object();
 					callback.setProgressFlowPlug = function(plug){
-						progressFlowPlug = plug
+						progressFlowPlug = plug;
 					}
 					progressPlug.call("init",callback);
 					
@@ -647,9 +651,9 @@
 				var callback = new Object();
 				callback.success = function(resp){
 					if(resp.success){
-						outThis.success();
+						outThis.success(resp.data);
 					}else{
-						outThis.success();
+						outThis.success(resp.data);
 					}
 				}
 				
@@ -734,6 +738,9 @@
 			//开始挑战
 			startDekorn:function(){
 				
+				battlePlug.hide();
+				
+				
 				var startDekornFlag = this.flowData("startDekornFlag");
 				var waitPlug = new WaitPlug();
 				
@@ -758,14 +765,29 @@
 					stage = 1;
 				}
 				
-				this.setNext("stageTakepart",function(){
+				this.setNext("stageTakepart",function(data){
 					
 					waitPlug.close();
 					
-					outThis.setNext("dekornHandle");
-					outThis.next();
-					
-					
+					var attrFlowPlug = attrPlug.flowPlug;
+					if(data!=null&&data.subWisdomNum!=null&&data.subWisdomNum>0){
+						attrFlowPlug.setNext("subBeanAction",function(){
+							outThis.setNext("dekornHandle");
+							outThis.next();
+							
+							progressFlowPlug.setNext("pullAttrData");
+							progressFlowPlug.next();
+						});
+						
+						attrFlowPlug.nextData({
+							num:data.subWisdomNum
+						});
+						attrFlowPlug.next();
+						
+					}else{
+						outThis.setNext("dekornHandle");
+						outThis.next();
+					}
 				});
 				this.nextData({
 					stage:stage
@@ -962,20 +984,6 @@
 				var battleId = this.flowData("currentBattleId");
 				var waitPlug = new WaitPlug();
 				outThis.setNext("initBattleMemberInfo",function(data){
-					var isPass = this.flowData("isPass_"+battleId);
-					if(isPassAnimate){
-						if(isPass){
-							isPassAnimate = 1;
-						}else{
-							isPassAnimate = 0;
-						}
-					}else{
-						isPassAnimate = 0;
-						if(isPass){
-							battleFlowPlug.setNext("showPass");
-							battleFlowPlug.next();
-						}
-					}
 					outThis.setNext("setBattleData");
 					outThis.nextData({
 						battleId:battleId
@@ -1016,6 +1024,9 @@
 								});
 								outThis.next();
 								waitPlug.close();
+								
+								progressFlowPlug.setNext("pullAttrData");
+								progressFlowPlug.next();
 							});
 							
 							attrFlowPlug.nextData({
@@ -1160,7 +1171,8 @@
 					
 					
 					attrFlowPlug.setNext("subBeanAction",function(){
-						
+						progressFlowPlug.setNext("pullAttrData");
+						progressFlowPlug.next();
 					});
 					
 					attrFlowPlug.nextData({

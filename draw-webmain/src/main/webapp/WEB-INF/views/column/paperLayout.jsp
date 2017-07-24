@@ -60,8 +60,6 @@
 				var outThis = this;
 				var paperId = this.stepData("paperId");
 				var keyId = this.stepData("keyId");
-				
-				console.log("keyId:"+keyId);
 				var url = "/api/draw/question/answerPaper";
 				
 				var callback = new Object();

@@ -24,80 +24,87 @@ public class RewardFilter extends Filter{
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		RewardVo rewardVo = (RewardVo)sessionManager.getObject(RewardVo.class);
-		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
-		Account account = accountService.fineOneSync(drawUser.getAccountId());
-		Integer integral = account.getIntegral();
-		Integer loveLife = account.getLoveLife();
-		Long wisdomCount = account.getWisdomCount();
-		BigDecimal amount = account.getAmountBalance();
+		if(rewardVo!=null){
+			DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
+			Account account = accountService.fineOneSync(drawUser.getAccountId());
+			Integer integral = account.getIntegral();
+			Integer loveLife = account.getLoveLife();
+			Long wisdomCount = account.getWisdomCount();
+			
+			BigDecimal amount = account.getAmountBalance();
+			
+			if(integral==null){
+				integral = 0;
+			}
+			if(loveLife==null){
+				loveLife = 0;
+			}
+			
+			if(wisdomCount==null){
+				wisdomCount = 0l;
+			}
+			
+			if(amount==null){
+				amount = new BigDecimal(0);
+			}
+			
+			if(rewardVo.getAddAmount()!=null){
+				amount.add(rewardVo.getAddAmount());
+			}
+			
+			if(rewardVo.getSubAmount()!=null){
+				amount.subtract(rewardVo.getSubAmount());
+			}
+			
+			if(rewardVo.getAddLoveLifeNum()!=null){
+				loveLife =  loveLife+rewardVo.getAddLoveLifeNum().intValue();
+			}
+			
+			if(rewardVo.getSubLoveLifeNum()!=null){
+				loveLife = loveLife - rewardVo.getSubLoveLifeNum().intValue();
+			}
+			
+			if(rewardVo.getAddIntegralNum()!=null){
+				integral= integral + rewardVo.getAddIntegralNum().intValue();
+			}
+			
+			if(rewardVo.getAddWisdomNum()!=null){
+				wisdomCount = wisdomCount+rewardVo.getAddWisdomNum();
+			}
+			
+			if(rewardVo.getSubWisdomNum()!=null){
+				wisdomCount = wisdomCount-rewardVo.getSubWisdomNum();
+			}
+			
+			if(integral<0){
+				integral = 0;
+			}
+			
+			if(loveLife<0){
+				loveLife = 0;
+			}
+			
+			if(wisdomCount<0){
+				wisdomCount = 0l;
+			}
+			
+			if(amount.intValue()<0){
+				amount = new BigDecimal(0);
+			}
 		
-		if(integral==null){
-			integral = 0;
-		}
-		if(loveLife==null){
-			loveLife = 0;
-		}
-		
-		if(wisdomCount==null){
-			wisdomCount = 0l;
-		}
-		
-		if(amount==null){
-			amount = new BigDecimal(0);
+			account.setAmountBalance(amount);
+			account.setIntegral(integral);
+			account.setLoveLife(loveLife);
+			account.setWisdomCount(wisdomCount);
+			accountService.update(account);
+			
+			sessionManager.save(account);
+			return account;
+		}else{
+			return null;
 		}
 		
-		if(rewardVo.getAddAmount()!=null){
-			amount.add(rewardVo.getAddAmount());
-		}
 		
-		if(rewardVo.getSubAmount()!=null){
-			amount.subtract(rewardVo.getSubAmount());
-		}
-		
-		if(rewardVo.getAddLoveLifeNum()!=null){
-			loveLife =  loveLife+rewardVo.getAddLoveLifeNum().intValue();
-		}
-		
-		if(rewardVo.getSubLoveLifeNum()!=null){
-			loveLife = loveLife - rewardVo.getSubLoveLifeNum().intValue();
-		}
-		
-		if(rewardVo.getAddIntegralNum()!=null){
-			integral= integral + rewardVo.getAddIntegralNum().intValue();
-		}
-		
-		if(rewardVo.getAddWisdomNum()!=null){
-			wisdomCount = wisdomCount+rewardVo.getAddWisdomNum();
-		}
-		
-		if(rewardVo.getSubWisdomNum()!=null){
-			wisdomCount = wisdomCount-rewardVo.getSubWisdomNum();
-		}
-		
-		if(integral<0){
-			integral = 0;
-		}
-		
-		if(loveLife<0){
-			loveLife = 0;
-		}
-		
-		if(wisdomCount<0){
-			wisdomCount = 0l;
-		}
-		
-		if(amount.intValue()<0){
-			amount = new BigDecimal(0);
-		}
-	
-		account.setAmountBalance(amount);
-		account.setIntegral(integral);
-		account.setLoveLife(loveLife);
-		account.setWisdomCount(wisdomCount);
-		accountService.update(account);
-		
-		sessionManager.save(account);
-		return account;
 	}
 
 	@Override
