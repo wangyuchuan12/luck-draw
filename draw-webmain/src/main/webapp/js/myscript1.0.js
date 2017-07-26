@@ -278,7 +278,7 @@ function skipVieAnswerResult(redPacketId){
 
 function skipToUrl(url,params){
 	var temp = document.createElement("form");
-	temp.action = "javascript:new LayerPlug('"+url+"',1,1)";
+	temp.action = url;
     temp.method = "GET";        
     temp.style.display = "none";        
     var opt = document.createElement("textarea");

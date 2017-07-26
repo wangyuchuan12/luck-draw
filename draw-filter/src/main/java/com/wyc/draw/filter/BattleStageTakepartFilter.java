@@ -26,7 +26,7 @@ public class BattleStageTakepartFilter extends Filter{
 		BattleMember battleMember = sessionManager.getObject(BattleMember.class);
 		Integer stage = (Integer)sessionManager.getAttribute("stage");
 		String battleId = sessionManager.getAttribute("battleId").toString();
-		BattleMemberStage battleMemberStage = battleMemberStageService.findOneByMemberIdAndBattleIdAndStageIndexAndStatus(battleMember.getId(),battleId, stage,Constant.BM_STATUS_FREE);
+		BattleMemberStage battleMemberStage = battleMemberStageService.findOneByMemberIdAndBattleIdAndStageIndexAndStatusAndIsDel(battleMember.getId(),battleId, stage,Constant.BM_STATUS_FREE,0);
 		if(battleMemberStage==null){
 			sessionManager.setReturn(true);
 			ResultVo resultVo = new ResultVo();
@@ -39,7 +39,7 @@ public class BattleStageTakepartFilter extends Filter{
 			battleMemberStageService.update(battleMemberStage);
 
 			battleMember.setCurrentStageIndex(stage);
-			battleMemberService.update(battleMember);
+			sessionManager.update(battleMember);
 			
 			RewardVo rewardVo = new RewardVo();
 			if(battleMemberStage.getConsumeBean()!=null&&battleMemberStage.getConsumeBean()!=0){

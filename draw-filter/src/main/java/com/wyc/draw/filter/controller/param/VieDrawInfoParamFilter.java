@@ -57,9 +57,7 @@ public class VieDrawInfoParamFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
-		filterClasses.add(BaseDrawActionFilter.class);
-		return filterClasses;
+		return null;
 	}
 
 

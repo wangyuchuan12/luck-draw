@@ -8,12 +8,12 @@ import com.wyc.draw.domain.QuestionAnswer;
 
 public interface QuestionAnswerRepository extends CrudRepository<QuestionAnswer, String>{
 
-	List<QuestionAnswer> findAllByKeyIdAndPaperIdAndType(String keyId, String paperId, int type);
+	List<QuestionAnswer> findAllByKeyIdAndPaperIdAndTypeAndIsDel(String keyId, String paperId, int type,Integer isDel);
 
-	List<QuestionAnswer> findAllByKeyIdAndPaperId(String keyId,String paperId);
+	List<QuestionAnswer> findAllByKeyIdAndPaperIdAndIsDel(String keyId,String paperId,Integer isDel);
 
 	List<QuestionAnswer> findAllByPaperIdAndKeyIdAndIsDel(String paperId,String keyId, int isDel);
 
-	List<QuestionAnswer> findAllByPaperIdAndDrawUserId(String paperId,String drawUserId);
+	List<QuestionAnswer> findAllByPaperIdAndDrawUserIdAndIsDel(String paperId,String drawUserId,Integer isDel);
 
 }

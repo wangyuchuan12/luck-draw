@@ -15,8 +15,12 @@ public class PaperAnswerService {
 	@Autowired
 	private PaperAnswerRepository paperAnswerRepository;
 
-	public PaperAnswer findOneByKeyIdAndPaperIdAndType(String keyId, String paperId,Integer type) {
-		return paperAnswerRepository.findOneByKeyIdAndPaperIdAndType(keyId,paperId,type);
+	public PaperAnswer findOneByKeyIdAndPaperIdAndTypeAndIsDel(String keyId, String paperId,Integer type,Integer isDel) {
+		return paperAnswerRepository.findOneByKeyIdAndPaperIdAndTypeAndIsDel(keyId,paperId,type,isDel);
+	}
+	
+	public PaperAnswer findOneByKeyIdAndPaperIdAndIsDel(String keyId, String paperId,Integer isDel) {
+		return paperAnswerRepository.findOneByKeyIdAndPaperIdAndIsDel(keyId,paperId,isDel);
 	}
 
 	public PaperAnswer add(PaperAnswer paperAnswer) {

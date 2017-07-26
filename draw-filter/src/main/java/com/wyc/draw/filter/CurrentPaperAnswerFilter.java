@@ -21,7 +21,7 @@ public class CurrentPaperAnswerFilter extends Filter{
 		Integer type = (Integer)sessionManager.getAttribute("type");
 		
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
-		PaperAnswer paperAnswer = paperAnswerService.findOneByKeyIdAndPaperIdAndType(keyId,paperId,type);
+		PaperAnswer paperAnswer = paperAnswerService.findOneByKeyIdAndPaperIdAndTypeAndIsDel(keyId,paperId,type,0);
 		
 		if(paperAnswer==null){
 			paperAnswer = new PaperAnswer();
@@ -34,6 +34,7 @@ public class CurrentPaperAnswerFilter extends Filter{
 			paperAnswer.setStatus(Constant.PAPER_ANSWER_UNDERWAY_TAKEPART_STATUS);
 			paperAnswer.setType(type);
 			paperAnswer.setDrawUserId(drawUser.getId());
+			paperAnswer.setIsDel(0);
 			paperAnswer = paperAnswerService.add(paperAnswer);
 		}
 		return paperAnswer;

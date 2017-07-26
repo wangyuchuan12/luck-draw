@@ -28,8 +28,8 @@ public class QuestionAnswerService {
 		return questionAnswer;
 	}
 
-	public List<QuestionAnswer> findAllByKeyIdAndPaperIdAndType(String keyId, String paperId, int type) {
-		return questionAnswerRepository.findAllByKeyIdAndPaperIdAndType(keyId,paperId,type);
+	public List<QuestionAnswer> findAllByKeyIdAndPaperIdAndTypeAndIsDel(String keyId, String paperId, int type,Integer isDel) {
+		return questionAnswerRepository.findAllByKeyIdAndPaperIdAndTypeAndIsDel(keyId,paperId,type,isDel);
 	}
 
 
@@ -37,7 +37,14 @@ public class QuestionAnswerService {
 		return questionAnswerRepository.findAllByPaperIdAndKeyIdAndIsDel(paperId,keyId,isDel);
 	}
 
-	public List<QuestionAnswer> findAllByPaperIdAndDrawUserId(String paperId,String drawUserId) {
-		return questionAnswerRepository.findAllByPaperIdAndDrawUserId(paperId,drawUserId);
+	public List<QuestionAnswer> findAllByPaperIdAndDrawUserIdAndIsDel(String paperId,String drawUserId,Integer isDel) {
+		return questionAnswerRepository.findAllByPaperIdAndDrawUserIdAndIsDel(paperId,drawUserId,isDel);
+	}
+
+	public void update(QuestionAnswer questionAnswer) {
+		questionAnswer.setUpdateAt(new DateTime());
+		
+		questionAnswerRepository.save(questionAnswer);
+		
 	}
 }

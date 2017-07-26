@@ -248,6 +248,7 @@ public class Constant {
 	public static final int BM_STATUS_ERROR = 3;
 	
 	
+	
 	/**************************试卷答题类型*****************************/
 	//闯关类型
 	public static final int PAPER_ANSWER_TYPE_BATTLE=0;

@@ -16,9 +16,9 @@ public class BattleMemberStageIndexService {
 	@Autowired
 	private BattleMemberStageIndexRepository battleMemberStageIndexRepository;
 
-	public List<BattleMemberIndex> findAllByBattleIdAndMemberIdAndStageIndexOrderByIndexAsc(String battleId, String memberId,
-			Integer stageIndex) {
-		return battleMemberStageIndexRepository.findAllByBattleIdAndMemberIdAndStageIndexOrderByIndexAsc(battleId,memberId,stageIndex);
+	public List<BattleMemberIndex> findAllByBattleIdAndMemberIdAndStageIndexAndIsDelOrderByIndexAsc(String battleId, String memberId,
+			Integer stageIndex,Integer isDel) {
+		return battleMemberStageIndexRepository.findAllByBattleIdAndMemberIdAndStageIndexAndIsDelOrderByIndexAsc(battleId,memberId,stageIndex,isDel);
 	}
 
 	public void update(BattleMemberIndex battleMemberIndex) {

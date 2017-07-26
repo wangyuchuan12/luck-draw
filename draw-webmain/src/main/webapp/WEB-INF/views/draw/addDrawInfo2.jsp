@@ -70,7 +70,7 @@
 		
 			</div>
 			
-			<div  id="pay_view"  style="display: none;" >
+			<div  id="pay_view"   >
 			
 				<div class="add_draw_pay_view">
 					<div class="take_out_list" id="takeOutList1">
@@ -387,14 +387,14 @@
 			showErrorToast("输入的问题不能超过7个字节");
 			return;
 		}
-		layer.open({
+		/*layer.open({
 			type:1,
 			title:"请选择支付金额",
 			shadeClose:true,
 			shade:[0.1,'#000'],
 			area:['300px',"300px"],
 			content:$("#pay_view")
-		});
+		});*/
 		
 		
 	
@@ -417,6 +417,7 @@
 
 	$(document).ready(function(){
 		
+		hideProgress();
 	
 		$("input").keyup(function(){
 			inputCheck($(this));
@@ -511,6 +512,8 @@
 				if(obj.data.payType==0){
 					var params = new Object();
 					params.id = obj.data.id;
+					
+					console.log("params.id:"+params.id);
 					skipToProblemRedPacketInfo(params.id,1);
 				}else if(obj.data.payType==1){
 					var id = obj.data.id;

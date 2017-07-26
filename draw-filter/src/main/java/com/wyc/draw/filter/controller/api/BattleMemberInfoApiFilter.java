@@ -69,7 +69,7 @@ public class BattleMemberInfoApiFilter extends Filter{
 		
 		data.put("rank", rank);
 			
-		BattleMemberStage battleMemberStage = battleMemberStageService.findOneByMemberIdAndBattleIdAndStageIndex(battleMember.getId(),battleMember.getBattleId(),battleMember.getCurrentStageIndex());
+		BattleMemberStage battleMemberStage = battleMemberStageService.findOneByMemberIdAndBattleIdAndStageIndexAndIsDel(battleMember.getId(),battleMember.getBattleId(),battleMember.getCurrentStageIndex(),0);
 		BattleStage battleStage = battleStageService.findOneByBattleIdAndStageIndex(battleMember.getBattleId(), battleMember.getCurrentStageIndex());
 
 		data.put("passScore", battleStage.getPassScore());
@@ -84,6 +84,7 @@ public class BattleMemberInfoApiFilter extends Filter{
 			data.put("isPass", battleMemberStage.getIsPass());
 			data.put("imgUrl", battleMemberStage.getImgUrl());
 			data.put("name", battleMemberStage.getName());
+			data.put("isReadResult", battleMemberStage.getIsReadResult());
 		}else{
 			data.put("rewardBeanNum", 0);
 			data.put("thisScore", 0);
@@ -91,7 +92,7 @@ public class BattleMemberInfoApiFilter extends Filter{
 			data.put("paperId", battleStage.getPaperId());
 			data.put("imgUrl", battleStage.getImgUrl());
 			data.put("name", battleStage.getName());
-			
+			data.put("isReadResult", 0);
 		}
 		
 		resultVo.setData(data);

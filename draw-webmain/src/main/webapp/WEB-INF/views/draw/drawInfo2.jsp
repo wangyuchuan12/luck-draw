@@ -483,6 +483,8 @@
 
 <script type="text/javascript">
 			$(document).ready(function(){
+				hideProgress();
+				
 				initStar(); 
 				
 				$("#goodCommentButton").click(function(){
@@ -828,7 +830,9 @@ function comment(){
 	}
 }
 $(document).ready(function(){
+	
 	initDialog();
 	comment();
+	
 });
 </script>

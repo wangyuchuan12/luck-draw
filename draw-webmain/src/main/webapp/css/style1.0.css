@@ -3804,11 +3804,14 @@ li::before{
 	width:30%;
 	height: 120px;
 	display: inline-block;
+	
+	
 }
 
 .mainViewDekornImg>img{
 	width:120px;
 	height: 120px;
+	border-radius:20px;
 }
 
 .mainViewDekornInfo{
@@ -3825,6 +3828,8 @@ li::before{
 	padding-top: 10px;
 	
 	width:50%;
+	
+	padding-left: 20px;
 	
 }
 
@@ -4582,6 +4587,16 @@ li::before{
 .mainViewMembers{
 	text-align: center;
 	padding-bottom: 55px;
+	
+	overflow-x:scroll;
+	
+	width:100%;
+}
+
+.mainViewMembers>ul{
+	width:700px;
+	height: 100%;
+	text-align: left;
 }
 
 .mainViewMembers>uL>li{

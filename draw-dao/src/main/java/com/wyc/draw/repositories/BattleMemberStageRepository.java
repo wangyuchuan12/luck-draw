@@ -10,7 +10,7 @@ import com.wyc.draw.domain.BattleMemberStage;
 
 public interface BattleMemberStageRepository extends CrudRepository<BattleMemberStage, String>{
 
-	BattleMemberStage findOneByMemberIdAndBattleIdAndStageIndexAndStatus(String memberId,String battleId, Integer stageIndex, int status);
+	BattleMemberStage findOneByMemberIdAndBattleIdAndStageIndexAndStatusAndIsDel(String memberId,String battleId, Integer stageIndex, int status,int isDel);
 
 	@Query(value="from com.wyc.draw.domain.BattleMemberStage bmg where bmg.battleId=:battleId and bmg.stageIndex in (:stageIndexs)")
 	List<BattleMemberStage> findAllByBattleIdAndStageIndexIn(@Param("battleId")String battleId,@Param("stageIndexs")String[] stageIndexArray);
@@ -25,6 +25,6 @@ public interface BattleMemberStageRepository extends CrudRepository<BattleMember
 	List<BattleMemberStage> findAllByMemberIdOrderByStageIndexAsc(String memberId);
 
 
-	BattleMemberStage findOneByMemberIdAndBattleIdAndStageIndex(String memberId, String battleId, Integer stage);
+	BattleMemberStage findOneByMemberIdAndBattleIdAndStageIndexAndIsDel(String memberId, String battleId, Integer stage,Integer isDel);
 
 }

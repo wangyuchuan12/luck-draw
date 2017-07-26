@@ -57,6 +57,10 @@ public class PaperAnswer {
 	@ParamAnnotation
 	private String drawUserId;
 	
+	@Column(name="is_del")
+	@ParamAnnotation
+	private Integer isDel;
+	
 	@Column(name = "create_at")
 	@ParamAnnotation
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -163,5 +167,13 @@ public class PaperAnswer {
 
 	public void setDrawUserId(String drawUserId) {
 		this.drawUserId = drawUserId;
+	}
+
+	public Integer getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
 	}
 }

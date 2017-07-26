@@ -79,8 +79,8 @@ public class DrawController {
 		httpServletRequest.setAttribute("firstVisit", firstVisit);
 		httpServletRequest.setAttribute("takePartMembers", resultPageListVo);
 		
-		Long takeMemberCount = vieRedPacketTakepartMemberService.countByRedPacketId(redPacketVo.getId());
-		httpServletRequest.setAttribute("takePartCount", takeMemberCount);
+	//	Long takeMemberCount = vieRedPacketTakepartMemberService.countByRedPacketId(redPacketVo.getId());
+	//	httpServletRequest.setAttribute("takePartCount", takeMemberCount);
 		
 		
 		httpServletRequest.setAttribute("shareTitle", "【"+userInfo.getNickname()+"】给你发送了一个【问答红包】");

@@ -873,6 +873,10 @@
 	
 		var flag = false;
 		var progressValue = 0;
+		
+		function hideProgress(){
+			$(".preload").css("display","none");
+		}
 		function addProgress(value,time,callback,luck){
 			progressValue = progressValue+value;
 			progress(progressValue,time,callback,luck)

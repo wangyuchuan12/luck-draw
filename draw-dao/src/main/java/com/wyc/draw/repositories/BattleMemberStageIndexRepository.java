@@ -8,7 +8,7 @@ import com.wyc.draw.domain.BattleMemberIndex;
 
 public interface BattleMemberStageIndexRepository extends CrudRepository<BattleMemberIndex, String>{
 
-	List<BattleMemberIndex> findAllByBattleIdAndMemberIdAndStageIndexOrderByIndexAsc(String battleId,
-			String memberId, Integer stageIndex);
+	List<BattleMemberIndex> findAllByBattleIdAndMemberIdAndStageIndexAndIsDelOrderByIndexAsc(String battleId,
+			String memberId, Integer stageIndex,Integer isDel);
 
 }

@@ -17,6 +17,7 @@ import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.BattleStageIndexDetail;
+import com.wyc.draw.filter.controller.api.ApplyReadResultApiFilter;
 import com.wyc.draw.filter.controller.api.BattleInfoApiFilter;
 import com.wyc.draw.filter.controller.api.BattleListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleMemberInfoApiFilter;
@@ -24,6 +25,7 @@ import com.wyc.draw.filter.controller.api.BattleMemberStageListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleRankMemberListApiFilter;
 import com.wyc.draw.filter.controller.api.BattleSetCurrentStageApiFilter;
 import com.wyc.draw.filter.controller.api.BattleStageListApiFilter;
+import com.wyc.draw.filter.controller.api.BattleStageReTakepartApiFilter;
 import com.wyc.draw.filter.controller.api.BattleStageTakepartApiFilter;
 import com.wyc.draw.filter.controller.api.BattleSubmitResultApiFilter;
 import com.wyc.draw.filter.controller.api.BattleTakepartApiFilter;
@@ -180,6 +182,39 @@ public class MainApi {
 	@Transactional
 	@RequestMapping(value="stageTakepart")
 	public Object stageTakepart(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.isReturn()){
+			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+			return resultVo;
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			return resultVo;
+		}
+	}
+	
+	
+	@HandlerAnnotation(hanlerFilter=ApplyReadResultApiFilter.class)
+	@ResponseBody
+	@Transactional
+	@RequestMapping(value="applyReadResultHandle")
+	public Object applyReadResultHandle(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.isReturn()){
+			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+			return resultVo;
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			
+			System.out.println("......resultVo:"+resultVo);
+			return resultVo;
+		}
+	}
+	
+	@HandlerAnnotation(hanlerFilter=BattleStageReTakepartApiFilter.class)
+	@ResponseBody
+	@Transactional
+	@RequestMapping(value="stageReTakepart")
+	public Object stageReTakepart(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		if(sessionManager.isReturn()){
 			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();

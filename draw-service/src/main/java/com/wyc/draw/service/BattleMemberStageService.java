@@ -16,9 +16,9 @@ public class BattleMemberStageService {
 	@Autowired
 	private BattleMemberStageRepository battleMemberStageRepository;
 
-	public BattleMemberStage findOneByMemberIdAndBattleIdAndStageIndexAndStatus(String memberId,String battleId, Integer stageIndex,
-			int status) {
-		return battleMemberStageRepository.findOneByMemberIdAndBattleIdAndStageIndexAndStatus(memberId,battleId,stageIndex,status);
+	public BattleMemberStage findOneByMemberIdAndBattleIdAndStageIndexAndStatusAndIsDel(String memberId,String battleId, Integer stageIndex,
+			int status,int isDel) {
+		return battleMemberStageRepository.findOneByMemberIdAndBattleIdAndStageIndexAndStatusAndIsDel(memberId,battleId,stageIndex,status,isDel);
 	}
 	
 	public List<BattleMemberStage> findAllByBattleIdAndStageIndexIn(String battleId, String[] stageIndexArray) {
@@ -52,7 +52,7 @@ public class BattleMemberStageService {
 		return battleMemberStageRepository.findAllByMemberIdOrderByStageIndexAsc(memberId);
 	}
 
-	public BattleMemberStage findOneByMemberIdAndBattleIdAndStageIndex(String memberId, String battleId, Integer stage) {
-		return battleMemberStageRepository.findOneByMemberIdAndBattleIdAndStageIndex(memberId,battleId,stage);
+	public BattleMemberStage findOneByMemberIdAndBattleIdAndStageIndexAndIsDel(String memberId, String battleId, Integer stage,Integer isDel) {
+		return battleMemberStageRepository.findOneByMemberIdAndBattleIdAndStageIndexAndIsDel(memberId,battleId,stage,isDel);
 	}
 }

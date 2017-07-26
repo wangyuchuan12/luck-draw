@@ -76,6 +76,11 @@ public class BattleMemberStage {
 	@Column(name="consume_bean")
 	private Integer consumeBean;
 	
+	//是否查看了答案
+	@ParamAnnotation
+	@Column(name="is_read_result")
+	private Integer isReadResult;
+	
 	//开始时间
 	@ParamAnnotation
 	@Column(name="start_time")
@@ -338,6 +343,15 @@ public class BattleMemberStage {
 
 	public void setConsumeBean(Integer consumeBean) {
 		this.consumeBean = consumeBean;
+	}
+	
+
+	public Integer getIsReadResult() {
+		return isReadResult;
+	}
+
+	public void setIsReadResult(Integer isReadResult) {
+		this.isReadResult = isReadResult;
 	}
 
 	public DateTime getCreateAt() {

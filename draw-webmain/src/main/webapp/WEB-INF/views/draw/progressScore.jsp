@@ -541,6 +541,7 @@
 					var callback = new Object();
 					callback.call = function(index,next){
 						var indexObject = outThis.flowData("index"+(index));
+
 						if(indexObject.rewardBeanNum&&indexObject.rewardBeanNum>0){
 							attrPlug.addBeanAnnim({
 								num:indexObject.rewardBeanNum

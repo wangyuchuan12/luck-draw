@@ -91,6 +91,7 @@
 				<div class="mainViewDekornButton" style="display: inline-block;" id="lastButton">上一关</div>
 				<div class="mainViewDekornButton" style="display: inline-block;" id="showResult">查看答题</div>
 				<div class="mainViewDekornButton" style="display: inline-block;" id="dekornButton">挑战</div>
+				<div class="mainViewDekornButton" style="display: inline-block;" id="reDekornButton">重新挑战</div>
 				<div class="mainViewDekornButton" style="display: inline-block;" id="nextButton">下一关</div>
 			</div>
 			
@@ -155,6 +156,24 @@
 							}
 						});
 						
+						$("#reDekornButton").click(function(){
+							
+							
+							if(outThis.flowData("reDekornEnable")==1){
+								var battleId = battlePlug.flowPlug.flowData("battleId");
+								var round = battlePlug.flowPlug.flowData("round");
+								var stageStatus = battlePlug.flowPlug.flowData("stageStatus");
+								if(stageStatus==2){
+									window.parent.reStartDekorn(battleId,parseInt(round));
+								}else{
+									//window.parent.startDekorn(battleId,parseInt(round));
+								}
+							}else{
+								new AlertPlug("您已经阅读答案，不能重新挑战");
+							}
+							
+						});
+						
 						$("#nextButton").click(function(){
 							var nextEnable = outThis.flowData("nextEnable");
 							if(nextEnable==1){
@@ -177,8 +196,16 @@
 						});
 						
 						$("#showResult").click(function(){
-							outThis.setNext("showResult");
-							outThis.next();
+						
+							var waitPlug = new WaitPlug();
+							var round = window.parent.applyReadResultHandle(outThis.flowData("round"),{
+								success:function(){
+									outThis.setNext("showResult");
+									outThis.next();
+									waitPlug.close();
+								}
+							});
+							
 						});
 						
 						this.setNext("popHandle");
@@ -226,6 +253,7 @@
 							imgUrl:outThis.stepData("imgUrl"),
 							paperId:outThis.stepData("paperId"),
 							memberId:outThis.stepData("memberId"),
+							isReadResult:outThis.stepData("isReadResult"),
 							passScore:outThis.stepData("passScore"),
 							passScore2:outThis.stepData("passScore2"),
 							passScore3:outThis.stepData("passScore3"),
@@ -274,20 +302,14 @@
 						
 						var passFlag = null;
 						var isPass = this.flowData("isPass");
-						console.log("isPass:"+isPass);
 						if(isPass == 1){
-							console.log("进到这里1");
 							passFlag = $("#passFlag");
 							passFlag.css("display","block");
 						}else if(isPass==0){
-							console.log("进到这里2");
 							passFlag = $("#unpassFlag");
 							passFlag.css("display","block");
 						}
 						
-						console.log("upass:"+passFlag.html());
-						
-						console.log("passAnimate:"+passFlag.attr("id"));
 						
 						passFlag.css("width","800px");
 						passFlag.css("height","800px");
@@ -302,12 +324,12 @@
 							},500);
 						});
 					},
+									
 					showView:function(){
 						
 						this.flowData({popFlag:1});
 						var isPassAnimate = this.stepData("isPassAnimate");
 						
-						console.log("isPassAnimate:"+isPassAnimate);
 						
 						if(isPassAnimate==1){
 							this.setNext("passAnimate");
@@ -315,13 +337,8 @@
 						}
 						var isPass = this.flowData("isPass");
 						
-						console.log("..............isPass:"+isPass);
-						
-						console.log("div:"+$("div[dd=haha]").html());
-						
-						console.log("div:"+$("#passFlag").html());
 						var passFlag = $("#passFlag");
-						console.log("class:"+passFlag.attr("class"));
+
 						if(isPass==1){
 							$("#passFlag").css("display","block");
 							$("#unpassFlag").css("display","none");
@@ -345,6 +362,7 @@
 						var status = this.flowData("status");
 						var name = this.flowData("name");
 						var imgUrl = this.flowData("imgUrl");
+						var isReadResult = this.flowData("isReadResult");
 						if(imgUrl){
 							$("#battleInfoDetailImg").attr("src",imgUrl);
 						}
@@ -412,12 +430,28 @@
 						
 						$("#loves").empty();
 	
+						console.log("isReadResult:"+isReadResult);
+						if(isReadResult==1){
+							$("#reDekornButton").addClass("gray");
+							outThis.flowData({
+								reDekornEnable:0
+							});
+						}else{
+							$("#reDekornButton").removeClass("gray");
+							outThis.flowData({
+								reDekornEnable:1
+							});
+						}
 						
 						if(stageStatus==1||stageStatus==0){
 							$("#dekornButton").removeClass("gray");
 							outThis.flowData({
 								dekornEnable:1
 							});
+							
+							$("#dekornButton").css("display","inline-block");
+							
+							$("#reDekornButton").css("display","none");
 							
 						}else {
 							if(round>=maxStage){
@@ -426,15 +460,19 @@
 								$("#dekornButton").removeClass("gray");
 							}
 							
+							$("#dekornButton").css("display","none");
+							
 							$("#dekornButton").addClass("gray");
 							
 							outThis.flowData({
 								dekornEnable:0
 							});
 							
+							$("#reDekornButton").css("display","inline-block");
+							
 						}
 						
-						if(round>=maxStage||stageStatus!=2){
+						if(round>=maxStage||stageStatus!=2||isPass!=1){
 							$("#nextButton").addClass("gray");
 							outThis.flowData({
 								nextEnable:0

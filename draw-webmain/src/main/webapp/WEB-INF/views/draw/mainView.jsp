@@ -30,7 +30,7 @@
 								<img id="battleInfoImg" src="http://ooe8ianrr.bkt.clouddn.com/znm123.png">
 							</div>
 							<div class="mainViewDekornInfoDetail">
-								<div><span>名称：</span><span id="battleInfoName">小鸟飞飞</span></div>
+								<div style="font-size: 15px;"><span id="battleInfoName">小鸟飞飞</span></div>
 								<div>
 									<span>简介：</span>
 									<span id="battleInfoInstruction">
@@ -261,6 +261,18 @@
 		
 	}
 	
+	function applyReadResultHandle(stage,callback){
+		mainViewFlowPlug.setNext("applyReadResultHandle",function(){
+			
+			console.log("........callback");
+			callback.success();
+		});
+		mainViewFlowPlug.nextData({
+			stage:stage
+		});
+		mainViewFlowPlug.next();
+	}
+	
 	function hideProgressPlug(){
 		progressPlug.hide();
 	}
@@ -300,6 +312,18 @@
 		});
 		mainViewPlug.flowPlug.next();
 		
+	}
+	
+	function reStartDekorn(battleId,stage){
+		var object = new Object();
+		object["round_"+battleId] = stage;
+		mainViewPlug.flowPlug.flowData(object);
+		mainViewPlug.flowPlug.setNext("startDekorn");
+		mainViewPlug.flowPlug.nextData({
+			battleId:battleId,
+			startDekornFlag:1
+		});
+		mainViewPlug.flowPlug.next();
 		
 	}
 	
@@ -401,7 +425,7 @@
 				$(".mainViewMembers>ul").append(el);
 				var mainViewMembersPkMemberEl = $("#m_"+id);
 				var width = $(document).width();
-				mainViewMembersPkMemberEl.width(width/4-10);
+				mainViewMembersPkMemberEl.width(width/5-10);
 				mainViewMembersPkMemberEl.css("margin-left","2px");
 				mainViewMembersPkMemberEl.height(mainViewMembersPkMemberEl.width());
 				
@@ -519,6 +543,7 @@
 				callback.success = function(resp){
 					if(resp.success){
 						var data = resp.data;
+
 						var name = data.name;
 						var imgUrl = data.imgUrl;
 						var instruction = data.instruction;
@@ -661,6 +686,61 @@
 				params.stage = stage;
 				params.battleId = battleId;
 				
+				request(url,callback,params);
+			},
+			
+			applyReadResultHandle:function(){
+				var stage = this.stepData("stage");
+				var battleId = this.flowData("currentBattleId");
+				
+				var url = "/api/main/applyReadResultHandle";
+				
+				var outThis = this;
+				var callback = new Object();
+				
+				callback.success = function(resp){
+					console.log(JSON.stringify(resp));
+					if(resp.success){
+						var object = new Object();
+						object["isReadResult_"+battleId] = 1;
+						outThis.flowData(object);
+						
+						outThis.setNext("setBattleData");
+						outThis.next();
+						
+						battleFlowPlug.setNext("showView");
+						battleFlowPlug.next();
+						outThis.success();
+					}
+					
+					
+				}
+				
+				var params = new Object();
+				params.stage = stage;
+				params.battleId = battleId;
+				
+				request(url,callback,params);
+			},
+			
+			stageReTakepart:function(){
+				var outThis = this;
+				var battleId = this.flowData("currentBattleId");
+				var stage = this.stepData("stage");
+				var url = "/api/main/stageReTakepart";
+				var callback = new Object();
+				callback.success = function(resp){
+					if(resp.success){
+						outThis.success(resp.data);
+					}else{
+						outThis.success(resp.data);
+					}
+				}
+				
+				var params = new Object();
+				params.stage = stage;
+				params.battleId = battleId;
+				
 				request(url,callback,params)
 			},
 			
@@ -738,10 +818,44 @@
 			//开始挑战
 			startDekorn:function(){
 				
+				var outThis = this;
 				battlePlug.hide();
 				
+				//如果为1表示重新参加
+				var startDekornFlag = this.stepData("startDekornFlag");
 				
-				var startDekornFlag = this.flowData("startDekornFlag");
+			
+				var takepartMethodName = "stageTakepart";
+				
+				//重新挑战
+				if(startDekornFlag==1){
+					takepartMethodName = "stageReTakepart";
+					var battleId = outThis.flowData("currentBattleId");
+					
+					console.log("battleID:"+battleId);
+					var allScore = outThis.flowData("allScore_"+battleId);
+					var thisScore = outThis.flowData("thisScore_"+battleId);
+					allScore = allScore-thisScore;
+					thisScore = 0;
+					progressFlowPlug.setNext("initData",function(){
+						
+					});
+					progressFlowPlug.nextData({
+						allScore:allScore,
+						round:outThis.flowData("round_"+battleId),
+						thisScore:thisScore,
+						rank:outThis.flowData("rank_"+battleId),
+						loveLimit:outThis.flowData("loveLimit_"+battleId),
+						loveCount:outThis.flowData("loveCount_"+battleId),
+					});
+
+					progressFlowPlug.next();
+					
+					progressFlowPlug.setNext("showData");
+					progressFlowPlug.next();
+					
+					
+				}
 				var waitPlug = new WaitPlug();
 				
 				var outThis = this;
@@ -764,8 +878,7 @@
 				if(!stage||stage==0){
 					stage = 1;
 				}
-				
-				this.setNext("stageTakepart",function(data){
+				this.setNext(takepartMethodName,function(data){
 					
 					waitPlug.close();
 					
@@ -886,6 +999,7 @@
 					object["passScore2_"+battleId] = data.passScore2;
 					object["passScore3_"+battleId] = data.passScore3;
 					object["passScore4_"+battleId] = data.passScore4;
+					object["isReadResult_"+battleId] = data.isReadResult;
 					outThis.flowData(object);
 					outThis.success();
 				});
@@ -1314,7 +1428,7 @@
 				var passScore2 = this.flowData("passScore2_"+battleId);
 				var passScore3 = this.flowData("passScore3_"+battleId);
 				var passScore4 = this.flowData("passScore4_"+battleId);
-	
+				var isReadResult =  this.flowData("isReadResult_"+battleId);
 				battleFlowPlug.setNext("initData");
 				
 				battleFlowPlug.nextData({
@@ -1333,6 +1447,7 @@
 					name:name,
 					paperId:paperId,
 					memberId:memberId,
+					isReadResult:isReadResult,
 					passScore:passScore,
 					passScore2:passScore2,
 					passScore3:passScore3,

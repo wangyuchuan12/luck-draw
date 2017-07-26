@@ -37,15 +37,15 @@ public class BattleSyncStageIndexFilter extends Filter{
 		BattleMember battleMember = (BattleMember)sessionManager.getObject(BattleMember.class);
 		Integer stage = (Integer)sessionManager.getAttribute("stage");
 		String battleId = (String)sessionManager.getAttribute("battleId");
-		BattleMemberStage battleMemberStage = battleMemberStageService.findOneByMemberIdAndBattleIdAndStageIndex(battleMember.getId(),battleId,stage);
+		BattleMemberStage battleMemberStage = battleMemberStageService.findOneByMemberIdAndBattleIdAndStageIndexAndIsDel(battleMember.getId(),battleId,stage,0);
 		sessionManager.save(battleMemberStage);
 		if(battleMemberStage.getStatus()==Constant.BM_STATUS_IN){
-			List<QuestionAnswer> questionAnswers = questionAnswerService.findAllByKeyIdAndPaperIdAndType(battleMember.getId()+"_"+stage, battleMemberStage.getPaperId(), Constant.PAPER_ANSWER_TYPE_BATTLE);
+			List<QuestionAnswer> questionAnswers = questionAnswerService.findAllByKeyIdAndPaperIdAndTypeAndIsDel(battleMember.getId()+"_"+stage, battleMemberStage.getPaperId(), Constant.PAPER_ANSWER_TYPE_BATTLE,0);
 			Map<String, QuestionAnswer> questionAnswerMap = new HashMap<>();
 			for(QuestionAnswer questionAnswer:questionAnswers){
 				questionAnswerMap.put(questionAnswer.getQuestionId(), questionAnswer);
 			}
-			List<BattleMemberIndex> battleMemberIndexs = battleMemberStageIndexService.findAllByBattleIdAndMemberIdAndStageIndexOrderByIndexAsc(battleMemberStage.getBattleId(), battleMemberStage.getMemberId(), battleMemberStage.getStageIndex());
+			List<BattleMemberIndex> battleMemberIndexs = battleMemberStageIndexService.findAllByBattleIdAndMemberIdAndStageIndexAndIsDelOrderByIndexAsc(battleMemberStage.getBattleId(), battleMemberStage.getMemberId(), battleMemberStage.getStageIndex(),0);
 			
 			for(BattleMemberIndex battleMemberIndex:battleMemberIndexs){
 				QuestionAnswer questionAnswer = questionAnswerMap.get(battleMemberIndex.getQuestionId());

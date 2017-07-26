@@ -17,7 +17,7 @@ import com.wyc.draw.service.BattleMemberStageIndexService;
 import com.wyc.draw.service.BattleMemberStageService;
 import com.wyc.draw.service.BattleStageIndexDetailService;
 
-public class BattleMmeberIndexCreateFilter extends Filter{
+public class BattleMmeberStageIndexCreateFilter extends Filter{
 
 	
 	@Autowired
@@ -66,7 +66,7 @@ public class BattleMmeberIndexCreateFilter extends Filter{
 						battleMemberIndex.setRewardBeanNum(battleStageIndexDetail.getRewardBeanNum());
 						battleMemberIndex.setScore(battleStageIndexDetail.getScore());
 						battleMemberIndex.setStageIndex(battleStageIndexDetail.getStageindex());
-						battleMemberIndex.setStatus(Constant.BM_STATUS_FREE);
+						battleMemberIndex.setStatus(Constant.BM_STATUS_IN);
 						battleMemberIndex.setToHide(battleStageIndexDetail.getToHide());
 						
 						battleMemberStageIndexService.add(battleMemberIndex);

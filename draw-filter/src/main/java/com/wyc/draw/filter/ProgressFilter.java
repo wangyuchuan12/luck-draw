@@ -36,7 +36,8 @@ public class ProgressFilter extends Filter{
 		
 		for(Integer stageIndex:stageIndexs){
 			
-			List<BattleMemberIndex> battleMemberIndexs = battleMemberStageIndexService.findAllByBattleIdAndMemberIdAndStageIndexOrderByIndexAsc(battleMember.getBattleId(),battleMember.getId(),stageIndex);
+			List<BattleMemberIndex> battleMemberIndexs = battleMemberStageIndexService.
+					findAllByBattleIdAndMemberIdAndStageIndexAndIsDelOrderByIndexAsc(battleMember.getBattleId(),battleMember.getId(),stageIndex,0);
 			List<BattleIndexVo> battleIndexVos = new ArrayList<>();
 			BattleStageVo battleStageVo = new BattleStageVo();
 			battleStageVos.add(battleStageVo);

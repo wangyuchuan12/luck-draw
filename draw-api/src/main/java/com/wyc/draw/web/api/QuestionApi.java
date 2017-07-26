@@ -53,7 +53,7 @@ public class QuestionApi {
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
 		
-		List<QuestionAnswer> questionAnswers = questionAnswerService.findAllByPaperIdAndDrawUserId(paperId,drawUser.getId());
+		List<QuestionAnswer> questionAnswers = questionAnswerService.findAllByPaperIdAndDrawUserIdAndIsDel(paperId,drawUser.getId(),0);
 		
 		System.out.println(".........qustionAnswers:"+questionAnswers);
 		
