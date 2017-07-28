@@ -3639,9 +3639,9 @@ li::before{
 }
 
 .personalAttrDataHeaderMoney{
-	background: url("http://7xugu1.com1.z0.glb.clouddn.com/money(2).png")no-repeat;
-	background-size:30px 30px;
-	background-position:0px -5px;
+	background: url("http://otsnwem87.bkt.clouddn.com/2a5d913a968687eec03d21c1bb88aa36.png")no-repeat;
+	background-size:28px 28px;
+	background-position:0px 0px;
 }
 
 .personalAttrDataHeaderMasonry{
@@ -3712,7 +3712,9 @@ li::before{
 	padding-top: 20px;
 }
 .mainViewDekornButton{
-	background: url("http://onluguho9.bkt.clouddn.com/btn-blue2.png") no-repeat;
+/*	background: url("http://onluguho9.bkt.clouddn.com/btn-blue2.png") no-repeat;*/
+	background-color:RGBA(92,101,110,1);
+	border-radius:5px;
 	width:20%;
 	height: 60px;
 	background-size:100% 60px;
@@ -4750,7 +4752,7 @@ li::before{
 	
 	color: RGBA(98,49,19,1);
 	
-	font-size: 20px;
+	font-size: 10px;
 	
 	font-weight: bolder;
 }
@@ -4758,7 +4760,6 @@ li::before{
 .rankRewardPlug>ul{
 	margin: 0 auto;
 	position: relative;
-	padding-top: 30px;
 }
 
 .rankRewardPlug>ul>li{

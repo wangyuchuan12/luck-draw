@@ -7,7 +7,11 @@
 <tiles:insertDefinition name="plugLayout">
 	<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 	<tiles:putAttribute name="body">
+		
 		<div class="rankRewardPlug">
+			<div class="battleInfoBanner">
+				 奖励
+			</div>
 			<ul>
 			</ul>
 		</div>		
@@ -26,21 +30,21 @@
 							var object = array[i];
 							var content = "第"+object.rank+"名:";
 							if(object.rewardBean&&object.rewardBean>0){
-								content = content+object.rewardBean+"智慧豆,";
+								content = content+"<div class='personalAttrDataHeader personalAttrDataHeaderBean'></div>*"+object.rewardBean+"<br/>";
 							}
 							
 							if(object.rewardLove&&object.rewardLove>0){
-								content = content+object.rewardLove+"爱心,";
+								content = content+"<div class='personalAttrDataHeader personalAttrDataHeaderLove'></div>*"+object.rewardLove+"<br/>";
 							}
 							
 							if(object.rewardMoney&&object.rewardMoney>0){
-								content = content+object.rewardMoney+"元人民币,";
+								content = content+"<div class='personalAttrDataHeader personalAttrDataHeaderMoney'></div>*"+object.rewardMoney+"<br/>";
 							}
 							
 							if(object.rewardMasonry&&object.rewardMasonry>0){
-								content = content+object.rewardMasonry+"砖石,";
+								content = content+"<div class='personalAttrDataHeader personalAttrDataHeaderMasonry'></div>*"+object.rewardMasonry+"<br/>";
 							}
-							content = content.substring(0,content.lastIndexOf(","));
+						//	content = content.substring(0,content.lastIndexOf(","));
 							
 							outThis.setNext("addItem");
 							outThis.nextData({

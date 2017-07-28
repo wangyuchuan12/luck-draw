@@ -180,31 +180,40 @@
 								var battleId = battlePlug.flowPlug.flowData("battleId");
 								var round = battlePlug.flowPlug.flowData("round");
 								window.parent.startBattle(parseInt(round)+1);
+							}else{
+								new AlertPlug("请先确定都已经通过或者是最后一题");
 							}
 							
 						});
 						
 						$("#lastButton").click(function(){
 							var lastEnable = outThis.flowData("lastEnable");
-							lastEnable= 1;
 							if(lastEnable==1){
 								var battleId = battlePlug.flowPlug.flowData("battleId");
 								var round = battlePlug.flowPlug.flowData("round");
 								window.parent.startBattle(parseInt(round)-1);
+							}else{
+								new AlertPlug("现在是第1题");
 							}
 							
 						});
 						
 						$("#showResult").click(function(){
 						
-							var waitPlug = new WaitPlug();
-							var round = window.parent.applyReadResultHandle(outThis.flowData("round"),{
-								success:function(){
-									outThis.setNext("showResult");
-									outThis.next();
-									waitPlug.close();
-								}
-							});
+							var showResultEnable = outThis.flowData("showResultEnable");
+							if(showResultEnable==1){
+								var waitPlug = new WaitPlug();
+								var round = window.parent.applyReadResultHandle(outThis.flowData("round"),{
+									success:function(){
+										outThis.setNext("showResult");
+										outThis.next();
+										waitPlug.close();
+									}
+								});
+							}else{
+								new AlertPlug("您还未挑战，不能查阅答案");
+							}
+							
 							
 						});
 						
@@ -296,6 +305,16 @@
 						}
 						
 						
+					},
+					
+					setHighLight:function(){
+						var selector = this.stepData("selector");
+						$("#lastButton").css("background-color","RGBA(92,101,110,1)");
+						$("#showResult").css("background-color","RGBA(92,101,110,1)");
+						$("#dekornButton").css("background-color","RGBA(92,101,110,1)");
+						$("#reDekornButton").css("background-color","RGBA(92,101,110,1)");
+						$("#nextButton").css("background-color","RGBA(92,101,110,1)");
+						$(selector).css("background-color","RGBA(81,220,72,1)");
 					},
 					
 					passAnimate:function(){
@@ -429,22 +448,25 @@
 						}
 						
 						$("#loves").empty();
-	
-						console.log("isReadResult:"+isReadResult);
+
 						if(isReadResult==1){
-							$("#reDekornButton").addClass("gray");
 							outThis.flowData({
 								reDekornEnable:0
 							});
 						}else{
-							$("#reDekornButton").removeClass("gray");
 							outThis.flowData({
 								reDekornEnable:1
 							});
 						}
 						
 						if(stageStatus==1||stageStatus==0){
-							$("#dekornButton").removeClass("gray");
+
+							outThis.setNext("setHighLight");
+							outThis.nextData({
+								selector:"#dekornButton"
+							});
+							outThis.next();
+							
 							outThis.flowData({
 								dekornEnable:1
 							});
@@ -453,44 +475,67 @@
 							
 							$("#reDekornButton").css("display","none");
 							
+							outThis.flowData({
+								showResultEnable:0
+							});
+							
 						}else {
-							if(round>=maxStage){
-								
+							
+							if(isPass){
+								outThis.flowData({
+									showResultEnable:1
+								});
 							}else{
-								$("#dekornButton").removeClass("gray");
+								outThis.flowData({
+									showResultEnable:0
+								});
 							}
 							
+							
 							$("#dekornButton").css("display","none");
-							
-							$("#dekornButton").addClass("gray");
-							
+
 							outThis.flowData({
 								dekornEnable:0
 							});
 							
 							$("#reDekornButton").css("display","inline-block");
 							
+							if(isPass){
+								if(round>=maxStage){
+									$("#nextButton").css("background-color","RGBA(92,101,110,1)");
+								}else{
+
+									outThis.setNext("setHighLight");
+									outThis.nextData({
+										selector:"#nextButton"
+									});
+									outThis.next();
+								}						
+							}else{
+								outThis.setNext("setHighLight");
+								outThis.nextData({
+									selector:"#reDekornButton"
+								});
+								outThis.next();
+							}
+							
 						}
 						
 						if(round>=maxStage||stageStatus!=2||isPass!=1){
-							$("#nextButton").addClass("gray");
 							outThis.flowData({
 								nextEnable:0
 							});
 						}else{
-							$("#nextButton").removeClass("gray");
 							outThis.flowData({
 								nextEnable:1
 							});						
 						}
 						
 						if(round<=1){
-							$("#lastButton").addClass("gray");
 							outThis.flowData({
 								lastEnable:0
 							});
 						}else{
-							$("#lastButton").removeClass("gray");
 							outThis.flowData({
 								lastEnable:1
 							});			
