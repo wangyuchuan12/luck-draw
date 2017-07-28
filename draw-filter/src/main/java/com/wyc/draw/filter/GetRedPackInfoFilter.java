@@ -42,8 +42,6 @@ public class GetRedPackInfoFilter extends Filter{
 	@Override
 	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		
-		
-		System.out.println("getRedPacketInfoFilter");
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
 		VieDrawInfoParam vieDrawInfoParam = (VieDrawInfoParam)filterManager.getObject(VieDrawInfoParam.class);
 		String id = vieDrawInfoParam.getRedPacketId();
@@ -176,9 +174,6 @@ public class GetRedPackInfoFilter extends Filter{
 				redPacketVo.setIsGiveEntryFee(0);
 			}
 		}
-		
-		
-		System.out.println(".................redPacketVo:"+redPacketVo);
 		return redPacketVo;
 	}
 

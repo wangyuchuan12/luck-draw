@@ -111,4 +111,9 @@ public class PlugController {
 	public String alertPlug(HttpServletRequest httpServletRequest){
 		return "plug/alertPlug";
 	}
+	
+	@RequestMapping(value="rankRewardPlug")
+	public String rankRewardPlug(HttpServletRequest httpServletRequest){
+		return "plug/rankRewardPlug";
+	}
 }

@@ -29,10 +29,22 @@ public class BattleService {
 	}
 
 	public void add(Battle battle) {
+		
+		System.out.println("addd.........");
 		battle.setId(UUID.randomUUID().toString());
 		battle.setUpdateAt(new DateTime());
 		battle.setCreateAt(new DateTime());
 		
 		battleRepository.save(battle);
+		
+		
+	}
+
+	public void update(Battle battle) {
+		System.out.println("update.........");
+		battle.setUpdateAt(new DateTime());
+		
+		battleRepository.save(battle);
+		
 	}
 }

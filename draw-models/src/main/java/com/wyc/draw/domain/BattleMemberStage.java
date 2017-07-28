@@ -76,6 +76,11 @@ public class BattleMemberStage {
 	@Column(name="consume_bean")
 	private Integer consumeBean;
 	
+	//重新挑战消耗砖石
+	@ParamAnnotation
+	@Column(name="retakepart_consume_masonry")
+	private Integer retakepartConsumeMasonry;
+	
 	//是否查看了答案
 	@ParamAnnotation
 	@Column(name="is_read_result")
@@ -352,6 +357,14 @@ public class BattleMemberStage {
 
 	public void setIsReadResult(Integer isReadResult) {
 		this.isReadResult = isReadResult;
+	}
+
+	public Integer getRetakepartConsumeMasonry() {
+		return retakepartConsumeMasonry;
+	}
+
+	public void setRetakepartConsumeMasonry(Integer retakepartConsumeMasonry) {
+		this.retakepartConsumeMasonry = retakepartConsumeMasonry;
 	}
 
 	public DateTime getCreateAt() {

@@ -120,6 +120,10 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 					battleMemberService.update((BattleMember)object);
 				}else if(object.getClass().equals(BattleToMember.class)){
 					battleToMemberService.update((BattleToMember)object);
+				}else if(object.getClass().equals(Battle.class)){
+					
+					Battle battle = (Battle)object;
+					battleService.update(battle);
 				}
 			}
 		}

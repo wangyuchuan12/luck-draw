@@ -55,8 +55,6 @@ public class QuestionApi {
 		
 		List<QuestionAnswer> questionAnswers = questionAnswerService.findAllByPaperIdAndDrawUserIdAndIsDel(paperId,drawUser.getId(),0);
 		
-		System.out.println(".........qustionAnswers:"+questionAnswers);
-		
 		Map<String, QuestionAnswer>  questionAnswerMap = new HashMap<>();
 		
 		for(QuestionAnswer questionAnswer:questionAnswers){

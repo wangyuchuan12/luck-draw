@@ -56,7 +56,6 @@ public class GameWebConfig extends WebMvcConfigurerAdapter{
 	@Primary
     @Bean
     public DispatcherServlet dispatcherServlet() {
-		System.out.println("................gameDispatcherServlet");
         return new DispatcherServlet();
     }
     

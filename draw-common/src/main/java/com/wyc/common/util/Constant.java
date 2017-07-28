@@ -288,4 +288,31 @@ public class Constant {
 	
 	//结束状态
 	public static final int BATTLE_MODEL_TO_DRAWUSER_END=2;
+	
+	
+	/*************************Battle状态************************/
+	
+	//游离状态
+	public static final int BATTLE_STATUS_FREE = 0;
+	
+	//进行中
+	public static final int BATTLE_STATUS_IN = 1;
+	
+	//超时
+	public static final int BATTLE_STATUS_TIMEOUT = 2;
+	
+	//完成
+	public static final int BATTLE_STATUS_SUCCESS = 3;
+	
+	
+	/*************************BattleReward状态************************/
+	
+	//未分配
+	public static final int BATTLE_REWARD_STATUS_FRESS=0;
+	
+	//已分配，未领取
+	public static final int BATTLE_REWARD_STATUS_IN=1;
+	
+	//已领取
+	public static final int BATTLE_REWARD_STATUS_SUCCESS=2;
 }

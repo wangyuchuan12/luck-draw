@@ -48,7 +48,6 @@ public class BattleRankInfoFilter extends Filter{
 	@Override
 	public Object handlerAfter(SessionManager sessionManager){
 		try{
-			System.out.println("...................handlerAfter");
 		}catch(Exception e){
 			
 		}

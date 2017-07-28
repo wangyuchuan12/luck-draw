@@ -56,7 +56,6 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 	@Primary
     @Bean
     public DispatcherServlet dispatcherServlet() {
-		System.out.println("................drawDispatcherServlet");
         return new DispatcherServlet();
     }
     

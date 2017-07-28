@@ -7,9 +7,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.MyLongDateFormat;
 import com.wyc.draw.domain.Battle;
 import com.wyc.draw.domain.BattleMember;
 import com.wyc.draw.domain.BattleRank;
@@ -18,11 +21,15 @@ import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.BattleInfoFilter;
 import com.wyc.draw.filter.BattleRankInfoFilter;
 import com.wyc.draw.filter.BattleRankMemberListFilter;
+import com.wyc.draw.filter.BattleReceiveRewardsFilter;
+import com.wyc.draw.filter.BattleTimeoutCheckFilter;
 import com.wyc.draw.filter.CurrentBattleMemberFilter;
 import com.wyc.draw.vo.BattleRankMemberListVo;
 
 public class BattleInfoApiFilter extends Filter{
 
+	@Autowired
+	private MyLongDateFormat mySimpleDateFormat;
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		
@@ -54,6 +61,9 @@ public class BattleInfoApiFilter extends Filter{
 		data.put("takepartCount", battle.getTakepartCount());
 		data.put("title", battle.getTitle());
 		data.put("type", battle.getType());
+		data.put("beginDate", mySimpleDateFormat.format(battle.getBeginDate().toDate()));
+		data.put("timeLong", battle.getTimeLong());
+		
 		
 		BattleRankMemberListVo battleRankMemberListVo = sessionManager.getObject(BattleRankMemberListVo.class);
 		data.put("rankMembers", battleRankMemberListVo.getBattleRankMembers());
@@ -92,6 +102,10 @@ public class BattleInfoApiFilter extends Filter{
 		classes.add(BattleRankMemberListFilter.class);
 		classes.add(BattleRankInfoFilter.class);
 		//classes.add(BattleMemberOfNumFilter.class);
+		classes.add(BattleTimeoutCheckFilter.class);
+		
+		classes.add(BattleReceiveRewardsFilter.class);
+		
 		return classes;
 	}
 

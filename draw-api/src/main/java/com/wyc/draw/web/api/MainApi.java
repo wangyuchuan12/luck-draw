@@ -204,8 +204,6 @@ public class MainApi {
 			return resultVo;
 		}else{
 			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
-			
-			System.out.println("......resultVo:"+resultVo);
 			return resultVo;
 		}
 	}

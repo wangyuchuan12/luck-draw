@@ -53,12 +53,8 @@ public class BattleStageRebuildFilter extends Filter{
 		if(score==null){
 			score = 0;
 		}
-		System.out.println("..........score:"+score);
 		score = score-battleMemberStage.getScore();
 		battleMember.setScore(score);
-		
-		System.out.println("...............score:"+score);
-		
 		sessionManager.update(battleMember);
 		
 		PaperAnswer paperAnswer = paperAnswerService.findOneByKeyIdAndPaperIdAndIsDel(battleMember.getId()+"_"+stage, battleMemberStage.getPaperId(), 0);

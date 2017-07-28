@@ -82,6 +82,10 @@
 						</ul>
 					</div>
 					
+					<div class="luck_info_situation" style="padding-bottom: 100px;background-color: RGBA(0,0,0,0);border-top:0px solid;">
+						<div class="luck_info_situation_time" style="color: RGBA(248,241,210,1);">剩余<b id="luck_info_hour">00</b><b id="luck_info_min">00</b><b id="luck_info_second">00</b> 结束</div>
+					</div>
+					
 					<!--  
 						<div class="redPacketBar">
 							<ul>
@@ -131,6 +135,7 @@
 					-->
 				</ul>
 			</div>
+			
 			
 			
 			<div style="display: none;position: absolute;bottom: 100px;width:40%;height: 50px;background: url('http://onluguho9.bkt.clouddn.com/btn-red2.png');background-size:100% 100%;margin: 0 auto;text-align: center;font-size: 20px;color: white;padding-top: 10px;left:30%;" id="startButton">开始</div>
@@ -359,7 +364,31 @@
 				this.setNext("battleInfo");
 				this.next();
 				
+				
+				
+				var rewardPlug = new LayerPlug("/view/plug/rankRewardPlug",0.9,0.5,"",function(){},
+						[{
+							text:"你好",
+							click:function(){
+								rewardPlug.close();
+							}
+						}]);
 			
+			},
+			
+			initTime:function(){
+				var callback = new Object();
+				callback.end = function(){
+					
+				}
+				var handTime = this.stepData("beginDate");
+				
+				console.log("handTime:"+handTime);
+				
+				var timeLong = this.stepData("timeLong");
+				
+				handTime = handTime.replace(/-/g,"/");
+				initGroupInvalidDate(new Date(handTime),timeLong,".luck_info_situation_time",callback);
 			},
 			
 			//初始化整个地图的样式
@@ -551,6 +580,19 @@
 						var thisMember = data.thisMember;
 						
 						var indexCount = data.stageIndexCount;
+						
+						var beginDate = data.beginDate;
+						
+						var timeLong = data.timeLong;
+						
+						
+						outThis.setNext("initTime");
+						outThis.nextData({
+							beginDate:beginDate,
+							timeLong:timeLong
+						});
+						
+						outThis.next();
 						
 						outThis.flowData({
 							indexCount:indexCount

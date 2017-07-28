@@ -1,20 +1,28 @@
 package com.wyc.draw.filter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.Battle;
 import com.wyc.draw.domain.BattleModel;
+import com.wyc.draw.domain.BattleModelReward;
 import com.wyc.draw.domain.BattleModelStage;
 import com.wyc.draw.domain.BattleModelStageIndex;
+import com.wyc.draw.domain.BattleReward;
 import com.wyc.draw.domain.BattleStage;
 import com.wyc.draw.domain.BattleStageIndexDetail;
 import com.wyc.draw.domain.DrawUser;
+import com.wyc.draw.service.BattleModelRewardService;
 import com.wyc.draw.service.BattleModelService;
 import com.wyc.draw.service.BattleModelStageIndexService;
 import com.wyc.draw.service.BattleModelStageService;
+import com.wyc.draw.service.BattleRewardService;
 import com.wyc.draw.service.BattleService;
 import com.wyc.draw.service.BattleStageIndexDetailService;
 import com.wyc.draw.service.BattleStageService;
@@ -38,8 +46,17 @@ public class BattleCreaterByModelFilter extends Filter{
 	
 	@Autowired
 	private BattleStageIndexDetailService battleStageIndexDetailService;
+	
+	@Autowired
+	private BattleModelRewardService battleModelRewardService;
+	
+	@Autowired
+	private BattleRewardService battleRewardService;
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
+		
+		HttpServletRequest httpServletRequest = sessionManager.getHttpServletRequest();
+
 		String modelId = (String)sessionManager.getAttribute("modelId");
 		
 		DrawUser drawUser = sessionManager.getObject(DrawUser.class);
@@ -77,6 +94,10 @@ public class BattleCreaterByModelFilter extends Filter{
 		battle.setCreaterDrawUserId(drawUser.getId());
 		battle.setStageCount(battleModel.getStageCount());
 		battle.setStageIndexCount(battleModel.getStageIndexCount());
+		battle.setBeginDate(new DateTime());
+		battle.setTimeLong(24);
+		battle.setStatus(Constant.BATTLE_STATUS_FREE);
+		battle.setIsReceiveReward(0);
 		
 		battleService.add(battle);
 		for(BattleModelStage battleModelStage:battleModelStages){
@@ -93,6 +114,7 @@ public class BattleCreaterByModelFilter extends Filter{
 			battleStage.setImgUrl(battleModelStage.getImgUrl());
 			battleStage.setName(battleModelStage.getName());
 			battleStage.setConsumeBean(battleModelStage.getConsumeBean());
+			battleStage.setRetakepartConsumeMasonry(battleModelStage.getRetakepartConsumeMasonry());
 			battleStageService.add(battleStage);
 		}
 		
@@ -111,6 +133,22 @@ public class BattleCreaterByModelFilter extends Filter{
 			
 			battleStageIndexDetailService.add(battleStageIndexDetail);
 		}
+		
+		List<BattleModelReward> battleModelRewards = battleModelRewardService.findAllByModelIdAndIsDel(modelId,0);
+		
+		for(BattleModelReward battleModelReward:battleModelRewards){
+			BattleReward battleReward = new BattleReward();
+			battleReward.setBattleId(battle.getId());
+			battleReward.setRank(battleModelReward.getRank());
+			battleReward.setRewardBean(battleModelReward.getRewardBean());
+			battleReward.setRewardLove(battleModelReward.getRewardLove());
+			battleReward.setRewardMasonry(battleModelReward.getRewardMasonry());
+			battleReward.setRewardMoney(battleModelReward.getRewardMoney());
+			battleReward.setStatus(Constant.BATTLE_REWARD_STATUS_FRESS);
+			battleReward.setIsDel(0);
+			battleRewardService.add(battleReward);
+		}
+		
 		return battle;
 	}
 

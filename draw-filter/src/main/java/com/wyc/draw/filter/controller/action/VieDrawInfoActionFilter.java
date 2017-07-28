@@ -20,7 +20,6 @@ public class VieDrawInfoActionFilter extends Filter{
 
 	@Override
 	public Object handlerFilter(SessionManager filterManager) throws Exception {
-		System.out.println("...............VieDrawInfoActionFilter");
 		return null;
 	}
 

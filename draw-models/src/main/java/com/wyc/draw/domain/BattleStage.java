@@ -86,6 +86,11 @@ public class BattleStage {
 	@Column(name="consume_bean")
 	private Integer consumeBean;
 	
+	//重新挑战消耗砖石
+	@ParamAnnotation
+	@Column(name="retakepart_consume_masonry")
+	private Integer retakepartConsumeMasonry;
+	
 	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -200,6 +205,16 @@ public class BattleStage {
 
 	public void setConsumeBean(Integer consumeBean) {
 		this.consumeBean = consumeBean;
+	}
+	
+	
+
+	public Integer getRetakepartConsumeMasonry() {
+		return retakepartConsumeMasonry;
+	}
+
+	public void setRetakepartConsumeMasonry(Integer retakepartConsumeMasonry) {
+		this.retakepartConsumeMasonry = retakepartConsumeMasonry;
 	}
 
 	public DateTime getCreateAt() {

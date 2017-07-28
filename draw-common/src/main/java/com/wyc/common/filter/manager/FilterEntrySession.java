@@ -83,14 +83,10 @@ public class FilterEntrySession {
 	
 	
 	private void executeHandle(FilterEntry filterEntry)throws Exception{
-		
-		System.out.print(filterEntry.getFilter().getClass());
 		if(isExecuteAble(filterEntry)){
 			FilterEntryHandler filterEntryHandler = new FilterEntryHandler(filterEntry, sessionManager,filterEntryManager);
 			filterEntryHandler.executeHandler();
-			System.out.print(","+filterEntry.getFilter().getClass());
 		}
-		System.out.println();
 	}
 	
 	private boolean isExecuteAble(FilterEntry filterEntry){

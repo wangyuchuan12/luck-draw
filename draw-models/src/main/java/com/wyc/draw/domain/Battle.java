@@ -83,6 +83,7 @@ public class Battle {
 	@Column(name="bean_consume")
 	private Integer beanConsume;
 	
+
 	@ParamAnnotation
 	@Column
 	private String code;
@@ -101,6 +102,33 @@ public class Battle {
 	@ParamAnnotation
 	@Column(name="creater_draw_user_id")
 	private String createrDrawUserId;
+	
+	//是否领取奖励
+	@ParamAnnotation
+	@Column(name="is_receive_reward")
+	private Integer isReceiveReward;
+	
+	
+	@ParamAnnotation
+	@Column(name = "begin_date")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime beginDate;
+	
+	
+	@ParamAnnotation
+	@Column(name = "end_date")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime endDate;
+	
+	@ParamAnnotation
+	@Column(name = "time_long")
+	private Integer timeLong;
+	
+	
+	//0游离状态 1正在进行中 2超时 3全部完成
+	@ParamAnnotation
+	@Column
+	private Integer status;
 
 	@ParamAnnotation
 	@Column(name = "create_at")
@@ -263,6 +291,47 @@ public class Battle {
 	public void setStageIndexCount(Integer stageIndexCount) {
 		this.stageIndexCount = stageIndexCount;
 	}
+
+	public DateTime getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(DateTime beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public DateTime getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(DateTime endDate) {
+		this.endDate = endDate;
+	}
+
+	public Integer getTimeLong() {
+		return timeLong;
+	}
+
+	public void setTimeLong(Integer timeLong) {
+		this.timeLong = timeLong;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Integer getIsReceiveReward() {
+		return isReceiveReward;
+	}
+
+	public void setIsReceiveReward(Integer isReceiveReward) {
+		this.isReceiveReward = isReceiveReward;
+	}
+	
 
 	public DateTime getCreateAt() {
 		return createAt;

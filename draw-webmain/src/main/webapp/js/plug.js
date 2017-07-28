@@ -996,7 +996,7 @@ function FlowPlug(funs){
 	}
 }
 
-function LayerPlug(url,w,h,loadContent,fun){
+function LayerPlug(url,w,h,loadContent,fun,btns){
 	var borderRadius = 20;
 	if(w==1){
 		borderRadius = 0;
@@ -1014,6 +1014,17 @@ function LayerPlug(url,w,h,loadContent,fun){
 	
 	var style;
 	
+	var btnArray;
+	
+	if(btns)
+	{
+		btnArray = new Array();
+		for(var i = 0;i<btns.length;i++){
+			var btn = btns[i];
+			btnArray.push(btn.text);
+		}
+	}
+	
 	style='background-color:RGBA(0,0,0,0);border-radius:'+borderRadius+'px;border: none;';
 	this.load = function(url,width,height,loadContent){
 		outThis.plugLayer = layer.open({
@@ -1026,6 +1037,22 @@ function LayerPlug(url,w,h,loadContent,fun){
 			fadeIn:1000,
 			shift:10,
 			closeBtn:1,
+			btn:btnArray,
+			yes:function(){
+				btns[0].click();
+			},
+			no:function(){
+				btns[1].click();
+			},
+			btn2:function(){
+				alert("btn2");
+			},
+			btn3:function(){
+				alert("btn3");
+			},
+			btn4:function(){
+				alert("btn4");
+			},
 			shadeClose:false,
 			shade:true,
 			success:function(){

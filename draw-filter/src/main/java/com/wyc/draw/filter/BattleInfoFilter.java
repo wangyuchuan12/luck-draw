@@ -1,23 +1,17 @@
 package com.wyc.draw.filter;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.Battle;
-import com.wyc.draw.service.BattleService;
 
 public class BattleInfoFilter extends Filter{
 
-	@Autowired
-	private BattleService battleService;
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		String battleId = (String)sessionManager.getAttribute("battleId");
 		
-		Battle battle = battleService.findOne(battleId);
+		Battle battle = sessionManager.findOne(Battle.class, battleId);
 		
 		return battle;
 	}

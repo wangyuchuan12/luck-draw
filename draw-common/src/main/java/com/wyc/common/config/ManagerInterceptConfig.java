@@ -82,7 +82,6 @@ public class ManagerInterceptConfig {
 	
 	public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
 		 Method method = getControllerMethod(proceedingJoinPoint);
-		 System.out.println("method:"+method.getName());
 		 Object returnValue = null;
 		 HttpServletRequest httpServletRequest = (HttpServletRequest)proceedingJoinPoint.getArgs()[0];		 
 		 HandlerAnnotation handlerAnnotation2 = method.getAnnotation(HandlerAnnotation.class);
@@ -131,9 +130,6 @@ public class ManagerInterceptConfig {
 							 httpServletRequest.setAttribute(key, value);
 						 }
 					 }
-					 
-					 
-					 System.out.println("。。。。。。。。。。。。。。。。。。。。。。。这里进来了");
 					 return filterManager.getReturnValue();
 				 }
 				 

@@ -29,7 +29,8 @@ public class MainController {
 	@HandlerAnnotation(hanlerFilter=CurrentBattleModelToDrawUserApiFilter.class)
 	@RequestMapping(value="currentBattle")
 	public String currentBattle(HttpServletRequest httpServletRequest)throws Exception{
-		
+
+		System.out.println("...............currentBattle2");
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
 		
