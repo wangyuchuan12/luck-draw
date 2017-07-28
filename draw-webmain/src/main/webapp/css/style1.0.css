@@ -4049,7 +4049,7 @@ li::before{
 	width: 100%;
 	text-align: center;
 	
-	background: RGBA(173,208,49,1);
+	background: RGBA(173,208,49,0.2);
 	
 	height: 55px;
 }
@@ -4074,7 +4074,7 @@ li::before{
 .mainViewFooterButtonTitle{
 	vertical-align: top;
 	width:100%;
-	color: black;
+	color: white;
 	font-weight: bolder;
 	font-size: 15px;
 	text-align: center;
@@ -4753,8 +4753,16 @@ li::before{
 	font-size: 20px;
 	
 	font-weight: bolder;
-	
-	text-align: center;
-	
-	padding-top: 40px;
+}
+
+.rankRewardPlug>ul{
+	margin: 0 auto;
+	position: relative;
+	padding-top: 30px;
+}
+
+.rankRewardPlug>ul>li{
+	width:200px;
+	position: relative;
+	font-size: 25px;
 }

@@ -16,7 +16,16 @@
 
 <link rel="stylesheet" href="/css/style1.0.css"/>
 
+<link rel="stylesheet" href="/css/core.css"/>
+
+<script src="/js/plug.js"></script>
+
+<script src="/util/flowJS.js"></script>
+
+<script type="text/javascript" src="/js/myscript1.0.js"></script>
+
 <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
 

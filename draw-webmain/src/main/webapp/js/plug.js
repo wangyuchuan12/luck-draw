@@ -1169,3 +1169,10 @@ function MsgPlug(msg,time){
 		skin:'msg'
 	});
 }
+
+function toLeftCenter(selector){
+	var div = $(selector);
+	var parent = div.parent();
+	
+	div.css("left",((parent.width()-div.width())/2)+"px");
+}

@@ -365,17 +365,27 @@
 				this.next();
 				
 				
+				this.setNext("initRankRewardPlug");
+				this.next();
 				
-				var rewardPlug = new LayerPlug("/view/plug/rankRewardPlug",0.9,0.5,"",function(){},
+			
+			},
+			
+			
+			initRankRewardPlug:function(){
+				var battleId = this.flowData("currentBattleId");
+				var rewardPlug = new LayerPlug("/view/plug/rankRewardPlug",0.9,0.5,"",
+						function(){
+							rewardPlug.call("init",battleId);
+						},
 						[{
-							text:"你好",
+							text:"确定",
 							click:function(){
 								rewardPlug.close();
 							}
 						}]);
-			
+				
 			},
-			
 			initTime:function(){
 				var callback = new Object();
 				callback.end = function(){
