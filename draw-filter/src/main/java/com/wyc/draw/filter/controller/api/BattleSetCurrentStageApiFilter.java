@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
@@ -13,18 +12,14 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.BattleMember;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.CurrentBattleMemberFilter;
-import com.wyc.draw.service.BattleMemberService;
 
 public class BattleSetCurrentStageApiFilter extends Filter{
-	
-	@Autowired
-	private BattleMemberService battleMemberService;
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		Integer stage = (Integer)sessionManager.getAttribute("stage");
 		BattleMember battleMember = (BattleMember)sessionManager.getObject(BattleMember.class);
 		battleMember.setCurrentStageIndex(stage);
-		battleMemberService.update(battleMember);
+		sessionManager.update(battleMember);
 		
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);

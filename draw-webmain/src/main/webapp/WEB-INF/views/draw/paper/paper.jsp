@@ -81,7 +81,7 @@
 								setTimeout(function(){
 									outThis.setNext("initLayPlug");
 									outThis.next();
-								},1000);
+								},10);
 							});
 							paperFlowPlug.nextData({
 								paperId:paperId
@@ -126,7 +126,7 @@
 									index:question.index,
 									imgUrl:question.imgUrl,
 									options:options,
-									question:"这是一个设呢问题呢？",
+									question:question.question,
 									id:question.id,
 									rightOptionId:question.rightOptionId
 								});

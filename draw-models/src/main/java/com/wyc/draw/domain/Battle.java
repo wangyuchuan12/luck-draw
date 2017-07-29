@@ -19,7 +19,7 @@ import com.wyc.annotation.ParamEntityAnnotation;
  * @author root
  *
  */
-@ParamEntityAnnotation
+@ParamEntityAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 @Entity
 @Table(name="b_battle")
 public class Battle {
@@ -27,116 +27,116 @@ public class Battle {
 	@IdAnnotation
 	private String id;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="model_id")
 	private String modelId;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="paper_id")
 	private String paperId;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column
 	private Integer type;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column
 	private String name;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column
 	private String instruction;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="img_url")
 	private String imgUrl;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column
 	private String title;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="user_imgs")
 	private String userImgs;
 	
 	//总参与人数
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="takepart_count")
 	private Integer takepartCount;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="subject_id")
 	private String subjectId;
 	
 	//消耗爱心数量
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="love_life_consume")
 	private Integer loveLifeConsume;
 	
 	//赋予爱心数量
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="love_life_give")
 	private Integer loveLifeGive;
 	
 	//消耗豆子数量
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="bean_consume")
 	private Integer beanConsume;
 	
 
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column
 	private String code;
 	
 	//阶段数量
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="stage_count")
 	private Integer stageCount;
 	
 	//节点数量
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="stage_index_count")
 	private Integer stageIndexCount;
 	
 	//创建人，引用drawUserId
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="creater_draw_user_id")
 	private String createrDrawUserId;
 	
 	//是否领取奖励
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name="is_receive_reward")
 	private Integer isReceiveReward;
 	
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name = "begin_date")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime beginDate;
 	
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name = "end_date")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime endDate;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name = "time_long")
 	private Integer timeLong;
 	
 	
 	//0游离状态 1正在进行中 2超时 3全部完成
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column
 	private Integer status;
 
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime createAt;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.CONTEXT_TYPE)
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore

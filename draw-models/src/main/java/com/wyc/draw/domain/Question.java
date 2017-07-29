@@ -74,6 +74,10 @@ public class Question {
 	@Column(name="z_index")
 	private Integer index;
 	
+	@ParamAnnotation
+	@Column
+	private String instruction;
+	
 	@Column(name = "create_at")
 	@ParamAnnotation
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -198,5 +202,13 @@ public class Question {
 
 	public void setIndex(Integer index) {
 		this.index = index;
+	}
+
+	public String getInstruction() {
+		return instruction;
+	}
+
+	public void setInstruction(String instruction) {
+		this.instruction = instruction;
 	}
 }

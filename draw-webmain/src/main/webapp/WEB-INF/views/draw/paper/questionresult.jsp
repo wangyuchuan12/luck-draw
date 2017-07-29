@@ -33,9 +33,9 @@
 					</ul>
 				</div>
 			
-				<div class="questionResultTitle">答案解析</div>
+				<div class="questionResultTitle" id="questionResultTitle">答案解析</div>
 				
-				<div class="questionResultContent">你是万王之王，万主之主，万人都要来称谢你，哈哈哈哈,你是万王之王，万主之主，万人都要来称谢你，哈哈哈哈,你是万王之王，万主之主，万人都要来称谢你，哈哈哈哈</div>
+				<div class="questionResultContent" id="questionResultContent"></div>
 			</div>
 		</div>
 
@@ -124,7 +124,8 @@
 								question:data.question,
 								options:data.options,
 								rightOptionId:data.rightOptionId,
-								checkOptionId:data.checkOptionId
+								checkOptionId:data.checkOptionId,
+								instruction:data.instruction
 							});
 							outThis.next();
 							
@@ -143,9 +144,13 @@
 						var options = this.stepData("options");
 						var rightOptionId = this.stepData("rightOptionId");
 						var checkOptionId = this.stepData("checkOptionId");
+						var instruction = this.stepData("instruction");
 						$("#subjectHeaderImg img").attr("src",imgUrl);
 						$("#questionContent").text(question);
+						$("#questionResultContent").text(instruction);
 						$("#subjectOption>ul>li").remove();
+						
+						
 						for(var i = 0;i<options.length;i++){
 							var liDiv = $("<li>"+options[i].content+"</li>");
 							$("#subjectOption>ul").append(liDiv);
@@ -156,6 +161,14 @@
 							if(options[i].id==rightOptionId){
 								liDiv.css("background-color","green");
 							}
+						}
+						
+						if(instruction){
+							$("#questionResultTitle").css("display","block");
+							$("#questionResultContent").css("display","block");
+						}else{
+							$("#questionResultTitle").css("display","none");
+							$("#questionResultContent").css("display","none");
 						}
 						
 					}

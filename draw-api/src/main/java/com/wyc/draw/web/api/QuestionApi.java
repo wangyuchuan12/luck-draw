@@ -93,6 +93,7 @@ public class QuestionApi {
 			responseQuestion.put("isImg", question.getIsImg());
 			responseQuestion.put("paperId", question.getPaperId());
 			responseQuestion.put("question", question.getQuestion());
+			responseQuestion.put("instruction", question.getInstruction());
 			responseQuestion.put("rightOptionId", question.getRightOptionId());
 			if(questionAnswer!=null){
 				responseQuestion.put("checkOptionId", questionAnswer.getCheckOptionId());

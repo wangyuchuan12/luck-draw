@@ -19,7 +19,7 @@ import com.wyc.annotation.ParamEntityAnnotation;
  * @author root
  *
  */
-@ParamEntityAnnotation
+@ParamEntityAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 @Entity
 @Table(name="b_battle_member")
 public class BattleMember {
@@ -27,94 +27,94 @@ public class BattleMember {
 	@IdAnnotation
 	private String id;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="battle_id")
 	private String battleId;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="head_img")
 	private String headImg;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column
 	private String nickname;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="draw_user_id")
 	private String drawUserId;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column
 	private String imgs;
 	
 	//状态 0表示待开始 1表示进行中 2表示已完成 3表示异常结束
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column
 	private Integer status;
 	
 	//分数
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column
 	private Integer score;
 	
 	//阶段序号，表示第几阶段
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="current_stage_index")
 	private Integer currentStageIndex;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="current_stage_score")
 	private Integer currentStageScore;
 	
 	//当前题目序号
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="current_index")
 	private Integer currentIndex;
 	
 	//总阶段数量
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="stage_index_count")
 	private Integer stageIndexCount;
 	
 	//总题目数量
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="index_count")
 	private Integer indexCount;
 	
 	//剩余爱心数量
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="love_life")
 	private Integer loveLife;
 	
 	
 	//爱心总数
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="love_life_limit")
 	private Integer loveLifeLimit;
 	
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="reward_bean_num")
 	private Integer rewardBeanNum;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="takepart_time")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime takepartTime;
 	
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name="end_time")
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime endTime;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime createAt;
 	
-	@ParamAnnotation
+	@ParamAnnotation(type=ParamEntityAnnotation.SESSION_TYPE)
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore

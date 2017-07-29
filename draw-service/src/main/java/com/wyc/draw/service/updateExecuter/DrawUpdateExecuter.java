@@ -161,6 +161,11 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 			T obj = (T)battleService.findOne(id);
 			return obj;
 		}
+		
+		if(clazz.equals(BattleMember.class)){
+			T obj = (T)battleMemberService.findOne(id);
+			return obj;
+		}
 
 		return null;
 	}

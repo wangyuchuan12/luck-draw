@@ -34,7 +34,7 @@
 								<div>
 									<span>简介：</span>
 									<span id="battleInfoInstruction">
-										这是最强的大脑，大脑的极限是什么，大脑有什么租用谁说的东方闪电水电费水电费是的第三方斯蒂芬斯蒂芬水电费水电费水电费是的放水电费水电费水电费水电费
+										
 									</span>
 								</div>						
 							</div>
@@ -365,9 +365,6 @@
 				this.next();
 				
 				
-				this.setNext("initRankRewardPlug");
-				this.next();
-				
 			
 			},
 			
@@ -595,6 +592,16 @@
 						
 						var timeLong = data.timeLong;
 						
+						var status = data.status;
+						
+						outThis.flowData({
+							currentBattleId:data.id
+						});
+						
+						if(status==0||status==1){
+							outThis.setNext("initRankRewardPlug");
+							outThis.next();
+						}
 						
 						outThis.setNext("initTime");
 						outThis.nextData({
@@ -793,7 +800,7 @@
 				params.stage = stage;
 				params.battleId = battleId;
 				
-				request(url,callback,params)
+				request(url,callback,params);
 			},
 			
 			dekornHandle:function(){

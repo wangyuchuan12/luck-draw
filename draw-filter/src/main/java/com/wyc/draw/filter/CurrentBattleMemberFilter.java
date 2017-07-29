@@ -10,7 +10,6 @@ import com.wyc.draw.domain.BattleMember;
 import com.wyc.draw.domain.BattleToMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.service.BattleMemberService;
-import com.wyc.draw.service.BattleService;
 import com.wyc.draw.service.BattleStageService;
 import com.wyc.draw.service.BattleToMemberService;
 
@@ -25,9 +24,6 @@ public class CurrentBattleMemberFilter extends Filter{
 	@Autowired
 	private BattleStageService battleStageService;
 	
-	@Autowired
-	private BattleService battleService;
-	
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		DrawUser drawUser = sessionManager.getObject(DrawUser.class);
@@ -38,7 +34,7 @@ public class CurrentBattleMemberFilter extends Filter{
 		
 		if(battleToMember==null){
 			
-			Battle battle = battleService.findOne(battleId);
+			Battle battle = sessionManager.findOne(Battle.class, battleId);
 			battleMember = new BattleMember();
 			battleMember.setBattleId(battleId);
 			battleMember.setDrawUserId(drawUser.getId());
@@ -63,7 +59,7 @@ public class CurrentBattleMemberFilter extends Filter{
 			battleToMember = battleToMemberService.add(battleToMember);
 	
 		}else {
-			battleMember = battleMemberService.findOne(battleToMember.getCurrentMemberId());
+			battleMember = sessionManager.findOne(BattleMember.class, battleToMember.getCurrentMemberId());
 		}
 		
 		sessionManager.save(battleMember);

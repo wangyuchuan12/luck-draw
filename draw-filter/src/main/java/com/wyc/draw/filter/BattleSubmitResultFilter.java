@@ -12,7 +12,6 @@ import com.wyc.draw.domain.BattleMember;
 import com.wyc.draw.domain.BattleMemberIndex;
 import com.wyc.draw.domain.BattleMemberStage;
 import com.wyc.draw.domain.BattleRankMember;
-import com.wyc.draw.service.BattleMemberService;
 import com.wyc.draw.service.BattleMemberStageIndexService;
 import com.wyc.draw.service.BattleMemberStageService;
 import com.wyc.draw.service.BattleRankMemberService;
@@ -24,8 +23,6 @@ public class BattleSubmitResultFilter extends Filter{
 	@Autowired
 	private BattleMemberStageService battleMemberStageService;
 	
-	@Autowired
-	private BattleMemberService battleMemberService;
 	
 	@Autowired
 	private BattleRankMemberService battleRankMemberService;
@@ -96,7 +93,8 @@ public class BattleSubmitResultFilter extends Filter{
 			}
 			
 			battleMemberStageService.update(battleMemberStage);
-			battleMemberService.update(battleMember);
+			
+			sessionManager.update(battleMember);;
 			
 			battleRankMemberService.update(battleRankMember);
 			

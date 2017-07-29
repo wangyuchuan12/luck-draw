@@ -63,7 +63,7 @@ public class BattleInfoApiFilter extends Filter{
 		data.put("type", battle.getType());
 		data.put("beginDate", mySimpleDateFormat.format(battle.getBeginDate().toDate()));
 		data.put("timeLong", battle.getTimeLong());
-		
+		data.put("status", battle.getStatus());
 		
 		BattleRankMemberListVo battleRankMemberListVo = sessionManager.getObject(BattleRankMemberListVo.class);
 		data.put("rankMembers", battleRankMemberListVo.getBattleRankMembers());
