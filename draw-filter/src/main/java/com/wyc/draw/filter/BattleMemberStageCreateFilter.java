@@ -64,6 +64,7 @@ public class BattleMemberStageCreateFilter extends Filter{
 			battleMemberStage.setImgUrl(battleStage.getImgUrl());
 			battleMemberStage.setName(battleStage.getName());
 			battleMemberStage.setConsumeBean(battleStage.getConsumeBean());
+			battleMemberStage.setRetakepartConsumeMasonry(battleStage.getRetakepartConsumeMasonry());
 			battleMemberStageService.add(battleMemberStage);
 			returnBattleMemberStages.add(battleMemberStage);
 			

@@ -1,7 +1,9 @@
 package com.wyc.draw.web.api;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,8 +30,28 @@ public class TestApi {
 	@Autowired
 	private UserSmartService userSmartService;
 	
+
 	@Autowired
 	private SendMessageService sendMessageService;
+	
+	
+	@ResponseBody
+	@RequestMapping(value="contextTest")
+	public Object contextTest(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("wyc", "4289912wang");
+		
+		sessionManager.rawSaveToRedis("wyc", map);
+		
+		Map<?, ?> vaue = (Map<?, ?>)sessionManager.rawGetByRedis("wyc",Map.class);
+		
+		return vaue;
+	}
+	
 	@HandlerAnnotation(hanlerFilter=BaseActionFilter.class)
 	@RequestMapping(value="userInfo")
 	public Object userInfo(HttpServletRequest httpServletRequest)throws Exception{

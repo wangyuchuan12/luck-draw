@@ -150,6 +150,8 @@
 								var stageStatus = battlePlug.flowPlug.flowData("stageStatus");
 								if(stageStatus==2){
 									//window.parent.startDekorn(battleId,parseInt(round)+1);
+								}else if(stageStatus==1){
+									window.parent.reStartDekorn(battleId,parseInt(round));
 								}else{
 									window.parent.startDekorn(battleId,parseInt(round));
 								}
@@ -459,6 +461,8 @@
 							});
 						}
 						
+						
+						//处在游离或者进行中状态
 						if(stageStatus==1||stageStatus==0){
 
 							outThis.setNext("setHighLight");

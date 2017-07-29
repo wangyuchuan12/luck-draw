@@ -5,9 +5,9 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wyc.common.smart.service.RedisService;
 import com.wyc.draw.domain.DekornToTakepartMember;
 import com.wyc.draw.repositories.DekornToTakepartMemberRepository;
-import com.wyc.draw.service.redis.RedisService;
 
 @Service
 public class DekornToTakepartMemberService{

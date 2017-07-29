@@ -1,4 +1,4 @@
-package com.wyc.draw.service.redis;
+package com.wyc.common.smart.service;
 
 import java.io.Serializable;
 import java.util.List;
@@ -77,9 +77,6 @@ public class RedisService {
 		return null;
 	}
 	
-	public void set(String key , Object value){
-		
-	}
 	
 	public void set(String key,String value,int liveTime){
 		this.set(key, value);

@@ -32,6 +32,12 @@ public class RewardVo {
 	
 	@ParamAnnotation
 	private BigDecimal subAmount;
+	
+	@ParamAnnotation
+	private Integer subMasonry;
+	
+	@ParamAnnotation
+	private Integer addMasonry;
 
 	public String getId() {
 		return id;
@@ -96,6 +102,21 @@ public class RewardVo {
 	public void setSubAmount(BigDecimal subAmount) {
 		this.subAmount = subAmount;
 	}
-	
+
+	public Integer getSubMasonry() {
+		return subMasonry;
+	}
+
+	public void setSubMasonry(Integer subMasonry) {
+		this.subMasonry = subMasonry;
+	}
+
+	public Integer getAddMasonry() {
+		return addMasonry;
+	}
+
+	public void setAddMasonry(Integer addMasonry) {
+		this.addMasonry = addMasonry;
+	}
 	
 }

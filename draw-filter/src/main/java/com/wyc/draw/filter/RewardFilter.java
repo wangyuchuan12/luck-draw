@@ -30,6 +30,7 @@ public class RewardFilter extends Filter{
 			Integer integral = account.getIntegral();
 			Integer loveLife = account.getLoveLife();
 			Long wisdomCount = account.getWisdomCount();
+			Integer masonryCount = account.getMasonry();
 			
 			BigDecimal amount = account.getAmountBalance();
 			
@@ -46,6 +47,17 @@ public class RewardFilter extends Filter{
 			
 			if(amount==null){
 				amount = new BigDecimal(0);
+			}
+			if(masonryCount==null){
+				masonryCount = 0;
+			}
+
+			
+			if(rewardVo.getSubMasonry()!=null){
+				masonryCount = masonryCount-rewardVo.getSubMasonry();
+			}
+			if(rewardVo.getAddMasonry()!=null){
+				masonryCount = masonryCount+rewardVo.getAddMasonry();
 			}
 			
 			if(rewardVo.getAddAmount()!=null){
@@ -91,11 +103,16 @@ public class RewardFilter extends Filter{
 			if(amount.intValue()<0){
 				amount = new BigDecimal(0);
 			}
+			
+			if(masonryCount<0){
+				masonryCount = 0;
+			}
 		
 			account.setAmountBalance(amount);
 			account.setIntegral(integral);
 			account.setLoveLife(loveLife);
 			account.setWisdomCount(wisdomCount);
+			account.setMasonry(masonryCount);
 			accountService.update(account);
 			
 			sessionManager.save(account);

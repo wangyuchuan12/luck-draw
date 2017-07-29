@@ -21,6 +21,7 @@ import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;
 import com.wyc.common.filter.Filter;
+import com.wyc.common.smart.service.RedisService;
 import com.wyc.common.util.CommonUtil;
 class Param{
 	private String type;
@@ -109,6 +110,10 @@ public class SessionManager {
 	
 	@Autowired
 	private DbServiceExecuter updateExecuter;
+	
+	@Autowired
+	private RedisService redisService;
+	
 
 //	private static final ThreadLocal<SessionManager> filterManagerThreadLocal = new ThreadLocal<>();
 	
@@ -116,6 +121,7 @@ public class SessionManager {
 	
 	final static Logger logger = LoggerFactory.getLogger(SessionManager.class);
 	
+	final static String CONTEXT_PREFIX = "/context";
 	
 	public void addNotExecuteFilterClass(Class<? extends Filter> filterClass){
 		notExecuteFilterClasses.add(filterClass);
@@ -254,8 +260,15 @@ public class SessionManager {
 	}
 	
 	public void rawSaveToContext(String key , Object value){
-	
 		servletContext.setAttribute(key, value);
+	}
+	
+	public void rawSaveToRedis(String key,Object value)throws Exception{
+		redisService.setObject(key, value);
+	}
+	
+	public Object rawGetByRedis(String key , Class<?> type){
+		return redisService.getObject(key, type);
 	}
 	
 	public void rawRemoveKeyByRequest(String key){

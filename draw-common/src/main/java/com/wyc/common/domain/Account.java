@@ -63,6 +63,11 @@ public class Account {
 	@ParamAnnotation
 	@Column(name="amount_balance")
 	private BigDecimal amountBalance;
+	
+	//砖石数量
+	@ParamAnnotation
+	@Column(name="masonry")
+	private Integer masonry;
 
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -138,5 +143,11 @@ public class Account {
 	}
 	public void setIntegral(Integer integral) {
 		this.integral = integral;
+	}
+	public Integer getMasonry() {
+		return masonry;
+	}
+	public void setMasonry(Integer masonry) {
+		this.masonry = masonry;
 	}
 }

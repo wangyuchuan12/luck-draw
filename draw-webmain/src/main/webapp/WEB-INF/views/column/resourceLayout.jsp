@@ -653,9 +653,9 @@
 								
 								beanLimit:data.wisdomLimit,
 								
-								masonryNum:30,
+								masonryNum:data.masonry,
 								
-								moneyNum:0.5
+								moneyNum:data.amountBalance
 							});
 							
 							outThis.success();
@@ -828,8 +828,16 @@
 				},
 				
 				subMasonryAction:function(){
+					
+					var outThis = this;
 					var num = this.stepData("num");
 					masonryProgressPlug.subValueAction(num);
+					
+					showIncreaseNum(num,"http://on3s1z2us.bkt.clouddn.com/masonry3.png",50,-80);
+					
+					setTimeout(function(){
+						outThis.success();
+					},5000);
 				},
 				
 				addMoneyAction:function(){
@@ -838,8 +846,15 @@
 				},
 				
 				subMoneyAction:function(){
+					var outThis = this;
 					var num = this.stepData("num");
 					moneyProgressPlug.subValueAction(num);
+					
+					showIncreaseNum(num,"http://otsnwem87.bkt.clouddn.com/2a5d913a968687eec03d21c1bb88aa36.png",50,0);
+					
+					setTimeout(function(){
+						outThis.success();
+					},5000);
 				},
 				
 				//增加动画

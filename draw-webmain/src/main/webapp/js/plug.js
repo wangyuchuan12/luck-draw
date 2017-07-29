@@ -514,24 +514,15 @@ function ProgressPlug(selectorProgress,selectorLabel,params){
 	}
 	
 	this.subValueAction = function(subValue){
-		var subNum;
-		if(!decimal||decimal==0){
-			subNum = 1;
-		}else{
-			subNum = 1/Math.pow(10,decimal);
-		}
 		
-		var count = subValue/subNum;
-		if(count&&count>0){
-			setTimeout(function(){
-				for(var i = 0;i<count;i++){
-					setTimeout(function(){
-						outThis.setValue(outThis.getValue()-subNum);
-					},growthSpeed);
-				}
-			},1500);
-			
+		var value = outThis.getValue();
+		if(!value){
+			value = 0;
 		}
+		if(subValue&&subValue>0){
+			value = value-subValue;
+		}
+		outThis.setValue(value)
 		
 		showIncreaseNumFromEl(subValue,progressLabel,1,20,40,null,20);
 	}

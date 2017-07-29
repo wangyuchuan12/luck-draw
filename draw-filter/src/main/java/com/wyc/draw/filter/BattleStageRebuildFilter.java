@@ -73,7 +73,7 @@ public class BattleStageRebuildFilter extends Filter{
 		}
 		BattleMemberStage battleMemberStage2 =  new BattleMemberStage();
 		battleMemberStage2.setBattleId(battleId);
-		battleMemberStage2.setConsumeBean(battleMemberStage.getConsumeBean());
+		battleMemberStage2.setConsumeBean(battleMemberStage.getConsumeBean()*2);
 		battleMemberStage2.setCurrentIndex(0);
 		battleMemberStage2.setEndTime(battleMemberStage.getEndTime());
 		battleMemberStage2.setIconUrl(battleMemberStage.getIconUrl());
@@ -96,6 +96,7 @@ public class BattleStageRebuildFilter extends Filter{
 		battleMemberStage2.setMemberId(battleMemberStage.getMemberId());
 		battleMemberStage2.setIsWin(0);
 		battleMemberStage2.setIsReadResult(battleMemberStage.getIsReadResult());
+		battleMemberStage2.setRetakepartConsumeMasonry(battleMemberStage.getRetakepartConsumeMasonry());
 		battleMemberStageService.add(battleMemberStage2);
 		
 		List<BattleMemberIndex> battleMemberIndexs = battleMemberStageIndexService.findAllByBattleIdAndMemberIdAndStageIndexAndIsDelOrderByIndexAsc(battleId, battleMember.getId(), stage,0);
@@ -121,6 +122,7 @@ public class BattleStageRebuildFilter extends Filter{
 		}
 		
 		
+		sessionManager.setAttribute("isRetakepart", 1);
 		return battleMemberStage2;
 	}
 

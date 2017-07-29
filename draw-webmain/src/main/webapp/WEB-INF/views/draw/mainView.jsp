@@ -938,23 +938,41 @@
 					stage = 1;
 				}
 				this.setNext(takepartMethodName,function(data){
-					
 					waitPlug.close();
 					
 					var attrFlowPlug = attrPlug.flowPlug;
 					if(data!=null&&data.subWisdomNum!=null&&data.subWisdomNum>0){
-						attrFlowPlug.setNext("subBeanAction",function(){
+						
+						if(data.subWisdomNum&&data.subWisdomNum>0){
+							attrFlowPlug.setNext("subBeanAction",function(){
+								
+							});
+							
+							attrFlowPlug.nextData({
+								num:data.subWisdomNum
+							});
+							attrFlowPlug.next();
+						}
+						
+						if(data.subMasonry&&data.subMasonry>0){
+							attrFlowPlug.setNext("subMasonryAction",function(){
+								
+							});
+							
+							attrFlowPlug.nextData({
+								num:data.subMasonry
+							});
+							attrFlowPlug.next();
+						}
+						
+						
+						setTimeout(function(){
 							outThis.setNext("dekornHandle");
 							outThis.next();
 							
 							progressFlowPlug.setNext("pullAttrData");
 							progressFlowPlug.next();
-						});
-						
-						attrFlowPlug.nextData({
-							num:data.subWisdomNum
-						});
-						attrFlowPlug.next();
+						},1000);
 						
 					}else{
 						outThis.setNext("dekornHandle");
@@ -1176,12 +1194,12 @@
 							waitPlug.close();
 							var attrFlowPlug = attrPlug.flowPlug;
 							attrFlowPlug.setNext("subLoveAction",function(){
-								outThis.setNext("showBattle",function(){});
+								/*outThis.setNext("showBattle",function(){});
 								outThis.nextData({
 									isPassAnimate:isPassAnimate
 								});
 								outThis.next();
-								waitPlug.close();
+								waitPlug.close();*/
 							});
 							
 							attrFlowPlug.nextData({
@@ -1191,6 +1209,15 @@
 							
 							
 							attrFlowPlug.setNext("subBeanAction",function(){
+								
+							});
+							
+							attrFlowPlug.nextData({
+								num:data.beanConsume
+							});
+							attrFlowPlug.next();
+							
+							setTimeout(function(){
 								outThis.setNext("showBattle",function(){});
 								outThis.nextData({
 									isPassAnimate:isPassAnimate
@@ -1200,12 +1227,8 @@
 								
 								progressFlowPlug.setNext("pullAttrData");
 								progressFlowPlug.next();
-							});
-							
-							attrFlowPlug.nextData({
-								num:data.beanConsume
-							});
-							attrFlowPlug.next();
+								
+							},5000);
 							
 						});
 						outThis.nextData({
