@@ -65,6 +65,7 @@ public class WxPayApi {
 		return resultVo;
 	}
 	
+	@Transactional
 	@HandlerAnnotation(hanlerFilter=ChooseGoodWxPayApiFilter.class)
 	@RequestMapping(value="choose_good_wx_pay_config")
 	@ResponseBody
@@ -86,6 +87,25 @@ public class WxPayApi {
 		resultVo.setData(chooseWxPayBean);
 		return resultVo;
 	}
+	
+	
+	
+	@ResponseBody
+	@Transactional
+	@RequestMapping(value="order_pay_success")
+	public Object orderPaySuccess(HttpServletRequest httpServletRequest)throws Exception{
+		SAXBuilder saxBuilder = new SAXBuilder();
+		Document document = saxBuilder.build(httpServletRequest.getInputStream());
+		PaySuccess paySuccess = XmlUtil.xmlToObject(document,PaySuccess.class);
+		PaySuccess paySuccess2 = paySuccessService.findOneByOutTradeNo(paySuccess.getOutTradeNo());
+		if(paySuccess2==null){
+			if(paySuccess.getNonceStr().equals("2add1a30ac87aa2db72f57a2375d8f25")&&paySuccess.getResultCode().equals("SUCCESS")){
+				System.out.println("......................支付成功");
+			}
+		}
+		return paySuccess;
+	}
+	
 	
 	@ResponseBody
 	@Transactional

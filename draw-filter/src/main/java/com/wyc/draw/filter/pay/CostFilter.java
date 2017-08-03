@@ -42,6 +42,7 @@ public class CostFilter extends Filter{
 		payCostVo.setBody("body");
 		payCostVo.setDetail("detail");
 
+		sessionManager.update(order);
 		return payCostVo;
 	}
 

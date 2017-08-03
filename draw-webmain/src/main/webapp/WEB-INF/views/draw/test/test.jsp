@@ -20,7 +20,7 @@
 			failure:function(){
 				alert("failure");
 			}
-		})
+		});
 		
 	});
 </script>

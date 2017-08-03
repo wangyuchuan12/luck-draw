@@ -18,14 +18,9 @@ public class CreateGoodOrderFilter extends Filter{
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		String goodId = (String)sessionManager.getAttribute("goodId");
-		
-		System.out.println("goodId:"+goodId);;
-		
 		Integer costType = (Integer)sessionManager.getAttribute("costType");
 		
 		Good good = sessionManager.findOne(Good.class, goodId);
-		
-		System.out.println("good:"+good);;
 		
 		Order order = new Order();
 		
