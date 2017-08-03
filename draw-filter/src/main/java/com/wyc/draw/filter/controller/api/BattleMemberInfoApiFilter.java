@@ -84,6 +84,7 @@ public class BattleMemberInfoApiFilter extends Filter{
 			data.put("isPass", battleMemberStage.getIsPass());
 			data.put("imgUrl", battleMemberStage.getImgUrl());
 			data.put("name", battleMemberStage.getName());
+			data.put("consumeBean", battleMemberStage.getConsumeBean());
 			data.put("isReadResult", battleMemberStage.getIsReadResult());
 		}else{
 			data.put("rewardBeanNum", 0);

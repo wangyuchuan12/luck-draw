@@ -45,7 +45,9 @@ public class CurrentPropBeanFilter extends Filter{
 				
 				Long differ = nowDatetime.getMillis()-startDatetime.getMillis();
 				
-				long schedule = (differ/millisec)*unit;
+				long schedule = (differ/millisec)*unit+propBean.getSchedule();
+				
+				propBean.setStartDatetime(new DateTime());
 				
 				if(schedule<upperLimit){
 					prop.setBeanStatus(Constant.PROP_COOLING_STATUS);

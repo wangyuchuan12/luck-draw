@@ -2,8 +2,6 @@ package com.wyc.draw.filter.pay;
 
 import java.io.StringReader;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-
 import java.util.List;
 
 import java.util.SortedMap;
@@ -18,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.domain.vo.WxChooseWxPayBean;
-import com.wyc.common.filter.BaseActionFilter;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.CommonUtil;
@@ -63,7 +60,9 @@ public class ChooseWxPayFilter extends Filter{
 		}
 		
 		
-		String body = httpServletRequest.getParameter("body");
+		String body =payCostVo.getBody();
+		
+		String detail = payCostVo.getDetail();
 		
 		if(CommonUtil.isEmpty(body)){
 			ResultVo resultVo = new ResultVo();
@@ -75,7 +74,7 @@ public class ChooseWxPayFilter extends Filter{
 			return null;
 		}
 		
-		String detail = httpServletRequest.getParameter("detail");
+		
 		
 		if(CommonUtil.isEmpty(detail)){
 			ResultVo resultVo = new ResultVo();
@@ -177,15 +176,14 @@ public class ChooseWxPayFilter extends Filter{
 
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		List<Class<? extends Filter>> filtes = new ArrayList<>();
-		filtes.add(BaseActionFilter.class);
-		filtes.add(CostFilter.class);
-		return filtes;
+		return null;
 	}
 
 	@Override
 	public Object handlerPre(SessionManager sessionManager) throws Exception {
-		// TODO Auto-generated method stub
+		HttpServletRequest httpServletRequest = sessionManager.getHttpServletRequest();
+		String orderId = httpServletRequest.getParameter("orderId");
+		sessionManager.setAttribute("orderId", orderId);
 		return null;
 	}
 

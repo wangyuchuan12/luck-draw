@@ -472,6 +472,9 @@
 			showErrorToast("输入的问题不能超过50个字节");
 			return;
 		}
+		
+		new AlertPlug($("#pay_view").html());
+		/*
 		layer.open({
 			type:1,
 			title:"请选择支付金额",
@@ -480,7 +483,7 @@
 			area:['300px',"350px"],
 			content:$("#pay_view")
 		});
-		
+		*/
 		
 	
 	}
@@ -499,7 +502,8 @@
 	}
 	
 	
-		$(document).ready(function(){			
+		$(document).ready(function(){
+			hideProgress();
 			var callback = new Object();
 			callback.success = function(){
 				$("input[name=isImg]").val(1);

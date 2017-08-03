@@ -8,26 +8,38 @@
 <tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 <tiles:putAttribute name="body">
 
-<html>
-	<script src="/jquery-validation-1.14.0/lib/jquery.js"></script>
-	<script type="text/javascript" src="/layer/layer.js"></script>
-	<div id="container">
-		<div id="1" showModel="move" hideModel="move" destroy="destroy" animateTimeLong="500" url="/view/draw/main/home?token=1"></div>
-		<div id="2" showModel="move" hideModel="move" destroy="destroy" animateTimeLong="500" url="/view/draw/personal_center/main?token=1"></div>
-		<div id="3" showModel="move" hideModel="move" destroy="destroy" animateTimeLong="500" url="/view/draw/main/home?token=1"></div>
-	</div>
-</html>
-
 
 
 <script type="text/javascript">
-var actionMapper = new ActionMapper("#container");
-actionMapper.paraseEntities();
-actionMapper.show("1");
-var page=1;
-$("#container").click(function(){
-	 actionMapper.show(page++);
-});
+	$(document).ready(function(){
+		var url = "/api/pay/wx/choose_good_wx_pay_config";
+		
+		var callback = new Object();
+		callback.success = function(resp){
+			
+			alert(JSON.stringify(resp));
+			if(resp.success){
+				var data = resp.data;
+				
+				var payCallback = new Object();
+				payCallback.success = function(){
+					alert("success");
+				}
+				wxPay(data.timestamp,data.nonceStr,data.pack,data.signType,data.paySign,payCallback);
+			}
+		}
+		
+		callback.failure = function(){
+			
+		}
+		
+		var params = new Object();
+		params.goodId = 1;
+		params.costType=1;
+		params.type=2;
+		request(url,callback,params);
+		alert("success");
+	});
 </script>
 
 </tiles:putAttribute>

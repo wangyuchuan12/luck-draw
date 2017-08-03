@@ -58,6 +58,10 @@ public class PropBean {
 	@Column
 	private Long schedule;
 	
+	@ParamAnnotation
+	@Column(name="counsume_phy")
+	private Long counsumePhy;
+	
 	@Column(name = "create_at")
 	@ParamAnnotation
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -156,6 +160,14 @@ public class PropBean {
 
 	public void setUpdateAt(DateTime updateAt) {
 		this.updateAt = updateAt;
+	}
+	
+	public Long getCounsumePhy() {
+		return counsumePhy;
+	}
+
+	public void setCounsumePhy(Long counsumePhy) {
+		this.counsumePhy = counsumePhy;
 	}
 
 	public Long getSchedule() {

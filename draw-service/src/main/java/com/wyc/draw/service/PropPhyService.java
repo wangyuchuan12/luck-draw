@@ -25,5 +25,9 @@ public class PropPhyService {
 		propPhyRepository.save(propPhy);
 		return propPhy;
 	}
+	public void update(PropPhy propPhy) {
+		propPhy.setUpdateAt(new DateTime());
+		propPhyRepository.save(propPhy);
+	}
 
 }

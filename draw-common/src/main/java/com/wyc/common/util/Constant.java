@@ -51,6 +51,18 @@ public class Constant {
 	//微信支付
 	public static final int WX_PAY_TYPE=1;
 	
+	//豆子支付
+	public static final int BEAN_PAY_TYPE=2;
+	
+	//砖石支付
+	public static final int MASONRY_PAY_TYPE=3;
+	
+	
+	
+	
+	/********************订单类型*************************/
+	//商品订单类型
+	public static final int GOOD_ORDER_TYPE = 0;
 	
 	/************************账号交易类型********************/
 	//微信平台-本平台
@@ -150,6 +162,8 @@ public class Constant {
 	
 	//竞答红包参赛支付回调地址
 	public static final String PAY_VIE_TAKEPART_TYPE_NONCE_URL="/api/pay/wx/vie_takepart_pay_success";
+	
+	public static final String PAY_ORDER_NONCE_URL="/api/pay/pay_success";
 	
 	
 	/***********************竞答红包参与状态********************/

@@ -130,8 +130,13 @@ public class MainApi {
 	@RequestMapping(value="receiveLove")
 	public Object receiveLove(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
-		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
-		return resultVo;
+		if(sessionManager.isReturn()){
+			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+			return resultVo;
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			return resultVo;
+		}
 	}
 	
 	@HandlerAnnotation(hanlerFilter=PropReceiveBeanApiFilter.class)
@@ -140,8 +145,13 @@ public class MainApi {
 	@RequestMapping(value="receiveBean")
 	public Object receiveBean(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
-		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
-		return resultVo;
+		if(sessionManager.isReturn()){
+			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+			return resultVo;
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			return resultVo;
+		}
 	}
 	
 	@HandlerAnnotation(hanlerFilter=PropReceiveRandomApiFilter.class)
@@ -150,8 +160,13 @@ public class MainApi {
 	@RequestMapping(value="receiveRandom")
 	public Object receiveRandom(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
-		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
-		return resultVo;
+		if(sessionManager.isReturn()){
+			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+			return resultVo;
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			return resultVo;
+		}
 	}
 	
 	@HandlerAnnotation(hanlerFilter=BattleInfoApiFilter.class)

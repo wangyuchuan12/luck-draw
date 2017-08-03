@@ -51,8 +51,7 @@
 			}
 		}
 		$(document).ready(function(){
-			
-			
+			hideProgress();
 		});
 		
 	</script>

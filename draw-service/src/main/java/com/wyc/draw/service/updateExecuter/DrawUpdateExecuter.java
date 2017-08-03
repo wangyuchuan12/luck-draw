@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleIfStatement.Else;
 import com.wyc.common.session.DbServiceExecuter;
 import com.wyc.draw.domain.Battle;
 import com.wyc.draw.domain.BattleMember;
@@ -14,9 +12,11 @@ import com.wyc.draw.domain.Dekorn;
 import com.wyc.draw.domain.DekornTakepartMember;
 import com.wyc.draw.domain.DekornToTakepartMember;
 import com.wyc.draw.domain.Game;
+import com.wyc.draw.domain.Good;
 import com.wyc.draw.domain.Prop;
 import com.wyc.draw.domain.PropBean;
 import com.wyc.draw.domain.PropLove;
+import com.wyc.draw.domain.PropPhy;
 import com.wyc.draw.domain.PropRandom;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketAmountDistribution;
@@ -30,8 +30,10 @@ import com.wyc.draw.service.DekornService;
 import com.wyc.draw.service.DekornTakepartMemberService;
 import com.wyc.draw.service.DekornToTakepartMemberService;
 import com.wyc.draw.service.GameService;
+import com.wyc.draw.service.GoodService;
 import com.wyc.draw.service.PropBeanService;
 import com.wyc.draw.service.PropLoveService;
+import com.wyc.draw.service.PropPhyService;
 import com.wyc.draw.service.PropRandomService;
 import com.wyc.draw.service.PropService;
 import com.wyc.draw.service.RedPacketAmountDistributionService;
@@ -83,6 +85,9 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 	private PropRandomService propRandomService;
 	
 	@Autowired
+	private PropPhyService propPhyService;
+	
+	@Autowired
 	private BattleMemberService battleMemberService;
 	
 	@Autowired
@@ -90,6 +95,10 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 	
 	@Autowired
 	private BattleService battleService;
+	
+	
+	@Autowired
+	private GoodService goodService;
 	
 	
 	@Override
@@ -116,6 +125,8 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 					propBeanService.update((PropBean)object);
 				}else if(object.getClass().equals(PropRandom.class)){
 					propRandomService.update((PropRandom)object);
+				}else if(object.getClass().equals(PropPhy.class)){
+					propPhyService.update((PropPhy)object);
 				}else if(object.getClass().equals(BattleMember.class)){
 					battleMemberService.update((BattleMember)object);
 				}else if(object.getClass().equals(BattleToMember.class)){
@@ -124,6 +135,8 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 					
 					Battle battle = (Battle)object;
 					battleService.update(battle);
+				}else if(object.getClass().equals(Good.class)){
+					goodService.update((Good)object);
 				}
 			}
 		}
@@ -164,6 +177,11 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 		
 		if(clazz.equals(BattleMember.class)){
 			T obj = (T)battleMemberService.findOne(id);
+			return obj;
+		}
+		
+		if(clazz.equals(Good.class)){
+			T obj = (T)goodService.findOne(id);
 			return obj;
 		}
 

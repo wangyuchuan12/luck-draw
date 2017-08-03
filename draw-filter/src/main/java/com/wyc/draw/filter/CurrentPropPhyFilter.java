@@ -32,6 +32,7 @@ public class CurrentPropPhyFilter extends Filter{
 			propPhy.setUnitName("");
 			propPhy.setUpperLimit(10000L);
 			propPhy.setSchedule(0l);
+			propPhy.setStartDatetime(new DateTime());
 			propPhy = propPhyService.add(propPhy);
 		}else{
 			
@@ -45,8 +46,11 @@ public class CurrentPropPhyFilter extends Filter{
 				
 				Long differ = nowDatetime.getMillis()-startDatetime.getMillis();
 				
-				long schedule = (differ/millisec)*unit;
+				long schedule = (differ/millisec)*unit+propPhy.getSchedule();
 				
+				System.out.println(".........physchedult:"+schedule);
+				
+				propPhy.setStartDatetime(new DateTime());
 				if(schedule<upperLimit){
 					prop.setPhyStatus(Constant.PROP_COOLING_STATUS);
 					propPhy.setSchedule(schedule);
@@ -56,6 +60,7 @@ public class CurrentPropPhyFilter extends Filter{
 				}
 			}else{
 				propPhy.setSchedule(propPhy.getUpperLimit());
+				propPhy.setStartDatetime(new DateTime());
 			}
 			
 		}

@@ -44,7 +44,9 @@ public class CurrentPropLoveFilter extends Filter{
 				
 				Long differ = nowDatetime.getMillis()-startDatetime.getMillis();
 				
-				long schedule = (differ/millisec)*unit;
+				long schedule = (differ/millisec)*unit+propLove.getSchedule();
+				
+				propLove.setStartDatetime(new DateTime());
 				
 				if(schedule<upperLimit){
 					prop.setLoveStatus(Constant.PROP_COOLING_STATUS);

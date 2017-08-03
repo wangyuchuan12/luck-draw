@@ -49,10 +49,10 @@ public class BattleInfoApiFilter extends Filter{
 		Map<String, Object> data = new HashMap<>();
 		resultVo.setSuccess(true);
 		data.put("beanConsume", battle.getBeanConsume());
+		data.put("loveConsume", battle.getLoveLifeConsume());
 		data.put("id", battle.getId());
 		data.put("imgUrl", battle.getImgUrl());
 		data.put("instruction", battle.getInstruction());
-		data.put("loveLifeConsume", battle.getLoveLifeConsume());
 		data.put("loveLifeGive", battle.getLoveLifeGive());
 		data.put("modelId", battle.getModelId());
 		data.put("name", battle.getName());

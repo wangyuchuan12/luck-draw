@@ -595,7 +595,9 @@
 						var status = data.status;
 						
 						outThis.flowData({
-							currentBattleId:data.id
+							currentBattleId:data.id,
+							beanConsume:data.beanConsume,
+							loveConsume:data.loveConsume
 						});
 						
 						if(status==0||status==1){
@@ -1077,6 +1079,7 @@
 					object["passScore3_"+battleId] = data.passScore3;
 					object["passScore4_"+battleId] = data.passScore4;
 					object["isReadResult_"+battleId] = data.isReadResult;
+					object["consumeBean_"+battleId] = data.consumeBean;
 					outThis.flowData(object);
 					outThis.success();
 				});
@@ -1230,6 +1233,8 @@
 								
 							},5000);
 							
+						},function(){
+							waitPlug.close();
 						});
 						outThis.nextData({
 							battleId:battleId
@@ -1434,6 +1439,22 @@
 			
 			//参与比赛
 			battleTakepart:function(){
+				var loveConsume = this.flowData("loveConsume");
+				var beanConsume = this.flowData("beanConsume");
+				var loveCount = loveProgressPlug.getValue();
+				var beanCount = beanProgressPlug.getValue();
+				if(loveConsume>loveCount){
+					new AlertPlug("爱心不足");
+					this.fail();
+					return null;
+				}
+				
+				if(beanConsume>beanCount){
+					new AlertPlug("智慧豆不足");
+					this.fail();
+					return null;
+				}
+				
 				var outThis = this;
 				var battleId = this.flowData("currentBattleId");
 				var url = "/api/main/battleTakepart";
@@ -1442,7 +1463,7 @@
 					if(resp.success){
 						outThis.success(resp.data);
 					}else{
-						outThis.failure();
+						outThis.fail();
 					}
 				}
 				var params = new Object();
@@ -1511,6 +1532,8 @@
 				var passScore3 = this.flowData("passScore3_"+battleId);
 				var passScore4 = this.flowData("passScore4_"+battleId);
 				var isReadResult =  this.flowData("isReadResult_"+battleId);
+				
+				var consumeBean =  this.flowData("consumeBean_"+battleId);
 				battleFlowPlug.setNext("initData");
 				
 				battleFlowPlug.nextData({
@@ -1530,6 +1553,7 @@
 					paperId:paperId,
 					memberId:memberId,
 					isReadResult:isReadResult,
+					consumeBean:consumeBean,
 					passScore:passScore,
 					passScore2:passScore2,
 					passScore3:passScore3,

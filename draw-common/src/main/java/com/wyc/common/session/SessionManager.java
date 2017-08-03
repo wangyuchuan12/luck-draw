@@ -584,6 +584,12 @@ public class SessionManager {
 	//	remove(clazz);
 		Object idValue = null;
 		List<Param> params = getParams(obj);
+		ParamEntityAnnotation paramEntityAnnotation2 = clazz.getAnnotation(ParamEntityAnnotation.class);
+		
+		/*if(paramEntityAnnotation2.type()==ParamAnnotation.SESSION_TYPE){
+			
+		}*/
+		
 		for(Param param:params){
 			String type = param.getType();
 			if(param.isId()){
@@ -603,7 +609,7 @@ public class SessionManager {
 			}
 		}
 		
-		ParamEntityAnnotation paramEntityAnnotation2 = clazz.getAnnotation(ParamEntityAnnotation.class);
+		
 		
 		if(paramEntityAnnotation2.type().equals(ParamEntityAnnotation.REQUEST_TYPE)){
 			rawSaveToRequest(idRef(clazz), idValue);

@@ -27,6 +27,12 @@ public class PayCostVo {
 	@ParamAnnotation
 	private String outTradeNo;
 	
+	@ParamAnnotation
+	private String detail;
+	
+	@ParamAnnotation
+	private String body;
+	
 	public String getId() {
 		return id;
 	}
@@ -74,6 +80,20 @@ public class PayCostVo {
 	public void setNotifyUrl(String notifyUrl) {
 		this.notifyUrl = notifyUrl;
 	}
-	
-	
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
 }

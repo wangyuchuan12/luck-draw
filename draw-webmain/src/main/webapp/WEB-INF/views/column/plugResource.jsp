@@ -16,7 +16,6 @@
 
 <link rel="stylesheet" href="/css/style1.0.css"/>
 
-<link rel="stylesheet" href="/css/core.css"/>
 
 <script src="/js/plug.js"></script>
 

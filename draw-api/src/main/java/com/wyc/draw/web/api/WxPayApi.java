@@ -21,6 +21,7 @@ import com.wyc.common.util.XmlUtil;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.RedPacketToTakepartMember;
+import com.wyc.draw.filter.controller.api.ChooseGoodWxPayApiFilter;
 import com.wyc.draw.filter.pay.ChooseWxPayFilter;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
@@ -48,6 +49,28 @@ public class WxPayApi {
 	public Object chooseWxPayConfig(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		
+		ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+		if(sessionManager.getObject(ResultVo.class)!=null){
+			resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setMsg("返回数据失败");
+			return sessionManager.getObject(ResultVo.class);
+		}
+		WxChooseWxPayBean chooseWxPayBean = (WxChooseWxPayBean)sessionManager.getObject(WxChooseWxPayBean.class);
+
+		resultVo = new ResultVo();
+		resultVo.setSuccess(true);
+		resultVo.setMsg("返回数据成功");
+		resultVo.setData(chooseWxPayBean);
+		return resultVo;
+	}
+	
+	@HandlerAnnotation(hanlerFilter=ChooseGoodWxPayApiFilter.class)
+	@RequestMapping(value="choose_good_wx_pay_config")
+	@ResponseBody
+	public Object chooseGoodWxPayConfig(HttpServletRequest httpServletRequest)throws Exception{
+		
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
 		if(sessionManager.getObject(ResultVo.class)!=null){
 			resultVo = new ResultVo();

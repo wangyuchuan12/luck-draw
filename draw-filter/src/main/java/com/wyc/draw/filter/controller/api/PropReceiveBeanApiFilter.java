@@ -18,9 +18,11 @@ import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.Prop;
 import com.wyc.draw.domain.PropBean;
+import com.wyc.draw.domain.PropPhy;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.CurrentPropBeanFilter;
 import com.wyc.draw.filter.CurrentPropFilter;
+import com.wyc.draw.filter.CurrentPropPhyFilter;
 
 public class PropReceiveBeanApiFilter extends Filter{
 
@@ -33,6 +35,31 @@ public class PropReceiveBeanApiFilter extends Filter{
 		PropBean propBean = sessionManager.getObject(PropBean.class);
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
 		Account account = accountService.fineOneSync(drawUser.getAccountId());
+		
+		
+		PropPhy propPhy = sessionManager.getObject(PropPhy.class);
+		
+		Long schedulePhy = propPhy.getSchedule();
+		if(schedulePhy==null){
+			schedulePhy = 0l;
+		}
+		Long consumePhy = propBean.getCounsumePhy();
+		if(consumePhy==null){
+			consumePhy = 0l;
+		}
+
+		schedulePhy = schedulePhy - consumePhy;
+
+		if(schedulePhy<0){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("体力不够");
+			sessionManager.setReturn(true);
+			sessionManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		propPhy.setSchedule(schedulePhy);
 		
 		Long randMin = propBean.getRangeMin();
 		Long randMax = propBean.getRangeMax();
@@ -51,14 +78,21 @@ public class PropReceiveBeanApiFilter extends Filter{
 		
 		accountService.update(account);
 		prop.setBeanStatus(Constant.PROP_COOLING_STATUS);
+		prop.setPhyStatus(Constant.PROP_COOLING_STATUS);
+		
 		propBean.setSchedule(0l);
 		propBean.setStartDatetime(new DateTime());
 		
+		propPhy.setStartDatetime(new DateTime());
+		
 		sessionManager.update(propBean);
 		sessionManager.update(prop);
+		sessionManager.update(propPhy);
 		
 		Map<String, Object> data = new HashMap<>();
 		data.put("num", num);
+		data.put("beanSchedule",propBean.getSchedule());
+		data.put("phySchedule", propPhy.getSchedule());
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setData(data);;
@@ -77,6 +111,7 @@ public class PropReceiveBeanApiFilter extends Filter{
 		classes.add(BaseDrawActionFilter.class);
 		classes.add(CurrentPropFilter.class);
 		classes.add(CurrentPropBeanFilter.class);
+		classes.add(CurrentPropPhyFilter.class);
 		return classes;
 	}
 

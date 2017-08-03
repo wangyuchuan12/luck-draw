@@ -75,6 +75,10 @@ public class PropRandom {
 	@ParamAnnotation
 	@Column
 	private Long schedule;
+	
+	@ParamAnnotation
+	@Column(name="counsume_phy")
+	private Long counsumePhy;
 
 	@Column(name = "create_at")
 	@ParamAnnotation
@@ -191,6 +195,14 @@ public class PropRandom {
 
 	public void setMoneyRangeMax(BigDecimal moneyRangeMax) {
 		this.moneyRangeMax = moneyRangeMax;
+	}
+
+	public Long getCounsumePhy() {
+		return counsumePhy;
+	}
+
+	public void setCounsumePhy(Long counsumePhy) {
+		this.counsumePhy = counsumePhy;
 	}
 
 	public DateTime getCreateAt() {

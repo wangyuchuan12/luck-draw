@@ -142,36 +142,58 @@
 						mainCallback.setBattleFlowPlug(this);
 						
 						$("#dekornButton").click(function(){
-							var dekornEnable = outThis.flowData("dekornEnable");
 							
-							if(dekornEnable==1){
-								var battleId = battlePlug.flowPlug.flowData("battleId");
-								var round = battlePlug.flowPlug.flowData("round");
-								var stageStatus = battlePlug.flowPlug.flowData("stageStatus");
-								if(stageStatus==2){
-									//window.parent.startDekorn(battleId,parseInt(round)+1);
-								}else if(stageStatus==1){
-									window.parent.reStartDekorn(battleId,parseInt(round));
-								}else{
-									window.parent.startDekorn(battleId,parseInt(round));
-								}
+							var loveCount = outThis.flowData("loveCount");
+							if(!loveCount||loveCount<=0){
+								new AlertPlug("请补充爱心");
+								return;
 							}
+							var beanValue = beanProgressPlug.getValue();
+							var consumeBean = outThis.flowData("consumeBean");
+							if(beanValue>=consumeBean){
+								var dekornEnable = outThis.flowData("dekornEnable");
+								
+								if(dekornEnable==1){
+									var battleId = battlePlug.flowPlug.flowData("battleId");
+									var round = battlePlug.flowPlug.flowData("round");
+									var stageStatus = battlePlug.flowPlug.flowData("stageStatus");
+									if(stageStatus==2){
+										//window.parent.startDekorn(battleId,parseInt(round)+1);
+									}else if(stageStatus==1){
+										window.parent.reStartDekorn(battleId,parseInt(round));
+									}else{
+										window.parent.startDekorn(battleId,parseInt(round));
+									}
+								}
+							}else{
+								new AlertPlug("智慧豆不足",["道具补充","购买"]);
+							}
+							
 						});
 						
 						$("#reDekornButton").click(function(){
-							
-							
-							if(outThis.flowData("reDekornEnable")==1){
-								var battleId = battlePlug.flowPlug.flowData("battleId");
-								var round = battlePlug.flowPlug.flowData("round");
-								var stageStatus = battlePlug.flowPlug.flowData("stageStatus");
-								if(stageStatus==2){
-									window.parent.reStartDekorn(battleId,parseInt(round));
+							var loveCount = outThis.flowData("loveCount");
+							if(!loveCount||loveCount<=0){
+								new AlertPlug("请补充爱心");
+								return;
+							}
+							var beanValue = beanProgressPlug.getValue();
+							var consumeBean = outThis.flowData("consumeBean");
+							if(beanValue>=consumeBean){
+								if(outThis.flowData("reDekornEnable")==1){
+									var battleId = battlePlug.flowPlug.flowData("battleId");
+									var round = battlePlug.flowPlug.flowData("round");
+									var stageStatus = battlePlug.flowPlug.flowData("stageStatus");
+									if(stageStatus==2){
+										window.parent.reStartDekorn(battleId,parseInt(round));
+									}else{
+										//window.parent.startDekorn(battleId,parseInt(round));
+									}
 								}else{
-									//window.parent.startDekorn(battleId,parseInt(round));
+									new AlertPlug("您已经阅读答案，不能重新挑战");
 								}
 							}else{
-								new AlertPlug("您已经阅读答案，不能重新挑战");
+								new AlertPlug("智慧豆数量不够");
 							}
 							
 						});
@@ -263,6 +285,7 @@
 							name:outThis.stepData("name"),
 							imgUrl:outThis.stepData("imgUrl"),
 							paperId:outThis.stepData("paperId"),
+							consumeBean:outThis.stepData("consumeBean"),
 							memberId:outThis.stepData("memberId"),
 							isReadResult:outThis.stepData("isReadResult"),
 							passScore:outThis.stepData("passScore"),
@@ -574,6 +597,12 @@
 					
 					attrPlug.flowPlug.setNext("hideMasonry");
 					attrPlug.flowPlug.next();*/
+					
+					attrPlug.flowPlug.setNext("initProgress");
+					attrPlug.flowPlug.next();
+					
+					attrPlug.flowPlug.setNext("pullData");
+					attrPlug.flowPlug.next();
 				}
 				progress(100,10,progressCallback);
 				

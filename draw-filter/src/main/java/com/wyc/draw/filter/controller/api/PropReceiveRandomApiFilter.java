@@ -18,9 +18,11 @@ import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.Prop;
+import com.wyc.draw.domain.PropPhy;
 import com.wyc.draw.domain.PropRandom;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.CurrentPropFilter;
+import com.wyc.draw.filter.CurrentPropPhyFilter;
 import com.wyc.draw.filter.CurrentPropRandomFilter;
 
 public class PropReceiveRandomApiFilter extends Filter{
@@ -45,6 +47,30 @@ public class PropReceiveRandomApiFilter extends Filter{
 		
 		Random random = new Random();
 		
+		PropPhy propPhy = sessionManager.getObject(PropPhy.class);
+		
+		Long schedulePhy = propPhy.getSchedule();
+		if(schedulePhy==null){
+			schedulePhy = 0l;
+		}
+		Long consumePhy = propRandom.getCounsumePhy();
+		if(consumePhy==null){
+			consumePhy = 0l;
+		}
+
+		schedulePhy = schedulePhy - consumePhy;
+
+		if(schedulePhy<0){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("体力不够");
+			sessionManager.setReturn(true);
+			sessionManager.setReturnValue(resultVo);
+			return null;
+		}
+		
+		propPhy.setSchedule(schedulePhy);
+		
 		//取一个范围的随机数
 		Long loveNum = random.nextInt(loveRandMax.intValue())%(loveRandMax-loveRandMin+1)+loveRandMax.longValue();
 		Long beanNum = random.nextInt(beanRandMax.intValue())%(beanRandMax-beanRandMin+1)+beanRandMax.longValue();
@@ -66,15 +92,24 @@ public class PropReceiveRandomApiFilter extends Filter{
 		
 		accountService.update(account);
 		prop.setRandomStatus(Constant.PROP_COOLING_STATUS);
+		prop.setPhyStatus(Constant.PROP_COOLING_STATUS);
+		
 		propRandom.setSchedule(0l);
 		propRandom.setStartDatetime(new DateTime());
 		
+		propPhy.setStartDatetime(new DateTime());
+		
 		sessionManager.update(propRandom);
 		sessionManager.update(prop);
+		sessionManager.update(propPhy);
 		
 		Map<String, Object> data = new HashMap<>();
 		data.put("loveNum", loveNum);
 		data.put("beanNum", beanNum);
+		
+		data.put("randomSchedule",propRandom.getSchedule());
+		data.put("phySchedule", propPhy.getSchedule());
+		
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setData(data);;
@@ -93,6 +128,7 @@ public class PropReceiveRandomApiFilter extends Filter{
 		classes.add(BaseDrawActionFilter.class);
 		classes.add(CurrentPropFilter.class);
 		classes.add(CurrentPropRandomFilter.class);
+		classes.add(CurrentPropPhyFilter.class);
 		return classes;
 	}
 

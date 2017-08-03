@@ -18,9 +18,11 @@ import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.Prop;
 import com.wyc.draw.domain.PropLove;
+import com.wyc.draw.domain.PropPhy;
 import com.wyc.draw.filter.BaseDrawActionFilter;
 import com.wyc.draw.filter.CurrentPropFilter;
 import com.wyc.draw.filter.CurrentPropLoveFilter;
+import com.wyc.draw.filter.CurrentPropPhyFilter;
 
 public class PropReceiveLoveApiFilter extends Filter{
 
@@ -31,6 +33,28 @@ public class PropReceiveLoveApiFilter extends Filter{
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		Prop prop = (Prop)sessionManager.getObject(Prop.class);
 		PropLove propLove = (PropLove)sessionManager.getObject(PropLove.class);
+		PropPhy propPhy = sessionManager.getObject(PropPhy.class);
+		
+		Long schedulePhy = propPhy.getSchedule();
+		if(schedulePhy==null){
+			schedulePhy = 0l;
+		}
+		Long consumePhy = propLove.getCounsumePhy();
+		if(consumePhy==null){
+			consumePhy = 0l;
+		}
+
+		schedulePhy = schedulePhy - consumePhy;
+
+		if(schedulePhy<0){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setErrorMsg("体力不够");
+			sessionManager.setReturn(true);
+			sessionManager.setReturnValue(resultVo);
+			return null;
+		}
+
 		DrawUser drawUser = (DrawUser)sessionManager.getObject(DrawUser.class);
 		Account account = accountService.fineOneSync(drawUser.getAccountId());
 		
@@ -51,14 +75,22 @@ public class PropReceiveLoveApiFilter extends Filter{
 		
 		accountService.update(account);
 		prop.setLoveStatus(Constant.PROP_COOLING_STATUS);
+		prop.setPhyStatus(Constant.PROP_COOLING_STATUS);
+		
+		propPhy.setSchedule(schedulePhy);
+		propPhy.setStartDatetime(new DateTime());
+		
 		propLove.setSchedule(0l);
 		propLove.setStartDatetime(new DateTime());
 		
 		sessionManager.update(propLove);
 		sessionManager.update(prop);
+		sessionManager.update(propPhy);
 		
 		Map<String, Object> data = new HashMap<>();
 		data.put("num", num);
+		data.put("loveSchedule",propLove.getSchedule());
+		data.put("phySchedule", propPhy.getSchedule());
 		ResultVo resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setData(data);;
@@ -77,6 +109,7 @@ public class PropReceiveLoveApiFilter extends Filter{
 		classes.add(BaseDrawActionFilter.class);
 		classes.add(CurrentPropFilter.class);
 		classes.add(CurrentPropLoveFilter.class);
+		classes.add(CurrentPropPhyFilter.class);
 		return classes;
 	}
 

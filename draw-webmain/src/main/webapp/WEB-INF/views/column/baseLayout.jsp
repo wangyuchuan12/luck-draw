@@ -461,14 +461,14 @@
 		var happyAlert;
 		
 		setTimeout(function(){
-			happyAlert = layer.open({
+			/*happyAlert = layer.open({
 				type:1,
 				title:false,
 				shadeClose:false,
 				shade:[0.1,'#000'],
 				area:['300px',"350px"],
 				content:$(".happyAlert")
-			});
+			});*/
 		},timelong);
 		return happyAlert;
 	}

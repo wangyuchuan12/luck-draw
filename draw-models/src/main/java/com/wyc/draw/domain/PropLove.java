@@ -57,8 +57,12 @@ public class PropLove {
 	//进度
 	@ParamAnnotation
 	@Column
-	
 	private Long schedule;
+	
+	//消耗体力
+	@ParamAnnotation
+	@Column(name="counsume_phy")
+	private Long counsumePhy;
 	
 	@Column(name = "create_at")
 	@ParamAnnotation
@@ -142,6 +146,14 @@ public class PropLove {
 
 	public void setRangeMax(Long rangeMax) {
 		this.rangeMax = rangeMax;
+	}
+
+	public Long getCounsumePhy() {
+		return counsumePhy;
+	}
+
+	public void setCounsumePhy(Long counsumePhy) {
+		this.counsumePhy = counsumePhy;
 	}
 
 	public DateTime getCreateAt() {

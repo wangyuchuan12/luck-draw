@@ -50,7 +50,9 @@ public class CurrentPropRandomFilter extends Filter{
 				
 				Long differ = nowDatetime.getMillis()-startDatetime.getMillis();
 				
-				long schedule = (differ/millisec)*unit;
+				long schedule = (differ/millisec)*unit+propRandom.getSchedule();
+				
+				propRandom.setStartDatetime(new DateTime());
 				
 				if(schedule<upperLimit){
 					prop.setRandomStatus(Constant.PROP_COOLING_STATUS);

@@ -47,6 +47,8 @@ public class BattleTakepartApiFilter extends Filter{
 			return resultVo;
 		}
 		
+	
+		
 		String battleId = sessionManager.getAttribute("battleId").toString();
 		Battle battle = sessionManager.findOne(Battle.class, battleId);
 		
@@ -54,6 +56,20 @@ public class BattleTakepartApiFilter extends Filter{
 		Integer loveLifeConsume = battle.getLoveLifeConsume();
 		
 		Account account = accountService.fineOneSync(drawUser.getAccountId());
+		
+		if(account.getWisdomCount()<beanConsume){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setMsg("智慧豆不足，请补充智慧豆吧");
+			return resultVo;
+		}
+		
+		if(account.getLoveLife()<loveLifeConsume){
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(false);
+			resultVo.setMsg("爱心不足，请补充爱心吧");
+			return resultVo;
+		}
 		
 		accountHandleService.subBean(account, beanConsume.longValue());
 		accountHandleService.subLove(account, loveLifeConsume);

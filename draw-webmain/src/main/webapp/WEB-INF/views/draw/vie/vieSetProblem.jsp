@@ -321,6 +321,8 @@
 			initOption($(this));
 		});
 		$(document).ready(function(){
+		
+			hideProgress();
 			
 			$("#delButton").click(function(){
 				location.reload();

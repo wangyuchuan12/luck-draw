@@ -34,7 +34,7 @@
 					<ul>
 						<li id="personalAttrDataLove">
 							
-							<div class="personalAttrDataHeader personalAttrDataHeaderLove"></div>
+							<div class="personalAttrDataHeader personalAttrDataHeaderLove" style="left:30px;z-index:1000;position: relative;"></div>
 							
 							<div id="progressbarLove" style="width:50%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
 								<div class="progress-label2" id="progressLabel2" style="height: 20px;border-radius:20px;color:RGBA(255,237,109,1)">0</div>
@@ -45,7 +45,7 @@
 						</li>
 
 						<li id="personalAttrDataBean">
-							<div class="personalAttrDataHeader personalAttrDataHeaderBean"></div>
+							<div class="personalAttrDataHeader personalAttrDataHeaderBean" style="left:30px;z-index:1000;position: relative;"></div>
 							
 							<div id="progressbarBean" style="width:50%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
 								<div class="progress-label2" id="progressLabel2" style="color:RGBA(255,237,109,1)">0</div>
@@ -56,7 +56,7 @@
 						</li>
 						
 						<li id="personalAttrDataMasonry">
-							<div class="personalAttrDataHeader personalAttrDataHeaderMasonry"></div>
+							<div class="personalAttrDataHeader personalAttrDataHeaderMasonry" style="left:30px;z-index:1000;position: relative;"></div>
 							
 							<div id="progressbarMasonry" style="width:50%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1);">
 								<div class="progress-label2" id="progressLabel2" style="color:RGBA(255,237,109,1)">0</div>
@@ -67,13 +67,13 @@
 						</li>
 						
 						<li id="personalAttrDataMoney">
-							<div class="personalAttrDataHeader personalAttrDataHeaderMoney"></div>
+							<div class="personalAttrDataHeader personalAttrDataHeaderMoney" style="left:30px;z-index:1000;position: relative;top:-3px;"></div>
 							
 							<div id="progressbarMoney" style="width:50%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
 								<div class="progress-label2" id="progressLabel2" style="color:RGBA(255,237,109,1)">0</div>
 							</div>
 							
-							<div class="mainViewDekornButton4" style="left:-2px;position: relative;">提现</div>
+							<div class="mainViewDekornButton4" style="left:-30px;position: relative;">提现</div>
 							
 						</li>
 						
@@ -102,7 +102,7 @@
 					
 					</li>
 					
-					<li>
+					<li id="beanModel">
 						<canvas id="modelPhy2" style="background: url('/imgs/plug/bean.png');background-size:95% 90%;background-position: 5px 0px;"></canvas>
 						<div  style="color: black;position: relative;top:-5px">智慧豆</div>
 						
@@ -221,19 +221,24 @@
 	     		background: RGBA(225,0,34,1);
 	     		height: 20px;
 	     		border-radius:20px;
+	     		position: relative;
+	     		top:-1px;
 	     	}
 	     	
 	     	#progressbarBean .ui-corner-left{
 	     		background: RGBA(245,192,0,1);
 	     		height: 20px;
 	     		border-radius:20px;
+	     		position: relative;
+	     		top:-1px;
 	     	}
 	     	
 	     	#progressbarMasonry .ui-corner-left{
 	     		background: RGBA(127,122,139,1);
 	     		height: 20px;
 	     		border-radius:20px;
-	     		
+	     		position: relative;
+	     		top:-1px;
 	     		
 	     	}
 	     	
@@ -241,6 +246,8 @@
 	     		background: RGBA(168,134,51,1);
 	     		height: 20px;
 	     		border-radius:20px;
+	     		position: relative;
+	     		top:-1px;
 	     	}
 	</style>
 	
@@ -327,6 +334,10 @@
 				initEventListener:function(){
 					var outThis = this;
 					$("#receiveLoveButton").click(function(){
+						if(loveWaterbublePlug.getRatio()<1){
+							new AlertPlug("冷却中，请稍后");
+							return;
+						}
 						var url = "/api/main/receiveLove";
 						var callback = new Object();
 						var waitPlug = new WaitPlug();
@@ -339,6 +350,16 @@
 								loveWaterbublePlug.dataInit();
 								
 								showRoating("#modelPhy",5000);
+								showRoating("#modelPhy3",5000);
+								
+								outThis.setNext("setPhyData");
+								outThis.nextData({
+									data:data.phySchedule
+								});
+								outThis.next();
+							}else{
+								new AlertPlug(resp.errorMsg);
+								waitPlug.close();
 							}
 						}
 						request(url,callback,{});
@@ -348,6 +369,11 @@
 					$("#receiveBeanButton").click(function(){
 						var url = "/api/main/receiveBean";
 						var callback = new Object();
+						
+						if(beanWaterbublePlug.getRatio()<1){
+							new AlertPlug("冷却中，请稍后");
+							return;
+						}
 						var waitPlug = new WaitPlug();
 						callback.success = function(resp){
 							if(resp.success){
@@ -357,6 +383,17 @@
 								beanWaterbublePlug.dataInit();
 								
 								showRoating("#modelPhy2",5000);
+								
+								showRoating("#modelPhy3",5000);
+								
+								outThis.setNext("setPhyData");
+								outThis.nextData({
+									data:data.phySchedule
+								});
+								outThis.next();
+							}else{
+								new AlertPlug(resp.errorMsg);
+								waitPlug.close();
 							}
 						}
 						request(url,callback,{});
@@ -365,6 +402,11 @@
 					$("#receiveCoinButton").click(function(){
 						var url = "/api/main/receiveRandom";
 						var callback = new Object();
+						
+						if(randomWaterbublePlug.getRatio()<1){
+							new AlertPlug("冷却中，请稍后");
+							return;
+						}
 						var waitPlug = new WaitPlug();
 						callback.success = function(resp){
 							if(resp.success){
@@ -374,11 +416,29 @@
 								waitPlug.close();
 								randomWaterbublePlug.dataInit();
 								showRoating("#modelPhy3",5000);
+								
+								showRoating("#modelPhy4",5000);
+								
+								outThis.setNext("setPhyData");
+								outThis.nextData({
+									data:data.phySchedule
+								});
+								outThis.next();
+							}else{
+								new AlertPlug(resp.errorMsg);
+								waitPlug.close();
 							}
 						}
 						request(url,callback,{});
 					});
 				},
+				
+				setPhyData:function(){
+					physicalWaterbublePlug.dataInit();
+					var data = this.stepData("data");
+					physicalWaterbublePlug.setData(data)
+				},
+				
 				loveRecovery:function(){
 					
 					var total = this.flowData("loveTotalPart");
@@ -675,9 +735,9 @@
 					var beanLimit = this.flowData("beanLimit");
 					var masonryNum = this.flowData("masonryNum");
 					var moneyNum = this.flowData("moneyNum");
-					loveProgressPlug = new ProgressPlug("#progressbarLove","#progressbarLove .progress-label2",{type:1,isShowProgress:1});
+					loveProgressPlug = new ProgressPlug("#progressbarLove","#progressbarLove .progress-label2",{type:1,isShowProgress:0});
 					loveProgressPlug.setCount(loveLimit);
-					beanProgressPlug = new ProgressPlug("#progressbarBean","#progressbarBean .progress-label2",{type:1,isShowProgress:1});
+					beanProgressPlug = new ProgressPlug("#progressbarBean","#progressbarBean .progress-label2",{type:1,isShowProgress:0});
 					beanProgressPlug.setCount(beanLimit);
 					masonryProgressPlug = new ProgressPlug("#progressbarMasonry","#progressbarMasonry .progress-label2",{type:1,decimal:0,isShowProgress:0,count:100});
 					moneyProgressPlug = new ProgressPlug("#progressbarMoney","#progressbarMoney .progress-label2",{type:1,unit:"元",decimal:2,isShowProgress:0,count:100000000});

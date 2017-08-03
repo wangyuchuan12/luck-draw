@@ -318,6 +318,10 @@ function WaterbubblePlug(selector,params){
 		outThis.show();
 	}
 	
+	this.getRatio = function(){
+		return outThis.data/outThis.count;
+	}
+	
 	this.show = function(){
 		var params = outThis.params;
 		params.data = outThis.data/outThis.count;
