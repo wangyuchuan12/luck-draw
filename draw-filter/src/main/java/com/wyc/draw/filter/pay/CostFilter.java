@@ -39,8 +39,8 @@ public class CostFilter extends Filter{
 		payCostVo.setNonceStr(noticStr);
 		payCostVo.setNotifyUrl(Constant.PAY_ORDER_NONCE_URL);
 		payCostVo.setCost(order.getAmountNum());
-		payCostVo.setBody("body");
-		payCostVo.setDetail("detail");
+		payCostVo.setBody(order.getName());
+		payCostVo.setDetail(order.getDetail());
 
 		sessionManager.update(order);
 		return payCostVo;

@@ -131,32 +131,35 @@
 							for(var i = 0;i<goods.length;i++){
 								
 								var good = goods[i];
-								
+			
 								if(good.type==0){
 									outThis.setNext("addLoveGood");
 									outThis.nextData({
-										name:good.name,
+										name:good.spec,
 										amount:good.amount,
 										imgUrl:good.imgUrl,
-										payType:good.payType
+										payType:good.payType,
+										id:good.goodId
 									});
 									outThis.next();
 								}else if(good.type==1){
 									outThis.setNext("addBeanGood");
 									outThis.nextData({
-										name:good.name,
+										name:good.spec,
 										amount:good.amount,
 										imgUrl:good.imgUrl,
-										payType:good.payType
+										payType:good.payType,
+										id:good.goodId
 									});
 									outThis.next();
 								}else if(good.type==2){
 									outThis.setNext("addMasonryGood");
 									outThis.nextData({
-										name:good.name,
+										name:good.spec,
 										amount:good.amount,
 										imgUrl:good.imgUrl,
-										payType:good.payType
+										payType:good.payType,
+										id:good.goodId
 									});
 									outThis.next();
 								}
@@ -204,6 +207,7 @@
 						var amount = this.stepData("amount");
 						var name = this.stepData("name");
 						var imgUrl = this.stepData("imgUrl");
+						var id = this.stepData("id");
 						if(!imgUrl){
 							imgUrl = "http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png";
 						}
@@ -213,7 +217,8 @@
 							name:name,
 							payType:payType,
 							amount:amount,
-							amountStyle:"padding-top:5px;"
+							amountStyle:"padding-top:5px;",
+							id:id
 						});
 						this.next();
 					},
@@ -222,6 +227,7 @@
 						var amount = this.stepData("amount");
 						var name = this.stepData("name");
 						var imgUrl = this.stepData("imgUrl");
+						var id = this.stepData("id");
 						if(!imgUrl){
 							imgUrl = "/imgs/plug/bean.png";
 						}
@@ -230,7 +236,8 @@
 							imgUrl:imgUrl,
 							name:name,
 							payType:payType,
-							amount:amount
+							amount:amount,
+							id:id
 							
 						});
 						this.next();
@@ -241,6 +248,7 @@
 						var name = this.stepData("name");
 						var imgUrl = this.stepData("imgUrl");
 						var payType = this.stepData("payType");
+						var id = this.stepData("id");
 						if(!imgUrl){
 							imgUrl = "http://otsnwem87.bkt.clouddn.com/e33bf825f5d9b459be556b4e16b9e011.png";
 						}
@@ -248,7 +256,8 @@
 							imgUrl:imgUrl,
 							name:name,
 							payType:payType,
-							amount:amount
+							amount:amount,
+							id:id
 						});
 						this.next();
 					},
@@ -260,6 +269,8 @@
 						var payType = this.stepData("payType");
 						
 						var amount = this.stepData("amount");
+						
+						var id = this.stepData("id");
 						
 						var text = "";
 						
@@ -273,14 +284,26 @@
 							
 						}
 						
-						var goodEl = "<li>"+
+						var goodEl = $("<li>"+
 										"<div class='mallGoodImg'>"+
 											"<img src='"+img+"'>"+
 										"</div>"+
 										"<div class='mallGoodNum'>"+name+"</div>"+
 										"<div class='mallGoodAmount' style='"+amountStyle+"'>"+text+"</div>"+
-									 "</li>";
+									 "</li>");
 						$(".mallGoodList>ul").append(goodEl);
+			
+						goodEl.click(function(){
+							showLoading();
+							wxPayGood(id,2,2,{
+								success:function(){
+									hideLoading();
+								},
+								failure:function(){
+									hideLoading();
+								}
+							})
+						});
 					}
 				});
 			}

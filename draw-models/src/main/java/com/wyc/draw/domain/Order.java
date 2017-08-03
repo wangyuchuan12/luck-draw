@@ -31,6 +31,15 @@ public class Order {
 	@Column
 	@ParamAnnotation
 	private String name;
+	
+	//商品规格
+	@Column
+	@ParamAnnotation
+	private String spec;
+	
+	@Column
+	@ParamAnnotation
+	private String detail;
 
 	// 图片
 	@Column(name = "img_url")
@@ -287,6 +296,22 @@ public class Order {
 
 	public void setOrderType(Integer orderType) {
 		this.orderType = orderType;
+	}
+	
+	public String getSpec() {
+		return spec;
+	}
+
+	public void setSpec(String spec) {
+		this.spec = spec;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 
 	public DateTime getCreateAt() {

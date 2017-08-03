@@ -39,6 +39,7 @@ public class CreateGoodOrderFilter extends Filter{
 		order.setImgUrl(good.getImgUrl());
 		order.setIsPay(0);
 		order.setIsToAccount(0);
+		order.setDetail(good.getDetail());
 		
 		orderService.add(order);
 

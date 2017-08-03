@@ -26,6 +26,15 @@ public class GoodDisplay {
 	@ParamAnnotation
 	private String name;
 	
+	//商品规格
+	@Column
+	@ParamAnnotation
+	private String spec;
+	
+	@Column
+	@ParamAnnotation
+	private String detail;
+	
 	
 	@Column
 	@ParamAnnotation
@@ -133,6 +142,25 @@ public class GoodDisplay {
 	}
 	public void setAmount(Float amount) {
 		this.amount = amount;
+	}
+	public String getSpec() {
+		return spec;
+	}
+	public void setSpec(String spec) {
+		this.spec = spec;
+	}
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 	public DateTime getCreateAt() {
 		return createAt;

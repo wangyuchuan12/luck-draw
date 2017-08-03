@@ -28,6 +28,16 @@ public class Good {
 	@ParamAnnotation
 	private String name;
 	
+	//商品规格
+	@Column
+	@ParamAnnotation
+	private String spec;
+	
+	//商品简介
+	@Column
+	@ParamAnnotation
+	private String detail;
+	
 	//图片
 	@Column(name="img_url")
 	@ParamAnnotation
@@ -201,6 +211,18 @@ public class Good {
 	}
 	public void setCostType(Integer costType) {
 		this.costType = costType;
+	}
+	public String getSpec() {
+		return spec;
+	}
+	public void setSpec(String spec) {
+		this.spec = spec;
+	}
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 	public DateTime getCreateAt() {
 		return createAt;
