@@ -25,7 +25,7 @@
 				payCallback.success = function(){
 					alert("success");
 				}
-				onBridgeReady(data.timestamp,data.nonceStr,data.pack,data.signType,data.paySign,payCallback);
+				onBridgeReady(data.appId,data.timestamp,data.nonceStr,data.pack,data.signType,data.paySign,payCallback);
 			}
 		}
 		
