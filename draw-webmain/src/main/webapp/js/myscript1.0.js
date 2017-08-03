@@ -467,16 +467,18 @@ function wxPayGood(goodId,costType,type,payCallback){
 	
 	var callback = new Object();
 	callback.success = function(resp){
+		
+		alert(JSON.stringify(resp));
 		if(resp.success){
 			var data = resp.data;
 			wxPay2(data.appId,data.timestamp,data.nonceStr,data.pack,data.signType,data.paySign,payCallback);
 		}else{
-			payCallback.failre();
+			payCallback.failure();
 		}
 	}
 	
 	callback.failure = function(){
-		payCallback.failre();
+		payCallback.failure();
 	}
 	
 	var params = new Object();
