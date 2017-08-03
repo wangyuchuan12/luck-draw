@@ -12,33 +12,16 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		var url = "/api/pay/wx/choose_good_wx_pay_config";
 		
-		var callback = new Object();
-		callback.success = function(resp){
-			
-			alert(JSON.stringify(resp));
-			if(resp.success){
-				var data = resp.data;
-				
-				var payCallback = new Object();
-				payCallback.success = function(){
-					alert("success");
-				}
-				onBridgeReady(data.appId,data.timestamp,data.nonceStr,data.pack,data.signType,data.paySign,payCallback);
+		wxPayGood(1,1,2,{
+			success:function(){
+				alert("success");
+			},
+			failure:function(){
+				alert("failure");
 			}
-		}
+		})
 		
-		callback.failure = function(){
-			
-		}
-		
-		var params = new Object();
-		params.goodId = 1;
-		params.costType=1;
-		params.type=2;
-		request(url,callback,params);
-		alert("success");
 	});
 </script>
 
