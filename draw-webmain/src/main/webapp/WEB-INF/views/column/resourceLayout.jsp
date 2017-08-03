@@ -34,46 +34,46 @@
 					<ul>
 						<li id="personalAttrDataLove">
 							
-							<div class="personalAttrDataHeader personalAttrDataHeaderLove" style="left:30px;z-index:1000;position: relative;"></div>
+							<div class="personalAttrDataHeader personalAttrDataHeaderLove" style="z-index:1000;position: absolute;top:-1px;"></div>
 							
-							<div id="progressbarLove" style="width:50%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
+							<div id="progressbarLove" style="width:100%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
 								<div class="progress-label2" id="progressLabel2" style="height: 20px;border-radius:20px;color:RGBA(255,237,109,1)">0</div>
 							</div>
 							
-							<div class="personalAttrDataHeader personalAttrDataHeaderPlus"></div>
+							<div class="personalAttrDataHeader personalAttrDataHeaderPlus" style="left:75px;top:1px;position: absolute;"></div>
 							
 						</li>
 
 						<li id="personalAttrDataBean">
-							<div class="personalAttrDataHeader personalAttrDataHeaderBean" style="left:30px;z-index:1000;position: relative;"></div>
+							<div class="personalAttrDataHeader personalAttrDataHeaderBean" style="z-index:1000;position: absolute;left:-2px;"></div>
 							
-							<div id="progressbarBean" style="width:50%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
+							<div id="progressbarBean" style="width:100%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
 								<div class="progress-label2" id="progressLabel2" style="color:RGBA(255,237,109,1)">0</div>
 							</div>
 							
-							<div class="personalAttrDataHeader personalAttrDataHeaderPlus"></div>
+							<div class="personalAttrDataHeader personalAttrDataHeaderPlus" style="left:75px;top:1px;position: absolute;"></div>
 							
 						</li>
 						
-						<li id="personalAttrDataMasonry">
-							<div class="personalAttrDataHeader personalAttrDataHeaderMasonry" style="left:30px;z-index:1000;position: relative;"></div>
+						<li id="personalAttrDataMasonry" style="margin-top: 5px;">
+							<div class="personalAttrDataHeader personalAttrDataHeaderMasonry" style="z-index:1000;position: absolute;"></div>
 							
-							<div id="progressbarMasonry" style="width:50%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1);">
+							<div id="progressbarMasonry" style="width:100%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1);">
 								<div class="progress-label2" id="progressLabel2" style="color:RGBA(255,237,109,1)">0</div>
 							</div>
 							
-							<div class="personalAttrDataHeader personalAttrDataHeaderPlus"></div>
+							<div class="personalAttrDataHeader personalAttrDataHeaderPlus" style="left:75px;top:1px;position: absolute;"></div>
 							
 						</li>
 						
-						<li id="personalAttrDataMoney">
-							<div class="personalAttrDataHeader personalAttrDataHeaderMoney" style="left:30px;z-index:1000;position: relative;top:-3px;"></div>
+						<li id="personalAttrDataMoney" style="margin-top: 5px;">
+							<div class="personalAttrDataHeader personalAttrDataHeaderMoney" style="z-index:1000;position: absolute;top:-3px;left:-2px;"></div>
 							
-							<div id="progressbarMoney" style="width:50%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
+							<div id="progressbarMoney" style="width:100%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
 								<div class="progress-label2" id="progressLabel2" style="color:RGBA(255,237,109,1)">0</div>
 							</div>
 							
-							<div class="mainViewDekornButton4" style="left:-30px;position: relative;">提现</div>
+							<div class="mainViewDekornButton4" style="position: absolute;left:75px;top:0px;">提现</div>
 							
 						</li>
 						

@@ -3582,7 +3582,6 @@ li::before{
 	overflow: hidden;
 	padding-top: 0px;
 	vertical-align: middle;
-	padding-left: 8px;
 	padding-top: 2px;
 	font-weight: bolder;
 }
@@ -3649,7 +3648,6 @@ li::before{
 	background-size:35px 40px;
 	background-position:4px 0px;
 	height: 20px;
-	top:-4px;
 	position: relative;
 }
 
@@ -3658,8 +3656,6 @@ li::before{
 	background: url("http://7xugu1.com1.z0.glb.clouddn.com/plus.png")no-repeat;
 	background-size:20px 20px;
 	background-position:0px 0px;
-	left:-23px;
-	position: relative;
 }
 
 
@@ -3673,9 +3669,10 @@ li::before{
 }
 
 .personalAttrData>ul>li{
-	width:48%;
+	width:23%;
 	height:20px;
 	display: inline-block;
+	position: relative;
 }
 
 .personalAttrData>ul>li>span{
