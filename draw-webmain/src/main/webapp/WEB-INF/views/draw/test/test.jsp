@@ -25,7 +25,7 @@
 				payCallback.success = function(){
 					alert("success");
 				}
-				wxPay(data.timestamp,data.nonceStr,data.pack,data.signType,data.paySign,payCallback);
+				onBridgeReady(data.timestamp,data.nonceStr,data.pack,data.signType,data.paySign,payCallback);
 			}
 		}
 		
