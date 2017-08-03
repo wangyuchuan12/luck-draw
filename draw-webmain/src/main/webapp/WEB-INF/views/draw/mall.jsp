@@ -218,7 +218,8 @@
 							payType:payType,
 							amount:amount,
 							amountStyle:"padding-top:5px;",
-							id:id
+							id:id,
+							costType:3
 						});
 						this.next();
 					},
@@ -237,7 +238,8 @@
 							name:name,
 							payType:payType,
 							amount:amount,
-							id:id
+							id:id,
+							costType:3
 							
 						});
 						this.next();
@@ -257,7 +259,8 @@
 							name:name,
 							payType:payType,
 							amount:amount,
-							id:id
+							id:id,
+							costType:1
 						});
 						this.next();
 					},
@@ -271,6 +274,8 @@
 						var amount = this.stepData("amount");
 						
 						var id = this.stepData("id");
+						
+						var costType = this.stepData("costType");
 						
 						var text = "";
 						
@@ -294,15 +299,48 @@
 						$(".mallGoodList>ul").append(goodEl);
 			
 						goodEl.click(function(){
-							showLoading();
-							wxPayGood(id,2,2,{
-								success:function(){
-									hideLoading();
-								},
-								failure:function(){
-									hideLoading();
-								}
-							})
+							
+							
+							if(costType==1){
+								showLoading();
+								wxPayGood(id,2,2,{
+									success:function(){
+										hideLoading();
+									},
+									failure:function(){
+										hideLoading();
+									}
+								});
+							}else if(costType==3){
+								
+								var configAlert = new AlertPlug("是否确定支付",
+										[
+										 {
+											 text:"是",
+											 click:function(){
+												 configAlert.close();
+												 showLoading();
+												 masonryPayGood(id,{
+														success:function(data){
+															hideLoading();
+															var alertPlug = new AlertPlug("购买成功",[{text:"确定",click:function(){alertPlug.close();}}]);
+														},
+														failure:function(resp){
+															hideLoading();
+															var alertPlug = new AlertPlug("购买成功",[{text:"确定",click:function(){alertPlug.close();}}]);
+														}
+													});
+											 }
+										 },
+										 {
+											 text:"否",
+											 click:function(){
+												 configAlert.close();
+											 }
+										 }
+										]);
+								
+							}
 						});
 					}
 				});

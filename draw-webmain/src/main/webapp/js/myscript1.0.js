@@ -461,14 +461,37 @@ function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl,callback){
 	
 }
 
+function masonryPayGood(goodId,payCallback){
+	var url = "/api/pay/wx/choose_good_masonry_pay";
+	
+	var params = new Object();
+	
+	params.goodId = goodId;
+	params.costType = 2;
+	
+	
+	request(url,{
+		success:function(resp){
+			if(resp.success){
+				if(payCallback&&payCallback.success){
+					payCallback.success(resp.data);
+				}
+			}else{
+				payCallback.success(resp);
+			}
+			
+		},
+		failure:function(){
+			payCallback.failure({errorMsg:"程序出错"});
+		}
+	},params);
+}
+
 
 function wxPayGood(goodId,costType,type,payCallback){
 	var url = "/api/pay/wx/choose_good_wx_pay_config";
-	
 	var callback = new Object();
 	callback.success = function(resp){
-		
-		alert(JSON.stringify(resp));
 		if(resp.success){
 			var data = resp.data;
 			wxPay2(data.appId,data.timestamp,data.nonceStr,data.pack,data.signType,data.paySign,payCallback);

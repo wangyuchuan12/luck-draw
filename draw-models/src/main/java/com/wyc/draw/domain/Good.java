@@ -91,12 +91,12 @@ public class Good {
 	//花费智慧豆
 	@Column(name="cost_bean")
 	@ParamAnnotation
-	private BigDecimal costBean;
+	private Integer costBean;
 	
 	//花费砖石
 	@Column(name="cost_masonry")
 	@ParamAnnotation
-	private BigDecimal costMasonry;
+	private Integer costMasonry;
 	
 	//0表示下架 1表示有效
 	@Column
@@ -188,16 +188,16 @@ public class Good {
 	public void setCostMoney(BigDecimal costMoney) {
 		this.costMoney = costMoney;
 	}
-	public BigDecimal getCostBean() {
+	public Integer getCostBean() {
 		return costBean;
 	}
-	public void setCostBean(BigDecimal costBean) {
+	public void setCostBean(Integer costBean) {
 		this.costBean = costBean;
 	}
-	public BigDecimal getCostMasonry() {
+	public Integer getCostMasonry() {
 		return costMasonry;
 	}
-	public void setCostMasonry(BigDecimal costMasonry) {
+	public void setCostMasonry(Integer costMasonry) {
 		this.costMasonry = costMasonry;
 	}
 	public Integer getStatus() {

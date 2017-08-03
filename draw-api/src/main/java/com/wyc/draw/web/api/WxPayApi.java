@@ -21,6 +21,7 @@ import com.wyc.common.util.XmlUtil;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.RedPacketToTakepartMember;
+import com.wyc.draw.filter.controller.api.ChooseGoodMasonryPayApiFilter;
 import com.wyc.draw.filter.controller.api.ChooseGoodWxPayApiFilter;
 import com.wyc.draw.filter.pay.ChooseWxPayFilter;
 import com.wyc.draw.service.RedPacketService;
@@ -63,6 +64,23 @@ public class WxPayApi {
 		resultVo.setMsg("返回数据成功");
 		resultVo.setData(chooseWxPayBean);
 		return resultVo;
+	}
+	
+	
+	
+	@Transactional
+	@HandlerAnnotation(hanlerFilter=ChooseGoodMasonryPayApiFilter.class)
+	@RequestMapping(value="choose_good_masonry_pay")
+	@ResponseBody
+	public Object chooseGoodMasonryPay(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		if(sessionManager.isReturn()){
+			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+			return resultVo;
+		}else{
+			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			return resultVo;
+		}
 	}
 	
 	@Transactional

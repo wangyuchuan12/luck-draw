@@ -34,6 +34,7 @@ public class CreateGoodOrderFilter extends Filter{
 		order.setMasonryNum(good.getMasonryNum());
 		order.setCostMoney(good.getCostMoney());
 		order.setCostType(costType);
+		order.setCostMasonry(good.getCostMasonry());
 		order.setGoodId(goodId);
 		order.setName(good.getName());
 		order.setImgUrl(good.getImgUrl());

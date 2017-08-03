@@ -94,12 +94,12 @@ public class Order {
 	// 花费智慧豆
 	@Column(name = "cost_bean")
 	@ParamAnnotation
-	private BigDecimal costBean;
+	private Integer costBean;
 
 	// 花费砖石
 	@Column(name = "cost_masonry")
 	@ParamAnnotation
-	private BigDecimal costMasonry;
+	private Integer costMasonry;
 
 	// 是否已经支付
 	@Column(name = "is_pay")
@@ -241,19 +241,19 @@ public class Order {
 		this.costMoney = costMoney;
 	}
 
-	public BigDecimal getCostBean() {
+	public Integer getCostBean() {
 		return costBean;
 	}
 
-	public void setCostBean(BigDecimal costBean) {
+	public void setCostBean(Integer costBean) {
 		this.costBean = costBean;
 	}
 
-	public BigDecimal getCostMasonry() {
+	public Integer getCostMasonry() {
 		return costMasonry;
 	}
 
-	public void setCostMasonry(BigDecimal costMasonry) {
+	public void setCostMasonry(Integer costMasonry) {
 		this.costMasonry = costMasonry;
 	}
 

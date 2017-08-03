@@ -8,7 +8,7 @@ public class Constant {
 	
 	public static final int SEX_FEMALE_TYPE =0; // 女
 	public static final int SEX_MALE_TYPE =1; // 男
-	public static final int SEX_UNKNOW_TYPE =2; // 未知
+	public static final int SEX_UNKNOW_TYPE =2; //
 	
 	
 	

@@ -940,9 +940,37 @@ function WaitPlug(loadContent){
 }
 
 function AlertPlug(content,btns){
+	
+	var btnArray;
+	
+	if(btns)
+	{
+		btnArray = new Array();
+		for(var i = 0;i<btns.length;i++){
+			var btn = btns[i];
+			btnArray.push(btn.text);
+		}
+	}
+	
+	
 	var alertPlug = layer.open({
-		btn:btns,
-		content:content
+		content:content,
+		btn:btnArray,
+		yes:function(){
+			btns[0].click();
+		},
+		no:function(){
+			btns[1].click();
+		},
+		btn2:function(){
+			alert("btn2");
+		},
+		btn3:function(){
+			alert("btn3");
+		},
+		btn4:function(){
+			alert("btn4");
+		},
 	});
 	
 	this.close = function(){
