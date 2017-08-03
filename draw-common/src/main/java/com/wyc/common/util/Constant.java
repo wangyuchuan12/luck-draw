@@ -163,7 +163,7 @@ public class Constant {
 	//竞答红包参赛支付回调地址
 	public static final String PAY_VIE_TAKEPART_TYPE_NONCE_URL="/api/pay/wx/vie_takepart_pay_success";
 	
-	public static final String PAY_ORDER_NONCE_URL="/api/pay/order_pay_success";
+	public static final String PAY_ORDER_NONCE_URL="/api/pay/wx/order_pay_success";
 
 	
 	
