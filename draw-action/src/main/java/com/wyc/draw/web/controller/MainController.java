@@ -51,6 +51,7 @@ public class MainController {
 	}
 	
 	
+	@HandlerAnnotation(hanlerFilter=BaseDrawActionFilter.class)
 	@RequestMapping(value="test")
 	public String test(HttpServletRequest httpServletRequest)throws Exception{
 		return "test/test";
