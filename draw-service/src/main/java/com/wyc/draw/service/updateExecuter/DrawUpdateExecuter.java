@@ -13,6 +13,7 @@ import com.wyc.draw.domain.DekornTakepartMember;
 import com.wyc.draw.domain.DekornToTakepartMember;
 import com.wyc.draw.domain.Game;
 import com.wyc.draw.domain.Good;
+import com.wyc.draw.domain.Order;
 import com.wyc.draw.domain.Prop;
 import com.wyc.draw.domain.PropBean;
 import com.wyc.draw.domain.PropLove;
@@ -31,6 +32,7 @@ import com.wyc.draw.service.DekornTakepartMemberService;
 import com.wyc.draw.service.DekornToTakepartMemberService;
 import com.wyc.draw.service.GameService;
 import com.wyc.draw.service.GoodService;
+import com.wyc.draw.service.OrderService;
 import com.wyc.draw.service.PropBeanService;
 import com.wyc.draw.service.PropLoveService;
 import com.wyc.draw.service.PropPhyService;
@@ -100,6 +102,9 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 	@Autowired
 	private GoodService goodService;
 	
+	@Autowired
+	private OrderService orderService;
+	
 	
 	@Override
 	public void update(List<Object> objs) {
@@ -137,6 +142,8 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 					battleService.update(battle);
 				}else if(object.getClass().equals(Good.class)){
 					goodService.update((Good)object);
+				}else if(object.getClass().equals(Order.class)){
+					orderService.update((Order)object);
 				}
 			}
 		}
@@ -182,6 +189,11 @@ public class DrawUpdateExecuter implements DbServiceExecuter{
 		
 		if(clazz.equals(Good.class)){
 			T obj = (T)goodService.findOne(id);
+			return obj;
+		}
+		
+		if(clazz.equals(Order.class)){
+			T obj = (T)orderService.findOne(id);
 			return obj;
 		}
 

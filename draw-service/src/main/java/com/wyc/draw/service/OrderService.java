@@ -23,4 +23,16 @@ public class OrderService {
 		orderRepository.save(order);
 		
 	}
+
+	public void update(Order order) {
+		
+		order.setUpdateAt(new DateTime());
+		orderRepository.save(order);
+		
+	}
+
+	public Order findOne(String id) {
+		
+		return orderRepository.findOne(id);
+	}
 }
