@@ -496,11 +496,13 @@ function wxPayGood(goodId,costType,type,payCallback,p){
 			var data = resp.data;
 			wxPay2(data.chooseWxPayBean.appId,data.chooseWxPayBean.timestamp,data.chooseWxPayBean.nonceStr,data.chooseWxPayBean.pack,data.chooseWxPayBean.signType,data.chooseWxPayBean.paySign,{
 				success:function(){
-					alert("success");
 					payCallback.success(data.order);
 				},
 				failure:function(){
 					payCallback.failure();
+				},
+				cancel:function(){
+					payCallback.cancel();
 				}
 			},p);
 		}else{
@@ -545,8 +547,10 @@ function wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback,p){
 	       function(res){
 	    	   alert(JSON.stringify(res));
 	    	   if(callback&&callback.success){
-	    		   if(res.err_msg=="get_brand_wxpay_request:ok"){
+	    		   if(res.err_msg=="get_brand_wcpay_request:ok"){
 	    			   callback.success();
+	    		   }else if(res.err_msg=="get_brand_wcpay_request:cancel"){
+	    			   callback.cancel();
 	    		   }else{
 	    			   callback.failure();
 	    		   }
