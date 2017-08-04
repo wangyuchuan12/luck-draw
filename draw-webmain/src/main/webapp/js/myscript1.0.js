@@ -514,7 +514,7 @@ function wxPayGood(goodId,costType,type,payCallback){
 function wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback){
 	
       if(window.parent.wxPay2){
-    	  wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback);
+    	  window.parent.wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback);
     	  return;
       }
 	   WeixinJSBridge.invoke(
