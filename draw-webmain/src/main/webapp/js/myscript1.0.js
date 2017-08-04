@@ -488,13 +488,13 @@ function masonryPayGood(goodId,payCallback){
 }
 
 
-function wxPayGood(goodId,costType,type,payCallback){
+function wxPayGood(goodId,costType,type,payCallback,p){
 	var url = "/api/pay/wx/choose_good_wx_pay_config";
 	var callback = new Object();
 	callback.success = function(resp){
 		if(resp.success){
 			var data = resp.data;
-			wxPay2(data.appId,data.timestamp,data.nonceStr,data.pack,data.signType,data.paySign,payCallback);
+			wxPay2(data.appId,data.timestamp,data.nonceStr,data.pack,data.signType,data.paySign,payCallback,p);
 		}else{
 			payCallback.failure();
 		}
