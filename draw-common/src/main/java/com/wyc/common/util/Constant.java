@@ -330,4 +330,15 @@ public class Constant {
 	
 	//已领取
 	public static final int BATTLE_REWARD_STATUS_SUCCESS=2;
+	
+	
+	
+	
+	/************************支付错误代码**********************************/
+	
+	//砖石不足
+	public static final int MASONRY_SHORTAGE_ERROR_CODE = 0;
+	
+	//支付砖石数量错误
+	public static final int MASONRY_NUM_ERROR_CODE = 1;
 }

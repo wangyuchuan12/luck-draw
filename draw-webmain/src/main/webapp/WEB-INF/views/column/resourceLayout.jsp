@@ -643,7 +643,6 @@
 					
 					setAttrData(object);
 					
-					console.log("pullData:"+JSON.stringify(object));
 				},
 				
 				pushData:function(){
@@ -651,7 +650,6 @@
 					
 					window.parent.setAttrData(object);
 					
-					console.log("pushData:"+JSON.stringify(object));
 				},
 				
 				hideLove:function(){

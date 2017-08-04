@@ -181,6 +181,14 @@
 						<div class="mainViewFooterButtonTitle">关注</div>
 					</li>
 					
+					
+					<li id="mainViewStoreButton">
+						<div class="mainViewFooterButton">
+							<div class="mainViewFooterButtonIcon_store"></div>
+						</div>
+						<div class="mainViewFooterButtonTitle">商城</div>
+					</li>
+					
 					<li>
 						<div class="mainViewFooterButton">
 							<div class="mainViewFooterButtonIcon_add"></div>
@@ -1313,6 +1321,20 @@
 					 
 					 return false;
 				 });
+				 
+				 $("#mainViewStoreButton").click(function(){
+					 outThis.setNext("openStore");
+					 outThis.next();
+				 });
+			},
+			
+			openStore:function(){
+				var url = "/view/draw/mall/mainView";
+				
+				var layerPlug =  new LayerPlug(url,1,1,"",function(){
+					
+				});
+				layerPlug.show();
 			},
 			
 			initBattleInfo:function(){

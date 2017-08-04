@@ -4130,6 +4130,15 @@ li::before{
 	background-position: 7px 5px;
 }
 
+.mainViewFooterButtonIcon_store{
+	background: url("http://otsnwem87.bkt.clouddn.com/b6041ee9d55a39a0e7535948308573fd.png")no-repeat;
+	width:50px;
+	height: 50px;
+	background-size:70% 90%;
+	
+	background-position: 7px 5px;
+}
+
 .mainViewFooterButtonIcon_add{
 	background: url("http://on3s1z2us.bkt.clouddn.com/997e452bb58b921ba5c3ca82c3a263d2.png")no-repeat;
 	width:50px;
@@ -4762,6 +4771,10 @@ li::before{
 	width:200px;
 	position: relative;
 	font-size: 25px;
+}
+
+.mallContainer{
+	padding-top: 50px;
 }
 
 .mallTitle{

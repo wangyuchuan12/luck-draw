@@ -477,7 +477,7 @@ function masonryPayGood(goodId,payCallback){
 					payCallback.success(resp.data);
 				}
 			}else{
-				payCallback.success(resp);
+				payCallback.failure(resp);
 			}
 			
 		},

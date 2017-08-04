@@ -168,9 +168,12 @@ function showIncreaseNum(num,imgUrl,type,offsetLeft,offsetTop){
 //提示信息
 function ShowAlert(msg){
 	
+	if(msg.css){
+		msg.css("display","block");
+	}
 	var size = 5;
 	var alertDiv = $("<div></div>");
-	alertDiv.text(msg);
+	alertDiv.html(msg);
 	alertDiv.css("color","black");
 	alertDiv.css("font-size",size+"px");
 	alertDiv.css("position","fixed");

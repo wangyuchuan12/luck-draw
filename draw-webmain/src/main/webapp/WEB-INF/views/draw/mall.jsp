@@ -138,7 +138,6 @@
 										name:good.spec,
 										amount:good.amount,
 										imgUrl:good.imgUrl,
-										payType:good.payType,
 										id:good.goodId
 									});
 									outThis.next();
@@ -148,7 +147,6 @@
 										name:good.spec,
 										amount:good.amount,
 										imgUrl:good.imgUrl,
-										payType:good.payType,
 										id:good.goodId
 									});
 									outThis.next();
@@ -158,7 +156,6 @@
 										name:good.spec,
 										amount:good.amount,
 										imgUrl:good.imgUrl,
-										payType:good.payType,
 										id:good.goodId
 									});
 									outThis.next();
@@ -211,11 +208,9 @@
 						if(!imgUrl){
 							imgUrl = "http://7xugu1.com1.z0.glb.clouddn.com/lifeLoveSolid.png";
 						}
-						var payType = this.stepData("payType");
 						this.nextData({
 							imgUrl:imgUrl,
 							name:name,
-							payType:payType,
 							amount:amount,
 							amountStyle:"padding-top:5px;",
 							id:id,
@@ -232,11 +227,9 @@
 						if(!imgUrl){
 							imgUrl = "/imgs/plug/bean.png";
 						}
-						var payType = this.stepData("payType");
 						this.nextData({
 							imgUrl:imgUrl,
 							name:name,
-							payType:payType,
 							amount:amount,
 							id:id,
 							costType:3
@@ -249,7 +242,6 @@
 						var amount = this.stepData("amount");
 						var name = this.stepData("name");
 						var imgUrl = this.stepData("imgUrl");
-						var payType = this.stepData("payType");
 						var id = this.stepData("id");
 						if(!imgUrl){
 							imgUrl = "http://otsnwem87.bkt.clouddn.com/e33bf825f5d9b459be556b4e16b9e011.png";
@@ -257,7 +249,6 @@
 						this.nextData({
 							imgUrl:imgUrl,
 							name:name,
-							payType:payType,
 							amount:amount,
 							id:id,
 							costType:1
@@ -265,11 +256,11 @@
 						this.next();
 					},
 					addGood:function(){
+						
+						var outThis = this;
 						var img = this.stepData("imgUrl");
 						var name = this.stepData("name");
 						var amountStyle = this.stepData("amountStyle");
-						
-						var payType = this.stepData("payType");
 						
 						var amount = this.stepData("amount");
 						
@@ -280,11 +271,11 @@
 						var text = "";
 						
 						amountStyle = "";
-						if(payType==0){
+						if(costType==3){
 							text = "<div class='personalAttrDataHeader personalAttrDataHeaderMasonry'></div>"+amount+"砖";
 							amountStyle = "padding-top:5px;";
 							
-						}else if(payType==1){
+						}else if(costType==1){
 							text = "<div class='personalAttrDataHeader personalAttrDataHeaderMoney'></div>"+amount+"元";
 							
 						}
@@ -327,7 +318,23 @@
 														},
 														failure:function(resp){
 															hideLoading();
-															var alertPlug = new AlertPlug("购买成功",[{text:"确定",click:function(){alertPlug.close();}}]);
+															var data = resp.data;
+															if(!data||data.errorCode==null){
+																//没有错误码数据
+																var alertPlug = new AlertPlug("购买失败",[{text:"确定",click:function(){alertPlug.close();}}]);
+															}else if(data.errorCode==1){
+																//支付金额出错
+																var alertPlug = new AlertPlug("购买失败",[{text:"确定",click:function(){alertPlug.close();}}]);
+															}else if(data.errorCode==0){
+																//余额不足
+																var alertPlug = new AlertPlug("砖石不足",[{text:"充值",click:function(){
+																	alertPlug.close();
+																	outThis.setNext("showMasonry");
+																	outThis.next();
+																}},{text:"取消",click:function(){
+																	alertPlug.close();
+																}}]);
+															}
 														}
 													});
 											 }
@@ -346,8 +353,20 @@
 				});
 			}
 			$(document).ready(function(){
-				hideProgress();
-				init();
+				addProgress(90,10,{complete:function(){
+					init();
+					
+					var attrFlowPlug = attrPlug.flowPlug;
+					
+					attrFlowPlug.setNext("initProgress");
+					attrFlowPlug.next();
+					
+					attrFlowPlug.setNext("pullData");
+					attrFlowPlug.next();
+					
+					attrFlowPlug.setNext("show");
+					attrFlowPlug.next();
+				}});
 			});
 		</script>
 	</tiles:putAttribute>

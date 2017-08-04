@@ -1,6 +1,8 @@
 package com.wyc.draw.filter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,6 +11,7 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.service.AccountService;
 import com.wyc.common.session.SessionManager;
+import com.wyc.common.util.Constant;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.Order;
 import com.wyc.draw.vo.RewardVo;
@@ -36,6 +39,12 @@ public class GoodOrderMasonryPayFilter extends Filter{
 			
 			resultVo.setErrorMsg("花费的砖石不能为0");
 			
+			Map<String, Object> data = new HashMap<>();
+			
+			data.put("errorCode", Constant.MASONRY_NUM_ERROR_CODE);
+			
+			resultVo.setData(data);
+			
 			sessionManager.setReturn(true);
 			
 			sessionManager.setReturnValue(resultVo);
@@ -45,6 +54,12 @@ public class GoodOrderMasonryPayFilter extends Filter{
 			resultVo.setSuccess(false);
 			
 			resultVo.setErrorMsg("余额不足");
+			
+			Map<String, Object> data = new HashMap<>();
+			
+			data.put("errorCode", Constant.MASONRY_SHORTAGE_ERROR_CODE);
+			
+			resultVo.setData(data);
 			
 			sessionManager.setReturn(true);
 			
