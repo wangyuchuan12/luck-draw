@@ -33,6 +33,8 @@ public class GoodOrderMasonryPayFilter extends Filter{
 		Integer  masonry = account.getMasonry();
 		
 		if(order.getCostMasonry()==null||order.getCostMasonry()==0){
+			
+			System.out.println("...............1");
 			ResultVo resultVo = new ResultVo();
 			
 			resultVo.setSuccess(false);
@@ -49,6 +51,8 @@ public class GoodOrderMasonryPayFilter extends Filter{
 			
 			sessionManager.setReturnValue(resultVo);
 		}else if(masonry<order.getCostMasonry()){
+			
+			System.out.println("...............2");
 			ResultVo resultVo = new ResultVo();
 			
 			resultVo.setSuccess(false);
@@ -67,7 +71,7 @@ public class GoodOrderMasonryPayFilter extends Filter{
 		}else{
 			
 			
-			
+			System.out.println("...............3");
 			RewardVo rewardVo = new RewardVo();
 			rewardVo.setSubMasonry(order.getCostMasonry());
 			

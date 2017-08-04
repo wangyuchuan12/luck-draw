@@ -785,6 +785,7 @@
 					var num = this.stepData("num");
 					var outThis = this;
 					var index = 0;
+					$("#personalAttr").css("z-index","10000");
 					var interval = setInterval(function(){
 						index++;
 						if(index<=num){
@@ -796,6 +797,11 @@
 							outThis.nextData({"objSelector":"#lifeLoveSolidAnnim","targetSelector":".personalAttrDataHeaderLove","array":[{num:"1"}]});
 							outThis.next();
 						}else{
+							
+							setTimeout(function(){
+								$("#personalAttr").css("z-index","100");
+							},3000);
+							
 							clearInterval(interval);
 						}
 					},50);
@@ -819,6 +825,10 @@
 							outThis.nextData({"objSelector":"#beanAnnim","targetSelector":".personalAttrDataHeaderBean","array":[{num:1}]});
 							outThis.next();
 						}else{
+							
+							setTimeout(function(){
+								$("#personalAttr").css("z-index","100");
+							},3000);
 							clearInterval(interval);
 						}
 					},50);
@@ -842,6 +852,9 @@
 							outThis.nextData({"objSelector":"#coinAnnim","targetSelector":".personalAttrDataHeaderMoney","array":[{num:"0.01元"}]});
 							outThis.next();
 						}else{
+							setTimeout(function(){
+								$("#personalAttr").css("z-index","100");
+							},3000);
 							clearInterval(interval);
 						}
 					},50);
@@ -886,12 +899,12 @@
 				},
 				
 				subMasonryAction:function(){
-					
+				//	showIncreaseNum(num,"/imgs/plug/lifeLoveSolid.png",1,-80,0);
 					var outThis = this;
 					var num = this.stepData("num");
 					masonryProgressPlug.subValueAction(num);
 					
-					showIncreaseNum(num,"http://on3s1z2us.bkt.clouddn.com/masonry3.png",50,-80);
+					showIncreaseNum(num,"http://on3s1z2us.bkt.clouddn.com/masonry3.png",2,-80,100);
 					
 					setTimeout(function(){
 						outThis.success();

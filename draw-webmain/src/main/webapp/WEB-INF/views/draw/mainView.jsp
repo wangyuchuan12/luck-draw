@@ -9,7 +9,7 @@
 <tiles:insertDefinition name="resourceLayout">
 	<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 	<tiles:putAttribute name="body">
-	
+	<div style="position: absolute;width: 100%;height: 100%;z-index: 1000;display: none;background: RGBA(2,0,22,0.9)" id="iframeContair"></div>
 		<input type="hidden" name="battleId" value="${battleId}"/>
 		<div class="mainView">
 			<div class="mainViewDekorn">
@@ -251,6 +251,11 @@
 	var mainViewPlug;
 	
 	var mainViewFlowPlug;
+	
+	function closeContainer(){
+		$("#iframeContair").empty();
+		$("#iframeContair").css("display","none");
+	}
 
 	function startBattle(stage){
 		
@@ -1331,10 +1336,14 @@
 			openStore:function(){
 				var url = "/view/draw/mall/mainView";
 				
-				var layerPlug =  new LayerPlug(url,1,1,"",function(){
-					
-				});
-				layerPlug.show();
+				showLoading();
+				
+				$.get(url,function(r){
+					$("#iframeContair").css("display","block");
+					$("#iframeContair").append(r);
+					initStore();
+					hideLoading();
+				},"html");
 			},
 			
 			initBattleInfo:function(){

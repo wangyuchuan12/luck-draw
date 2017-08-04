@@ -494,7 +494,14 @@ function wxPayGood(goodId,costType,type,payCallback,p){
 	callback.success = function(resp){
 		if(resp.success){
 			var data = resp.data;
-			wxPay2(data.appId,data.timestamp,data.nonceStr,data.pack,data.signType,data.paySign,payCallback,p);
+			wxPay2(data.chooseWxPayBean.appId,data.chooseWxPayBean.timestamp,data.chooseWxPayBean.nonceStr,data.chooseWxPayBean.pack,data.chooseWxPayBean.signType,data.chooseWxPayBean.paySign,{
+				success:function(){
+					payCallback.success(data.order);
+				},
+				failure:function(){
+					payCallback.failure();
+				}
+			},p);
 		}else{
 			payCallback.failure();
 		}

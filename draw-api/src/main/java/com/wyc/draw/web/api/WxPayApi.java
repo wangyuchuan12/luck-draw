@@ -1,4 +1,7 @@
 package com.wyc.draw.web.api;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -18,6 +21,7 @@ import com.wyc.common.service.PaySuccessService;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
 import com.wyc.common.util.XmlUtil;
+import com.wyc.draw.domain.Order;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketTakepartMember;
 import com.wyc.draw.domain.RedPacketToTakepartMember;
@@ -27,6 +31,7 @@ import com.wyc.draw.filter.pay.ChooseWxPayFilter;
 import com.wyc.draw.service.RedPacketService;
 import com.wyc.draw.service.RedPacketTakepartMemberService;
 import com.wyc.draw.service.VieRedPacketToTakepartMemberService;
+import com.wyc.draw.vo.RewardVo;
 
 @Controller
 @RequestMapping(value="/api/pay/wx/")
@@ -74,11 +79,17 @@ public class WxPayApi {
 	@ResponseBody
 	public Object chooseGoodMasonryPay(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		
+		System.out.println("请问这里有没有进来");
 		if(sessionManager.isReturn()){
 			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
+			System.out.println("isReturn:"+resultVo);
 			return resultVo;
 		}else{
-			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
+			RewardVo rewardVo = sessionManager.getObject(RewardVo.class);
+			ResultVo resultVo = new ResultVo();
+			resultVo.setSuccess(true);
+			resultVo.setData(rewardVo);
 			return resultVo;
 		}
 	}
@@ -98,11 +109,17 @@ public class WxPayApi {
 			return sessionManager.getObject(ResultVo.class);
 		}
 		WxChooseWxPayBean chooseWxPayBean = (WxChooseWxPayBean)sessionManager.getObject(WxChooseWxPayBean.class);
+		
+		Order order = sessionManager.getObject(Order.class);
+		
+		Map<String, Object> data = new HashMap<>();
+		data.put("chooseWxPayBean", chooseWxPayBean);
+		data.put("order", order);
 
 		resultVo = new ResultVo();
 		resultVo.setSuccess(true);
 		resultVo.setMsg("返回数据成功");
-		resultVo.setData(chooseWxPayBean);
+		resultVo.setData(data);
 		return resultVo;
 	}
 	

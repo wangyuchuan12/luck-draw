@@ -6,10 +6,9 @@
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<tiles:insertDefinition name="resourceLayout">
-	<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
-	<tiles:putAttribute name="body">
 		<div class="mallContainer">
+		
+			<div class="mallClose" id="mallClose">关闭</div>
 			<div class="mallTitle">
 				<ul>
 					<li style="color: RGBA(226,181,120,1);" id="allTab">综合</li>
@@ -27,7 +26,9 @@
 		
 		<script type="text/javascript">
 		
-			function init(){
+			function initStore(){
+				
+				hideProgress();
 				var flowPlug = new FlowPlug({
 					begin:function(){
 						/*this.setNext("addLoveGood");
@@ -67,6 +68,10 @@
 						$("#masonryTab").click(function(){
 							outThis.setNext("showMasonry");
 							outThis.next();
+						});
+						
+						$("#mallClose").click(function(){
+							closeContainer();
 						});
 					},
 					
@@ -295,8 +300,37 @@
 							if(costType==1){
 								showLoading();
 								wxPayGood(id,2,2,{
-									success:function(){
+									success:function(order){
 										hideLoading();
+										
+										var addLoveLifeNum = order.loveNum;
+										var addWisdomNum = order.beanNum;
+										var addMasonryNum = order.masonryNum;
+										
+										
+										if(addLoveLifeNum){
+											attrPlug.flowPlug.setNext("addLoveAnnim");
+											attrPlug.flowPlug.nextData({
+												num:addLoveLifeNum
+											});
+											attrPlug.flowPlug.next();
+										}
+										
+										if(addWisdomNum){
+											attrPlug.flowPlug.setNext("addBeanAnnim");
+											attrPlug.flowPlug.nextData({
+												num:addWisdomNum
+											});
+											attrPlug.flowPlug.next();
+										}
+										
+										if(addMasonryNum){
+											attrPlug.flowPlug.setNext("addMasonryAnnim");
+											attrPlug.flowPlug.nextData({
+												num:addMasonryNum
+											});
+											attrPlug.flowPlug.next();
+										}
 									},
 									failure:function(){
 										hideLoading();
@@ -313,18 +347,58 @@
 												 showLoading();
 												 masonryPayGood(id,{
 														success:function(data){
+															alert(JSON.stringify(data));
 															hideLoading();
-															var alertPlug = new AlertPlug("购买成功",[{text:"确定",click:function(){alertPlug.close();}}]);
+															var alertPlug = new AlertPlug("购买成功",[{text:"确定",click:function(){
+																alertPlug.close();
+																
+																var subMasonry = data.subMasonry;
+																var addLoveLifeNum = data.addLoveLifeNum;
+																var addWisdomNum = data.addWisdomNum;
+																var addAmount  = data.addAmount;
+																
+																attrPlug.flowPlug.setNext("subMasonryAction");
+																attrPlug.flowPlug.nextData({
+																	num:subMasonry
+																});
+																attrPlug.flowPlug.next();
+																
+																if(addLoveLifeNum){
+																	attrPlug.flowPlug.setNext("addLoveAnnim");
+																	attrPlug.flowPlug.nextData({
+																		num:addLoveLifeNum
+																	});
+																	attrPlug.flowPlug.next();
+																}
+																
+																if(addWisdomNum){
+																	attrPlug.flowPlug.setNext("addBeanAnnim");
+																	attrPlug.flowPlug.nextData({
+																		num:addWisdomNum
+																	});
+																	attrPlug.flowPlug.next();
+																}
+																
+																if(addAmount){
+																	attrPlug.flowPlug.setNext("addAmountAnnim");
+																	attrPlug.flowPlug.nextData({
+																		num:addAmount
+																	});
+																	attrPlug.flowPlug.next();
+																}
+																
+																
+															}}]);
 														},
 														failure:function(resp){
 															hideLoading();
 															var data = resp.data;
 															if(!data||data.errorCode==null){
 																//没有错误码数据
-																var alertPlug = new AlertPlug("购买失败",[{text:"确定",click:function(){alertPlug.close();}}]);
+																var alertPlug = new AlertPlug("购买失败1",[{text:"确定",click:function(){alertPlug.close();}}]);
 															}else if(data.errorCode==1){
 																//支付金额出错
-																var alertPlug = new AlertPlug("购买失败",[{text:"确定",click:function(){alertPlug.close();}}]);
+																var alertPlug = new AlertPlug("购买失败2",[{text:"确定",click:function(){alertPlug.close();}}]);
 															}else if(data.errorCode==0){
 																//余额不足
 																var alertPlug = new AlertPlug("砖石不足",[{text:"充值",click:function(){
@@ -352,7 +426,7 @@
 					}
 				});
 			}
-			$(document).ready(function(){
+			/*$(document).ready(function(){
 				addProgress(90,10,{complete:function(){
 					init();
 					
@@ -367,7 +441,5 @@
 					attrFlowPlug.setNext("show");
 					attrFlowPlug.next();
 				}});
-			});
+			});*/
 		</script>
-	</tiles:putAttribute>
-</tiles:insertDefinition>
