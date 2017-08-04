@@ -496,6 +496,7 @@ function wxPayGood(goodId,costType,type,payCallback,p){
 			var data = resp.data;
 			wxPay2(data.chooseWxPayBean.appId,data.chooseWxPayBean.timestamp,data.chooseWxPayBean.nonceStr,data.chooseWxPayBean.pack,data.chooseWxPayBean.signType,data.chooseWxPayBean.paySign,{
 				success:function(){
+					alert("success");
 					payCallback.success(data.order);
 				},
 				failure:function(){
@@ -520,10 +521,6 @@ function wxPayGood(goodId,costType,type,payCallback,p){
 
 function wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback,p){
 	
-	   if(p){
-		   wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback,false);
-		   return;
-	   }
 	   WeixinJSBridge.invoke(
 	       'getBrandWCPayRequest', {
 	           "appId":appId,     //公众号名称，由商户传入     
@@ -533,20 +530,25 @@ function wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback,p){
 	           "signType":signType,         //微信签名方式：     
 	           "paySign":paySign, //微信签名 
 	           success: function (res) {
+	        	    alert("success:"+JSON.stringify(res));
 			    	callback.success();
 			    	
 			    },
 			    
 			    cancel:function(res){
+			    	
+			    	 alert("cancel:"+JSON.stringify(res));
 			    	callback.cancel();
 			    },
 			    
 			    fail:function(res){
+			    	 alert("fail:"+JSON.stringify(res));
 			    	callback.failure();
 			    }
 	       },
 	       function(res){
 	    	   if(callback&&callback.success){
+	    		   alert(JSON.stringify(res));
 	    		   callback.success();
 	    	   }
 	       }
