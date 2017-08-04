@@ -530,26 +530,26 @@ function wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback,p){
 	           "signType":signType,         //微信签名方式：     
 	           "paySign":paySign, //微信签名 
 	           success: function (res) {
-	        	    alert("success:"+JSON.stringify(res));
 			    	callback.success();
 			    	
 			    },
 			    
 			    cancel:function(res){
-			    	
-			    	 alert("cancel:"+JSON.stringify(res));
 			    	callback.cancel();
 			    },
 			    
 			    fail:function(res){
-			    	 alert("fail:"+JSON.stringify(res));
 			    	callback.failure();
 			    }
 	       },
 	       function(res){
 	    	   if(callback&&callback.success){
-	    		   alert(JSON.stringify(res));
-	    		   callback.success();
+	    		   if(res.err_msg=="get_brand_wxpay_request:ok"){
+	    			   callback.success();
+	    		   }else{
+	    			   callback.failure();
+	    		   }
+	    		   
 	    	   }
 	       }
 	   ); 
