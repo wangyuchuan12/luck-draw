@@ -545,7 +545,6 @@ function wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback,p){
 			    }
 	       },
 	       function(res){
-	    	   alert(JSON.stringify(res));
 	    	   if(callback&&callback.success){
 	    		   if(res.err_msg=="get_brand_wcpay_request:ok"){
 	    			   callback.success();

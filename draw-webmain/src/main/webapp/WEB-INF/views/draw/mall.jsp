@@ -295,19 +295,14 @@
 						$(".mallGoodList>ul").append(goodEl);
 			
 						goodEl.click(function(){
-							
-							
 							if(costType==1){
 								showLoading();
 								wxPayGood(id,2,2,{
 									success:function(order){
 										hideLoading();
-										
 										var addLoveLifeNum = order.loveNum;
 										var addWisdomNum = order.beanNum;
 										var addMasonryNum = order.masonryNum;
-										
-										
 										if(addLoveLifeNum){
 											attrPlug.flowPlug.setNext("addLoveAnnim");
 											attrPlug.flowPlug.nextData({

@@ -4080,6 +4080,33 @@ li::before{
 	position: relative;
 }
 
+.mainViewFooterButtonIcon_battle{
+	background: url("http://otsnwem87.bkt.clouddn.com/c670024ab76164d7d0d4006f9a9d797b.png") no-repeat;
+	width:40px;
+	height: 40px;
+	background-size:100% 100%;
+	
+	background-position: 5px 5px;
+}
+
+.mainViewFooterButtonIcon_home{
+	background: url("http://otsnwem87.bkt.clouddn.com/6c89509f3f29f29138e7e8a5c14c594c.png") no-repeat;
+	width:40px;
+	height: 40px;
+	background-size:100% 100%;
+	
+	background-position: 5px 10px;
+}
+
+.mainViewFooterButtonIcon_redPacket{
+	background: url("http://otsnwem87.bkt.clouddn.com/e600f3144e545de7c6d7cb72783829d1.png") no-repeat;
+	width:40px;
+	height: 40px;
+	background-size:100% 100%;
+	
+	background-position: 5px 10px;
+}
+
 .mainViewFooterButtonIcon_topic{
 	background: url("http://onluguho9.bkt.clouddn.com/topic2.png");
 	width:50px;

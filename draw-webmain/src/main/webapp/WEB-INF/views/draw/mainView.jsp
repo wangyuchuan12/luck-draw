@@ -84,6 +84,7 @@
 					
 					<div class="luck_info_situation" style="padding-bottom: 100px;background-color: RGBA(0,0,0,0);border-top:0px solid;">
 						<div class="luck_info_situation_time" style="color: RGBA(248,241,210,1);">剩余<b id="luck_info_hour">00</b><b id="luck_info_min">00</b><b id="luck_info_second">00</b> 结束</div>
+						<div style="color: red;font-size: 20px;font-weight: bolder;text-align: center;display:none;" id="battleEnd">比赛已结束</div>
 					</div>
 					
 					<!--  
@@ -138,7 +139,9 @@
 			
 			
 			
-			<div style="display: none;position: absolute;bottom: 100px;width:40%;height: 50px;background: url('http://onluguho9.bkt.clouddn.com/btn-red2.png');background-size:100% 100%;margin: 0 auto;text-align: center;font-size: 20px;color: white;padding-top: 10px;left:30%;" id="startButton">开始</div>
+			<div style="position: absolute;bottom: 100px;width:40%;height: 50px;background: url('http://onluguho9.bkt.clouddn.com/btn-red2.png');background-size:100% 100%;margin: 0 auto;text-align: center;font-size: 20px;color: white;padding-top: 10px;left:30%;" id="startButton">开始</div>
+			 
+			<div style="position: absolute;bottom: 100px;width:40%;height: 50px;background: url('http://onluguho9.bkt.clouddn.com/btn-green.png');background-size:100% 100%;margin: 0 auto;text-align: center;font-size: 20px;color: white;padding-top: 10px;left:30%;" id="mainViewStartButton">准备</div>
 			 
 			<div class="mainViewFooterButtons">
 				<ul>
@@ -174,6 +177,30 @@
 					</li>
 					-->
 					
+					<!--  
+					<li id="redPacketButton">
+						<div class="mainViewFooterButton">
+							<div class="mainViewFooterButtonIcon_battle"></div>
+						</div>
+						<div class="mainViewFooterButtonTitle">更多</div>
+					</li>
+					-->
+					
+					<li id="redPacketButton">
+						<div class="mainViewFooterButton">
+							<div class="mainViewFooterButtonIcon_home"></div>
+						</div>
+						<div class="mainViewFooterButtonTitle">主页</div>
+					</li>
+					
+					
+					<li id="redPacketButton">
+						<div class="mainViewFooterButton">
+							<div class="mainViewFooterButtonIcon_redPacket"></div>
+						</div>
+						<div class="mainViewFooterButtonTitle">红包列表</div>
+					</li>
+					
 					<li id="mainViewQrcodeButton">
 						<div class="mainViewFooterButton">
 							<div class="mainViewFooterButtonIcon_follow"></div>
@@ -189,7 +216,7 @@
 						<div class="mainViewFooterButtonTitle">商城</div>
 					</li>
 					
-					<li>
+					<li style="display: none;">
 						<div class="mainViewFooterButton">
 							<div class="mainViewFooterButtonIcon_add"></div>
 						</div>
@@ -203,12 +230,14 @@
 						<div class="mainViewFooterButtonTitle">准备</div>
 					</li>
 					
+					<!--  
 					<li id="mainViewStartButton">
 						<div class="mainViewFooterButton">
 							<div class="mainViewFooterButtonIcon_start"></div>
 						</div>
 						<div class="mainViewFooterButtonTitle">开始</div>
 					</li>
+					-->
 				</ul>
 			</div>
 			
@@ -399,7 +428,7 @@
 			initTime:function(){
 				var callback = new Object();
 				callback.end = function(){
-					
+					$("#battleEnd").css("display","block");
 				}
 				var handTime = this.stepData("beginDate");
 				
@@ -585,6 +614,18 @@
 				}
 			},
 			
+			showButton:function(){
+				var status = this.stepData("status");
+				
+				
+				if(status==1){
+					
+				}else{
+					$("#mainViewStartButton").css("display","none");
+					$("#startButton").css("display","none");
+				}
+			},
+			
 			battleInfo:function(){
 				var outThis = this;
 				var url = "/api/main/battleInfo";
@@ -648,6 +689,12 @@
 						addProgress(40,10);
 						
 						outThis.setNext("showFooterButtons");
+						outThis.next();
+						
+						outThis.setNext("showButton");
+						outThis.nextData({
+							status:status
+						});
 						outThis.next();
 					
 					}
