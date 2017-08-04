@@ -301,7 +301,7 @@
 									failure:function(){
 										hideLoading();
 									}
-								});
+								},true);
 							}else if(costType==3){
 								
 								var configAlert = new AlertPlug("是否确定支付",

@@ -511,12 +511,12 @@ function wxPayGood(goodId,costType,type,payCallback){
 	request(url,callback,params);
 }
 
-function wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback){
+function wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback,p){
 	
-      if(window.parent.wxPay2){
-    	  window.parent.wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback);
-    	  return;
-      }
+	   if(p){
+		   wxPay2(appId,timestamp,nonceStr,pack,signType,paySign,callback,false);
+		   return;
+	   }
 	   WeixinJSBridge.invoke(
 	       'getBrandWCPayRequest', {
 	           "appId":appId,     //公众号名称，由商户传入     
