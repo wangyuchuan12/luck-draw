@@ -831,7 +831,7 @@ function comment(){
 }
 $(document).ready(function(){
 	
-	initDialog();
+	//initDialog();
 	comment();
 	
 });

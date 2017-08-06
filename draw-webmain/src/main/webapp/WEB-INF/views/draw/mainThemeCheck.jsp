@@ -80,9 +80,14 @@
 				if(resp.success){
 					var array = resp.data;
 					
+					
 					for(var i = 0;i<array.length;i++){
 						var entry = array[i];
-						var imgArray = entry.userImgs.split(",");
+						var imgArray = null; 
+						if(entry.userImgs){
+							imgArray = entry.userImgs.split(",");
+						}
+						
 						addEntity(entry.imgUrl,entry.name,entry.title,imgArray);
 					}
 					

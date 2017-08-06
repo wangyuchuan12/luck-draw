@@ -1,13 +1,10 @@
 package com.wyc.draw.web.controller;
-
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.wyc.annotation.HandlerAnnotation;
 import com.wyc.common.domain.Account;
 import com.wyc.common.domain.vo.ResultPageListVo;
@@ -23,7 +20,6 @@ import com.wyc.draw.filter.GetRedPacketOptionsByRedPacketIdFilter;
 import com.wyc.draw.filter.GetSubjectCheckFilter;
 import com.wyc.draw.filter.controller.action.VieDrawInfoActionFilter;
 import com.wyc.draw.service.DrawRoomService;
-import com.wyc.draw.service.VieRedPacketTakepartMemberService;
 import com.wyc.draw.vo.RedPacketListVo;
 import com.wyc.draw.vo.RedPacketOptionListVo;
 import com.wyc.draw.vo.RedPacketVo;
@@ -39,9 +35,6 @@ public class DrawController {
 	
 	@Autowired
 	private AccountService accountService;
-	
-	@Autowired
-	private VieRedPacketTakepartMemberService vieRedPacketTakepartMemberService;
 	
 	@HandlerAnnotation(hanlerFilter=GetRedPacketListOfPageFilter.class)
 	@RequestMapping(value="list")

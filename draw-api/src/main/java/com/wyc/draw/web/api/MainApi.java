@@ -43,6 +43,7 @@ import com.wyc.draw.filter.controller.api.ProgressApiFilter;
 import com.wyc.draw.filter.controller.api.PropReceiveBeanApiFilter;
 import com.wyc.draw.filter.controller.api.PropReceiveLoveApiFilter;
 import com.wyc.draw.filter.controller.api.PropReceiveRandomApiFilter;
+import com.wyc.draw.filter.controller.api.RedPacketOwnerListApiFilter;
 import com.wyc.draw.service.BattleRewardService;
 import com.wyc.draw.service.BattleStageIndexDetailService;
 
@@ -357,6 +358,16 @@ public class MainApi {
 		resultVo.setSuccess(true);
 		resultVo.setData(battleRewards);
 		
+		return resultVo;
+	}
+	
+	@ResponseBody
+	@Transactional
+	@HandlerAnnotation(hanlerFilter=RedPacketOwnerListApiFilter.class)
+	@RequestMapping(value="redPacketList")
+	public Object redPacketList(HttpServletRequest httpServletRequest)throws Exception{
+		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
+		ResultVo resultVo = sessionManager.getObject(ResultVo.class);
 		return resultVo;
 	}
 	

@@ -10,6 +10,8 @@
 	<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
 	<tiles:putAttribute name="body">
 	<div style="position: absolute;width: 100%;height: 100%;z-index: 1000;display: none;background: RGBA(2,0,22,0.9)" id="iframeContair"></div>
+	
+	<div></div>
 		<input type="hidden" name="battleId" value="${battleId}"/>
 		<div class="mainView">
 			<div class="mainViewDekorn">
@@ -87,53 +89,8 @@
 						<div style="color: red;font-size: 20px;font-weight: bolder;text-align: center;display:none;" id="battleEnd">比赛已结束</div>
 					</div>
 					
-					<!--  
-						<div class="redPacketBar">
-							<ul>
-								
-								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;" id="redPacketButton">
-									<div class="redPacketImg">
-										<div class="redPacketHeadImg">
-											<img src="/imgs/happy.jpg">
-										</div>
-										<div class="redPacketBarType">竞答红包</div>
-									</div>
-								</li>
-								
-								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;">
-									<div class="arenaImg">
-										<div class="redPacketHeadImg">
-											<img src="/imgs/happy.jpg">
-										</div>
-										<div class="redPacketBarType">挑战</div>
-									</div>
-								</li>
-								
-								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;">
-									<div class="addImg">
-						
-						
-									</div>
-								</li>
-								
-								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
-								
-								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
-								
-								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
-								
-								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
-								
-								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
-								
-								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
-								
-								<li style="background:url('http://oq4mi1sbl.bkt.clouddn.com/redPacketBackground.gif');background-size:100% 100%;"></li>
-											
-							</ul>
-						</div>
 					</li>
-					-->
+					
 				</ul>
 			</div>
 			
@@ -186,7 +143,7 @@
 					</li>
 					-->
 					
-					<li id="redPacketButton">
+					<li id="homeButton">
 						<div class="mainViewFooterButton">
 							<div class="mainViewFooterButtonIcon_home"></div>
 						</div>
@@ -1378,6 +1335,24 @@
 					 outThis.setNext("openStore");
 					 outThis.next();
 				 });
+				 
+				 $("#redPacketButton").click(function(){
+					 outThis.setNext("openRedPacket");
+					 outThis.next();
+				 });
+			},
+			
+			openRedPacket:function(){
+				var url = "/view/draw/main/mainRedpacketList";
+				
+				showLoading();
+				
+				$.get(url,function(r){
+					$("#iframeContair").css("display","block");
+					$("#iframeContair").append(r);
+					initRedPacket();
+					hideLoading();
+				},"html");
 			},
 			
 			openStore:function(){

@@ -35,9 +35,7 @@ import com.wyc.draw.vo.ShareVo;
 @Controller
 @RequestMapping(value="/api/draw/red_pack/")
 public class RedPackApi {
-	
-	
-	
+
 	@ResponseBody
 	@HandlerAnnotation(hanlerFilter=GetRedPacketListOfPageFilter.class)
 	@RequestMapping(value="list")

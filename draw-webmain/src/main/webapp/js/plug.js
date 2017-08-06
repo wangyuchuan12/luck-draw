@@ -470,7 +470,10 @@ function ProgressPlug(selectorProgress,selectorLabel,params){
 			progressLabel.text(((outThis.getValue()/outThis.getCount())*100).toFixed(decimal)+"%");
 		}else if(type==1){
 
-			progressLabel.text(numTransform(outThis.getValue().toFixed(decimal))+unit);
+			if(outThis.getValue()){
+				progressLabel.text(numTransform(outThis.getValue().toFixed(decimal))+unit);
+			}
+			
 		}else if(type==2){
 
 			var thisValue = numTransform(outThis.getValue());

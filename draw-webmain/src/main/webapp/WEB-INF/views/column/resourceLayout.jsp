@@ -37,10 +37,10 @@
 							<div class="personalAttrDataHeader personalAttrDataHeaderLove" style="z-index:1000;position: absolute;top:-1px;"></div>
 							
 							<div id="progressbarLove" style="width:100%;height:20px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
-								<div class="progress-label2" id="progressLabel2" style="height: 20px;border-radius:20px;color:RGBA(255,237,109,1)">0</div>
+								<div class="progress-label2" id="progressLabel2" style="border-radius:20px;color:RGBA(255,237,109,1)">0</div>
 							</div>
 							
-							<div class="personalAttrDataHeader personalAttrDataHeaderPlus" style="left:75px;top:1px;position: absolute;"></div>
+							<div class="personalAttrDataHeader personalAttrDataHeaderPlus" style="left:79%;top:0px;position: absolute;"></div>
 							
 						</li>
 
@@ -51,7 +51,7 @@
 								<div class="progress-label2" id="progressLabel2" style="color:RGBA(255,237,109,1)">0</div>
 							</div>
 							
-							<div class="personalAttrDataHeader personalAttrDataHeaderPlus" style="left:75px;top:1px;position: absolute;"></div>
+							<div class="personalAttrDataHeader personalAttrDataHeaderPlus" style="left:79%;top:0px;position: absolute;"></div>
 							
 						</li>
 						
@@ -62,7 +62,7 @@
 								<div class="progress-label2" id="progressLabel2" style="color:RGBA(255,237,109,1)">0</div>
 							</div>
 							
-							<div class="personalAttrDataHeader personalAttrDataHeaderPlus" style="left:75px;top:1px;position: absolute;"></div>
+							<div class="personalAttrDataHeader personalAttrDataHeaderPlus" style="left:79%;top:0px;position: absolute;"></div>
 							
 						</li>
 						
@@ -73,7 +73,7 @@
 								<div class="progress-label2" id="progressLabel2" style="color:RGBA(255,237,109,1)">0</div>
 							</div>
 							
-							<div class="mainViewDekornButton4" style="position: absolute;left:75px;top:0px;">提现</div>
+							<div class="mainViewDekornButton4" style="position: absolute;left:80%;top:0px;">提现</div>
 							
 						</li>
 						
@@ -91,7 +91,7 @@
 						<div  style="color: black;position: relative;top:-5px">爱心 </div>
 						<!--  <div id="receiveLoveButton" style="background: RGBA(21,185,254,1);width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position: relative;top:-5px;">升级</div> -->
 						
-						<div id="receiveLoveButton" style="background: RGBA(61,212,11,1);width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position:relative;top:-5px;">领取</div>
+						<div id="receiveLoveButton" style="background: RGBA(61,212,11,1);width:70px;padding-top:2px;padding-bottom:2px;margin: 0 auto;border-radius:20px;color: white;position:relative;top:-5px;">领取</div>
 						<!--  
 						<div style="width: 100%;height:10px;position: relative;top:-60px;">
 							<div id="progressbarLove_tool" style="width:50%;height:10px;border-radius:20px;display:inline-block;top: 0px;vertical-align: top;background-color:RGBA(139,76,32,1)">
@@ -106,7 +106,7 @@
 						<canvas id="modelPhy2" style="background: url('/imgs/plug/bean.png');background-size:95% 90%;background-position: 5px 0px;"></canvas>
 						<div  style="color: black;position: relative;top:-5px">智慧豆</div>
 						
-						<div id="receiveBeanButton" style="background: RGBA(61,212,11,1);width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position:relative;top:-5px;">领取</div>
+						<div id="receiveBeanButton" style="background: RGBA(61,212,11,1);width:70px;padding-top:2px;padding-bottom:2px;margin: 0 auto;border-radius:20px;color: white;position:relative;top:-5px;">领取</div>
 						
 						<!--  
 						<div style="width: 100%;height:10px;position: relative;top:-60px;">
@@ -122,7 +122,7 @@
 						<canvas id="modelPhy3" style="background: url('http://on3s1z2us.bkt.clouddn.com/strength.png')no-repeat;background-size:95% 85%;"></canvas>
 						<div  style="color: black;position: relative;top:-5px">体力</div>
 						
-						<div style="background: red;width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position: relative;top:-5px;" id="phyButton">2200000</div>
+						<div style="background: red;width:70px;padding-top:2px;padding-bottom:2px;margin: 0 auto;border-radius:20px;color: white;position: relative;top:-5px;" id="phyButton">2200000</div>
 					
 						<!--  
 						<div style="width: 100%;height:10px;position: relative;top:-60px;">
@@ -138,7 +138,7 @@
 						<canvas id="modelPhy4" style="background: url('http://on3s1z2us.bkt.clouddn.com/dice3.png')no-repeat;background-size:100% 80%;background-position:0 5px;"></canvas>
 						<div  style="color: black;position: relative;top:-5px;">随机</div>
 						
-						<div id="receiveCoinButton" style="background: RGBA(61,212,11,1);width:70px;height: 20px;margin: 0 auto;border-radius:20px;color: white;position:relative;top:-5px;">领取</div>
+						<div id="receiveCoinButton" style="background: RGBA(61,212,11,1);width:70px;padding-top:2px;padding-bottom:2px;margin: 0 auto;border-radius:20px;color: white;position:relative;top:-5px;">领取</div>
 						
 						<!--  
 						<div style="width: 100%;height:10px;position: relative;top:-60px;">
@@ -212,9 +212,9 @@
 	     		width:100%;
 	     		font-weight: bold;
 	     		color:RGBA(77,209,255,1);
-	     		height: 20px;
 	     		font-size: 10px;
-	     		top:1px;
+	     		padding-top: 1px;
+	     		padding-bottom: 1px;
 	     	}
 	     	
 	     	#progressbarLove .ui-corner-left{
@@ -740,7 +740,12 @@
 					masonryProgressPlug = new ProgressPlug("#progressbarMasonry","#progressbarMasonry .progress-label2",{type:1,decimal:0,isShowProgress:0,count:100});
 					moneyProgressPlug = new ProgressPlug("#progressbarMoney","#progressbarMoney .progress-label2",{type:1,unit:"元",decimal:2,isShowProgress:0,count:100000000});
 					
+					loveProgressPlug.setValue(loveNum);
+					beanProgressPlug.setValue(beanNum);
+					masonryProgressPlug.setValue(masonryNum);
+					moneyProgressPlug.setValue(moneyNum);
 					
+					/*
 					this.setNext("addMasonryAction");
 					this.nextData({
 						num:masonryNum
@@ -766,7 +771,7 @@
 						num:beanNum
 					});
 					this.next();
-					
+					*/
 					
 				},
 				

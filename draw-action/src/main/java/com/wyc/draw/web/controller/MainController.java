@@ -71,4 +71,10 @@ public class MainController {
 		return "redirect:/view/question/paperInfo?id="+battleStage.getPaperId()+"&keyId=1111";
 		
 	}
+	
+	
+	@RequestMapping(value="mainRedpacketList")
+	public String mainRedpacketList(HttpServletRequest httpServletRequest)throws Exception{
+		return "mainRedpacketList";
+	}
 }
