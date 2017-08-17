@@ -78,6 +78,10 @@ public class Question {
 	@Column
 	private String instruction;
 	
+	@ParamAnnotation
+	@Column(name="bank_id")
+	private String bankId;
+	
 	@Column(name = "create_at")
 	@ParamAnnotation
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -210,5 +214,13 @@ public class Question {
 
 	public void setInstruction(String instruction) {
 		this.instruction = instruction;
+	}
+
+	public String getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(String bankId) {
+		this.bankId = bankId;
 	}
 }

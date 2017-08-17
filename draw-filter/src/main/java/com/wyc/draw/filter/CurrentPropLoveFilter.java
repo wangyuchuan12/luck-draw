@@ -1,5 +1,6 @@
 package com.wyc.draw.filter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -8,29 +9,68 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.common.util.Constant;
+import com.wyc.draw.domain.BattleContext;
 import com.wyc.draw.domain.Prop;
 import com.wyc.draw.domain.PropLove;
+import com.wyc.draw.service.BattleContextService;
 import com.wyc.draw.service.PropLoveService;
 
 public class CurrentPropLoveFilter extends Filter{
 	@Autowired
 	private PropLoveService propLoveService;
+	
+	@Autowired
+	private BattleContextService battleContextService;
 	@Override
 	public Object handlerFilter(SessionManager sessionManager) throws Exception {
 		Prop prop = sessionManager.getObject(Prop.class);
 		String propId = prop.getId();
 		PropLove propLove = propLoveService.findOneByPropId(propId);
 		if(propLove==null){
+			
+			List<String> codes = new ArrayList<>();
+			
+			codes.add(BattleContext.PROP_LOVE_MILLISEC_CODE);
+			codes.add(BattleContext.PROP_LOVE_RANAGE_MAX_CODE);
+			codes.add(BattleContext.PROP_LOVE_RANAGE_MIN_CODE);
+			codes.add(BattleContext.PROP_LOVE_SCHEDULE_CODE);
+			codes.add(BattleContext.PROP_LOVE_UNIT_CODE);
+			codes.add(BattleContext.PROP_LOVE_UPPER_LIMIT_CODE);
+			List<BattleContext> battleContexts = battleContextService.findAllByCodeIn(codes);
+			
+			String millisec = "1000";
+			String rangeMax = "100";
+			String rangeMin = "10";
+			String unit = "1";
+			String upperLimit = "10000";
+			String schedule = "10000";
+			for(BattleContext battleContext:battleContexts){
+				if(battleContext.equals(BattleContext.PROP_LOVE_MILLISEC_CODE)){
+					millisec = battleContext.getValue();
+				}else if(battleContext.equals(BattleContext.PROP_LOVE_RANAGE_MAX_CODE)){
+					rangeMax = battleContext.getValue();
+				}else if(battleContext.equals(BattleContext.PROP_LOVE_RANAGE_MIN_CODE)){
+					rangeMin = battleContext.getValue();
+				}else if(battleContext.equals(BattleContext.PROP_LOVE_SCHEDULE_CODE)){
+					schedule = battleContext.getValue();
+				}else if(battleContext.equals(BattleContext.PROP_LOVE_UNIT_CODE)){
+					unit = battleContext.getValue();
+				}else if(battleContext.equals(BattleContext.PROP_LOVE_UPPER_LIMIT_CODE)){
+					upperLimit = battleContext.getValue();
+				}
+			}
+			
+			
 			propLove = new PropLove();
-			propLove.setMillisec(1000L);
+			propLove.setMillisec(Long.parseLong(millisec));
 			propLove.setPropId(propId);
-			propLove.setRangeMax(50l);
-			propLove.setRangeMin(5l);
+			propLove.setRangeMax(Long.parseLong(rangeMax));
+			propLove.setRangeMin(Long.parseLong(rangeMin));
 			propLove.setStartDatetime(new DateTime());
-			propLove.setUnit(2);
+			propLove.setUnit(Integer.parseInt(unit));
 			propLove.setUnitName("");
-			propLove.setUpperLimit(10000L);
-			propLove.setSchedule(0l);
+			propLove.setUpperLimit(Long.parseLong(upperLimit));
+			propLove.setSchedule(Long.parseLong(schedule));
 			propLove = propLoveService.add(propLove);
 		}else{
 			

@@ -164,6 +164,8 @@
 							});
 							
 							layerPlug.show();
+							
+							layerPlug.hide();
 						},
 						
 						nextQuestionData:function(){

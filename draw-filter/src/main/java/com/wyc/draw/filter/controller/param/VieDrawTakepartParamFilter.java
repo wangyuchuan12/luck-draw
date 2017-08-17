@@ -15,6 +15,8 @@ public class VieDrawTakepartParamFilter extends Filter{
 	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		HttpServletRequest httpServletRequest = filterManager.getHttpServletRequest();
 		String redPacketId = httpServletRequest.getParameter("red_packet_id");
+		
+		filterManager.setAttribute("redPacketId", redPacketId);
 		VieDrawTakepartParam vieDrawTakepartParam = new VieDrawTakepartParam();
 		vieDrawTakepartParam.setTakepartId(redPacketId);;
 		

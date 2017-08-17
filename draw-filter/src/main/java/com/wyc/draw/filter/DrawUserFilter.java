@@ -26,7 +26,6 @@ public class DrawUserFilter extends Filter{
 	@Override
 	public Object handlerFilter(SessionManager filterManager) throws Exception {
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
-		
 		if(drawUser!=null){
 			return drawUser;
 		}
@@ -42,6 +41,8 @@ public class DrawUserFilter extends Filter{
 			return null;
 		}
 		drawUser = drawUserService.findByUserId(userInfo.getId());
+		
+		System.out.println("...........drawUser:"+drawUser);
 		if(drawUser==null){
 			drawUser = new DrawUser();
 			drawUser.setOpenid(userInfo.getOpenid());

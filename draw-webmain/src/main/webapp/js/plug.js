@@ -126,7 +126,7 @@ function showIncreaseNum(num,imgUrl,type,offsetLeft,offsetTop){
 	imgDiv.css("height","50px");
 	imgDiv.css("display","inline-block");
 	var numDiv = $("<div></div>");
-	
+
 	if(type==1){
 		numDiv.text("+"+num);
 	}else{
@@ -530,11 +530,15 @@ function ProgressPlug(selectorProgress,selectorLabel,params){
 			value = 0;
 		}
 		if(subValue&&subValue>0){
+			
 			value = value-subValue;
 		}
-		outThis.setValue(value)
+		setTimeout(function(){
+			outThis.setValue(value);
+		},1500);
 		
-		showIncreaseNumFromEl(subValue,progressLabel,1,20,40,null,20);
+		
+		showIncreaseNumFromEl(subValue,progressLabel,0,20,40,null,20);
 	}
 	
 	
@@ -976,7 +980,7 @@ function AlertPlug(content,btns){
 		},
 		btn4:function(){
 			alert("btn4");
-		},
+		}
 	});
 	
 	this.close = function(){
@@ -1023,6 +1027,72 @@ function FlowPlug(funs){
 		outThis[fun] = funCallback.call;
 		funCallback.name = fun;
 	}
+}
+
+var modelLoad = new ModelLoad();
+
+function getModelLoad(){
+	
+	return modelLoad;
+}
+
+function ModelLoad(){
+	
+	var outThis = this;
+	var modelObject;
+	this.loadUrl = function(url,callback){
+		showLoading();
+		$("#iframeContair").empty();
+		$.get(url,function(r){
+			$("#iframeContair").css("display","block");
+			$("#iframeContair").append(r);
+			hideLoading();
+			if(callback&&callback.success){
+				callback.success();
+			}
+		},"html");
+	}
+	
+	this.loadAddDrawModel = function(callback){
+		var addDrawModel = new AddDrawModel({
+			success:function(obj){
+				outThis.closeModel();
+				if(callback&&callback.success){
+					callback.success(obj);
+				}
+			}
+		});
+		addDrawModel.init();
+		
+		modelObject = addDrawModel;
+	}
+	
+	this.loadDrawInfo = function(id,callback){
+		
+		var drawInfo = new DrawInfoModel({
+			answerResult:function(data){
+				outThis.closeModel();
+				if(callback&&callback.answerResult){
+					callback.answerResult(data);
+				}
+			}
+		});
+		drawInfo.init(id);
+		
+		modelObject = drawInfo;
+	}
+	
+	this.closeModel = function(){
+		
+		if(modelObject&&modelObject.close){
+			modelObject.close();
+		}
+		
+		$("#iframeContair").empty();
+		
+		$("#iframeContair").css("display","none");
+	}
+
 }
 
 function LayerPlug(url,w,h,loadContent,fun,btns){
@@ -1204,4 +1274,417 @@ function toLeftCenter(selector){
 	var parent = div.parent();
 	
 	div.css("left",((parent.width()-div.width())/2)+"px");
+}
+
+
+function TabPanel(array){
+	var outThis = this;
+	for(var i =0;i<array.length;i++){
+		var obj = array[i];
+		var tabSelector = obj.tab;
+		var contentSelecotr = obj.content;
+		$(tabSelector).attr("selector",tabSelector);
+		$(tabSelector).click(function(){
+			outThis.checkTab($(this).attr("selector"));
+		});
+	}
+	
+	
+	this.checkTab = function(tab){
+		for(var i =0;i<array.length;i++){
+			var obj = array[i];
+			var tabSelector = obj.tab;
+			var contentSelecotr = obj.content;
+			if(tabSelector==tab){
+				$(contentSelecotr).css("display","block");
+				$(tabSelector).css("color","white");
+				$(tabSelector).css("background","black");
+			}else{
+				$(contentSelecotr).css("display","none");
+				$(tabSelector).css("color","black");
+				$(tabSelector).css("background","white");
+			}
+		}
+	}
+	
+}
+
+function InputItemFillTerms(selector){
+	var outThis = this;
+	var inputElStr = "<div class='inputItemFillTerms'>"+
+	
+							"<div class='inputItemFillTermsWorlds'>" +
+								"<ul>"+
+									"<li style='background: white;color:black;' id='fillWorldMinus'>" +
+										"<span class='fa fa-minus'></span>"+
+									"</li>"+
+									"<li id='fillWorld1' status='1' class='fillWord' index='0'></li>"+
+									"<li id='fillWorld2' status='0' class='fillWord' index='1'></li>"+
+									"<li id='fillWorld3' status='0' class='fillWord' index='2'></li>"+
+									"<li id='fillWorld4' status='0' class='fillWord' index='3'></li>"+
+									"<li style='background: white;color:black;' id='fillWorldPlus'>"+
+										"<span class='fa fa-plus'></span>"+
+									"</li>"+
+								"</ul>"+
+							"</div>"+
+	
+							"<div class='inputItemFillTermsWorldsCheck'>"+
+								"<ul>"+
+									"<li id='fillWorldCheck1'></li>"+
+									"<li id='fillWorldCheck2'></li>"+
+									"<li id='fillWorldCheck3'></li>"+
+									"<li id='fillWorldCheck4'></li>"+
+									"<li id='fillWorldCheck5'></li>"+
+									"<li id='fillWorldCheck6'></li>"+
+								"</ul>"+
+							"</div>"+
+	
+							"<div class='inputItemFillTermsWorldsCheck'>"+
+								"<ul>"+
+									"<li id='fillWorldCheck7'><input/></li>"+
+									"<li id='fillWorldCheck8'><input/></li>"+
+									"<li id='fillWorldCheck9'><input/></li>"+
+									"<li id='fillWorldCheck10'><input/></li>"+
+									"<li id='fillWorldCheck11'><input/></li>"+
+									"<li id='fillWorldCheck12'><input/></li>"+
+								"</ul>"+
+							"</div>"+
+	
+							"<div class='inputItemFillTermsWorldsCheck'>"+
+								"<ul>"+
+									"<li id='fillWorldCheck13'><input value='2'/></li>"+
+									"<li id='fillWorldCheck14'><input/></li>"+
+									"<li id='fillWorldCheck15'><input/></li>"+
+									"<li id='fillWorldCheck16'><input/></li>"+
+									"<li id='fillWorldCheck17'><input/></li>"+
+									"<li id='fillWorldCheck18'><input/></li>"+
+								"</ul>"+
+							"</div>"+
+	
+							"<div class='inputItemFillTermsWorldsCheck'>"+
+								"<ul>"+
+									"<li id='fillWorldCheck19'><input/></li>"+
+									"<li id='fillWorldCheck20'><input/></li>"+
+									"<li id='fillWorldCheck21'><input/></li>"+
+									"<li id='fillWorldCheck22'><input/></li>"+
+									"<li id='fillWorldCheck23'><input/></li>"+
+									"<li id='fillWorldCheck24'><input/></li>"+
+								"</ul>"+
+							"</div>"+
+						"</div>"
+	var inputEl = $(inputElStr);		
+	$(selector).append(inputEl);
+	
+	
+	this.editSuccess = function(el){
+		var value = outThis.getValue(el);
+		if(!value){
+			return;
+		}
+		el.next().focus();
+		
+		el.css("background-color","white");
+		el.css("color","black");
+		
+		el.text(value);
+		
+		el.children("input").unbind("change");
+		el.children("input").unbind("blur");
+		
+		el.children("input").remove();
+		el.css("padding-top","4px");
+		el.attr("status","1");
+	}
+	
+	this.addFillWord = function(){
+		var length = $(".fillWord").length;
+		if(length>=4){
+			return;
+		}
+		$(".fillWord[index="+(length-1)+"]").after("<li id='fillWorld1' status='0' class='fillWord' index='"+length+"'></li>");
+		
+		$(".fillWord[index="+length+"]").click(function(){
+			outThis.fillWordClick($(this));
+		});
+	}
+	
+	this.fillWordClick = function(el){
+		if(el.attr("selectid")){
+			el.text("");
+			outThis.edit($("#"+el.attr("selectid"))); 
+			outThis.nextPreEditFill(el);
+			
+			el.attr("selectid","");
+		}
+	}
+	
+	this.minusFillWord = function(){
+		var length = $(".fillWord").length;
+		if(length<=2){
+			return;
+		}
+		if($(".fillWord[index="+(length-1)+"]").attr("status")==1){
+			$(".fillWord[index="+(length-2)+"]").attr("status",1);
+		}
+		
+		if($(".fillWord[index="+(length-1)+"]").attr("selectid")){
+			outThis.edit($("#"+$(".fillWord[index="+(length-1)+"]").attr("selectid")));
+		}
+		$(".fillWord[index="+(length-1)+"]").remove();
+	}
+	
+	$("#fillWorldPlus").click(function(){
+		outThis.addFillWord();
+	});
+	
+	$("#fillWorldMinus").click(function(){
+		outThis.minusFillWord();
+	});
+	
+	$(".fillWord").click(function(){
+		outThis.fillWordClick($(this));
+	});
+	
+	this.getPreEditFill = function(){
+		var fillWorld = $("#inputItemFillTermsWorlds>ul");
+		return $(".fillWord[status='1']");
+	}
+	
+	this.edit = function(el){
+		var value = el.text();
+		el.text("");
+		el.css("padding-top","0px");
+		el.append("<input/>");
+		el.children("input").val(value);
+		el.attr("status","0");
+		el.children("input").change(function(){
+			outThis.editSuccess($(this).parent());
+		});
+		
+		el.children("input").focus();
+		el.children("input").blur(function(){
+			if(outThis.getValue(el)){
+				outThis.editSuccess(el);
+			}
+		});
+		
+		el.click(function(){
+			var stauts = $(this).attr("status");
+			if(stauts==1){
+				outThis.select($(this));
+			}else if(stauts==2){
+				outThis.edit($(this));
+				
+				$(".inputItemFillTermsWorldsCheck>ul>li>input").focus();
+			}
+		});
+		
+	}
+	
+	this.nextPreEditFill = function(el){
+		
+		if(el){
+			$(".fillWord").each(function(index){
+				$(this).attr("status","0");
+			});
+			el.attr("status","1");
+			return;
+		}
+		var selectIndex;
+		var length = $(".fillWord").length;
+		$(".fillWord").each(function(index){
+			if($(this).attr("status")==1){
+				selectIndex = index;
+			}
+		});
+		
+		var selectEl;
+		if(selectIndex+1<length){
+			$(".fillWord").each(function(index){
+				if(index==selectIndex+1){
+					$(this).attr("status","1");
+					selectEl = $(this);
+				}else{
+					$(this).attr("status","0");
+				}
+			});
+			return selectEl;
+		}
+	}
+	
+	this.select = function(el){
+		if(!outThis.getValue(el)){
+			return;
+		}
+		el.css("background","RGBA(241,241,242,1)");
+		el.css("color","black");
+		
+		el.css("border","0px");
+		
+		el.attr("status","2");
+		
+		el.unbind("click");
+		
+		var preEditFill = outThis.getPreEditFill();
+		
+		if(preEditFill.attr("selectid")){
+			outThis.editSuccess($("#"+preEditFill.attr("selectid")));
+			
+			
+			$("#"+preEditFill.attr("selectid")).click(function(){
+				var stauts = $(this).attr("status");
+				if(stauts==1){
+					outThis.select($(this));
+				}else if(stauts==2){
+					outThis.edit($(this));
+					
+					$(".inputItemFillTermsWorldsCheck>ul>li>input").focus();
+				}
+			});
+			
+		}
+		
+		preEditFill.text(outThis.getValue(el));
+		
+		preEditFill.attr("selectid",el.attr("id"));
+		
+		outThis.nextPreEditFill();
+	}
+	
+	this.getValue = function(el){
+		var status = el.attr("status");
+		if(!status||status==0){
+			return el.children("input").val().charAt(0);
+		}else if(status==1){
+			return el.text();
+		}else if(status==2){
+			return el.text();
+		}
+	}
+	
+	
+	$(".inputItemFillTermsWorldsCheck>ul>li").each(function(){
+		outThis.edit($(this));
+	});
+	
+	
+}
+
+
+function InputItem(selector,callback){
+	
+	var outThis = this;
+	
+	var inputItemEl = $(selector);
+	
+	var inputEl = $(selector+" "+".inputItemInput>input");
+	
+	var inputItemIconEl = $(selector+" "+".inputItemIcon");
+	
+	var errorEl = $("<div class='inputItemErrorContent'>提示错误</div>");
+	
+	errorEl.css("display","none");
+	
+	inputItemEl.append(errorEl);
+	var maxLength = 10;
+	var minLength = 5;
+	var isError = 0;
+	inputEl.keyup(function(){
+		outThis.isErrorCheck();
+		if(callback&&callback.keyup){
+			callback.keyup();
+		}
+	});
+	
+	
+	this.setMaxLength = function(max){
+		maxLength = max;
+	}
+	
+	this.setMinLength = function(min){
+		minLength = min;
+	}
+	
+	this.isErrorCheck = function(){
+		outThis.check();
+		
+		return isError;
+	}
+	
+	this.check = function(){
+		var value = outThis.getValue();
+		if(value.length<minLength){
+			outThis.error("最小长度为"+minLength);
+			isError = 1;
+		}else if(value.length>maxLength){
+			outThis.error("最大长度为"+maxLength);
+			isError = 1;
+		}else{
+			outThis.normal();
+			isError = 0;
+		}
+	}
+	
+	this.error = function(error){
+
+		inputEl.attr("style","background-color:RGBA(94,4,4,0.5);");
+		
+		inputItemIconEl.attr("style","background-color:RGBA(94,4,4,0.5);");
+		
+		inputItemEl.css("height","100px");
+		
+		errorEl.css("display","block");
+		
+		if(error){
+			errorEl.text(error);
+		}
+	}
+	
+	this.normal = function(){
+		inputEl.attr("style","");
+		
+		inputItemIconEl.attr("style","");
+		
+		inputItemEl.css("height","");
+		
+		errorEl.css("display","none");
+		
+		errorEl.text("错误提示");
+	}
+	
+	this.getValue = function(){
+		return inputEl.val();
+	}
+}
+
+function InputSelect(selector,contentSelector,array,callback){
+	var el = $(selector);
+	
+	var value;
+	
+	var selectItems = "";
+	
+	for(var i = 0;i<array.length;i++){
+		selectItems = selectItems+"<div class='selectItem' value='"+array[i].value+"'>"+array[i].text+"</div>";
+	}
+	var selectListElStr = "<div class='selectList'>"+selectItems+"</div>";
+	
+	el.click(function(){
+		var alertPlug = new AlertPlug(selectListElStr);
+		
+		$(".selectItem").click(function(){
+			$(contentSelector).text($(this).text());
+			value = $(this).attr("value");
+			alertPlug.close();
+			if(callback&&callback.select){
+				callback.select(value);
+			}
+		});
+	});
+	
+	this.getValue = function(){
+		return value;
+	}
+	
+	
 }

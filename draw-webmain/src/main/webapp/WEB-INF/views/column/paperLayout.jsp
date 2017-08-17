@@ -11,9 +11,86 @@
 	 <meta http-equiv="Cache-Control" content="no-store">
 	 <meta http-equiv="Expires" content="0">
 	 <title>问答红包</title>
+
+
+<!--可无视-->
+<link rel="stylesheet" type="text/css" href="/lbt/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="/lbt/css/default.css">
+<!--主要样式-->
+<link rel="stylesheet" type="text/css" href="/lbt/css/styles.css">
+
 <tiles:insertAttribute name="resource"/>
 <tiles:insertAttribute name="baseLayout"/>
 <tiles:insertAttribute name="body" />
+<script type="text/javascript" src='/lbt/js/stopExecutionOnTimeout.js?t=1'></script>
+<script type="text/javascript" src='/lbt/js/velocity.min.js'></script>
+<script type="text/javascript" src='/lbt/js/main.js'></script>
+
+<div class="scene">
+	<!-- page start -->
+	<div class="page page-1 active">
+		<div class="page--rotater"></div>
+		<div class="page--content">
+			<h1>Page 1</h1>
+		</div>
+	</div>
+	<!-- page end -->
+	<!-- page start -->
+	<div class="page page-2">
+		<div class="page--rotater"></div>
+		<div class="page--content">
+			<h1>Page 2</h1>
+		</div>
+	</div>
+	<!-- page end -->
+	<!-- page start -->
+	<div class="page page-3">
+		<div class="page--rotater"></div>
+		<div class="page--content">
+			<h1>Page 3</h1>
+		</div>
+	</div>
+	<!-- page end -->
+	<!-- page start -->
+	<div class="page page-4">
+		<div class="page--rotater"></div>
+		<div class="page--content">
+			<h1>Page 4</h1>
+		</div>
+	</div>
+	<!-- page end -->
+	<!-- page start -->
+	<div class="page page-5">
+		<div class="page--rotater"></div>
+		<div class="page--content">
+			<h1>Page 5</h1>
+		</div>
+	</div>
+	<!-- page end -->
+	<div class="rt-point">
+		<span class="page-number page-number-1 active">1</span>
+		<span class="page-number page-number-2">2</span>
+		<span class="page-number page-number-3">3</span>
+		<span class="page-number page-number-4">4</span>
+		<span class="page-number page-number-5">5</span>
+	</div>
+	<!-- footer start -->
+	<div class="footer">
+		<div class="nav">
+			<ul>
+				<li class="nav--btn nav--btn-1 active" data-page="1"></li>
+				<li class="nav--btn nav--btn-2" data-page="2"></li>
+				<li class="nav--btn nav--btn-3" data-page="3"></li>
+				<li class="nav--btn nav--btn-4" data-page="4"></li>
+				<li class="nav--btn nav--btn-5" data-page="5"></li>
+			</ul>
+		</div>
+	</div>
+	<!-- footer end -->
+</div>
+
+
+
 <script type="text/javascript">
 	var paperFlowPlug;
 	var paperPlug;

@@ -119,13 +119,15 @@ function skipToRedPackInfo(id,type){
 	}
 }
 
-function skipToProblemRedPacketInfo(id,firstVisit){
+/*function skipToProblemRedPacketInfo(id,firstVisit){
 	var url = "/view/draw/luck_draw/info";
 	var params = new Object();
 	params.id = id;
 	params.firstVisit = firstVisit;
-	skipToUrl(url,params);
-}
+	var plug = new LayerPlug(url,{
+		
+	},params);
+}*/
 
 function skipToRoomInfo(id){
 	var url = "/view/draw/draw_room/info";

@@ -69,6 +69,16 @@ public class RedPacketOwner {
 	@Column(name="wisdom_count")
 	private Long wisdomCount;
 	
+	//是不是本人发送的红包
+	@ParamAnnotation
+	@Column(name="is_myself")
+	private Integer isMyself;
+	
+	//来源
+	@ParamAnnotation
+	@Column
+	private Integer source;
+	
 	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -167,6 +177,24 @@ public class RedPacketOwner {
 
 	public void setWisdomCount(Long wisdomCount) {
 		this.wisdomCount = wisdomCount;
+	}
+
+	public Integer getIsMyself() {
+		return isMyself;
+	}
+
+	public void setIsMyself(Integer isMyself) {
+		this.isMyself = isMyself;
+	}
+	
+	
+
+	public Integer getSource() {
+		return source;
+	}
+
+	public void setSource(Integer source) {
+		this.source = source;
 	}
 
 	public DateTime getCreateAt() {

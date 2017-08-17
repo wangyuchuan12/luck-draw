@@ -73,8 +73,13 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping(value="mainRedpacketList")
+	@RequestMapping(value="mainRedPacketList")
 	public String mainRedpacketList(HttpServletRequest httpServletRequest)throws Exception{
-		return "mainRedpacketList";
+		return "mainRedPacketList";
+	}
+	
+	@RequestMapping(value="mainSubjectCheck")
+	public String mainSubjectCheck(HttpServletRequest httpServletRequest)throws Exception{
+		return "mainSubjectCheck";
 	}
 }

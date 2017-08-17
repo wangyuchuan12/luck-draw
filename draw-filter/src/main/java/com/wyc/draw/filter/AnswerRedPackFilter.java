@@ -104,7 +104,7 @@ public class AnswerRedPackFilter extends Filter{
 			return null;
 		}
 		
-		
+		System.out.println(".........getIsReceiveAble:"+redPacket.getIsReceiveAble());
 		if(redPacket.getIsReceiveAble()==0){
 			ResultVo resultVo = new ResultVo();
 			resultVo.setSuccess(false);

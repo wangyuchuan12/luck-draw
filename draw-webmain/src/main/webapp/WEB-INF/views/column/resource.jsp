@@ -15,6 +15,8 @@
 
 <link rel="stylesheet" href="/ystep/css/ystep.css"></link>
 
+<!-- <link rel="stylesheet" href="/css/bootstrap.min.css"></link>-->
+
 <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
 
 <script type="text/javascript" src="/ystep/js/ystep.js"></script>
@@ -35,6 +37,8 @@
 <script src="/js/plug.js"></script>
 
 <script src="/js/jquery-ui.min.js"></script>
+
+<!--<script src="/js/bootstrap.min.js"></script>-->
 
 <script src="/util/flowJS.js"></script>
 
@@ -61,10 +65,28 @@
 
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
+<script src="/js/model/addDraw.js"></script>
+
+<script src="/js/model/drawInfo.js"></script>
+
+<script src="/js/model/attrPlug.js"></script>
+
+<script src="/js/model/modelPlug.js"></script>
+
+<script src="/js/model/waitProgress.js"></script>
+
+<script src="/js/model/battleMainPlug.js"></script>
+
+<script src="/js/model/battleInfoPlug.js"></script>
+
+<script src="/js/model/progressScore.js"></script>
+
+<script src="/js/layer/battleInfoLayer.js"></script>
+
+<script src="/js/layer/progressScoreLayer.js"></script>
+
+
 <script type="text/javascript">
-
-
-	
 
 
 	var layerScript = "/layer/mobile/layer.js";

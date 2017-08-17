@@ -46,6 +46,7 @@ public class VieTakepartFilter extends Filter{
 		
 		
 		int isWisdom = redPacket.getIsWisdom();
+
 		if(isWisdom==1){
 			
 			if(account.getWisdomCount()<redPacket.getWisdomCount()){
@@ -84,7 +85,8 @@ public class VieTakepartFilter extends Filter{
 		
 		vieRedPacketToTakepartMember.setTakepartStatus(Constant.NOT_INVOLVED_TAKEPART_STATUS);
 		vieRedPacketToTakepartMember.setCurrentTakepartMemberId(vieRedPacketTakepartMember.getId());
-		if(redPacket.getIsEntryFee()==0){
+		vieRedPacketToTakepartMember.setTakepartStatus(Constant.UNDERWAY_TAKEPART_STATUS);
+		/*if(redPacket.getIsEntryFee()==0){
 			vieRedPacketTakepartMember.setIsPay(1);
 			vieRedPacketToTakepartMember.setIsPay(1);
 			vieRedPacketToTakepartMember.setTakepartStatus(Constant.UNDERWAY_TAKEPART_STATUS);
@@ -92,11 +94,7 @@ public class VieTakepartFilter extends Filter{
 			vieRedPacketTakepartMember.setIsPay(0);
 			vieRedPacketToTakepartMember.setIsPay(0);
 			
-		}
-		
-		filterManager.save(vieRedPacketToTakepartMember);
-		filterManager.save(vieRedPacketTakepartMember);
-		filterManager.save(redPacket);
+		}*/
 		filterManager.update(vieRedPacketToTakepartMember);
 		filterManager.update(vieRedPacketTakepartMember);
 		filterManager.update(redPacket);

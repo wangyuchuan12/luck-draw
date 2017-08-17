@@ -1,16 +1,10 @@
 package com.wyc.draw.service;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.UUID;
-
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import com.wyc.draw.domain.RedPacket;
@@ -75,7 +69,16 @@ public class RedPacketService {
 			Pageable pageable) {
 		return redPackageRepository.findAllByIsReceiveAndIsTimeoutAndIsPayAndIsRefundAndIsRefundError(isReceive,isTimeout,isPay,isRefund,isRefundError,pageable);
 	}
+	
+	public Page<RedPacket> findAllByIsReceiveAndIsTimeoutAndIsPayAndIsSearchAbleAndIdNotInAndIsDel(Integer isReceive,Integer isTimeout,Integer isPay,Integer isSearchAble,List<String> ids ,Integer isDel,Pageable pageable){
+		return redPackageRepository.findAllByIsReceiveAndIsTimeoutAndIsPayAndIsSearchAbleAndIdNotInAndIsDel(isReceive,isTimeout,isPay,isSearchAble,ids,isDel,pageable);
+	}
+	
+	public Page<RedPacket> findAllByIsReceiveAndIsTimeoutAndIsPayAndIsSearchAbleAndIsDel(Integer isReceive,Integer isTimeout,Integer isPay,Integer isSearchAble,Integer isDel,Pageable pageable){
+		return redPackageRepository.findAllByIsReceiveAndIsTimeoutAndIsPayAndIsSearchAbleAndIsDel(isReceive,isTimeout,isPay,isSearchAble,isDel,pageable);
+	}
 
+	
 	public RedPacket findOneByOutTradeNo(String outTradeNo) {
 		return redPackageRepository.findOneByOutTradeNo(outTradeNo);
 	}

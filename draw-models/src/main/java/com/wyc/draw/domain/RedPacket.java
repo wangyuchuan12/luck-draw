@@ -268,6 +268,16 @@ public class RedPacket {
 	@Column(name="receive_amount")
 	private BigDecimal receiveAmount;
 	
+	
+	//能够被搜到
+	@ParamAnnotation
+	@Column(name="is_search_able")
+	private Integer isSearchAble;
+	
+	@ParamAnnotation
+	@Column(name="is_del")
+	private Integer isDel;
+	
 	@ParamAnnotation
 	@Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -570,6 +580,17 @@ public class RedPacket {
 	public void setGetWisdomCount(Long getWisdomCount) {
 		this.getWisdomCount = getWisdomCount;
 	}
-	
+	public Integer getIsSearchAble() {
+		return isSearchAble;
+	}
+	public void setIsSearchAble(Integer isSearchAble) {
+		this.isSearchAble = isSearchAble;
+	}
+	public Integer getIsDel() {
+		return isDel;
+	}
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
+	}
 	
 }

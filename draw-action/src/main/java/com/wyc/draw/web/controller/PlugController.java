@@ -116,4 +116,29 @@ public class PlugController {
 	public String rankRewardPlug(HttpServletRequest httpServletRequest){
 		return "plug/rankRewardPlug";
 	}
+	
+	@RequestMapping(value="attrPlug")
+	public String attrPlug(HttpServletRequest httpServletRequest){
+		return "plug/attrPlug";
+	}
+	
+	@RequestMapping(value="modelPlug")
+	public String modelPlug(HttpServletRequest httpServletRequest){
+		return "plug/modelPlug";
+	}
+	
+	@RequestMapping(value="preload")
+	public String preload(HttpServletRequest httpServletRequest){
+		return "plug/preload";
+	}
+	
+	@RequestMapping(value="battleMainPlug")
+	public String battleMainPlug(HttpServletRequest httpServletRequest){
+		return "plug/battleMainPlug";
+	}
+	
+	@RequestMapping(value="battleInfoPlug")
+	public String battleInfoPlug(HttpServletRequest httpServletRequest){
+		return "plug/battleInfoPlug";
+	}
 }

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<div style="position: absolute;width: 100%;height: 100%;z-index: 1000;display: none;background: RGBA(2,0,22,0.9)" id="iframeContair"></div>
 
 <div class="loading">
 		<img src="/imgs/loading.gif">
@@ -20,6 +21,9 @@
 </div>
 
 	<div class="redPacketTypes">
+		<div style="display: inline-block;position: absolute;width:30px;height: 30px;font-size: 20px;right: 20px;top:10px;" id="redPacketTypeClose">
+			<div class="fa fa-times"></div>
+		</div>
 		<ul>
 			<li onclick="skipToSubject(0,0,1,0,0);">
 				<div class="redPacketTypesIcon"><span class="fa fa-question-circle-o"></span></div>
@@ -278,13 +282,11 @@
 		
 	}
 	
-	function showRedPacketTypes(){
+	function showRedPacketTypes(callback){
 		$(".redPacketTypes").animate({
 			bottom:0
 		},1000,function(){
-			$(".container").click(function(){
-				hideRedPacketTypes();
-			});
+			
 		});
 	}
 	
@@ -512,6 +514,10 @@
 	
 	$(document).ready(function(){
 		wxConfig(getAppId(),getSignature(),getNoncestr(),getDatetime());
+		
+		$("#redPacketTypeClose").click(function(){
+			hideRedPacketTypes();
+		});
 
 		$("img.lazy").lazyload({
 	        effect: "fadeIn",

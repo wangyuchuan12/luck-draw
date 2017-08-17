@@ -14,7 +14,6 @@ import com.wyc.common.domain.vo.ResultVo;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.filter.AddRedPacketPromptFilter;
-import com.wyc.draw.filter.BaseHandRedPackFilter;
 import com.wyc.draw.filter.DelRedPacketPromptFilter;
 import com.wyc.draw.filter.GetRedPackListByRoomOfPageFilter;
 import com.wyc.draw.filter.GetRedPacketListOfPageFilter;
@@ -23,6 +22,7 @@ import com.wyc.draw.filter.GetTakepartMemberListByRedPacketOfPageFilter;
 import com.wyc.draw.filter.HandRedPacketOptionsFilter;
 import com.wyc.draw.filter.SetRedPacketIsAmountDisplay;
 import com.wyc.draw.filter.ShareRedPacketFilter;
+import com.wyc.draw.filter.controller.api.HandRedPackApiFilter;
 import com.wyc.draw.filter.controller.api.RedPackApiAnswerApiFilter;
 import com.wyc.draw.filter.controller.api.RedPacketComentFilter;
 import com.wyc.draw.vo.AnswerRedPacketResultVo;
@@ -67,10 +67,12 @@ public class RedPackApi {
 		return resultVo;
 	}
 	
+	
+	
 	@Transactional
 	@RequestMapping(value="add")
 	@ResponseBody
-	@HandlerAnnotation(hanlerFilter=BaseHandRedPackFilter.class)
+	@HandlerAnnotation(hanlerFilter=HandRedPackApiFilter.class)
 	public ResultVo handRedPack(HttpServletRequest httpServletRequest)throws Exception{
 		
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
@@ -78,6 +80,13 @@ public class RedPackApi {
 		if(sessionManager.isReturn()){
 			ResultVo resultVo = (ResultVo)sessionManager.getReturnValue();
 			if(resultVo!=null&&!resultVo.isSuccess()){
+				return resultVo;
+			}
+		}else{
+			ResultVo resultVo = sessionManager.getObject(ResultVo.class);
+			RedPacketVo redPacketVo = (RedPacketVo)sessionManager.getObject(RedPacketVo.class);
+			resultVo.setData(redPacketVo);
+			if(resultVo!=null){
 				return resultVo;
 			}
 		}

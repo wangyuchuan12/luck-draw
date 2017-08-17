@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
+import com.wyc.draw.filter.BaseDrawActionFilter;
+import com.wyc.draw.filter.RedPacketOwerTakepartFilter;
 import com.wyc.draw.filter.VieTakepartFilter;
 import com.wyc.draw.filter.controller.param.VieDrawTakepartParamFilter;
 import com.wyc.draw.filter.getter.VieTakepartGetterFilter;
@@ -18,11 +20,16 @@ public class VieRedPacketTakepartApiFilter extends Filter{
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
 		List<Class<? extends Filter>> filterClasses = new ArrayList<>();
+		
+		filterClasses.add(BaseDrawActionFilter.class);
+		
 		filterClasses.add(VieDrawTakepartParamFilter.class);
 		
 		filterClasses.add(VieTakepartGetterFilter.class);
 		
 		filterClasses.add(VieTakepartFilter.class);
+		
+		filterClasses.add(RedPacketOwerTakepartFilter.class);
 		
 	//	filterClasses.add(VieTakepartUpdateFilter.class);
 		

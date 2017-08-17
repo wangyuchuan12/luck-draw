@@ -5,6 +5,7 @@ import java.util.List;
 import com.wyc.common.filter.Filter;
 import com.wyc.common.session.SessionManager;
 import com.wyc.draw.filter.BalancePayTakepartFilter;
+import com.wyc.draw.filter.RedPacketOwerTakepartFilter;
 import com.wyc.draw.filter.controller.param.VieDrawTakepartParamFilter;
 import com.wyc.draw.filter.getter.VieTakepartGetterFilter;
 
@@ -21,6 +22,8 @@ public class VieRedPacketBalancePayTakepartFilter extends Filter{
 		filterClasses.add(VieDrawTakepartParamFilter.class);
 		filterClasses.add(VieTakepartGetterFilter.class);
 		filterClasses.add(BalancePayTakepartFilter.class);
+		
+		filterClasses.add(RedPacketOwerTakepartFilter.class);
 	//	filterClasses.add(BalancePayTakeparUpdateFilter.class);
 		return filterClasses;
 	}

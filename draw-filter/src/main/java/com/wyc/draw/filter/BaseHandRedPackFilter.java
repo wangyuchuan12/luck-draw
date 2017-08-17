@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.joda.time.DateTime;
@@ -20,12 +19,14 @@ import com.wyc.common.util.Constant;
 import com.wyc.common.util.DistributionAmountUtil;
 import com.wyc.common.util.MyLongDateFormat;
 import com.wyc.common.wx.domain.WxContext;
+import com.wyc.draw.domain.BattleContext;
 import com.wyc.draw.domain.DrawRoom;
 import com.wyc.draw.domain.DrawRoomMember;
 import com.wyc.draw.domain.DrawUser;
 import com.wyc.draw.domain.RedPacket;
 import com.wyc.draw.domain.RedPacketAmountDistribution;
 import com.wyc.draw.domain.RedPacketToComent;
+import com.wyc.draw.service.BattleContextService;
 import com.wyc.draw.service.DrawRoomMemberService;
 import com.wyc.draw.service.DrawRoomService;
 import com.wyc.draw.service.DrawUserService;
@@ -64,8 +65,28 @@ public class BaseHandRedPackFilter extends Filter{
 	
 	@Autowired
 	private WxContext wxContext;
+	
+	@Autowired
+	private BattleContextService battleContextService;
 	@Override
 	public Object handlerFilter(SessionManager filterManager) throws Exception {
+		
+		List<String> codes = new ArrayList<>();
+		codes.add(BattleContext.REDPACKET_WISDOM_CODE);
+		
+		String wisdomCount = "10";
+		
+		List<BattleContext> battleContexts = battleContextService.findAllByCodeIn(codes);
+		for(BattleContext battleContext : battleContexts){
+			if(battleContext.getCode().equals(BattleContext.REDPACKET_WISDOM_CODE)){
+				wisdomCount = battleContext.getValue();
+			}
+		}
+		
+		Integer isSearchAble = (Integer)filterManager.getAttribute("isSearchAble");
+		if(isSearchAble==null){
+			isSearchAble = 1;
+		}
 		
 		Integer timeLong = 24;
 		DrawUser drawUser = (DrawUser)filterManager.getObject(DrawUser.class);
@@ -106,7 +127,7 @@ public class BaseHandRedPackFilter extends Filter{
 		//红包个数
 		String placeNum = httpServletRequest.getParameter("place_num");
 		
-		String wisdomCount = httpServletRequest.getParameter("wisdom_count");
+	//	String wisdomCount = httpServletRequest.getParameter("wisdom_count");
 		
 		if(CommonUtil.isEmpty(wisdomCount)){
 			wisdomCount = "0";
@@ -274,6 +295,8 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacket.setReceiveAmount(new BigDecimal(0));
 		
 		redPacket.setGetWisdomCount(0l);
+		
+		redPacket.setIsSearchAble(isSearchAble);
 		
 		if(wisdomCountInt==0){
 			redPacket.setIsWisdom(0);
@@ -524,9 +547,8 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacketVo.setType(typeInt);
 		redPacketVo.setPayType(redPacket.getPayType());
 		redPacketVo.setIsImg(isImgInt);
-		
-		
-		
+		redPacketVo.setIsWisdom(redPacket.getIsWisdom());
+		redPacketVo.setWisdomCount(redPacket.getWisdomCount());
 		if(payTypeInt==Constant.ACCOUNT_PAY_TYPE){
 			
 			//涉及到用户的账户余额资金数据，必须要加锁
@@ -593,15 +615,15 @@ public class BaseHandRedPackFilter extends Filter{
 		redPacketToComent.setGoodCommentNum(0);
 		redPacketToComent.setRedPacketId(redPacket.getId());
 		redPacketToComent = redPacketToComentService.add(redPacketToComent);
+		
+		filterManager.setAttribute("redPacketId", redPacket.getId());
 		return redPacketVo;
 	}
 	
 	
 	@Override
 	public List<Class<? extends Filter>> dependClasses() {
-		List<Class<? extends Filter>> filters = new ArrayList<>();
-		filters.add(BaseDrawActionFilter.class);
-		return filters;
+		return null;
 	}
 
 

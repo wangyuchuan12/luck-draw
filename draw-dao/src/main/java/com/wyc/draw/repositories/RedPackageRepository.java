@@ -52,4 +52,10 @@ public interface RedPackageRepository extends CrudRepository<RedPacket, String>{
 	@Query(value="from com.wyc.draw.domain.RedPacket rp where rp.id in (select rtm.redPacketId from com.wyc.draw.domain.RedPacketTakepartMember rtm where rtm.drawUserId = :drawUserId)")
 	Page<RedPacket> findAllByHandDrawUserIdOfTakepart(@Param("drawUserId")String drawUserId, Pageable pageable);
 
+	Page<RedPacket> findAllByIsReceiveAndIsTimeoutAndIsPayAndIsSearchAbleAndIdNotInAndIsDel(Integer isReceive,
+			Integer isTimeout, Integer isPay, Integer isSearchAble, List<String> ids, Integer isDel, Pageable pageable);
+
+	Page<RedPacket> findAllByIsReceiveAndIsTimeoutAndIsPayAndIsSearchAbleAndIsDel(Integer isReceive, Integer isTimeout,
+			Integer isPay, Integer isSearchAble, Integer isDel, Pageable pageable);
+
 }

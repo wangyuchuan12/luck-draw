@@ -2,9 +2,6 @@ package com.wyc.draw.vo;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import javax.persistence.Column;
-
 import com.wyc.annotation.IdAnnotation;
 import com.wyc.annotation.ParamAnnotation;
 import com.wyc.annotation.ParamEntityAnnotation;

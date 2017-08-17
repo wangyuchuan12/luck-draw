@@ -60,4 +60,9 @@ public class QuestionController {
 		httpServletRequest.setAttribute("keyId", keyId);
 		return "paper/questionresult";
 	}
+	
+	@RequestMapping(value="addQuestionBank")
+	public String addQuestionBank(HttpServletRequest httpServletRequest)throws Exception{
+		return "paper/addQuestionBank";
+	}
 }

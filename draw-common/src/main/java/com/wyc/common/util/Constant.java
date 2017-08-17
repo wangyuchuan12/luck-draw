@@ -341,4 +341,17 @@ public class Constant {
 	
 	//支付砖石数量错误
 	public static final int MASONRY_NUM_ERROR_CODE = 1;
+	
+	
+	/************************红包来源**********************************/
+	
+	//来自搜索
+	public static final int RED_PACKET_SEARCH_SOURCE = 0;
+	
+	//来自新增
+	public static final int RED_PACKET_HAND_SOURCE = 1;
+	
+	//来自比赛
+	public static final int RED_PACKET_BATTLE_SOURCE = 2;
+	
 }
