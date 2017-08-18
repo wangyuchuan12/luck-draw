@@ -1279,18 +1279,26 @@ function toLeftCenter(selector){
 
 function TabPanel(array){
 	var outThis = this;
+	var type;
 	for(var i =0;i<array.length;i++){
 		var obj = array[i];
 		var tabSelector = obj.tab;
 		var contentSelecotr = obj.content;
 		$(tabSelector).attr("selector",tabSelector);
+		$(tabSelector).attr("type",obj.type);
 		$(tabSelector).click(function(){
-			outThis.checkTab($(this).attr("selector"));
+			
+			outThis.selectTab($(this).attr("selector"));
 		});
 	}
 	
+	this.getType = function(){
+		return type;
+	}
 	
-	this.checkTab = function(tab){
+	
+	this.selectTab = function(tab){
+		type = $(tab).attr("type");
 		for(var i =0;i<array.length;i++){
 			var obj = array[i];
 			var tabSelector = obj.tab;
@@ -1375,9 +1383,61 @@ function InputItemFillTerms(selector){
 	var inputEl = $(inputElStr);		
 	$(selector).append(inputEl);
 	
+	getValue = function(el){
+		var status = el.attr("status");
+		if(!status||status==0){
+			return el.children("input").val().charAt(0);
+		}else if(status==1){
+			return el.text();
+		}else if(status==2){
+			return el.text();
+		}
+	}
+	
+	this.getAnswer = function(){
+		var answer="";
+		
+		$(".fillWord").each(function(){
+			answer=answer+$(this).text();
+		});
+		
+		return answer;
+	}
+	
+	this.setFills = function(value){
+		for(var i = 1;i<=24;i++){
+			var fillValue = value[i-1];
+			var fillCheck = $("#fillWorldCheck"+i);
+			var status = fillCheck.attr("status");
+			if(!status||status==0){
+				fillCheck.children("input").val(fillValue);
+				outThis.editSuccess(fillCheck);
+			}else{
+				fillCheck.text(fillValue);
+			}
+			
+		}
+	}
+	
+	this.getFills = function(){
+		var fillValue = "";
+		for(var i = 1;i<=24;i++){
+			var value = getValue($("#fillWorldCheck"+i));
+			if(!value){
+				return "";
+			}
+			fillValue = fillValue + value + ",";
+		}
+		if(fillValue==""){
+			return fillValue;
+		}else{
+			return fillValue.substring(0,fillValue.length-1);
+		}
+	}
+	
 	
 	this.editSuccess = function(el){
-		var value = outThis.getValue(el);
+		var value = getValue(el);
 		if(!value){
 			return;
 		}
@@ -1463,7 +1523,7 @@ function InputItemFillTerms(selector){
 		
 		el.children("input").focus();
 		el.children("input").blur(function(){
-			if(outThis.getValue(el)){
+			if(getValue(el)){
 				outThis.editSuccess(el);
 			}
 		});
@@ -1513,7 +1573,7 @@ function InputItemFillTerms(selector){
 	}
 	
 	this.select = function(el){
-		if(!outThis.getValue(el)){
+		if(!getValue(el)){
 			return;
 		}
 		el.css("background","RGBA(241,241,242,1)");
@@ -1544,25 +1604,14 @@ function InputItemFillTerms(selector){
 			
 		}
 		
-		preEditFill.text(outThis.getValue(el));
+		preEditFill.text(getValue(el));
 		
 		preEditFill.attr("selectid",el.attr("id"));
 		
 		outThis.nextPreEditFill();
 	}
 	
-	this.getValue = function(el){
-		var status = el.attr("status");
-		if(!status||status==0){
-			return el.children("input").val().charAt(0);
-		}else if(status==1){
-			return el.text();
-		}else if(status==2){
-			return el.text();
-		}
-	}
-	
-	
+
 	$(".inputItemFillTermsWorldsCheck>ul>li").each(function(){
 		outThis.edit($(this));
 	});
@@ -1587,10 +1636,10 @@ function InputItem(selector,callback){
 	
 	inputItemEl.append(errorEl);
 	var maxLength = 10;
-	var minLength = 5;
+	var minLength = 1;
 	var isError = 0;
 	inputEl.keyup(function(){
-		outThis.isErrorCheck();
+	//	outThis.isErrorCheck();
 		if(callback&&callback.keyup){
 			callback.keyup();
 		}
@@ -1657,34 +1706,81 @@ function InputItem(selector,callback){
 	}
 }
 
-function InputSelect(selector,contentSelector,array,callback){
+function InputSelect(selector,contentSelector,callback){
+	var array;
+	var outThis = this;
 	var el = $(selector);
 	
+	var inputEl = $(selector+" "+".inputItemInput .inputItemInputSelect");
+	
+	var inputItemIconEl = $(selector+" "+".inputItemIcon");
+	
 	var value;
+
+	var errorEl = $("<div class='inputItemErrorContent'>请选择一个选项</div>");
 	
-	var selectItems = "";
+	errorEl.css("display","none");
 	
-	for(var i = 0;i<array.length;i++){
-		selectItems = selectItems+"<div class='selectItem' value='"+array[i].value+"'>"+array[i].text+"</div>";
-	}
-	var selectListElStr = "<div class='selectList'>"+selectItems+"</div>";
+	el.append(errorEl);
+	
+	
 	
 	el.click(function(){
+		//outThis.openAlert();
+		callback.openAlert();
+	});
+	
+	this.setData = function(data){
+		array = data;
+	}
+	
+	this.openAlert = function(){
+		var selectItems = "";
+		for(var i = 0;i<array.length;i++){
+			selectItems = selectItems+"<div class='selectItem' value='"+array[i].value+"'>"+array[i].text+"</div>";
+		}
+		var selectListElStr = "<div class='selectList'>"+selectItems+"</div>";
 		var alertPlug = new AlertPlug(selectListElStr);
-		
 		$(".selectItem").click(function(){
 			$(contentSelector).text($(this).text());
 			value = $(this).attr("value");
 			alertPlug.close();
+			outThis.normal();
 			if(callback&&callback.select){
 				callback.select(value);
 			}
 		});
-	});
+	}
 	
 	this.getValue = function(){
 		return value;
 	}
 	
+	this.error = function(error){
+
+		inputEl.attr("style","background-color:RGBA(94,4,4,0.5);");
+		
+		inputItemIconEl.attr("style","background-color:RGBA(94,4,4,0.5);");
+		
+		el.css("height","100px");
+		
+		errorEl.css("display","block");
+		
+		if(error){
+			errorEl.text(error);
+		}
+	}
 	
+	
+	this.normal = function(){
+		inputEl.attr("style","");
+		
+		inputItemIconEl.attr("style","");
+		
+		el.css("height","");
+		
+		errorEl.css("display","none");
+		
+		errorEl.text("请选择一个选项");
+	}
 }

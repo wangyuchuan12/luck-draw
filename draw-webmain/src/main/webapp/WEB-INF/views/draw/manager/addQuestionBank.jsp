@@ -23,7 +23,7 @@
 						<span class="fa fa-question-circle-o"></span>
 					</div>
 					<div class="inputItemInput">
-						<input placeholder="问题">
+						<input placeholder="问题" name="answer">
 					</div>
 					
 					
@@ -41,58 +41,58 @@
 				
 				<div class="inputTab">
 					<ul>
-						<li id="inputTabChoice">选择题</li>
-						<li id="inputTabFillBlank">填空</li>
-						<li id="inputTabFillTerms">填词</li>
+						<li id="inputTabChoice" type="0">选择题</li>
+						<li id="inputTabFillBlank" type="1">填空</li>
+						<li id="inputTabFillTerms" type="2">填词</li>
 					</ul>
 				</div>
 				
 				
 				<div id="inputItemChoice">
-					<div class="inputItem">
+					<div class="inputItem" id="rightOption">
 						<div class="inputItemIcon">
 							<span class="fa fa-check"></span>
 						</div>
 						<div class="inputItemInput">
-							<input placeholder="答案1（正确答案）">
+							<input placeholder="答案1（正确答案）" name="rightOption">
 						</div>
 					</div>
 					
-					<div class="inputItem">
+					<div class="inputItem" id="wrongOption1">
 						<div class="inputItemIcon">
 							<span class="fa fa-times"></span>
 						</div>
 						<div class="inputItemInput">
-							<input placeholder="答案2（错误答案）">
+							<input placeholder="答案2（错误答案）" name="wrongOption1">
 						</div>
 					</div>
 					
-					<div class="inputItem">
+					<div class="inputItem" id="wrongOption2">
 						<div class="inputItemIcon">
 							<span class="fa fa-times"></span>
 						</div>
 						<div class="inputItemInput">
-							<input placeholder="答案3（错误答案）">
+							<input placeholder="答案3（错误答案）" name="wrongOption2">
 						</div>
 					</div>
 					
-					<div class="inputItem">
+					<div class="inputItem" id="wrongOption3">
 						<div class="inputItemIcon">
 							<span class="fa fa-times"></span>
 						</div>
 						<div class="inputItemInput">
-							<input placeholder="答案4（错误答案）">
+							<input placeholder="答案4（错误答案）" name="wrongOption3">
 						</div>
 					</div>
 				</div>
 				
 				<div id="inputItemFillBlank">
-					<div class="inputItem">
+					<div class="inputItem" id="blankItem">
 						<div class="inputItemIcon">
 							<span class="fa fa-pencil-square-o"></span>
 						</div>
 						<div class="inputItemInput">
-							<input placeholder="答案(不超过5个字)">
+							<input placeholder="答案(不超过5个字)" name="answer2">
 						</div>
 					</div>
 				</div>
@@ -109,39 +109,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	var callback = new Object();
-	callback.success = function(){
-		
-	}
-	toBigerImg("/api/common/resource/upload","#addCommodityIndex","file",callback);
-	
-	var inputSelect = new InputSelect("#questionTheme",
-				"#content",
-				[{text:"1",value:"1value"},{text:"2"},{text:"3"},{text:"4"},{text:"5"},{text:"6"},{text:"7"},{text:"8"}],
-				{select:function(value){
-					
-				}});
-	
-	var inputItem = new InputItem("#questionItem",{
-		keyup:function(){
-			
-		}
-	});
-	
-	var tabPanel = new TabPanel([{
-									tab:"#inputTabChoice",
-									content:"#inputItemChoice"
-								},{
-									tab:"#inputTabFillBlank",
-									content:"#inputItemFillBlank"
-								},{
-									tab:"#inputTabFillTerms",
-									content:"#inputItemFillTerms"
-								}]);
-	
-	tabPanel.checkTab("#inputTabFillBlank");
-	
-	var inputItemFillTerms = new InputItemFillTerms("#inputItemFillTerms");
+	new AddQuestionBank();
 });
 </script>
 </tiles:putAttribute>

@@ -81,6 +81,8 @@
 
 <script src="/js/model/progressScore.js"></script>
 
+<script src="/js/model/addQuestionBank.js"></script>
+
 <script src="/js/layer/battleInfoLayer.js"></script>
 
 <script src="/js/layer/progressScoreLayer.js"></script>

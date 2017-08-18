@@ -22,10 +22,8 @@ import com.wyc.draw.domain.Question;
 import com.wyc.draw.domain.QuestionAnswer;
 import com.wyc.draw.domain.QuestionOption;
 import com.wyc.draw.filter.BaseDrawActionFilter;
-import com.wyc.draw.filter.controller.api.AddQuestionBankApiFilter;
 import com.wyc.draw.filter.controller.api.AnswerQuestionApiFilter;
 import com.wyc.draw.filter.controller.api.RandomQuestionApiFilter;
-import com.wyc.draw.filter.controller.api.UpdateQuestionBankApiFilter;
 import com.wyc.draw.service.PaperService;
 import com.wyc.draw.service.QuestionAnswerService;
 import com.wyc.draw.service.QuestionOptionService;
@@ -135,35 +133,6 @@ public class QuestionApi {
 	@HandlerAnnotation(hanlerFilter=AnswerQuestionApiFilter.class)
 	@ResponseBody
 	public Object answerQuestion(HttpServletRequest httpServletRequest)throws Exception{
-		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
-		if(sessionManager.getObject(ResultVo.class)!=null){
-			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
-			return resultVo;
-		}else{
-			return sessionManager.getReturnValue();
-		}
-	}
-	
-	@Transactional
-	@HandlerAnnotation(hanlerFilter=AddQuestionBankApiFilter.class)
-	@RequestMapping(value="addQuestionBank")
-	@ResponseBody
-	public Object addQuestionBank(HttpServletRequest httpServletRequest)throws Exception{
-		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
-		if(sessionManager.getObject(ResultVo.class)!=null){
-			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);
-			return resultVo;
-		}else{
-			return sessionManager.getReturnValue();
-		}
-	}
-	
-	
-	@Transactional
-	@HandlerAnnotation(hanlerFilter=UpdateQuestionBankApiFilter.class)
-	@RequestMapping(value="updateQuestionBank")
-	@ResponseBody
-	public Object updateQuestionBank(HttpServletRequest httpServletRequest)throws Exception{
 		SessionManager sessionManager = SessionManager.getFilterManager(httpServletRequest);
 		if(sessionManager.getObject(ResultVo.class)!=null){
 			ResultVo resultVo = (ResultVo)sessionManager.getObject(ResultVo.class);

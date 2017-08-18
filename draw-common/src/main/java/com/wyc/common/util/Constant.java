@@ -44,6 +44,15 @@ public class Constant {
 	public static final int VIE_TYPE = 1;
 	
 	
+	/**********************问题类型**************************/
+	
+	public static final int CHOICE_QUESTION_TYPE=0;
+	
+	public static final int FILLBLANK_QUESTION_TYPE=1;
+	
+	public static final int FILLTERMS_QUESTION_TYPE=2;
+	
+	
 	/***********************支付类型************************/
 	//余额支付
 	public static final int ACCOUNT_PAY_TYPE=0;
