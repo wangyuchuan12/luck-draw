@@ -1,6 +1,5 @@
-function AddQuestionBank(){
+function AddQuestionBank(editQuestionModel){
 	var tabPanel;
-	var inputItemFillTerms;
 	var isImg=0;
 	var imgUrl;
 	var questionThemeInputSelect;
@@ -30,53 +29,30 @@ function AddQuestionBank(){
 			
 			//params.themeCode = "";
 			
-			var rightOption = rightOptionInputItem.getValue();
-			var wrongOption1 = wrongOption1InputItem.getValue();
-			var wrongOption2 = wrongOption2InputItem.getValue();
-			var wrongOption3 = wrongOption3InputItem.getValue();
-			var question = questionInputItem.getValue();
+			var rightOption = editQuestionModel.getRightOption();
+			var wrongOption1 = editQuestionModel.getWrongOption1();
+			var wrongOption2 = editQuestionModel.getWrongOption2();
+			var wrongOption3 = editQuestionModel.getWrongOption3();
+			var question = editQuestionModel.getQuestion();
 			
 			var params = new Object();
-			var type = tabPanel.getType();
+			var type = editQuestionModel.getType();
 			params.type=type;
 			params.isImg = isImg;
 			params.question = question;
 			if(isImg==1){
 				params.imgUrl = imgUrl;
 			}
-			if(type==0){
-				var wrongOption1Error = wrongOption1InputItem.isErrorCheck();
-				if(wrongOption1Error){
-					this.fail();
-					return;
-				}
-				
-				var wrongOption2Error = wrongOption2InputItem.isErrorCheck();
-				if(wrongOption2Error){
-					this.fail();
-					return;
-				}
-				
-				var wrongOption3Error = wrongOption3InputItem.isErrorCheck();
-				if(wrongOption3Error){
-					this.fail();
-					return;
-				}
-				
+			if(type==0){				
 				params.wrongOptions = wrongOption1+","+wrongOption2+","+wrongOption3;
 				params.rightOption = rightOption;
 			}else if(type==1){
-				var isError = blankItem.isErrorCheck();
-				if(isError){
-					this.fail();
-					return;
-				}
-				var answer = blankItem.getValue();
+				
+				var answer = editQuestionModel.getAnswer();
 				params.answer = answer;
 			}else if(type==2){
-				var fillWords = inputItemFillTerms.getFills();
-				var answer = inputItemFillTerms.getAnswer();
-				
+				var answer = editQuestionModel.getAnswer();
+				var fillWords = editQuestionModel.getFills();
 				
 				params.fillWords = fillWords;
 				params.answer = answer;
@@ -198,8 +174,6 @@ function AddQuestionBank(){
 										}]);
 			
 			tabPanel.selectTab("#inputTabChoice");
-			
-			inputItemFillTerms = new InputItemFillTerms("#inputItemFillTerms");
 			
 			
 			

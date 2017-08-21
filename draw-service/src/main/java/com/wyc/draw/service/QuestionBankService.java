@@ -1,5 +1,6 @@
 package com.wyc.draw.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -32,5 +33,9 @@ public class QuestionBankService {
 		
 		questionBankRepository.save(questionBank);
 		
+	}
+
+	public List<QuestionBank> findAllByThemeCode(String themeCode) {
+		return questionBankRepository.findAllByThemeCode(themeCode);
 	}
 }

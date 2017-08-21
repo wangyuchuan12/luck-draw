@@ -5,23 +5,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<html>
-	<head>
-		<link rel="stylesheet" href="/css/style1.0.css"/>
-		<link rel="stylesheet" href="/css/core.css"/>
-		<link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css"/>
-		
-		<meta name="viewport"
-		content="width=device-width,user-scalable=no">
-		 <meta name="format-detection" content="telephone=no">
-		 <meta http-equiv="Pragma" content="no-cache">   
-		 <meta http-equiv="Cache-Control" content="no-store">
-		 <meta http-equiv="Expires" content="0">
-	</head>
-	<body>
+<tiles:insertDefinition name="resourceLayout">
+<tiles:putAttribute name="title">问答红包</tiles:putAttribute>
+<tiles:putAttribute name="body">
+<script src="/js/jquery.ui.widget.js"></script>
+<script src="/js/jquery.iframe-transport.js"></script>
+<script src="/js/jquery.fileupload.js"></script>
 		<div class="addBattleModel">
+			<div class="option_item" style="padding-left: 10px;"> 
+				<div id="addCommodityIndex"></div>
+			</div>
+		
 			<div class="inputItems">
-				<div class="inputItem">
+				<div class="inputItem" id="nameInputItem">
 					<div class="inputItemIcon">
 						<span class="fa fa-address-card"></span>
 					</div>
@@ -30,60 +26,72 @@
 					</div>
 				</div>
 				
-				<div class="inputItem">
+				<div class="inputItem" id="codeInputItem">
 					<div class="inputItemIcon">
 						<span class="fa fa-address-card"></span>
 					</div>
 					<div class="inputItemInput">
-						<input placeholder="标题">
-					</div>
-				</div>
-				<div class="inputItem">
-					<div class="inputItemIcon">
-						<span class="fa fa-address-card"></span>
-					</div>
-					<div class="inputItemInput">
-						<input placeholder="消耗爱心">
+						<input placeholder="一颗星分数">
 					</div>
 				</div>
 				
-				<div class="inputItem">
+				<div class="inputItem" id="titleInputItem">
 					<div class="inputItemIcon">
 						<span class="fa fa-address-card"></span>
 					</div>
 					<div class="inputItemInput">
-						<input placeholder="第一名奖励">
+						<input placeholder="两颗星分数">
 					</div>
 				</div>
 				
-				<div class="inputItem">
+				<div class="inputItem" id="instructionInputItem">
 					<div class="inputItemIcon">
 						<span class="fa fa-address-card"></span>
 					</div>
 					<div class="inputItemInput">
-						<input placeholder="第二名奖励">
+						<input placeholder="三颗星分数">
 					</div>
 				</div>
 				
-				<div class="inputItem">
+				<div class="inputItem" id="instructionInputItem">
 					<div class="inputItemIcon">
 						<span class="fa fa-address-card"></span>
 					</div>
 					<div class="inputItemInput">
-						<input placeholder="第三名奖励">
+						<input placeholder="四颗星分数">
 					</div>
 				</div>
 				
-				<div class="inputItem">
+				
+				<div class="inputItem" id="instructionInputItem">
 					<div class="inputItemIcon">
 						<span class="fa fa-address-card"></span>
 					</div>
 					<div class="inputItemInput">
-						<input placeholder="第四名奖励">
+						<input placeholder="消耗智慧豆">
 					</div>
 				</div>
+				
+				<div class="inputItem" id="instructionInputItem">
+					<div class="inputItemIcon">
+						<span class="fa fa-address-card"></span>
+					</div>
+					<div class="inputItemInput">
+						<input placeholder="重新挑战消耗砖石">
+					</div>
+				</div>
+				
 				
 			</div>
 		</div>
+		
+		<div class="gameRedPacketFooter" id="saveButton">保存</div>
 	</body>
-</html>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		new AddBattleModelStage();
+	});
+	</script>
+</tiles:putAttribute>
+</tiles:insertDefinition>

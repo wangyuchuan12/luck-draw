@@ -11,56 +11,59 @@
 <script src="/js/jquery.ui.widget.js"></script>
 <script src="/js/jquery.iframe-transport.js"></script>
 <script src="/js/jquery.fileupload.js"></script>
-	<body>
 		<div class="addBattleModel">
 			<div class="option_item" style="padding-left: 10px;"> 
 				<div id="addCommodityIndex"></div>
 			</div>
 		
 			<div class="inputItems">
-				<div class="inputItem" id="questionItem">
+				<div class="inputItem" id="nameInputItem">
 					<div class="inputItemIcon">
-						<span class="fa fa-question-circle-o"></span>
+						<span class="fa fa-address-card"></span>
 					</div>
 					<div class="inputItemInput">
-						<input placeholder="问题" name="answer">
+						<input placeholder="名称">
 					</div>
-					
-					
 				</div>
 				
-				
-				<div class="inputItem" id="questionTheme" >
+				<div class="inputItem" id="codeInputItem">
 					<div class="inputItemIcon">
-						<span class="fa fa-file-o"></span>
+						<span class="fa fa-address-card"></span>
 					</div>
 					<div class="inputItemInput">
-						<div class="inputItemInputSelect"><span id="content">题目类别</span><span class="fa fa-angle-right"></span></div>
+						<input placeholder="编号">
 					</div>
 				</div>
 				
-				<div id="editModel">
-					
+				<div class="inputItem" id="titleInputItem">
+					<div class="inputItemIcon">
+						<span class="fa fa-address-card"></span>
+					</div>
+					<div class="inputItemInput">
+						<input placeholder="标题">
+					</div>
 				</div>
+				
+				<div class="inputItem" id="instructionInputItem">
+					<div class="inputItemIcon">
+						<span class="fa fa-address-card"></span>
+					</div>
+					<div class="inputItemInput">
+						<input placeholder="说明">
+					</div>
+				</div>
+				
 				
 			</div>
 		</div>
 		
 		<div class="gameRedPacketFooter" id="saveButton">保存</div>
 	</body>
-</html>
-
-<script type="text/javascript">
-$(document).ready(function(){
-	var eidtQuestionModel = new EditQuestionModel();
 	
-	eidtQuestionModel.load("#editModel",{
-		success:function(){
-			new AddQuestionBank(eidtQuestionModel);
-		}
+	<script type="text/javascript">
+	$(document).ready(function(){
+		new AddBattleModel();
 	});
-	
-});
-</script>
+	</script>
 </tiles:putAttribute>
 </tiles:insertDefinition>

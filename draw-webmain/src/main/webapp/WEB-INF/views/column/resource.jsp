@@ -83,6 +83,14 @@
 
 <script src="/js/model/addQuestionBank.js"></script>
 
+<script src="/js/model/addBattleModel.js"></script>
+
+<script src="/js/model/editQuestionModel.js"></script>
+
+<script src="/js/model/addBattleModelStage.js"></script>
+
+<script src="/js/model/picSelect.js"></script>
+
 <script src="/js/layer/battleInfoLayer.js"></script>
 
 <script src="/js/layer/progressScoreLayer.js"></script>

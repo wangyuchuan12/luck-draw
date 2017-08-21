@@ -29,6 +29,10 @@ public class PaperSubject {
 	@ParamAnnotation
 	private String name;
 	
+	@Column
+	@ParamAnnotation
+	private String code;
+	
 	@ParamAnnotation
 	@Column(name="pattern_id")
 	private String patternId;
@@ -77,6 +81,16 @@ public class PaperSubject {
 
 	public void setPatternId(String patternId) {
 		this.patternId = patternId;
+	}
+	
+	
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public DateTime getCreateAt() {

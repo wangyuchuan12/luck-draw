@@ -1734,6 +1734,70 @@ function InputSelect(selector,contentSelector,callback){
 		array = data;
 	}
 	
+	
+	this.requestDataByUrl = function(url,callback){
+		var waitPlug = new WaitPlug();
+		request(url,{
+			success:function(data){
+				waitPlug.close();
+				var subjects = data.data;
+				var array = new Array();
+				for(var i = 0;i<subjects.length;i++){
+					array.push({
+						text:subjects[i].name,
+						value:subjects[i].id,
+						code:subjects[i].code
+					});
+				}
+				
+				outThis.setData(array);
+				
+				callback.success();
+			},
+			failure:function(){
+				waitPlug.close();
+				callback.failure();
+			}
+		},{});
+	}
+	
+	this.openUrl = function(url){
+		outThis.requestDataByUrl(url,{
+			success:function(){
+				outThis.openAlert();
+			},
+			failure:function(){
+				
+			}
+		});
+		
+	}
+	
+	this.selectItemByUrl = function(url,value){
+		outThis.requestDataByUrl(url,{
+			success:function(){
+				outThis.selectItem(value);
+			},
+			failure:function(){
+				
+			}
+		});
+	}
+	
+	this.selectItem = function(value){
+		outThis.normal();
+		if(callback&&callback.select){
+			for(var i =0;i<array.length;i++){
+				if(array[i].value==value){
+					callback.select(array[i]);
+					$(contentSelector).text(array[i].text);
+					break;
+				}
+			}
+			
+		}
+	}
+	
 	this.openAlert = function(){
 		var selectItems = "";
 		for(var i = 0;i<array.length;i++){
@@ -1742,13 +1806,8 @@ function InputSelect(selector,contentSelector,callback){
 		var selectListElStr = "<div class='selectList'>"+selectItems+"</div>";
 		var alertPlug = new AlertPlug(selectListElStr);
 		$(".selectItem").click(function(){
-			$(contentSelector).text($(this).text());
-			value = $(this).attr("value");
 			alertPlug.close();
-			outThis.normal();
-			if(callback&&callback.select){
-				callback.select(value);
-			}
+			outThis.selectItem($(this).attr("value"));
 		});
 	}
 	

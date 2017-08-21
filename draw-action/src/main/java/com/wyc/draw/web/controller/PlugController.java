@@ -141,4 +141,9 @@ public class PlugController {
 	public String battleInfoPlug(HttpServletRequest httpServletRequest){
 		return "plug/battleInfoPlug";
 	}
+	
+	@RequestMapping(value="picSelect")
+	public String picSelect(HttpServletRequest httpServletRequest){
+		return "plug/picSelect";
+	}
 }
